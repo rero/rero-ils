@@ -57,9 +57,7 @@ def circ_policy_schema():
 def template_schema():
     """Template Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.templates.jsonschemas")
-        .joinpath("templates/template-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.templates.jsonschemas").joinpath("templates/template-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -79,9 +77,7 @@ def notification_schema():
 def item_type_schema():
     """Item type Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.item_types.jsonschemas")
-        .joinpath("item_types/item_type-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.item_types.jsonschemas").joinpath("item_types/item_type-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -134,9 +130,7 @@ def acq_receipt_line_schema():
 def budget_schema():
     """Budget Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.acquisition.budgets.jsonschemas")
-        .joinpath("budgets/budget-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.acquisition.budgets.jsonschemas").joinpath("budgets/budget-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -145,9 +139,7 @@ def budget_schema():
 def library_schema():
     """Library Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.libraries.jsonschemas")
-        .joinpath("libraries/library-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.libraries.jsonschemas").joinpath("libraries/library-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -156,9 +148,7 @@ def library_schema():
 def local_fields_schema():
     """Local fields Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.local_fields.jsonschemas")
-        .joinpath("local_fields/local_field-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.local_fields.jsonschemas").joinpath("local_fields/local_field-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -167,9 +157,7 @@ def local_fields_schema():
 def location_schema():
     """Location Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.locations.jsonschemas")
-        .joinpath("locations/location-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.locations.jsonschemas").joinpath("locations/location-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -211,9 +199,7 @@ def organisation_schema():
 def patron_type_schema():
     """Patron type Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.patron_types.jsonschemas")
-        .joinpath("patron_types/patron_type-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.patron_types.jsonschemas").joinpath("patron_types/patron_type-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -221,11 +207,7 @@ def patron_type_schema():
 @pytest.fixture()
 def patron_schema():
     """Patron Jsonschema for records."""
-    schema_in_bytes = (
-        files("rero_ils.modules.patrons.jsonschemas")
-        .joinpath("patrons/patron-v0.0.1.json")
-        .read_bytes()
-    )
+    schema_in_bytes = files("rero_ils.modules.patrons.jsonschemas").joinpath("patrons/patron-v0.0.1.json").read_bytes()
     return get_schema(schema_in_bytes)
 
 
@@ -264,9 +246,7 @@ def local_entities_schema():
 def document_schema():
     """Jsonschema for documents."""
     schema_in_bytes = (
-        files("rero_ils.modules.documents.jsonschemas")
-        .joinpath("documents/document-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.documents.jsonschemas").joinpath("documents/document-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -274,22 +254,14 @@ def document_schema():
 @pytest.fixture()
 def item_schema():
     """Item Jsonschema for records."""
-    schema_in_bytes = (
-        files("rero_ils.modules.items.jsonschemas")
-        .joinpath("items/item-v0.0.1.json")
-        .read_bytes()
-    )
+    schema_in_bytes = files("rero_ils.modules.items.jsonschemas").joinpath("items/item-v0.0.1.json").read_bytes()
     return get_schema(schema_in_bytes)
 
 
 @pytest.fixture()
 def user_schema():
     """User Jsonschema for records."""
-    schema_in_bytes = (
-        files("rero_ils.modules.users.jsonschemas")
-        .joinpath("users/user-v0.0.1.json")
-        .read_bytes()
-    )
+    schema_in_bytes = files("rero_ils.modules.users.jsonschemas").joinpath("users/user-v0.0.1.json").read_bytes()
     return get_schema(schema_in_bytes)
 
 
@@ -297,9 +269,7 @@ def user_schema():
 def holding_schema():
     """Holdings Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.holdings.jsonschemas")
-        .joinpath("holdings/holding-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.holdings.jsonschemas").joinpath("holdings/holding-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -308,9 +278,7 @@ def holding_schema():
 def ill_request_schema():
     """ILL requests JSONSchema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.ill_requests.jsonschemas")
-        .joinpath("ill_requests/ill_request-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.ill_requests.jsonschemas").joinpath("ill_requests/ill_request-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -329,11 +297,7 @@ def operation_log_schema():
 @pytest.fixture()
 def vendors_schema():
     """Local fields Jsonschema for records."""
-    schema_in_bytes = (
-        files("rero_ils.modules.vendors.jsonschemas")
-        .joinpath("vendors/vendor-v0.0.1.json")
-        .read_bytes()
-    )
+    schema_in_bytes = files("rero_ils.modules.vendors.jsonschemas").joinpath("vendors/vendor-v0.0.1.json").read_bytes()
     return get_schema(schema_in_bytes)
 
 
@@ -353,11 +317,9 @@ def marc21_record():
 def mef_record_with_idref_rero_data():
     """Mef record with idref rero."""
     return {
-        "$schema": "https://bib.rero.ch/schemas/"
-        "remote_entities/remote_entity-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
         "idref": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_idref/idref-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_idref/idref-agent-v0.0.1.json",
             "authorized_access_point": "Honnoré, Patrick",
             "type": "bf:Person",
             "biographical_information": ["Traduit du japonais en français"],
@@ -371,8 +333,7 @@ def mef_record_with_idref_rero_data():
         },
         "pid": "6627670",
         "rero": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_rero/rero-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
             "authorized_access_point": "Honnoré, Patrick",
             "type": "bf:Person",
             "identifier": "http://data.rero.ch/02-A009220673",
@@ -406,11 +367,9 @@ def mef_record_with_idref_rero(mef_record_with_idref_rero_data):
 def mef_record_with_idref_gnd_data():
     """Mef record with idref gnd."""
     return {
-        "$schema": "https://bib.rero.ch/schemas/"
-        "remote_entities/remote_entity-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
         "gnd": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_gnd/gnd-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_gnd/gnd-agent-v0.0.1.json",
             "authorized_access_point": "Université de Genève",
             "type": "bf:Organisation",
             "conference": False,
@@ -442,8 +401,7 @@ def mef_record_with_idref_gnd_data():
             ],
         },
         "idref": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_idref/idref-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_idref/idref-agent-v0.0.1.json",
             "authorized_access_point": "Université de Genève",
             "type": "bf:Organisation",
             "biographical_information": [
@@ -504,11 +462,9 @@ def mef_record_with_idref_gnd(mef_record_with_idref_gnd_data):
 def mef_record_with_idref_gnd_rero_data():
     """Mef record with idref gnd rero is conference."""
     return {
-        "$schema": "https://bib.rero.ch/schemas/"
-        "remote_entities/remote_entity-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
         "gnd": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_gnd/gnd-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_gnd/gnd-agent-v0.0.1.json",
             "authorized_access_point": "Congrès Ouvrier de France",
             "type": "bf:Organisation",
             "conference": True,
@@ -518,8 +474,7 @@ def mef_record_with_idref_gnd_rero_data():
             "preferred_name": "Congrès Ouvrier de France",
         },
         "idref": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_idref/idref-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_idref/idref-agent-v0.0.1.json",
             "authorized_access_point": "Congrès ouvrier français",
             "type": "bf:Organisation",
             "biographical_information": [
@@ -552,8 +507,7 @@ def mef_record_with_idref_gnd_rero_data():
         },
         "pid": "5777972",
         "rero": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_rero/rero-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
             "authorized_access_point": "Congrès ouvrier de France",
             "type": "bf:Organisation",
             "conference": True,
@@ -587,9 +541,7 @@ def mef_record_with_idref_gnd_rero_data():
 @pytest.fixture()
 def mef_record_with_idref_gnd_rero(mef_record_with_idref_gnd_rero_data):
     """Mef record with idref rero."""
-    if entity := RemoteEntity.get_record_by_pid(
-        mef_record_with_idref_gnd_rero_data["pid"]
-    ):
+    if entity := RemoteEntity.get_record_by_pid(mef_record_with_idref_gnd_rero_data["pid"]):
         return entity
     entity = RemoteEntity.create(
         data=mef_record_with_idref_gnd_rero_data,
@@ -605,8 +557,6 @@ def mef_record_with_idref_gnd_rero(mef_record_with_idref_gnd_rero_data):
 def stats_cfg_schema():
     """Template Jsonschema for records."""
     schema_in_bytes = (
-        files("rero_ils.modules.stats_cfg.jsonschemas")
-        .joinpath("stats_cfg/stat_cfg-v0.0.1.json")
-        .read_bytes()
+        files("rero_ils.modules.stats_cfg.jsonschemas").joinpath("stats_cfg/stat_cfg-v0.0.1.json").read_bytes()
     )
     return get_schema(schema_in_bytes)

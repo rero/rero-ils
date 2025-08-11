@@ -50,9 +50,7 @@ def test_less_than_one_day_checkout(
     # Check item is ON_SHELF and NO PENDING loan exist!
     assert created_item.number_of_requests() == 0
     assert created_item.status == ItemStatus.ON_SHELF
-    assert not created_item.is_requested_by_patron(
-        patron2_martigny.get("patron", {}).get("barcode")[0]
-    )
+    assert not created_item.is_requested_by_patron(patron2_martigny.get("patron", {}).get("barcode")[0])
 
     # Ensure than the transaction date used will be an open_day.
     owner_lib = Library.get_record_by_pid(created_item.library_pid)

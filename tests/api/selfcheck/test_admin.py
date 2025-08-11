@@ -39,11 +39,7 @@ def test_admin_view(app):
     selfcheck_user_adminview_copy = dict(selfcheck_terminal_adminview)
     selfcheck_user_model = selfcheck_user_adminview_copy.pop("model")
     selfcheck_user_view = selfcheck_user_adminview_copy.pop("modelview")
-    admin.add_view(
-        selfcheck_user_view(
-            selfcheck_user_model, db.session, **selfcheck_user_adminview_copy
-        )
-    )
+    admin.add_view(selfcheck_user_view(selfcheck_user_model, db.session, **selfcheck_user_adminview_copy))
 
     with app.test_request_context():
         request_url = url_for("selfcheckterminal.index_view")

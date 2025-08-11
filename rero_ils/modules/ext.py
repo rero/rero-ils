@@ -136,9 +136,7 @@ def on_identity_loaded(sender, identity):
     # patrons
     elif current_patrons:
         for patron in current_patrons:
-            identity.provides.update(
-                [OwnerNeed(patron.pid), OrganisationNeed(patron.organisation_pid)]
-            )
+            identity.provides.update([OwnerNeed(patron.pid), OrganisationNeed(patron.organisation_pid)])
 
 
 @app_loaded.connect
@@ -169,11 +167,7 @@ def load_actions(sender, app):
     # add jsonschema resolution from local:// and bib.rero.ch
     data = app.extensions["invenio-jsonschemas"].refresolver_store()
     cfg = app.config
-    schema_url = (
-        f'{cfg["JSONSCHEMAS_URL_SCHEME"]}://'
-        f'{cfg["JSONSCHEMAS_HOST"]}'
-        f'{cfg["JSONSCHEMAS_ENDPOINT"]}/'
-    )
+    schema_url = f"{cfg['JSONSCHEMAS_URL_SCHEME']}://{cfg['JSONSCHEMAS_HOST']}{cfg['JSONSCHEMAS_ENDPOINT']}/"
 
     app.extensions["rero-ils"].jsonschema_store = dict(
         **data, **{k.replace("local://", schema_url): v for k, v in data.items()}
@@ -193,9 +187,7 @@ class REROILSAPP(object):
             # force to load ils template before others
             # it is required for Flask-Security see:
             # https://pythonhosted.org/Flask-Security/customizing.html#emails
-            ils_loader = jinja2.ChoiceLoader(
-                [jinja2.PackageLoader("rero_ils", "theme/templates"), app.jinja_loader]
-            )
+            ils_loader = jinja2.ChoiceLoader([jinja2.PackageLoader("rero_ils", "theme/templates"), app.jinja_loader])
             app.jinja_loader = ils_loader
 
             # register filters
@@ -257,14 +249,10 @@ class REROILSAPP(object):
             # record view
             record_view_name = f"import_{key}_record"
             record_path = f"/import_{key}/<id>"
-            record_view = ImportsResource.as_view(
-                record_view_name, import_class=config.get("import_class")
-            )
+            record_view = ImportsResource.as_view(record_view_name, import_class=config.get("import_class"))
             blueprint.add_url_rule(record_path, view_func=record_view)
 
-        blueprint.register_error_handler(
-            ResultNotFoundOnTheRemoteServer, handle_bad_request
-        )
+        blueprint.register_error_handler(ResultNotFoundOnTheRemoteServer, handle_bad_request)
         app.register_blueprint(blueprint)
 
     @staticmethod
@@ -277,12 +265,8 @@ class REROILSAPP(object):
             """Catch validation errors."""
             return JSONSchemaValidationError(error=error).get_response()
 
-        blueprint.add_url_rule(
-            "/users/<id>", view_func=UsersResource.as_view("users_item")
-        )
-        blueprint.add_url_rule(
-            "/users/", view_func=UsersCreateResource.as_view("users_list")
-        )
+        blueprint.add_url_rule("/users/<id>", view_func=UsersResource.as_view("users_item"))
+        blueprint.add_url_rule("/users/", view_func=UsersCreateResource.as_view("users_list"))
         app.register_blueprint(blueprint)
 
     @staticmethod
@@ -309,9 +293,9 @@ class REROILSAPP(object):
         # Correct MEF url in RERO_ILS_MEF_CONFIG from config.py
         mef_ref_base_url = app.config.get("RERO_ILS_MEF_REF_BASE_URL")
         for mef_entity_type in app.config.get("RERO_ILS_MEF_CONFIG", {}):
-            base_url = app.config["RERO_ILS_MEF_CONFIG"][mef_entity_type][
-                "base_url"
-            ].replace("mef.rero.ch", mef_ref_base_url)
+            base_url = app.config["RERO_ILS_MEF_CONFIG"][mef_entity_type]["base_url"].replace(
+                "mef.rero.ch", mef_ref_base_url
+            )
             app.config["RERO_ILS_MEF_CONFIG"][mef_entity_type]["base_url"] = base_url
 
     def register_signals(self, app):

@@ -18,7 +18,6 @@
 
 """API for manipulating users."""
 
-
 from flask import current_app, url_for
 from flask_babel import lazy_gettext as _
 from flask_login import current_user
@@ -282,9 +281,7 @@ class User(object):
         :param email - the email of the user
         :return: the user record
         """
-        user = BaseUser.query.filter(
-            func.lower(BaseUser.email) == func.lower(email)
-        ).first()
+        user = BaseUser.query.filter(func.lower(BaseUser.email) == func.lower(email)).first()
         return cls(user) if user else None
 
     @classmethod

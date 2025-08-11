@@ -101,9 +101,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
             values.setdefault("to", 2555)
             ids = []
             for year in range(int(values["from"]), int(values["to"])):
-                year_ids = do_import.get_ids_for_aggregation(
-                    results=results, aggregation="year", key=int(year)
-                )
+                year_ids = do_import.get_ids_for_aggregation(results=results, aggregation="year", key=int(year))
                 ids += year_ids
             results = do_import.filter_records(results, list(set(ids)))
         filter_type = flask_request.args.get("document_type")
@@ -118,21 +116,15 @@ class ImportsListResource(ContentNegotiatedMethodView):
                     sub_key=sub_filter_type,
                 )
             else:
-                ids = do_import.get_ids_for_aggregation(
-                    results=results, aggregation="document_type", key=filter_type
-                )
+                ids = do_import.get_ids_for_aggregation(results=results, aggregation="document_type", key=filter_type)
             results = do_import.filter_records(results, ids)
         filter_author = flask_request.args.get("author")
         if filter_author:
-            ids = do_import.get_ids_for_aggregation(
-                results=results, aggregation="author", key=filter_author
-            )
+            ids = do_import.get_ids_for_aggregation(results=results, aggregation="author", key=filter_author)
             results = do_import.filter_records(results, ids)
         filter_language = flask_request.args.get("language")
         if filter_language:
-            ids = do_import.get_ids_for_aggregation(
-                results=results, aggregation="language", key=filter_language
-            )
+            ids = do_import.get_ids_for_aggregation(results=results, aggregation="language", key=filter_language)
             results = do_import.filter_records(results, ids)
         # return None, results
         response = self.make_response(pid_fetcher=None, search_result=results)
@@ -150,9 +142,7 @@ class ImportsResource(ContentNegotiatedMethodView):
         super().__init__(
             method_serializers={
                 "GET": {
-                    "application/json": json_record_serializer_factory(
-                        self.import_class
-                    ),
+                    "application/json": json_record_serializer_factory(self.import_class),
                     "application/rero+json": json_record_serializer_factory(
                         self.import_class, serializer_type="uirecord"
                     ),

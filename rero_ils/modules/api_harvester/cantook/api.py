@@ -37,9 +37,7 @@ class ApiCantook(ApiHarvest):
     Class for harvesting ebooks from cantook API resources.
     """
 
-    def __init__(
-        self, name, file_name=None, process=False, harvest_count=-1, verbose=False
-    ):
+    def __init__(self, name, file_name=None, process=False, harvest_count=-1, verbose=False):
         """Class init."""
         super().__init__(
             name=name,
@@ -124,11 +122,7 @@ class ApiCantook(ApiHarvest):
         link = record_data.pop("link", None)
         # See if we have this document already
         harvested_id = record_data.pop("pid")
-        query = (
-            DocumentsSearch()
-            .filter("term", identifiedBy__value__raw=harvested_id)
-            .source(includes=["pid"])
-        )
+        query = DocumentsSearch().filter("term", identifiedBy__value__raw=harvested_id).source(includes=["pid"])
         try:
             pid = next(query.scan()).pid
         except StopIteration:

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests identifier classes for documents."""
+
 import pytest
 
 from rero_ils.modules.commons.identifiers import (
@@ -86,7 +87,4 @@ def test_identifiers_renderer():
     }
     identifier = IdentifierFactory.create_identifier(data)
     assert identifier.render() == "978-2-84426-778-8"
-    assert (
-        identifier.render(render_class=QualifierIdentifierRenderer())
-        == "978-2-84426-778-8, tome 2"
-    )
+    assert identifier.render(render_class=QualifierIdentifierRenderer()) == "978-2-84426-778-8, tome 2"

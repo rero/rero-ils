@@ -77,12 +77,8 @@ def test_remote_entity_mef_create(
 ):
     """Test MEF contribution creation."""
     count = RemoteEntity.count()
-    mock_contributions_mef_get.return_value = mock_response(
-        json_data=entity_person_response_data
-    )
-    pers_mef, online = RemoteEntity.get_record_by_ref(
-        f"{mef_agents_url}/rero/A017671081"
-    )
+    mock_contributions_mef_get.return_value = mock_response(json_data=entity_person_response_data)
+    pers_mef, online = RemoteEntity.get_record_by_ref(f"{mef_agents_url}/rero/A017671081")
     RemoteEntitiesSearch.flush_and_refresh()
     assert pers_mef == entity_person_data_tmp
     assert online
@@ -94,34 +90,24 @@ def test_remote_entity_mef_create(
     assert pers_db["sources"] == ["gnd"]
     assert not online
     # remove created contribution
-    RemoteEntity.get_record_by_pid(entity_person_data_tmp["pid"]).delete(
-        True, True, True
-    )
+    RemoteEntity.get_record_by_pid(entity_person_data_tmp["pid"]).delete(True, True, True)
 
 
 @mock.patch("requests.Session.get")
-def test_sync_contribution(
-    mock_get, app, mef_agents_url, entity_person_data_tmp, document_data_ref
-):
+def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp, document_data_ref):
     """Test MEF agent synchronization."""
     # === setup
     log_path = tempfile.mkdtemp()
     sync_entity = SyncEntity(log_dir=log_path)
     assert sync_entity
 
-    pers = RemoteEntity.create(
-        entity_person_data_tmp, dbcommit=True, reindex=True, delete_pid=True
-    )
+    pers = RemoteEntity.create(entity_person_data_tmp, dbcommit=True, reindex=True, delete_pid=True)
     RemoteEntitiesSearch.flush_and_refresh()
 
     idref_pid = pers["idref"]["pid"]
-    document_data_ref["contribution"][0]["entity"][
-        "$ref"
-    ] = f"{mef_agents_url}/idref/{idref_pid}"
+    document_data_ref["contribution"][0]["entity"]["$ref"] = f"{mef_agents_url}/idref/{idref_pid}"
 
-    doc = Document.create(
-        deepcopy(document_data_ref), dbcommit=True, reindex=True, delete_pid=True
-    )
+    doc = Document.create(deepcopy(document_data_ref), dbcommit=True, reindex=True, delete_pid=True)
     DocumentsSearch.flush_and_refresh()
 
     # Test that entity could not be deleted
@@ -141,27 +127,15 @@ def test_sync_contribution(
     sync_entity._get_latest = mock.MagicMock(return_value=data)
     mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
     mock_get.return_value = mock_response(json_data=mock_resp)
-    assert (
-        DocumentsSearch()
-        .query("term", contribution__entity__authorized_access_point_fr="foo")
-        .count()
-        == 0
-    )
+    assert DocumentsSearch().query("term", contribution__entity__authorized_access_point_fr="foo").count() == 0
     # synchronization the same document has been updated 3 times, one MEF
     # record has been updated, no errors
     assert (1, 1, set()) == sync_entity.sync(f"{pers.pid}")
     DocumentsSearch.flush_and_refresh()
 
     # contribution and document should be changed
-    assert (
-        RemoteEntity.get_record_by_pid(pers.pid)["idref"]["authorized_access_point"]
-        == "foo"
-    )
-    assert (
-        DocumentsSearch()
-        .query("term", contribution__entity__authorized_access_point_fr="foo")
-        .count()
-    )
+    assert RemoteEntity.get_record_by_pid(pers.pid)["idref"]["authorized_access_point"] == "foo"
+    assert DocumentsSearch().query("term", contribution__entity__authorized_access_point_fr="foo").count()
     # nothing has been removed as only metadata has been changed
     assert (0, []) == sync_entity.remove_unused(f"{pers.pid}")
 
@@ -201,21 +175,13 @@ def test_sync_contribution(
 
     # synchronization the same document has been updated 3 times,
     # one MEF record has been updated, no errors
-    assert (1, 1, set()) == sync_entity.sync(f'{data["pid"]}')
+    assert (1, 1, set()) == sync_entity.sync(f"{data['pid']}")
     DocumentsSearch.flush_and_refresh()
     # new contribution has been created
     assert RemoteEntity.get_record_by_pid("foo_mef")
     # document has been updated with the new MEF and IDREF pid
-    assert (
-        DocumentsSearch()
-        .query("term", contribution__entity__pids__remote="foo_mef")
-        .count()
-    )
-    assert (
-        DocumentsSearch()
-        .query("term", contribution__entity__pids__idref="foo_idref")
-        .count()
-    )
+    assert DocumentsSearch().query("term", contribution__entity__pids__remote="foo_mef").count()
+    assert DocumentsSearch().query("term", contribution__entity__pids__idref="foo_idref").count()
     db_agent = Document.get_record_by_pid(doc.pid).get("contribution")[0]["entity"]
     assert db_agent["$ref"] == f"{mef_agents_url}/idref/foo_idref"
     assert db_agent["pid"] == "foo_mef"
@@ -232,9 +198,7 @@ def test_sync_contribution(
 
 
 @mock.patch("requests.Session.get")
-def test_sync_concept(
-    mock_get, app, mef_concepts_url, entity_topic_data, document_data_subject_ref
-):
+def test_sync_concept(mock_get, app, mef_concepts_url, entity_topic_data, document_data_subject_ref):
     #
     """Test MEF agent synchronization."""
     # === setup
@@ -242,12 +206,10 @@ def test_sync_concept(
     sync_entity = SyncEntity(log_dir=log_path)
     assert sync_entity
 
-    topic = RemoteEntity.create(
-        entity_topic_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    topic = RemoteEntity.create(entity_topic_data, dbcommit=True, reindex=True, delete_pid=True)
     RemoteEntitiesSearch.flush_and_refresh()
 
-    entity_url = f'{mef_concepts_url}/idref/{topic["idref"]["pid"]}'
+    entity_url = f"{mef_concepts_url}/idref/{topic['idref']['pid']}"
     document_data_subject_ref["subjects"][0]["entity"]["$ref"] = entity_url
 
     doc = Document.create(
@@ -271,12 +233,7 @@ def test_sync_concept(
     sync_entity._get_latest = mock.MagicMock(return_value=data)
     mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
     mock_get.return_value = mock_response(json_data=mock_resp)
-    assert (
-        DocumentsSearch()
-        .query("term", subjects__entity__authorized_access_point_fr="foo")
-        .count()
-        == 0
-    )
+    assert DocumentsSearch().query("term", subjects__entity__authorized_access_point_fr="foo").count() == 0
     # synchronization the same document has been updated 3 times, one MEF
     # record has been updated, no errors
     assert (1, 1, set()) == sync_entity.sync(f"pid:{topic.pid}")
@@ -285,11 +242,7 @@ def test_sync_concept(
     # contribution and document should be changed
     entity = RemoteEntity.get_record_by_pid(topic.pid)
     assert entity["idref"]["authorized_access_point"] == "foo"
-    assert (
-        DocumentsSearch()
-        .query("term", subjects__entity__authorized_access_point_fr="foo")
-        .count()
-    )
+    assert DocumentsSearch().query("term", subjects__entity__authorized_access_point_fr="foo").count()
     # nothing has been removed as only metadata has been changed
     assert (0, []) == sync_entity.remove_unused(topic.pid)
 
@@ -303,9 +256,7 @@ def test_sync_concept(
     assert not RemoteEntity.get_record_by_pid("foo_mef")
 
 
-def test_remote_entity_properties(
-    entity_person, item_lib_martigny, document, document_data, mef_concept1
-):
+def test_remote_entity_properties(entity_person, item_lib_martigny, document, document_data, mef_concept1):
     """Test entity properties."""
     item = item_lib_martigny
 
@@ -340,9 +291,7 @@ def test_remote_entity_properties(
         "rero_ils.modules.entities.remote_entities.api.RemoteEntity.create",
         side_effect=Exception(),
     ):
-        entity, _ = RemoteEntity.get_record_by_ref(
-            "https://bib.rero.ch/api/documents/dummy_doc"
-        )
+        entity, _ = RemoteEntity.get_record_by_ref("https://bib.rero.ch/api/documents/dummy_doc")
         assert entity is None
 
     # remove contribution
@@ -404,9 +353,7 @@ def test_replace_identified_by(
     """Test replace identified by with $ref."""
     # === setup
     log_path = tempfile.mkdtemp()
-    replace_identified_by = ReplaceIdentifiedBy(
-        field="contribution", verbose=True, dry_run=False, log_dir=log_path
-    )
+    replace_identified_by = ReplaceIdentifiedBy(field="contribution", verbose=True, dry_run=False, log_dir=log_path)
     assert replace_identified_by
     assert replace_identified_by.count() == 2
 
@@ -420,9 +367,7 @@ def test_replace_identified_by(
         assert not_found == 2
         assert rero_only == 0
         assert replace_identified_by.not_found == {
-            "bf:Organisation": {
-                "gnd:1161956409": "Convegno internazionale " "di italianistica Craiova"
-            },
+            "bf:Organisation": {"gnd:1161956409": "Convegno internazionale di italianistica Craiova"},
             "bf:Person": {"rero:A003633163": "Nebehay, Christian Michael"},
         }
         replace_identified_by.set_timestamp()
@@ -444,13 +389,9 @@ def test_replace_identified_by(
         assert changed == 1
         assert not_found == 0
         assert rero_only == 1
-        assert replace_identified_by.rero_only == {
-            "bf:Person": {"rero:A003633163": "Nebehay, Christian Michael"}
-        }
+        assert replace_identified_by.rero_only == {"bf:Person": {"rero:A003633163": "Nebehay, Christian Michael"}}
     # with MEF response for concepts in subjects
-    replace_identified_by = ReplaceIdentifiedBy(
-        field="subjects", verbose=True, dry_run=False, log_dir=log_path
-    )
+    replace_identified_by = ReplaceIdentifiedBy(field="subjects", verbose=True, dry_run=False, log_dir=log_path)
     assert replace_identified_by
     assert replace_identified_by.count() == 2
     with mock.patch(
@@ -476,17 +417,13 @@ def test_replace_identified_by(
         assert not_found == 0
         assert rero_only == 3
         assert dict(sorted(replace_identified_by.rero_only.items())) == {
-            "bf:Person": {
-                "rero:A009963344": "Athenagoras (patriarche oecuménique ; 1)"
-            },
+            "bf:Person": {"rero:A009963344": "Athenagoras (patriarche oecuménique ; 1)"},
             "bf:Topic": {"rero:A021039750": "Bases de données déductives"},
             "bf:Place": {"rero:A009975209": "Europe occidentale"},
         }
 
 
-def test_entity_get_record_by_ref(
-    mef_agents_url, entity_person, entity_person_data_tmp
-):
+def test_entity_get_record_by_ref(mef_agents_url, entity_person, entity_person_data_tmp):
     """Test remote entity: get record by ref."""
     dummy_ref = f"{mef_agents_url}/idref/dummy_idref_pid"
     assert (None, False) == RemoteEntity.get_record_by_ref(dummy_ref)
@@ -494,7 +431,7 @@ def test_entity_get_record_by_ref(
     # Remote entity from ES index
     RemoteEntitiesSearch().filter("term", pid=entity_person.pid).delete()
     RemoteEntitiesSearch.flush_and_refresh()
-    ent_ref = f'{mef_agents_url}/idref/{entity_person["idref"]["pid"]}'
+    ent_ref = f"{mef_agents_url}/idref/{entity_person['idref']['pid']}"
     with mock.patch(
         "rero_ils.modules.entities.remote_entities.api.get_mef_data_by_type",
         return_value=entity_person_data_tmp,

@@ -29,10 +29,7 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 def test_local_entity_properties(local_entity_person):
     """Test local entity property"""
-    assert (
-        local_entity_person.get_authorized_access_point(None)
-        == local_entity_person["authorized_access_point"]
-    )
+    assert local_entity_person.get_authorized_access_point(None) == local_entity_person["authorized_access_point"]
 
 
 def test_local_entity_indexing(app, local_entity_person, document_data_tmp):
@@ -61,8 +58,7 @@ def test_local_entity_indexing(app, local_entity_person, document_data_tmp):
     DocumentsSearch.flush_and_refresh()
     hit = DocumentsSearch().get_record_by_pid(doc.pid)
     assert any(
-        contribution["entity"]["authorized_access_point_fr"]
-        == entity.get_authorized_access_point(language="fr")
+        contribution["entity"]["authorized_access_point_fr"] == entity.get_authorized_access_point(language="fr")
         for contribution in hit.contribution
     )
 

@@ -42,9 +42,7 @@ def test_library_closed_date_api(client, lib_martigny, librarian_martigny):
 
     # CHECK#2 :: with specified dates
     params = {"from": "2020-01-01", "until": "2020-02-01"}
-    url = url_for(
-        "api_library.list_closed_dates", library_pid=lib_martigny.pid, **params
-    )
+    url = url_for("api_library.list_closed_dates", library_pid=lib_martigny.pid, **params)
     res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)
@@ -53,9 +51,7 @@ def test_library_closed_date_api(client, lib_martigny, librarian_martigny):
 
     # CHECK#3 :: with bad specified dates
     params = {"until": "2020-01-01", "from": "2020-02-01"}
-    url = url_for(
-        "api_library.list_closed_dates", library_pid=lib_martigny.pid, **params
-    )
+    url = url_for("api_library.list_closed_dates", library_pid=lib_martigny.pid, **params)
     res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)

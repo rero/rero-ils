@@ -23,18 +23,14 @@ from rero_ils.modules.stats_cfg.api import StatConfiguration, StatsConfiguration
 from tests.utils import get_mapping
 
 
-def test_stats_cfg_es_mapping(
-    client, stats_cfg_martigny_data, system_librarian_martigny
-):
+def test_stats_cfg_es_mapping(client, stats_cfg_martigny_data, system_librarian_martigny):
     """Test statistics configuration elasticsearch mapping."""
     search = StatsConfigurationSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
 
     login_user_via_session(client, system_librarian_martigny.user)
-    stats_cfg = StatConfiguration.create(
-        stats_cfg_martigny_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    stats_cfg = StatConfiguration.create(stats_cfg_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
     stats_cfg.delete(force=True, dbcommit=True, delindex=True)
 

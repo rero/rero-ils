@@ -44,10 +44,7 @@ class DocumentAcquisitionDumper(Dumper):
         # provision activity ------------------------
         provision_activities = filter(
             None,
-            [
-                ProvisionActivitiesExtension.format_text(activity)
-                for activity in record.get("provisionActivity", [])
-            ],
+            [ProvisionActivitiesExtension.format_text(activity) for activity in record.get("provisionActivity", [])],
         )
         provision_activity = next(iter(provision_activities or []), None)
         if provision_activity:
@@ -56,19 +53,14 @@ class DocumentAcquisitionDumper(Dumper):
         # series statement --------------------------
         series_statements = filter(
             None,
-            [
-                SeriesStatementExtension.format_text(statement)
-                for statement in record.get("seriesStatement", [])
-            ],
+            [SeriesStatementExtension.format_text(statement) for statement in record.get("seriesStatement", [])],
         )
         series_statement = next(iter(series_statements or []), None)
         if series_statement:
             series_statement = series_statement[0]["value"]
 
         # identifiers -------------------------------
-        identifiers = record.get_identifiers(
-            filters=[IdentifierType.ISBN, IdentifierType.EAN], with_alternatives=True
-        )
+        identifiers = record.get_identifiers(filters=[IdentifierType.ISBN, IdentifierType.EAN], with_alternatives=True)
         # keep only EAN identifiers - only EAN identifiers should be included
         # into acquisition notification.
         render_class = QualifierIdentifierRenderer()

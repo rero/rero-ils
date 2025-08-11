@@ -90,10 +90,7 @@ class RemoteEntity(Entity):
         if ref_type == "viaf":
             es_filter = Q("term", viaf_pid=ref_pid)
         query = (
-            RemoteEntitiesSearch()
-            .params(preserve_order=True)
-            .sort({"_updated": {"order": "desc"}})
-            .filter(es_filter)
+            RemoteEntitiesSearch().params(preserve_order=True).sort({"_updated": {"order": "desc"}}).filter(es_filter)
         )
         with contextlib.suppress(StopIteration):
             pid = next(query.source("pid").scan()).pid
@@ -120,9 +117,7 @@ class RemoteEntity(Entity):
         #   2) Create the entity from remote data
         nested = db.session.begin_nested()
         try:
-            data = get_mef_data_by_type(
-                entity_type=entity_type, pid_type=ref_type, pid=ref_pid
-            )
+            data = get_mef_data_by_type(entity_type=entity_type, pid_type=ref_type, pid=ref_pid)
             if not data:
                 raise HTTPError("", 404, "Not found")
             # Try to get the contribution from DB maybe it was not indexed.
@@ -173,13 +168,9 @@ class RemoteEntity(Entity):
         :param language: language for authorized access point.
         :returns: authorized access point in given language.
         """
-        return self._get_mef_localized_value(
-            key="authorized_access_point", language=language
-        )
+        return self._get_mef_localized_value(key="authorized_access_point", language=language)
 
-    def update_online(
-        self, dbcommit=False, reindex=False, verbose=False, reindex_doc=True
-    ):
+    def update_online(self, dbcommit=False, reindex=False, verbose=False, reindex_doc=True):
         """Update record online.
 
         :param reindex: reindex record by record
@@ -191,24 +182,16 @@ class RemoteEntity(Entity):
         action = EntityUpdateAction.UPTODATE
         pid = self.get("pid")
         try:
-            if data := get_mef_data_by_type(
-                entity_type=self.type, pid_type="mef", pid=pid, verbose=verbose
-            ):
+            if data := get_mef_data_by_type(entity_type=self.type, pid_type="mef", pid=pid, verbose=verbose):
                 data["$schema"] = self["$schema"]
                 if data.get("deleted"):
-                    current_app.logger.warning(
-                        f"UPDATE ONLINE {self.type} (pid:{pid}): was deleted"
-                    )
+                    current_app.logger.warning(f"UPDATE ONLINE {self.type} (pid:{pid}): was deleted")
                     action = EntityUpdateAction.ERROR
                 elif not data.get("sources"):
-                    current_app.logger.warning(
-                        f"UPDATE ONLINE {self.type} (pid:{pid}): " f"has no sources"
-                    )
+                    current_app.logger.warning(f"UPDATE ONLINE {self.type} (pid:{pid}): has no sources")
                     action = EntityUpdateAction.ERROR
                 elif not data.get("type"):
-                    current_app.logger.warning(
-                        f"UPDATE ONLINE {self.type} (pid:{pid}): has no type"
-                    )
+                    current_app.logger.warning(f"UPDATE ONLINE {self.type} (pid:{pid}): has no type")
                     action = EntityUpdateAction.ERROR
                 elif dict(self) != data:
                     action = EntityUpdateAction.REPLACE

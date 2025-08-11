@@ -34,9 +34,7 @@ def test_sru_explain(client):
 
 def test_sru_documents(client, document_ref, entity_person_data):
     """Test sru documents rest api."""
-    api_url = url_for(
-        "api_sru.documents", version="1.1", operation="searchRetrieve", query="al-Wajīz"
-    )
+    api_url = url_for("api_sru.documents", version="1.1", operation="searchRetrieve", query="al-Wajīz")
     res = client.get(api_url)
     assert res.status_code == 200
     xml_dict = get_xml_dict(res)
@@ -98,19 +96,14 @@ def test_sru_documents_items(client, document_sion_items):
     assert "searchRetrieveResponse" in xml_dict
     ech_srr = xml_dict["searchRetrieveResponse"]["echoedSearchRetrieveRequest"]
     assert ech_srr["query"] == 'dc.title="La reine Berthe et son fils"'
-    assert ech_srr["query_es"] == "title.\\*:" '"La reine Berthe et son fils"'
+    assert ech_srr["query_es"] == 'title.\\*:"La reine Berthe et son fils"'
 
 
 def test_sru_documents_diagnostics(client):
     """Test sru documents diagnostics."""
-    api_url = url_for(
-        "api_sru.documents", version="1.1", operation="searchRetrieve", query="((("
-    )
+    api_url = url_for("api_sru.documents", version="1.1", operation="searchRetrieve", query="(((")
     res = client.get(api_url)
     assert res.status_code == 200
     xml_dict = get_xml_dict(res)
     assert "srw:searchRetrieveResponse" in xml_dict
-    assert (
-        xml_dict["srw:searchRetrieveResponse"]["diag:diagnostics"]["diag:message"]
-        == "Malformed Query"
-    )
+    assert xml_dict["srw:searchRetrieveResponse"]["diag:diagnostics"]["diag:message"] == "Malformed Query"

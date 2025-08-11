@@ -39,8 +39,8 @@ def collect_stats_billing():
             dbcommit=True,
             reindex=True,
         )
-        return f'New statistics of type {stat["type"]} has\
-            been created with a pid of: {stat.pid}'
+        return f"New statistics of type {stat['type']} has\
+            been created with a pid of: {stat.pid}"
 
 
 @shared_task()
@@ -58,20 +58,14 @@ def collect_stats_librarian():
             dbcommit=True,
             reindex=True,
         )
-        return f'New statistics of type {stat["type"]} has\
-            been created with a pid of: {stat.pid}'
+        return f"New statistics of type {stat['type']} has\
+            been created with a pid of: {stat.pid}"
 
 
 @shared_task()
 def collect_stats_reports(frequency="month"):
     """Collect and store the montly statistics for librarian."""
-    pids = [
-        hit.pid
-        for hit in StatsConfigurationSearch()
-        .filter("term", frequency=frequency)
-        .source("pid")
-        .scan()
-    ]
+    pids = [hit.pid for hit in StatsConfigurationSearch().filter("term", frequency=frequency).source("pid").scan()]
     to_return = []
     logger = current_app.logger
     for pid in pids:

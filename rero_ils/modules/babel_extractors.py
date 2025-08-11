@@ -104,10 +104,6 @@ def extract_json(fileobj, keywords, comment_tags, options):
     :rtype: ``iterator``
     """
     keys_to_translate = eval(options.get("keys_to_translate", "['title']"))
-    array_keys_to_translate = eval(
-        options.get("array_keys_to_translate", "['addonRight']")
-    )
+    array_keys_to_translate = eval(options.get("array_keys_to_translate", "['addonRight']"))
 
-    return extract(fileobj, keys_to_translate) + extract_array(
-        fileobj, array_keys_to_translate
-    )
+    return extract(fileobj, keys_to_translate) + extract_array(fileobj, array_keys_to_translate)

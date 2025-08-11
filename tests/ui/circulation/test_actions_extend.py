@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test item circulation extend actions."""
+
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
@@ -52,9 +53,7 @@ def test_fees_after_extend(
     extend_cipo["policy_library_level"] = True
     extend_cipo.update(
         {
-            "libraries": [
-                {"$ref": get_ref_for_pid(Library, loc_public_saxon.library_pid)}
-            ],
+            "libraries": [{"$ref": get_ref_for_pid(Library, loc_public_saxon.library_pid)}],
             "overdue_fees": {"intervals": [{"from": 1, "fee_amount": 0.01}]},
         }
     )
@@ -66,9 +65,7 @@ def test_fees_after_extend(
     checkout_cipo_ori = get_circ_policy(loan, checkout_location=True)
     checkout_cipo = deepcopy(checkout_cipo_ori)
     checkout_fee_amount = 10
-    checkout_cipo["overdue_fees"] = {
-        "intervals": [{"from": 1, "fee_amount": checkout_fee_amount}]
-    }
+    checkout_cipo["overdue_fees"] = {"intervals": [{"from": 1, "fee_amount": checkout_fee_amount}]}
     checkout_cipo = checkout_cipo.update(checkout_cipo, dbcommit=True, reindex=True)
 
     # UPDATE LOAN TO BE OVERDUE
@@ -203,9 +200,7 @@ def test_extend_on_item_on_loan_with_no_requests(
     # Update loan `end_date` to play with "extend" function without problem
     end_date = ciso8601.parse_datetime(str(loan.get("end_date")))
     start_date = ciso8601.parse_datetime(str(loan.get("start_date")))
-    end_date = end_date.replace(
-        year=start_date.year, month=start_date.month, day=start_date.day
-    )
+    end_date = end_date.replace(year=start_date.year, month=start_date.month, day=start_date.day)
     loan["end_date"] = end_date.isoformat()
     start_date = datetime.now() - timedelta(days=cipo["checkout_duration"])
     loan["start_date"] = start_date.isoformat()

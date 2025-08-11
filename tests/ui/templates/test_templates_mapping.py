@@ -33,17 +33,13 @@ def test_template_es_mapping(
     search = TemplatesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    tmpl = Template.create(
-        templ_doc_public_martigny_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    tmpl = Template.create(templ_doc_public_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     new_mapping = get_mapping(search.Meta.index)
     assert mapping == new_mapping
     tmpl.delete(force=True, dbcommit=True, delindex=True)
 
 
-def test_template_search_mapping(
-    app, templ_doc_public_martigny, templ_doc_private_martigny
-):
+def test_template_search_mapping(app, templ_doc_public_martigny, templ_doc_private_martigny):
     """Test template search mapping."""
     search = TemplatesSearch()
 

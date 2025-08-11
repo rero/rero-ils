@@ -31,9 +31,7 @@ from rero_ils.modules.utils import sorted_pids
 from .models import VendorContactType, VendorIdentifier, VendorMetadata
 
 # provider
-VendorProvider = type(
-    "VendorProvider", (Provider,), dict(identifier=VendorIdentifier, pid_type="vndr")
-)
+VendorProvider = type("VendorProvider", (Provider,), dict(identifier=VendorIdentifier, pid_type="vndr"))
 # minter
 vendor_id_minter = partial(id_minter, provider=VendorProvider)
 # fetcher
@@ -100,11 +98,7 @@ class Vendor(IlsRecord):
                 order contact information does not exist, the default contact
                 information will be used.
         """
-        contact = (
-            self.get_contact(VendorContactType.ORDER)
-            or self.get_contact(VendorContactType.DEFAULT)
-            or {}
-        )
+        contact = self.get_contact(VendorContactType.ORDER) or self.get_contact(VendorContactType.DEFAULT) or {}
         return contact.get("email")
 
     @property
@@ -115,11 +109,7 @@ class Vendor(IlsRecord):
                 serial contact information does not exist, the default contact
                 information will be used.
         """
-        contact = (
-            self.get_contact(VendorContactType.SERIAL)
-            or self.get_contact(VendorContactType.DEFAULT)
-            or {}
-        )
+        contact = self.get_contact(VendorContactType.SERIAL) or self.get_contact(VendorContactType.DEFAULT) or {}
         return contact.get("email")
 
     def get_note(self, note_type):
@@ -129,11 +119,7 @@ class Vendor(IlsRecord):
         :param note_type: the note type to filter as `OrderLineNoteType` value.
         :return the note content if exists, otherwise returns None.
         """
-        note = [
-            note.get("content")
-            for note in self.get("notes", [])
-            if note.get("type") == note_type
-        ]
+        note = [note.get("content") for note in self.get("notes", []) if note.get("type") == note_type]
         return next(iter(note), None)
 
     def get_links_to_me(self, get_pids=False):

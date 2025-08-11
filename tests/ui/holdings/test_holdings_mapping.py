@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Holdingss record mapping tests."""
+
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from tests.utils import get_mapping
 
@@ -32,9 +33,7 @@ def test_holding_es_mapping(
     search = HoldingsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    holding = Holding.create(
-        holding_lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    holding = Holding.create(holding_lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
     # clean created data
     holding.delete(force=True, dbcommit=True, delindex=True)

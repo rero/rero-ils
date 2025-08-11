@@ -81,11 +81,7 @@ def get_default_loan_duration(loan, initial_loan):
     #        method. This was not the place for this ; this function should
     #        only return the loan duration.
     policy = get_circ_policy(loan)
-    due_date_eve = (
-        now_in_library_timezone
-        + timedelta(days=policy.get("checkout_duration", 0))
-        - timedelta(days=1)
-    )
+    due_date_eve = now_in_library_timezone + timedelta(days=policy.get("checkout_duration", 0)) - timedelta(days=1)
     try:
         end_date = library.next_open(date=due_date_eve)
     except LibraryNeverOpen:
@@ -134,11 +130,7 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
     #        This check is now done previously by `CircPolicies.allow_checkout`
     #        method. This was not the place for this ; this function should
     #        only return the loan duration.
-    due_date_eve = (
-        trans_date_tz
-        + timedelta(days=policy.get("renewal_duration"))
-        - timedelta(days=1)
-    )
+    due_date_eve = trans_date_tz + timedelta(days=policy.get("renewal_duration")) - timedelta(days=1)
     try:
         next_open_date = library.next_open(date=due_date_eve)
     except LibraryNeverOpen:
@@ -149,9 +141,9 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
         params["max_count"] = 0
 
     # all libraries are closed at 23h59 --> the `next_open` returns UTC.
-    end_date_in_library_timezone = next_open_date.astimezone(
-        library.get_timezone()
-    ).replace(hour=23, minute=59, second=0, microsecond=0)
+    end_date_in_library_timezone = next_open_date.astimezone(library.get_timezone()).replace(
+        hour=23, minute=59, second=0, microsecond=0
+    )
     params["duration_default"] = end_date_in_library_timezone - trans_date_tz
     return params.get(parameter_name)
 
@@ -163,9 +155,7 @@ def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
     library = Library.get_record_by_pid(library_pid)
     try:
         first_open_date = library.next_open(
-            date=datetime.now(timezone.utc)
-            + timedelta(days=renewal_duration)
-            - timedelta(days=1)
+            date=datetime.now(timezone.utc) + timedelta(days=renewal_duration) - timedelta(days=1)
         )
     # if library has no open dates, use the default renewal duration
     except LibraryNeverOpen:
@@ -211,9 +201,7 @@ def can_be_requested(loan):
         return False
 
     # 3) Check if there is already a loan for same patron+item
-    if get_any_loans_by_item_pid_by_patron_pid(
-        loan.get("item_pid", {}).get("value"), loan.get("patron_pid")
-    ):
+    if get_any_loans_by_item_pid_by_patron_pid(loan.get("item_pid", {}).get("value"), loan.get("patron_pid")):
         return False
 
     # 4) Check if circulation_policy allows request
@@ -253,9 +241,7 @@ def validate_item_pickup_transaction_locations(loan, destination, **kwargs):
         pickup_library_pid = Location.get_record_by_pid(pickup_location_pid).library_pid
     if not transaction_library_pid:
         transaction_location_pid = loan["transaction_location_pid"]
-        transaction_library_pid = Location.get_record_by_pid(
-            transaction_location_pid
-        ).library_pid
+        transaction_library_pid = Location.get_record_by_pid(transaction_location_pid).library_pid
 
     if destination == "ITEM_AT_DESK":
         return pickup_library_pid == transaction_library_pid

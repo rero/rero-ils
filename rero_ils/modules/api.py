@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating records."""
+
 import re
 from copy import deepcopy
 from uuid import uuid4
@@ -172,9 +173,7 @@ class IlsRecord(Record):
         endpoints = current_app.config["RECORDS_REST_ENDPOINTS"]
         endpoints.update(current_app.config["CIRCULATION_REST_ENDPOINTS"])
         try:
-            indexer = obj_or_import_string(
-                endpoints[cls.provider.pid_type]["indexer_class"]
-            )
+            indexer = obj_or_import_string(endpoints[cls.provider.pid_type]["indexer_class"])
         except Exception:
             # provide default indexer if no indexer is defined in config.
             indexer = IlsRecordsIndexer
@@ -246,8 +245,7 @@ class IlsRecord(Record):
         elif pid:
             if test_rec := cls.get_record_by_pid(pid):
                 raise IlsRecordError.PidAlreadyUsed(
-                    f"PidAlreadyUsed {cls.provider.pid_type} "
-                    f"{test_rec.pid} {test_rec.id}"
+                    f"PidAlreadyUsed {cls.provider.pid_type} {test_rec.pid} {test_rec.id}"
                 )
         if not id_:
             id_ = uuid4()
@@ -258,9 +256,7 @@ class IlsRecord(Record):
             if record and dbcommit:
                 record.dbcommit(reindex)
         except Exception as err:
-            current_app.logger.warning(
-                f"CREATE WARNING: {cls.__name__}: {err} data:{data}"
-            )
+            current_app.logger.warning(f"CREATE WARNING: {cls.__name__}: {err} data:{data}")
             raise
         return record
 
@@ -272,12 +268,8 @@ class IlsRecord(Record):
         if pid:
             assert cls.provider
             try:
-                persistent_identifier = PersistentIdentifier.get(
-                    cls.provider.pid_type, pid
-                )
-                return super().get_record(
-                    persistent_identifier.object_uuid, with_deleted=with_deleted
-                )
+                persistent_identifier = PersistentIdentifier.get(cls.provider.pid_type, pid)
+                return super().get_record(persistent_identifier.object_uuid, with_deleted=with_deleted)
             # TODO: is it better to raise a error or to return None?
             except (NoResultFound, PIDDoesNotExistError):
                 return None
@@ -328,9 +320,7 @@ class IlsRecord(Record):
     @classmethod
     def get_persistent_identifier(cls, id):
         """Get Persistent Identifier."""
-        return PersistentIdentifier.get_by_object(
-            cls.provider.pid_type, cls.object_type, id
-        )
+        return PersistentIdentifier.get_by_object(cls.provider.pid_type, cls.object_type, id)
 
     @classmethod
     def _get_all(cls, with_deleted=False):
@@ -421,10 +411,7 @@ class IlsRecord(Record):
         if pid := data.get("pid"):
             db_record = self.get_record(self.id)
             if pid != db_record.pid:
-                raise IlsRecordError.PidChange(
-                    f"{self.__class__.__name__} changed pid from "
-                    f"{db_record.pid} to {pid}"
-                )
+                raise IlsRecordError.PidChange(f"{self.__class__.__name__} changed pid from {db_record.pid} to {pid}")
         record = self
 
         # Add schema if missing.
@@ -496,13 +483,9 @@ class IlsRecord(Record):
         try:
             indexer().delete(self)
         except NotFoundError:
-            current_app.logger.warning(
-                f"Can not delete from index {self.__class__.__name__}" f": {self.pid}"
-            )
+            current_app.logger.warning(f"Can not delete from index {self.__class__.__name__}: {self.pid}")
         except ValueError:
-            current_app.logger.warning(
-                f"Can not delete from index {self.__class__.__name__}"
-            )
+            current_app.logger.warning(f"Can not delete from index {self.__class__.__name__}")
 
     @property
     def pid(self):
@@ -726,12 +709,8 @@ class IlsRecordsIndexer(RecordIndexer):
             else:
                 data = record.dumps()
 
-        data["_created"] = (
-            pytz.utc.localize(record.created).isoformat() if record.created else None
-        )
-        data["_updated"] = (
-            pytz.utc.localize(record.updated).isoformat() if record.updated else None
-        )
+        data["_created"] = pytz.utc.localize(record.created).isoformat() if record.created else None
+        data["_updated"] = pytz.utc.localize(record.updated).isoformat() if record.updated else None
 
         # Allow modification of data prior to sending to Elasticsearch.
         before_record_index.send(
@@ -762,7 +741,4 @@ class ReferencedRecordsIndexer:
                 record_to_index = r["record"]
                 indexer.index(record_to_index)
             except Exception as err:
-                current_app.logger.error(
-                    f'Record indexing error {r["pid_type"]} '
-                    f'{r["record"]["pid"]}: {str(err)}'
-                )
+                current_app.logger.error(f"Record indexing error {r['pid_type']} {r['record']['pid']}: {str(err)}")

@@ -43,9 +43,7 @@ def extract_size_parameter(func):
     return wrapper
 
 
-@api_blueprint.route(
-    "/local_entities/search/<term>", defaults={"entity_type": "agents"}
-)
+@api_blueprint.route("/local_entities/search/<term>", defaults={"entity_type": "agents"})
 @api_blueprint.route("/local_entities/search/<entity_type>/<term>")
 @api_blueprint.route("/local_entities/search/<entity_type>/<term>/")
 @check_logged_as_librarian
@@ -66,6 +64,4 @@ def local_search_proxy(entity_type, term, size):
     #   apply.
     #   See same behavior for remote entities search proxy.
 
-    return jsonify(
-        [hit.to_dict() for hit in LocalEntityProxy(entity_type).search(term, size)]
-    )
+    return jsonify([hit.to_dict() for hit in LocalEntityProxy(entity_type).search(term, size)])

@@ -41,10 +41,7 @@ def test_title_to_dc():
     }
     result = dublincore.do(record)
     assert result == {
-        "titles": [
-            "Kunst der Farbe : Studienausgabe / Johannes Itten / "
-            "traduit de l'allemand par Valérie Bourgeois"
-        ]
+        "titles": ["Kunst der Farbe : Studienausgabe / Johannes Itten / traduit de l'allemand par Valérie Bourgeois"]
     }
 
     record = {
@@ -57,10 +54,7 @@ def test_title_to_dc():
                     {
                         "partNumber": [{"value": "T. 1"}],
                         "partName": [
-                            {
-                                "value": "Licence ès sciences économiques, 1ère année, "
-                                "étudiants de Grandes écoles"
-                            }
+                            {"value": "Licence ès sciences économiques, 1ère année, étudiants de Grandes écoles"}
                         ],
                     },
                     {
@@ -104,21 +98,11 @@ def test_title_to_dc():
 def test_summary_note_dissertation_supplementarycontent_to_dc():
     """Test description transformation to Dublin Core."""
     record = {
-        "summary": [
-            {
-                "label": [
-                    {
-                        "value": "Fictions jeunesse: roman, jeux vid\u00e9o, "
-                        "imagination"
-                    }
-                ]
-            }
-        ],
+        "summary": [{"label": [{"value": "Fictions jeunesse: roman, jeux vid\u00e9o, imagination"}]}],
         "note": [
             {
                 "noteType": "general",
-                "label": "In : Edinburgh medical and surgical journal. - "
-                "Edinburgh. - No. 55(1818), 64 p.",
+                "label": "In : Edinburgh medical and surgical journal. - Edinburgh. - No. 55(1818), 64 p.",
             }
         ],
         "supplementaryContent": ["Bibliogr.: p. 52"],
@@ -128,8 +112,7 @@ def test_summary_note_dissertation_supplementarycontent_to_dc():
     assert result == {
         "descriptions": [
             "Fictions jeunesse: roman, jeux vidéo, imagination",
-            "In : Edinburgh medical and surgical journal. - Edinburgh. - "
-            "No. 55(1818), 64 p.",
+            "In : Edinburgh medical and surgical journal. - Edinburgh. - No. 55(1818), 64 p.",
             "Bibliogr.: p. 52",
             "Th. Sc. techn. Lausanne",
         ]
@@ -177,20 +160,14 @@ def test_provision_activity_to_dc():
 
 def test_type_to_dc():
     """Test type transformation to Dublin Core."""
-    record = {
-        "type": [{"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}]
-    }
+    record = {"type": [{"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}]}
     result = dublincore.do(record)
-    assert result == {
-        "types": [f"{_('docmaintype_book')} / {_('docsubtype_other_book')}"]
-    }
+    assert result == {"types": [f"{_('docmaintype_book')} / {_('docsubtype_other_book')}"]}
 
 
 def test_identified_by_to_dc():
     """Test identifiedBy transformation to Dublin Core."""
-    record = {
-        "identifiedBy": [{"value": "R003461120", "type": "bf:Local", "source": "RERO"}]
-    }
+    record = {"identifiedBy": [{"value": "R003461120", "type": "bf:Local", "source": "RERO"}]}
     result = dublincore.do(record)
     assert result == {"identifiers": ["bf:Local|R003461120(RERO)"]}
     record = {

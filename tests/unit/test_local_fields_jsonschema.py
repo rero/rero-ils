@@ -46,9 +46,7 @@ def test_local_fields_fields_required(local_fields_schema, local_field_martigny_
         validate({}, local_fields_schema)
 
 
-def test_local_fields_all_jsonschema_keys_values(
-    local_fields_schema, local_field_martigny_data
-):
+def test_local_fields_all_jsonschema_keys_values(local_fields_schema, local_field_martigny_data):
     """Test all keys and values for local fields jsonschema."""
     record = copy.deepcopy(local_field_martigny_data)
     validate(record, local_fields_schema)

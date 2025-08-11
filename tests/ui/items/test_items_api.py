@@ -32,18 +32,14 @@ from rero_ils.modules.items.utils import item_location_retriever, item_pid_to_ob
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_obsolete_temporary_item_types_and_locations(
-    item_lib_martigny, item_type_on_site_martigny
-):
+def test_obsolete_temporary_item_types_and_locations(item_lib_martigny, item_type_on_site_martigny):
     """Test obsolete temporary_item_types and temporary_locations."""
     item = item_lib_martigny
     # First test - No items has temporary_item_type
     items = Item.get_items_with_obsolete_temporary_item_type_or_location()
     assert not len(list(items))
     # Second test - add an infinite temporary_item_type to an item
-    item["temporary_item_type"] = {
-        "$ref": get_ref_for_pid("itty", item_type_on_site_martigny.pid)
-    }
+    item["temporary_item_type"] = {"$ref": get_ref_for_pid("itty", item_type_on_site_martigny.pid)}
     item.update(item, dbcommit=True, reindex=True)
     items = Item.get_items_with_obsolete_temporary_item_type_or_location()
     assert not len(list(items))
@@ -57,9 +53,7 @@ def test_obsolete_temporary_item_types_and_locations(
 
     # Fourth test - check obsolete with for a specified date in the future
     over_3_days = datetime.now() + timedelta(days=3)
-    items = Item.get_items_with_obsolete_temporary_item_type_or_location(
-        end_date=over_3_days
-    )
+    items = Item.get_items_with_obsolete_temporary_item_type_or_location(end_date=over_3_days)
     assert len(list(items)) == 1
 
     # reset the item to original values
@@ -74,14 +68,9 @@ def test_item_organisation_pid(client, org_martigny, item_lib_martigny):
     assert item.organisation.pid == org_martigny.pid
 
 
-def test_item_item_location_retriever(
-    item_lib_martigny, loc_public_martigny, loc_restricted_martigny
-):
+def test_item_item_location_retriever(item_lib_martigny, loc_public_martigny, loc_restricted_martigny):
     """Test location retriever for invenio-circulation."""
-    assert (
-        item_location_retriever(item_pid_to_object(item_lib_martigny.pid))
-        == loc_public_martigny.pid
-    )
+    assert item_location_retriever(item_pid_to_object(item_lib_martigny.pid)) == loc_public_martigny.pid
 
 
 def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
@@ -189,14 +178,9 @@ def test_replace_refs(item_lib_martigny, item_type_on_site_martigny):
     assert "end_date" in item_lib_martigny.replace_refs().get("temporary_item_type")
 
 
-def test_item_type_circulation_category_pid(
-    item_lib_martigny, item_type_on_site_martigny
-):
+def test_item_type_circulation_category_pid(item_lib_martigny, item_type_on_site_martigny):
     """Test item_type circulation category pid."""
-    assert (
-        item_lib_martigny.item_type_pid
-        == item_lib_martigny.item_type_circulation_category_pid
-    )
+    assert item_lib_martigny.item_type_pid == item_lib_martigny.item_type_circulation_category_pid
 
     past_2_days = datetime.now() - timedelta(days=2)
     over_2_days = datetime.now() + timedelta(days=2)
@@ -207,28 +191,17 @@ def test_item_type_circulation_category_pid(
         "$ref": get_ref_for_pid("itty", item_type_on_site_martigny.pid),
         "end_date": past_2_days.strftime("%Y-%m-%d"),
     }
-    assert (
-        item_lib_martigny.item_type_pid
-        == item_lib_martigny.item_type_circulation_category_pid
-    )
+    assert item_lib_martigny.item_type_pid == item_lib_martigny.item_type_circulation_category_pid
 
     # add a valid temporary item_type end_date :: In this case, the
     # circulation item_type must be the temporary item_type
-    item_lib_martigny["temporary_item_type"]["end_date"] = over_2_days.strftime(
-        "%Y-%m-%d"
-    )
-    assert (
-        item_type_on_site_martigny.pid
-        == item_lib_martigny.item_type_circulation_category_pid
-    )
+    item_lib_martigny["temporary_item_type"]["end_date"] = over_2_days.strftime("%Y-%m-%d")
+    assert item_type_on_site_martigny.pid == item_lib_martigny.item_type_circulation_category_pid
 
     # removing any temporary item_type end_date :: In this case, the
     # circulation item_type must be the temporary item_type
     del item_lib_martigny["temporary_item_type"]["end_date"]
-    assert (
-        item_type_on_site_martigny.pid
-        == item_lib_martigny.item_type_circulation_category_pid
-    )
+    assert item_type_on_site_martigny.pid == item_lib_martigny.item_type_circulation_category_pid
 
     # reset the object with default value
     del item_lib_martigny["temporary_item_type"]
@@ -249,17 +222,12 @@ def test_items_availability(
     item_data = deepcopy(item_lib_martigny_data_tmp)
     del item_data["pid"]
     item_data["barcode"] = "TEST_AVAILABILITY"
-    item_data["temporary_item_type"] = {
-        "$ref": get_ref_for_pid(ItemType, item_type_missing_martigny.pid)
-    }
+    item_data["temporary_item_type"] = {"$ref": get_ref_for_pid(ItemType, item_type_missing_martigny.pid)}
     item = Item.create(item_data, dbcommit=True, reindex=True)
 
     # test the availability and availability_text
     assert not item.is_available()
-    assert (
-        len(item.availability_text)
-        == len(item_type_missing_martigny.get("displayed_status", [])) + 1
-    )
+    assert len(item.availability_text) == len(item_type_missing_martigny.get("displayed_status", [])) + 1
 
     del item["temporary_item_type"]
     item = item.update(item, dbcommit=True, reindex=True)
@@ -317,9 +285,7 @@ def test_get_links_to_me_with_fees(patron_transaction_overdue_saxon):
 def test_get_links_to_me_with_collection(coll_martigny_1, item_lib_martigny):
     """Test item deletion used by a collection."""
     assert item_lib_martigny.get_links_to_me() == {"collections": 1}
-    assert item_lib_martigny.get_links_to_me(get_pids=True) == {
-        "collections": [coll_martigny_1.pid]
-    }
+    assert item_lib_martigny.get_links_to_me(get_pids=True) == {"collections": [coll_martigny_1.pid]}
     can_delete, links = item_lib_martigny.can_delete
     assert not can_delete
     assert links == {"links": {"collections": 1}}

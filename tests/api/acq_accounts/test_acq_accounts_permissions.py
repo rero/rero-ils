@@ -42,9 +42,7 @@ def test_acq_accounts_permissions(
     """Test acq_account permissions class."""
 
     # Anonymous user & Patron :: None action allowed
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         AcqAccountPermissionPolicy,
         {
@@ -131,9 +129,7 @@ def test_acq_accounts_permissions(
 
     # Special case !!! An acquisition account linked to a closed budget
     # should be considerate as roll-overed and can't be updated.
-    with mock.patch(
-        "rero_ils.modules.acquisition.acq_accounts.api.AcqAccount.is_active", False
-    ):
+    with mock.patch("rero_ils.modules.acquisition.acq_accounts.api.AcqAccount.is_active", False):
         check_permission(
             AcqAccountPermissionPolicy,
             {

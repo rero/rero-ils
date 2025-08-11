@@ -58,9 +58,7 @@ def downgrade():
     )
     op.add_column(
         "apiharvester_config",
-        sa.Column(
-            "mimetype", sa.VARCHAR(length=255), autoincrement=False, nullable=False
-        ),
+        sa.Column("mimetype", sa.VARCHAR(length=255), autoincrement=False, nullable=False),
     )
     op.add_column(
         "apiharvester_config",
@@ -70,12 +68,8 @@ def downgrade():
     op.drop_column("apiharvester_config", "classname")
     op.create_table(
         "acq_invoice_metadata",
-        sa.Column(
-            "created", postgresql.TIMESTAMP(), autoincrement=False, nullable=False
-        ),
-        sa.Column(
-            "updated", postgresql.TIMESTAMP(), autoincrement=False, nullable=False
-        ),
+        sa.Column("created", postgresql.TIMESTAMP(), autoincrement=False, nullable=False),
+        sa.Column("updated", postgresql.TIMESTAMP(), autoincrement=False, nullable=False),
         sa.Column("id", postgresql.UUID(), autoincrement=False, nullable=False),
         sa.Column(
             "json",

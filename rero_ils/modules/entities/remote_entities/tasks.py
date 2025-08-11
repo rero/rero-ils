@@ -55,12 +55,8 @@ def sync_entities(from_last_date=True, verbose=0, dry_run=False, in_memory=True)
     :param verbose: (boolean|integer) verbose level
     :param dry_run: (boolean) if true the data are not modified
     """
-    sync_entity = SyncEntity(
-        from_last_date=from_last_date, verbose=verbose, dry_run=dry_run
-    )
-    n_doc_updated, n_mef_updated, sync_mef_errors = sync_entity.sync(
-        in_memory=in_memory
-    )
+    sync_entity = SyncEntity(from_last_date=from_last_date, verbose=verbose, dry_run=dry_run)
+    n_doc_updated, n_mef_updated, sync_mef_errors = sync_entity.sync(in_memory=in_memory)
     n_mef_removed, clean_mef_errors = sync_entity.remove_unused()
     return {
         "n_doc_updated": n_doc_updated,

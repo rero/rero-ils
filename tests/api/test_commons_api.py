@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Commons RERO-ILS REST API."""
+
 import mock
 from flask import url_for
 from flask_principal import Identity, RoleNeed
@@ -33,15 +34,10 @@ from rero_ils.permissions import librarian_delete_permission_factory
 from tests.utils import get_json, mock_response, postdata
 
 
-def test_librarian_delete_permission_factory(
-    client, librarian_fully, org_martigny, lib_martigny
-):
+def test_librarian_delete_permission_factory(client, librarian_fully, org_martigny, lib_martigny):
     """Test librarian_delete_permission_factory"""
     login_user_via_session(client, librarian_fully.user)
-    assert (
-        type(librarian_delete_permission_factory(None, credentials_only=True))
-        == Permission
-    )
+    assert type(librarian_delete_permission_factory(None, credentials_only=True)) == Permission
     assert librarian_delete_permission_factory(org_martigny) is not None
 
 
@@ -75,18 +71,12 @@ def test_permission_exposition(app, db, client, system_librarian_martigny):
     assert res.status_code == 200
     assert not data
 
-    res = client.get(
-        url_for(
-            "api_blueprint.permissions_by_role", role=UserRole.PROFESSIONAL_READ_ONLY
-        )
-    )
+    res = client.get(url_for("api_blueprint.permissions_by_role", role=UserRole.PROFESSIONAL_READ_ONLY))
     data = get_json(res)
     assert res.status_code == 200
     assert UserRole.PROFESSIONAL_READ_ONLY in data
 
-    res = client.get(
-        url_for("api_blueprint.permissions_by_role", role=UserRole.PROFESSIONAL_ROLES)
-    )
+    res = client.get(url_for("api_blueprint.permissions_by_role", role=UserRole.PROFESSIONAL_ROLES))
     data = get_json(res)
     assert res.status_code == 200
     assert all(role in data for role in UserRole.PROFESSIONAL_ROLES)
@@ -106,9 +96,7 @@ def test_permission_exposition(app, db, client, system_librarian_martigny):
     perm = [p for p in data if p["name"] == can_use_debug_mode.value][0]
     assert perm["can"]
     # add a restriction specific for this user
-    db.session.add(
-        ActionUsers.deny(can_use_debug_mode, user_id=system_librarian_martigny.user.id)
-    )
+    db.session.add(ActionUsers.deny(can_use_debug_mode, user_id=system_librarian_martigny.user.id))
     db.session.commit()
     res = client.get(
         url_for(

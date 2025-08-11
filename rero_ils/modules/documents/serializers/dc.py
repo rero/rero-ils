@@ -57,9 +57,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
     # Default container element.
     container_element = "record"
 
-    def transform_record(
-        self, pid, record, links_factory=None, language=DEFAULT_LANGUAGE, **kwargs
-    ):
+    def transform_record(self, pid, record, links_factory=None, language=DEFAULT_LANGUAGE, **kwargs):
         """Transform record into an intermediate representation."""
         record = record.dumps(document_replace_refs_dumper)
         if contributions := record.pop("contribution", []):
@@ -67,9 +65,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
         record = dublincore.do(record, language=language)
         return record
 
-    def transform_search_hit(
-        self, pid, record, links_factory=None, language=DEFAULT_LANGUAGE, **kwargs
-    ):
+    def transform_search_hit(self, pid, record, links_factory=None, language=DEFAULT_LANGUAGE, **kwargs):
         """Transform search result hit into an intermediate representation."""
         record = Document.get_record_by_pid(pid)
         return self.transform_record(
@@ -80,9 +76,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
             **kwargs,
         )
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -139,6 +133,4 @@ class DublinCoreSerializer(_DublinCoreSerializer):
                 echoed_search_rr.append(element.maximumRecords(str(maximum_records)))
             echoed_search_rr.append(element.recordPacking("XML"))
             xml_root.append(echoed_search_rr)
-        return etree.tostring(
-            xml_root, encoding="utf-8", method="xml", pretty_print=True
-        )
+        return etree.tostring(xml_root, encoding="utf-8", method="xml", pretty_print=True)

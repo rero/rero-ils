@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Patron record extensions."""
+
 from invenio_records.extensions import RecordExtension
 
 from rero_ils.modules.users.api import User

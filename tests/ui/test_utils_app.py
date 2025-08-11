@@ -76,9 +76,7 @@ def test_pids_exists_in_data(app, org_martigny, lib_martigny):
         required={"org": "organisation"},
         not_required={"lib": "library"},
     )
-    assert ok == [
-        "test: No pid found: org {'$ref': 'https://bib.rero.ch/api/xxxx/org2'}"
-    ]
+    assert ok == ["test: No pid found: org {'$ref': 'https://bib.rero.ch/api/xxxx/org2'}"]
 
     ok = pids_exists_in_data(
         info="test",
@@ -110,23 +108,15 @@ def test_pids_exists_in_data(app, org_martigny, lib_martigny):
         info="other",
         data={
             "supplement": [{"$ref": "https://bib.rero.ch/api/documents/supplement"}],
-            "supplementTo": [
-                {"$ref": "https://bib.rero.ch/api/documents/supplementTo"}
-            ],
-            "otherEdition": [
-                {"$ref": "https://bib.rero.ch/api/documents/otherEdition"}
-            ],
-            "otherPhysicalFormat": [
-                {"$ref": "https://bib.rero.ch/api/documents/otherPhysicalFormat"}
-            ],
+            "supplementTo": [{"$ref": "https://bib.rero.ch/api/documents/supplementTo"}],
+            "otherEdition": [{"$ref": "https://bib.rero.ch/api/documents/otherEdition"}],
+            "otherPhysicalFormat": [{"$ref": "https://bib.rero.ch/api/documents/otherPhysicalFormat"}],
             "issuedWith": [{"$ref": "https://bib.rero.ch/api/documents/issuedWith"}],
             "precededBy": [{"$ref": "https://bib.rero.ch/api/documents/precededBy"}],
             "succeededBy": [{"$ref": "https://bib.rero.ch/api/documents/succeededBy"}],
             "relatedTo": [{"$ref": "https://bib.rero.ch/api/documents/relatedTo"}],
             "hasReproduction": [{"label": "Ed. sur microfilm: La Chaux-de-Fonds"}],
-            "reproductionOf": [
-                {"label": "Reprod. de l'\u00e9d. de: Leipzig, 1834-1853"}
-            ],
+            "reproductionOf": [{"label": "Reprod. de l'\u00e9d. de: Leipzig, 1834-1853"}],
         },
         not_required={
             "doc": [
@@ -165,24 +155,12 @@ def test_get_record_class_from_schema_or_pid_type(app):
     schema = "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
     assert get_record_class_from_schema_or_pid_type(schema=schema) == Document
     assert get_record_class_from_schema_or_pid_type(pid_type="doc") == Document
-    assert (
-        get_record_class_from_schema_or_pid_type(schema=schema, pid_type="doc")
-        == Document
-    )
-    assert (
-        get_record_class_from_schema_or_pid_type(schema=schema, pid_type="ptrn")
-        == Document
-    )
+    assert get_record_class_from_schema_or_pid_type(schema=schema, pid_type="doc") == Document
+    assert get_record_class_from_schema_or_pid_type(schema=schema, pid_type="ptrn") == Document
 
     schema = "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json"
-    assert (
-        get_record_class_from_schema_or_pid_type(schema=schema, pid_type="doc")
-        == Patron
-    )
-    assert (
-        get_record_class_from_schema_or_pid_type(schema=schema, pid_type="ptrn")
-        == Patron
-    )
+    assert get_record_class_from_schema_or_pid_type(schema=schema, pid_type="doc") == Patron
+    assert get_record_class_from_schema_or_pid_type(schema=schema, pid_type="ptrn") == Patron
     assert get_record_class_from_schema_or_pid_type(pid_type="ptrn") == Patron
 
     assert not get_record_class_from_schema_or_pid_type(pid_type="toto")

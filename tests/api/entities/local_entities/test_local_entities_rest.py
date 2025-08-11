@@ -83,9 +83,7 @@ def test_local_entities_get(client, local_entity_person):
     data = get_json(res)
     entity_person = local_entity_person.replace_refs()
     entity_person["type"] = EntityType.PERSON
-    assert data["hits"]["hits"][0]["metadata"] == entity_person.dumps(
-        dumper=indexer_dumper
-    )
+    assert data["hits"]["hits"][0]["metadata"] == entity_person.dumps(dumper=indexer_dumper)
 
 
 @mock.patch(
@@ -208,12 +206,7 @@ def test_local_entities_resolve(client, mef_agents_url, local_entity_person, doc
 
     # LOCAL ENTITY INTO A DOCUMENT RESOLVER ===================================
     ent_ref = get_ref_for_pid("locent", local_entity_person.pid)
-    document.setdefault("contribution", []).append(
-        {"entity": {"$ref": ent_ref}, "role": ["aut"]}
-    )
+    document.setdefault("contribution", []).append({"entity": {"$ref": ent_ref}, "role": ["aut"]})
     document = document.update(document, dbcommit=True, reindex=True)
     data = document.dumps(dumper=document_replace_refs_dumper)
-    assert any(
-        contribution["entity"].get("pid") == local_entity_person.pid
-        for contribution in data["contribution"]
-    )
+    assert any(contribution["entity"].get("pid") == local_entity_person.pid for contribution in data["contribution"])

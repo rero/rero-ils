@@ -67,16 +67,12 @@ current_librarian = LocalProxy(lambda: Patron.get_librarian_by_user(current_user
 # all patron role accounts related to the current user
 current_patrons = LocalProxy(
     lambda: [
-        patron
-        for patron in Patron.get_patrons_by_user(current_user)
-        if UserRole.PATRON in patron.get("roles", [])
+        patron for patron in Patron.get_patrons_by_user(current_user) if UserRole.PATRON in patron.get("roles", [])
     ]
 )
 
 # provider
-PatronProvider = type(
-    "PatronProvider", (Provider,), dict(identifier=PatronIdentifier, pid_type="ptrn")
-)
+PatronProvider = type("PatronProvider", (Provider,), dict(identifier=PatronIdentifier, pid_type="ptrn"))
 # minter
 patron_id_minter = partial(id_minter, provider=PatronProvider)
 # fetcher
@@ -128,11 +124,7 @@ class Patron(IlsRecord):
             )
             taken_barcodes = []
             for hit in results:
-                taken_barcodes.extend(
-                    barcode
-                    for barcode in hit.patron.barcode
-                    if barcode in patron_barcodes
-                )
+                taken_barcodes.extend(barcode for barcode in hit.patron.barcode if barcode in patron_barcodes)
             if taken_barcodes:
                 return ngettext(
                     f"Barcode {taken_barcodes[0]} is already taken",
@@ -146,9 +138,7 @@ class Patron(IlsRecord):
     # CRUD METHODS
     # =========================================================================
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs):
         """Patron record creation.
 
         :param cls - class object
@@ -158,9 +148,7 @@ class Patron(IlsRecord):
         :param dbcommit - commit the changes in the db after the creation
         :param reindex - index the record after the creation
         """
-        record = super().create(
-            cls._clean_data(data), id_, delete_pid, dbcommit, reindex, **kwargs
-        )
+        record = super().create(cls._clean_data(data), id_, delete_pid, dbcommit, reindex, **kwargs)
         record._update_roles()
         return record
 
@@ -244,10 +232,7 @@ class Patron(IlsRecord):
             and self.user.email is None
             and patron.get("additional_communication_email") is None
         ):
-            raise ValidationError(
-                "At least one email should be defined "
-                "for an email communication channel."
-            )
+            raise ValidationError("At least one email should be defined for an email communication channel.")
 
     @classmethod
     def _clean_data(cls, data):
@@ -296,9 +281,7 @@ class Patron(IlsRecord):
         # current user
         external_patron_roles = self.get_patrons_roles(exclude_self=True)
         # roles only on the current patron account
-        filtered_roles = filter(
-            lambda r: r not in external_patron_roles, self.get("roles")
-        )
+        filtered_roles = filter(lambda r: r not in external_patron_roles, self.get("roles"))
         for role in [r for r in filtered_roles if r in db_roles]:
             self.remove_role(role)
 
@@ -379,11 +362,7 @@ class Patron(IlsRecord):
         prevent users with role librarian to delete a system_librarian.
         """
         others = {}
-        if (
-            current_librarian
-            and not current_librarian.has_full_permissions
-            and self.has_full_permissions
-        ):
+        if current_librarian and not current_librarian.has_full_permissions and self.has_full_permissions:
             others["permission denied"] = True
         return others
 
@@ -403,11 +382,7 @@ class Patron(IlsRecord):
 
         :param public: Is the message is for public interface ?
         """
-        main = (
-            _("Your account is currently blocked.")
-            if public
-            else _("This patron is currently blocked.")
-        )
+        main = _("Your account is currently blocked.") if public else _("This patron is currently blocked.")
         if self.is_blocked:
             return f"{main} {_('Reason')}: {self.patron.get('blocked_note')}"
 
@@ -439,9 +414,7 @@ class Patron(IlsRecord):
             subscriptions.append(
                 {
                     "patron_type": {"$ref": get_ref_for_pid("ptty", patron_type.pid)},
-                    "patron_transaction": {
-                        "$ref": get_ref_for_pid("pttr", transaction.pid)
-                    },
+                    "patron_transaction": {"$ref": get_ref_for_pid("pttr", transaction.pid)},
                     "start_date": start_date.strftime("%Y-%m-%d"),
                     "end_date": end_date.strftime("%Y-%m-%d"),
                 }
@@ -502,10 +475,7 @@ class Patron(IlsRecord):
                 messages.append(
                     {
                         "type": "error",
-                        "content": _(
-                            "Transactions denied: maximum amount of "
-                            "overdue fees reached"
-                        ),
+                        "content": _("Transactions denied: maximum amount of overdue fees reached"),
                     }
                 )
             # check the patron type overdue limit
@@ -513,10 +483,7 @@ class Patron(IlsRecord):
                 messages.append(
                     {
                         "type": "error",
-                        "content": _(
-                            "Checkout denied: maximum number of "
-                            "overdue items reached"
-                        ),
+                        "content": _("Checkout denied: maximum number of overdue items reached"),
                     }
                 )
         return messages
@@ -554,12 +521,7 @@ class Patron(IlsRecord):
     @classmethod
     def get_all_pids_for_organisation(cls, organisation_pid):
         """Get all patron pids for a specific organisation."""
-        query = (
-            PatronsSearch()
-            .filter("term", organisation__pid=organisation_pid)
-            .source(includes="pid")
-            .scan()
-        )
+        query = PatronsSearch().filter("term", organisation__pid=organisation_pid).source(includes="pid").scan()
         for hit in query:
             yield hit["pid"]
 
@@ -577,12 +539,7 @@ class Patron(IlsRecord):
         """Get all patrons by user."""
         patrons = []
         if hasattr(user, "id"):
-            result = (
-                PatronsSearch()
-                .filter("term", user_id=user.id)
-                .source(includes="pid")
-                .scan()
-            )
+            result = PatronsSearch().filter("term", user_id=user.id).source(includes="pid").scan()
             patrons = [cls.get_record_by_pid(hit.pid) for hit in result]
         return patrons
 
@@ -650,12 +607,7 @@ class Patron(IlsRecord):
         if end_date is None:
             end_date = datetime.now()
         end_date = end_date.strftime("%Y-%m-%d")
-        results = (
-            PatronsSearch()
-            .filter("range", patron__subscriptions__end_date={"lt": end_date})
-            .source("pid")
-            .scan()
-        )
+        results = PatronsSearch().filter("range", patron__subscriptions__end_date={"lt": end_date}).source("pid").scan()
         for result in results:
             yield Patron.get_record_by_pid(result.pid)
 
@@ -695,10 +647,7 @@ class Patron(IlsRecord):
                 Q("exists", field="email"),
             ],
         )
-        to_mail_pids = [
-            [hit["pid"], CommunicationChannel.MAIL, hit.meta.id]
-            for hit in mail_query.scan()
-        ]
+        to_mail_pids = [[hit["pid"], CommunicationChannel.MAIL, hit.meta.id] for hit in mail_query.scan()]
         email_query = basic_query(CommunicationChannel.MAIL).filter(
             "bool",
             should=[
@@ -706,19 +655,14 @@ class Patron(IlsRecord):
                 Q("exists", field="email"),
             ],
         )
-        to_email_pids = [
-            [hit["pid"], CommunicationChannel.EMAIL, hit.meta.id]
-            for hit in email_query.scan()
-        ]
+        to_email_pids = [[hit["pid"], CommunicationChannel.EMAIL, hit.meta.id] for hit in email_query.scan()]
         pids = to_mail_pids + to_email_pids
         ids = []
         for pid, channel, id in pids:
             ids.append(id)
             if patron := Patron.get_record_by_pid(pid):
                 patron["patron"]["communication_channel"] = channel
-                db.session.query(patron.model_cls).filter_by(id=patron.id).update(
-                    {patron.model_cls.json: patron}
-                )
+                db.session.query(patron.model_cls).filter_by(id=patron.id).update({patron.model_cls.json: patron})
         if ids:
             # commit session
             db.session.commit()
@@ -791,9 +735,7 @@ class Patron(IlsRecord):
     @property
     def is_professional_user(self):
         """Shortcut to check if user has librarian role."""
-        return any(
-            role in UserRole.PROFESSIONAL_ROLES for role in self.get("roles", [])
-        )
+        return any(role in UserRole.PROFESSIONAL_ROLES for role in self.get("roles", []))
 
     @property
     def has_full_permissions(self):
@@ -832,10 +774,7 @@ class Patron(IlsRecord):
     def library_pids(self):
         """Shortcut for patron libraries pid."""
         if self.is_professional_user:
-            return [
-                extracted_data_from_ref(library)
-                for library in self.get("libraries", [])
-            ]
+            return [extracted_data_from_ref(library) for library in self.get("libraries", [])]
 
     @property
     def manageable_library_pids(self):
@@ -879,9 +818,7 @@ class Patron(IlsRecord):
             end = datetime.strptime(subscription["end_date"], "%Y-%m-%d")
             return start < datetime.now() < end
 
-        subs = filter(
-            is_subscription_valid, self.get("patron", {}).get("subscriptions", [])
-        )
+        subs = filter(is_subscription_valid, self.get("patron", {}).get("subscriptions", []))
         return list(subs)
 
     @property
@@ -907,11 +844,7 @@ class Patron(IlsRecord):
         birth_date = self.user.user_profile["birth_date"]
         birth_date = datetime.strptime(birth_date, "%Y-%m-%d")
         today = date.today()
-        return (
-            today.year
-            - birth_date.year
-            - ((today.month, today.day) < (birth_date.month, birth_date.day))
-        )
+        return today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
 
 
 class PatronsIndexer(IlsRecordsIndexer):

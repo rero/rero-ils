@@ -30,9 +30,7 @@ from rero_ils.modules.stats.api.report import StatsReport
 def stats(item_lib_martigny, item_lib_fully, item_lib_sion, ill_request_martigny):
     """Stats fixture."""
     stats = StatsForPricing(to_date=arrow.utcnow())
-    yield Stat.create(
-        data=dict(type="billing", values=stats.collect()), dbcommit=True, reindex=True
-    )
+    yield Stat.create(data=dict(type="billing", values=stats.collect()), dbcommit=True, reindex=True)
 
 
 @pytest.fixture(scope="module")

@@ -60,11 +60,7 @@ class OperationLogsSearch(IlsRecordsSearch):
         :param str pid: record PID.
         :returns: List of logs.
         """
-        return list(
-            self.filter("bool", must={"exists": {"field": "loan"}})
-            .filter("term", record__value=pid)
-            .scan()
-        )
+        return list(self.filter("bool", must={"exists": {"field": "loan"}}).filter("term", record__value=pid).scan())
 
 
 def operation_log_id_fetcher(record_uuid, data):
@@ -116,9 +112,7 @@ class OperationLog(RecordBase):
             validator = kwargs.pop("validator", None)
             if "$schema" not in record:
                 record["$schema"] = current_jsonschemas.path_to_url(cls._schema)
-            record._validate(
-                format_checker=format_checker, validator=validator, use_model=False
-            )
+            record._validate(format_checker=format_checker, validator=validator, use_model=False)
 
         current_search_client.index(
             index=cls.get_index(record),
@@ -180,21 +174,12 @@ class OperationLog(RecordBase):
         :returns: The :class:`Record` instance.
         """
         # here the elasticsearch get API cannot be used with an index alias
-        return cls(
-            next(
-                RecordsSearch(index=cls.index_name).filter("term", _id=_id).scan()
-            ).to_dict()
-        )
+        return cls(next(RecordsSearch(index=cls.index_name).filter("term", _id=_id).scan()).to_dict())
 
     @classmethod
     def get_indices(cls):
         """Get all index names present in the elasticsearch server."""
-        return {
-            v["index"]
-            for v in current_search_client.cat.indices(
-                index=f"{cls.index_name}*", format="json"
-            )
-        }
+        return {v["index"] for v in current_search_client.cat.indices(index=f"{cls.index_name}*", format="json")}
 
     @classmethod
     def delete_indices(cls):

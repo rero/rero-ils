@@ -37,12 +37,8 @@ class LibraryAcquisitionNotificationDumper(InvenioRecordsDumper):
             {
                 "name": record.get("name"),
                 "address": record.get_address(LibraryAddressType.MAIN_ADDRESS),
-                "shipping_informations": record.get("acquisition_settings", {}).get(
-                    "shipping_informations", {}
-                ),
-                "billing_informations": record.get("acquisition_settings", {}).get(
-                    "billing_informations", {}
-                ),
+                "shipping_informations": record.get("acquisition_settings", {}).get("shipping_informations", {}),
+                "billing_informations": record.get("acquisition_settings", {}).get("billing_informations", {}),
             }
         )
         data = {k: v for k, v in data.items() if v}
@@ -65,12 +61,8 @@ class LibrarySerialClaimNotificationDumper(InvenioRecordsDumper):
             {
                 "name": record.get("name"),
                 "address": record.get_address(LibraryAddressType.MAIN_ADDRESS),
-                "shipping_informations": record.get(
-                    "serial_acquisition_settings", {}
-                ).get("shipping_informations", {}),
-                "billing_informations": record.get(
-                    "serial_acquisition_settings", {}
-                ).get("billing_informations", {}),
+                "shipping_informations": record.get("serial_acquisition_settings", {}).get("shipping_informations", {}),
+                "billing_informations": record.get("serial_acquisition_settings", {}).get("billing_informations", {}),
             }
         )
         data = {k: v for k, v in data.items() if v}

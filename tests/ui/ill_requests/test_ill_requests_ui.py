@@ -68,16 +68,12 @@ def test_ill_request_create_request_form(
     assert res.status_code == 302
 
 
-def test_ill_request_with_document(
-    client, app, document, patron_martigny, default_user_password
-):
+def test_ill_request_with_document(client, app, document, patron_martigny, default_user_password):
     """Test ills request form with document data."""
     app.config["RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW"] = True
     app.config["RERO_ILS_ILL_DEFAULT_SOURCE"] = "RERO +"
 
-    request_form_url = url_for(
-        "ill_requests.ill_request_form", viewcode="global", record_pid=document.pid
-    )
+    request_form_url = url_for("ill_requests.ill_request_form", viewcode="global", record_pid=document.pid)
 
     # logged as user
     login_user_for_view(client, patron_martigny, default_user_password)

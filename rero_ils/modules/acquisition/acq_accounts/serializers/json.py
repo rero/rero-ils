@@ -29,9 +29,7 @@ class AcqAccountJSONSerializer(ACQJSONSerializer):
     def _postprocess_search_hit(self, hit: dict) -> None:
         """Post-process each hit of a search result."""
         hit["metadata"]["number_of_children"] = (
-            AcqAccountsSearch()
-            .filter("term", parent__pid=hit["metadata"]["pid"])
-            .count()
+            AcqAccountsSearch().filter("term", parent__pid=hit["metadata"]["pid"]).count()
         )
         super()._postprocess_search_hit(hit)
 
@@ -56,9 +54,7 @@ class AcqAccountJSONSerializer(ACQJSONSerializer):
                 if value is not None:
                     record[key] = value
 
-        return super().preprocess_record(
-            pid=pid, record=record, links_factory=links_factory, kwargs=kwargs
-        )
+        return super().preprocess_record(pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)
 
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""

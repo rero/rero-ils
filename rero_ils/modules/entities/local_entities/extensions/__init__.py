@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Local entity record extensions."""
+
 from .authorized_access_point import AuthorizedAccessPointExtension
 from .local_entity_factory import LocalEntityFactoryExtension
 

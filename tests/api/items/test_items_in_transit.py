@@ -17,7 +17,6 @@
 
 """Tests items in-transit."""
 
-
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.items.api import Item
@@ -52,10 +51,7 @@ def test_items_in_transit_between_libraries(
         ),
     )
     assert res.status_code == 200
-    assert (
-        Item.get_record_by_pid(item_lib_martigny.pid).get("status")
-        == ItemStatus.ON_LOAN
-    )
+    assert Item.get_record_by_pid(item_lib_martigny.pid).get("status") == ItemStatus.ON_LOAN
     item_data = data.get("metadata")
     actions = data.get("action_applied")
     assert item_data.get("status") == ItemStatus.ON_LOAN

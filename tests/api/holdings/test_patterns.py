@@ -36,9 +36,7 @@ from rero_ils.modules.utils import get_ref_for_pid, get_schema_for_resource
 from tests.utils import get_json, postdata
 
 
-def test_pattern_preview_api(
-    client, holding_lib_martigny_w_patterns, librarian_martigny
-):
+def test_pattern_preview_api(client, holding_lib_martigny_w_patterns, librarian_martigny):
     """Test holdings patterns preview api."""
     login_user_via_session(client, librarian_martigny.user)
     holding = holding_lib_martigny_w_patterns
@@ -50,26 +48,20 @@ def test_pattern_preview_api(
     assert issues[0]["issue"] == "no 61 mars 2020"
     assert len(issues) == 10
     # test invalid size
-    res = client.get(
-        url_for("api_holding.patterns_preview", holding_pid=holding.pid, size="no size")
-    )
+    res = client.get(url_for("api_holding.patterns_preview", holding_pid=holding.pid, size="no size"))
     assert res.status_code == 200
     issues = get_json(res).get("issues")
     assert issues[0]["issue"] == "no 61 mars 2020"
     assert len(issues) == 10
     # test preview for a given size
-    res = client.get(
-        url_for("api_holding.patterns_preview", holding_pid=holding.pid, size=13)
-    )
+    res = client.get(url_for("api_holding.patterns_preview", holding_pid=holding.pid, size=13))
     assert res.status_code == 200
     issues = get_json(res).get("issues")
     assert issues[12]["issue"] == "no 73 mars 2023"
     assert len(issues) == 13
 
 
-def test_pattern_preview_api(
-    client, holding_lib_martigny_w_patterns, librarian_martigny
-):
+def test_pattern_preview_api(client, holding_lib_martigny_w_patterns, librarian_martigny):
     """Test holdings patterns preview api."""
     login_user_via_session(client, librarian_martigny.user)
     holding = holding_lib_martigny_w_patterns
@@ -81,17 +73,13 @@ def test_pattern_preview_api(
     assert issues[0]["issue"] == "no 61 mars 2020"
     assert len(issues) == 10
     # test invalid size
-    res = client.get(
-        url_for("api_holding.patterns_preview", holding_pid=holding.pid, size="no size")
-    )
+    res = client.get(url_for("api_holding.patterns_preview", holding_pid=holding.pid, size="no size"))
     assert res.status_code == 200
     issues = get_json(res).get("issues")
     assert issues[0]["issue"] == "no 61 mars 2020"
     assert len(issues) == 10
     # test preview for a given size
-    res = client.get(
-        url_for("api_holding.patterns_preview", holding_pid=holding.pid, size=13)
-    )
+    res = client.get(url_for("api_holding.patterns_preview", holding_pid=holding.pid, size=13))
     assert res.status_code == 200
     issues = get_json(res).get("issues")
     assert issues[12]["issue"] == "no 73 mars 2023"
@@ -108,9 +96,7 @@ def test_receive_regular_issue_api(
     """Test holdings receive regular issues API."""
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
-    issue_display, expected_date = holding._get_next_issue_display_text(
-        holding.get("patterns")
-    )
+    issue_display, expected_date = holding._get_next_issue_display_text(holding.get("patterns"))
     # not logged users are not authorized
     res, data = postdata(
         client,
@@ -165,9 +151,7 @@ def test_receive_regular_issue_api(
     assert res.status_code == 200
     issue = get_json(res).get("issue")
     assert issue.get("enumerationAndChronology") == "free_text"
-    assert issue.get("issue").get("expected_date") == datetime.now().strftime(
-        "%Y-%m-%d"
-    )
+    assert issue.get("issue").get("expected_date") == datetime.now().strftime("%Y-%m-%d")
 
 
 def test_create_holdings_with_pattern(
@@ -227,16 +211,12 @@ def test_create_holdings_with_pattern(
     assert journal_pids == [journal.pid]
 
 
-def test_holding_pattern_preview_api(
-    client, pattern_yearly_one_level_data, librarian_martigny
-):
+def test_holding_pattern_preview_api(client, pattern_yearly_one_level_data, librarian_martigny):
     """Test holdings patterns preview api."""
     login_user_via_session(client, librarian_martigny.user)
     patterns = pattern_yearly_one_level_data.get("patterns")
     # test preview by default 10 issues returned
-    res, data = postdata(
-        client, "api_holding.pattern_preview", dict(data=patterns, size=15)
-    )
+    res, data = postdata(client, "api_holding.pattern_preview", dict(data=patterns, size=15))
     assert res.status_code == 200
 
     issues = get_json(res).get("issues")
@@ -269,9 +249,7 @@ def test_automatic_item_creation_no_serials(
     holding = Holding.get_record_by_pid(item.holding_pid)
     assert holding.pid != holding_lib_martigny_w_patterns.pid
     assert holding.location_pid == holding_lib_martigny_w_patterns.location_pid
-    assert holding.get("circulation_category") == holding_lib_martigny_w_patterns.get(
-        "circulation_category"
-    )
+    assert holding.get("circulation_category") == holding_lib_martigny_w_patterns.get("circulation_category")
 
 
 def test_pattern_validate_next_expected_date(
@@ -301,14 +279,10 @@ def test_pattern_validate_next_expected_date(
         Holding.create(data=holding, delete_pid=False, dbcommit=True, reindex=True)
 
 
-def test_irregular_issue_creation_update_delete_api(
-    client, holding_lib_martigny_w_patterns, librarian_martigny
-):
+def test_irregular_issue_creation_update_delete_api(client, holding_lib_martigny_w_patterns, librarian_martigny):
     """Test create, update and delete of an irregular issue API."""
     holding = holding_lib_martigny_w_patterns
-    issue_display, expected_date = holding._get_next_issue_display_text(
-        holding.get("patterns")
-    )
+    issue_display, expected_date = holding._get_next_issue_display_text(holding.get("patterns"))
 
     login_user_via_session(client, librarian_martigny.user)
     item = {
@@ -335,9 +309,7 @@ def test_irregular_issue_creation_update_delete_api(
     assert created_item.get("type") == "issue"
     assert not created_item.get("issue").get("regular")
     assert created_item.get("enumerationAndChronology") == "irregular_issue"
-    new_issue_display, new_expected_date = holding._get_next_issue_display_text(
-        holding.get("patterns")
-    )
+    new_issue_display, new_expected_date = holding._get_next_issue_display_text(holding.get("patterns"))
     assert new_issue_display == issue_display
     assert new_expected_date == expected_date
 

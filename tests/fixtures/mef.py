@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common pytest fixtures and plugins for MEF entities."""
+
 from copy import deepcopy
 
 import pytest
@@ -36,9 +37,7 @@ def mef_concept1_data(mef_entities):
 @pytest.fixture(scope="module")
 def mef_concept1(mef_concept1_data):
     """Load MEF concept_1 data."""
-    entity = RemoteEntity.create(
-        data=mef_concept1_data, dbcommit=True, reindex=True, delete_pid=False
-    )
+    entity = RemoteEntity.create(data=mef_concept1_data, dbcommit=True, reindex=True, delete_pid=False)
     RemoteEntitiesSearch.flush_and_refresh()
     return entity
 

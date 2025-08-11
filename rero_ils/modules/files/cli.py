@@ -17,7 +17,6 @@
 
 """Click command-line interface for item record management."""
 
-
 import contextlib
 import os
 from io import BytesIO
@@ -77,15 +76,9 @@ def create_pdf_record_files(document, metadata, number_of_files=1):
     content = create_pdf_file(document)
     # create the record file
     try:
-        record = next(
-            document.get_records_files(
-                lib_pids=[extracted_data_from_ref(metadata.get("library"))]
-            )
-        )
+        record = next(document.get_records_files(lib_pids=[extracted_data_from_ref(metadata.get("library"))]))
     except StopIteration:
-        item = record_service.create(
-            identity=system_identity, data={"metadata": metadata}
-        )
+        item = record_service.create(identity=system_identity, data={"metadata": metadata})
         record = item._record
         record.commit()
         # index the file record
@@ -100,9 +93,7 @@ def create_pdf_record_files(document, metadata, number_of_files=1):
             # Required for the permission policies
             # TODO: find a cleaner approach i.e. create a permission to allow
             # boolean operators
-            file_service.init_files(
-                identity=system_identity, id_=recid, data=[{"key": file_name}], uow=uow
-            )
+            file_service.init_files(identity=system_identity, id_=recid, data=[{"key": file_name}], uow=uow)
             file_service.set_file_content(
                 identity=system_identity,
                 id_=recid,
@@ -110,9 +101,7 @@ def create_pdf_record_files(document, metadata, number_of_files=1):
                 stream=BytesIO(content),
                 uow=uow,
             )
-            file_service.commit_file(
-                identity=system_identity, id_=recid, file_key=file_name, uow=uow
-            )
+            file_service.commit_file(identity=system_identity, id_=recid, file_key=file_name, uow=uow)
         uow.commit()
     return record
 
@@ -130,15 +119,9 @@ def load_files_for_document(document, metadata, files):
     record_service = ext.records_service
     file_service = ext.records_files_service
     try:
-        record = next(
-            document.get_records_files(
-                lib_pids=[extracted_data_from_ref(metadata.get("library"))]
-            )
-        )
+        record = next(document.get_records_files(lib_pids=[extracted_data_from_ref(metadata.get("library"))]))
     except StopIteration:
-        item = record_service.create(
-            identity=system_identity, data={"metadata": metadata}
-        )
+        item = record_service.create(identity=system_identity, data={"metadata": metadata})
         record = item._record
         record.commit()
         # index the file record
@@ -153,9 +136,7 @@ def load_files_for_document(document, metadata, files):
             # attach the file record to the document
             file_name = os.path.basename(file_path)
             stream = open(file_path, "rb")
-            file_service.init_files(
-                identity=system_identity, id_=recid, data=[{"key": file_name}], uow=uow
-            )
+            file_service.init_files(identity=system_identity, id_=recid, data=[{"key": file_name}], uow=uow)
             file_service.set_file_content(
                 identity=system_identity,
                 id_=recid,
@@ -163,9 +144,7 @@ def load_files_for_document(document, metadata, files):
                 stream=stream,
                 uow=uow,
             )
-            file_service.commit_file(
-                identity=system_identity, id_=recid, file_key=file_name, uow=uow
-            )
+            file_service.commit_file(identity=system_identity, id_=recid, file_key=file_name, uow=uow)
         uow.commit()
 
 
@@ -196,9 +175,7 @@ def create_files(number, collections):
             collections=[choice(collections)],
             library={"$ref": get_ref_for_pid("lib", lib_pid)},
         )
-        create_pdf_record_files(
-            document=doc, metadata=metadata, number_of_files=number_of_files
-        )
+        create_pdf_record_files(document=doc, metadata=metadata, number_of_files=number_of_files)
 
 
 @click.command()

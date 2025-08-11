@@ -27,13 +27,9 @@ from rero_ils.modules.entities.remote_entities.permissions import (
 from tests.utils import check_permission, get_json
 
 
-def test_remote_entity_permissions_api(
-    client, patron_martigny, entity_person, librarian_martigny
-):
+def test_remote_entity_permissions_api(client, patron_martigny, entity_person, librarian_martigny):
     """Test entities permissions api."""
-    prs_permissions_url = url_for(
-        "api_blueprint.permissions", route_name="remote_entities"
-    )
+    prs_permissions_url = url_for("api_blueprint.permissions", route_name="remote_entities")
     prs_real_permission_url = url_for(
         "api_blueprint.permissions",
         route_name="remote_entities",
@@ -61,18 +57,14 @@ def test_remote_entity_permissions_api(
     assert not data["delete"]["can"]
 
 
-def test_remote_entity_permissions(
-    patron_martigny, librarian_martigny, system_librarian_martigny
-):
+def test_remote_entity_permissions(patron_martigny, librarian_martigny, system_librarian_martigny):
     """Test entity permissions class."""
     permission_policy = RemoteEntityPermissionPolicy
 
     # Anonymous user
     #   - Allow search/read actions on any entity
     #   - Deny create/update/delete actions on any entity
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         permission_policy,
         {

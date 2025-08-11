@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO-ILS Loan resource serializers for JSON format."""
+
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.dumpers import ItemCirculationDumper
@@ -39,12 +40,8 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
 
         def _post_process_search_request_hit(metadata, item):
             """Adds some information about a request."""
-            loc = self.get_resource(
-                LocationsSearch(), metadata.get("pickup_location_pid")
-            )
-            metadata.update(
-                {"pickup_name": loc.get("pickup_name", loc.get("name")), "rank": 0}
-            )
+            loc = self.get_resource(LocationsSearch(), metadata.get("pickup_location_pid"))
+            metadata.update({"pickup_name": loc.get("pickup_name", loc.get("name")), "rank": 0})
             if metadata["state"] not in LoanState.ITEM_AT_DESK:
                 patron_pid = metadata.get("patron", {}).get("pid")
                 patron = self.get_resource(Patron, patron_pid)
@@ -80,9 +77,7 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         #   data related to this patron
         if patron_pid := metadata.pop("patron_pid", None):
             patron = self.get_resource(Patron, patron_pid)
-            metadata["patron"] = patron.dumps(
-                dumper=PatronPropertiesDumper(["formatted_name"])
-            )
+            metadata["patron"] = patron.dumps(dumper=PatronPropertiesDumper(["formatted_name"]))
 
         # DUMP ITEM INFORMATION
         #   Replace the `item_pid` reference by some specific item metadata.
@@ -100,9 +95,7 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                 metadata["is_late"] = loan.is_loan_late()
             elif loan_state in LoanState.REQUEST_STATES:
                 _post_process_search_request_hit(metadata, item)
-            elif loan_state in LoanState.CONCLUDED + [
-                LoanState.ITEM_IN_TRANSIT_TO_HOUSE
-            ]:
+            elif loan_state in LoanState.CONCLUDED + [LoanState.ITEM_IN_TRANSIT_TO_HOUSE]:
                 _post_process_search_concluded_hit(metadata, loan)
 
     def _postprocess_search_aggregations(self, aggregations):
@@ -154,7 +147,5 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         #   filter query hit as a 'classic' term facet hit.
         if misc_aggr := aggregations.get("misc_status", {}).get("buckets"):
             aggregations["misc_status"]["buckets"] = [
-                {"key": term, "doc_count": hit["doc_count"]}
-                for term, hit in misc_aggr.items()
-                if hit.get("doc_count")
+                {"key": term, "doc_count": hit["doc_count"]} for term, hit in misc_aggr.items() if hit.get("doc_count")
             ]

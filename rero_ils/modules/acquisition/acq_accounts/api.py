@@ -76,9 +76,7 @@ class AcqAccount(AcquisitionIlsRecord):
     _extensions = [ParentAccountDistributionCheck()]
 
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs):
         """Create Acquisition Order Line record."""
         return super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
 
@@ -180,11 +178,7 @@ class AcqAccount(AcquisitionIlsRecord):
             AcqOrderLineStatus.ORDERED,
             AcqOrderLineStatus.PARTIALLY_RECEIVED,
         ]
-        query = (
-            AcqOrderLinesSearch()
-            .filter("term", acq_account__pid=self.pid)
-            .filter("terms", status=status_list)
-        )
+        query = AcqOrderLinesSearch().filter("term", acq_account__pid=self.pid).filter("terms", status=status_list)
         query.aggs.metric("total_amount", "sum", field="total_unreceived_amount")
         results = query.execute()
         self_amount = results.aggregations.total_amount.value
@@ -216,18 +210,10 @@ class AcqAccount(AcquisitionIlsRecord):
         search = AcqReceiptsSearch().filter(
             "nested",
             path="amount_adjustments",
-            query=Q(
-                "bool", must=[Q("match", amount_adjustments__acq_account__pid=self.pid)]
-            ),
+            query=Q("bool", must=[Q("match", amount_adjustments__acq_account__pid=self.pid)]),
         )
         receipt_expenditure = sum(
-            sum(
-                [
-                    adjustment.amount
-                    for adjustment in hit.amount_adjustments
-                    if adjustment.acq_account.pid == self.pid
-                ]
-            )
+            sum([adjustment.amount for adjustment in hit.amount_adjustments if adjustment.acq_account.pid == self.pid])
             for hit in search.scan()
         )
         self_amount = lines_expenditure + receipt_expenditure
@@ -256,14 +242,8 @@ class AcqAccount(AcquisitionIlsRecord):
         encumbrance = self.encumbrance_amount
         expenditure = self.expenditure_amount
 
-        self_balance = (
-            initial_amount - self.distribution - encumbrance[0] - expenditure[0]
-        )
-        total_balance = (
-            initial_amount
-            - sum(list(self.encumbrance_amount))
-            - sum(list(self.expenditure_amount))
-        )
+        self_balance = initial_amount - self.distribution - encumbrance[0] - expenditure[0]
+        total_balance = initial_amount - sum(list(self.encumbrance_amount)) - sum(list(self.expenditure_amount))
 
         return round(self_balance, 2), round(total_balance, 2)
 
@@ -337,9 +317,7 @@ class AcqAccount(AcquisitionIlsRecord):
         #     * from common ancestor (not included) to target account, we need
         #       to increase the allocated amount.
         target_ancestors = list(target_account.get_ancestors())
-        common_ancestors = list(
-            set([self] + source_ancestors) & set([target_account] + target_ancestors)
-        )
+        common_ancestors = list(set([self] + source_ancestors) & set([target_account] + target_ancestors))
         common_ancestor = None
         if common_ancestors:
             common_ancestor = max(common_ancestors, key=lambda a: a.depth)
@@ -405,16 +383,12 @@ class AcqAccount(AcquisitionIlsRecord):
                          if False count of linked records
         """
         links = {}
-        order_lines_query = AcqOrderLinesSearch().filter(
-            "term", acq_account__pid=self.pid
-        )
+        order_lines_query = AcqOrderLinesSearch().filter("term", acq_account__pid=self.pid)
         children_query = AcqAccountsSearch().filter("term", parent__pid=self.pid)
         receipts_query = AcqReceiptsSearch().filter(
             "nested",
             path="amount_adjustments",
-            query=Q(
-                "bool", must=[Q("match", amount_adjustments__acq_account__pid=self.pid)]
-            ),
+            query=Q("bool", must=[Q("match", amount_adjustments__acq_account__pid=self.pid)]),
         )
 
         if get_pids:

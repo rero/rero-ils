@@ -20,6 +20,7 @@
 
 Responsible for creating an HTTP response given the output of a serializer.
 """
+
 from __future__ import absolute_import, print_function
 
 from datetime import datetime
@@ -80,9 +81,7 @@ def search_responsify(serializer, mimetype):
     return view
 
 
-def search_responsify_file(
-    serializer, mimetype, file_extension, file_prefix=None, file_suffix=None
-):
+def search_responsify_file(serializer, mimetype, file_extension, file_prefix=None, file_suffix=None):
     """Create a Records-REST search result response serializer.
 
     :param serializer: Serializer instance.
@@ -116,9 +115,7 @@ def search_responsify_file(
         parts = filter(None, [file_prefix, tstamp, file_suffix])
         filename = "-".join(parts) + "." + file_extension
         if not response.headers.get("Content-Disposition"):
-            response.headers["Content-Disposition"] = (
-                f'attachment; filename="{filename}"'
-            )
+            response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
 
         if links is not None:
             add_link_header(response, links)
@@ -128,9 +125,7 @@ def search_responsify_file(
     return view
 
 
-def record_responsify_file(
-    serializer, mimetype, file_extension, file_prefix=None, file_suffix=None
-):
+def record_responsify_file(serializer, mimetype, file_extension, file_prefix=None, file_suffix=None):
     """Create a Records-REST search result response serializer.
 
     :param serializer: Serializer instance.
@@ -155,9 +150,7 @@ def record_responsify_file(
         parts = filter(None, [file_prefix, tstamp, file_suffix])
         filename = "-".join(parts) + "." + file_extension
         if not response.headers.get("Content-Disposition"):
-            response.headers["Content-Disposition"] = (
-                f'attachment; filename="{filename}"'
-            )
+            response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
 
         if links_factory is not None:
             add_link_header(response, links_factory(pid))

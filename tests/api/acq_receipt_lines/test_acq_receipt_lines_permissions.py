@@ -40,9 +40,7 @@ def test_receipt_lines_permissions(
 ):
     """Test receipt line permissions class."""
     # Anonymous user & Patron :: None action allowed
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         AcqReceiptLinePermissionPolicy,
         {
@@ -141,8 +139,7 @@ def test_receipt_lines_permissions(
     # Special case !!! An acquisition receipt line linked to a closed budget
     # should be considerate as roll-overed and can't be updated.
     with mock.patch(
-        "rero_ils.modules.acquisition.acq_receipt_lines.api.AcqReceiptLine."
-        "is_active",
+        "rero_ils.modules.acquisition.acq_receipt_lines.api.AcqReceiptLine.is_active",
         False,
     ):
         check_permission(

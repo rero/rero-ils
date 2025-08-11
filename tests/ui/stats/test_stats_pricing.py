@@ -76,9 +76,7 @@ def test_stats_pricing_number_of_librarians(stat_for_pricing, librarian_martigny
     assert stat_for_pricing.number_of_librarians(lib_pid) == 1
 
 
-def test_stats_pricing_number_of_active_patrons(
-    stat_for_pricing, loan_due_soon_martigny, lib_martigny
-):
+def test_stats_pricing_number_of_active_patrons(stat_for_pricing, loan_due_soon_martigny, lib_martigny):
     """Test the number of patrons who did a transaction in the past 365 days."""
     assert stat_for_pricing.number_of_active_patrons("foo") == 0
     assert stat_for_pricing.number_of_active_patrons(lib_martigny.pid) == 1
@@ -97,56 +95,28 @@ def test_stats_pricing_number_of_active_patrons(
     stat_for_pricing.date_range = default_date_range
 
 
-def test_stats_pricing_number_of_order_lines(
-    stat_for_pricing, acq_order_line_fiction_martigny
-):
+def test_stats_pricing_number_of_order_lines(stat_for_pricing, acq_order_line_fiction_martigny):
     """Test the number of order lines created during the specified timeframe."""
     assert stat_for_pricing.number_of_order_lines("foo") == 0
     lib_pid = acq_order_line_fiction_martigny.library_pid
     assert stat_for_pricing.number_of_order_lines(lib_pid) == 1
 
 
-def test_stats_pricing_number_of_circ_operations(
-    stat_for_pricing, loan_due_soon_martigny, lib_martigny
-):
+def test_stats_pricing_number_of_circ_operations(stat_for_pricing, loan_due_soon_martigny, lib_martigny):
     """Test the number of circulation operation  during the specified
     timeframe.
     """
-    assert (
-        stat_for_pricing.number_of_circ_operations(
-            "foo", ItemCirculationAction.CHECKOUT
-        )
-        == 0
-    )
-    assert (
-        stat_for_pricing.number_of_circ_operations(
-            lib_martigny.pid, ItemCirculationAction.EXTEND
-        )
-        == 0
-    )
-    assert (
-        stat_for_pricing.number_of_circ_operations(
-            lib_martigny.pid, ItemCirculationAction.CHECKOUT
-        )
-        == 1
-    )
+    assert stat_for_pricing.number_of_circ_operations("foo", ItemCirculationAction.CHECKOUT) == 0
+    assert stat_for_pricing.number_of_circ_operations(lib_martigny.pid, ItemCirculationAction.EXTEND) == 0
+    assert stat_for_pricing.number_of_circ_operations(lib_martigny.pid, ItemCirculationAction.CHECKOUT) == 1
 
 
-def test_stats_pricing_number_of_ill_requests(
-    stat_for_pricing, ill_request_martigny, lib_martigny
-):
+def test_stats_pricing_number_of_ill_requests(stat_for_pricing, ill_request_martigny, lib_martigny):
     """Test the number of ILL requests."""
-    assert (
-        stat_for_pricing.number_of_ill_requests("foo", [ILLRequestStatus.DENIED]) == 0
-    )
+    assert stat_for_pricing.number_of_ill_requests("foo", [ILLRequestStatus.DENIED]) == 0
     lib_pid = lib_martigny.pid
-    assert (
-        stat_for_pricing.number_of_ill_requests(lib_pid, [ILLRequestStatus.DENIED]) == 1
-    )
-    assert (
-        stat_for_pricing.number_of_ill_requests(lib_pid, [ILLRequestStatus.PENDING])
-        == 0
-    )
+    assert stat_for_pricing.number_of_ill_requests(lib_pid, [ILLRequestStatus.DENIED]) == 1
+    assert stat_for_pricing.number_of_ill_requests(lib_pid, [ILLRequestStatus.PENDING]) == 0
 
 
 def test_stats_pricing_number_of_items(stat_for_pricing, item_lib_martigny):
@@ -168,9 +138,7 @@ def test_stats_pricing_number_of_new_items(stat_for_pricing, item_lib_martigny):
     assert stat.number_of_new_items(item_lib_martigny.library_pid) == 0
 
 
-def test_stats_pricing_number_of_deleted_items(
-    stat_for_pricing, item_lib_martigny, librarian_martigny
-):
+def test_stats_pricing_number_of_deleted_items(stat_for_pricing, item_lib_martigny, librarian_martigny):
     """Test the number of deleted items during the specified timeframe."""
     assert stat_for_pricing.number_of_deleted_items("foo") == 0
     with mock.patch(
@@ -179,9 +147,7 @@ def test_stats_pricing_number_of_deleted_items(
     ):
         item_lib_martigny.delete(False, False, False)
         LoanOperationLogsSearch.flush_and_refresh()
-        assert (
-            stat_for_pricing.number_of_deleted_items(item_lib_martigny.library_pid) == 1
-        )
+        assert stat_for_pricing.number_of_deleted_items(item_lib_martigny.library_pid) == 1
         db.session.rollback()
 
 

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common pytest fixtures and plugins."""
+
 import json
 import os
 import shutil
@@ -177,9 +178,7 @@ def app_config(app_config):
     app_config["RATELIMIT_STORAGE_URI"] = "memory://"
     app_config["CACHE_TYPE"] = "simple"
     app_config["SEARCH_ELASTIC_HOSTS"] = None
-    app_config["SQLALCHEMY_DATABASE_URI"] = (
-        "postgresql+psycopg2://rero-ils:rero-ils@localhost/rero-ils"
-    )
+    app_config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://rero-ils:rero-ils@localhost/rero-ils"
     app_config["DB_VERSIONING"] = True
     app_config["CELERY_CACHE_BACKEND"] = "memory"
     app_config["CELERY_RESULT_BACKEND"] = "cache"
@@ -216,9 +215,7 @@ def app_config(app_config):
         },
     }
     app_config["INDEXER_DEFAULT_INDEX"] = "records-record-v1.0.0"
-    app_config["I18N_TRANSLATIONS_PATHS"] = [
-        join(dirname(__file__), "..", "rero_ils", "translations")
-    ]
+    app_config["I18N_TRANSLATIONS_PATHS"] = [join(dirname(__file__), "..", "rero_ils", "translations")]
     return app_config
 
 
@@ -240,13 +237,9 @@ def instance_path():
     # static folder
     if not invenio_static_folder:
         if invenio_instance_path:
-            os.environ["INVENIO_STATIC_FOLDER"] = os.path.join(
-                invenio_instance_path, "static"
-            )
+            os.environ["INVENIO_STATIC_FOLDER"] = os.path.join(invenio_instance_path, "static")
         else:
-            os.environ["INVENIO_STATIC_FOLDER"] = os.path.join(
-                sys.prefix, "var/instance/static"
-            )
+            os.environ["INVENIO_STATIC_FOLDER"] = os.path.join(sys.prefix, "var/instance/static")
     # instance path
     if not path:
         path = tempfile.mkdtemp()
@@ -306,9 +299,7 @@ def bnf_ean_any_9782072862014():
 @pytest.fixture(scope="module")
 def bnf_recordid_all_FRBNF370903960000006():
     """Load bnf recordid all FRBNF370903960000006 xml file."""
-    file_name = join(
-        dirname(__file__), "data/xml/bnf/bnf_recordid_all_FRBNF370903960000006.xml"
-    )
+    file_name = join(dirname(__file__), "data/xml/bnf/bnf_recordid_all_FRBNF370903960000006.xml")
     with open(file_name, "rb") as file:
         return file.read()
 

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition order dumpers."""
+
 from datetime import date
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
@@ -56,9 +57,7 @@ class AcqOrderNotificationDumper(InvenioRecordsDumper):
         data["vendor"] = vendor.dumps(dumper=VendorAcquisitionNotificationDumper())
         data["order_lines"] = [
             order_line.dumps(dumper=AcqOrderLineNotificationDumper())
-            for order_line in record.get_order_lines(
-                includes=[AcqOrderLineStatus.APPROVED]
-            )
+            for order_line in record.get_order_lines(includes=[AcqOrderLineStatus.APPROVED])
         ]
         data = {k: v for k, v in data.items() if v}
         return data

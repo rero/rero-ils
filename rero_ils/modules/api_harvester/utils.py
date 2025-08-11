@@ -37,9 +37,7 @@ def add_set(spec, name, pattern, description="..."):
     :param description: human readable description
     """
     try:
-        oaiset = OAISet(
-            spec=spec, name=name, description=description, system_created=False
-        )
+        oaiset = OAISet(spec=spec, name=name, description=description, system_created=False)
         oaiset.search_pattern = pattern
         db.session.add(oaiset)
         db.session.commit()
@@ -81,7 +79,7 @@ def api_source(name, url="", classname=None, code="", update=False):
         # TODO: commit not working get stuck
         db.session.merge(source)
         db.session.commit()
-        msg = f'Update {", ".join(msgs)}'
+        msg = f"Update {', '.join(msgs)}"
     return msg
 
 
@@ -99,13 +97,9 @@ def get_apiharvest_object(name):
             get_config_ok = True
         except OperationalError:
             get_config_error_count += 1
-            current_app.logger.error(
-                "ApiHarvestConfig OperationalError: " f"{get_config_error_count} {name}"
-            )
+            current_app.logger.error(f"ApiHarvestConfig OperationalError: {get_config_error_count} {name}")
 
     if not obj:
-        raise ApiHarvesterConfigNotFound(
-            f"Unable to find ApiHarvesterConfig obj with name {name}."
-        )
+        raise ApiHarvesterConfigNotFound(f"Unable to find ApiHarvesterConfig obj with name {name}.")
 
     return obj

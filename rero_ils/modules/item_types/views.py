@@ -39,8 +39,6 @@ def name_validate(name):
     """Item type name validation."""
     response = {"name": None}
     if current_librarian:
-        if patron_type := ItemType.exist_name_and_organisation_pid(
-            name, current_librarian.organisation.pid
-        ):
+        if patron_type := ItemType.exist_name_and_organisation_pid(name, current_librarian.organisation.pid):
             response = {"name": patron_type.name}
     return jsonify(response)

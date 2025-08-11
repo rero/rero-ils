@@ -46,10 +46,7 @@ def test_format_text():
             "type": "bf:Title",
         }
     ]
-    assert (
-        "Die russischen orthodoxen Bischöfe von 1893 "
-        ": Bio-Bibliographie" == TitleExtension.format_text(data)
-    )
+    assert "Die russischen orthodoxen Bischöfe von 1893 : Bio-Bibliographie" == TitleExtension.format_text(data)
 
     data = [
         {
@@ -88,8 +85,7 @@ def test_format_text():
     ]
     assert (
         "main_title_text : subtitle_text. "
-        "number1, number1.1, part1, part1.1. number2, number2.2, part2"
-        == TitleExtension.format_text(data)
+        "number1, number1.1, part1, part1.1. number2, number2.2, part2" == TitleExtension.format_text(data)
     )
 
     data = [
@@ -105,7 +101,4 @@ def test_format_text():
             "type": "bf:Title",
         }
     ]
-    assert (
-        "Французско-русский словарь : около 25 000 слов"
-        == TitleExtension.format_text(data)
-    )
+    assert "Французско-русский словарь : около 25 000 слов" == TitleExtension.format_text(data)

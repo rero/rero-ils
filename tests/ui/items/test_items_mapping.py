@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Item record mapping tests."""
+
 from rero_ils.modules.items.api import Item, ItemsSearch
 from tests.utils import get_mapping
 
@@ -30,7 +31,5 @@ def test_item_es_mapping(
     search = ItemsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Item.create(
-        item_lib_martigny_data_tmp, dbcommit=True, reindex=True, delete_pid=True
-    )
+    Item.create(item_lib_martigny_data_tmp, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)

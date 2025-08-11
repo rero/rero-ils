@@ -18,7 +18,6 @@
 
 """RERO ILS common record extensions."""
 
-
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
@@ -73,10 +72,7 @@ class CirculationDatesExtension(RecordExtension):
         """
         from .utils import get_circ_policy
 
-        if (
-            record.state == LoanState.ITEM_AT_DESK
-            and "request_expire_date" not in record
-        ):
+        if record.state == LoanState.ITEM_AT_DESK and "request_expire_date" not in record:
             cipo = get_circ_policy(record)
             duration = cipo.get("pickup_hold_duration")
             library = record.pickup_library
@@ -95,18 +91,14 @@ class CirculationDatesExtension(RecordExtension):
                 except LibraryNeverOpen:
                     # 10 days by default ... it's better than place a random
                     # date value
-                    default_duration = current_app.config.get(
-                        "RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION", 10
-                    )
+                    default_duration = current_app.config.get("RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION", 10)
                     expire_date = trans_date + timedelta(days=default_duration)
-                    expire_date = expire_date.astimezone(
-                        library.get_timezone()
-                    ).replace(hour=23, minute=59, second=0, microsecond=0)
+                    expire_date = expire_date.astimezone(library.get_timezone()).replace(
+                        hour=23, minute=59, second=0, microsecond=0
+                    )
 
                 record["request_expire_date"] = expire_date.isoformat()
-                record["request_start_date"] = datetime.now(
-                    library.get_timezone()
-                ).isoformat()
+                record["request_start_date"] = datetime.now(library.get_timezone()).isoformat()
 
     @staticmethod
     def _add_due_soon_date(record):
@@ -119,9 +111,7 @@ class CirculationDatesExtension(RecordExtension):
         if record.state == LoanState.ITEM_ON_LOAN and record.end_date:
             # find the correct policy based on the checkout location.
             circ_policy = get_circ_policy(record, checkout_location=True)
-            due_date = ciso8601.parse_datetime(record.end_date).replace(
-                tzinfo=timezone.utc
-            )
+            due_date = ciso8601.parse_datetime(record.end_date).replace(tzinfo=timezone.utc)
             if days_before := circ_policy.due_soon_interval_days:
                 due_soon = due_date - timedelta(days=days_before)
                 due_soon = due_soon.replace(hour=0, minute=0, second=0, microsecond=0)

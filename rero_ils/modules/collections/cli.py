@@ -39,16 +39,10 @@ def create_collections(input_file, max_item=10):
     with open(input_file, "r", encoding="utf-8") as request_file:
         collections = json.load(request_file)
         for collection_data in collections:
-            organisation_pid = extracted_data_from_ref(
-                collection_data.get("organisation").get("$ref")
-            )
+            organisation_pid = extracted_data_from_ref(collection_data.get("organisation").get("$ref"))
             if organisation_pid not in organisation_items:
-                organisation_items[organisation_pid] = get_items_by_organisation_pid(
-                    organisation_pid
-                )
-            items = random.choices(
-                organisation_items[organisation_pid], k=random.randint(1, max_item)
-            )
+                organisation_items[organisation_pid] = get_items_by_organisation_pid(organisation_pid)
+            items = random.choices(organisation_items[organisation_pid], k=random.randint(1, max_item))
             collection_data["items"] = []
             for item_pid in items:
                 ref = get_ref_for_pid("items", item_pid)
@@ -59,7 +53,5 @@ def create_collections(input_file, max_item=10):
 
 def get_items_by_organisation_pid(organisation_pid):
     """Get items by organisation pid."""
-    query = (
-        ItemsSearch().filter("term", organisation__pid=organisation_pid).source("pid")
-    )
+    query = ItemsSearch().filter("term", organisation__pid=organisation_pid).source("pid")
     return [item.pid for item in query.scan()]

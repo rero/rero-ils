@@ -182,9 +182,7 @@ def test_library_never_open(lib_sion):
         assert lib_sion.next_open()
 
 
-def test_library_can_delete(
-    lib_martigny, librarian_martigny, loc_public_martigny, acq_receipt_fiction_martigny
-):
+def test_library_can_delete(lib_martigny, librarian_martigny, loc_public_martigny, acq_receipt_fiction_martigny):
     """Test can delete a library."""
     can, reasons = lib_martigny.can_delete
     assert not can

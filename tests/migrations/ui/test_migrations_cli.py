@@ -17,7 +17,6 @@
 
 """Test cli."""
 
-
 from click.testing import CliRunner
 
 from rero_ils.modules.migrations.cli import create, delete, destroy, get, init, update

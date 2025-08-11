@@ -59,9 +59,7 @@ class AcqOrderLineESDumper(InvenioRecordsDumper):
         # Add document information's: pid, formatted title and ISBN
         # identifiers (remove None values from document metadata)
         document = record.document
-        identifiers = document.get_identifiers(
-            filters=[IdentifierType.ISBN], with_alternatives=True
-        )
+        identifiers = document.get_identifiers(filters=[IdentifierType.ISBN], with_alternatives=True)
         identifiers = [identifier.normalize() for identifier in identifiers]
 
         data["document"] = {

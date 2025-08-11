@@ -35,9 +35,7 @@ def test_circ_policies_permissions_api(
     circ_policy_default_sion,
 ):
     """Test circulation policies permissions api."""
-    cipo_permissions_url = url_for(
-        "api_blueprint.permissions", route_name="circ_policies"
-    )
+    cipo_permissions_url = url_for("api_blueprint.permissions", route_name="circ_policies")
     cipo_martigny_permissions_url = url_for(
         "api_blueprint.permissions",
         route_name="circ_policies",
@@ -97,9 +95,7 @@ def test_circ_policies_permissions(
     # Anonymous user
     #    An anonymous user can't operate any operation about circulation
     #    policies
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(CiPoPermissionPolicy, {"search": False}, None)
     check_permission(CiPoPermissionPolicy, {"create": False}, {})
     check_permission(

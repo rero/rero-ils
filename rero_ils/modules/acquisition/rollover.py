@@ -230,10 +230,7 @@ class AcqRollover:
                 if not self._confirm("Are you agree ?", default="no"):
                     raise RolloverError("User doesn't agree")
                 key_confirm = "".join(random.choices(string.ascii_letters, k=10))
-                log.info(
-                    "To continue, please enter the confirmation "
-                    f"key [{key_confirm}] :: "
-                )
+                log.info(f"To continue, please enter the confirmation key [{key_confirm}] :: ")
                 key = input()
                 if key != key_confirm:
                     raise RolloverError("Confirmation key mismatch")
@@ -245,21 +242,15 @@ class AcqRollover:
             accounts = {
                 account.pid: account
                 for account in orig_accounts
-                if self._get_rollover_migration_setting(account)
-                != AccountTransferOption.NO_TRANSFER
+                if self._get_rollover_migration_setting(account) != AccountTransferOption.NO_TRANSFER
             }
             account_pids = list(accounts.keys())
-            orders = {
-                order.pid: order
-                for order in AcqRollover._get_orders_to_migrate(account_pids)
-            }
+            orders = {order.pid: order for order in AcqRollover._get_orders_to_migrate(account_pids)}
             order_pids = list(orders.keys())
             to_migrate = {
                 "accounts": accounts.values(),
                 "orders": orders.values(),
-                "order_lines": AcqRollover._get_opened_order_lines(
-                    order_pids, account_pids
-                ),
+                "order_lines": AcqRollover._get_opened_order_lines(order_pids, account_pids),
             }
             log.info("Resources to migrate (according rollover settings) :")
             log.info(f"\t#AcqAccount   : {len(to_migrate['accounts'])}")
@@ -316,9 +307,7 @@ class AcqRollover:
                 raise RolloverError(f"{errors} detected on completion table.")
 
             # STEP#7 :: user confirmation that all seems correct for it
-            if self.is_interactive and not self._confirm(
-                "Are you agree ?", default="no"
-            ):
+            if self.is_interactive and not self._confirm("Are you agree ?", default="no"):
                 raise RolloverError("User doesn't agree")
             self._update_budgets(False, True)
             self._update_organisation()
@@ -351,9 +340,7 @@ class AcqRollover:
                 log.warning(f"\t* {str(line)} related to harvested document !")
                 error_count += 1
         if error_count:
-            raise RolloverError(
-                f"Data validation failed : {error_count} " f"error(s) found"
-            )
+            raise RolloverError(f"Data validation failed : {error_count} error(s) found")
 
     def _migrate_accounts(self, accounts):
         """Migrate a list of account to the destination budget.
@@ -377,25 +364,20 @@ class AcqRollover:
                     data["parent"]["$ref"] = get_ref_for_pid("acac", p_pid)
                 else:
                     raise RolloverError(
-                        f"Unable to find new parent account for {str(acc)}"
-                        f" : parent pid was {old_parent_pid}"
+                        f"Unable to find new parent account for {str(acc)} : parent pid was {old_parent_pid}"
                     )
             # Create the new account.
             #   If create failed :: raise an error.
             #   If success :: fill the mapping table AND the stack of new obj.
             try:
-                new_account = AcqAccount.create(
-                    data, dbcommit=True, reindex=True, delete_pid=True
-                )
+                new_account = AcqAccount.create(data, dbcommit=True, reindex=True, delete_pid=True)
                 self._stack.append(new_account)
                 self._mapping_table["accounts"][acc.pid] = new_account.pid
                 old_label = truncate(str(acc), 55).ljust(57)
                 new_label = truncate(str(new_account), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(
-                    f"Account creation failed on " f"[acac#{acc.pid}] :: {str(e)}"
-                ) from e
+                raise RolloverError(f"Account creation failed on [acac#{acc.pid}] :: {str(e)}") from e
 
     def _migrate_orders(self, orders):
         """Migrate a list of orders.
@@ -415,18 +397,14 @@ class AcqRollover:
             #   If create failed :: raise an error.
             #   If success :: fill the mapping table AND the stack of new obj.
             try:
-                new_order = AcqOrder.create(
-                    data, dbcommit=True, reindex=True, delete_pid=True
-                )
+                new_order = AcqOrder.create(data, dbcommit=True, reindex=True, delete_pid=True)
                 self._stack.append(new_order)
                 self._mapping_table["orders"][order.pid] = new_order.pid
                 old_label = truncate(str(order), 55).ljust(57)
                 new_label = truncate(str(new_order), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(
-                    f"Order creation failed on " f"[acor#{order.pid}] :: {str(e)}"
-                ) from e
+                raise RolloverError(f"Order creation failed on [acor#{order.pid}] :: {str(e)}") from e
 
     def _migrate_order_lines(self, order_lines):
         """Migrate a list of order lines.
@@ -444,17 +422,11 @@ class AcqRollover:
             o_order_pid = line.order_pid
             p_order_pid = self._mapping_table.get("orders").get(o_order_pid)
             if not p_order_pid:
-                raise RolloverError(
-                    f"Unable to find new parent order for {str(line)}"
-                    f" : parent pid was {p_order_pid}"
-                )
+                raise RolloverError(f"Unable to find new parent order for {str(line)} : parent pid was {p_order_pid}")
             o_acc_pid = line.account_pid
             p_acc_pid = self._mapping_table.get("accounts").get(o_acc_pid)
             if not p_acc_pid:
-                raise RolloverError(
-                    f"Unable to find new parent account for {str(line)}"
-                    f" : parent pid was {p_acc_pid}"
-                )
+                raise RolloverError(f"Unable to find new parent account for {str(line)} : parent pid was {p_acc_pid}")
             data["acq_order"]["$ref"] = get_ref_for_pid("acor", p_order_pid)
             data["acq_account"]["$ref"] = get_ref_for_pid("acac", p_acc_pid)
             # Update specific order line fields
@@ -465,18 +437,14 @@ class AcqRollover:
             #   If create failed :: raise an error.
             #   If success :: fill the mapping table AND the stack of new obj.
             try:
-                new_line = AcqOrderLine.create(
-                    data, dbcommit=True, reindex=True, delete_pid=True
-                )
+                new_line = AcqOrderLine.create(data, dbcommit=True, reindex=True, delete_pid=True)
                 self._stack.append(new_line)
                 self._mapping_table["order_lines"][line.pid] = new_line.pid
                 old_label = truncate(str(line), 55).ljust(57)
                 new_label = truncate(str(new_line), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(
-                    f"Order line creation failed on " f"[acol#{line.pid}] :: {str(e)}"
-                ) from e
+                raise RolloverError(f"Order line creation failed on [acol#{line.pid}] :: {str(e)}") from e
 
     def _update_budgets(self, orig_state=False, dest_state=False):
         """Update rollover budgets to activate/deactivate them.
@@ -504,10 +472,7 @@ class AcqRollover:
         org = Organisation.get_record_by_pid(org_pid)
         org["current_budget_pid"] = self.destination_budget.pid
         org = org.update(org, dbcommit=True, reindex=True)
-        self.logger.info(
-            f"\t  * Current organisation budget is now "
-            f"{org.get('current_budget_pid')}"
-        )
+        self.logger.info(f"\t  * Current organisation budget is now {org.get('current_budget_pid')}")
 
     # PRIVATE METHODS =========================================================
     #  These methods are used during the rollover process. They shouldn't be
@@ -660,9 +625,7 @@ class AcqRollover:
             .source(False)
             .scan()
         )
-        return sort_accounts_as_tree(
-            [AcqAccount.get_record(hit.meta.id) for hit in query]
-        )
+        return sort_accounts_as_tree([AcqAccount.get_record(hit.meta.id) for hit in query])
 
     @staticmethod
     def _get_orders_to_migrate(account_pids):
@@ -686,12 +649,7 @@ class AcqRollover:
         filters = Q("terms", status=open_status)
         filters |= Q("term", type=AcqOrderType.STANDING_ORDER)
 
-        query = (
-            AcqOrdersSearch()
-            .filter("terms", order_lines__account__pid=account_pids)
-            .filter(filters)
-            .source(False)
-        )
+        query = AcqOrdersSearch().filter("terms", order_lines__account__pid=account_pids).filter(filters).source(False)
         return [AcqOrder.get_record(hit.meta.id) for hit in query.scan()]
 
     @staticmethod

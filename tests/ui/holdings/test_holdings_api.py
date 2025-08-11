@@ -42,9 +42,7 @@ def test_holding_create(
 ):
     """Test holding creation."""
     next_pid = Holding.provider.identifier.next()
-    holding = Holding.create(
-        holding_lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    holding = Holding.create(holding_lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     next_pid += 1
     assert holding == holding_lib_martigny_data
     assert holding.get("pid") == str(next_pid)
@@ -67,17 +65,13 @@ def test_holding_create(
     holding.delete(force=True, dbcommit=True, delindex=True)
 
 
-def test_holding_holding_type(
-    holding_lib_martigny_w_patterns, holding_lib_sion_electronic
-):
+def test_holding_holding_type(holding_lib_martigny_w_patterns, holding_lib_sion_electronic):
     """Test holdings type."""
     assert holding_lib_martigny_w_patterns.is_serial
     assert holding_lib_sion_electronic.is_electronic
 
 
-def test_holding_availability(
-    holding_lib_sion_electronic, holding_lib_martigny, item_lib_martigny
-):
+def test_holding_availability(holding_lib_sion_electronic, holding_lib_martigny, item_lib_martigny):
     """Test holding availability."""
     # An electronic holding is always available despite if no item are linked
     assert holding_lib_sion_electronic.is_available()
@@ -123,9 +117,7 @@ def test_holding_extended_validation(
     del record["notes"]
 
     with (
-        mock.patch.object(
-            Document, "get_record_by_pid", mock.MagicMock(return_value=None)
-        ),
+        mock.patch.object(Document, "get_record_by_pid", mock.MagicMock(return_value=None)),
         pytest.raises(ValidationError) as err,
     ):
         record.validate()
@@ -148,9 +140,7 @@ def test_holding_extended_validation(
     record.validate()
 
 
-def test_holding_tasks(
-    client, holding_lib_martigny, item_lib_martigny, document, loc_public_saxon
-):
+def test_holding_tasks(client, holding_lib_martigny, item_lib_martigny, document, loc_public_saxon):
     """Test delete standard holdings with no items attached."""
     # move item to a new holdings record by changing its location
     item_lib_martigny["location"] = {"$ref": "https://bib.rero.ch/api/locations/loc3"}

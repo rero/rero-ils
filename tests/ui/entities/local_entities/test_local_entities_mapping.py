@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Item record mapping tests."""
+
 from rero_ils.modules.entities.local_entities.api import (
     LocalEntitiesSearch,
     LocalEntity,
@@ -28,7 +29,5 @@ def test_local_entities_es_mapping(app, local_entity_person2_data):
     search = LocalEntitiesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    LocalEntity.create(
-        local_entity_person2_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    LocalEntity.create(local_entity_person2_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)

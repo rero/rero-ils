@@ -50,18 +50,14 @@ def add_action_parameters_and_flush_indexes(function):
         elif function.__name__ == "checkout" and not kwargs.get("pid"):
             patron_pid = kwargs["patron_pid"]
             item_pid = item.pid
-            request = get_request_by_item_pid_by_patron_pid(
-                item_pid=item_pid, patron_pid=patron_pid
-            )
+            request = get_request_by_item_pid_by_patron_pid(item_pid=item_pid, patron_pid=patron_pid)
             if request:
                 kwargs["pid"] = request.pid
         elif function.__name__ == "extend_loan":
             loan, kwargs = item.prior_extend_loan_actions(**kwargs)
             checkin_loan = loan
 
-        loan, kwargs = item.complete_action_missing_params(
-            item=item, checkin_loan=checkin_loan, **kwargs
-        )
+        loan, kwargs = item.complete_action_missing_params(item=item, checkin_loan=checkin_loan, **kwargs)
         Loan.check_required_params(function.__name__, **kwargs)
         item, action_applied = function(item, loan, *args, **kwargs)
         item.change_status_commit_and_reindex()

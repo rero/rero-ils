@@ -71,24 +71,18 @@ def test_documents_import_bnf_ean(
     assert not data.get("metadata")
 
     mock_get.return_value = mock_response(content=bnf_ean_any_9782070541270)
-    res = client.get(
-        url_for("api_imports.import_bnf", q="ean:any:9782070541270", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_bnf", q="ean:any:9782070541270", no_cache=1))
     assert res.status_code == 200
     data = get_json(res).get("hits").get("hits")[0].get("metadata")
     assert data["pid"] == "FRBNF370903960000006"
     assert Document.create(data)
 
     mock_get.return_value = mock_response(content=bnf_ean_any_9782072862014)
-    res = client.get(
-        url_for("api_imports.import_bnf", q="ean:any:9782072862014", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_bnf", q="ean:any:9782072862014", no_cache=1))
     assert res.status_code == 200
     res_j = get_json(res)
     data = res_j.get("hits").get("hits")[0].get("metadata")
-    data.update(
-        {"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"}
-    )
+    data.update({"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"})
     assert Document.create(data)
     marc21_link = res_j.get("hits").get("hits")[0].get("links").get("marc21")
 
@@ -109,17 +103,11 @@ def test_documents_import_bnf_ean(
     unfiltered_total = get_json(res)["hits"]["remote_total"]
     assert get_json(res)
 
-    res = client.get(
-        url_for("api_imports.import_bnf", q="peter", year=2000, format="rerojson")
-    )
+    res = client.get(url_for("api_imports.import_bnf", q="peter", year=2000, format="rerojson"))
     assert res.status_code == 200
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
-    res = client.get(
-        url_for(
-            "api_imports.import_bnf", q="peter", author="Peter Owen", format="rerojson"
-        )
-    )
+    res = client.get(url_for("api_imports.import_bnf", q="peter", author="Peter Owen", format="rerojson"))
     assert res.status_code == 200
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
@@ -136,9 +124,7 @@ def test_documents_import_bnf_ean(
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
     mock_get.return_value = mock_response(content=bnf_recordid_all_FRBNF370903960000006)
-    res = client.get(
-        url_for("api_imports.import_bnf_record", id="FRBNF370903960000006", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_bnf_record", id="FRBNF370903960000006", no_cache=1))
     assert res.status_code == 200
     assert get_json(res).get("metadata", {}).get("identifiedBy")
 
@@ -152,11 +138,7 @@ def test_documents_import_bnf_ean(
     assert res.status_code == 200
     assert get_json(res).get("metadata", {}).get("ui_title_text")
 
-    res = client.get(
-        url_for(
-            "api_imports.import_bnf_record", id="FRBNF370903960000006", format="marc"
-        )
-    )
+    res = client.get(url_for("api_imports.import_bnf_record", id="FRBNF370903960000006", format="marc"))
     assert res.status_code == 200
     assert get_json(res)[1][1] == "FRBNF370903960000006"
 
@@ -182,24 +164,18 @@ def test_documents_import_loc_isbn(
     assert not data.get("metadata")
 
     mock_get.return_value = mock_response(content=loc_isbn_all_9781604689808)
-    res = client.get(
-        url_for("api_imports.import_loc", q="isbn:all:9781604689808", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_loc", q="isbn:all:9781604689808", no_cache=1))
     assert res.status_code == 200
     data = get_json(res).get("hits").get("hits")[0].get("metadata")
     assert data["pid"] == "2018032710"
     assert Document.create(data)
 
     mock_get.return_value = mock_response(content=loc_isbn_all_9780821417478)
-    res = client.get(
-        url_for("api_imports.import_loc", q="isbn:all:9780821417478", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_loc", q="isbn:all:9780821417478", no_cache=1))
     assert res.status_code == 200
     res_j = get_json(res)
     data = res_j.get("hits").get("hits")[0].get("metadata")
-    data.update(
-        {"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"}
-    )
+    data.update({"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"})
     assert Document.create(data)
     marc21_link = res_j.get("hits").get("hits")[0].get("links").get("marc21")
 
@@ -220,9 +196,7 @@ def test_documents_import_loc_isbn(
     unfiltered_total = get_json(res)["hits"]["remote_total"]
     assert get_json(res)
 
-    res = client.get(
-        url_for("api_imports.import_loc", q="samuelson", year=2019, format="rerojson")
-    )
+    res = client.get(url_for("api_imports.import_loc", q="samuelson", year=2019, format="rerojson"))
     assert res.status_code == 200
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
@@ -249,15 +223,11 @@ def test_documents_import_loc_isbn(
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
     mock_get.return_value = mock_response(content=loc_recordid_all_2014043016)
-    res = client.get(
-        url_for("api_imports.import_loc_record", id="2014043016", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_loc_record", id="2014043016", no_cache=1))
     assert res.status_code == 200
     assert get_json(res).get("metadata", {}).get("identifiedBy")
 
-    res = client.get(
-        url_for("api_imports.import_loc_record", id="2014043016", format="rerojson")
-    )
+    res = client.get(url_for("api_imports.import_loc_record", id="2014043016", format="rerojson"))
     assert res.status_code == 200
     assert get_json(res).get("metadata", {}).get("ui_title_text")
 
@@ -300,9 +270,7 @@ def test_documents_import_dnb_isbn(
     assert res.status_code == 200
     res_j = get_json(res)
     data = res_j.get("hits").get("hits")[0].get("metadata")
-    data.update(
-        {"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"}
-    )
+    data.update({"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"})
     data = clean_text(data)
     assert Document.create(data)
     marc21_link = res_j.get("hits").get("hits")[0].get("links").get("marc21")
@@ -328,11 +296,7 @@ def test_documents_import_dnb_isbn(
     assert res.status_code == 200
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
-    res = client.get(
-        url_for(
-            "api_imports.import_dnb", q="samuelson, paul", author="Samuelson, Paul A."
-        )
-    )
+    res = client.get(url_for("api_imports.import_dnb", q="samuelson, paul", author="Samuelson, Paul A."))
     assert res.status_code == 200
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
@@ -347,9 +311,7 @@ def test_documents_import_dnb_isbn(
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
     mock_get.return_value = mock_response(content=dnb_recordid_1214325203)
-    res = client.get(
-        url_for("api_imports.import_dnb_record", id="1214325203", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_dnb_record", id="1214325203", no_cache=1))
     assert res.status_code == 200
     assert get_json(res).get("metadata", {}).get("identifiedBy")
 
@@ -375,24 +337,18 @@ def test_documents_import_slsp_isbn(
     assert not data.get("metadata")
 
     mock_get.return_value = mock_response(content=slsp_isbn_9782296076648)
-    res = client.get(
-        url_for("api_imports.import_slsp", q="isbn:all:9782296076648", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_slsp", q="isbn:all:9782296076648", no_cache=1))
     assert res.status_code == 200
     data = get_json(res).get("hits").get("hits")[0].get("metadata")
     assert data["pid"] == "991079993319705501"
     assert Document.create(data)
 
     mock_get.return_value = mock_response(content=slsp_isbn_3908497272)
-    res = client.get(
-        url_for("api_imports.import_slsp", q="isbn:all:3908497272", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_slsp", q="isbn:all:3908497272", no_cache=1))
     assert res.status_code == 200
     res_j = get_json(res)
     data = res_j.get("hits").get("hits")[0].get("metadata")
-    data.update(
-        {"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"}
-    )
+    data.update({"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"})
     assert Document.create(data)
     marc21_link = res_j.get("hits").get("hits")[0].get("links").get("marc21")
 
@@ -413,9 +369,7 @@ def test_documents_import_slsp_isbn(
     unfiltered_total = get_json(res)["hits"]["remote_total"]
     assert get_json(res)
 
-    res = client.get(
-        url_for("api_imports.import_slsp", q="samuelson", year=2019, format="rerojson")
-    )
+    res = client.get(url_for("api_imports.import_slsp", q="samuelson", year=2019, format="rerojson"))
     assert res.status_code == 200
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
@@ -485,18 +439,14 @@ def test_documents_import_ugent_isbn(
     assert not data.get("metadata")
 
     mock_get.return_value = mock_response(content=ugent_isbn_9781108422925)
-    res = client.get(
-        url_for("api_imports.import_ugent", q="isbn:all:9781108422925", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_ugent", q="isbn:all:9781108422925", no_cache=1))
     assert res.status_code == 200
     data = get_json(res).get("hits").get("hits")[0].get("metadata")
     assert data["pid"] == "002487518"
     assert Document.create(data)
 
     mock_get.return_value = mock_response(content=ugent_book_without_26X)
-    res = client.get(
-        url_for("api_imports.import_ugent", q="isbn:all:9782717725650", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_ugent", q="isbn:all:9782717725650", no_cache=1))
     assert res.status_code == 200
     data = get_json(res).get("hits").get("hits")[0].get("metadata")
     assert data["pid"] == "002762516"
@@ -515,9 +465,7 @@ def test_documents_import_ugent_isbn(
     unfiltered_total = get_json(res)["hits"]["remote_total"]
     assert get_json(res)
 
-    res = client.get(
-        url_for("api_imports.import_ugent", q="samuelson", year=2019, format="rerojson")
-    )
+    res = client.get(url_for("api_imports.import_ugent", q="samuelson", year=2019, format="rerojson"))
     assert res.status_code == 200
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
@@ -533,11 +481,7 @@ def test_documents_import_ugent_isbn(
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
     mock_get.return_value = mock_response(content=ugent_recordid_001247835)
-    res = client.get(
-        url_for(
-            "api_imports.import_ugent_record", id="recordid:all:001247835", no_cache=1
-        )
-    )
+    res = client.get(url_for("api_imports.import_ugent_record", id="recordid:all:001247835", no_cache=1))
     assert res.status_code == 200
     assert get_json(res).get("metadata", {}).get("identifiedBy")
 
@@ -564,23 +508,17 @@ def test_documents_import_kul_isbn(
     assert not data.get("metadata")
 
     mock_get.return_value = mock_response(content=kul_isbn_9782265089419)
-    res = client.get(
-        url_for("api_imports.import_kul", q="isbn:all:9782265089419", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_kul", q="isbn:all:9782265089419", no_cache=1))
     assert res.status_code == 200
     data = get_json(res).get("hits").get("hits")[0].get("metadata")
     assert data["pid"] == "9983115060101471"
 
     mock_get.return_value = mock_response(content=kul_isbn_2804600068)
-    res = client.get(
-        url_for("api_imports.import_kul", q="isbn:all:2804600068", no_cache=1)
-    )
+    res = client.get(url_for("api_imports.import_kul", q="isbn:all:2804600068", no_cache=1))
     assert res.status_code == 200
     res_j = get_json(res)
     data = res_j.get("hits").get("hits")[0].get("metadata")
-    data.update(
-        {"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"}
-    )
+    data.update({"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"})
     assert Document.create(data)
     marc21_link = res_j.get("hits").get("hits")[0].get("links").get("marc21")
 
@@ -601,9 +539,7 @@ def test_documents_import_kul_isbn(
     unfiltered_total = get_json(res)["hits"]["remote_total"]
     assert get_json(res)
 
-    res = client.get(
-        url_for("api_imports.import_kul", q="samuelson", year=2019, format="rerojson")
-    )
+    res = client.get(url_for("api_imports.import_kul", q="samuelson", year=2019, format="rerojson"))
     assert res.status_code == 200
     assert get_json(res)["hits"]["total"] < unfiltered_total
 
@@ -674,9 +610,7 @@ def test_documents_import_bnf_errors(mock_get, client, librarian_martigny):
     error.response = mock.MagicMock()
     error.response.status_code = err_code
     error.response.content = "Error Code"
-    mock_get.return_value = mock_response(
-        content=b"", status=555, raise_for_status=error
-    )
+    mock_get.return_value = mock_response(content=b"", status=555, raise_for_status=error)
     res = client.get(url_for("api_imports.import_bnf", q="ean:any:123", no_cache=1))
     data = get_json(res)
     assert res.status_code == err_code

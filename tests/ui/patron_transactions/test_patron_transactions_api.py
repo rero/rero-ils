@@ -43,9 +43,7 @@ def test_patron_transaction_properties(
     assert pttr.get_number_of_patron_transaction_events() == 1
 
 
-def test_patron_transaction_create(
-    db, search_clear, patron_transaction_overdue_martigny, org_martigny
-):
+def test_patron_transaction_create(db, search_clear, patron_transaction_overdue_martigny, org_martigny):
     """Test patron transaction creation."""
     patron_transaction = deepcopy(patron_transaction_overdue_martigny)
     patron_transaction["status"] = "no_status"
@@ -73,6 +71,4 @@ def test_patron_transaction_create(
     assert not can
     assert reasons["links"]["events"]
 
-    assert patron_transaction_overdue_martigny.currency == org_martigny.get(
-        "default_currency"
-    )
+    assert patron_transaction_overdue_martigny.currency == org_martigny.get("default_currency")

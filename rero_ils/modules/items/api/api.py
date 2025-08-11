@@ -41,9 +41,7 @@ from .circulation import ItemCirculation
 from .issue import ItemIssue
 
 # provider
-ItemProvider = type(
-    "ItemProvider", (Provider,), dict(identifier=ItemIdentifier, pid_type="item")
-)
+ItemProvider = type("ItemProvider", (Provider,), dict(identifier=ItemIdentifier, pid_type="item"))
 # minter
 item_id_minter = partial(id_minter, provider=ItemProvider)
 # fetcher
@@ -78,19 +76,13 @@ class ItemsSearch(IlsRecordsSearch):
         ]
 
         if not_available_item_types := [
-            hit.pid
-            for hit in ItemTypesSearch()
-            .source("pid")
-            .filter("term", negative_availability=True)
-            .scan()
+            hit.pid for hit in ItemTypesSearch().source("pid").filter("term", negative_availability=True).scan()
         ]:
             # negative availability item type and not temporary item types
             has_items_filters = Q("terms", item_type__pid=not_available_item_types)
             has_items_filters &= ~Q("exists", field="temporary_item_type")
             # temporary item types with negative availability
-            has_items_filters |= Q(
-                "terms", temporary_item_type__pid=not_available_item_types
-            )
+            has_items_filters |= Q("terms", temporary_item_type__pid=not_available_item_types)
             # add to the must not filters
             must_not_filters.append(has_items_filters)
         return self.filter(Q("bool", must_not=must_not_filters))
@@ -216,14 +208,10 @@ class Item(ItemCirculation, ItemIssue):
         """
         end_date = cls.format_end_date(end_date)
         items_query = ItemsSearch()
-        loc_es_quey = items_query.filter(
-            "range", temporary_location__end_date={"lte": end_date}
-        )
+        loc_es_quey = items_query.filter("range", temporary_location__end_date={"lte": end_date})
         locs = [(hit.meta.id, "loc") for hit in loc_es_quey.source("pid").scan()]
 
-        itty_es_query = items_query.filter(
-            "range", temporary_item_type__end_date={"lte": end_date}
-        )
+        itty_es_query = items_query.filter("range", temporary_item_type__end_date={"lte": end_date})
         itty = [(hit.meta.id, "itty") for hit in itty_es_query.source("pid").scan()]
         hits = itty + locs
         for id, field_type in hits:
@@ -257,12 +245,7 @@ class ItemsIndexer(IlsRecordsIndexer):
         """
         # retrieve the document in the corresponding es index
         document_pid = extracted_data_from_ref(record.get("document"))
-        doc = next(
-            DocumentsSearch()
-            .extra(version=True)
-            .filter("term", pid=document_pid)
-            .scan()
-        )
+        doc = next(DocumentsSearch().extra(version=True).filter("term", pid=document_pid).scan())
         # update the item status in the document
         data = doc.to_dict()
         for hold in data.get("holdings", []):

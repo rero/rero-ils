@@ -487,9 +487,7 @@ def can_request(item_pid):
     if not item:
         abort(404, "Item not found")
     if patron_barcode := flask_request.args.get("patron_barcode"):
-        kwargs["patron"] = Patron.get_patron_by_barcode(
-            barcode=patron_barcode, org_pid=item.organisation_pid
-        )
+        kwargs["patron"] = Patron.get_patron_by_barcode(barcode=patron_barcode, org_pid=item.organisation_pid)
         if not kwargs["patron"]:
             abort(404, "Patron not found")
     if library_pid := flask_request.args.get("library_pid"):
@@ -532,11 +530,7 @@ def stats(item_pid):
 
     :param item_pid: the item pid
     """
-    search = (
-        OperationLogsSearch()
-        .filter("term", loan__item__pid=item_pid)
-        .filter("term", record__type="loan")
-    )
+    search = OperationLogsSearch().filter("term", loan__item__pid=item_pid).filter("term", record__type="loan")
     trigger = A(
         "terms",
         field="loan.trigger",

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Acquisition Orders."""
+
 from datetime import datetime, timezone
 from functools import partial
 
@@ -103,9 +104,7 @@ class AcqOrder(AcquisitionIlsRecord):
         return True
 
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs):
         """Create acquisition order record."""
         # TODO : should be used into `pre_create` hook extensions but seems not
         #   work as expected.
@@ -228,11 +227,7 @@ class AcqOrder(AcquisitionIlsRecord):
     @property
     def next_order(self):
         """Try to find an acquisition order representing next order."""
-        query = (
-            AcqOrdersSearch()
-            .filter("term", previousVersion__pid=self.pid)
-            .source("pid")
-        )
+        query = AcqOrdersSearch().filter("term", previousVersion__pid=self.pid).source("pid")
         if hit := next(query.scan(), None):
             return AcqOrder.get_record(hit.meta.id)
 
@@ -275,11 +270,7 @@ class AcqOrder(AcquisitionIlsRecord):
         :param note_type: the note type to filter as `OrderNoteType` value.
         :return the note content if exists, otherwise returns None.
         """
-        note = [
-            note.get("content")
-            for note in self.get("notes", [])
-            if note.get("type") == note_type
-        ]
+        note = [note.get("content") for note in self.get("notes", []) if note.get("type") == note_type]
         return next(iter(note), None)
 
     def get_receipts(self, output=None):
@@ -472,9 +463,7 @@ class AcqOrder(AcquisitionIlsRecord):
             },
         }
         notif = Notification.create(data=record, dbcommit=True, reindex=True)
-        dispatcher_result = Dispatcher.dispatch_notifications(
-            notification_pids=[notif.get("pid")]
-        )
+        dispatcher_result = Dispatcher.dispatch_notifications(notification_pids=[notif.get("pid")])
 
         # If the dispatcher result is correct, update the order_lines status
         # and reindex myself. Reload the notification to obtain the right

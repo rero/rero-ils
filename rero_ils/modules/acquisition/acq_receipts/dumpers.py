@@ -37,9 +37,7 @@ class AcqReceiptESDumper(InvenioRecordsDumper):
         metadata = {
             "pid": record.pid,
             "reference": record.get("reference"),
-            "receipt_date": list(
-                {line.get("receipt_date") for line in record.get_receipt_lines()}
-            ),
+            "receipt_date": list({line.get("receipt_date") for line in record.get_receipt_lines()}),
         }
         metadata = {k: v for k, v in metadata.items() if v}
         data.update(metadata)

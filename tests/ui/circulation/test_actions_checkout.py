@@ -82,9 +82,7 @@ def test_checkout_library_never_open(
     # test checkout if library has no open days but has exception closed day
     # in the future
     exception_date = (date.today() + timedelta(days=30)).isoformat()
-    lib_martigny["exception_dates"].append(
-        {"title": "Closed", "is_open": False, "start_date": exception_date}
-    )
+    lib_martigny["exception_dates"].append({"title": "Closed", "is_open": False, "start_date": exception_date})
     lib_martigny.commit()
 
     data = deepcopy(item_lib_martigny)
@@ -151,9 +149,7 @@ def test_checkout_on_item_on_shelf(
     # Check item is ON_SHELF and NO PENDING loan exist!
     assert created_item.number_of_requests() == 0
     assert created_item.status == ItemStatus.ON_SHELF
-    assert not created_item.is_requested_by_patron(
-        patron_martigny.get("patron", {}).get("barcode")[0]
-    )
+    assert not created_item.is_requested_by_patron(patron_martigny.get("patron", {}).get("barcode")[0])
 
     # the following tests the circulation action CHECKOUT_1_1
     # an ON_SHELF item

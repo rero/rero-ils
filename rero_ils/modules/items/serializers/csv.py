@@ -36,9 +36,7 @@ from .collector import Collector
 class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
     """Serialize item search for csv."""
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -60,40 +58,28 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
                 :param csv_data: Dictionary of data.
                 """
                 itty_pid = csv_data.get("item_type_pid")
-                csv_data["item_type"] = self.get_resource(
-                    ItemTypesSearch(), itty_pid
-                ).get("name")
+                csv_data["item_type"] = self.get_resource(ItemTypesSearch(), itty_pid).get("name")
                 # temporary item_type
                 if itty_pid := csv_data.pop("temporary_item_type_pid", None):
-                    csv_data["temporary_item_type"] = self.get_resource(
-                        ItemTypesSearch(), itty_pid
-                    ).get("name")
+                    csv_data["temporary_item_type"] = self.get_resource(ItemTypesSearch(), itty_pid).get("name")
                 # library
                 lib_pid = csv_data.pop("item_library_pid")
-                csv_data["item_library_name"] = self.get_resource(
-                    LibrariesSearch(), lib_pid
-                ).get("name")
+                csv_data["item_library_name"] = self.get_resource(LibrariesSearch(), lib_pid).get("name")
                 # location
                 loc_pid = csv_data.pop("item_location_pid")
-                csv_data["item_location_name"] = self.get_resource(
-                    LocationsSearch(), loc_pid
-                ).get("name")
+                csv_data["item_location_name"] = self.get_resource(LocationsSearch(), loc_pid).get("name")
 
             headers = dict.fromkeys(self.csv_included_fields)
 
             # write the CSV output in memory
             line = Line()
-            writer = DictWriter(
-                line, dialect="excel", quoting=QUOTE_ALL, fieldnames=headers
-            )
+            writer = DictWriter(line, dialect="excel", quoting=QUOTE_ALL, fieldnames=headers)
             writer.writeheader()
             yield line.read()
 
             for pids, batch_results in Collector.batch(results=search_result):
                 # get documents
-                documents = Collector.get_documents_by_item_pids(
-                    item_pids=pids, language=language
-                )
+                documents = Collector.get_documents_by_item_pids(item_pids=pids, language=language)
                 # get loans
                 items_stats = Collector.get_loans_by_item_pids(item_pids=pids)
                 for hit in batch_results:

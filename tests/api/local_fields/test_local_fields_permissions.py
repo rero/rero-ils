@@ -26,17 +26,13 @@ from tests.utils import check_permission
 
 
 @mock.patch.object(Patron, "_extensions", [])
-def test_local_fields_permissions(
-    local_field_martigny, librarian_martigny, local_field_sion
-):
+def test_local_fields_permissions(local_field_martigny, librarian_martigny, local_field_sion):
     """Test item permissions class."""
 
     # Anonymous user & Patron user
     #  - search/read any local fields are allowed.
     #  - create/update/delete operations are disallowed.
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         LocalFieldPermissionPolicy,
         {

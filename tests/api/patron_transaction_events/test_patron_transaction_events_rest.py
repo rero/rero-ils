@@ -33,17 +33,13 @@ from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_rela
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_patron_transaction_events_get(
-    client, patron_transaction_overdue_event_martigny
-):
+def test_patron_transaction_events_get(client, patron_transaction_overdue_event_martigny):
     """Test record retrieval."""
     patron_event = patron_transaction_overdue_event_martigny
     pid = patron_event.pid
     item_url = url_for("invenio_records_rest.ptre_item", pid_value=pid)
     list_url = url_for("invenio_records_rest.ptre_list", q=f"pid:{pid}")
-    item_url_with_resolve = url_for(
-        "invenio_records_rest.ptre_item", pid_value=pid, resolve=1, sources=1
-    )
+    item_url_with_resolve = url_for("invenio_records_rest.ptre_item", pid_value=pid, resolve=1, sources=1)
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -95,9 +91,7 @@ def test_patron_transaction_events_get(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_patron_transaction_events_post_put_delete(
-    client, patron_transaction_overdue_event_martigny, json_header
-):
+def test_patron_transaction_events_post_put_delete(client, patron_transaction_overdue_event_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for("invenio_records_rest.ptre_item", pid_value="new_ptre")
     list_url = url_for("invenio_records_rest.ptre_list", q="pid:new_ptre")
@@ -153,10 +147,7 @@ def test_patron_transaction_event_utils_shortcuts(
     assert can
     assert reasons == {}
 
-    assert (
-        patron_transaction_overdue_event_martigny.patron_pid
-        == loan_overdue_martigny.patron_pid
-    )
+    assert patron_transaction_overdue_event_martigny.patron_pid == loan_overdue_martigny.patron_pid
 
 
 def test_filtered_patron_transaction_events_get(

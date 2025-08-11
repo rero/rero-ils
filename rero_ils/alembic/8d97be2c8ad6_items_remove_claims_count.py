@@ -40,9 +40,7 @@ def upgrade():
     uuids = [hit.meta.id for hit in query.scan()]
     for idx, uuid in enumerate(uuids, 1):
         record = Item.get_record(uuid)
-        LOGGER.info(
-            f"[{idx}/{len(uuids)}] Processing Item#{record.pid} " f"[{record.id}]..."
-        )
+        LOGGER.info(f"[{idx}/{len(uuids)}] Processing Item#{record.pid} [{record.id}]...")
         record.get("issue", {}).pop("claims_count", None)
         record.update(record, commit=True)
         if idx % chunck_size == 0:
@@ -64,9 +62,7 @@ def _indexing_records(record_ids):
 
     LOGGER.info(f"Indexing {len(record_ids)} records ....")
     indexer = ItemsIndexer()
-    chunks = [
-        record_ids[x : x + chunck_size] for x in range(0, len(record_ids), chunck_size)
-    ]
+    chunks = [record_ids[x : x + chunck_size] for x in range(0, len(record_ids), chunck_size)]
     total_indexed = 0
     for chuncked_ids in chunks:
         indexer.bulk_index(chuncked_ids)

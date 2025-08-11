@@ -84,17 +84,11 @@ class AcqReceipt(AcquisitionIlsRecord):
     _extensions = [
         AcqReceiptExtension(),
         AcquisitionReceiptCompleteDataExtension(),
-        DecimalAmountExtension(
-            callback=lambda rec: [
-                adj["amount"] for adj in rec.get("amount_adjustments", [])
-            ]
-        ),
+        DecimalAmountExtension(callback=lambda rec: [adj["amount"] for adj in rec.get("amount_adjustments", [])]),
     ]
 
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs):
         """Create Acquisition receipt record.
 
         :param data: a dict data to create the record.
@@ -157,9 +151,7 @@ class AcqReceipt(AcquisitionIlsRecord):
             AcqOrderStatus.PARTIALLY_RECEIVED,
             AcqOrderStatus.RECEIVED,
         ]:
-            return _(
-                f"Can not create a receipt with an order with a wrong status {order_status}."
-            )
+            return _(f"Can not create a receipt with an order with a wrong status {order_status}.")
         return True
 
     @classmethod
@@ -167,9 +159,7 @@ class AcqReceipt(AcquisitionIlsRecord):
         """Build $ref for the organisation of the acquisition receipt."""
         if order := extracted_data_from_ref(data.get("acq_order"), data="record"):
             data["library"] = {"$ref": get_ref_for_pid("lib", order.library_pid)}
-            data["organisation"] = {
-                "$ref": get_ref_for_pid("org", order.organisation_pid)
-            }
+            data["organisation"] = {"$ref": get_ref_for_pid("org", order.organisation_pid)}
 
     def create_receipt_lines(self, receipt_lines=None, dbcommit=True, reindex=True):
         """Create multiple receipt lines.
@@ -192,9 +182,7 @@ class AcqReceipt(AcquisitionIlsRecord):
             }
             receipt_line["acq_receipt"] = {"$ref": get_ref_for_pid("acre", self.pid)}
             try:
-                line = AcqReceiptLine.create(
-                    receipt_line, dbcommit=dbcommit, reindex=reindex
-                )
+                line = AcqReceiptLine.create(receipt_line, dbcommit=dbcommit, reindex=reindex)
                 record["receipt_line"] = line
             except Exception as error:
                 record["status"] = AcqReceiptLineCreationStatus.FAILURE
@@ -212,9 +200,7 @@ class AcqReceipt(AcquisitionIlsRecord):
         from ..acq_receipt_lines.api import AcqReceiptLinesSearch
 
         links = {}
-        receipt_lines_query = AcqReceiptLinesSearch().filter(
-            "term", acq_receipt__pid=self.pid
-        )
+        receipt_lines_query = AcqReceiptLinesSearch().filter("term", acq_receipt__pid=self.pid)
         if get_pids:
             acq_receipt_lines = sorted_pids(receipt_lines_query)
         else:
@@ -332,19 +318,12 @@ class AcqReceipt(AcquisitionIlsRecord):
         :param note_type: note type to filter as `AcqReceiptNoteType` value.
         :return the note content if exists, otherwise returns None.
         """
-        note = [
-            note.get("content")
-            for note in self.get("notes", [])
-            if note.get("type") == note_type
-        ]
+        note = [note.get("content") for note in self.get("notes", []) if note.get("type") == note_type]
         return next(iter(note), None)
 
     def get_adjustment_accounts(self):
         """Get the list of adjustment account pid related to this receipt."""
-        return {
-            extracted_data_from_ref(adj.get("acq_account"), data="record")
-            for adj in self.amount_adjustments
-        }
+        return {extracted_data_from_ref(adj.get("acq_account"), data="record") for adj in self.amount_adjustments}
 
 
 class AcqReceiptsIndexer(IlsRecordsIndexer):

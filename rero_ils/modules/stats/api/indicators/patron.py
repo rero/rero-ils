@@ -18,7 +18,6 @@
 
 """Indicator Report Configuration."""
 
-
 import hashlib
 
 from elasticsearch_dsl.aggs import A
@@ -86,8 +85,7 @@ class NumberOfPatronsCfg(IndicatorCfg):
         cfg = {
             "created_month": lambda: bucket.key_as_string,
             "created_year": lambda: bucket.key_as_string,
-            "type": lambda: f"{self.cfg.patron_types.get(bucket.key, self.label_na_msg)} "
-            f"({bucket.key})",
+            "type": lambda: f"{self.cfg.patron_types.get(bucket.key, self.label_na_msg)} ({bucket.key})",
             "birth_year": lambda: bucket.key_as_string,
             "gender": lambda: bucket.key,
             "postal_code": lambda: bucket.key,
@@ -123,24 +121,11 @@ class NumberOfActivePatronsCfg(NumberOfPatronsCfg):
         )
         if lib_pids := self.cfg.filter_by_libraries:
             loc_pids = [
-                hit.pid
-                for hit in LocationsSearch()
-                .filter("terms", library__pid=lib_pids)
-                .source("pid")
-                .scan()
+                hit.pid for hit in LocationsSearch().filter("terms", library__pid=lib_pids).source("pid").scan()
             ]
-            op_query = op_query.filter(
-                "terms", loan__transaction_location__pid=loc_pids
-            )
-        op_query.aggs.bucket(
-            "hashed_pid", A("terms", field="loan.patron.hashed_pid", size=100000)
-        )
+            op_query = op_query.filter("terms", loan__transaction_location__pid=loc_pids)
+        op_query.aggs.bucket("hashed_pid", A("terms", field="loan.patron.hashed_pid", size=100000))
         results = op_query.execute()
-        convert = {
-            hashlib.md5(f"{i}".encode()).hexdigest(): i
-            for i in range(1, PatronIdentifier.max() + 1)
-        }
-        active_patron_pids = [
-            convert[v.key] for v in results.aggregations.hashed_pid.buckets
-        ]
+        convert = {hashlib.md5(f"{i}".encode()).hexdigest(): i for i in range(1, PatronIdentifier.max() + 1)}
+        active_patron_pids = [convert[v.key] for v in results.aggregations.hashed_pid.buckets]
         return es_query.filter("terms", pid=active_patron_pids)

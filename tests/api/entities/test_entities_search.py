@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Search tests."""
+
 import mock
 from flask import url_for
 
@@ -26,9 +27,7 @@ from tests.utils import VerifyRecordPermissionPatch, get_json
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_unified_entity_search(
-    client, entity_person, local_entity_person, entity_organisation
-):
+def test_unified_entity_search(client, entity_person, local_entity_person, entity_organisation):
     """Test unified entity search queries."""
 
     # unified entity search
@@ -48,9 +47,7 @@ def test_unified_entity_search(
     assert hits["total"]["value"] == 1
 
     # empty search
-    list_url = url_for(
-        "invenio_records_rest.ent_list", q='"Nebehay, Christian Michael"', simple="1"
-    )
+    list_url = url_for("invenio_records_rest.ent_list", q='"Nebehay, Christian Michael"', simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 0

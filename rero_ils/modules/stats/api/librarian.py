@@ -18,7 +18,6 @@
 
 """To compute the statistics for librarian."""
 
-
 import hashlib
 from datetime import datetime
 
@@ -64,11 +63,7 @@ class StatsForLibrarian(StatsForPricing):
         :return: concatenated code and name of location
         :rtype: string
         """
-        location_search = (
-            LocationsSearch()
-            .filter("terms", pid=location_pids)
-            .source(["code", "name", "pid"])
-        )
+        location_search = LocationsSearch().filter("terms", pid=location_pids).source(["code", "name", "pid"])
         return {hit.pid: f"{hit.code} - {hit.name}" for hit in location_search.scan()}
 
     def process(self, library):
@@ -78,25 +73,15 @@ class StatsForLibrarian(StatsForPricing):
         :return: a dict containing all the processed values.
         """
         return {
-            "checkouts_for_transaction_library": self.checkouts_for_transaction_library(
-                library.pid
-            ),
-            "checkouts_for_owning_library": self.checkouts_for_owning_library(
-                library.pid
-            ),
-            "active_patrons_by_postal_code": self.active_patrons_by_postal_code(
-                library.pid
-            ),
-            "new_active_patrons_by_postal_code": self.active_patrons_by_postal_code(
-                library.pid, new_patrons=True
-            ),
+            "checkouts_for_transaction_library": self.checkouts_for_transaction_library(library.pid),
+            "checkouts_for_owning_library": self.checkouts_for_owning_library(library.pid),
+            "active_patrons_by_postal_code": self.active_patrons_by_postal_code(library.pid),
+            "new_active_patrons_by_postal_code": self.active_patrons_by_postal_code(library.pid, new_patrons=True),
             "new_documents": self.new_documents(library.pid),
             "new_items": self.number_of_new_items(library.pid),
             "renewals": self.renewals(library.pid),
             "validated_requests": self.validated_requests(library.pid),
-            "items_by_document_type_and_subtype": self.items_by_document_type_and_subtype(
-                library.pid
-            ),
+            "items_by_document_type_and_subtype": self.items_by_document_type_and_subtype(library.pid),
             "new_items_by_location": self.new_items_by_location(library.pid),
             "loans_of_transaction_library_by_item_location": self.loans_of_transaction_library_by_item_location(
                 library.pid
@@ -115,9 +100,7 @@ class StatsForLibrarian(StatsForPricing):
         location_pids = LocationsSearch().location_pids(library_pid)
         return (
             LoanOperationLogsSearch()
-            .get_logs_by_trigger(
-                triggers=[ItemCirculationAction.CHECKOUT], date_range=self.date_range
-            )
+            .get_logs_by_trigger(triggers=[ItemCirculationAction.CHECKOUT], date_range=self.date_range)
             .filter("terms", loan__transaction_location__pid=location_pids)
             .count()
         )
@@ -133,9 +116,7 @@ class StatsForLibrarian(StatsForPricing):
         """
         return (
             LoanOperationLogsSearch()
-            .get_logs_by_trigger(
-                triggers=[ItemCirculationAction.CHECKOUT], date_range=self.date_range
-            )
+            .get_logs_by_trigger(triggers=[ItemCirculationAction.CHECKOUT], date_range=self.date_range)
             .filter("term", loan__item__library_pid=library_pid)
             .count()
         )
@@ -166,19 +147,12 @@ class StatsForLibrarian(StatsForPricing):
         )
         if new_patrons:
             # Get new patrons in date range and hash the pids
-            search_patron = (
-                PatronsSearch()
-                .filter("range", _created=self.date_range)
-                .source("pid")
-                .scan()
-            )
+            search_patron = PatronsSearch().filter("range", _created=self.date_range).source("pid").scan()
             new_patron_hashed_pids = set()
             for p in search_patron:
                 hashed_pid = hashlib.md5(p.pid.encode()).hexdigest()
                 new_patron_hashed_pids.add(hashed_pid)
-            search = search.filter(
-                "terms", loan__patron__hashed_pid=list(new_patron_hashed_pids)
-            )
+            search = search.filter("terms", loan__patron__hashed_pid=list(new_patron_hashed_pids))
         stats = {}
         patron_pids = set()
         # Main postal code from user profile
@@ -220,9 +194,7 @@ class StatsForLibrarian(StatsForPricing):
         """
         return (
             LoanOperationLogsSearch()
-            .get_logs_by_trigger(
-                triggers=[ItemCirculationAction.EXTEND], date_range=self.date_range
-            )
+            .get_logs_by_trigger(triggers=[ItemCirculationAction.EXTEND], date_range=self.date_range)
             .filter("term", loan__item__library_pid=library_pid)
             .count()
         )
@@ -238,9 +210,7 @@ class StatsForLibrarian(StatsForPricing):
         """
         return (
             LoanOperationLogsSearch()
-            .get_logs_by_trigger(
-                triggers=["validate_request"], date_range=self.date_range
-            )
+            .get_logs_by_trigger(triggers=["validate_request"], date_range=self.date_range)
             .filter("term", library__value=library_pid)
             .count()
         )
@@ -266,10 +236,7 @@ class StatsForLibrarian(StatsForPricing):
         res = search.execute()
         location_pids = [bucket.key for bucket in res.aggregations.location_pid.buckets]
         location_names = self._get_locations_code_name(location_pids)
-        return {
-            location_names[bucket.key]: bucket.doc_count
-            for bucket in res.aggregations.location_pid.buckets
-        }
+        return {location_names[bucket.key]: bucket.doc_count for bucket in res.aggregations.location_pid.buckets}
 
     def items_by_document_type_and_subtype(self, library_pid):
         """Number of items per library by document type and sub-type.
@@ -286,17 +253,10 @@ class StatsForLibrarian(StatsForPricing):
             .filter("term", library__pid=library_pid)
             .source("document.document_type")
         )
-        search.aggs.bucket(
-            "main_type", "terms", field="document.document_type.main_type", size=10000
-        )
-        search.aggs.bucket(
-            "subtype", "terms", field="document.document_type.subtype", size=10000
-        )
+        search.aggs.bucket("main_type", "terms", field="document.document_type.main_type", size=10000)
+        search.aggs.bucket("subtype", "terms", field="document.document_type.subtype", size=10000)
         res = search.execute()
-        stats = {
-            bucket.key: bucket.doc_count
-            for bucket in res.aggregations.main_type.buckets
-        }
+        stats = {bucket.key: bucket.doc_count for bucket in res.aggregations.main_type.buckets}
         for bucket in res.aggregations.subtype.buckets:
             stats[bucket.key] = bucket.doc_count
         return stats
@@ -327,10 +287,7 @@ class StatsForLibrarian(StatsForPricing):
         )
 
         stats = {}
-        libraries_map = {
-            lib.pid: lib.name
-            for lib in LibrariesSearch().source(["pid", "name", "organisation"]).scan()
-        }
+        libraries_map = {lib.pid: lib.name for lib in LibrariesSearch().source(["pid", "name", "organisation"]).scan()}
         for s in search:
             item_library_pid = s.loan.item.library_pid
             item_library_name = libraries_map[item_library_pid]

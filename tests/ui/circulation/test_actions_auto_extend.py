@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test item/loan circulation auto extend task."""
+
 from datetime import datetime, timedelta, timezone
 
 import mock
@@ -93,9 +94,7 @@ def test_auto_extend_task(
     )
 
     # disallows the renewals
-    with mock.patch.object(
-        ItemCirculation, "can", mock.MagicMock(return_value=(False, ["foo"]))
-    ):
+    with mock.patch.object(ItemCirculation, "can", mock.MagicMock(return_value=(False, ["foo"]))):
         # no loans has been extended
         assert automatic_renewal() == (0, 1)
         assert item.status == ItemStatus.ON_LOAN

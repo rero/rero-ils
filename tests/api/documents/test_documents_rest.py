@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API documents."""
+
 import json
 from copy import deepcopy
 from datetime import datetime, timedelta
@@ -336,9 +337,7 @@ def test_documents_facets(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_documents_organisation_facets(
-    client, document, item_lib_martigny, rero_json_header
-):
+def test_documents_organisation_facets(client, document, item_lib_martigny, rero_json_header):
     """Test record retrieval."""
     list_url = url_for("invenio_records_rest.doc_list", view="global")
 
@@ -353,9 +352,7 @@ def test_documents_organisation_facets(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_documents_library_location_facets(
-    client, document, org_martigny, item_lib_martigny, rero_json_header
-):
+def test_documents_library_location_facets(client, document, org_martigny, item_lib_martigny, rero_json_header):
     """Test record retrieval."""
     list_url = url_for("invenio_records_rest.doc_list", view="org1")
 
@@ -374,9 +371,7 @@ def test_documents_library_location_facets(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_documents_post_put_delete(
-    client, document_chinese_data, json_header, rero_json_header
-):
+def test_documents_post_put_delete(client, document_chinese_data, json_header, rero_json_header):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for("invenio_records_rest.doc_item", pid_value="4")
@@ -543,15 +538,9 @@ def test_documents_resolve(
     ]
     assert res.status_code == 200
 
-    mock_contributions_mef_get.return_value = mock_response(
-        json_data=entity_person_response_data
-    )
-    res = client.get(
-        url_for("invenio_records_rest.doc_item", pid_value="doc2", resolve="1")
-    )
-    assert res.json["metadata"]["contribution"][0]["entity"][
-        "authorized_access_point_fr"
-    ]
+    mock_contributions_mef_get.return_value = mock_response(json_data=entity_person_response_data)
+    res = client.get(url_for("invenio_records_rest.doc_item", pid_value="doc2", resolve="1"))
+    assert res.json["metadata"]["contribution"][0]["entity"]["authorized_access_point_fr"]
     assert res.status_code == 200
 
 
@@ -588,10 +577,7 @@ def test_get_remote_cover(mock_get_cover, app):
     assert get_remote_cover("YYYYYYYYY") is None
 
     mock_get_cover.return_value = mock_response(
-        content="thumb({"
-        '    "success": true,'
-        '    "image": "https://i.test.com/images/P/XXXXXXXXXX_.jpg"'
-        "})"
+        content='thumb({    "success": true,    "image": "https://i.test.com/images/P/XXXXXXXXXX_.jpg"})'
     )
     cover = get_remote_cover("XXXXXXXXXX")
     assert cover == {
@@ -605,10 +591,7 @@ def test_document_identifiers_search(client, document):
 
     def success(response_data):
         data = response_data["hits"]
-        return (
-            data["total"]["value"] == 1
-            and data["hits"][0]["metadata"]["pid"] == document.pid
-        )
+        return data["total"]["value"] == 1 and data["hits"][0]["metadata"]["pid"] == document.pid
 
     def failure(response_data):
         return response_data["hits"]["total"]["value"] == 0
@@ -700,9 +683,7 @@ def test_document_identifiers_search(client, document):
     #    Ensure than if an invalid EAN identifier exists into the document
     #    metadata, this identifier is searchable anyway.
     original_data = deepcopy(document)
-    document["identifiedBy"].append(
-        {"type": IdentifierType.EAN, "value": "invalid_ean_identifier"}
-    )
+    document["identifiedBy"].append({"type": IdentifierType.EAN, "value": "invalid_ean_identifier"})
     document.update(document, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
 
@@ -768,9 +749,7 @@ def test_document_current_library_on_request_parameter(
     db.session.rollback()
 
 
-def test_document_advanced_search_config(
-    app, db, client, system_librarian_martigny, document
-):
+def test_document_advanced_search_config(app, db, client, system_librarian_martigny, document):
     """Test for advanced search config."""
 
     def check_field_data(key, field_data, data):
@@ -831,15 +810,9 @@ def test_document_advanced_search_config(
 
     check_field_data("canton", field_data, {"label": "canton_ag", "value": "ag"})
     check_field_data("country", field_data, {"label": "country_aa", "value": "aa"})
-    check_field_data(
-        "rdaCarrierType", field_data, {"label": "rdact:1002", "value": "rdact:1002"}
-    )
-    check_field_data(
-        "rdaContentType", field_data, {"label": "rdaco:1002", "value": "rdaco:1002"}
-    )
-    check_field_data(
-        "rdaMediaType", field_data, {"label": "rdamt:1001", "value": "rdamt:1001"}
-    )
+    check_field_data("rdaCarrierType", field_data, {"label": "rdact:1002", "value": "rdact:1002"})
+    check_field_data("rdaContentType", field_data, {"label": "rdaco:1002", "value": "rdaco:1002"})
+    check_field_data("rdaMediaType", field_data, {"label": "rdamt:1001", "value": "rdamt:1001"})
 
 
 @mock.patch(
@@ -864,9 +837,7 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     for field in ["collections", "file_name", "rec_id"]:
         assert field in list(metadata_files[0].keys())
     # check the file names
-    assert {res["file_name"] for res in metadata_files} == set(
-        ("doc_doc1_1.pdf", "logo_rero_ils.png")
-    )
+    assert {res["file_name"] for res in metadata_files} == set(("doc_doc1_1.pdf", "logo_rero_ils.png"))
     # text should not be on the es sources
     assert not [res["text"] for res in metadata_files if res.get("text")]
 
@@ -881,9 +852,7 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     data = hits["hits"][0]["metadata"]
     assert data["pid"] == document_with_files.pid
 
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q=f'"Document ({document_with_files.pid})"'
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q=f'"Document ({document_with_files.pid})"')
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 0

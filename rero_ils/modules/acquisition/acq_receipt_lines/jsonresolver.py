@@ -29,7 +29,5 @@ def acq_receipt_line_resolver(pid):
     persistent_id = PersistentIdentifier.get("acrl", pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
-    current_app.logger.error(
-        f"Doc resolver error: /api/acq_receipt_lines/{pid} {persistent_id}"
-    )
+    current_app.logger.error(f"Doc resolver error: /api/acq_receipt_lines/{pid} {persistent_id}")
     raise Exception("unable to resolve")

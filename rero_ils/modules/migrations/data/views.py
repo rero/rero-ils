@@ -53,9 +53,7 @@ class MigrationDataListResource(ContentNegotiatedMethodView):
         from ..views import simple_search_json_serializer
 
         super().__init__(
-            method_serializers={
-                "GET": {"application/json": simple_search_json_serializer}
-            },
+            method_serializers={"GET": {"application/json": simple_search_json_serializer}},
             serializers_query_aliases={"json": "application/json"},
             default_method_media_type={"GET": "application/json"},
             default_media_type="application/json",
@@ -101,22 +99,14 @@ class MigrationDataListResource(ContentNegotiatedMethodView):
         query = flask_request.args.get("q")
 
         # base query and filter by organization
-        search = search[(page - 1) * size : page * size].filter(
-            MigrationPermissionPolicy("mig-search").query_filters
-        )
+        search = search[(page - 1) * size : page * size].filter(MigrationPermissionPolicy("mig-search").query_filters)
 
         # aggregations
         search.aggs.bucket(_("migration"), "terms", field="migration_id.raw", size=30)
         search.aggs.bucket(_("batch"), "terms", field="deduplication.subset", size=30)
-        search.aggs.bucket(
-            _("conversion_status"), "terms", field="conversion.status", size=30
-        )
-        search.aggs.bucket(
-            _("deduplication_status"), "terms", field="deduplication.status", size=30
-        )
-        search.aggs.bucket(
-            _("modified_by"), "terms", field="deduplication.modified_by.raw", size=30
-        )
+        search.aggs.bucket(_("conversion_status"), "terms", field="conversion.status", size=30)
+        search.aggs.bucket(_("deduplication_status"), "terms", field="deduplication.status", size=30)
+        search.aggs.bucket(_("modified_by"), "terms", field="deduplication.modified_by.raw", size=30)
 
         # filters
         if conversion_status := flask_request.args.get("conversion_status"):
@@ -174,11 +164,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
         else:
             from .api import MigrationData
 
-            migration_data = next(
-                MigrationData.search(index="migration-data")
-                .filter("term", _id=id)
-                .scan()
-            )
+            migration_data = next(MigrationData.search(index="migration-data").filter("term", _id=id).scan())
             migration = Migration.get(migration_data.migration_id)
         data = migration_data.to_dict()
         data["id"] = migration_data.meta.id
@@ -206,11 +192,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
         else:
             from .api import MigrationData
 
-            migration_data = next(
-                MigrationData.search(index="migration-data")
-                .filter("term", _id=id)
-                .scan()
-            )
+            migration_data = next(MigrationData.search(index="migration-data").filter("term", _id=id).scan())
             migration = Migration.get(migration_data.migration_id)
         migration_data.deduplication.ils_pid = ils_pid
         if not ils_pid:

@@ -24,9 +24,7 @@ from jsonref import JsonRefError
 
 def test_patron_types_jsonresolver(app, patron_type_tmp):
     """Test patron type resolver."""
-    rec = Record.create(
-        {"patron_type": {"$ref": "https://bib.rero.ch/api/patron_types/1"}}
-    )
+    rec = Record.create({"patron_type": {"$ref": "https://bib.rero.ch/api/patron_types/1"}})
     assert rec.replace_refs().get("patron_type") == {"type": "ptty", "pid": "1"}
 
     # deleted record
@@ -35,8 +33,6 @@ def test_patron_types_jsonresolver(app, patron_type_tmp):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create(
-        {"patron_type": {"$ref": "https://bib.rero.ch/api/patron_types/n_e"}}
-    )
+    rec = Record.create({"patron_type": {"$ref": "https://bib.rero.ch/api/patron_types/n_e"}})
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

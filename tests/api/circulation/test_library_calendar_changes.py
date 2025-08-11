@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test library calendar changes effects on related loans."""
+
 import time
 
 from invenio_accounts.testutils import login_user_via_session
@@ -73,9 +74,7 @@ def test_library_calendar_changes(
     #     end of the task to check if the "end date" of the loan has been
     #     updated.
     library["opening_hours"][0] = {"day": "sunday", "is_open": False}
-    library["exception_dates"].append(
-        {"is_open": False, "title": "exception date", "start_date": loan.end_date[:10]}
-    )
+    library["exception_dates"].append({"is_open": False, "title": "exception date", "start_date": loan.end_date[:10]})
     library = library.update(library, dbcommit=True, reindex=False)
 
     time.sleep(5)  # TODO :: find a better way to detect task is finished.

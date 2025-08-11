@@ -17,7 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
@@ -114,9 +113,7 @@ def pattern_preview():
     size = patterns_data.get("size", 10)
     if pattern and pattern.get("frequency") == "rdafr:1016":
         return jsonify({"status": "error: irregular frequency"}), 400
-    issues = Holding.prediction_issues_preview_for_pattern(
-        pattern, number_of_predictions=size
-    )
+    issues = Holding.prediction_issues_preview_for_pattern(pattern, number_of_predictions=size)
     return jsonify({"issues": issues})
 
 
@@ -144,9 +141,7 @@ def receive_regular_issue(holding_pid):
         abort(401)
     item = data.get("item", {})
     try:
-        issue = holding.create_regular_issue(
-            status=ItemIssueStatus.RECEIVED, item=item, dbcommit=True, reindex=True
-        )
+        issue = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, item=item, dbcommit=True, reindex=True)
     except RegularReceiveNotAllowed:
         # receive allowed only on holding of type serials and regular frequency
         abort(400)
@@ -180,9 +175,7 @@ def do_holding_jsonify_action(func):
                 "type": "provisional",
                 "document": {"$ref": get_ref_for_pid("doc", holding.document_pid)},
                 "location": {"$ref": get_ref_for_pid("loc", holding.location_pid)},
-                "item_type": {
-                    "$ref": get_ref_for_pid("itty", holding.circulation_category_pid)
-                },
+                "item_type": {"$ref": get_ref_for_pid("itty", holding.circulation_category_pid)},
                 "enumerationAndChronology": description,
                 "status": ItemStatus.ON_SHELF,
                 "holding": {"$ref": get_ref_for_pid("hold", holding.pid)},
@@ -271,9 +264,7 @@ def can_request(holding_pid):
         abort(404, "Holding not found")
 
     if patron_barcode := flask_request.args.get("patron_barcode"):
-        kwargs["patron"] = Patron.get_patron_by_barcode(
-            barcode=patron_barcode, org_pid=holding.organisation_pid
-        )
+        kwargs["patron"] = Patron.get_patron_by_barcode(barcode=patron_barcode, org_pid=holding.organisation_pid)
         if not kwargs["patron"]:
             abort(404, "Patron not found")
 

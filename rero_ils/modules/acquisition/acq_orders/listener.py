@@ -68,16 +68,11 @@ def enrich_acq_order_data(
 
     # RELATED ORDER LINES METADATA ----------------------------------------
     order_line_dumper = AcqOrderLineESDumper()
-    json["order_lines"] = [
-        order_line.dumps(dumper=order_line_dumper)
-        for order_line in record.get_order_lines()
-    ]
+    json["order_lines"] = [order_line.dumps(dumper=order_line_dumper) for order_line in record.get_order_lines()]
 
     # RELATED RECEIPTS ----------------------------------------------------
     receipt_dumper = AcqReceiptESDumper()
-    json["receipts"] = [
-        receipt.dumps(dumper=receipt_dumper) for receipt in record.get_receipts()
-    ]
+    json["receipts"] = [receipt.dumps(dumper=receipt_dumper) for receipt in record.get_receipts()]
 
     # RELATED BUDGET ------------------------------------------------------
     if budget := record.budget:

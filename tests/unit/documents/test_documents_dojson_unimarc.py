@@ -46,9 +46,7 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("type") == [
-        {"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}
-    ]
+    assert data.get("type") == [{"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}]
 
     unimarcxml = """
     <record>
@@ -79,9 +77,7 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("type") == [
-        {"main_type": "docmaintype_score", "subtype": "docsubtype_printed_score"}
-    ]
+    assert data.get("type") == [{"main_type": "docmaintype_score", "subtype": "docsubtype_printed_score"}]
 
     unimarcxml = """
     <record>
@@ -90,9 +86,7 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("type") == [
-        {"main_type": "docmaintype_score", "subtype": "docsubtype_printed_score"}
-    ]
+    assert data.get("type") == [{"main_type": "docmaintype_score", "subtype": "docsubtype_printed_score"}]
 
     unimarcxml = """
     <record>
@@ -101,9 +95,7 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("type") == [
-        {"main_type": "docmaintype_audio", "subtype": "docsubtype_music"}
-    ]
+    assert data.get("type") == [{"main_type": "docmaintype_audio", "subtype": "docsubtype_music"}]
 
     unimarcxml = """
     <record>
@@ -112,9 +104,7 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("type") == [
-        {"main_type": "docmaintype_audio", "subtype": "docsubtype_music"}
-    ]
+    assert data.get("type") == [{"main_type": "docmaintype_audio", "subtype": "docsubtype_music"}]
 
     unimarcxml = """
     <record>
@@ -123,9 +113,7 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("type") == [
-        {"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"}
-    ]
+    assert data.get("type") == [{"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"}]
 
 
 def test_marc21_to_mode_of_issuance():
@@ -310,9 +298,7 @@ def test_unimarc_to_title():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("title") == [
-        {"mainTitle": [{"value": "main title"}], "type": "bf:Title"}
-    ]
+    assert data.get("title") == [{"mainTitle": [{"value": "main title"}], "type": "bf:Title"}]
     assert data.get("responsibilityStatement") == [[{"value": "responsibility"}]]
 
     # field 200 to bf:Title
@@ -326,9 +312,7 @@ def test_unimarc_to_title():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("title") == [
-        {"mainTitle": [{"value": "main title"}], "type": "bf:Title"}
-    ]
+    assert data.get("title") == [{"mainTitle": [{"value": "main title"}], "type": "bf:Title"}]
     assert data.get("responsibilityStatement") is None
 
 
@@ -1001,9 +985,7 @@ def test_unimarc_description():
     data = unimarc.do(unimarcjson)
     assert data.get("dimensions") == ["24 cm"]
     assert data.get("colorContent") == ["rdacc:1003"]
-    assert data.get("note") == [
-        {"noteType": "otherPhysicalDetails", "label": "couv. ill. en coul."}
-    ]
+    assert data.get("note") == [{"noteType": "otherPhysicalDetails", "label": "couv. ill. en coul."}]
 
 
 # seriesStatement: [225 repetitive]
@@ -1221,9 +1203,7 @@ def test_unimarc_identifiers():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get("identifiedBy") == [
-        {"type": "bf:Ean", "value": "978237055016x", "status": "invalid"}
-    ]
+    assert data.get("identifiedBy") == [{"type": "bf:Ean", "value": "978237055016x", "status": "invalid"}]
 
 
 # notes: [300$a repetitive]

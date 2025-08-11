@@ -123,11 +123,7 @@ def delete_loans_created(verbose=False, hours=1, dbcommit=True, delindex=True):
     if hours >= 0:
         now -= timedelta(hours=hours)
     count = LoansSearch().filter("term", state="CREATED").count()
-    query = (
-        LoansSearch()
-        .filter("term", state="CREATED")
-        .filter("range", _created={"lt": now})
-    )
+    query = LoansSearch().filter("term", state="CREATED").filter("range", _created={"lt": now})
     if verbose:
         click.echo(f"TOTAL: {count} DELETE: {query.count()} HOURS: {-query.count()}")
     idx = 0

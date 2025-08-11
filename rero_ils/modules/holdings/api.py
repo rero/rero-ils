@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Holdings records."""
+
 from __future__ import absolute_import, print_function
 
 from builtins import classmethod
@@ -64,9 +65,7 @@ from rero_ils.modules.utils import (
 from .models import HoldingIdentifier, HoldingMetadata, HoldingTypes
 
 # holing provider
-HoldingProvider = type(
-    "HoldingProvider", (Provider,), dict(identifier=HoldingIdentifier, pid_type="hold")
-)
+HoldingProvider = type("HoldingProvider", (Provider,), dict(identifier=HoldingIdentifier, pid_type="hold"))
 # holing minter
 holding_id_minter = partial(id_minter, provider=HoldingProvider)
 # holing fetcher
@@ -163,19 +162,11 @@ class Holding(IlsRecord):
         document_pid = extracted_data_from_ref(self.get("document").get("$ref"))
         document = Document.get_record_by_pid(document_pid)
         if not document:
-            return _(
-                "Document does not exist {document_pid}.".format(
-                    document_pid=document_pid
-                )
-            )
+            return _("Document does not exist {document_pid}.".format(document_pid=document_pid))
 
         if self.is_serial:
             patterns = self.get("patterns", {})
-            if (
-                patterns
-                and patterns.get("frequency") != "rdafr:1016"
-                and not patterns.get("next_expected_date")
-            ):
+            if patterns and patterns.get("frequency") != "rdafr:1016" and not patterns.get("next_expected_date"):
                 return _("Must have next expected date for regular frequencies.")
         # the enumeration and chronology optional fields are only allowed for
         # serial or electronic holdings
@@ -196,11 +187,7 @@ class Holding(IlsRecord):
             ]
             for field in fields:
                 if self.get(field):
-                    return _(
-                        "{field} is allowed only for serial holdings".format(
-                            field=field
-                        )
-                    )
+                    return _("{field} is allowed only for serial holdings".format(field=field))
         # No multiple notes with same type
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
@@ -372,17 +359,13 @@ class Holding(IlsRecord):
         :param note_type: the type of note (see ``HoldingNoteTypes``)
         :return the content of the note, None if note type is not found
         """
-        notes = [
-            note.get("content") for note in self.notes if note.get("type") == note_type
-        ]
+        notes = [note.get("content") for note in self.notes if note.get("type") == note_type]
         return next(iter(notes), None)
 
     @property
     def get_items_count_by_holding_pid(self):
         """Returns items count from holding pid."""
-        results = (
-            ItemsSearch().filter("term", holding__pid=self.pid).source(["pid"]).count()
-        )
+        results = ItemsSearch().filter("term", holding__pid=self.pid).source(["pid"]).count()
         return results
 
     @classmethod
@@ -401,18 +384,14 @@ class Holding(IlsRecord):
     @classmethod
     def get_holdings_pid_by_document_pid(cls, document_pid, with_masked=True):
         """Returns holding pids attached for a given document pid."""
-        es_query = (
-            HoldingsSearch().filter("term", document__pid=document_pid).source(["pid"])
-        )
+        es_query = HoldingsSearch().filter("term", document__pid=document_pid).source(["pid"])
         if not with_masked:
             es_query = es_query.filter("bool", must_not=[Q("term", _masked=True)])
         for holding in es_query.scan():
             yield holding.pid
 
     @classmethod
-    def get_holdings_pid_by_document_pid_by_org(
-        cls, document_pid, org_pid, with_masked=True
-    ):
+    def get_holdings_pid_by_document_pid_by_org(cls, document_pid, org_pid, with_masked=True):
         """Returns holding pids attached for a given document pid."""
         es_query = (
             HoldingsSearch()
@@ -427,10 +406,7 @@ class Holding(IlsRecord):
 
     def get_items_filter_by_viewcode(self, viewcode):
         """Return items filter by view code."""
-        items = [
-            Item.get_record_by_pid(item_pid)
-            for item_pid in Item.get_items_pid_by_holding_pid(self.get("pid"))
-        ]
+        items = [Item.get_record_by_pid(item_pid) for item_pid in Item.get_items_pid_by_holding_pid(self.get("pid"))]
         if viewcode != current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
             org_pid = Organisation.get_record_by_viewcode(viewcode)["pid"]
             return [item for item in items if item.organisation_pid == org_pid]
@@ -449,9 +425,7 @@ class Holding(IlsRecord):
                          if False count of linked records
         """
         items_query = ItemsSearch().filter("term", holding__pid=self.pid)
-        local_fields_query = LocalFieldsSearch().get_local_fields(
-            self.provider.pid_type, self.pid
-        )
+        local_fields_query = LocalFieldsSearch().get_local_fields(self.provider.pid_type, self.pid)
         if get_pids:
             items = sorted_pids(items_query)
             local_fields = sorted_pids(local_fields_query)
@@ -472,18 +446,10 @@ class Holding(IlsRecord):
                 for reason in reasons_not_to_delete:
                     counts.setdefault(reason, 0)
                     # Add reason count for received loans and all other reasons.
-                    if (
-                        reason == "loans"
-                        and issue_status == ItemIssueStatus.RECEIVED
-                        or reason != "loans"
-                    ):
+                    if reason == "loans" and issue_status == ItemIssueStatus.RECEIVED or reason != "loans":
                         counts[reason] += 1
                 if cannot_delete_msgs := {
-                    _(
-                        "has {value} items with {name} attached".format(
-                            value=value, name=name
-                        )
-                    ): value
+                    _("has {value} items with {name} attached".format(value=value, name=name)): value
                     for name, value in counts.items()
                     if value > 0
                 }:
@@ -582,9 +548,7 @@ class Holding(IlsRecord):
                 mapping = level.get("mapping_values")
                 if mapping:
                     text_value = mapping[text_value - 1]
-                level_data.update(
-                    {level.get("number_name", level.get("list_name")): str(text_value)}
-                )
+                level_data.update({level.get("number_name", level.get("list_name")): str(text_value)})
             issue_data[pattern_name] = level_data
 
         # TODO: inform the PO about the use of filter format_date_filter
@@ -631,9 +595,7 @@ class Holding(IlsRecord):
                     break
         frequency = patterns.get("frequency")
         if frequency:
-            next_expected_date = datetime.strptime(
-                patterns.get("next_expected_date"), "%Y-%m-%d"
-            )
+            next_expected_date = datetime.strptime(patterns.get("next_expected_date"), "%Y-%m-%d")
             interval = cls.frequencies[frequency]
             next_expected_date = next_expected_date + interval
             patterns["next_expected_date"] = next_expected_date.strftime("%Y-%m-%d")
@@ -686,9 +648,7 @@ class Holding(IlsRecord):
         """
         return {"issue": issue, "expected_date": expected_date}
 
-    def _prepare_issue_record(
-        self, status, item=None, issue_display=None, expected_date=None
-    ):
+    def _prepare_issue_record(self, status, item=None, issue_display=None, expected_date=None):
         """Prepare the issue record before creating the item."""
         data = {
             "issue": {
@@ -725,15 +685,10 @@ class Holding(IlsRecord):
         """Receive the next expected regular issue for the holdings record."""
         # receive is allowed only on holdings of type serials with a regular
         # frequency
-        if (
-            self.holdings_type != HoldingTypes.SERIAL
-            or self.get("patterns", {}).get("frequency") == "rdafr:1016"
-        ):
+        if self.holdings_type != HoldingTypes.SERIAL or self.get("patterns", {}).get("frequency") == "rdafr:1016":
             raise RegularReceiveNotAllowed()
 
-        issue_display, expected_date = self._get_next_issue_display_text(
-            self.get("patterns")
-        )
+        issue_display, expected_date = self._get_next_issue_display_text(self.get("patterns"))
         data = self._prepare_issue_record(
             status=status,
             item=item,
@@ -743,9 +698,7 @@ class Holding(IlsRecord):
         return Item.create(data=data, dbcommit=dbcommit, reindex=reindex)
 
 
-def get_holding_pid_by_doc_location_item_type(
-    document_pid, location_pid, item_type_pid, holdings_type="standard"
-):
+def get_holding_pid_by_doc_location_item_type(document_pid, location_pid, item_type_pid, holdings_type="standard"):
     """Returns standard holding pid for document/location/item type."""
     result = (
         HoldingsSearch()
@@ -827,9 +780,7 @@ def create_holding(
     :return: the created holdings record.
     """
     if not (document_pid and location_pid and item_type_pid):
-        raise MissingRequiredParameterError(
-            "'document_pid', 'location_pid' and 'item_type_pid' are required."
-        )
+        raise MissingRequiredParameterError("'document_pid', 'location_pid' and 'item_type_pid' are required.")
     data = {
         "$schema": get_schema_for_resource("hold"),
         "_masked": masked,

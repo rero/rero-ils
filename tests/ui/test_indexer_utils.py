@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API tests for indexer utilities."""
+
 import pytest
 from elasticsearch import NotFoundError
 from mock import mock
@@ -56,37 +57,23 @@ def test_record_to_index(app):
 
     # for documents
     assert (
-        record_to_index(
-            {"$schema": "https://bib.rero.ch/schemas/" "documents/document-v0.0.1.json"}
-        )
+        record_to_index({"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"})
         == "documents-document-v0.0.1"
     )
     assert (
-        record_to_index(
-            {"$schema": "https://bib.rero.ch/schemas/" "documents/document-v0.0.1.json"}
-        )
+        record_to_index({"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"})
         == "documents-document-v0.0.1"
     )
 
     # for mef-mef-contributions
     assert (
-        record_to_index(
-            {
-                "$schema": "https://mef.rero.ch/schemas/"
-                "mef/mef-contribution-v0.0.1.json"
-            }
-        )
+        record_to_index({"$schema": "https://mef.rero.ch/schemas/mef/mef-contribution-v0.0.1.json"})
         == "remote_entities-remote_entity-v0.0.1"
     )
 
     # for others
     assert (
-        record_to_index(
-            {
-                "$schema": "https://bib.rero.ch/schemas/"
-                "organisations/organisation-v0.0.1.json"
-            }
-        )
+        record_to_index({"$schema": "https://bib.rero.ch/schemas/organisations/organisation-v0.0.1.json"})
         == "organisations-organisation-v0.0.1"
     )
 

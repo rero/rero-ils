@@ -99,9 +99,7 @@ class BookingCirculationNotification(CirculationNotification):
             request_loan = notification.request_loan
             pickup_location = Location.get_record_by_pid(
                 request_loan.get("pickup_location_pid")
-            ) or Location.get_record_by_pid(
-                request_loan.get("transaction_location_pid")
-            )
+            ) or Location.get_record_by_pid(request_loan.get("transaction_location_pid"))
             # request_patron
             request_patron = Patron.get_record_by_pid(request_loan.get("patron_pid"))
 
@@ -109,9 +107,7 @@ class BookingCirculationNotification(CirculationNotification):
                 "creation_date": creation_date,
                 "in_transit": loan.state in LoanState.ITEM_IN_TRANSIT,
                 "document": doc_data,
-                "pickup_name": pickup_location.get(
-                    "pickup_name", pickup_location.get("name")
-                ),
+                "pickup_name": pickup_location.get("pickup_name", pickup_location.get("name")),
                 "patron": request_patron.dumps(dumper=patron_dumper),
             }
             context["loans"].append(loan_context)

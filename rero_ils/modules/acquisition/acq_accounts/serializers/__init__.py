@@ -54,6 +54,4 @@ _csv = AcqAccountCSVSerializer(
     ]
 )
 
-csv_acq_account_search = search_responsify_file(
-    _csv, "text/csv", file_extension="csv", file_prefix="export-accounts"
-)
+csv_acq_account_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_prefix="export-accounts")

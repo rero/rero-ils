@@ -96,13 +96,11 @@ def index():
     help="Controls if ES bulk indexing errors raise an exception.",
 )
 @with_appcontext
-def run(
-    delayed, concurrency, with_stats, version_type=None, queue=None, raise_on_error=True
-):
+def run(delayed, concurrency, with_stats, version_type=None, queue=None, raise_on_error=True):
     """Run bulk record indexing."""
     if delayed:
         click.secho(
-            f"Starting {concurrency} tasks for indexing records " f"({queue})...",
+            f"Starting {concurrency} tasks for indexing records ({queue})...",
             fg="green",
         )
         celery_kwargs = {
@@ -182,18 +180,12 @@ def reindex(pid_types, from_date, until_date, direct, queue):
                         .order_by(model_cls.created)
                     )
                     if from_date:
-                        query = query.filter(
-                            model_cls.updated > dateparser.parse(from_date)
-                        )
+                        query = query.filter(model_cls.updated > dateparser.parse(from_date))
                     if until_date:
-                        query = query.filter(
-                            model_cls.updated <= dateparser.parse(until_date)
-                        )
+                        query = query.filter(model_cls.updated <= dateparser.parse(until_date))
             else:
                 query = (
-                    PersistentIdentifier.query.filter_by(
-                        object_type="rec", status=PIDStatus.REGISTERED
-                    )
+                    PersistentIdentifier.query.filter_by(object_type="rec", status=PIDStatus.REGISTERED)
                     .filter_by(pid_type=pid_type)
                     .with_entities(PersistentIdentifier.object_uuid)
                 )
@@ -245,9 +237,7 @@ def reindex_missing(pid_types, verbose):
             )
             continue
         monitoring = Monitoring(time_delta=0)
-        pids_es, pids_db, pids_es_double, index = monitoring.get_es_db_missing_pids(
-            p_type
-        )
+        pids_es, pids_db, pids_es_double, index = monitoring.get_es_db_missing_pids(p_type)
         click.secho(
             f"{len(pids_db)}",
             fg="green",
@@ -307,9 +297,7 @@ def switch_index(old, new):
 @index.command("create_index")
 @with_appcontext
 @search_version_check
-@click.option(
-    "-t", "--templates/--no-templates", "templates", is_flag=True, default=True
-)
+@click.option("-t", "--templates/--no-templates", "templates", is_flag=True, default=True)
 @click.option("-v", "--verbose/--no-verbose", "verbose", is_flag=True, default=False)
 @click.argument("resource")
 @click.argument("index")
@@ -355,13 +343,9 @@ def update_mapping(aliases, settings):
             try:
                 if mapping.get("settings") and settings:
                     current_search_client.indices.close(index=index)
-                    current_search_client.indices.put_settings(
-                        body=mapping.get("settings"), index=index
-                    )
+                    current_search_client.indices.put_settings(body=mapping.get("settings"), index=index)
                     current_search_client.indices.open(index=index)
-                res = current_search_client.indices.put_mapping(
-                    body=mapping.get("mappings"), index=index
-                )
+                res = current_search_client.indices.put_mapping(body=mapping.get("mappings"), index=index)
             except Exception as excep:
                 click.secho(f"error: {excep}", fg="red")
             if res.get("acknowledged"):

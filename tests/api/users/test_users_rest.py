@@ -27,9 +27,7 @@ from invenio_accounts.testutils import login_user_via_session
 from tests.utils import get_json, postdata
 
 
-def test_users_post_put(
-    client, user_data_tmp, librarian_martigny, json_header, default_user_password
-):
+def test_users_post_put(client, user_data_tmp, librarian_martigny, json_header, default_user_password):
     """Test users REST api for retrieve, create and update."""
     first_name = user_data_tmp.get("first_name")
 
@@ -107,9 +105,7 @@ def test_users_post_put(
     assert res.status_code == 200
 
 
-def test_users_search_api(
-    client, librarian_martigny, patron_martigny, user_without_profile
-):
+def test_users_search_api(client, librarian_martigny, patron_martigny, user_without_profile):
     """Test users search REST API."""
     l_martigny = librarian_martigny
     librarian_martigny = librarian_martigny.dumps()
@@ -137,60 +133,42 @@ def test_users_search_api(
     res = client.get(url_for("api_users.users_list", q=patron_martigny["username"]))
     assert res.status_code == 200
     hits = get_json(res)
-    assert (
-        hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    )
+    assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
     assert hits["hits"]["total"]["value"] == 1
 
     # all by email
     res = client.get(url_for("api_users.users_list", q=patron_martigny["email"]))
     assert res.status_code == 200
     hits = get_json(res)
-    assert (
-        hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    )
+    assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
     assert hits["hits"]["total"]["value"] == 1
 
     # by username
-    res = client.get(
-        url_for("api_users.users_list", q="username:" + patron_martigny["username"])
-    )
+    res = client.get(url_for("api_users.users_list", q="username:" + patron_martigny["username"]))
     assert res.status_code == 200
     hits = get_json(res)
-    assert (
-        hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    )
+    assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
     assert hits["hits"]["total"]["value"] == 1
 
     # by email
-    res = client.get(
-        url_for("api_users.users_list", q="email:" + patron_martigny["email"])
-    )
+    res = client.get(url_for("api_users.users_list", q="email:" + patron_martigny["email"]))
     assert res.status_code == 200
     hits = get_json(res)
-    assert (
-        hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    )
+    assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
     assert hits["hits"]["total"]["value"] == 1
 
     # non patron by email
-    res = client.get(
-        url_for("api_users.users_list", q="email:" + user_without_profile.email)
-    )
+    res = client.get(url_for("api_users.users_list", q="email:" + user_without_profile.email))
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"][0]["metadata"]["email"] == user_without_profile.email
     assert hits["hits"]["total"]["value"] == 1
 
     # by uppercase email
-    res = client.get(
-        url_for("api_users.users_list", q="email:" + patron_martigny["email"].upper())
-    )
+    res = client.get(url_for("api_users.users_list", q="email:" + patron_martigny["email"].upper()))
     assert res.status_code == 200
     hits = get_json(res)
-    assert (
-        hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    )
+    assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
     assert hits["hits"]["total"]["value"] == 1
 
     # Login with patron role
@@ -212,6 +190,4 @@ def test_users_search_api(
     assert res.status_code == 200
     hits = get_json(res)
     assert "metadata" in hits["hits"]["hits"][0]
-    assert (
-        hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    )
+    assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]

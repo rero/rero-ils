@@ -135,9 +135,7 @@ def test_stats_report_number_of_items(
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "filter_by_libraries": [
-            {"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}
-        ],
+        "filter_by_libraries": [{"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}],
         "category": {"indicator": {"type": "number_of_items"}},
     }
     assert StatsReport(cfg).collect() == [[1]]
@@ -154,8 +152,8 @@ def test_stats_report_number_of_items(
         },
     }
     assert StatsReport(cfg).collect() == [
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 2],
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 1],
+        [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 2],
     ]
 
     # two distributions
@@ -171,8 +169,8 @@ def test_stats_report_number_of_items(
     }
     assert StatsReport(cfg).collect() == [
         ["", "2023-02", "2024-01"],
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 0, 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 2, 0],
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 0, 1],
+        [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 2, 0],
     ]
 
     # reverse distrubtions
@@ -189,8 +187,8 @@ def test_stats_report_number_of_items(
     assert StatsReport(cfg).collect() == [
         [
             "",
-            f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
-            f'{lib_martigny.get("name")} ({lib_martigny.pid})',
+            f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})",
+            f"{lib_martigny.get('name')} ({lib_martigny.pid})",
         ],
         ["2023-02", 0, 2],
         ["2024-01", 1, 0],
@@ -210,8 +208,8 @@ def test_stats_report_number_of_items(
     assert StatsReport(cfg).collect() == [
         [
             "",
-            f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
-            f'{lib_martigny.get("name")} ({lib_martigny.pid})',
+            f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})",
+            f"{lib_martigny.get('name')} ({lib_martigny.pid})",
         ],
         ["2023", 0, 2],
         ["2024", 1, 0],
@@ -231,8 +229,8 @@ def test_stats_report_number_of_items(
     assert StatsReport(cfg).collect() == [
         [
             "",
-            f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
-            f'{lib_martigny.get("name")} ({lib_martigny.pid})',
+            f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})",
+            f"{lib_martigny.get('name')} ({lib_martigny.pid})",
         ],
         ["issue", 0, 1],
         ["provisional", 1, 0],
@@ -250,18 +248,12 @@ def test_stats_report_number_of_items(
             }
         },
     }
-    label_loc_pub_martigny = (
-        f'{lib_martigny["name"]} / '
-        f'{loc_public_martigny["name"]} ({loc_public_martigny.pid})'
-    )
+    label_loc_pub_martigny = f"{lib_martigny['name']} / {loc_public_martigny['name']} ({loc_public_martigny.pid})"
     label_loc_rest_martigny = (
-        f'{lib_martigny["name"]} / '
-        f'{loc_restricted_martigny["name"]} ({loc_restricted_martigny.pid})'
+        f"{lib_martigny['name']} / {loc_restricted_martigny['name']} ({loc_restricted_martigny.pid})"
     )
     label_loc_pub_martigny_bourg = (
-        f'{lib_martigny_bourg["name"]} / '
-        f'{loc_public_martigny_bourg["name"]} '
-        f"({loc_public_martigny_bourg.pid})"
+        f"{lib_martigny_bourg['name']} / {loc_public_martigny_bourg['name']} ({loc_public_martigny_bourg.pid})"
     )
     assert StatsReport(cfg).collect() == [
         [
@@ -279,9 +271,7 @@ def test_stats_report_number_of_items(
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "category": {
-            "indicator": {"type": "number_of_items", "distributions": ["document_type"]}
-        },
+        "category": {"indicator": {"type": "number_of_items", "distributions": ["document_type"]}},
     }
     assert StatsReport(cfg).collect() == [["docmaintype_book", 3]]
 

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for patrons."""
+
 from flask import g
 from flask_login import current_user
 from invenio_access import action_factory, any_user
@@ -43,9 +44,7 @@ delete_action = action_factory("ptrn-delete")
 access_action = action_factory("ptrn-access")
 
 
-class AllowedByActionRestrictStaffByManageableLibrary(
-    AllowedByActionRestrictByOrganisation
-):
+class AllowedByActionRestrictStaffByManageableLibrary(AllowedByActionRestrictByOrganisation):
     """Restrict action on staff users by staff users of the same library.
 
     If the updated record represents a staff `Patron` user, then only staff
@@ -99,11 +98,7 @@ class PatronPermissionPolicy(RecordPermissionPolicy):
     """Patron Permission Policy used by the CRUD operations."""
 
     can_search = [AllowedByAction(search_action)]
-    can_read = [
-        AllowedByActionRestrictByOwnerOrOrganisation(
-            read_action, patron_callback=lambda record: record.pid
-        )
-    ]
+    can_read = [AllowedByActionRestrictByOwnerOrOrganisation(read_action, patron_callback=lambda record: record.pid)]
     can_create = [AllowedByActionRestrictStaffByManageableLibrary(create_action)]
     can_update = [AllowedByActionRestrictStaffByManageableLibrary(update_action)]
     can_delete = [

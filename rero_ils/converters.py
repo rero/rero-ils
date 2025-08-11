@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """General converters utilities module."""
+
 from invenio_records_rest.utils import PIDConverter
 from werkzeug.utils import cached_property
 

@@ -204,9 +204,7 @@ def test_requesting_item_from_non_circulating_library(
     login_user_via_session(client, librarian_martigny.user)
     date_format = "%Y/%m/%dT%H:%M:%S.000Z"
     today = datetime.utcnow()
-    eod = today.replace(
-        hour=23, minute=59, second=0, microsecond=0, tzinfo=lib_martigny.get_timezone()
-    )
+    eod = today.replace(hour=23, minute=59, second=0, microsecond=0, tzinfo=lib_martigny.get_timezone())
     params = dict(
         item_pid=item_lib_martigny_bourg.pid,
         patron_pid=patron_martigny.pid,

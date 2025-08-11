@@ -70,12 +70,8 @@ def test_extended_validation(app, ill_request_martigny_data_tmp):
 
     # test on 'notes' field :: have 2 note of the same type is disallowed
     data = copy.deepcopy(ill_request_martigny_data_tmp)
-    data["notes"] = [
-        {"type": ILLRequestNoteStatus.PUBLIC_NOTE, "content": "dummy content"}
-    ]
+    data["notes"] = [{"type": ILLRequestNoteStatus.PUBLIC_NOTE, "content": "dummy content"}]
     ILLRequest.validate(ILLRequest(data))
     with pytest.raises(ValidationError):
-        data["notes"].append(
-            {"type": ILLRequestNoteStatus.PUBLIC_NOTE, "content": "second dummy note"}
-        )
+        data["notes"].append({"type": ILLRequestNoteStatus.PUBLIC_NOTE, "content": "second dummy note"})
         ILLRequest.validate(ILLRequest(data))

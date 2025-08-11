@@ -58,23 +58,14 @@ class ClaimSerialIssueNotification(Notification, ABC):
         if self.type != NotificationType.CLAIM_ISSUE:
             return f"'{self.type} isn't an ClaimSerialIssueNotification"
         if not self.item:
-            return (
-                "`item` field must be specified into `context` for "
-                "ClaimSerialIssueNotification"
-            )
+            return "`item` field must be specified into `context` for ClaimSerialIssueNotification"
         if not self.item.is_issue:
             return "`item` field must reference an serial issue item."
 
         # validate that at least one email of type `to` exist and one email of
         # type `reply_to` is given in the ist of emails.
-        recipient_types = {
-            recipient.get("type")
-            for recipient in self.get("context", {}).get("recipients", [])
-        }
-        if (
-            RecipientType.TO not in recipient_types
-            or RecipientType.REPLY_TO not in recipient_types
-        ):
+        recipient_types = {recipient.get("type") for recipient in self.get("context", {}).get("recipients", [])}
+        if RecipientType.TO not in recipient_types or RecipientType.REPLY_TO not in recipient_types:
             return "Recipient type `to` and `reply_to` are required"
         return True
 

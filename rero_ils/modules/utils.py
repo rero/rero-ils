@@ -18,7 +18,6 @@
 
 """Utilities for rero-ils editor."""
 
-
 import contextlib
 import cProfile
 import os
@@ -57,9 +56,7 @@ from rero_ils.modules.providers import set_sequence
 
 # jsonschema resolver
 # SEE: RECORDS_REFRESOLVER_STORE for more details
-refresolver_store = LocalProxy(
-    lambda: current_app.extensions["rero-ils"].jsonschema_store
-)
+refresolver_store = LocalProxy(lambda: current_app.extensions["rero-ils"].jsonschema_store)
 
 
 def get_mef_url(entity_type):
@@ -69,11 +66,7 @@ def get_mef_url(entity_type):
     :return the base url to use to contact MEF.
     :rtype str
     """
-    return (
-        current_app.config.get("RERO_ILS_MEF_CONFIG", {})
-        .get(entity_type, {})
-        .get("base_url")
-    )
+    return current_app.config.get("RERO_ILS_MEF_CONFIG", {}).get(entity_type, {}).get("base_url")
 
 
 def cached(timeout=50, key_prefix="default", query_string=False):
@@ -99,9 +92,7 @@ def cached(timeout=50, key_prefix="default", query_string=False):
     def caching(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            cache_fun = current_cache.cached(
-                timeout=timeout, key_prefix=key_prefix, query_string=query_string
-            )
+            cache_fun = current_cache.cached(timeout=timeout, key_prefix=key_prefix, query_string=query_string)
             return cache_fun(f)(*args, **kwargs)
 
         return wrapper
@@ -246,15 +237,9 @@ def get_record_class_and_permissions_from_route(route_name):
             permissions = dict(
                 read=obj_or_import_string(record.get("read_permission_factory_imp")),
                 list=obj_or_import_string(record.get("list_permission_factory_imp")),
-                create=obj_or_import_string(
-                    record.get("create_permission_factory_imp")
-                ),
-                update=obj_or_import_string(
-                    record.get("update_permission_factory_imp")
-                ),
-                delete=obj_or_import_string(
-                    record.get("delete_permission_factory_imp")
-                ),
+                create=obj_or_import_string(record.get("create_permission_factory_imp")),
+                update=obj_or_import_string(record.get("update_permission_factory_imp")),
+                delete=obj_or_import_string(record.get("delete_permission_factory_imp")),
             )
             return record_class, permissions
 
@@ -269,9 +254,9 @@ def get_endpoint_configuration(module):
     if not isinstance(module, str):
         # Get the pid_type for the class
         module = module.provider.pid_type
-    endpoints = current_app.config.get(
-        "RECORDS_REST_ENDPOINTS", {}
-    ) | current_app.config.get("CIRCULATION_REST_ENDPOINTS", {})
+    endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", {}) | current_app.config.get(
+        "CIRCULATION_REST_ENDPOINTS", {}
+    )
     for idx, endpoint in endpoints.items():
         search_index = endpoint.get("search_index")
         if search_index == module or idx == module:
@@ -304,9 +289,7 @@ def extracted_data_from_ref(input, data="pid"):
         resource_list = extracted_data_from_ref(input, data="resource")
         endpoints = {
             endpoint.get("search_index"): acronym
-            for acronym, endpoint in current_app.config.get(
-                "RECORDS_REST_ENDPOINTS", {}
-            ).items()
+            for acronym, endpoint in current_app.config.get("RECORDS_REST_ENDPOINTS", {}).items()
         }
         return endpoints.get(resource_list)
 
@@ -365,9 +348,7 @@ def add_years(initial_date, years):
     try:
         return initial_date.replace(year=initial_date.year + years)
     except ValueError:
-        return initial_date + (
-            date(initial_date.year + years, 1, 1) - date(initial_date.year, 1, 1)
-        )
+        return initial_date + (date(initial_date.year + years, 1, 1) - date(initial_date.year, 1, 1))
 
 
 def trim_item_barcode_for_record(data=None):
@@ -428,12 +409,7 @@ def pid_exists(info, pid_type, pid, raise_on_error=False):
     :param raise_on_error: Raise PidDoesNotExist exception if enabled.
     :return: True if pid was found. Otherwise False.
     """
-    if (
-        PersistentIdentifier.query.filter_by(
-            pid_type=str(pid_type), pid_value=str(pid)
-        ).count()
-        == 1
-    ):
+    if PersistentIdentifier.query.filter_by(pid_type=str(pid_type), pid_value=str(pid)).count() == 1:
         return True
     if raise_on_error:
         from .api import IlsRecordError
@@ -468,23 +444,14 @@ def pids_exists_in_data(info, data, required=None, not_required=None):
                 for data_to_test in data_to_test_list:
                     try:
                         list_route = endpoints[pid_type]["list_route"]
-                        data_pid = (
-                            data_to_test.get("pid")
-                            or data_to_test.get("$ref").split(list_route)[1]
-                        )
+                        data_pid = data_to_test.get("pid") or data_to_test.get("$ref").split(list_route)[1]
                     except Exception:
                         data_pid = None
                     if not data_pid and is_required:
-                        return_value.append(
-                            f"{info}: No pid found: " f"{pid_type} {data_to_test}"
-                        )
+                        return_value.append(f"{info}: No pid found: {pid_type} {data_to_test}")
                     else:
-                        if data_pid and not pid_exists(
-                            info=info, pid_type=pid_type, pid=data_pid
-                        ):
-                            return_value.append(
-                                f"{info}: Pid does not exist: " f"{pid_type} {data_pid}"
-                            )
+                        if data_pid and not pid_exists(info=info, pid_type=pid_type, pid=data_pid):
+                            return_value.append(f"{info}: Pid does not exist: {pid_type} {data_pid}")
                 if is_required and not data_to_test_list:
                     return_value.append(f"{info}: No data found: {key}")
         return return_value
@@ -492,21 +459,14 @@ def pids_exists_in_data(info, data, required=None, not_required=None):
     required = required or {}
     not_required = not_required or {}
 
-    return_value_required = pids_exists_in_data_test(
-        info=info, data=data, tests=required, is_required=True
-    )
-    return_value_not_required = pids_exists_in_data_test(
-        info=info, data=data, tests=not_required, is_required=False
-    )
+    return_value_required = pids_exists_in_data_test(info=info, data=data, tests=required, is_required=True)
+    return_value_not_required = pids_exists_in_data_test(info=info, data=data, tests=not_required, is_required=False)
     return return_value_required + return_value_not_required
 
 
 def get_base_url():
     """Get base url."""
-    return (
-        f"{current_app.config.get('RERO_ILS_APP_URL_SCHEME')}://"
-        f"{current_app.config.get('RERO_ILS_APP_HOST')}"
-    )
+    return f"{current_app.config.get('RERO_ILS_APP_URL_SCHEME')}://{current_app.config.get('RERO_ILS_APP_HOST')}"
 
 
 def get_ref_for_pid(module, pid):
@@ -535,11 +495,7 @@ def get_record_class_from_schema_or_pid_type(schema=None, pid_type=None):
     """
     if schema:
         pid_type = get_pid_type_from_schema(schema)
-    return obj_or_import_string(
-        current_app.config.get("RECORDS_REST_ENDPOINTS")
-        .get(pid_type, {})
-        .get("record_class")
-    )
+    return obj_or_import_string(current_app.config.get("RECORDS_REST_ENDPOINTS").get(pid_type, {}).get("record_class"))
 
 
 def get_indexer_class_by_resource(resource):
@@ -575,9 +531,7 @@ def get_pid_type_from_schema(schema):
     with contextlib.suppress(IndexError):
         pid_type_schema_value = schema.split("schemas")[1]
         schemas = current_app.config.get("RERO_ILS_DEFAULT_JSON_SCHEMA")
-        return [
-            key for key, value in schemas.items() if value == pid_type_schema_value
-        ][0]
+        return [key for key, value in schemas.items() if value == pid_type_schema_value][0]
 
 
 def get_patron_from_arguments(**kwargs):
@@ -627,9 +581,7 @@ def settimestamp(func):
     return wrapped
 
 
-def profile(
-    output_file=None, sort_by="cumulative", lines_to_print=None, strip_dirs=False
-):
+def profile(output_file=None, sort_by="cumulative", lines_to_print=None, strip_dirs=False):
     """A time profiler decorator.
 
     Inspired by and modified the profile decorator of Giampaolo Rodola:
@@ -688,9 +640,7 @@ def timeit(func):
     def wrapped(*args, **kwargs):
         start_time = datetime.now()
         result = func(*args, **kwargs)
-        click.echo(
-            f"\t>> timeit: {datetime.now() - start_time} " f"{func} {type(args[0])}"
-        )
+        click.echo(f"\t>> timeit: {datetime.now() - start_time} {func} {type(args[0])}")
         return result
 
     return wrapped
@@ -783,9 +733,7 @@ def db_copy_to(filehandle, table, columns, raise_exception=True):
     connection.close()
 
 
-def bulk_load(
-    pid_type, data, table, columns, bulk_count=0, verbose=False, reindex=False
-):
+def bulk_load(pid_type, data, table, columns, bulk_count=0, verbose=False, reindex=False):
     """Bulk load pid_type data to table."""
     if bulk_count <= 0:
         bulk_count = current_app.config.get("BULK_CHUNK_COUNT", 100000)
@@ -808,7 +756,7 @@ def bulk_load(
                     diff_time = end_time - start_time
                     start_time = end_time
                     click.echo(
-                        f"{pid_type} copy from file: {count} " f"{diff_time.seconds}s",
+                        f"{pid_type} copy from file: {count} {diff_time.seconds}s",
                         nl=False,
                     )
                 db_copy_from(buffer=buffer, table=table, columns=columns)
@@ -824,9 +772,7 @@ def bulk_load(
         if verbose:
             end_time = datetime.now()
             diff_time = end_time - start_time
-            click.echo(
-                f"{pid_type} copy from file: {count} {diff_time.seconds}s", nl=False
-            )
+            click.echo(f"{pid_type} copy from file: {count} {diff_time.seconds}s", nl=False)
         buffer.flush()
         buffer.seek(0)
         db_copy_from(buffer=buffer, table=table, columns=columns)
@@ -981,9 +927,7 @@ def number_records_in_file(json_file, type):
     return count
 
 
-def requests_retry_session(
-    retries=5, backoff_factor=0.5, status_forcelist=(500, 502, 504), session=None
-):
+def requests_retry_session(retries=5, backoff_factor=0.5, status_forcelist=(500, 502, 504), session=None):
     """Request retry session.
 
     :params retries: The total number of retry attempts to make.
@@ -1144,12 +1088,7 @@ def draw_data_table(columns, rows=[], padding=""):
 
         def draw_column_name(cols, sep="│", pad=" "):
             return sep.join(
-                [
-                    f"{pad}{truncate_string(col[0], col[1] - len(pad * 2))}{pad}".ljust(
-                        col[1]
-                    )
-                    for col in cols
-                ]
+                [f"{pad}{truncate_string(col[0], col[1] - len(pad * 2))}{pad}".ljust(col[1]) for col in cols]
             )
 
         return (
@@ -1178,10 +1117,7 @@ def draw_data_table(columns, rows=[], padding=""):
                 parts.append(data)
             return sep.join(parts)
 
-        return (
-            "\n".join([f"{padding}{sep}{draw_row_content(row)}{sep}" for row in rows])
-            + "\n"
-        )
+        return "\n".join([f"{padding}{sep}{draw_row_content(row)}{sep}" for row in rows]) + "\n"
 
     return table_header() + table_rows() + table_footer()
 
@@ -1195,9 +1131,7 @@ def get_all_roles():
     # Load system roles registered into invenio-access
     if access_ext := current_app.extensions["invenio-access"]:
         roles = [
-            (role_name, "system_role")
-            for role_name in access_ext.system_roles.keys()
-            if role_name != "system_process"
+            (role_name, "system_role") for role_name in access_ext.system_roles.keys() if role_name != "system_process"
         ]
     # Complete with existing roles from `invenio-accounts`
     roles.extend([(role.name, "role") for role in Role.query.all()])
@@ -1225,19 +1159,13 @@ def password_validator(pw, length=8, special_char=False):
             )
         )
     if not set(string.ascii_lowercase).intersection(pw):
-        raise PasswordValidatorException(
-            _("The password must contain a lower case character.")
-        )
+        raise PasswordValidatorException(_("The password must contain a lower case character."))
     if not set(string.ascii_uppercase).intersection(pw):
-        raise PasswordValidatorException(
-            _("The password must contain a upper case character.")
-        )
+        raise PasswordValidatorException(_("The password must contain a upper case character."))
     if not set(string.digits).intersection(pw):
         raise PasswordValidatorException(_("The password must contain a number."))
     if special_char and not set(string.punctuation).intersection(pw):
-        raise PasswordValidatorException(
-            _("The password must contain a special character.")
-        )
+        raise PasswordValidatorException(_("The password must contain a special character."))
     return True
 
 

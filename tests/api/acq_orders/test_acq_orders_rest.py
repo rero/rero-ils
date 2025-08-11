@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API acquisition orders."""
+
 import json
 from copy import deepcopy
 
@@ -33,9 +34,7 @@ from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_rela
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_acq_orders_library_facets(
-    client, org_martigny, acq_order_fiction_martigny, rero_json_header
-):
+def test_acq_orders_library_facets(client, org_martigny, acq_order_fiction_martigny, rero_json_header):
     """Test record retrieval."""
     url = url_for("invenio_records_rest.acor_list", view="org1")
     res = client.get(url, headers=rero_json_header)
@@ -101,9 +100,7 @@ def test_acq_orders_post_put_delete(
     """Test record retrieval."""
     # Create record / POST
     acq_order_fiction_saxon_data.pop("pid", None)
-    res, data = postdata(
-        client, "invenio_records_rest.acor_list", acq_order_fiction_saxon_data
-    )
+    res, data = postdata(client, "invenio_records_rest.acor_list", acq_order_fiction_saxon_data)
     assert res.status_code == 201
     # Check that the returned record matches the given data
     assert data["metadata"].pop("account_statement") == {

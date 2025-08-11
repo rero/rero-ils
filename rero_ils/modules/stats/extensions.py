@@ -53,8 +53,4 @@ class StatisticsDumperExtension(RecordExtension):
 
         if record["type"] == StatType.LIBRARIAN:
             library_pids = current_librarian.manageable_library_pids
-            record["values"] = list(
-                filter(
-                    lambda lib: lib["library"]["pid"] in library_pids, record["values"]
-                )
-            )
+            record["values"] = list(filter(lambda lib: lib["library"]["pid"] in library_pids, record["values"]))

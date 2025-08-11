@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Indexing dumper."""
+
 from flask import current_app
 from invenio_records.dumpers import Dumper
 
@@ -49,9 +50,7 @@ class BaseDocumentEntityDumper(Dumper):
             parallel_access_points = []
             for source in record.get("sources"):
                 variant_access_points += record[source].get("variant_access_point", [])
-                parallel_access_points += record[source].get(
-                    "parallel_access_point", []
-                )
+                parallel_access_points += record[source].get("parallel_access_point", [])
             if variant_access_points:
                 data["variant_access_point"] = variant_access_points
             if parallel_access_points:

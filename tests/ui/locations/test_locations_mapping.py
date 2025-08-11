@@ -21,16 +21,12 @@ from rero_ils.modules.locations.api import Location, LocationsSearch
 from tests.utils import get_mapping
 
 
-def test_location_es_mapping(
-    search, db, loc_public_martigny_data, lib_martigny, org_martigny
-):
+def test_location_es_mapping(search, db, loc_public_martigny_data, lib_martigny, org_martigny):
     """Test library elasticsearch mapping."""
     search = LocationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    loc = Location.create(
-        loc_public_martigny_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    loc = Location.create(loc_public_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     new_mapping = get_mapping(search.Meta.index)
     assert mapping == new_mapping
     loc.delete(force=True, dbcommit=True, delindex=True)

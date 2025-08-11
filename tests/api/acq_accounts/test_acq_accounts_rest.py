@@ -31,9 +31,7 @@ from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_rela
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_acq_accounts_library_facets(
-    client, org_martigny, acq_account_fiction_martigny, rero_json_header
-):
+def test_acq_accounts_library_facets(client, org_martigny, acq_account_fiction_martigny, rero_json_header):
     """Test record retrieval."""
     url = url_for("invenio_records_rest.acac_list", view="org1")
     res = client.get(url, headers=rero_json_header)
@@ -208,18 +206,14 @@ def test_acq_account_secure_api(
     """Test acq account secure api access."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.acac_item", pid_value=acq_account_fiction_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.acac_item", pid_value=acq_account_fiction_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 200
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
-    record_url = url_for(
-        "invenio_records_rest.acac_item", pid_value=acq_account_fiction_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.acac_item", pid_value=acq_account_fiction_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 403
@@ -268,9 +262,7 @@ def test_acq_account_secure_api_update(
     """Test acq account secure api update."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.acac_item", pid_value=acq_account_books_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.acac_item", pid_value=acq_account_books_martigny.pid)
 
     data = acq_account_books_martigny
     data["name"] = "Test Name"
@@ -295,16 +287,12 @@ def test_acq_account_secure_api_delete(
     """Test acq account secure api delete."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.acac_item", pid_value=acq_account_books_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.acac_item", pid_value=acq_account_books_martigny.pid)
 
     res = client.delete(record_url)
     assert res.status_code == 204
 
-    record_url = url_for(
-        "invenio_records_rest.acac_item", pid_value=acq_account_general_fully.pid
-    )
+    record_url = url_for("invenio_records_rest.acac_item", pid_value=acq_account_general_fully.pid)
 
     res = client.delete(record_url)
     assert res.status_code == 403

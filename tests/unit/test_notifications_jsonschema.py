@@ -17,7 +17,6 @@
 
 """Notifications JSON schema tests."""
 
-
 import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError

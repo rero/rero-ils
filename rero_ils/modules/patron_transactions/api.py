@@ -90,9 +90,7 @@ class PatronTransaction(IlsRecord):
     #       For PatronTransaction we have to set it to True for the tests.
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update data for record."""
-        return super().update(
-            data=data, commit=commit, dbcommit=dbcommit, reindex=reindex
-        )
+        return super().update(data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
 
     # GETTER & SETTER =========================================================
     #   * Define some properties as shortcut to quickly access object attrs.
@@ -176,26 +174,18 @@ class PatronTransaction(IlsRecord):
     @property
     def currency(self):
         """Return patron transaction currency."""
-        return Organisation.get_record_by_pid(self.organisation_pid).get(
-            "default_currency"
-        )
+        return Organisation.get_record_by_pid(self.organisation_pid).get("default_currency")
 
     @property
     def events(self):
         """Shortcut for events of the patron transaction."""
-        query = (
-            PatronTransactionEventsSearch()
-            .filter("term", parent__pid=self.pid)
-            .source(False)
-        )
+        query = PatronTransactionEventsSearch().filter("term", parent__pid=self.pid).source(False)
         for hit in query.scan():
             yield PatronTransactionEvent.get_record(hit.meta.id)
 
     def get_number_of_patron_transaction_events(self):
         """Get number of patron transaction events."""
-        return (
-            PatronTransactionEventsSearch().filter("term", parent__pid=self.pid).count()
-        )
+        return PatronTransactionEventsSearch().filter("term", parent__pid=self.pid).count()
 
     def get_links_to_me(self, get_pids=False):
         """Get the links between this record and other records.

@@ -18,7 +18,6 @@
 
 """Circulation Requests Indicator Report Configuration."""
 
-
 from elasticsearch_dsl.aggs import A
 
 from .circulation import NumberOfCirculationCfg
@@ -33,11 +32,7 @@ class NumberOfRequestsCfg(NumberOfCirculationCfg):
         :param distrubtion: str - report distrubtion name
         :returns: an elasticsearch aggregation object
         """
-        cfg = {
-            "pickup_location": A(
-                "terms", field="loan.pickup_location.pid", size=self.cfg.aggs_size
-            )
-        }
+        cfg = {"pickup_location": A("terms", field="loan.pickup_location.pid", size=self.cfg.aggs_size)}
         if agg := cfg.get(distribution):
             return agg
         return super().aggregation(distribution)
@@ -50,10 +45,7 @@ class NumberOfRequestsCfg(NumberOfCirculationCfg):
         :returns: the label
         :rtype: str
         """
-        cfg = {
-            "pickup_location": lambda: f"{self.cfg.locations.get(bucket.key, self.label_na_msg)} "
-            f"({bucket.key})"
-        }
+        cfg = {"pickup_location": lambda: f"{self.cfg.locations.get(bucket.key, self.label_na_msg)} ({bucket.key})"}
         if label_fn := cfg.get(distribution):
             return label_fn()
         return super().label(distribution=distribution, bucket=bucket)

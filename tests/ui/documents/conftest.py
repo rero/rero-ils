@@ -21,7 +21,5 @@ import pytest
 
 
 @pytest.fixture(scope="module")
-def document_records(
-    document, document_ref, document_sion_items, ebook_1, ebook_2, ebook_3
-):
+def document_records(document, document_ref, document_sion_items, ebook_1, ebook_2, ebook_3):
     """Documents for test mapping."""

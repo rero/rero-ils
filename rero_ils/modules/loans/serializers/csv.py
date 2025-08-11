@@ -38,9 +38,7 @@ from rero_ils.modules.serializers import (
 from ..utils import get_loan_checkout_date
 
 
-class LoanStreamedCSVSerializer(
-    CSVSerializer, StreamSerializerMixin, CachedDataSerializerMixin
-):
+class LoanStreamedCSVSerializer(CSVSerializer, StreamSerializerMixin, CachedDataSerializerMixin):
     """Streamed CSV serializer for `loan` resource."""
 
     def transform_search_hit(self, hit_pid, hit, links_factory=None, **kwargs):
@@ -76,23 +74,17 @@ class LoanStreamedCSVSerializer(
 
         # Item information dumping
         if item := self.get_resource(ItemsSearch(), hit["item_pid"]["value"]):
-            hit["item_call_numbers"] = "|".join(
-                filter(None, [item.get("call_number"), item.get("second_call_number")])
-            )
+            hit["item_call_numbers"] = "|".join(filter(None, [item.get("call_number"), item.get("second_call_number")]))
             hit["item_barcode"] = item.get("barcode")
 
         # Patron information's dumping
         if patron := self.get_resource(Patron, hit["patron_pid"]):
             hit["patron_name"] = patron.formatted_name
             hit["patron_email"] = patron.user.email
-            hit["patron_barcode"] = "|".join(
-                patron.get("patron", {}).get("barcode", [])
-            )
+            hit["patron_barcode"] = "|".join(patron.get("patron", {}).get("barcode", []))
         return hit
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -110,9 +102,7 @@ class LoanStreamedCSVSerializer(
 
             # write the CSV output in memory
             line = Line()
-            writer = DictWriter(
-                line, dialect="excel", quoting=QUOTE_ALL, fieldnames=headers
-            )
+            writer = DictWriter(line, dialect="excel", quoting=QUOTE_ALL, fieldnames=headers)
             writer.writeheader()
             yield line.read()
 
@@ -127,9 +117,7 @@ class LoanStreamedCSVSerializer(
                 self.load_resources(ItemsSearch(), item_pids)
 
                 for record in records:
-                    row_data = self.process_dict(
-                        self.transform_search_hit(record.pid, record.to_dict())
-                    )
+                    row_data = self.process_dict(self.transform_search_hit(record.pid, record.to_dict()))
                     writer.writerow(row_data)
                     yield line.read()
 

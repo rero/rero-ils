@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests boosting query for documents."""
+
 from flask import url_for
 
 from tests.utils import get_json
@@ -33,8 +34,7 @@ def test_document_boosting(client, roles, ebook_1, ebook_4):
 
     list_url = url_for(
         "invenio_records_rest.doc_list",
-        q="autocomplete_title:maison AND "
-        "contribution.entity.authorized_access_point_en:James",
+        q="autocomplete_title:maison AND contribution.entity.authorized_access_point_en:James",
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]

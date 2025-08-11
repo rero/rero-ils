@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for Acquisition order line."""
+
 from invenio_access import action_factory
 
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus

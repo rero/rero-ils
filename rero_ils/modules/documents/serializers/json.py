@@ -38,9 +38,7 @@ from ..dumpers import document_replace_refs_dumper
 from ..dumpers.indexer import IndexerDumper
 from ..extensions import TitleExtension
 
-GLOBAL_VIEW_CODE = LocalProxy(
-    lambda: current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-)
+GLOBAL_VIEW_CODE = LocalProxy(lambda: current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
 
 
 class DocumentJSONSerializer(JSONSerializer):
@@ -52,9 +50,7 @@ class DocumentJSONSerializer(JSONSerializer):
         view_id = None
         view_code = request.args.get("view", GLOBAL_VIEW_CODE)
         if view_code != GLOBAL_VIEW_CODE:
-            view_id = OrganisationsSearch().get_record_by_viewcode(view_code, "pid")[
-                "pid"
-            ]
+            view_id = OrganisationsSearch().get_record_by_viewcode(view_code, "pid")["pid"]
         return view_id, view_code
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
@@ -69,21 +65,15 @@ class DocumentJSONSerializer(JSONSerializer):
         titles = rec.get("title", [])
         if altgr_titles := create_title_alternate_graphic(titles):
             rec["ui_title_altgr"] = altgr_titles
-        if altgr_titles_responsibilities := create_title_alternate_graphic(
-            titles, responsibility_statement
-        ):
+        if altgr_titles_responsibilities := create_title_alternate_graphic(titles, responsibility_statement):
             rec["ui_title_altgr_responsibilities"] = altgr_titles_responsibilities
 
         if variant_titles := create_title_variants(titles):
             rec["ui_title_variants"] = variant_titles
 
-        data = super().preprocess_record(
-            pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs
-        )
+        data = super().preprocess_record(pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
         metadata = data["metadata"]
-        resolve = request.args.get(
-            "resolve", default=False, type=lambda v: v.lower() in ["true", "1"]
-        )
+        resolve = request.args.get("resolve", default=False, type=lambda v: v.lower() in ["true", "1"])
         if request and resolve:
             IndexerDumper()._process_host_document(None, metadata)
         return data
@@ -106,9 +96,7 @@ class DocumentJSONSerializer(JSONSerializer):
 
         if view_code != GLOBAL_VIEW_CODE:
             metadata["items"] = [
-                item
-                for item in metadata.get("items", [])
-                if item["organisation"].get("organisation_pid") == view_id
+                item for item in metadata.get("items", []) if item["organisation"].get("organisation_pid") == view_id
             ]
         super()._postprocess_search_hit(hit)
 
@@ -166,9 +154,7 @@ class DocumentJSONSerializer(JSONSerializer):
                 "type": "date-range",
                 "config": {
                     "min": extract_acquisition_date("date_min", "1900-01-01"),
-                    "max": extract_acquisition_date(
-                        "date_max", datetime.now().strftime("%Y-%m-%d")
-                    ),
+                    "max": extract_acquisition_date("date_max", datetime.now().strftime("%Y-%m-%d")),
                 },
             }
 
@@ -183,11 +169,7 @@ class DocumentJSONSerializer(JSONSerializer):
             for org in aggr_org:
                 # filter libraries by organisation
                 #   Keep only libraries for the current selected organisation.
-                query = (
-                    LibrariesSearch()
-                    .filter("term", organisation__pid=org["key"])
-                    .source(["pid", "name"])
-                )
+                query = LibrariesSearch().filter("term", organisation__pid=org["key"]).source(["pid", "name"])
                 org_libraries = {hit.pid: hit.name for hit in query.scan()}
                 org["library"]["buckets"] = list(
                     filter(
@@ -201,11 +183,7 @@ class DocumentJSONSerializer(JSONSerializer):
 
                 # filter locations by library
                 for library in org["library"]["buckets"]:
-                    query = (
-                        LocationsSearch()
-                        .filter("term", library__pid=library["key"])
-                        .source(["pid", "name"])
-                    )
+                    query = LocationsSearch().filter("term", library__pid=library["key"]).source(["pid", "name"])
                     lib_locations = {hit.pid: hit.name for hit in query.scan()}
                     library["location"]["buckets"] = list(
                         filter(
@@ -219,9 +197,7 @@ class DocumentJSONSerializer(JSONSerializer):
 
             # Complete Organisation aggregation information
             # with corresponding resource name
-            JSONSerializer.enrich_bucket_with_data(
-                aggr_org, OrganisationsSearch, "name"
-            )
+            JSONSerializer.enrich_bucket_with_data(aggr_org, OrganisationsSearch, "name")
 
             # For a "local view", we replace the organisation aggregation by
             # a library aggregation containing only for the local organisation
@@ -260,9 +236,7 @@ class DocumentExportJSONSerializer(JSONSerializer):
             record["contribution"] = process_i18n_literal_fields(contributions)
         return json.dumps(record, **self._format_args())
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.

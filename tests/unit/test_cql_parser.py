@@ -117,9 +117,7 @@ def test_get_query_clause_modifiers():
 
 def test_get_query_clause_with_prefix(app):
     """Check that simple clause with prefix is parsed correctly."""
-    query = parse(
-        '>cql="info:srw/cql-context-set/1/cql-v1.1" cql.anywhere ' 'cql.all "spam"'
-    )
+    query = parse('>cql="info:srw/cql-context-set/1/cql-v1.1" cql.anywhere cql.all "spam"')
     # Check query instance
     assert isinstance(query, SearchClause)
     # Check Index
@@ -152,9 +150,7 @@ def test_get_query_clause_with_relation_modifier():
     assert query.term.value == '"spam"'
     with pytest.raises(Diagnostic) as err:
         query.to_es()
-    assert str(err.value).startswith(
-        "info:srw/diagnostic/1/21 " "[Unsupported combination of relation modifers]"
-    )
+    assert str(err.value).startswith("info:srw/diagnostic/1/21 [Unsupported combination of relation modifers]")
 
 
 def test_get_query_clause_with_sorting(app):
@@ -189,15 +185,9 @@ def test_get_query_clause_with_relation(app):
     assert query.term.value == "1999"
     es_string = query.to_es()
     assert es_string == "year:>1999"
-    query = parse(
-        "ind1 = 1 AND ind2 > 2 AND ind3 >= 3 AND "
-        + "ind4 < 4 AND ind5 <= 5 AND ind6 <> 6"
-    )
+    query = parse("ind1 = 1 AND ind2 > 2 AND ind3 >= 3 AND " + "ind4 < 4 AND ind5 <= 5 AND ind6 <> 6")
     es_string = query.to_es()
-    assert es_string == (
-        "(((((ind1:1 AND ind2:>2) AND ind3:>=3) "
-        'AND ind4:<4) AND ind5:<=5) AND ind6:-"6")'
-    )
+    assert es_string == ('(((((ind1:1 AND ind2:>2) AND ind3:>=3) AND ind4:<4) AND ind5:<=5) AND ind6:-"6")')
 
 
 def test_get_query_triple(app):
@@ -221,9 +211,7 @@ def test_get_query_triple(app):
     query = parse("dc.anywhere prox spam")
     with pytest.raises(Diagnostic) as err:
         query.to_es()
-    assert str(err.value) == (
-        "info:srw/diagnostic/1/37 [Unsupported boolean operator]: prox"
-    )
+    assert str(err.value) == ("info:srw/diagnostic/1/37 [Unsupported boolean operator]: prox")
     assert query.get_result_set_id() == ""
 
 
@@ -269,24 +257,15 @@ def test_errors():
     q_string = ""
     with pytest.raises(Diagnostic) as err:
         parse(q_string)
-    assert str(err.value) == (
-        "info:srw/diagnostic/1/10 [Malformed Query]: "
-        "Expected Boolean or Relation but got: "
-    )
+    assert str(err.value) == ("info:srw/diagnostic/1/10 [Malformed Query]: Expected Boolean or Relation but got: ")
     q_string = "123 456"
     with pytest.raises(Diagnostic) as err:
         parse(q_string)
-    assert str(err.value) == (
-        "info:srw/diagnostic/1/10 [Malformed Query]: "
-        "Expected Term, got end of query."
-    )
+    assert str(err.value) == ("info:srw/diagnostic/1/10 [Malformed Query]: Expected Term, got end of query.")
     q_string = "123 any 789 abc"
     with pytest.raises(Diagnostic) as err:
         parse(q_string)
-    assert str(err.value) == (
-        "info:srw/diagnostic/1/10 [Malformed Query]: "
-        "Unprocessed tokens remain: 'abc'"
-    )
+    assert str(err.value) == ("info:srw/diagnostic/1/10 [Malformed Query]: Unprocessed tokens remain: 'abc'")
 
 
 def test_prefixable_object():
@@ -320,15 +299,10 @@ def test_prefixed_object():
     assert prefixed_object.value == "tack"
     with pytest.raises(Diagnostic) as err:
         PrefixedObject(".TICK", query="query")
-    assert str(err.value) == (
-        "info:srw/diagnostic/1/15 [Malformed Query]: Null indexset"
-    )
+    assert str(err.value) == ("info:srw/diagnostic/1/15 [Malformed Query]: Null indexset")
     with pytest.raises(Diagnostic) as err:
         PrefixedObject("TICK.TACK.TOCK", query="query")
-    assert str(err.value) == (
-        "info:srw/diagnostic/1/15 [Malformed Query]: "
-        'Multiple "." characters: tick.tack.tock'
-    )
+    assert str(err.value) == ('info:srw/diagnostic/1/15 [Malformed Query]: Multiple "." characters: tick.tack.tock')
 
     with pytest.raises(Diagnostic) as err:
         PrefixedObject('"TICK"', query="query", error_on_quoted_identifier=True)
@@ -347,9 +321,7 @@ def test_modifiable_object():
     modifiable_object = ModifiableObject()
     assert modifiable_object[0] is None
     assert modifiable_object["type"] is None
-    modifier_clause = ModifierClause(
-        "type", comp="comparison", val="value", query="query"
-    )
+    modifier_clause = ModifierClause("type", comp="comparison", val="value", query="query")
     modifiable_object.modifiers.append(modifier_clause)
     assert modifiable_object[0] == modifier_clause
     assert modifiable_object["type"] == modifier_clause
@@ -365,10 +337,7 @@ def test_term():
     assert str(err.value) == ("info:srw/diagnostic/1/25 [Malformed Query]: >=")
     with pytest.raises(Diagnostic) as err:
         Term("^", query="query")
-    assert str(err.value) == (
-        "info:srw/diagnostic/1/32 [Malformed Query]: "
-        "Only anchoring charater(s) in term: ^"
-    )
+    assert str(err.value) == ("info:srw/diagnostic/1/32 [Malformed Query]: Only anchoring charater(s) in term: ^")
     with pytest.raises(Diagnostic) as err:
         Term("\\\\x\\yz\\", query="query")
     assert str(err.value) == ("info:srw/diagnostic/1/26 [Malformed Query]: \\\\x\\yz\\")

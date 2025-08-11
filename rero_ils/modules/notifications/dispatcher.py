@@ -32,9 +32,7 @@ class Dispatcher:
     """Dispatcher notifications class."""
 
     @classmethod
-    def dispatch_notifications(
-        cls, notification_pids=None, resend=False, verbose=False
-    ):
+    def dispatch_notifications(cls, notification_pids=None, resend=False, verbose=False):
         """Dispatch the notification.
 
         :param notification_pids: Notification pids to send.
@@ -46,14 +44,10 @@ class Dispatcher:
         def get_dispatcher_function(channel):
             """Find the dispatcher function to use by communication channel."""
             try:
-                communication_switcher = current_app.config.get(
-                    "RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS", []
-                )
+                communication_switcher = current_app.config.get("RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS", [])
                 return communication_switcher[channel]
             except KeyError:
-                current_app.logger.warning(
-                    f"The communication channel: {channel}" " is not yet implemented"
-                )
+                current_app.logger.warning(f"The communication channel: {channel} is not yet implemented")
                 return Dispatcher.not_yet_implemented
 
         sent = not_sent = errors = 0
@@ -73,7 +67,7 @@ class Dispatcher:
                 errors += 1
                 current_app.logger.error(
                     f"Notification has not be sent (pid: {notification.pid},"
-                    f' type: {notification["notification_type"]}): '
+                    f" type: {notification['notification_type']}): "
                     f"{error}",
                     exc_info=True,
                     stack_info=True,
@@ -123,10 +117,7 @@ class Dispatcher:
         :param aggregated: ``dict`` to store notification results.
         """
         if process_date := notification.get("process_date"):
-            current_app.logger.warning(
-                f"Notification: {notification.pid} already processed "
-                f"on: {process_date}"
-            )
+            current_app.logger.warning(f"Notification: {notification.pid} already processed on: {process_date}")
             if not resend:
                 return
 
@@ -228,8 +219,7 @@ class Dispatcher:
             error_reasons.append("Missing notification reply_to email")
         if error_reasons:
             current_app.logger.warning(
-                f"Notification#{notification.pid} for printing is lost :: "
-                f'({")(".join(error_reasons)})'
+                f"Notification#{notification.pid} for printing is lost :: ({')('.join(error_reasons)})"
             )
             return False, None
 
@@ -279,10 +269,7 @@ class Dispatcher:
         if not reply_to:
             error_reasons.append("Missing reply_to email")
         if error_reasons:
-            current_app.logger.warning(
-                f"Notification#{notification.pid} is lost :: "
-                f'({")(".join(error_reasons)})'
-            )
+            current_app.logger.warning(f"Notification#{notification.pid} is lost :: ({')('.join(error_reasons)})")
             return False, None
 
         # build the context for this notification set

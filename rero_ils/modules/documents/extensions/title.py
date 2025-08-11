@@ -18,7 +18,6 @@
 
 """Document record extension to enrich the title."""
 
-
 from elasticsearch_dsl.utils import AttrDict
 from invenio_records.extensions import RecordExtension
 
@@ -47,9 +46,7 @@ class TitleExtension(RecordExtension):
                 title = title.to_dict()
             title = dict(title)
             if title.get("type") == "bf:Title":
-                title_texts = title_format_text(
-                    title=title, with_subtitle=with_subtitle
-                )
+                title_texts = title_format_text(title=title, with_subtitle=with_subtitle)
                 if len(title_texts) == 1:
                     head_titles.append(title_texts[0].get("value"))
                 else:
@@ -66,10 +63,7 @@ class TitleExtension(RecordExtension):
                             return True
                         lang, _ = value.split("-")
                         # remove the latin form if a vernacular form exists
-                        return (
-                            not value.endswith("-latn")
-                            or sum(v.startswith(f"{lang}-") for v in languages) <= 1
-                        )
+                        return not value.endswith("-latn") or sum(v.startswith(f"{lang}-") for v in languages) <= 1
 
                     # list of selected language
                     filtered_languages = list(filter(filter_list, languages))
@@ -85,9 +79,7 @@ class TitleExtension(RecordExtension):
                     if not len(head_titles):
                         head_titles.append(title_texts[-1].get("value"))
             elif title.get("type") == "bf:ParallelTitle":
-                parallel_title_texts = title_format_text(
-                    title=title, with_subtitle=with_subtitle
-                )
+                parallel_title_texts = title_format_text(title=title, with_subtitle=with_subtitle)
                 if len(parallel_title_texts) == 1:
                     parallel_titles.append(parallel_title_texts[0].get("value"))
                 else:

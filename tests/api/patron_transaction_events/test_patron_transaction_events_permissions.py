@@ -44,9 +44,7 @@ def test_ptre_permissions(
     ptre_sion = patron_transaction_overdue_event_sion
 
     # Anonymous user :: all operation disallowed
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         PatronTransactionEventPermissionPolicy,
         {

@@ -126,10 +126,7 @@ def test_notifications_task(
     # Should not be created
     assert not loan.is_notified(NotificationType.OVERDUE, 1)
     # Should not be sent
-    assert (
-        number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE)
-        == 0
-    )
+    assert number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE) == 0
 
     #   For this test, we will update the loan to simulate an overdue of 12
     #   days. With this delay, regarding the cipo configuration, only the first
@@ -155,10 +152,7 @@ def test_notifications_task(
     NotificationsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     assert loan.is_notified(NotificationType.OVERDUE, 0)
-    assert (
-        number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE)
-        == 1
-    )
+    assert number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE) == 1
 
     # test overdue notification#2
     #   Now simulate than the previous call crashed. So call the task with a
@@ -167,10 +161,7 @@ def test_notifications_task(
         types=[NotificationType.DUE_SOON, NotificationType.OVERDUE],
         tstamp=datetime.now(timezone.utc),
     )
-    assert (
-        number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE)
-        == 1
-    )
+    assert number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE) == 1
 
     # test overdue notification#3
     #   For this test, we will update the loan to simulate an overdue of 40
@@ -186,10 +177,7 @@ def test_notifications_task(
     NotificationsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     assert loan.is_notified(NotificationType.OVERDUE, 1)
-    assert (
-        number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE)
-        == 2
-    )
+    assert number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE) == 2
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(
@@ -224,9 +212,7 @@ def test_clear_and_renew_subscription(patron_type_grown_sion, patron_sion):
     end = start + timedelta(days=100)
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
     assert len(patron_sion.get("patron", {}).get("subscriptions", [])) == 1
-    assert patron_sion.get("patron", {})["subscriptions"][0][
-        "end_date"
-    ] == end.strftime("%Y-%m-%d")
+    assert patron_sion.get("patron", {})["subscriptions"][0]["end_date"] == end.strftime("%Y-%m-%d")
 
     # clean old subscription - Reload the patron and check they are no more
     # subscriptions
@@ -241,9 +227,9 @@ def test_clear_and_renew_subscription(patron_type_grown_sion, patron_sion):
     check_patron_types_and_add_subscriptions()
     patron_sion = Patron.get_record_by_pid(patron_sion.pid)
     assert len(patron_sion.get("patron", {}).get("subscriptions", [])) == 1
-    assert patron_sion.get("patron", {})["subscriptions"][0]["end_date"] == add_years(
-        datetime.now(), 1
-    ).strftime("%Y-%m-%d")
+    assert patron_sion.get("patron", {})["subscriptions"][0]["end_date"] == add_years(datetime.now(), 1).strftime(
+        "%Y-%m-%d"
+    )
 
     # run both operation using task_clear_and_renew_subscriptions` and check
     # the result. The patron should still have one subscription but end_date
@@ -255,9 +241,7 @@ def test_clear_and_renew_subscription(patron_type_grown_sion, patron_sion):
     task_clear_and_renew_subscriptions()
     patron_sion = Patron.get_record_by_pid(patron_sion.pid)
     assert len(patron_sion.get("patron", {}).get("subscriptions", [])) == 1
-    assert patron_sion.get("patron", {})["subscriptions"][0][
-        "end_date"
-    ] != end.strftime("%Y-%m-%d")
+    assert patron_sion.get("patron", {})["subscriptions"][0]["end_date"] != end.strftime("%Y-%m-%d")
 
     # as we disconnect the `create_subscription_patron_transaction` listener
     # at the beginning, we need to connect it now.
@@ -294,9 +278,7 @@ def test_clear_obsolete_temporary_item_type_and_location(
         "$ref": get_ref_for_pid("loc", loc_restricted_martigny.pid),
         "end_date": end_date.strftime("%Y-%m-%d"),
     }
-    item2_lib_martigny = item2_lib_martigny.update(
-        item2_lib_martigny, dbcommit=True, reindex=True
-    )
+    item2_lib_martigny = item2_lib_martigny.update(item2_lib_martigny, dbcommit=True, reindex=True)
     assert item2_lib_martigny.get("temporary_item_type", {}).get("end_date")
     assert item2_lib_martigny.get("temporary_location", {}).get("end_date")
 

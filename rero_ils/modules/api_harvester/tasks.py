@@ -50,9 +50,7 @@ def harvest_records(name, from_date=None, harvest_count=-1, verbose=False):
 
         current_app.logger.info(msg)
         HarvestClass = obj_or_import_string(config.classname)
-        harvest = HarvestClass(
-            name=name, verbose=verbose, harvest_count=harvest_count, process=True
-        )
+        harvest = HarvestClass(name=name, verbose=verbose, harvest_count=harvest_count, process=True)
         count, total = harvest.harvest_records(from_date=from_date)
         msg = (
             f"API harvest {name} items={total} |"

@@ -18,7 +18,6 @@
 
 """Click command-line utilities."""
 
-
 from __future__ import absolute_import, print_function
 
 import contextlib
@@ -143,15 +142,11 @@ def wait_empty_tasks_cli(delay):
 
 @utils.command("show")
 @click.argument("pid_value", nargs=1)
-@click.option(
-    "-t", "--pid-type", "pid-type, default(document_id)", default="document_id"
-)
+@click.option("-t", "--pid-type", "pid-type, default(document_id)", default="document_id")
 @with_appcontext
 def show(pid_value, pid_type):
     """Show records."""
-    record = PersistentIdentifier.query.filter_by(
-        pid_type=pid_type, pid_value=pid_value
-    ).first()
+    record = PersistentIdentifier.query.filter_by(pid_type=pid_type, pid_value=pid_value).first()
     recitem = Record.get_record(record.object_uuid)
     click.echo(json.dumps(recitem.dumps(), indent=2))
 
@@ -174,9 +169,7 @@ def show(pid_value, pid_type):
     default=False,
     help="order keys during replacement default=False",
 )
-@click.option(
-    "-i", "--indent", "indent", type=click.INT, default=2, help="indent default=2"
-)
+@click.option("-i", "--indent", "indent", type=click.INT, default=2, help="indent default=2")
 @click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 def check_json(paths, replace, indent, sort_keys, verbose):
     """Check json files."""
@@ -186,9 +179,7 @@ def check_json(paths, replace, indent, sort_keys, verbose):
         if os.path.isfile(path):
             files_list.append(path)
         elif os.path.isdir(path):
-            files_list = files_list + glob(
-                os.path.join(path, "**/*.json"), recursive=True
-            )
+            files_list = files_list + glob(os.path.join(path, "**/*.json"), recursive=True)
     if not paths:
         files_list = glob("**/*.json", recursive=True)
     tot_error_cnt = 0
@@ -205,9 +196,7 @@ def check_json(paths, replace, indent, sort_keys, verbose):
                 error_cnt = 1
             if replace:
                 with open(fname, "w") as opened_file:
-                    opened_file.write(
-                        json.dumps(json_file, indent=indent, sort_keys=sort_keys)
-                    )
+                    opened_file.write(json.dumps(json_file, indent=indent, sort_keys=sort_keys))
                 click.echo(fname + ": ", nl=False)
                 click.secho("File replaced", fg="yellow")
             else:
@@ -267,15 +256,11 @@ def add_org_lib_doc(item, doc_pid="dummy"):
     item["library"] = location.get("library")
     if "document" not in item:
         raise ValueError("No 'document' in item")
-    item["document"]["$ref"] = item["document"]["$ref"].replace(
-        "{document_pid}", doc_pid
-    )
+    item["document"]["$ref"] = item["document"]["$ref"].replace("{document_pid}", doc_pid)
     return item
 
 
-@cached(
-    timeout=2 * 60 * 60, key_prefix="doc_item_lofi_schemas", query_string=False
-)  # 2 hour timeout
+@cached(timeout=2 * 60 * 60, key_prefix="doc_item_lofi_schemas", query_string=False)  # 2 hour timeout
 def get_doc_item_lofi_schemas():
     """Get document, item, local field schemas."""
     # document schema
@@ -314,9 +299,7 @@ def validate_documents_with_items_lofis(data, count=0, clean_pid=False, debug=Fa
     except ValidationError as err:
         errors["documents"].append(f"{err.args[0]}")
         if debug:
-            errors["documents"][
-                -1
-            ] = f"{errors['documents'][-1]}\n{traceback.format_exc(1)}"
+            errors["documents"][-1] = f"{errors['documents'][-1]}\n{traceback.format_exc(1)}"
     for idx, item in enumerate(items, 1):
         local_field_items = item.pop("local_fields", [])
         try:
@@ -324,9 +307,7 @@ def validate_documents_with_items_lofis(data, count=0, clean_pid=False, debug=Fa
         except Exception as err:
             errors["items"].append(f"{idx} {err.args[0]}")
             if debug:
-                errors["items"][
-                    -1
-                ] = f"{errors['items'][-1]}\n{traceback.format_exc(1)}"
+                errors["items"][-1] = f"{errors['items'][-1]}\n{traceback.format_exc(1)}"
         # Local fields for items
         for lofi_idx, local_field in enumerate(local_field_items, 1):
             try:
@@ -334,13 +315,9 @@ def validate_documents_with_items_lofis(data, count=0, clean_pid=False, debug=Fa
                     local_field["pid"] = f"dummy_{count}"
                 validate(local_field, lofi_schema)
             except Exception as err:
-                errors["local_fields"].append(
-                    f"item: {idx} lofi: {lofi_idx} {err.args[0]}"
-                )
+                errors["local_fields"].append(f"item: {idx} lofi: {lofi_idx} {err.args[0]}")
                 if debug:
-                    errors["local_fields"][
-                        -1
-                    ] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+                    errors["local_fields"][-1] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
 
     # Local fields for documents
     for idx, local_field in enumerate(local_field_docs, 1):
@@ -351,12 +328,8 @@ def validate_documents_with_items_lofis(data, count=0, clean_pid=False, debug=Fa
         except Exception as err:
             errors["local_fields"].append(f"doc lofi: {idx} {err.args[0]}")
             if debug:
-                errors["local_fields"][
-                    -1
-                ] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
-    return errors, len(errors["documents"]) + len(errors["items"]) + len(
-        errors["local_fields"]
-    )
+                errors["local_fields"][-1] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+    return errors, len(errors["documents"]) + len(errors["items"]) + len(errors["local_fields"])
 
 
 @utils.command("validate-documents-with-items-lofis")
@@ -427,21 +400,15 @@ def create_document_with_items_lofis(
         """Create local field."""
         try:
             local_field.setdefault("parent", {})["$ref"] = (
-                local_field.get("parent", {})
-                .get("$ref", "")
-                .format(parent_pid=parent_pid)
+                local_field.get("parent", {}).get("$ref", "").format(parent_pid=parent_pid)
             )
-            local_field_rec = LocalField.create(
-                data=local_field, dbcommit=commit, reindex=commit
-            )
+            local_field_rec = LocalField.create(data=local_field, dbcommit=commit, reindex=commit)
             pids.setdefault("lofis", []).append(local_field_rec.pid)
             file_lofi.write(local_field_rec)
         except Exception as err:
             errors["local_fields"].append(f"{err.args[0]}")
             if debug:
-                errors["local_fields"][
-                    -1
-                ] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+                errors["local_fields"][-1] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
             if error_file_lofi:
                 error_file_lofi.write(local_field_rec)
             if not dont_stop_on_error:
@@ -459,9 +426,7 @@ def create_document_with_items_lofis(
     errors = {"documents": [], "items": [], "local_fields": []}
     pids = {}
     try:
-        doc_rec = Document.create(
-            data=data, dbcommit=commit, reindex=commit, delete_pid=True
-        )
+        doc_rec = Document.create(data=data, dbcommit=commit, reindex=commit, delete_pid=True)
         pids["doc"] = doc_rec.pid
         file_document.write(doc_rec)
 
@@ -475,9 +440,7 @@ def create_document_with_items_lofis(
                 #   "https://bib.rero.ch/api/documents/{document_pid}"}
                 item = add_org_lib_doc(item=item, doc_pid=doc_rec.pid)
                 validate(item, item_schema)
-                item_rec = Item.create(
-                    data=item, delete_pid=True, dbcommit=commit, reindex=commit
-                )
+                item_rec = Item.create(data=item, delete_pid=True, dbcommit=commit, reindex=commit)
                 pids.setdefault("items", []).append(item_rec.pid)
                 file_item.write(item_rec)
                 # Local fields for items
@@ -496,9 +459,7 @@ def create_document_with_items_lofis(
             except Exception as err:
                 errors["items"].append(f"{err.args[0]}")
                 if debug:
-                    errors["items"][
-                        -1
-                    ] = f"{errors['items'][-1]}\n{traceback.format_exc(1)}"
+                    errors["items"][-1] = f"{errors['items'][-1]}\n{traceback.format_exc(1)}"
                 if error_file_item:
                     if item_local_fields:
                         item_rec["local_fields"] = item_local_fields
@@ -523,9 +484,7 @@ def create_document_with_items_lofis(
     except Exception as err:
         errors["documents"].append(f"{err.args[0]}")
         if debug:
-            errors["documents"][
-                -1
-            ] = f"{errors['documents'][-1]}\n{traceback.format_exc(1)}"
+            errors["documents"][-1] = f"{errors['documents'][-1]}\n{traceback.format_exc(1)}"
         if items:
             data["items"] = items
         if doc_local_fields:
@@ -546,9 +505,7 @@ def create_document_with_items_lofis(
 @click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 @click.option("-d", "--debug", "debug", is_flag=True, default=False)
 @with_appcontext
-def create_documents_with_items_lofis_cli(
-    infile, dont_stop_on_error, save_errors, commit, verbose, debug
-):
+def create_documents_with_items_lofis_cli(infile, dont_stop_on_error, save_errors, commit, verbose, debug):
     """Load REROILS record with items and lofi.
 
     :param infile: Json file
@@ -633,9 +590,7 @@ def check_license(configfile, verbose, progress):
                 files_list.append(path)
             elif os.path.isdir(path):
                 for extension in extensions:
-                    files_list += glob(
-                        os.path.join(path, f"**/*.{extension}"), recursive=recursive
-                    )
+                    files_list += glob(os.path.join(path, f"**/*.{extension}"), recursive=recursive)
         return files_list
 
     def delete_prefix(prefix, line):
@@ -655,9 +610,7 @@ def check_license(configfile, verbose, progress):
 
     def show_diff(linenbr, text, n_text):
         """Show string diffs."""
-        seqm = difflib.SequenceMatcher(
-            None, text.replace(" ", "◼︎"), n_text.replace(" ", "◼︎")
-        )
+        seqm = difflib.SequenceMatcher(None, text.replace(" ", "◼︎"), n_text.replace(" ", "◼︎"))
         click.echo(f"{linenbr}: ", nl=False)
         for opcode, a0, a1, b0, b1 in seqm.get_opcodes():
             if opcode == "equal":
@@ -704,9 +657,7 @@ def check_license(configfile, verbose, progress):
         line, linenbr = get_line(lines, linenbr, prefix)
         # Get over Shebang lines or Triple-Slash Directives (for Javascript
         # files)
-        while lines[linenbr - 1].startswith("#!") or is_slash_directive(
-            file, lines[linenbr - 1]
-        ):
+        while lines[linenbr - 1].startswith("#!") or is_slash_directive(file, lines[linenbr - 1]):
             # get over Shebang
             line, linenbr = get_line(lines, linenbr, prefix)
         if extension.get("top") and line not in extension.get("top"):
@@ -739,13 +690,9 @@ def check_license(configfile, verbose, progress):
         for ext in file_extension.split(","):
             extensions.setdefault(ext.strip(), file_extensions[file_extension])
     # create recursive file list
-    files_list = get_files(
-        paths=config["directories"]["recursive"], extensions=extensions, recursive=True
-    )
+    files_list = get_files(paths=config["directories"]["recursive"], extensions=extensions, recursive=True)
     # add flat file list
-    files_list += get_files(
-        paths=config["directories"]["flat"], extensions=extensions, recursive=False
-    )
+    files_list += get_files(paths=config["directories"]["flat"], extensions=extensions, recursive=False)
     # remove excluded files
     exclude_list = []
     for ext in config["directories"]["exclude"]:
@@ -797,9 +744,7 @@ def check_license(configfile, verbose, progress):
 @with_appcontext
 def check_validate(jsonfile, type, verbose, debug, error_file_name, ok_file_name):
     """Check record validation."""
-    click.secho(
-        f"Testing json schema for file: {jsonfile.name} type: {type}", fg="green"
-    )
+    click.secho(f"Testing json schema for file: {jsonfile.name} type: {type}", fg="green")
 
     schema_path = current_jsonschemas.url_to_path(get_schema_for_resource(type))
     schema = current_jsonschemas.get_schema(path=schema_path)
@@ -846,12 +791,8 @@ def error_record(pid, record, notes):
         "issuance": {"main_type": "rdami:1001", "subtype": "materialUnit"},
         "language": [{"type": "bf:Language", "value": "und"}],
         "pid": pid,
-        "provisionActivity": [
-            {"startDate": int(datetime.now().year), "type": "bf:Publication"}
-        ],
-        "title": [
-            {"mainTitle": [{"value": f"ERROR DOCUMENT {pid}"}], "type": "bf:Title"}
-        ],
+        "provisionActivity": [{"startDate": int(datetime.now().year), "type": "bf:Publication"}],
+        "title": [{"mainTitle": [{"value": f"ERROR DOCUMENT {pid}"}], "type": "bf:Title"}],
         "type": [{"main_type": "docmaintype_other"}],
         "_masked": True,
     }
@@ -867,10 +808,7 @@ def error_record(pid, record, notes):
 def do_worker(marc21records, results, pid_required, debug, dojson, schema=None):
     """Worker for marc21 to json transformation."""
     if dojson:
-        dojson = obj_or_import_string(
-            f"rero_ils.modules.documents.dojson."
-            f"contrib.marc21tojson.{dojson}:marc21"
-        )
+        dojson = obj_or_import_string(f"rero_ils.modules.documents.dojson.contrib.marc21tojson.{dojson}:marc21")
     else:
         dojson = marc21
     for data in marc21records:
@@ -1087,9 +1025,7 @@ class Marc21toJson:
     def write_start(self):
         """Write initial lines to files."""
         self.xml_file_error.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
-        self.xml_file_error.write(
-            b'<collection xmlns="http://www.loc.gov/MARC21/slim">\n\n'
-        )
+        self.xml_file_error.write(b'<collection xmlns="http://www.loc.gov/MARC21/slim">\n\n')
 
     def write_stop(self):
         """Write finishing lines to files."""
@@ -1115,9 +1051,7 @@ class Marc21toJson:
             self.active_records.append(
                 {
                     "json": marc21json_record,
-                    "xml": etree.tostring(
-                        marc21xml, pretty_print=True, encoding="UTF-8"
-                    ).strip(),
+                    "xml": etree.tostring(marc21xml, pretty_print=True, encoding="UTF-8").strip(),
                 }
             )
             self.count += 1
@@ -1246,9 +1180,7 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress, verbose
                 if pids.get(child.text, -1) >= 0:
                     found += 1
                     pids[child.text] += 1
-                    data = etree.tostring(
-                        xml, pretty_print=True, encoding="UTF-8"
-                    ).strip()
+                    data = etree.tostring(xml, pretty_print=True, encoding="UTF-8").strip()
 
                     xml_file_out.write(data)
                     found_pids[child.text] = True
@@ -1300,9 +1232,7 @@ def extract_from_json(pid_file, json_file_in, json_file_out, tag, progress, verb
 
 
 @utils.command("reserve_pid_range")
-@click.option(
-    "-t", "--pid_type", "pid_type", default=None, help="pid type of the resource"
-)
+@click.option("-t", "--pid_type", "pid_type", default=None, help="pid type of the resource")
 @click.option(
     "-n",
     "--records_number",
@@ -1349,12 +1279,8 @@ def reserve_pid_range(pid_type, records_number, unused):
     click.secho(f"reserved_pids range, from: {min_pid} to: {max_pid}")
     if unused:
         for pid in range(1, identifier.max()):
-            if not db.session.query(
-                identifier.query.filter(identifier.recid == pid).exists()
-            ).scalar():
-                record_class.provider.create(
-                    pid_type, pid_value=pid, status=PIDStatus.NEW
-                )
+            if not db.session.query(identifier.query.filter(identifier.recid == pid).exists()).scalar():
+                record_class.provider.create(pid_type, pid_value=pid, status=PIDStatus.NEW)
                 db.session.add(identifier(recid=pid))
             db.session.commit()
 
@@ -1431,9 +1357,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                 self.dependencies.add(dependency_name)
 
             else:
-                click.secho(
-                    f"{self.name}: dependencies not found: {dependency_name}", fg="red"
-                )
+                click.secho(f"{self.name}: dependencies not found: {dependency_name}", fg="red")
                 self.not_found += 1
 
         def set_dependencies_pids(self, dependencies):
@@ -1449,7 +1373,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                     datas = self.record.get(dependency["name"], [])
                     if not datas and not dependency.get("optional"):
                         click.secho(
-                            f"{self.name}: sublist not found: " f'{dependency["name"]}',
+                            f"{self.name}: sublist not found: {dependency['name']}",
                             fg="red",
                         )
                         self.not_found += 1
@@ -1464,12 +1388,8 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                 if not sublist:
                     if dependency_refs:
                         for ref, ref_type in dependency_refs.items():
-                            pids = self.get_ref_type_pids(
-                                self.record, dependency["name"], ref_type
-                            )
-                            self.add_pids_to_dependencies(
-                                ref, pids, dependency.get("optional")
-                            )
+                            pids = self.get_ref_type_pids(self.record, dependency["name"], ref_type)
+                            self.add_pids_to_dependencies(ref, pids, dependency.get("optional"))
                     else:
                         self.add_pids_to_dependencies(
                             dependency_ref,
@@ -1486,7 +1406,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                             self.test_data[key][value]
                         except Exception:
                             click.secho(
-                                f"{self.name}: {self.pid} missing " f"{key}: {value}",
+                                f"{self.name}: {self.pid} missing {key}: {value}",
                                 fg="red",
                             )
                             self.missing += 1
@@ -1622,9 +1542,7 @@ def create_personal(name, user_id, scopes=None, is_internal=False, access_token=
         client.gen_salt()
 
         if not access_token:
-            access_token = gen_salt(
-                current_app.config.get("OAUTH2SERVER_TOKEN_PERSONAL_SALT_LEN")
-            )
+            access_token = gen_salt(current_app.config.get("OAUTH2SERVER_TOKEN_PERSONAL_SALT_LEN"))
         token = Token(
             client_id=client.client_id,
             user_id=user_id,
@@ -1643,9 +1561,7 @@ def create_personal(name, user_id, scopes=None, is_internal=False, access_token=
 
 @utils.command()
 @click.option("-n", "--name", required=True)
-@click.option(
-    "-u", "--user", required=True, callback=process_user, help="User ID or email."
-)
+@click.option("-u", "--user", required=True, callback=process_user, help="User ID or email.")
 @click.option("-s", "--scope", "scopes", multiple=True, callback=process_scopes)
 @click.option("-i", "--internal", is_flag=True)
 @click.option(

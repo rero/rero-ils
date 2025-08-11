@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Loans."""
+
 import math
 from bisect import bisect_right
 from datetime import datetime, timedelta, timezone
@@ -86,9 +87,7 @@ class LoansSearch(IlsRecordsSearch):
 
         :returns: an elasticsearch query
         """
-        states = [LoanState.PENDING] + current_app.config[
-            "CIRCULATION_STATES_LOAN_ACTIVE"
-        ]
+        states = [LoanState.PENDING] + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
         return self.filter("terms", state=states)
 
 
@@ -132,11 +131,7 @@ class Loan(IlsRecord):
             return False, [_("The loan cannot be extended")]
         # The parameters for the renewal is calculated based on the transaction
         # library and not the owning library.
-        transaction_library_pid = (
-            Location.get_record_by_pid(loan["transaction_location_pid"])
-            .get_library()
-            .get("pid")
-        )
+        transaction_library_pid = Location.get_record_by_pid(loan["transaction_location_pid"]).get_library().get("pid")
 
         patron = Patron.get_record_by_pid(loan.get("patron_pid"))
         cipo = CircPolicy.provide_circ_policy(
@@ -180,17 +175,13 @@ class Loan(IlsRecord):
             LoanState.PENDING,
             LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
         ]:
-            raise NoCirculationActionIsPermitted(
-                _("No circulation action is permitted")
-            )
+            raise NoCirculationActionIsPermitted(_("No circulation action is permitted"))
 
         self["pickup_location_pid"] = pickup_location_pid
         return self.update(self, dbcommit=True, reindex=True)
 
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=True, dbcommit=False, reindex=False, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=True, dbcommit=False, reindex=False, **kwargs):
         """Create the loan record.
 
         :param cls: class object
@@ -208,9 +199,7 @@ class Loan(IlsRecord):
             del data[cls.pid_field]
         cls._loan_build_org_ref(data)
         # set the field to_anonymize
-        data["to_anonymize"] = cls.can_anonymize(loan_data=data) and not data.get(
-            "to_anonymize"
-        )
+        data["to_anonymize"] = cls.can_anonymize(loan_data=data) and not data.get("to_anonymize")
 
         if not data.get("state"):
             data["state"] = LoanState.CREATED
@@ -254,7 +243,7 @@ class Loan(IlsRecord):
             # Anonymize loan operation logs
             LoanOperationLog.anonymize_logs(self.pid)
         except Exception as err:
-            current_app.logger.error(f'Can not anonymize loan: {self.get("pid")} {err}')
+            current_app.logger.error(f"Can not anonymize loan: {self.get('pid')} {err}")
         return self
 
     def date_fields2datetime(self):
@@ -324,12 +313,7 @@ class Loan(IlsRecord):
             """
             fields = ["pid", "first_name", "last_name", "patron.barcode"]
             if pid not in known_patrons:
-                results = (
-                    PatronsSearch()
-                    .filter("term", pid=pid)
-                    .source(includes=fields)
-                    .execute()
-                )
+                results = PatronsSearch().filter("term", pid=pid).source(includes=fields).execute()
                 if hit := next(iter(results or []), None):
                     known_patrons[pid] = hit.to_dict()
             return known_patrons.get(pid, {})
@@ -343,12 +327,7 @@ class Loan(IlsRecord):
             """
             fields = ["pid", "name", "library", "pickup_name"]
             if pid not in known_locations:
-                results = (
-                    LocationsSearch()
-                    .filter("term", pid=pid)
-                    .source(includes=fields)
-                    .execute()
-                )
+                results = LocationsSearch().filter("term", pid=pid).source(includes=fields).execute()
                 if hit := next(iter(results or []), None):
                     data = hit.to_dict()
                     known_locations[pid] = {k: v for k, v in data.items() if v}
@@ -362,12 +341,7 @@ class Loan(IlsRecord):
             :return: the corresponding library.
             """
             if pid not in known_libraries:
-                results = (
-                    LibrariesSearch()
-                    .filter("term", pid=pid)
-                    .source(includes="name")
-                    .execute()
-                )
+                results = LibrariesSearch().filter("term", pid=pid).source(includes="name").execute()
                 if hit := next(iter(results or []), None):
                     known_libraries[pid] = hit.name
             return known_libraries.get(pid, {})
@@ -382,12 +356,7 @@ class Loan(IlsRecord):
             from ..holdings.api import HoldingsSearch
 
             if pid not in known_holdings:
-                results = (
-                    HoldingsSearch()
-                    .filter("term", pid=pid)
-                    .source(includes="call_number")
-                    .execute()
-                )
+                results = HoldingsSearch().filter("term", pid=pid).source(includes="call_number").execute()
                 if hit := next(iter(results or []), None):
                     known_holdings[pid] = hit.to_dict()
             return known_holdings.get(pid, {})
@@ -431,10 +400,7 @@ class Loan(IlsRecord):
             """
             if pid not in known_ittys:
                 results = (
-                    ItemTypesSearch()
-                    .filter("term", pid=pid)
-                    .filter("term", negative_availability=False)
-                    .execute()
+                    ItemTypesSearch().filter("term", pid=pid).filter("term", negative_availability=False).execute()
                 )
                 known_ittys[pid] = next(iter(results or []), None)
             return known_ittys.get(pid, {})
@@ -460,26 +426,17 @@ class Loan(IlsRecord):
                         holding = holding_by_pid(item["holding"]["pid"], holdings)
                         if "call_number" in holding:
                             item_data["call_number"] = holding["call_number"]
-                    item_data["library"]["name"] = library_name_by_pid(
-                        item_data["library"]["pid"], libraries
-                    )
-                    item_data["location"]["name"] = location_by_pid(
-                        item_data["location"]["pid"], locations
-                    )["name"]
+                    item_data["library"]["name"] = library_name_by_pid(item_data["library"]["pid"], libraries)
+                    item_data["location"]["name"] = location_by_pid(item_data["location"]["pid"], locations)["name"]
                     if "temporary_location" in item_data:
-                        location = location_by_pid(
-                            item_data["temporary_location"]["pid"], locations
-                        )
+                        location = location_by_pid(item_data["temporary_location"]["pid"], locations)
                         item_data["temporary_location"]["name"] = location.get("name")
                     patron_data = patron_by_pid(loan_data["patron_pid"], patrons)
                     loan_data["patron"] = {
                         "barcode": patron_data["patron"]["barcode"][0],
-                        "name": f'{patron_data["last_name"]}, '
-                        f'{patron_data["first_name"]}',
+                        "name": f"{patron_data['last_name']}, {patron_data['first_name']}",
                     }
-                    loan_data["pickup_location"] = location_by_pid(
-                        loan_data["pickup_location_pid"], locations
-                    )
+                    loan_data["pickup_location"] = location_by_pid(loan_data["pickup_location_pid"], locations)
                     loan_data["pickup_location"]["library_name"] = library_name_by_pid(
                         loan_data["pickup_location"]["library"]["pid"], libraries
                     )
@@ -497,11 +454,7 @@ class Loan(IlsRecord):
 
         if not data.get("organisation"):
             item_pid = data.get("item_pid", {}).get("value")
-            data["organisation"] = {
-                "$ref": get_ref_for_pid(
-                    "org", Item.get_record_by_pid(item_pid).organisation_pid
-                )
-            }
+            data["organisation"] = {"$ref": get_ref_for_pid("org", Item.get_record_by_pid(item_pid).organisation_pid)}
         return data
 
     def is_loan_late(self):
@@ -648,9 +601,7 @@ class Loan(IlsRecord):
     @property
     def checkout_library_pid(self):
         """Get the checkout library pid."""
-        if checkout_location := Location.get_record_by_pid(
-            self.get("checkout_location_pid")
-        ):
+        if checkout_location := Location.get_record_by_pid(self.get("checkout_location_pid")):
             return checkout_location.library_pid
 
     @cached_property
@@ -689,11 +640,7 @@ class Loan(IlsRecord):
     @cached_property
     def transaction_library_pid(self):
         """Get loan transaction_library PID."""
-        return (
-            Location.get_record_by_pid(self.transaction_location_pid)
-            .get_library()
-            .get("pid")
-        )
+        return Location.get_record_by_pid(self.transaction_location_pid).get_library().get("pid")
 
     @property
     def get_overdue_fees(self):
@@ -844,11 +791,7 @@ class Loan(IlsRecord):
         # RECALL NOTIFICATION AT CHECKOUT
         #   When an item is checkout and this item has pending request for
         #   another patron, a RECALL notification could be created.
-        if (
-            trigger == LoanAction.CHECKOUT
-            and has_request
-            and not self.is_notified(NotificationType.RECALL)
-        ):
+        if trigger == LoanAction.CHECKOUT and has_request and not self.is_notified(NotificationType.RECALL):
             candidates.append((self, NotificationType.RECALL))
 
         # TRANSIT
@@ -920,9 +863,7 @@ class Loan(IlsRecord):
 
             # create the notification and enqueue it.
             if create:
-                if notification := self._create_notification_resource(
-                    record, dispatch=dispatch
-                ):
+                if notification := self._create_notification_resource(record, dispatch=dispatch):
                     notifications.append(notification)
         return notifications
 
@@ -936,9 +877,7 @@ class Loan(IlsRecord):
         """
         notification = Notification.create(data=record, dbcommit=True, reindex=True)
         if dispatch and notification:
-            NotificationDispatcher.dispatch_notifications(
-                notification_pids=[notification.get("pid")]
-            )
+            NotificationDispatcher.dispatch_notifications(notification_pids=[notification.get("pid")])
         return notification
 
     @classmethod
@@ -974,10 +913,7 @@ class Loan(IlsRecord):
                 "bool",
                 should=[
                     Q("range", transaction_date={"lt": six_month_ago}),
-                    (
-                        Q("terms", patron_pid=anonym_patron_pids)
-                        & Q("range", transaction_date={"lt": three_month_ago})
-                    ),
+                    (Q("terms", patron_pid=anonym_patron_pids) & Q("range", transaction_date={"lt": three_month_ago})),
                 ],
             )
             .source(False)
@@ -990,10 +926,7 @@ class Loan(IlsRecord):
 
         :return: True is the loan is concluded, False otherwise
         """
-        return (
-            self.get("state") in LoanState.CONCLUDED
-            and not self.has_pending_transaction()
-        )
+        return self.get("state") in LoanState.CONCLUDED and not self.has_pending_transaction()
 
     def age(self):
         """Return the age of a loan in days.
@@ -1035,9 +968,7 @@ class Loan(IlsRecord):
         #   A concluded loan, older than a limit, could always be anonymized.
         #   Limit could be configured by 'RERO_ILS_ANONYMISATION_TIME_LIMIT'
         #   key into `config.py`.
-        max_limit = current_app.config.get(
-            "RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT", math.inf
-        )
+        max_limit = current_app.config.get("RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT", math.inf)
         loan_age = loan.age()
         if loan_age > max_limit:
             return True
@@ -1045,9 +976,7 @@ class Loan(IlsRecord):
         # CHECK #3 : is the loan is just concluded ?
         #   Circulation management and/or library manager needs to keep loan
         #   information for a delay (in days) after the concluded date anyway.
-        min_limit = current_app.config.get(
-            "RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT", -math.inf
-        )
+        min_limit = current_app.config.get("RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT", -math.inf)
         if loan_age < (min_limit + 1):
             return False
 
@@ -1059,10 +988,7 @@ class Loan(IlsRecord):
         if patron:
             keep_history = patron.user.user_profile.get("keep_history", True)
         else:
-            msg = (
-                f'Can not anonymize loan: {loan_data.get("pid")} '
-                f'no patron: {loan_data.get("patron_pid")}'
-            )
+            msg = f"Can not anonymize loan: {loan_data.get('pid')} no patron: {loan_data.get('patron_pid')}"
             current_app.logger.warning(msg)
         return not keep_history
 
@@ -1151,9 +1077,7 @@ def get_loans_stats_by_patron_pid(patron_pid):
     search.aggs.bucket("state", agg)
     search = search[:0]
     results = search.execute()
-    return {
-        result.key: result.doc_count for result in results.aggregations.state.buckets
-    }
+    return {result.key: result.doc_count for result in results.aggregations.state.buckets}
 
 
 def get_loans_by_patron_pid(patron_pid, filter_states=None, to_anonymize=False):
@@ -1165,9 +1089,7 @@ def get_loans_by_patron_pid(patron_pid, filter_states=None, to_anonymize=False):
     :return: loans for given patron.
     """
     search = (
-        search_by_patron_item_or_document(
-            patron_pid=patron_pid, filter_states=filter_states
-        )
+        search_by_patron_item_or_document(patron_pid=patron_pid, filter_states=filter_states)
         .params(preserve_order=True)
         .sort({"_created": {"order": "asc"}})
         .source(False)
@@ -1204,15 +1126,11 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
     """
     filter_states = filter_states or []  # prevent mutable argument warning
     agg = A("terms", field="library_pid")
-    search = search_by_patron_item_or_document(
-        patron_pid=patron_pid, filter_states=filter_states
-    )
+    search = search_by_patron_item_or_document(patron_pid=patron_pid, filter_states=filter_states)
     search.aggs.bucket("library", agg)
     search = search[:0]
     results = search.execute()
-    return {
-        result.key: result.doc_count for result in results.aggregations.library.buckets
-    }
+    return {result.key: result.doc_count for result in results.aggregations.library.buckets}
 
 
 def get_on_loan_loans_for_library(library_pid):
@@ -1286,12 +1204,7 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
     )
     if patron_pid:
         query = query.filter("term", patron_pid=patron_pid)
-    results = (
-        query.params(preserve_order=True)
-        .sort({"_created": {"order": "asc"}})
-        .source(["pid"])
-        .scan()
-    )
+    results = query.params(preserve_order=True).sort({"_created": {"order": "asc"}}).source(["pid"]).scan()
     # We will return all pids here to prevent folowing error during long
     # operations:
     #  elasticsearch.helpers.errors.ScanError:

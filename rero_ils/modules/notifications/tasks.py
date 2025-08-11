@@ -42,9 +42,7 @@ def process_notifications(notification_type, verbose=True):
     :param verbose: is the task should be verbose.
     """
     notification_pids = get_notifications(notification_type=notification_type)
-    result = Dispatcher.dispatch_notifications(
-        notification_pids=notification_pids, verbose=verbose
-    )
+    result = Dispatcher.dispatch_notifications(notification_pids=notification_pids, verbose=verbose)
     set_timestamp(f"notification-dispatch-{notification_type}", **result)
     return result
 
@@ -72,9 +70,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         for loan in get_due_soon_loans(tstamp=tstamp):
             try:
                 logger.debug(f"* Loan#{loan.pid} is considered as 'due_soon'")
-                notifications = loan.create_notification(
-                    _type=NotificationType.DUE_SOON
-                )
+                notifications = loan.create_notification(_type=NotificationType.DUE_SOON)
                 notification_counter[NotificationType.DUE_SOON] += len(notifications)
             except Exception as error:
                 logger.error(
@@ -92,35 +88,24 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             # For each overdue loan, we need to get the 'overdue' reminders
             # to should be sent from the due_date and the current used date.
             loan_library = Library.get_record_by_pid(loan.library_pid)
-            open_days = loan_library.count_open(
-                start_date=loan.overdue_date, end_date=tstamp
-            )
+            open_days = loan_library.count_open(start_date=loan.overdue_date, end_date=tstamp)
             circ_policy = get_circ_policy(loan)
             logger.debug(f"  - this loan use the cipo#{circ_policy.pid}")
             logger.debug(f"  - open days from loans due_date :: {open_days}")
-            reminders = circ_policy.get_reminders(
-                reminder_type=OVERDUE_REMINDER_TYPE, limit=open_days
-            )
+            reminders = circ_policy.get_reminders(reminder_type=OVERDUE_REMINDER_TYPE, limit=open_days)
             # For each reminder, try to create it.
             #   the `create_notification` method will check if the notification
             #   is already sent. If the notification has already sent, it will
             #   not be created again
             for idx, _ in enumerate(reminders):
                 try:
-                    if notifications := loan.create_notification(
-                        _type=NotificationType.OVERDUE, counter=idx
-                    ):
-                        msg = f"  --> Overdue notification#{idx+1} created"
+                    if notifications := loan.create_notification(_type=NotificationType.OVERDUE, counter=idx):
+                        msg = f"  --> Overdue notification#{idx + 1} created"
                         logger.debug(msg)
-                        notification_counter[NotificationType.OVERDUE] += len(
-                            notifications
-                        )
+                        notification_counter[NotificationType.OVERDUE] += len(notifications)
 
                     else:
-                        msg = (
-                            f"  --> Overdue notification#{idx+1} skipped "
-                            ":: already sent"
-                        )
+                        msg = f"  --> Overdue notification#{idx + 1} skipped :: already sent"
                         logger.debug(msg)
                 except Exception as error:
                     logger.error(

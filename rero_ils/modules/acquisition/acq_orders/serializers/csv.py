@@ -61,9 +61,7 @@ creator_role_filter = [
 class AcqOrderCSVSerializer(CSVSerializer):
     """Mixin serializing records as CSV."""
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -133,9 +131,7 @@ class AcqOrderCSVSerializer(CSVSerializer):
 
                 docs = get_documents_by_pids(doc_pids)
                 accounts = get_accounts_by_pids(account_pids)
-                receipt_lines = get_receipt_lines_by_order_line_pids(
-                    list(order_lines.keys())
-                )
+                receipt_lines = get_receipt_lines_by_order_line_pids(list(order_lines.keys()))
                 return order_lines, docs, accounts, receipt_lines
 
             def get_documents_by_pids(doc_pids):
@@ -149,22 +145,16 @@ class AcqOrderCSVSerializer(CSVSerializer):
                     "seriesStatement",
                     "title",
                 ]
-                records = DocumentsSearch().get_records_by_terms(
-                    terms=doc_pids, fields=fields
-                )
+                records = DocumentsSearch().get_records_by_terms(terms=doc_pids, fields=fields)
                 return {
-                    record.pid: OrderDocumentFormatter(
-                        record=record.to_dict(), language=language
-                    ).format()
+                    record.pid: OrderDocumentFormatter(record=record.to_dict(), language=language).format()
                     for record in records
                 }
 
             def get_accounts_by_pids(account_pids):
                 """Get accounts for the given pids."""
                 fields = ["pid", "name", "number"]
-                return AcqAccountsSearch().get_records_by_terms(
-                    terms=account_pids, fields=fields, as_dict=True
-                )
+                return AcqAccountsSearch().get_records_by_terms(terms=account_pids, fields=fields, as_dict=True)
 
             def get_receipts_by_order_pids(order_pids):
                 """Get receipts for the given pids."""
@@ -198,24 +188,18 @@ class AcqOrderCSVSerializer(CSVSerializer):
             def get_vendors_by_pids(vendor_pids):
                 """Get vendors for the given pids."""
                 fields = ["pid", "name"]
-                return VendorsSearch().get_records_by_terms(
-                    terms=vendor_pids, fields=fields, as_dict=True
-                )
+                return VendorsSearch().get_records_by_terms(terms=vendor_pids, fields=fields, as_dict=True)
 
             headers = dict.fromkeys(self.csv_included_fields)
 
             # write the CSV output in memory
             line = Line()
-            writer = csv.DictWriter(
-                line, dialect="excel", quoting=csv.QUOTE_ALL, fieldnames=headers
-            )
+            writer = csv.DictWriter(line, dialect="excel", quoting=csv.QUOTE_ALL, fieldnames=headers)
             writer.writeheader()
             yield line.read()
 
             for pids, order_batch_results in batch(search_result):
-                order_lines, documents, accounts, receipt_lines = (
-                    get_linked_records_by_order_pids(pids)
-                )
+                order_lines, documents, accounts, receipt_lines = get_linked_records_by_order_pids(pids)
                 receipts = get_receipts_by_order_pids(pids)
                 # vendors
                 vendor_pids = [
@@ -263,8 +247,7 @@ class AcqOrderCSVSerializer(CSVSerializer):
                         {
                             "order_lines_priority": order_line.get("priority"),
                             "order_lines_notes": " | ".join(
-                                f"{note['type']}: {note['content']}"
-                                for note in order_line.get("notes", [])
+                                f"{note['type']}: {note['content']}" for note in order_line.get("notes", [])
                             ),
                             "order_lines_status": order_line["status"],
                             "ordered_quantity": order_line["quantity"],
@@ -307,9 +290,7 @@ class OrderDocumentFormatter(DocumentFormatter):
     def __init__(self, record, language=None, _include_fields=None):
         """Initialize RIS formatter with the specific record."""
         super().__init__(record)
-        self._language = language or current_app.config.get(
-            "BABEL_DEFAULT_LANGUAGE", "en"
-        )
+        self._language = language or current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
         self._include_fields = _include_fields or [
             "document_pid",
             "document_creator",

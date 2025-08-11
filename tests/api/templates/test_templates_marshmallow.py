@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Marshmallow schema through REST API for templates."""
+
 import json
 from copy import deepcopy
 

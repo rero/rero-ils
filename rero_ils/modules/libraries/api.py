@@ -48,9 +48,7 @@ from .extensions import LibraryCalendarChangesExtension
 from .models import LibraryAddressType, LibraryIdentifier, LibraryMetadata
 
 # provider
-LibraryProvider = type(
-    "LibraryProvider", (Provider,), dict(identifier=LibraryIdentifier, pid_type="lib")
-)
+LibraryProvider = type("LibraryProvider", (Provider,), dict(identifier=LibraryIdentifier, pid_type="lib"))
 # minter
 library_id_minter = partial(id_minter, provider=LibraryProvider)
 # fetcher
@@ -89,9 +87,7 @@ class Library(IlsRecord):
     model_cls = LibraryMetadata
     pids_exist_check = {"required": {"org": "organisation"}}
 
-    _extensions = [
-        LibraryCalendarChangesExtension(["opening_hours", "exception_dates"])
-    ]
+    _extensions = [LibraryCalendarChangesExtension(["opening_hours", "exception_dates"])]
 
     def extended_validation(self, **kwargs):
         """Add additional record validation.
@@ -100,9 +96,7 @@ class Library(IlsRecord):
         """
         for exception_date in self.get("exception_dates", []):
             if exception_date["is_open"] and not exception_date.get("times"):
-                return _(
-                    "Opening times must be specified for an open " "exception date."
-                )
+                return _("Opening times must be specified for an open exception date.")
         return True
 
     @property
@@ -133,11 +127,7 @@ class Library(IlsRecord):
         if address_type == LibraryAddressType.MAIN_ADDRESS:
             return self.get("address")
         else:
-            return (
-                self.get("acquisition_settings", {})
-                .get(f"{address_type}_informations", {})
-                .get("address")
-            )
+            return self.get("acquisition_settings", {}).get(f"{address_type}_informations", {}).get("address")
 
     def get_email(self, notification_type):
         """Get the email corresponding to the given notification type.
@@ -164,12 +154,7 @@ class Library(IlsRecord):
 
     def location_pids(self):
         """Return a generator of ES Hits of all pids of library locations."""
-        return (
-            LocationsSearch()
-            .filter("term", library__pid=self.pid)
-            .source(["pid"])
-            .scan()
-        )
+        return LocationsSearch().filter("term", library__pid=self.pid).source(["pid"]).scan()
 
     def get_pickup_locations_pids(self):
         """Returns libraries all pickup locations pids."""
@@ -201,9 +186,7 @@ class Library(IlsRecord):
                 # case when library is open or close few hours per day
                 times_open = times_open or end_time > start_time
             else:
-                times_open = times_open or (
-                    (time_to_test >= start_time) and (time_to_test <= end_time)
-                )
+                times_open = times_open or ((time_to_test >= start_time) and (time_to_test <= end_time))
         return times_open
 
     def _has_is_open(self):
@@ -213,9 +196,7 @@ class Library(IlsRecord):
                 if opening_hour["is_open"]:
                     return True
         current_timestamp = datetime.now(pytz.utc)
-        for exception_date in filter(
-            lambda d: d["is_open"], self.get("exception_dates", [])
-        ):
+        for exception_date in filter(lambda d: d["is_open"], self.get("exception_dates", [])):
             start_date = date_string_to_utc(exception_date["start_date"])
             # avoid next_open infinite loop if an open exception date is
             # in the past
@@ -285,9 +266,7 @@ class Library(IlsRecord):
         #   is into one of these periods (depending on `day_only` method
         #   argument).
         day_name = date.strftime("%A").lower()
-        regular_rule = [
-            rule for rule in self.get("opening_hours", []) if rule["day"] == day_name
-        ]
+        regular_rule = [rule for rule in self.get("opening_hours", []) if rule["day"] == day_name]
         if regular_rule:
             is_open = regular_rule[0].get("is_open", False)
             rule_hours = regular_rule[0].get("times", [])
@@ -313,11 +292,7 @@ class Library(IlsRecord):
     def _get_opening_hour_by_day(self, day_name):
         """Get the library opening hour for a specific day."""
         day_name = day_name.lower()
-        days = [
-            day
-            for day in self.get("opening_hours", [])
-            if day["day"] == day_name and day["is_open"]
-        ]
+        days = [day for day in self.get("opening_hours", []) if day["day"] == day_name and day["is_open"]]
         if days and days[0]["times"]:
             return days[0]["times"][0]["start_time"]
 
@@ -384,14 +359,11 @@ class Library(IlsRecord):
 
         links = {}
         stat_cfg_query = StatsConfigurationSearch().filter(
-            Q("term", library__pid=self.pid)
-            | Q("term", filter_by_libraries__pid=self.pid)
+            Q("term", library__pid=self.pid) | Q("term", filter_by_libraries__pid=self.pid)
         )
         location_query = LocationsSearch().filter("term", library__pid=self.pid)
         patron_query = (
-            PatronsSearch()
-            .filter("term", libraries__pid=self.pid)
-            .filter("terms", roles=UserRole.PROFESSIONAL_ROLES)
+            PatronsSearch().filter("term", libraries__pid=self.pid).filter("terms", roles=UserRole.PROFESSIONAL_ROLES)
         )
         receipt_query = AcqReceiptsSearch().filter("term", library__pid=self.pid)
         migration_query = Migration.search().filter("term", library_pid=self.pid)

@@ -116,16 +116,12 @@ def build_loan_record(transaction, transaction_type, item):
 @click.command("load_virtua_transactions")
 @click.option("-l", "--lazy", "lazy", is_flag=True, default=False)
 @click.option("-e", "--save_errors", "save_errors", type=click.File("w"))
-@click.option(
-    "-t", "--transaction_type", "transaction_type", is_flag=False, default="checkout"
-)
+@click.option("-t", "--transaction_type", "transaction_type", is_flag=False, default="checkout")
 @click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 @click.option("-d", "--debug", "debug", is_flag=True, default=False)
 @click.argument("infile", type=click.File("r"))
 @with_appcontext
-def load_virtua_transactions(
-    infile, lazy, save_errors, transaction_type, verbose, debug
-):
+def load_virtua_transactions(infile, lazy, save_errors, transaction_type, verbose, debug):
     """Load Virtua circulation transactions.
 
     infile: Json Virtua transactions file.
@@ -148,9 +144,7 @@ def load_virtua_transactions(
 
     for counter, transaction in enumerate(file_data, 1):
         if missing_fields := check_missing_fields(transaction, transaction_type):
-            click.secho(
-                f"\ntransaction # {counter} missing fields: {missing_fields}", fg="red"
-            )
+            click.secho(f"\ntransaction # {counter} missing fields: {missing_fields}", fg="red")
             if save_errors:
                 error_file.write(transaction)
             continue
@@ -218,9 +212,7 @@ def create_loans(infile, verbose, debug):
             requests = patron_data.get("requests", {})
             if patron_data.get("blocked", False):
                 to_block.append(patron_data)
-            patron_type_pid = Patron.get_patron_by_barcode(
-                barcode=barcode
-            ).patron_type_pid
+            patron_type_pid = Patron.get_patron_by_barcode(barcode=barcode).patron_type_pid
             loanable_items = get_loanable_items(patron_type_pid)
             if verbose:
                 loanable_items_count = len(list(get_loanable_items(patron_type_pid)))
@@ -271,9 +263,7 @@ def create_loans(infile, verbose, debug):
         patron.update(patron, dbcommit=True, reindex=True)
     for transaction_type, count in errors_count.items():
         click.secho(f"Errors {transaction_type}: {count}", fg="red")
-    result = create_notifications(
-        types=[NotificationType.DUE_SOON, NotificationType.OVERDUE], verbose=verbose
-    )
+    result = create_notifications(types=[NotificationType.DUE_SOON, NotificationType.OVERDUE], verbose=verbose)
     for notification, count in result.items():
         click.secho(f"Notification {notification}: {count}", fg="green")
 
@@ -338,32 +328,24 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False, debug=
                 user_pid=user_pid,
                 user_library=random.choice(user["libraries"])["pid"],
             )
-            PatronTransactionEvent.create(
-                data=payment, dbcommit=True, reindex=True, update_parent=True
-            )
+            PatronTransactionEvent.create(data=payment, dbcommit=True, reindex=True, update_parent=True)
         elif transaction_type == "extended":
             end_date = datetime.now(timezone.utc) - timedelta(days=1)
             loan["end_date"] = end_date.isoformat()
             loan.update(data=loan, dbcommit=True, reindex=True)
-            user_pid, user_location = get_random_librarian_and_transaction_location(
-                patron
-            )
+            user_pid, user_location = get_random_librarian_and_transaction_location(patron)
             item.extend_loan(
                 pid=loan_pid,
                 patron_pid=patron.pid,
                 transaction_location_pid=user_location,
                 transaction_user_pid=user_pid,
-                transaction_date=(
-                    datetime.now(timezone.utc) - timedelta(days=1)
-                ).isoformat(),
+                transaction_date=(datetime.now(timezone.utc) - timedelta(days=1)).isoformat(),
                 document_pid=extracted_data_from_ref(item.get("document")),
                 item_pid=item.pid,
             )
         elif transaction_type == "requested_by_others":
             requested_patron = get_random_patron(barcode)
-            user_pid, user_location = get_random_librarian_and_transaction_location(
-                patron
-            )
+            user_pid, user_location = get_random_librarian_and_transaction_location(patron)
             circ_policy = CircPolicy.provide_circ_policy(
                 organisation_pid=item.organisation_pid,
                 library_pid=item.library_pid,
@@ -376,9 +358,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False, debug=
                     transaction_location_pid=user_location,
                     transaction_user_pid=user_pid,
                     transaction_date=transaction_date,
-                    pickup_location_pid=get_random_pickup_location(
-                        requested_patron.pid, item
-                    ),
+                    pickup_location_pid=get_random_pickup_location(requested_patron.pid, item),
                     document_pid=extracted_data_from_ref(item.get("document")),
                 )
                 notifications = loan.create_notification(_type=NotificationType.RECALL)
@@ -393,9 +373,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False, debug=
         return item["barcode"], True
 
 
-def create_request(
-    barcode, transaction_type, loanable_items, verbose=False, debug=False
-):
+def create_request(barcode, transaction_type, loanable_items, verbose=False, debug=False):
     """Create request transactions."""
     try:
         item = next(loanable_items)
@@ -403,9 +381,7 @@ def create_request(
         patron = Patron.get_patron_by_barcode(barcode=barcode)
         if transaction_type == "rank_2":
             transaction_date = (datetime.now(timezone.utc) - timedelta(2)).isoformat()
-            user_pid, user_location = get_random_librarian_and_transaction_location(
-                patron
-            )
+            user_pid, user_location = get_random_librarian_and_transaction_location(patron)
 
             circ_policy = CircPolicy.provide_circ_policy(
                 item.organisation_pid,
@@ -419,9 +395,7 @@ def create_request(
                     transaction_location_pid=user_location,
                     transaction_user_pid=user_pid,
                     transaction_date=transaction_date,
-                    pickup_location_pid=get_random_pickup_location(
-                        rank_1_patron.pid, item
-                    ),
+                    pickup_location_pid=get_random_pickup_location(rank_1_patron.pid, item),
                     document_pid=extracted_data_from_ref(item.get("document")),
                 )
         transaction_date = datetime.now(timezone.utc).isoformat()
@@ -468,18 +442,13 @@ def get_loanable_items(patron_type_pid):
                 and circ_policy.get("number_renewals", 0) > 0
             ) and not item.number_of_requests():
                 barcode = item.get("barcode")
-                if not (
-                    barcode.startswith("fictive")
-                    and int(barcode.split("fictive")[1]) < 17
-                ):
+                if not (barcode.startswith("fictive") and int(barcode.split("fictive")[1]) < 17):
                     yield item
 
 
 def get_random_pickup_location(patron_pid, item):
     """Find a qualified pickup location."""
-    pickup_locations_pids = list(
-        Location.get_pickup_location_pids(patron_pid=patron_pid, item_pid=item.pid)
-    )
+    pickup_locations_pids = list(Location.get_pickup_location_pids(patron_pid=patron_pid, item_pid=item.pid))
     return random.choice(pickup_locations_pids)
 
 
@@ -487,9 +456,7 @@ def get_random_patron(exclude_this_barcode):
     """Find a qualified patron other than exclude_this_barcode."""
     ptrn_to_exclude = Patron.get_patron_by_barcode(barcode=exclude_this_barcode)
     ptty_pid = extracted_data_from_ref(ptrn_to_exclude.get("patron").get("type"))
-    org_pid = extracted_data_from_ref(
-        PatronType.get_record_by_pid(ptty_pid).get("organisation")
-    )
+    org_pid = extracted_data_from_ref(PatronType.get_record_by_pid(ptty_pid).get("organisation"))
     patrons = (
         PatronsSearch()
         .filter("term", roles=UserRole.PATRON)
@@ -505,9 +472,7 @@ def get_random_patron(exclude_this_barcode):
 def get_random_librarian(patron):
     """Find a qualified staff user."""
     ptty_pid = extracted_data_from_ref(patron.get("patron").get("type"))
-    org_pid = extracted_data_from_ref(
-        PatronType.get_record_by_pid(ptty_pid).get("organisation")
-    )
+    org_pid = extracted_data_from_ref(PatronType.get_record_by_pid(ptty_pid).get("organisation"))
     patrons = (
         PatronsSearch()
         .filter("terms", roles=UserRole.PROFESSIONAL_ROLES)
@@ -539,9 +504,7 @@ def create_payment_record(patron_transaction, user_pid, user_library):
         {"resource": "operator", "doc_type": "patrons", "pid": user_pid},
         {"resource": "library", "doc_type": "libraries", "pid": user_library},
     ]:
-        data[record["resource"]] = {
-            "$ref": get_ref_for_pid(record["doc_type"], record["pid"])
-        }
+        data[record["resource"]] = {"$ref": get_ref_for_pid(record["doc_type"], record["pid"])}
     data["type"] = "payment"
     data["subtype"] = "cash"
     data["amount"] = patron_transaction.get("total_amount")

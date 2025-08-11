@@ -81,24 +81,16 @@ def default_facets_factory(search, index):
         # If no facet field are found, skip this aggregation, because we can't
         # determine which field used to filter the query
         facet_field = next(
-            (
-                facet_body.get(k)["field"]
-                for k in ["terms", "date_histogram"]
-                if k in facet_body
-            ),
+            (facet_body.get(k)["field"] for k in ["terms", "date_histogram"] if k in facet_body),
             None,
         )
         facet_filter = None
         if facet_field:
             # get DSL expression of post_filters,
             # both single post filters and group of post filters
-            filters, filters_group, urlkwargs = _create_filter_dsl(
-                urlkwargs, facets.get("post_filters", {})
-            )
+            filters, filters_group, urlkwargs = _create_filter_dsl(urlkwargs, facets.get("post_filters", {}))
             # create the filter to inject in the facet
-            facet_filter = _facet_filter(
-                index, filters, filters_group, facet_name, facet_field
-            )
+            facet_filter = _facet_filter(index, filters, filters_group, facet_name, facet_field)
 
         # Check if 'filter' is defined into the facet configuration. If yes,
         # then add this filter to the facet filter previously created.

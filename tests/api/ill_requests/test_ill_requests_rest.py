@@ -153,9 +153,7 @@ def test_ill_requests_can_delete(client, ill_request_martigny):
     assert reasons == {}
 
 
-def test_filtered_ill_requests_get(
-    client, librarian_martigny, ill_request_martigny, librarian_sion, ill_request_sion
-):
+def test_filtered_ill_requests_get(client, librarian_martigny, ill_request_martigny, librarian_sion, ill_request_sion):
     """Test ill_requests filter by organisation."""
     list_url = url_for("invenio_records_rest.illr_list")
     # Martigny
@@ -185,9 +183,7 @@ def test_ill_request_secure_api(
     system_librarian_sion,
 ):
     """Test ill request secure api access."""
-    martigny_url = url_for(
-        "invenio_records_rest.illr_item", pid_value=ill_request_martigny.pid
-    )
+    martigny_url = url_for("invenio_records_rest.illr_item", pid_value=ill_request_martigny.pid)
     sion_url = url_for("invenio_records_rest.illr_item", pid_value=ill_request_sion.pid)
     # Logged as Martigny librarian
     #   * can read martigny request
@@ -209,9 +205,7 @@ def test_ill_request_secure_api_update(
     system_librarian_sion,
 ):
     """Test ill request secure api update."""
-    martigny_url = url_for(
-        "invenio_records_rest.illr_item", pid_value=ill_request_martigny.pid
-    )
+    martigny_url = url_for("invenio_records_rest.illr_item", pid_value=ill_request_martigny.pid)
     sion_url = url_for("invenio_records_rest.illr_item", pid_value=ill_request_sion.pid)
     # Martigny
     login_user_via_session(client, system_librarian_martigny.user)
@@ -226,26 +220,18 @@ def test_ill_request_secure_api_update(
     assert res.status_code == 403
 
 
-def test_ill_request_secure_api_delete(
-    client, ill_request_martigny, ill_request_sion, system_librarian_martigny
-):
+def test_ill_request_secure_api_delete(client, ill_request_martigny, ill_request_sion, system_librarian_martigny):
     """Test ill requests secure api delete."""
     login_user_via_session(client, system_librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.illr_item", pid_value=ill_request_sion.pid
-    )
+    record_url = url_for("invenio_records_rest.illr_item", pid_value=ill_request_sion.pid)
     res = client.delete(record_url)
     assert res.status_code == 403
-    record_url = url_for(
-        "invenio_records_rest.illr_item", pid_value=ill_request_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.illr_item", pid_value=ill_request_martigny.pid)
     res = client.delete(record_url)
     assert res.status_code == 403
 
 
-def test_filtered_ill_requests_get_pending_months_filters(
-    client, app, db, librarian_martigny, ill_request_martigny
-):
+def test_filtered_ill_requests_get_pending_months_filters(client, app, db, librarian_martigny, ill_request_martigny):
     """Test ill_requests filter by pending and months."""
 
     def date_delta(months):
@@ -261,9 +247,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     login_user_via_session(client, librarian_martigny.user)
 
     # Initial status is pending
-    list_url = url_for(
-        "invenio_records_rest.illr_list", q=f'pid:{ill_request_martigny["pid"]}'
-    )
+    list_url = url_for("invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}")
     res = client.get(list_url)
     result = res.json
     assert result["hits"]["total"]["value"] == 1
@@ -274,9 +258,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     ill_request_martigny.update(ill_request_martigny, dbcommit=True, reindex=True)
 
     # Without filter (show record)
-    list_url = url_for(
-        "invenio_records_rest.illr_list", q=f'pid:{ill_request_martigny["pid"]}'
-    )
+    list_url = url_for("invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}")
     res = client.get(list_url)
     result = res.json
     assert result["hits"]["total"]["value"] == 1
@@ -284,7 +266,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     # With filter (hide record)
     list_url = url_for(
         "invenio_records_rest.illr_list",
-        q=f'pid:{ill_request_martigny["pid"]}',
+        q=f"pid:{ill_request_martigny['pid']}",
         remove_archived="1",
     )
     res = client.get(list_url)
@@ -297,9 +279,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     db_commit_reindex(ill_request_martigny)
 
     # Without filter (show record)
-    list_url = url_for(
-        "invenio_records_rest.illr_list", q=f'pid:{ill_request_martigny["pid"]}'
-    )
+    list_url = url_for("invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}")
     res = client.get(list_url)
     result = res.json
     assert result["hits"]["total"]["value"] == 1
@@ -307,7 +287,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     # With filter (show record)
     list_url = url_for(
         "invenio_records_rest.illr_list",
-        q=f'pid:{ill_request_martigny["pid"]}',
+        q=f"pid:{ill_request_martigny['pid']}",
         remove_archived="1",
     )
     res = client.get(list_url)
@@ -320,9 +300,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     ill_request_martigny.update(ill_request_martigny, dbcommit=True, reindex=True)
 
     # Without filter (show record)
-    list_url = url_for(
-        "invenio_records_rest.illr_list", q=f'pid:{ill_request_martigny["pid"]}'
-    )
+    list_url = url_for("invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}")
     res = client.get(list_url)
     result = res.json
     assert result["hits"]["total"]["value"] == 1
@@ -330,7 +308,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     # With filter (show record)
     list_url = url_for(
         "invenio_records_rest.illr_list",
-        q=f'pid:{ill_request_martigny["pid"]}',
+        q=f"pid:{ill_request_martigny['pid']}",
         remove_archived="1",
     )
     res = client.get(list_url)

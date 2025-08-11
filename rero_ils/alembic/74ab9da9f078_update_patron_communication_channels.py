@@ -54,9 +54,7 @@ def upgrade():
             ids.append(id)
             try:
                 patron["patron"]["communication_channel"] = CommunicationChannel.MAIL
-                db.session.query(patron.model_cls).filter_by(id=patron.id).update(
-                    {patron.model_cls.json: patron}
-                )
+                db.session.query(patron.model_cls).filter_by(id=patron.id).update({patron.model_cls.json: patron})
             except Exception as err:
                 LOGGER.error(f"{idx} * Update patron: {pid} {err}")
                 errors += 1

@@ -195,9 +195,7 @@ def viewcode_patron_search_factory(self, search, query_parser=None):
             search = search.filter("term", organisation__pid=org["pid"])
     # Admin interface
     elif current_librarian:
-        search = search.filter(
-            "term", organisation__pid=current_librarian.organisation_pid
-        )
+        search = search.filter("term", organisation__pid=current_librarian.organisation_pid)
     # exclude draft records
     search = search.filter("bool", must_not=[Q("term", _draft=True)])
     return search, urlkwargs
@@ -232,17 +230,13 @@ def search_factory_for_holdings_and_items(view, search):
         # masked records are hidden for all public interfaces
         search = search.filter("bool", must_not=[Q("term", _masked=True)])
         # PROVISIONAL records are hidden for all public interfaces
-        search = search.filter(
-            "bool", must_not=[Q("term", type=TypeOfItem.PROVISIONAL)]
-        )
+        search = search.filter("bool", must_not=[Q("term", type=TypeOfItem.PROVISIONAL)])
     return search
 
 
 def remote_entity_view_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
-    view = request.args.get(
-        "view", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-    )
+    view = request.args.get("view", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
     search, urlkwargs = search_factory(self, search)
     if view != current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
         org = Organisation.get_record_by_viewcode(view)
@@ -268,12 +262,8 @@ def organisation_search_factory(self, search, query_parser=None):
     # US1909: Performance: many items on public document detailed view
     # US1906: Complete item model
     if current_librarian:
-        search = search.filter(
-            "term", organisation__pid=current_librarian.organisation_pid
-        )
-    view = request.args.get(
-        "view", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-    )
+        search = search.filter("term", organisation__pid=current_librarian.organisation_pid)
+    view = request.args.get("view", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
     search, urlkwargs = search_factory(self, search)
     if view != current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
         search = search.filter("bool", must_not=[Q("term", _masked=True)])
@@ -283,9 +273,7 @@ def organisation_search_factory(self, search, query_parser=None):
 
 def view_search_collection_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
-    view = request.args.get(
-        "view", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-    )
+    view = request.args.get("view", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
     search, urlkwargs = search_factory(self, search)
     if view != current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
         org = Organisation.get_record_by_viewcode(view)
@@ -306,13 +294,9 @@ def ill_request_search_factory(self, search, query_parser=None):
     search, urlkwargs = search_factory(self, search)
 
     if current_librarian:
-        search = search.filter(
-            "term", organisation__pid=current_librarian.organisation_pid
-        )
+        search = search.filter("term", organisation__pid=current_librarian.organisation_pid)
     elif current_patrons:
-        search = search.filter(
-            "terms", patron__pid=[ptrn.pid for ptrn in current_patrons]
-        )
+        search = search.filter("terms", patron__pid=[ptrn.pid for ptrn in current_patrons])
 
     search = search.exclude(Q("term", to_anonymize=True))
 
@@ -362,13 +346,9 @@ def templates_search_factory(self, search, query_parser=None):
     search, urlkwargs = search_factory(self, search)
     if current_librarian:
         if current_librarian.has_full_permissions:
-            search = search.filter(
-                "term", organisation__pid=current_librarian.organisation_pid
-            )
+            search = search.filter("term", organisation__pid=current_librarian.organisation_pid)
         else:
-            search = search.filter(
-                "term", organisation__pid=current_librarian.organisation_pid
-            )
+            search = search.filter("term", organisation__pid=current_librarian.organisation_pid)
             search = search.filter(
                 "bool",
                 should=[
@@ -394,13 +374,9 @@ def patron_transactions_search_factory(self, search, query_parser=None):
     """
     search, urlkwargs = search_factory(self, search)
     if current_librarian:
-        search = search.filter(
-            "term", organisation__pid=current_librarian.organisation_pid
-        )
+        search = search.filter("term", organisation__pid=current_librarian.organisation_pid)
     elif current_patrons:
-        search = search.filter(
-            "terms", patron__pid=[ptrn.pid for ptrn in current_patrons]
-        )
+        search = search.filter("terms", patron__pid=[ptrn.pid for ptrn in current_patrons])
     return search, urlkwargs
 
 
@@ -413,9 +389,7 @@ def acq_accounts_search_factory(self, search, query_parser=None):
     search, urlkwargs = search_factory(self, search)
 
     if current_librarian:
-        search = search.filter(
-            "term", organisation__pid=current_librarian.organisation_pid
-        )
+        search = search.filter("term", organisation__pid=current_librarian.organisation_pid)
     return search, urlkwargs
 
 
@@ -476,13 +450,8 @@ def search_factory(self, search, query_parser=None):
     query_parser = query_parser or _default_parser
 
     search_index = search._index[0]
-    query_boosting = current_app.config.get("RERO_ILS_QUERY_BOOSTING", {}).get(
-        search_index
-    )
-    if (
-        flask_request.args.get("fulltext", None) in [None, "0", "false", 0, False]
-        and query_boosting
-    ):
+    query_boosting = current_app.config.get("RERO_ILS_QUERY_BOOSTING", {}).get(search_index)
+    if flask_request.args.get("fulltext", None) in [None, "0", "false", 0, False] and query_boosting:
         query_boosting = [v for v in query_boosting if not v.startswith("fulltext")]
     try:
         search = search.query(query_parser(query_string, query_boosting))

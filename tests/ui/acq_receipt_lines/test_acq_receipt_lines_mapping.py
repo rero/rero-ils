@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition receipt line record mapping tests."""
+
 from rero_ils.modules.acquisition.acq_receipt_lines.api import (
     AcqReceiptLine,
     AcqReceiptLinesSearch,

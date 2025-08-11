@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Entities record tests."""
+
 import pytest
 
 from rero_ils.modules.commons.exceptions import RecordNotFound

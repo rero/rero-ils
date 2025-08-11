@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition receipt record mapping tests."""
+
 import mock
 
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
@@ -47,8 +48,6 @@ def test_acq_receipts_es_mapping(
                 {"type": "reply_to", "address": "admin@foo.com"},
             ]
         )
-    receipt = AcqReceipt.create(
-        acq_receipt_fiction_martigny_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    receipt = AcqReceipt.create(acq_receipt_fiction_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
     receipt.delete(force=True, dbcommit=True, delindex=True)

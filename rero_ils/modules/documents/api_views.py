@@ -71,9 +71,7 @@ def advanced_search_config():
     try:
         cantons = current_jsonschemas.get_schema("common/cantons-v0.0.1.json")
         countries = current_jsonschemas.get_schema("common/countries-v0.0.1.json")
-        medias = current_jsonschemas.get_schema(
-            "documents/document_content_media_carrier-v0.0.1.json"
-        )
+        medias = current_jsonschemas.get_schema("documents/document_content_media_carrier-v0.0.1.json")
     except JSONSchemaNotFound:
         abort(404)
 
@@ -85,29 +83,16 @@ def advanced_search_config():
             data = rda_type.get("title")
             media_types.append({"label": data, "value": data})
         if rda_type := item.get("properties", {}).get("carrierType", {}):
-            for option in (
-                rda_type.get("widget", {})
-                .get("formlyConfig", {})
-                .get("props", [])
-                .get("options")
-            ):
+            for option in rda_type.get("widget", {}).get("formlyConfig", {}).get("props", []).get("options"):
                 if option not in carrier_types:
                     carrier_types.append(option)
     return jsonify(
         {
-            "fieldsConfig": current_app.config.get(
-                "RERO_ILS_APP_ADVANCED_SEARCH_CONFIG", []
-            ),
+            "fieldsConfig": current_app.config.get("RERO_ILS_APP_ADVANCED_SEARCH_CONFIG", []),
             "fieldsData": {
-                "country": countries["country"]["widget"]["formlyConfig"]["props"][
-                    "options"
-                ],
-                "canton": cantons["canton"]["widget"]["formlyConfig"]["props"][
-                    "options"
-                ],
-                "rdaContentType": medias["definitions"]["contentType"]["widget"][
-                    "formlyConfig"
-                ]["props"]["options"],
+                "country": countries["country"]["widget"]["formlyConfig"]["props"]["options"],
+                "canton": cantons["canton"]["widget"]["formlyConfig"]["props"]["options"],
+                "rdaContentType": medias["definitions"]["contentType"]["widget"]["formlyConfig"]["props"]["options"],
                 "rdaMediaType": sorted(media_types, key=cmp_to_key(sort_medias)),
                 "rdaCarrierType": sorted(carrier_types, key=cmp_to_key(sort_medias)),
             },

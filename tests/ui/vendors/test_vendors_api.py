@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Vendors API tests."""
+
 from rero_ils.modules.vendors.models import VendorContactType, VendorNoteType
 
 
@@ -41,6 +42,4 @@ def test_vendors_properties(vendor_martigny, vendor_sion):
     # ORDER EMAIL -------------------------------------------------------------
     #   With no specific ORDER contact type, the default contact email field
     #   should be returned
-    assert vendor_martigny.order_email == vendor_martigny.get_contact(
-        VendorContactType.DEFAULT
-    ).get("email")
+    assert vendor_martigny.order_email == vendor_martigny.get_contact(VendorContactType.DEFAULT).get("email")

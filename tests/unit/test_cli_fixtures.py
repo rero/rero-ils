@@ -45,9 +45,7 @@ def test_count(app):
 def test_create(mock_contributions_mef_get, app, entity_person_response_data):
     """Test create cli."""
     json_file_name = join(dirname(__file__), "../data/documents.json")
-    mock_contributions_mef_get.return_value = mock_response(
-        json_data=entity_person_response_data
-    )
+    mock_contributions_mef_get.return_value = mock_response(json_data=entity_person_response_data)
 
     runner = CliRunner()
     result = runner.invoke(

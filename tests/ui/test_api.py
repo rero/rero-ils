@@ -17,7 +17,6 @@
 
 """API tests for non modules."""
 
-
 from functools import partial
 
 import pytest
@@ -87,9 +86,7 @@ class ProviderTest(BaseProvider):
         kwargs.setdefault("status", cls.default_status)
         if object_type and object_uuid:
             kwargs["status"] = PIDStatus.REGISTERED
-        return super().create(
-            object_type=object_type, object_uuid=object_uuid, **kwargs
-        )
+        return super().create(object_type=object_type, object_uuid=object_uuid, **kwargs)
 
 
 id_minter_test = partial(id_minter, provider=ProviderTest)
@@ -133,9 +130,7 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
         reindex=True,
     )
     assert record_2.pid == "ilsrecord_pid_2"
-    record_created_pid = RecordTest.create(
-        data=ils_record, reindex=True, dbcommit=True, delete_pid=True
-    )
+    record_created_pid = RecordTest.create(data=ils_record, reindex=True, dbcommit=True, delete_pid=True)
     assert record_created_pid.pid == "1"
     with pytest.raises(IlsRecordError.PidAlreadyUsed):
         RecordTest.create(data=ils_record, dbcommit=True, reindex=True)

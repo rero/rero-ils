@@ -24,9 +24,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 
-def test_view_stats_cfg(
-    client, patron_martigny, librarian_martigny, system_librarian_martigny
-):
+def test_view_stats_cfg(client, patron_martigny, librarian_martigny, system_librarian_martigny):
     """Test view status."""
     # User not logged
     result = client.get(url_for("stats_cfg.live_stats_reports", pid="1"))

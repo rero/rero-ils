@@ -79,9 +79,7 @@ def ebook_1_data(data):
 def ebook_1(app, ebook_1_data):
     """Load ebook 1 record."""
     del ebook_1_data["electronicLocator"]
-    doc = Document.create(
-        data=ebook_1_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=ebook_1_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -96,9 +94,7 @@ def ebook_2_data(data):
 def ebook_2(app, ebook_2_data):
     """Load ebook 2 record."""
     del ebook_2_data["electronicLocator"]
-    doc = Document.create(
-        data=ebook_2_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=ebook_2_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -113,9 +109,7 @@ def ebook_3_data(data):
 def ebook_3(app, ebook_3_data):
     """Load ebook 3 record."""
     del ebook_3_data["electronicLocator"]
-    doc = Document.create(
-        data=ebook_3_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=ebook_3_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -130,9 +124,7 @@ def ebook_4_data(data):
 def ebook_4(app, ebook_4_data):
     """Load ebook 4 record."""
     del ebook_4_data["electronicLocator"]
-    doc = Document.create(
-        data=ebook_4_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=ebook_4_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -147,9 +139,7 @@ def ebook_5_data(data):
 def ebook_5(app, ebook_5_data):
     """Load ebook 5 record."""
     del ebook_5_data["electronicLocator"]
-    doc = Document.create(
-        data=ebook_5_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=ebook_5_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -175,9 +165,7 @@ def document_data_tmp(data):
 @pytest.fixture(scope="module")
 def document(app, document_data):
     """Load document record."""
-    doc = Document.create(
-        data=document_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=document_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -199,9 +187,7 @@ def document_with_files(document, lib_martigny, file_location):
 @pytest.fixture(scope="module")
 def document_with_issn(app, journal_data_with_issn):
     """Load document record."""
-    doc = Document.create(
-        data=journal_data_with_issn, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=journal_data_with_issn, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -209,9 +195,7 @@ def document_with_issn(app, journal_data_with_issn):
 @pytest.fixture(scope="module")
 def document2_with_issn(app, journal2_data_with_issn):
     """Load document record."""
-    doc = Document.create(
-        data=journal2_data_with_issn, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=journal2_data_with_issn, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -243,9 +227,7 @@ def export_document_data(data):
 @pytest.fixture(scope="module")
 def export_document(app, export_document_data):
     """Load document record."""
-    doc = Document.create(
-        data=export_document_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=export_document_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -271,9 +253,7 @@ def journal_data(holdings):
 @pytest.fixture(scope="module")
 def journal(app, journal_data):
     """Load journal record."""
-    doc = Document.create(
-        data=journal_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=journal_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -315,19 +295,13 @@ def entity_place_data(data):
 @pytest.fixture(scope="module")
 def entity_person_response_data(entity_topic_data):
     """Load mef concept topic response data."""
-    return {
-        "hits": {
-            "hits": [{"id": entity_topic_data["pid"], "metadata": entity_topic_data}]
-        }
-    }
+    return {"hits": {"hits": [{"id": entity_topic_data["pid"], "metadata": entity_topic_data}]}}
 
 
 @pytest.fixture(scope="module")
 def entity_topic(app, entity_topic_data):
     """Load contribution person record."""
-    cont = RemoteEntity.create(
-        data=entity_topic_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    cont = RemoteEntity.create(data=entity_topic_data, delete_pid=False, dbcommit=True, reindex=True)
     RemoteEntitiesSearch.flush_and_refresh()
     return cont
 
@@ -351,19 +325,13 @@ def entity_person_data_tmp(app, data):
 @pytest.fixture(scope="module")
 def entity_person_response_data(entity_person_data):
     """Load mef contribution person response data."""
-    return {
-        "hits": {
-            "hits": [{"id": entity_person_data["pid"], "metadata": entity_person_data}]
-        }
-    }
+    return {"hits": {"hits": [{"id": entity_person_data["pid"], "metadata": entity_person_data}]}}
 
 
 @pytest.fixture(scope="module")
 def entity_person(app, entity_person_data):
     """Load contribution person record."""
-    cont = RemoteEntity.create(
-        data=entity_person_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    cont = RemoteEntity.create(data=entity_person_data, delete_pid=False, dbcommit=True, reindex=True)
     RemoteEntitiesSearch.flush_and_refresh()
     return cont
 
@@ -377,9 +345,7 @@ def entity_person_data_all(data):
 @pytest.fixture(scope="module")
 def entity_person_all(app, entity_person_data_all):
     """Load contribution person record."""
-    cont = RemoteEntity.create(
-        data=entity_person_data_all, delete_pid=False, dbcommit=True, reindex=True
-    )
+    cont = RemoteEntity.create(data=entity_person_data_all, delete_pid=False, dbcommit=True, reindex=True)
     RemoteEntitiesSearch.flush_and_refresh()
     return cont
 
@@ -393,9 +359,7 @@ def entity_person_rero_data(data):
 @pytest.fixture(scope="module")
 def entity_person_rero(app, entity_person_rero_data):
     """Create mef person record."""
-    pers = RemoteEntity.create(
-        data=entity_person_rero_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    pers = RemoteEntity.create(data=entity_person_rero_data, delete_pid=False, dbcommit=True, reindex=True)
     RemoteEntitiesSearch.flush_and_refresh()
     return pers
 
@@ -430,9 +394,7 @@ def entity_organisation_response_data(entity_organisation_data):
 @pytest.fixture(scope="module")
 def entity_organisation(app, entity_organisation_data):
     """Create mef contribution organisation record."""
-    org = RemoteEntity.create(
-        data=entity_organisation_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    org = RemoteEntity.create(data=entity_organisation_data, delete_pid=False, dbcommit=True, reindex=True)
     RemoteEntitiesSearch.flush_and_refresh()
     return org
 
@@ -458,9 +420,7 @@ def person2_response_data(person2_data):
 @pytest.fixture(scope="module")
 def person2(app, person2_data):
     """Create mef person record."""
-    pers = RemoteEntity.create(
-        data=person2_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    pers = RemoteEntity.create(data=person2_data, delete_pid=False, dbcommit=True, reindex=True)
     RemoteEntitiesSearch.flush_and_refresh()
     return pers
 
@@ -504,9 +464,7 @@ def local_entity_genre_form_data(data):
 @pytest.fixture(scope="module")
 def local_entity_person(app, local_entity_person_data):
     """Create mef person record."""
-    pers = LocalEntity.create(
-        data=local_entity_person_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    pers = LocalEntity.create(data=local_entity_person_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalEntitiesSearch.flush_and_refresh()
     return pers
 
@@ -514,9 +472,7 @@ def local_entity_person(app, local_entity_person_data):
 @pytest.fixture(scope="module")
 def local_entity_person2(app, local_entity_person2_data):
     """Create mef person record."""
-    pers = LocalEntity.create(
-        data=local_entity_person2_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    pers = LocalEntity.create(data=local_entity_person2_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalEntitiesSearch.flush_and_refresh()
     return pers
 
@@ -524,9 +480,7 @@ def local_entity_person2(app, local_entity_person2_data):
 @pytest.fixture(scope="module")
 def local_entity_org(app, local_entity_org_data):
     """Create mef person record."""
-    org = LocalEntity.create(
-        data=local_entity_org_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    org = LocalEntity.create(data=local_entity_org_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalEntitiesSearch.flush_and_refresh()
     return org
 
@@ -534,9 +488,7 @@ def local_entity_org(app, local_entity_org_data):
 @pytest.fixture(scope="module")
 def local_entity_org2(app, local_entity_org2_data):
     """Create mef person record."""
-    org = LocalEntity.create(
-        data=local_entity_org2_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    org = LocalEntity.create(data=local_entity_org2_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalEntitiesSearch.flush_and_refresh()
     return org
 
@@ -544,25 +496,17 @@ def local_entity_org2(app, local_entity_org2_data):
 @pytest.fixture(scope="module")
 def local_entity_genre_form(app, local_entity_genre_form_data):
     """Create mef person record."""
-    entity = LocalEntity.create(
-        data=local_entity_genre_form_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    entity = LocalEntity.create(data=local_entity_genre_form_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalEntitiesSearch.flush_and_refresh()
     return entity
 
 
 @pytest.fixture(scope="module")
 @mock.patch("requests.Session.get")
-def document_ref(
-    mock_contributions_mef_get, app, document_data_ref, entity_person_response_data
-):
+def document_ref(mock_contributions_mef_get, app, document_data_ref, entity_person_response_data):
     """Load document with mef records reference."""
-    mock_contributions_mef_get.return_value = mock_response(
-        json_data=entity_person_response_data
-    )
-    doc = Document.create(
-        data=document_data_ref, delete_pid=False, dbcommit=True, reindex=True
-    )
+    mock_contributions_mef_get.return_value = mock_response(json_data=entity_person_response_data)
+    doc = Document.create(data=document_data_ref, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -572,9 +516,7 @@ def document_ref(
 def document2_ref(mock_persons_mef_get, app, document2_data_ref, person2_response_data):
     """Load document with mef records reference."""
     mock_persons_mef_get.return_value = mock_response(json_data=person2_response_data)
-    doc = Document.create(
-        data=document2_data_ref, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=document2_data_ref, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -594,9 +536,7 @@ def document_sion_items_data_tmp(data):
 @pytest.fixture(scope="module")
 def document_sion_items(app, document_sion_items_data):
     """Create document data for sion items."""
-    doc = Document.create(
-        data=document_sion_items_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=document_sion_items_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     return doc
 
@@ -634,9 +574,7 @@ def item_lib_martigny(
     item_type_standard_martigny,
 ):
     """Create item of martigny library."""
-    item = Item.create(
-        data=item_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -650,9 +588,7 @@ def item_lib_martigny_bourg(
     item_type_standard_martigny,
 ):
     """Create item of martigny library bourg."""
-    item = Item.create(
-        data=item_lib_martigny_bourg_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item_lib_martigny_bourg_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -678,9 +614,7 @@ def item2_lib_martigny(
     item_type_standard_martigny,
 ):
     """Create item2 of martigny library."""
-    item = Item.create(
-        data=item2_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item2_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -706,9 +640,7 @@ def item3_lib_martigny(
     item_type_standard_martigny,
 ):
     """Create item3 of martigny library."""
-    item = Item.create(
-        data=item3_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item3_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -734,9 +666,7 @@ def item4_lib_martigny(
     item_type_standard_martigny,
 ):
     """Create item of martigny library."""
-    item = Item.create(
-        data=item4_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item4_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -748,13 +678,9 @@ def item_lib_saxon_data(data):
 
 
 @pytest.fixture(scope="module")
-def item_lib_saxon(
-    app, document, item_lib_saxon_data, loc_public_saxon, item_type_standard_martigny
-):
+def item_lib_saxon(app, document, item_lib_saxon_data, loc_public_saxon, item_type_standard_martigny):
     """Create item of saxon library."""
-    item = Item.create(
-        data=item_lib_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item_lib_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -766,13 +692,9 @@ def item_lib_fully_data(data):
 
 
 @pytest.fixture(scope="module")
-def item_lib_fully(
-    app, document, item_lib_fully_data, loc_public_fully, item_type_standard_martigny
-):
+def item_lib_fully(app, document, item_lib_fully_data, loc_public_fully, item_type_standard_martigny):
     """Create item of fully library."""
-    item = Item.create(
-        data=item_lib_fully_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item_lib_fully_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -792,9 +714,7 @@ def item_lib_sion(
     item_type_regular_sion,
 ):
     """Create item of sion library."""
-    item = Item.create(
-        data=item_lib_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item_lib_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -806,13 +726,9 @@ def item2_lib_sion_data(data):
 
 
 @pytest.fixture(scope="module")
-def item2_lib_sion(
-    app, document, item2_lib_sion_data, loc_restricted_sion, item_type_regular_sion
-):
+def item2_lib_sion(app, document, item2_lib_sion_data, loc_restricted_sion, item_type_regular_sion):
     """Create item of sion library."""
-    item = Item.create(
-        data=item2_lib_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item2_lib_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -824,13 +740,9 @@ def item2_lib_saxon_data(data):
 
 
 @pytest.fixture(scope="module")
-def item2_lib_saxon(
-    app, document, item2_lib_saxon_data, loc_public_saxon, item_type_standard_martigny
-):
+def item2_lib_saxon(app, document, item2_lib_saxon_data, loc_public_saxon, item_type_standard_martigny):
     """Create item of saxon library."""
-    item = Item.create(
-        data=item2_lib_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    item = Item.create(data=item2_lib_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     return item
 
@@ -859,9 +771,7 @@ def holding_lib_martigny(
     holding_lib_martigny_data,
 ):
     """Create holding of martigny library."""
-    holding = Holding.create(
-        data=holding_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    holding = Holding.create(data=holding_lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     HoldingsSearch.flush_and_refresh()
     return holding
 
@@ -873,13 +783,9 @@ def holding_lib_saxon_data(holdings):
 
 
 @pytest.fixture(scope="module")
-def holding_lib_saxon(
-    app, document, holding_lib_saxon_data, loc_public_saxon, item_type_standard_martigny
-):
+def holding_lib_saxon(app, document, holding_lib_saxon_data, loc_public_saxon, item_type_standard_martigny):
     """Create holding of saxon library."""
-    holding = Holding.create(
-        data=holding_lib_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    holding = Holding.create(data=holding_lib_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     HoldingsSearch.flush_and_refresh()
     return holding
 
@@ -891,13 +797,9 @@ def holding_lib_fully_data(holdings):
 
 
 @pytest.fixture(scope="module")
-def holding_lib_fully(
-    app, document, holding_lib_fully_data, loc_public_fully, item_type_standard_martigny
-):
+def holding_lib_fully(app, document, holding_lib_fully_data, loc_public_fully, item_type_standard_martigny):
     """Create holding of fully library."""
-    holding = Holding.create(
-        data=holding_lib_fully_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    holding = Holding.create(data=holding_lib_fully_data, delete_pid=False, dbcommit=True, reindex=True)
     HoldingsSearch.flush_and_refresh()
     return holding
 
@@ -909,13 +811,9 @@ def holding_lib_sion_data(holdings):
 
 
 @pytest.fixture(scope="module")
-def holding_lib_sion(
-    app, document, holding_lib_sion_data, loc_public_sion, item_type_internal_sion
-):
+def holding_lib_sion(app, document, holding_lib_sion_data, loc_public_sion, item_type_internal_sion):
     """Create holding of sion library."""
-    holding = Holding.create(
-        data=holding_lib_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    holding = Holding.create(data=holding_lib_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     HoldingsSearch.flush_and_refresh()
     return holding
 
@@ -1136,9 +1034,7 @@ def templ_doc_public_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_doc_public_martigny(
-    app, org_martigny, templ_doc_public_martigny_data, system_librarian_martigny
-):
+def templ_doc_public_martigny(app, org_martigny, templ_doc_public_martigny_data, system_librarian_martigny):
     """Create template for a public document martigny."""
     template = Template.create(
         data=templ_doc_public_martigny_data,
@@ -1163,9 +1059,7 @@ def templ_doc_private_martigny_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
-def templ_doc_private_martigny(
-    app, org_martigny, templ_doc_private_martigny_data, librarian_martigny
-):
+def templ_doc_private_martigny(app, org_martigny, templ_doc_private_martigny_data, librarian_martigny):
     """Create template for a private document martigny."""
     template = Template.create(
         data=templ_doc_private_martigny_data,
@@ -1184,13 +1078,9 @@ def templ_doc_private_saxon_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_doc_private_saxon(
-    app, org_martigny, templ_doc_private_saxon_data, librarian_saxon
-):
+def templ_doc_private_saxon(app, org_martigny, templ_doc_private_saxon_data, librarian_saxon):
     """Create template for a private document saxon."""
-    template = Template.create(
-        data=templ_doc_private_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    template = Template.create(data=templ_doc_private_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     TemplatesSearch.flush_and_refresh()
     return template
 
@@ -1202,13 +1092,9 @@ def templ_doc_public_saxon_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_doc_public_saxon(
-    app, org_martigny, templ_doc_public_saxon_data, librarian_saxon
-):
+def templ_doc_public_saxon(app, org_martigny, templ_doc_public_saxon_data, librarian_saxon):
     """Create template for a public document saxon."""
-    template = Template.create(
-        data=templ_doc_public_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    template = Template.create(data=templ_doc_public_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     TemplatesSearch.flush_and_refresh()
     return template
 
@@ -1220,13 +1106,9 @@ def templ_doc_public_sion_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_doc_public_sion(
-    app, org_sion, templ_doc_public_sion_data, system_librarian_sion
-):
+def templ_doc_public_sion(app, org_sion, templ_doc_public_sion_data, system_librarian_sion):
     """Create template for a public document sion."""
-    template = Template.create(
-        data=templ_doc_public_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    template = Template.create(data=templ_doc_public_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     TemplatesSearch.flush_and_refresh()
     return template
 
@@ -1238,13 +1120,9 @@ def templ_doc_private_sion_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_doc_private_sion(
-    app, org_sion, templ_doc_private_sion_data, system_librarian_sion
-):
+def templ_doc_private_sion(app, org_sion, templ_doc_private_sion_data, system_librarian_sion):
     """Create template for a private document sion."""
-    template = Template.create(
-        data=templ_doc_private_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    template = Template.create(data=templ_doc_private_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     TemplatesSearch.flush_and_refresh()
     return template
 
@@ -1256,9 +1134,7 @@ def templ_holdings_public_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_holdings_public_martigny(
-    app, org_martigny, templ_holdings_public_martigny_data, system_librarian_martigny
-):
+def templ_holdings_public_martigny(app, org_martigny, templ_holdings_public_martigny_data, system_librarian_martigny):
     """Load template for a public holdings martigny."""
     template = Template.create(
         data=templ_holdings_public_martigny_data,
@@ -1277,9 +1153,7 @@ def templ_item_public_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_item_public_martigny(
-    app, org_martigny, templ_item_public_martigny_data, system_librarian_martigny
-):
+def templ_item_public_martigny(app, org_martigny, templ_item_public_martigny_data, system_librarian_martigny):
     """Load template for a public item martigny."""
     template = Template.create(
         data=templ_item_public_martigny_data,
@@ -1298,9 +1172,7 @@ def templ_hold_public_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_hold_public_martigny(
-    app, org_martigny, templ_hold_public_martigny_data, system_librarian_martigny
-):
+def templ_hold_public_martigny(app, org_martigny, templ_hold_public_martigny_data, system_librarian_martigny):
     """Load template for a public holding martigny."""
     template = Template.create(
         data=templ_hold_public_martigny_data,
@@ -1319,9 +1191,7 @@ def templ_patron_public_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def templ_patron_public_martigny(
-    app, org_martigny, templ_patron_public_martigny_data, system_librarian_martigny
-):
+def templ_patron_public_martigny(app, org_martigny, templ_patron_public_martigny_data, system_librarian_martigny):
     """Load template for a public item martigny."""
     template = Template.create(
         data=templ_patron_public_martigny_data,
@@ -1343,9 +1213,7 @@ def local_field_martigny_data(local_fields):
 @pytest.fixture(scope="module")
 def local_field_martigny(app, org_martigny, document, local_field_martigny_data):
     """Load local field."""
-    local_field = LocalField.create(
-        data=local_field_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    local_field = LocalField.create(data=local_field_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalFieldsSearch.flush_and_refresh()
     return local_field
 
@@ -1359,9 +1227,7 @@ def local_field_sion_data(local_fields):
 @pytest.fixture(scope="module")
 def local_field_sion(app, org_sion, document, local_field_sion_data):
     """Load local field."""
-    local_field = LocalField.create(
-        data=local_field_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    local_field = LocalField.create(data=local_field_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalFieldsSearch.flush_and_refresh()
     return local_field
 
@@ -1375,9 +1241,7 @@ def local_field_3_martigny_data(local_fields):
 @pytest.fixture(scope="module")
 def local_field_3_martigny(app, org_martigny, document, local_field_3_martigny_data):
     """Load local field."""
-    local_field = LocalField.create(
-        data=local_field_3_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    local_field = LocalField.create(data=local_field_3_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalFieldsSearch.flush_and_refresh()
     return local_field
 
@@ -1409,9 +1273,7 @@ def stats_cfg_martigny_data(data):
 @pytest.fixture(scope="module")
 def stats_cfg_martigny(app, stats_cfg_martigny_data, system_librarian_martigny):
     """Create stats_cfg of martigny organisation."""
-    stats_cfg = StatConfiguration.create(
-        data=stats_cfg_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    stats_cfg = StatConfiguration.create(data=stats_cfg_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     StatsConfigurationSearch.flush_and_refresh()
     yield stats_cfg
 
@@ -1425,8 +1287,6 @@ def stats_cfg_sion_data(data):
 @pytest.fixture(scope="module")
 def stats_cfg_sion(app, stats_cfg_sion_data, system_librarian_sion):
     """Create stats_cfg of sion organisation."""
-    stats_cfg = StatConfiguration.create(
-        data=stats_cfg_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    stats_cfg = StatConfiguration.create(data=stats_cfg_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     StatsConfigurationSearch.flush_and_refresh()
     yield stats_cfg

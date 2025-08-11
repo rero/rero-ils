@@ -80,17 +80,13 @@ def test_monitoring_es_db_counts(client):
     }
 
 
-def test_monitoring_check_es_db_counts(
-    app, client, entity_person_data, system_librarian_martigny
-):
+def test_monitoring_check_es_db_counts(app, client, entity_person_data, system_librarian_martigny):
     """Test monitoring check_es_db_counts."""
     res = client.get(url_for("api_monitoring.check_es_db_counts", delay=0))
     assert res.status_code == 200
     assert get_json(res) == {"data": {"status": "green"}}
 
-    pers = RemoteEntity.create(
-        data=entity_person_data, delete_pid=False, dbcommit=True, reindex=False
-    )
+    pers = RemoteEntity.create(data=entity_person_data, delete_pid=False, dbcommit=True, reindex=False)
     RemoteEntitiesSearch.flush_and_refresh()
     res = client.get(url_for("api_monitoring.check_es_db_counts", delay=0))
     assert res.status_code == 200
@@ -119,9 +115,7 @@ def test_monitoring_check_es_db_counts(
     assert res.status_code == 403
 
     # give user superuser admin rights
-    db.session.add(
-        ActionUsers.allow(superuser_access, user=system_librarian_martigny.user)
-    )
+    db.session.add(ActionUsers.allow(superuser_access, user=system_librarian_martigny.user))
     db.session.commit()
     res = client.get(url_for("api_monitoring.missing_pids", doc_type="rement", delay=0))
     assert res.status_code == 200

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test acquisition order API."""
+
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -71,9 +72,7 @@ def test_order_notification_preview(
     ):
         response = client.get(url)
         assert response.status_code == 200
-        assert all(
-            field in response.json for field in ["recipient_suggestions", "preview"]
-        )
+        assert all(field in response.json for field in ["recipient_suggestions", "preview"])
 
 
 def test_send_order(
@@ -103,9 +102,7 @@ def test_send_order(
     )
     assert res.status_code == 404
     # test when email data is not provided
-    res, data = postdata(
-        client, "api_order.send_order", url_data=dict(order_pid=acor.pid)
-    )
+    res, data = postdata(client, "api_order.send_order", url_data=dict(order_pid=acor.pid))
     assert res.status_code == 400
     # test when email data provided but empty
     res, data = postdata(

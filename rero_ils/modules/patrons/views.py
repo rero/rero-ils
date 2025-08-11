@@ -75,14 +75,10 @@ def patron_circulation_informations(patron_pid):
     patron = Patron.get_record_by_pid(patron_pid)
     if not patron:
         abort(404, "Patron not found")
-    preview_amount = sum(
-        sum_for_fees(loan.get_overdue_fees) for loan in get_overdue_loans(patron.pid)
-    )
+    preview_amount = sum(sum_for_fees(loan.get_overdue_fees) for loan in get_overdue_loans(patron.pid))
     engaged_amount = get_transactions_total_amount_for_patron(patron.pid, status="open")
     statistics = get_loans_stats_by_patron_pid(patron_pid)
-    statistics["ill_requests"] = ILLRequestsSearch().get_ill_requests_total_for_patron(
-        patron_pid
-    )
+    statistics["ill_requests"] = ILLRequestsSearch().get_ill_requests_total_for_patron(patron_pid)
     return jsonify(
         {
             "fees": {"engaged": engaged_amount, "preview": preview_amount},
@@ -102,9 +98,7 @@ def patron_overdue_preview_api(patron_pid):
         fees = [(fee[0], fee[1].isoformat()) for fee in fees]
         total_amount = sum_for_fees(fees)
         if total_amount > 0:
-            data.append(
-                {"loan": loan.dumps(), "fees": {"total": total_amount, "steps": fees}}
-            )
+            data.append({"loan": loan.dumps(), "fees": {"total": total_amount, "steps": fees}})
     return jsonify(data)
 
 
@@ -130,14 +124,10 @@ def logged_user():
             "agentLabelOrder": config.get("RERO_ILS_AGENTS_LABEL_ORDER", {}),
             "agentSources": config.get("RERO_ILS_AGENTS_SOURCES", []),
             "operationLogs": config.get("RERO_ILS_ENABLE_OPERATION_LOG", []),
-            "documentAdvancedSearch": config.get(
-                "RERO_ILS_APP_DOCUMENT_ADVANCED_SEARCH", False
-            ),
+            "documentAdvancedSearch": config.get("RERO_ILS_APP_DOCUMENT_ADVANCED_SEARCH", False),
             "userProfile": {
                 "readOnly": config.get("RERO_PUBLIC_USERPROFILES_READONLY", False),
-                "readOnlyFields": config.get(
-                    "RERO_PUBLIC_USERPROFILES_READONLY_FIELDS", []
-                ),
+                "readOnlyFields": config.get("RERO_PUBLIC_USERPROFILES_READONLY_FIELDS", []),
             },
         },
     }
@@ -151,9 +141,7 @@ def logged_user():
         patron.pop("$schema", None)
         patron.pop("user_id", None)
         patron.pop("notes", None)
-        patron["organisation"] = patron.organisation.dumps(
-            dumper=OrganisationLoggedUserDumper()
-        )
+        patron["organisation"] = patron.organisation.dumps(dumper=OrganisationLoggedUserDumper())
         patron["libraries"] = [{"pid": pid} for pid in patron.manageable_library_pids]
         data["patrons"].append(patron)
 
@@ -167,9 +155,7 @@ def profile(viewcode, path):
     """Patron Profile Page."""
     if (path not in ["user/edit", "password/edit"]) and not current_patrons:
         abort(401)
-    if (path in ["user/edit", "password/edit"]) and current_app.config.get(
-        "RERO_PUBLIC_USERPROFILES_READONLY"
-    ):
+    if (path in ["user/edit", "password/edit"]) and current_app.config.get("RERO_PUBLIC_USERPROFILES_READONLY"):
         abort(401)
     return render_template("rero_ils/patron_profile.html", viewcode=viewcode)
 
@@ -188,9 +174,7 @@ def get_messages(patron_pid):
     patron = Patron.get_record_by_pid(patron_pid)
     messages = patron.get_circulation_messages(True)
     if patron.pending_subscriptions:
-        messages.append(
-            {"type": "warning", "content": _("You have a pending subscription fee.")}
-        )
+        messages.append({"type": "warning", "content": _("You have a pending subscription fee.")})
     for note in patron.get("notes", []):
         if note.get("type") == "public_note":
             messages.append({"type": "warning", "content": note.get("content")})
@@ -222,10 +206,7 @@ def patron_authenticate():
     # load patron
     organisation_pid = current_librarian.organisation_pid
     result = (
-        PatronsSearch()
-        .filter("term", user_id=user.user.id)
-        .filter("term", organisation__pid=organisation_pid)
-        .scan()
+        PatronsSearch().filter("term", user_id=user.user.id).filter("term", organisation__pid=organisation_pid).scan()
     )
     try:
         patron = next(result).to_dict()
@@ -238,10 +219,7 @@ def patron_authenticate():
     if not patron_data:
         abort(404, "User not found.")
     patron_type_result = (
-        PatronTypesSearch()
-        .filter("term", pid=patron_data.get("type", {}).get("pid"))
-        .source(includes=["code"])
-        .scan()
+        PatronTypesSearch().filter("term", pid=patron_data.get("type", {}).get("pid")).source(includes=["code"]).scan()
     )
     try:
         patron_type = next(patron_type_result).to_dict()
@@ -302,9 +280,7 @@ def info():
     patron_types = []
     patron_infos = {}
     for patron in patrons:
-        patron_type = PatronType.get_record_by_pid(
-            extracted_data_from_ref(patron["patron"]["type"]["$ref"])
-        )
+        patron_type = PatronType.get_record_by_pid(extracted_data_from_ref(patron["patron"]["type"]["$ref"]))
         patron_type_code = patron_type.get("code")
         institution = patron.organisation["code"]
         expiration_date = patron.get("patron", {}).get("expiration_date")
@@ -317,9 +293,7 @@ def info():
             if institution and "institution" in token_scopes:
                 info["institution"] = institution
             if expiration_date and "expiration_date" in token_scopes:
-                info["expiration_date"] = datetime.datetime.strptime(
-                    expiration_date, "%Y-%m-%d"
-                ).isoformat()
+                info["expiration_date"] = datetime.datetime.strptime(expiration_date, "%Y-%m-%d").isoformat()
             patron_types.append(info)
 
         # new dict (patron_info)
@@ -329,9 +303,7 @@ def info():
         if patron_type_code and "patron_type" in token_scopes:
             patron_info["patron_type"] = patron_type_code
         if expiration_date and "expiration_date" in token_scopes:
-            patron_info["expiration_date"] = datetime.datetime.strptime(
-                expiration_date, "%Y-%m-%d"
-            ).isoformat()
+            patron_info["expiration_date"] = datetime.datetime.strptime(expiration_date, "%Y-%m-%d").isoformat()
         patron_infos[institution] = patron_info
 
     if patron_types:

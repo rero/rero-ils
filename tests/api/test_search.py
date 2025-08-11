@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Search tests."""
+
 import mock
 from flask import url_for
 
@@ -104,9 +105,7 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     assert hits["total"]["value"] == 1
 
     # test AND
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q="travailleuse école", simple="1"
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q="travailleuse école", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
@@ -118,24 +117,18 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     assert hits["total"]["value"] == 2
 
     # test AND in two fields (travailleuses == travailleur)
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q="travailleuses bientôt", simple="1"
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q="travailleuses bientôt", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
 
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q="travailleuses +bientôt", simple="1"
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q="travailleuses +bientôt", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
 
     # test NOT
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q="travailleur -école", simple="1"
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q="travailleur -école", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
@@ -160,7 +153,7 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     # title + subtitle
     list_url = url_for(
         "invenio_records_rest.doc_list",
-        q="Les travailleurs assidus sont de retours : " "les jeunes arrivent bientôt ?",
+        q="Les travailleurs assidus sont de retours : les jeunes arrivent bientôt ?",
         simple="1",
     )
     res = client.get(list_url)
@@ -177,9 +170,7 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
 
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q=r"école:.,;?\!...=-==--", simple="1"
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q=r"école:.,;?\!...=-==--", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
@@ -238,16 +229,12 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     # test wildcard query with boolean sub property
     # See: elasticsearch query_string lenient property
     #      for more details
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q=r"autocomplete_title:travailleu"
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q=r"autocomplete_title:travailleu")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] != 0
 
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q=r"autocomplete_title:travailleur"
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q=r"autocomplete_title:travailleur")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] != 0

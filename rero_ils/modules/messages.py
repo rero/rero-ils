@@ -75,9 +75,6 @@ class Message:
                     messages[key] = cls.get(key)
         else:
             # needed for tests
-            messages = {
-                key.replace(f"{cls.prefix}", ""): current_cache.get(key)
-                for key in current_cache.cache._cache
-            }
+            messages = {key.replace(f"{cls.prefix}", ""): current_cache.get(key) for key in current_cache.cache._cache}
 
         return messages

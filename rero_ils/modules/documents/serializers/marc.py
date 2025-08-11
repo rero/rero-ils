@@ -128,9 +128,7 @@ class DocumentMARCXMLSerializer(JSONSerializer):
             for contribution in hit["_source"].get("contribution", []):
                 if contribution_pid := contribution.get("entity", {}).get("pid"):
                     contribution_pids.append(contribution_pid)
-        search = RemoteEntitiesSearch().filter(
-            "terms", pid=list(set(contribution_pids))
-        )
+        search = RemoteEntitiesSearch().filter("terms", pid=list(set(contribution_pids)))
         es_contributions = {}
         for hit in search.scan():
             contribution = hit.to_dict()
@@ -145,12 +143,8 @@ class DocumentMARCXMLSerializer(JSONSerializer):
             for contribution in contributions:
                 contribution_pid = contribution.get("entity", {}).get("pid")
                 if contribution_pid in es_contributions:
-                    contribution["entity"] = deepcopy(
-                        es_contributions[contribution_pid]
-                    )
-                    replace_contribution_sources(
-                        contribution=contribution, source_order=source_order
-                    )
+                    contribution["entity"] = deepcopy(es_contributions[contribution_pid])
+                    replace_contribution_sources(contribution=contribution, source_order=source_order)
 
             record = self.transform_search_hit(
                 pid=pid_fetcher(hit["_id"], document),
@@ -205,9 +199,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
 
         def dump_record(record, idx):
             """Dump a single record."""
-            rec_element = ElementMaker(
-                namespace=self.MARC21_REC, nsmap={prefix: self.MARC21_REC}
-            )
+            rec_element = ElementMaker(namespace=self.MARC21_REC, nsmap={prefix: self.MARC21_REC})
             data_element = ElementMaker()
             rec = element.record()
             rec.append(element.recordPacking("xml"))
@@ -266,18 +258,10 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
 
                             for code, value in items:
                                 if isinstance(value, string_types):
-                                    datafield.append(
-                                        data_element.subfield(
-                                            strip_chars(value), code=code
-                                        )
-                                    )
+                                    datafield.append(data_element.subfield(strip_chars(value), code=code))
                                 else:
                                     for v in value:
-                                        datafield.append(
-                                            data_element.subfield(
-                                                strip_chars(v), code=code
-                                            )
-                                        )
+                                        datafield.append(data_element.subfield(strip_chars(v), code=code))
                             rec_data.append(datafield)
                 rec_record_data.append(rec_data)
                 rec.append(rec_record_data)
@@ -312,9 +296,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             if maximum_records:
                 echoed_search_rr.append(element.maximumRecords(str(maximum_records)))
             echoed_search_rr.append(element.recordPacking("XML"))
-            echoed_search_rr.append(
-                element.recordSchema("info:sru/schema/1/marcxml-v1.1-light")
-            )
+            echoed_search_rr.append(element.recordSchema("info:sru/schema/1/marcxml-v1.1-light"))
             echoed_search_rr.append(element.resultSetTTL("0"))
             root.append(echoed_search_rr)
 
@@ -328,16 +310,10 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
 
     def dumps(self, total, records, sru, xslt_filename=None, **kwargs):
         """Dump records into a MarcXMLSRU file."""
-        root = self.dumps_etree(
-            total=total, records=records, sru=sru, xslt_filename=xslt_filename
-        )
-        return etree.tostring(
-            root, pretty_print=True, xml_declaration=True, encoding="UTF-8", **kwargs
-        )
+        root = self.dumps_etree(total=total, records=records, sru=sru, xslt_filename=xslt_filename)
+        return etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", **kwargs)
 
-    def serialize_search(
-        self, pid_fetcher, search_result, item_links_factory=None, **kwargs
-    ):
+    def serialize_search(self, pid_fetcher, search_result, item_links_factory=None, **kwargs):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.

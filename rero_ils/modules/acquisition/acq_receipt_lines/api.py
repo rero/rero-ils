@@ -77,9 +77,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
     ]
 
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs):
         """Create Acquisition Receipt Line record."""
         # TODO : should be used into `pre_create` hook extensions but seems not
         #        work as expected.
@@ -101,9 +99,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
             AcqOrderStatus.PARTIALLY_RECEIVED,
             AcqOrderStatus.RECEIVED,
         ]:
-            return _(
-                f"Can not create a receipt with an order with a wrong status {order_status}."
-            )
+            return _(f"Can not create a receipt with an order with a wrong status {order_status}.")
         return True
 
     def update(self, data, commit=True, dbcommit=True, reindex=True):
@@ -122,9 +118,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
     def _build_additional_refs(cls, data):
         """Build $ref for the organisation and library the acq receipt line."""
         if receipt := extracted_data_from_ref(data.get("acq_receipt"), data="record"):
-            data["organisation"] = {
-                "$ref": get_ref_for_pid("org", receipt.organisation_pid)
-            }
+            data["organisation"] = {"$ref": get_ref_for_pid("org", receipt.organisation_pid)}
             data["library"] = {"$ref": get_ref_for_pid("lib", receipt.library_pid)}
 
     # GETTER & SETTER =========================================================
@@ -204,11 +198,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
         `AcqReceiptLineNoteType` value.
         :return the note content if exists, otherwise returns None.
         """
-        note = [
-            note.get("content")
-            for note in self.get("notes", [])
-            if note.get("type") == note_type
-        ]
+        note = [note.get("content") for note in self.get("notes", []) if note.get("type") == note_type]
         return next(iter(note), None)
 
     def reasons_not_to_delete(self):

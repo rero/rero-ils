@@ -38,17 +38,13 @@ def test_issue_location_after_holdings_update(
     assert holding.get("holdings_type") == HoldingTypes.SERIAL
 
     # create an item of type issue for this holdings
-    item = holding.create_regular_issue(
-        status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True
-    )
+    item = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
     assert ItemsSearch().filter("term", holding__pid=holding.pid).count() == 1
     assert item.location_pid == holding.location_pid
 
     # change the holdings location
     assert holding.location_pid != loc_restricted_martigny.pid
-    holding["location"] = {
-        "$ref": get_ref_for_pid("locations", loc_restricted_martigny.pid)
-    }
+    holding["location"] = {"$ref": get_ref_for_pid("locations", loc_restricted_martigny.pid)}
     holding = holding.update(holding, dbcommit=True, reindex=True)
     assert holding.location_pid == loc_restricted_martigny.pid
 
@@ -78,16 +74,12 @@ def test_issue_item_types_after_holdings_update(
     assert holding.get("holdings_type") == HoldingTypes.SERIAL
 
     # create an item of type issue for this holdings
-    item = holding.create_regular_issue(
-        status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True
-    )
+    item = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
     assert ItemsSearch().filter("term", holding__pid=holding.pid).count() == 1
 
     # change the holdings item_type
     assert holding.circulation_category_pid != item_type_on_site_martigny.pid
-    holding["circulation_category"] = {
-        "$ref": get_ref_for_pid("item_types", item_type_on_site_martigny.pid)
-    }
+    holding["circulation_category"] = {"$ref": get_ref_for_pid("item_types", item_type_on_site_martigny.pid)}
     holding = holding.update(holding, dbcommit=True, reindex=True)
     assert holding.circulation_category_pid == item_type_on_site_martigny.pid
 
@@ -98,12 +90,7 @@ def test_issue_item_types_after_holdings_update(
     # ensure that the item type was correctly inherited from the holdings
     item = Item.get_record(item.id)
     assert item.item_type_pid == holding.circulation_category_pid
-    assert (
-        ItemsSearch()
-        .filter("term", item_type__pid=holding.circulation_category_pid)
-        .count()
-        == 1
-    )
+    assert ItemsSearch().filter("term", item_type__pid=holding.circulation_category_pid).count() == 1
 
     # clean up data
     holding.update(initial_holding_data, dbcommit=True, reindex=True)
@@ -121,9 +108,7 @@ def test_inherited_call_numbers_after_holdings_update(
     assert holding.get("holdings_type") == HoldingTypes.SERIAL
 
     # create an item of type issue for this holdings
-    item = holding.create_regular_issue(
-        status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True
-    )
+    item = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
     assert ItemsSearch().filter("term", holding__pid=holding.pid).count() == 1
 
     # change the holdings first call_number
@@ -136,12 +121,7 @@ def test_inherited_call_numbers_after_holdings_update(
 
     # ensure that the call number was correctly inherited from the holdings
     item = Item.get_record(item.id)
-    assert (
-        ItemsSearch()
-        .filter("term", issue__inherited_first_call_number__raw="cote1")
-        .count()
-        == 1
-    )
+    assert ItemsSearch().filter("term", issue__inherited_first_call_number__raw="cote1").count() == 1
     assert ItemsSearch().filter("term", call_numbers__raw="cote1").count() == 1
 
     # delete holdings first call number and change the second call_number
@@ -155,19 +135,9 @@ def test_inherited_call_numbers_after_holdings_update(
 
     # ensure that the call numbers were correctly inherited from the holdings
     item = Item.get_record(item.id)
-    assert (
-        ItemsSearch()
-        .filter("term", issue__inherited_second_call_number__raw="cote2")
-        .count()
-        == 1
-    )
+    assert ItemsSearch().filter("term", issue__inherited_second_call_number__raw="cote2").count() == 1
     assert ItemsSearch().filter("term", call_numbers__raw="cote2").count() == 1
-    assert (
-        ItemsSearch()
-        .filter("term", issue__inherited_first_call_number__raw="cote1")
-        .count()
-        == 0
-    )
+    assert ItemsSearch().filter("term", issue__inherited_first_call_number__raw="cote1").count() == 0
     assert ItemsSearch().filter("term", call_numbers__raw="cote1").count() == 0
 
     # clean up data

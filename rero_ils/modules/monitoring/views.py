@@ -55,9 +55,7 @@ def db_connection_counts():
     :return: jsonified count for db connections
     """
     try:
-        max_conn, used, res_for_super, free = db.session.execute(
-            DB_CONNECTION_COUNTS_QUERY
-        ).first()
+        max_conn, used, res_for_super, free = db.session.execute(DB_CONNECTION_COUNTS_QUERY).first()
     except Exception as error:
         return jsonify({"ERROR": error})
     return jsonify(
@@ -115,9 +113,7 @@ def es_db_counts():
     with_deleted = request.args.get("deleted", False)
     time_delta = request.args.get("delay", 1)
     mon = Monitoring(time_delta=time_delta)
-    return jsonify(
-        {"data": mon.info(with_deleted=with_deleted, difference_db_es=difference_db_es)}
-    )
+    return jsonify({"data": mon.info(with_deleted=with_deleted, difference_db_es=difference_db_es)})
 
 
 @api_blueprint.route("/check_es_db_counts")
@@ -139,15 +135,11 @@ def check_es_db_counts():
         result = {"data": {"status": "red"}}
         errors = []
         for doc_type, doc_type_data in checks.items():
-            links = {
-                "about": url_for("api_monitoring.check_es_db_counts", _external=True)
-            }
+            links = {"about": url_for("api_monitoring.check_es_db_counts", _external=True)}
             for info, count in doc_type_data.items():
                 if info == "db_es":
-                    msg = f"There are {count} items " f"from {doc_type} missing in ES."
-                    links[doc_type] = url_for(
-                        "api_monitoring.missing_pids", doc_type=doc_type, _external=True
-                    )
+                    msg = f"There are {count} items from {doc_type} missing in ES."
+                    links[doc_type] = url_for("api_monitoring.missing_pids", doc_type=doc_type, _external=True)
                     errors.append(
                         {
                             "id": "DB_ES_COUNTER_MISMATCH",
@@ -158,10 +150,8 @@ def check_es_db_counts():
                         }
                     )
                 elif info == "db-":
-                    msg = f"There are {count} items " f"from {doc_type} missing in DB."
-                    links[doc_type] = url_for(
-                        "api_monitoring.missing_pids", doc_type=doc_type, _external=True
-                    )
+                    msg = f"There are {count} items from {doc_type} missing in DB."
+                    links[doc_type] = url_for("api_monitoring.missing_pids", doc_type=doc_type, _external=True)
                     errors.append(
                         {
                             "id": "DB_ES_UNEQUAL",
@@ -172,10 +162,8 @@ def check_es_db_counts():
                         }
                     )
                 elif info == "es-":
-                    msg = f"There are {count} items " f"from {doc_type} missing in ES."
-                    links[doc_type] = url_for(
-                        "api_monitoring.missing_pids", doc_type=doc_type, _external=True
-                    )
+                    msg = f"There are {count} items from {doc_type} missing in ES."
+                    links[doc_type] = url_for("api_monitoring.missing_pids", doc_type=doc_type, _external=True)
                     errors.append(
                         {
                             "id": "DB_ES_UNEQUAL",

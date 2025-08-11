@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Extension for AcqAccount records."""
+
 from flask_babel import gettext as _
 from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
@@ -37,11 +38,7 @@ class ParentAccountDistributionCheck(RecordExtension):
         #  - Either record is a root account. In this case, nothing to check!
         #  - Either record has parent, we need to check if parent has enough
         #    balance to do that.
-        if (
-            amount_to_check > 0
-            and parent
-            and parent.remaining_balance[0] < amount_to_check
-        ):
+        if amount_to_check > 0 and parent and parent.remaining_balance[0] < amount_to_check:
             msg = _("Parent account available amount too low")
             raise ValidationError(msg)
 

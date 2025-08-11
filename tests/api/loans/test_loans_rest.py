@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API item_types."""
+
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
@@ -44,18 +45,14 @@ from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from tests.utils import check_timezone_date, get_json, postdata
 
 
-def test_loans_search(
-    client, loan_pending_martigny, rero_json_header, librarian_martigny, yesterday
-):
+def test_loans_search(client, loan_pending_martigny, rero_json_header, librarian_martigny, yesterday):
     """Test record retrieval."""
     login_user_via_session(client, librarian_martigny.user)
     loan = loan_pending_martigny
     original_loan = deepcopy(loan)
 
     # STEP#1 :: CHECK FACETS ARE PRESENT INTO SEARCH RESULT
-    url = url_for(
-        "invenio_records_rest.loanid_list", exclude_status=LoanState.ITEM_RETURNED
-    )
+    url = url_for("invenio_records_rest.loanid_list", exclude_status=LoanState.ITEM_RETURNED)
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
     facet_keys = [
@@ -171,9 +168,7 @@ def test_loan_access_permissions(
     assert len(data["hits"]["hits"]) == 3
 
     # see only my loan
-    loan_list = url_for(
-        "invenio_records_rest.loanid_list", q=f"patron_pid:{patron_sion_multiple.pid}"
-    )
+    loan_list = url_for("invenio_records_rest.loanid_list", q=f"patron_pid:{patron_sion_multiple.pid}")
     res = client.get(loan_list)
     assert res.status_code == 200
     data = get_json(res)
@@ -328,10 +323,10 @@ def test_overdue_loans(
             transaction_user_pid=librarian_martigny.pid,
         ),
     )
-    assert (
-        res.status_code == 200
-    ), "It probably failed while \
+    assert res.status_code == 200, (
+        "It probably failed while \
         test_due_soon_loans fail"
+    )
 
     loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
     loan = Loan.get_record_by_pid(loan_pid)
@@ -350,16 +345,7 @@ def test_overdue_loans(
     OperationLogsSearch.flush_and_refresh()
     assert number_of_notifications_sent(loan) == 1
     # Check notification is created on operation logs
-    assert (
-        len(
-            list(
-                OperationLogsSearch().get_logs_by_notification_pid(
-                    notification.get("pid")
-                )
-            )
-        )
-        == 1
-    )
+    assert len(list(OperationLogsSearch().get_logs_by_notification_pid(notification.get("pid")))) == 1
 
     # Try a checkout for a blocked user :: It should be blocked
     res, data = postdata(

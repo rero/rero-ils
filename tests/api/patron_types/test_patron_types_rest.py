@@ -91,18 +91,14 @@ def test_patron_types_get(client, patron_type_children_martigny):
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_patron_types_post_put_delete(
-    client, org_martigny, patron_type_children_martigny_data, json_header
-):
+def test_patron_types_post_put_delete(client, org_martigny, patron_type_children_martigny_data, json_header):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for("invenio_records_rest.ptty_item", pid_value="1")
     list_url = url_for("invenio_records_rest.ptty_list", q="pid:1")
 
     patron_type_children_martigny_data["pid"] = "1"
-    res, _ = postdata(
-        client, "invenio_records_rest.ptty_list", patron_type_children_martigny_data
-    )
+    res, _ = postdata(client, "invenio_records_rest.ptty_list", patron_type_children_martigny_data)
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
@@ -154,9 +150,7 @@ def test_patron_types_name_validate(client):
         class organisation:
             pid = "org1"
 
-    with mock.patch(
-        "rero_ils.modules.patron_types.views.current_librarian", current_librarian
-    ):
+    with mock.patch("rero_ils.modules.patron_types.views.current_librarian", current_librarian):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {"name": "children"}
@@ -165,17 +159,13 @@ def test_patron_types_name_validate(client):
         class organisation:
             pid = "does not exists"
 
-    with mock.patch(
-        "rero_ils.modules.patron_types.views.current_librarian", current_librarian
-    ):
+    with mock.patch("rero_ils.modules.patron_types.views.current_librarian", current_librarian):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {"name": None}
 
 
-def test_patron_types_can_delete(
-    client, patron_type_children_martigny, patron_martigny, circulation_policies
-):
+def test_patron_types_can_delete(client, patron_type_children_martigny, patron_martigny, circulation_policies):
     """Test can delete a patron type."""
     can, reasons = patron_type_children_martigny.can_delete
     assert not can
@@ -222,18 +212,14 @@ def test_patron_type_secure_api(
     """Test patron type secure api access."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.ptty_item", pid_value=patron_type_children_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.ptty_item", pid_value=patron_type_children_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 200
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
-    record_url = url_for(
-        "invenio_records_rest.ptty_item", pid_value=patron_type_children_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.ptty_item", pid_value=patron_type_children_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 403
@@ -277,9 +263,7 @@ def test_patron_type_secure_api_update(
 ):
     """Test patron type secure api create."""
     login_user_via_session(client, system_librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.ptty_item", pid_value=patron_type_adults_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.ptty_item", pid_value=patron_type_adults_martigny.pid)
 
     data = patron_type_adults_martigny_data
     data["name"] = "New Name"
@@ -303,9 +287,7 @@ def test_patron_type_secure_api_delete(
 ):
     """Test patron type secure api delete."""
     login_user_via_session(client, system_librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.ptty_item", pid_value=patron_type_adults_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.ptty_item", pid_value=patron_type_adults_martigny.pid)
 
     with pytest.raises(IlsRecordError.NotDeleted):
         res = client.delete(record_url)
@@ -341,15 +323,11 @@ def test_patron_types_subscription(
     # Test 'get_linked_patrons' functions.
     assert len(list(patron_type_grown_sion.get_linked_patron())) == 1
     assert len(list(patron_type_youngsters_sion.get_linked_patron())) == 0
-    patron_sion["patron"]["type"]["$ref"] = get_ref_for_pid(
-        "ptty", patron_type_youngsters_sion.pid
-    )
+    patron_sion["patron"]["type"]["$ref"] = get_ref_for_pid("ptty", patron_type_youngsters_sion.pid)
     patron_sion.update(patron_sion, dbcommit=True)
     patron_sion.reindex()
     assert len(list(patron_type_grown_sion.get_linked_patron())) == 0
     assert len(list(patron_type_youngsters_sion.get_linked_patron())) == 1
-    patron_sion["patron"]["type"]["$ref"] = get_ref_for_pid(
-        "ptty", patron_type_grown_sion.pid
-    )
+    patron_sion["patron"]["type"]["$ref"] = get_ref_for_pid("ptty", patron_type_grown_sion.pid)
     patron_sion.update(patron_sion, dbcommit=True)
     patron_sion.reindex()

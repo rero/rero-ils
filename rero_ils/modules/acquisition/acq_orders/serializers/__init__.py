@@ -69,6 +69,4 @@ _csv = AcqOrderCSVSerializer(
     ]
 )
 
-csv_acor_search = search_responsify_file(
-    _csv, "text/csv", file_extension="csv", file_prefix="export-orders"
-)
+csv_acor_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_prefix="export-orders")

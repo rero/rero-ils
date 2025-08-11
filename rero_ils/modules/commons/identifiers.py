@@ -43,6 +43,7 @@ use the `QualifierIdentifierRenderer` ; the result will be
 "9782844267788, tome 2"
 
 """
+
 from abc import ABC, abstractmethod
 from copy import deepcopy
 from dataclasses import dataclass, field

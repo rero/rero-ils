@@ -39,9 +39,7 @@ def test_migrations_rest(
     assert res.status_code == 403
 
     login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(
-        url_for("api_migration_data.migration_data_list", sort="-updated_at")
-    )
+    res = client.get(url_for("api_migration_data.migration_data_list", sort="-updated_at"))
     assert res.status_code == 200
     assert res.json["hits"]["total"]["value"] == 1
     assert res.json["hits"]["hits"][0]["id"] == migration_data.meta.id
@@ -69,9 +67,7 @@ def test_migrations_rest(
     assert res.status_code == 200
     assert res.json["hits"]["total"]["value"] == 1
 
-    res = client.get(
-        url_for("api_migration_data.migration_data_list", conversion_status="invalid")
-    )
+    res = client.get(url_for("api_migration_data.migration_data_list", conversion_status="invalid"))
     assert res.status_code == 200
     assert res.json["hits"]["total"]["value"] == 0
 
@@ -260,8 +256,5 @@ def test_migrations_rest_put(
     )
     assert res.status_code == 200
     assert res.json["deduplication"]["status"] == "match"
-    assert (
-        res.json["deduplication"]["modified_by"]
-        == system_librarian_martigny.formatted_name
-    )
+    assert res.json["deduplication"]["modified_by"] == system_librarian_martigny.formatted_name
     assert res.json["deduplication"]["modified_by"]

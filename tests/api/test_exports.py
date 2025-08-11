@@ -26,9 +26,7 @@ from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import get_csv, parse_csv
 
 
-def test_loans_exports(
-    app, client, librarian_martigny, loan_pending_martigny, loan2_validated_martigny
-):
+def test_loans_exports(app, client, librarian_martigny, loan_pending_martigny, loan2_validated_martigny):
     """Test loans streamed exportation."""
     # STEP#1 :: CHECK EXPORT PERMISSION
     #   Only authenticated user could export loans.

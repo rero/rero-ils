@@ -81,9 +81,7 @@ def test_provision_activity():
         },
     ]
     result = {
-        "bf:Publication": [
-            {"language": "default", "value": "Paris : Ed. de Minuit, 1988"}
-        ],
+        "bf:Publication": [{"language": "default", "value": "Paris : Ed. de Minuit, 1988"}],
         "bf:Distribution": [
             {"language": "default", "value": "Martigny : Alex Morgan, 2010"},
             {"language": "default", "value": "Will Edwards, 2010 ; Paris ; Martigny"},
@@ -95,19 +93,13 @@ def test_provision_activity():
 def test_provision_activity_publication():
     """Test extract only publication on provision activity."""
     provisions = {
-        "bf:Publication": [
-            {"language": "default", "value": "Paris : Ed. de Minuit, 1988"}
-        ],
+        "bf:Publication": [{"language": "default", "value": "Paris : Ed. de Minuit, 1988"}],
         "bf:Distribution": [
             {"language": "default", "value": "Martigny : Alex Morgan, 2010"},
             {"language": "default", "value": "Will Edwards, 2010 ; Paris ; Martigny"},
         ],
     }
-    result = {
-        "bf:Publication": [
-            {"language": "default", "value": "Paris : Ed. de Minuit, 1988"}
-        ]
-    }
+    result = {"bf:Publication": [{"language": "default", "value": "Paris : Ed. de Minuit, 1988"}]}
     assert result == provision_activity_publication(provisions)
 
 

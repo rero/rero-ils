@@ -39,9 +39,7 @@ class IndexerDumper(Dumper):
         from rero_ils.modules.items.models import ItemNoteTypes
 
         holdings = []
-        es_holdings = (
-            HoldingsSearch().filter("term", document__pid=record["pid"]).source().scan()
-        )
+        es_holdings = HoldingsSearch().filter("term", document__pid=record["pid"]).source().scan()
         for holding in es_holdings:
             holding = holding.to_dict()
             hold_data = {
@@ -91,9 +89,7 @@ class IndexerDumper(Dumper):
                 }
 
                 if "temporary_item_type" in item:
-                    hold_data["circulation_category"].append(
-                        {"pid": item["temporary_item_type"]["pid"]}
-                    )
+                    hold_data["circulation_category"].append({"pid": item["temporary_item_type"]["pid"]})
 
                 item_data = {k: v for k, v in item_data.items() if v}
 
@@ -110,9 +106,7 @@ class IndexerDumper(Dumper):
                         "date": acq_date,
                     }
                 if public_notes_content := [
-                    n["content"]
-                    for n in item.get("notes", [])
-                    if n["type"] in ItemNoteTypes.PUBLIC
+                    n["content"] for n in item.get("notes", []) if n["type"] in ItemNoteTypes.PUBLIC
                 ]:
                     item_data["notes"] = public_notes_content
                 hold_data.setdefault("items", []).append(item_data)
@@ -134,8 +128,7 @@ class IndexerDumper(Dumper):
         #   identifier, the corresponding ISBN-13 identifiers must be
         #   searchable too.
         identifiers = {
-            IdentifierFactory.create_identifier(identifier_data)
-            for identifier_data in data.get("identifiedBy", [])
+            IdentifierFactory.create_identifier(identifier_data) for identifier_data in data.get("identifiedBy", [])
         }
         # enrich elasticsearch data with encoded identifier alternatives. The
         # result identifiers list should contain only distinct identifier !
@@ -163,11 +156,7 @@ class IndexerDumper(Dumper):
         }
         for key, family_types in identifier_families.items():
             if filtered_identifiers := list(
-                {
-                    identifier.normalize()
-                    for identifier in identifiers
-                    if identifier.type in family_types
-                }
+                {identifier.normalize() for identifier in identifiers if identifier.type in family_types}
             ):
                 data[key] = filtered_identifiers
 
@@ -191,9 +180,7 @@ class IndexerDumper(Dumper):
         sort_title = TitleExtension.format_text(data.get("title", []))
         language = language_mapping(data.get("language", [])[0].get("value"))
         if current_app.config.get("RERO_ILS_STOP_WORDS_ACTIVATE", False):
-            sort_title = current_app.extensions[
-                "reroils-normalizer-stop-words"
-            ].normalize(sort_title, language)
+            sort_title = current_app.extensions["reroils-normalizer-stop-words"].normalize(sort_title, language)
         data["sort_title"] = sort_title
 
     @staticmethod
@@ -217,9 +204,7 @@ class IndexerDumper(Dumper):
             doc_pid = part_of.get("document", {}).get("pid")
             document = Document.get_record_by_pid(doc_pid).dumps()
             if titles := [
-                v["_text"]
-                for v in document.get("title", {})
-                if v.get("_text") and v.get("type") == "bf:Title"
+                v["_text"] for v in document.get("title", {}) if v.get("_text") and v.get("type") == "bf:Title"
             ]:
                 part_of["document"]["title"] = titles.pop()
 
@@ -227,9 +212,7 @@ class IndexerDumper(Dumper):
     def _process_provision_activity(record, data):
         """Search into `provisionActivity` field to found sort dates."""
         if pub_provisions := [
-            provision
-            for provision in record.get("provisionActivity", [])
-            if provision["type"] == "bf:Publication"
+            provision for provision in record.get("provisionActivity", []) if provision["type"] == "bf:Publication"
         ]:
             start_date = pub_provisions[0].get("startDate")
             end_date = pub_provisions[0].get("endDate")
@@ -240,19 +223,13 @@ class IndexerDumper(Dumper):
         """Add full text from files."""
         files = []
         full_text_size = 0
-        full_text_size_max = current_app.config.get(
-            "RERO_ILS_APP_FILES_FULL_TEXT_MAX", 10 * 1024 * 1024
-        )
+        full_text_size_max = current_app.config.get("RERO_ILS_APP_FILES_FULL_TEXT_MAX", 10 * 1024 * 1024)
         for record_file in record.get_records_files():
             record_files_information = {}
             collections = record_file.get("metadata", {}).get("collections")
-            library_pid = extracted_data_from_ref(
-                record_file.get("metadata", {}).get("library")
-            )
+            library_pid = extracted_data_from_ref(record_file.get("metadata", {}).get("library"))
             if library_pid:
-                organisation_pid = Library.get_record_by_pid(
-                    library_pid
-                ).organisation_pid
+                organisation_pid = Library.get_record_by_pid(library_pid).organisation_pid
             for file_name in record_file.files:
                 file = record_file.files[file_name]
                 metadata = file.get("metadata", {})
@@ -264,24 +241,16 @@ class IndexerDumper(Dumper):
                     full_text = file.get_stream("r").read()
                     full_text_size += len(full_text)
                     if full_text_size < full_text_size_max:
-                        record_files_information.setdefault(
-                            metadata["fulltext_for"], {}
-                        )["text"] = full_text
+                        record_files_information.setdefault(metadata["fulltext_for"], {})["text"] = full_text
                     continue
                 # other information from the main file
-                record_files_information.setdefault(file_name, {})[
-                    "file_name"
-                ] = file_name
-                record_files_information[file_name][
-                    "rec_id"
-                ] = record_file.pid.pid_value
+                record_files_information.setdefault(file_name, {})["file_name"] = file_name
+                record_files_information[file_name]["rec_id"] = record_file.pid.pid_value
                 if collections:
                     record_files_information[file_name]["collections"] = collections
                 if library_pid:
                     record_files_information[file_name]["library_pid"] = library_pid
-                    record_files_information[file_name][
-                        "organisation_pid"
-                    ] = organisation_pid
+                    record_files_information[file_name]["organisation_pid"] = organisation_pid
             files += list(record_files_information.values())
         if files:
             data["files"] = files

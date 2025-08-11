@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Record dumpers."""
+
 import contextlib
 
 from invenio_records.api import _records_state

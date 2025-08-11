@@ -297,9 +297,7 @@ def test_series(document_schema, document_data_tmp):
 
 def test_note(document_schema, document_data_tmp):
     """Test note for jsonschemas."""
-    document_data_tmp["note"] = [
-        {"noteType": "otherPhysicalDetails", "label": "litho Ill.en n. et bl."}
-    ]
+    document_data_tmp["note"] = [{"noteType": "otherPhysicalDetails", "label": "litho Ill.en n. et bl."}]
 
     validate(document_data_tmp, document_schema)
 

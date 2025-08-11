@@ -17,7 +17,6 @@
 
 """Click command-line interface for operation logs."""
 
-
 from pprint import pprint
 
 import arrow
@@ -84,9 +83,9 @@ def collect(type):
             reindex=True,
         )
         click.secho(
-            f'Statistics of type {stat["type"]}\
+            f"Statistics of type {stat['type']}\
             have been collected and created.\
-            New pid: {stat.pid}',
+            New pid: {stat.pid}",
             fg="green",
         )
 
@@ -115,9 +114,7 @@ def collect_year(year, timespan, n_months, force):
             n_months += 1
 
             for month in range(1, n_months):
-                first_day = f"{year}-{month:02d}-01T23:59:59".format(
-                    fmt="YYYY-MM-DDT23:59:59"
-                )
+                first_day = f"{year}-{month:02d}-01T23:59:59".format(fmt="YYYY-MM-DDT23:59:59")
                 first_day = arrow.get(first_day, "YYYY-MM-DDTHH:mm:ss")
                 to_date = first_day + relativedelta(months=1) - relativedelta(days=1)
                 _from = f"{to_date.year}-{to_date.month:02d}-01T00:00:00"
@@ -138,16 +135,12 @@ def collect_year(year, timespan, n_months, force):
                     )
                     return
 
-                stat_data = dict(
-                    type=type, date_range=date_range, values=_stats.collect()
-                )
+                stat_data = dict(type=type, date_range=date_range, values=_stats.collect())
 
                 with current_app.app_context():
                     if stat_pid:
                         rec_stat = Stat.get_record_by_pid(stat_pid)
-                        stat = rec_stat.update(
-                            data=stat_data, commit=True, dbcommit=True, reindex=True
-                        )
+                        stat = rec_stat.update(data=stat_data, commit=True, dbcommit=True, reindex=True)
                         click.secho(
                             f"WARNING: statistics of type {type}\
                                 have been collected and updated\
@@ -164,12 +157,8 @@ def collect_year(year, timespan, n_months, force):
                             fg="green",
                         )
         else:
-            _from = arrow.get(f"{year}-01-01", "YYYY-MM-DD").format(
-                fmt="YYYY-MM-DDT00:00:00"
-            )
-            _to = arrow.get(f"{year}-12-31", "YYYY-MM-DD").format(
-                fmt="YYYY-MM-DDT23:59:59"
-            )
+            _from = arrow.get(f"{year}-01-01", "YYYY-MM-DD").format(fmt="YYYY-MM-DDT00:00:00")
+            _to = arrow.get(f"{year}-12-31", "YYYY-MM-DD").format(fmt="YYYY-MM-DDT23:59:59")
             date_range = {"from": _from, "to": _to}
 
             _stats = StatsForLibrarian()
@@ -191,9 +180,7 @@ def collect_year(year, timespan, n_months, force):
             with current_app.app_context():
                 if stat_pid:
                     rec_stat = Stat.get_record_by_pid(stat_pid)
-                    stat = rec_stat.update(
-                        data=stat_data, commit=True, dbcommit=True, reindex=True
-                    )
+                    stat = rec_stat.update(data=stat_data, commit=True, dbcommit=True, reindex=True)
                     click.secho(
                         f"WARNING: statistics of type {type}\
                             have been collected and updated for {year}.\

@@ -52,9 +52,7 @@ class AvailabilityCirculationNotification(CirculationNotification):
             return can, reason
         # Check loan notification candidate (by unpacking tuple's notification
         # candidate)
-        candidates_types = [
-            n[1] for n in self.loan.get_notification_candidates(trigger=None)
-        ]
+        candidates_types = [n[1] for n in self.loan.get_notification_candidates(trigger=None)]
         if self.type not in candidates_types:
             msg = "Notification type isn't into notification candidate"
             return True, msg
@@ -78,9 +76,7 @@ class AvailabilityCirculationNotification(CirculationNotification):
 
         patron = notifications[0].patron
         library = notifications[0].pickup_library
-        include_address = (
-            notifications[0].get_communication_channel() == NotificationChannel.MAIL
-        )
+        include_address = notifications[0].get_communication_channel() == NotificationChannel.MAIL
         # Dump basic informations
         context |= {
             "include_patron_address": include_address,

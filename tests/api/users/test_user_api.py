@@ -38,12 +38,7 @@ def test_generate_password(client, app, librarian_martigny):
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(url_for("api_user.password_generate", length=6))
     assert res.status_code == 400
-    assert (
-        get_json(res)["message"].find(
-            "The password must be at least 8 characters long."
-        )
-        != -1
-    )
+    assert get_json(res)["message"].find("The password must be at least 8 characters long.") != -1
 
     res = client.get(url_for("api_user.password_generate"))
     assert res.status_code == 200
@@ -72,55 +67,28 @@ def test_validate_password(client, app):
     assert res.status_code == 400
 
     res = client.post(url_for("api_user.password_validate"), json={"password": "foo"})
-    assert (
-        get_json(res)["message"].find("Field must be at least 8 characters long.") != -1
-    )
+    assert get_json(res)["message"].find("Field must be at least 8 characters long.") != -1
     assert res.status_code == 400
 
-    res = client.post(
-        url_for("api_user.password_validate"), json={"password": "12345678"}
-    )
-    assert (
-        get_json(res)["message"].find(
-            "The password must contain a lower case character."
-        )
-        != -1
-    )
+    res = client.post(url_for("api_user.password_validate"), json={"password": "12345678"})
+    assert get_json(res)["message"].find("The password must contain a lower case character.") != -1
     assert res.status_code == 400
 
-    res = client.post(
-        url_for("api_user.password_validate"), json={"password": "a2345678"}
-    )
-    assert (
-        get_json(res)["message"].find(
-            "The password must contain a upper case character."
-        )
-        != -1
-    )
+    res = client.post(url_for("api_user.password_validate"), json={"password": "a2345678"})
+    assert get_json(res)["message"].find("The password must contain a upper case character.") != -1
     assert res.status_code == 400
 
-    res = client.post(
-        url_for("api_user.password_validate"), json={"password": "aaaaPPPP"}
-    )
+    res = client.post(url_for("api_user.password_validate"), json={"password": "aaaaPPPP"})
     assert get_json(res)["message"].find("The password must contain a number.") != -1
     assert res.status_code == 400
 
-    res = client.post(
-        url_for("api_user.password_validate"), json={"password": "FooBar123"}
-    )
+    res = client.post(url_for("api_user.password_validate"), json={"password": "FooBar123"})
     assert res.status_code == 200
 
     app.config["RERO_ILS_PASSWORD_SPECIAL_CHAR"] = True
-    res = client.post(
-        url_for("api_user.password_validate"), json={"password": "FooBar123"}
-    )
-    assert (
-        get_json(res)["message"].find("The password must contain a special character.")
-        != -1
-    )
+    res = client.post(url_for("api_user.password_validate"), json={"password": "FooBar123"})
+    assert get_json(res)["message"].find("The password must contain a special character.") != -1
     assert res.status_code == 400
 
-    res = client.post(
-        url_for("api_user.password_validate"), json={"password": "FooBar123$"}
-    )
+    res = client.post(url_for("api_user.password_validate"), json={"password": "FooBar123$"})
     assert res.status_code == 200

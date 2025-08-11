@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition order lines API tests."""
+
 from copy import deepcopy
 
 import pytest
@@ -41,9 +42,7 @@ def test_order_line_properties(
     assert order_line.unreceived_quantity == order_line.get("quantity")
 
 
-def test_order_line_validation_extension(
-    acq_order_line_fiction_martigny_data, acq_account_fiction_martigny, ebook_1
-):
+def test_order_line_validation_extension(acq_order_line_fiction_martigny_data, acq_account_fiction_martigny, ebook_1):
     """Test order line validation extension."""
     data = deepcopy(acq_order_line_fiction_martigny_data)
     del data["pid"]

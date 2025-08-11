@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Item utils."""
+
 from datetime import datetime, timedelta, timezone
 
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus, TypeOfItem
@@ -163,9 +164,7 @@ def get_recipient_suggestions(issue):
         suggestions.setdefault(email, set()).update([RecipientType.TO])
     if settings := (issue.library or {}).get("serial_acquisition_settings"):
         if email := settings.get("shipping_informations", {}).get("email"):
-            suggestions.setdefault(email, set()).update(
-                [RecipientType.CC, RecipientType.REPLY_TO]
-            )
+            suggestions.setdefault(email, set()).update([RecipientType.CC, RecipientType.REPLY_TO])
         if email := settings.get("billing_informations", {}).get("email"):
             suggestions.setdefault(email, set())
     if email := current_librarian.user.email:

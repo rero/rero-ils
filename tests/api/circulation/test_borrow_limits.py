@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Borrow limits."""
+
 from copy import deepcopy
 from datetime import datetime, timedelta
 
@@ -259,26 +260,17 @@ def test_overdue_limit(
     patron_pid = patron_martigny.pid
     date_format = "%Y/%m/%dT%H:%M:%S.000Z"
     today = datetime.utcnow()
-    eod = today.replace(
-        hour=23, minute=59, second=0, microsecond=0, tzinfo=lib_martigny.get_timezone()
-    )
+    eod = today.replace(hour=23, minute=59, second=0, microsecond=0, tzinfo=lib_martigny.get_timezone())
 
     # STEP 0 :: Prepare data for test
     #   * Update the patron_type to set a overdue_items_limit rule.
     #     We define than only 1 overdue items are allowed. Trying a second
     #     checkout is disallowed if patron has an overdue item
     patron_type = patron_type_children_martigny
-    patron_type.setdefault("limits", {}).setdefault(
-        "overdue_items_limits", {}
-    ).setdefault("default_value", 1)
+    patron_type.setdefault("limits", {}).setdefault("overdue_items_limits", {}).setdefault("default_value", 1)
     patron_type.update(patron_type, dbcommit=True, reindex=True)
     patron_type = PatronType.get_record_by_pid(patron_type.pid)
-    assert (
-        patron_type.get("limits", {})
-        .get("overdue_items_limits", {})
-        .get("default_value")
-        == 1
-    )
+    assert patron_type.get("limits", {}).get("overdue_items_limits", {}).get("default_value") == 1
 
     # STEP 1 :: Create an checkout with a end_date at the current date
     #   * Create a checkout and set end_date to a fixed_date equals to
@@ -395,15 +387,10 @@ def test_overdue_limit(
     # [2] test fee amount limit
 
     # Update the patron_type to set a fee_amount_limit rule
-    patron_type.setdefault("limits", {}).setdefault("fee_amount_limits", {}).setdefault(
-        "default_value", 0.5
-    )
+    patron_type.setdefault("limits", {}).setdefault("fee_amount_limits", {}).setdefault("default_value", 0.5)
     patron_type.update(patron_type, dbcommit=True, reindex=True)
     patron_type = PatronType.get_record_by_pid(patron_type.pid)
-    assert (
-        patron_type.get("limits", {}).get("fee_amount_limits", {}).get("default_value")
-        == 0.5
-    )
+    assert patron_type.get("limits", {}).get("fee_amount_limits", {}).get("default_value") == 0.5
 
     # [2.1] test fee amount limit when we try to checkout a second item
     res, data = postdata(

@@ -42,8 +42,7 @@ def test_required(remote_entities_schema, entity_person_data_tmp):
     with pytest.raises(ValidationError):
         validate(
             {
-                "$schema": "https://bib.rero.ch/schemas/remote_entities/"
-                "remote_entity-v0.0.1.json",
+                "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
                 "viaf_pid": "56597999",
                 "sources": ["rero", "gnd"],
             },
@@ -54,8 +53,7 @@ def test_required(remote_entities_schema, entity_person_data_tmp):
     with pytest.raises(ValidationError):
         validate(
             {
-                "$schema": "https://bib.rero.ch/schemas/remote_entities/"
-                "remote_entity-v0.0.1.json",
+                "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
                 "pid": "ent_pers",
                 "viaf_pid": "56597999",
             },

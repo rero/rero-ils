@@ -40,23 +40,14 @@ from rero_ils.modules.utils import read_json_record
 
 def get_document_pid_by_rero_number(rero_control_number):
     """Get pid of document by rero control number."""
-    es_documents = (
-        DocumentsSearch()
-        .filter("term", identifiedBy__value__raw=rero_control_number)
-        .source("pid")
-    )
+    es_documents = DocumentsSearch().filter("term", identifiedBy__value__raw=rero_control_number).source("pid")
     documents = [document.pid for document in es_documents.scan()]
     return documents[0] if documents else None
 
 
 def get_circ_category(org_pid):
     """Get a random standard circulation category for an organisation pid."""
-    results = (
-        ItemTypesSearch()
-        .filter("term", organisation__pid=org_pid)
-        .filter("term", type="standard")
-        .source("pid")
-    )
+    results = ItemTypesSearch().filter("term", organisation__pid=org_pid).filter("term", type="standard").source("pid")
     records = [record.pid for record in results.scan()]
     return next(iter(records or []), None)
 
@@ -84,17 +75,13 @@ def create_issues_from_holding(holding, min=3, max=9):
     count = 0
     for _ in range(random.randint(min, max)):
         # prepare some fields for the issue to ensure a variable recv dates.
-        issue_display, expected_date = holding._get_next_issue_display_text(
-            holding.get("patterns")
-        )
+        issue_display, expected_date = holding._get_next_issue_display_text(holding.get("patterns"))
         item = {
             "issue": {
                 "received_date": expected_date,
             },
         }
-        holding.create_regular_issue(
-            status=ItemIssueStatus.RECEIVED, item=item, dbcommit=True, reindex=True
-        )
+        holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, item=item, dbcommit=True, reindex=True)
         holding = Holding.get_record_by_pid(holding.pid)
         count += 1
     return count
@@ -177,7 +164,5 @@ def create_patterns(infile, verbose, debug, lazy):
     process_late_issues(dbcommit=True, reindex=True)
     # make late issues ready for a claim
     for issue in ItemIssue.get_issues_by_status(status=ItemIssueStatus.LATE):
-        issue["issue"]["status_date"] = (
-            datetime.now(timezone.utc) - timedelta(days=8)
-        ).isoformat()
+        issue["issue"]["status_date"] = (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
         issue.update(issue, dbcommit=True, reindex=True)

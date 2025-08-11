@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Blueprint used for entities."""
+
 from flask import Blueprint, abort, current_app, render_template
 from flask_babel import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
@@ -121,8 +122,7 @@ def sources_link(data):
     links = {}
     sources_link = list(
         filter(
-            lambda source: source
-            not in current_app.config.get("RERO_ILS_AGENTS_SOURCES_EXCLUDE_LINK", []),
+            lambda source: source not in current_app.config.get("RERO_ILS_AGENTS_SOURCES_EXCLUDE_LINK", []),
             data.get("sources", []),
         )
     )
@@ -142,9 +142,7 @@ def search_link(metadata):
     fields_config = current_app.config.get("RERO_ILS_APP_ENTITIES_TYPES_FIELDS", {})
     fields_ref = current_app.config.get("RERO_ILS_APP_ENTITIES_FIELDS_REF", [])
     entity_type = metadata["type"]
-    fields = (
-        fields_config[entity_type] if (entity_type in fields_config) else fields_ref
-    )
+    fields = fields_config[entity_type] if (entity_type in fields_config) else fields_ref
     queries = []
     for field in fields:
         if "sources" in metadata:

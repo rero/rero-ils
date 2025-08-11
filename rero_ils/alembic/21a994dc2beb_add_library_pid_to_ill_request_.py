@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Add library_pid to ill_request operation logs."""
+
 from logging import getLogger
 
 from elasticsearch_dsl import Q
@@ -66,9 +67,7 @@ def upgrade():
 
 def downgrade():
     """Downgrade ill request operation logs records."""
-    query = RecordsSearch(index=LoanOperationLog.index_name).filter(
-        "term", record__type="illr"
-    )
+    query = RecordsSearch(index=LoanOperationLog.index_name).filter("term", record__type="illr")
     pids = [hit.pid for hit in query.source("pid").scan()]
     LOGGER.info(f"Downgrade operation logs illr :: {len(pids)}")
     errors = 0

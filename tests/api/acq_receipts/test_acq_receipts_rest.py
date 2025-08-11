@@ -32,9 +32,7 @@ from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_rela
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_acq_receipt_get(
-    client, org_martigny, vendor2_martigny, acq_receipt_fiction_saxon
-):
+def test_acq_receipt_get(client, org_martigny, vendor2_martigny, acq_receipt_fiction_saxon):
     """Test record retrieval."""
     acre = acq_receipt_fiction_saxon
     acq_receipt = deepcopy(acre)
@@ -77,18 +75,14 @@ def test_acq_receipt_get(
     "rero_ils.modules.acquisition.acq_receipts.api.AcqReceipt.reasons_not_to_delete",
     mock.MagicMock(return_value={}),
 )
-def test_acq_receipts_post_put_delete(
-    client, org_martigny, vendor2_martigny, acq_receipt_fiction_saxon, json_header
-):
+def test_acq_receipts_post_put_delete(client, org_martigny, vendor2_martigny, acq_receipt_fiction_saxon, json_header):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for("invenio_records_rest.acre_item", pid_value="1")
     list_url = url_for("invenio_records_rest.acre_list", q="pid:1")
 
     acq_receipt_fiction_saxon["pid"] = "1"
-    res, data = postdata(
-        client, "invenio_records_rest.acre_list", acq_receipt_fiction_saxon
-    )
+    res, data = postdata(client, "invenio_records_rest.acre_list", acq_receipt_fiction_saxon)
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
@@ -121,9 +115,7 @@ def test_acq_receipts_post_put_delete(
     assert res.status_code == 410
 
 
-def test_acq_receipts_can_delete(
-    client, document, acq_receipt_fiction_martigny, acq_receipt_line_1_fiction_martigny
-):
+def test_acq_receipts_can_delete(client, document, acq_receipt_fiction_martigny, acq_receipt_line_1_fiction_martigny):
     """Test can delete an acq receipt."""
     # We can delete an AcqReceipt even if some children AcqReceiptLines exists
     # because they will be cascading deleted if we delete the parent AcqReceipt

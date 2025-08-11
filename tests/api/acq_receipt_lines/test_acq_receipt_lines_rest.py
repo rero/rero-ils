@@ -89,9 +89,7 @@ def test_acq_receipt_lines_post_put_delete(
     list_url = url_for("invenio_records_rest.acrl_list", q="pid:1")
 
     acq_receipt_line_fiction_saxon["pid"] = "1"
-    res, data = postdata(
-        client, "invenio_records_rest.acrl_list", acq_receipt_line_fiction_saxon
-    )
+    res, data = postdata(client, "invenio_records_rest.acrl_list", acq_receipt_line_fiction_saxon)
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
@@ -133,9 +131,7 @@ def test_acq_receipt_lines_post_put_delete(
     assert res.status_code == 410
 
 
-def test_acq_receipt_lines_can_delete(
-    client, document, acq_receipt_line_1_fiction_martigny
-):
+def test_acq_receipt_lines_can_delete(client, document, acq_receipt_line_1_fiction_martigny):
     """Test can delete an acq receipt line."""
     can, reasons = acq_receipt_line_1_fiction_martigny.can_delete
     assert can

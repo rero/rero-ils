@@ -37,9 +37,7 @@ def selfcheck_librarian_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def selfcheck_librarian_martigny(
-    app, roles, loc_public_martigny, librarian_martigny, selfcheck_termial_martigny_data
-):
+def selfcheck_librarian_martigny(app, roles, loc_public_martigny, librarian_martigny, selfcheck_termial_martigny_data):
     """Create selfcheck config and token for Martigny librarian."""
     # create token for selfcheck terminal
     create_user_token(

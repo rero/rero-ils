@@ -82,26 +82,14 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
     """Test holdings receive regular issues."""
     holding = holding_lib_martigny_w_patterns
     assert holding.is_serial
-    issue = holding.create_regular_issue(
-        status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True
-    )
+    issue = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
     # ItemsSearch.flush_and_refresh()
 
     # test holdings call number inheriting
     assert issue.issue_inherited_first_call_number == holding.get("call_number")
     assert issue.issue_inherited_second_call_number == holding.get("second_call_number")
-    assert (
-        ItemsSearch()
-        .filter("term", issue__inherited_first_call_number__raw="h00005")
-        .count()
-        == 1
-    )
-    assert (
-        ItemsSearch()
-        .filter("term", issue__inherited_second_call_number__raw="h00005_2")
-        .count()
-        == 1
-    )
+    assert ItemsSearch().filter("term", issue__inherited_first_call_number__raw="h00005").count() == 1
+    assert ItemsSearch().filter("term", issue__inherited_second_call_number__raw="h00005_2").count() == 1
     assert ItemsSearch().filter("term", call_numbers__raw="h00005").count() == 1
     assert ItemsSearch().filter("term", call_numbers__raw="h00005_2").count() == 1
 
@@ -133,9 +121,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
     assert new_issue_status_date > issue_status_date
 
     holding = Holding.get_record_by_pid(holding.pid)
-    issue = holding.create_regular_issue(
-        status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True
-    )
+    issue = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
     assert issue.get("issue", {}).get("regular")
     assert issue.issue_status == ItemIssueStatus.RECEIVED
     assert issue.expected_date == "2020-06-01"
@@ -152,9 +138,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
         "enumerationAndChronology": "free_text",
     }
     holding = Holding.get_record_by_pid(holding.pid)
-    issue = holding.create_regular_issue(
-        status=ItemIssueStatus.RECEIVED, item=record, dbcommit=True, reindex=True
-    )
+    issue = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, item=record, dbcommit=True, reindex=True)
     assert issue.get("issue", {}).get("regular")
     assert issue.issue_status == ItemIssueStatus.RECEIVED
     assert issue.expected_date == datetime.now().strftime("%Y-%m-%d")
@@ -166,21 +150,15 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
         "rero_ils.modules.items.api.Item.get_links_to_me",
         return_value={"fees": 1},
     ):
-        assert holding.reasons_not_to_delete() == {
-            "others": {"has 3 items with fees attached": 3}
-        }
+        assert holding.reasons_not_to_delete() == {"others": {"has 3 items with fees attached": 3}}
     with mock.patch(
         "rero_ils.modules.items.api.Item.get_links_to_me",
         return_value={"collections": 1},
     ):
-        assert holding.reasons_not_to_delete() == {
-            "others": {"has 3 items with collections attached": 3}
-        }
+        assert holding.reasons_not_to_delete() == {"others": {"has 3 items with collections attached": 3}}
 
 
-def test_patterns_yearly_one_level(
-    holding_lib_martigny_w_patterns, pattern_yearly_one_level_data
-):
+def test_patterns_yearly_one_level(holding_lib_martigny_w_patterns, pattern_yearly_one_level_data):
     """Test pattern yearly one level."""
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
@@ -217,9 +195,7 @@ def test_patterns_yearly_one_level_with_label(
     assert issues[-1]["issue"] == "67 Edition 2058"
 
 
-def test_patterns_yearly_two_times(
-    holding_lib_martigny_w_patterns, pattern_yearly_two_times_data
-):
+def test_patterns_yearly_two_times(holding_lib_martigny_w_patterns, pattern_yearly_two_times_data):
     """Test pattern yearly two times."""
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
@@ -236,9 +212,7 @@ def test_patterns_yearly_two_times(
     assert issues[-1]["issue"] == "Jg. 27 Nov. 2038"
 
 
-def test_patterns_quarterly_two_levels(
-    holding_lib_martigny_w_patterns, pattern_quarterly_two_levels_data
-):
+def test_patterns_quarterly_two_levels(holding_lib_martigny_w_patterns, pattern_quarterly_two_levels_data):
     """Test pattern quarterly_two_levels."""
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
@@ -274,9 +248,7 @@ def test_patterns_quarterly_two_levels_with_season(
     assert issues[-1]["issue"] == "année 2028 no 315 automne 2027"
 
 
-def test_patterns_half_yearly_one_level(
-    holding_lib_martigny_w_patterns, pattern_half_yearly_one_level_data
-):
+def test_patterns_half_yearly_one_level(holding_lib_martigny_w_patterns, pattern_half_yearly_one_level_data):
     """Test pattern half_yearly_one_level."""
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
@@ -314,9 +286,7 @@ def test_patterns_bimonthly_every_two_months_one_level(
     assert issues[-1]["issue"] == "85 mai/juin 2026"
 
 
-def test_patterns_half_yearly_two_levels(
-    holding_lib_martigny_w_patterns, pattern_half_yearly_two_levels_data
-):
+def test_patterns_half_yearly_two_levels(holding_lib_martigny_w_patterns, pattern_half_yearly_two_levels_data):
     """Test pattern half_yearly_two_levels."""
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
@@ -565,9 +535,7 @@ def test_intervals_and_expected_dates(holding_lib_martigny_w_patterns):
         previous_expected_date = expected_date
 
 
-def test_holding_notes(
-    client, librarian_martigny, holding_lib_martigny_w_patterns, json_header
-):
+def test_holding_notes(client, librarian_martigny, holding_lib_martigny_w_patterns, json_header):
     """Test holdings notes."""
 
     holding = holding_lib_martigny_w_patterns
@@ -585,9 +553,7 @@ def test_holding_notes(
     assert len(holding.notes) == 2
 
     # will receive a validation error if tries to add a note type already exist
-    holding["notes"].append(
-        {"type": HoldingNoteTypes.CLAIM, "content": "new cliam note"}
-    )
+    holding["notes"].append({"type": HoldingNoteTypes.CLAIM, "content": "new cliam note"})
     with pytest.raises(ValidationError):
         holding.update(holding, dbcommit=True, reindex=True)
     holding["notes"] = holding.notes[:-1]
@@ -606,12 +572,8 @@ def test_regular_issue_creation_update_delete_api(
 ):
     """Test create, update and delete of a regular issue API."""
     holding = holding_lib_martigny_w_patterns
-    issue_display, expected_date = holding._get_next_issue_display_text(
-        holding.get("patterns")
-    )
-    issue = holding.create_regular_issue(
-        status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True
-    )
+    issue_display, expected_date = holding._get_next_issue_display_text(holding.get("patterns"))
+    issue = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
     issue_pid = issue.pid
     # flush index to prevent ES conflicts on delete
     ItemsSearch.flush_and_refresh()

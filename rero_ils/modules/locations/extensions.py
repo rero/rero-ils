@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Extensions for `Location` resource."""
+
 from invenio_records.extensions import RecordExtension
 
 from .tasks import remove_location_from_restriction

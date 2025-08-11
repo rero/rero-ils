@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utilities functions for notifications."""
+
 import ciso8601
 from elasticsearch_dsl import Q
 
@@ -62,11 +63,7 @@ def get_notifications(notification_type, processed=False, not_sent=False):
     :param not_sent: filter on not yet send notifications.
     :return a notification pid generator.
     """
-    query = (
-        NotificationsSearch()
-        .filter("term", notification_type=notification_type)
-        .source("pid")
-    )
+    query = NotificationsSearch().filter("term", notification_type=notification_type).source("pid")
     if not not_sent:
         query = query.filter(
             "bool",

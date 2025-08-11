@@ -93,9 +93,7 @@ def test_item_types_permissions(
 
     # Anonymous user
     #    An anonymous user can't operate any operation about item type
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(permission_policy, {"search": False}, None)
     check_permission(permission_policy, {"create": False}, {})
     check_permission(

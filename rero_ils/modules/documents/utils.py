@@ -34,17 +34,13 @@ from ..utils import cached, get_schema_for_resource
 _records_state = LocalProxy(lambda: current_app.extensions["invenio-records"])
 
 
-@cached(
-    timeout=60 * 60, key_prefix="document_types_from_schema", query_string=False
-)  # 1 hour timeout
+@cached(timeout=60 * 60, key_prefix="document_types_from_schema", query_string=False)  # 1 hour timeout
 def get_document_types_from_schema(schema="doc"):
     """Create document type definition from schema."""
     path = current_jsonschemas.url_to_path(get_schema_for_resource(schema))
     schema = current_jsonschemas.get_schema(path=path)
     schema = _records_state.replace_refs(schema)
-    schema_types = (
-        schema.get("properties", {}).get("type", {}).get("items", {}).get("oneOf", [])
-    )
+    schema_types = schema.get("properties", {}).get("type", {}).get("items", {}).get("oneOf", [])
     doc_types = {}
     for schema_type in schema_types:
         schema_title = schema_type["title"]
@@ -249,7 +245,7 @@ def create_authorized_access_point(agent):
                 authorized_access_point += f", {qualifier}"
     elif agent.get("type") == EntityType.ORGANISATION:
         if subordinate_unit := agent.get("subordinate_unit"):
-            authorized_access_point += f""". {'. '.join(subordinate_unit)}"""
+            authorized_access_point += f""". {". ".join(subordinate_unit)}"""
         conference_data = []
         if numbering := agent.get("numbering"):
             conference_data.append(numbering)
@@ -258,7 +254,7 @@ def create_authorized_access_point(agent):
         if place := agent.get("place"):
             conference_data.append(place)
         if conference_data:
-            authorized_access_point += f' ({" : ".join(conference_data)})'
+            authorized_access_point += f" ({' : '.join(conference_data)})"
     return authorized_access_point
 
 
@@ -311,15 +307,7 @@ def get_remote_cover(isbn):
     if not isbn:
         return None
     cover_service = current_app.config.get("RERO_ILS_THUMBNAIL_SERVICE_URL")
-    url = (
-        f"{cover_service}"
-        "?height=244px"
-        "&width=244px"
-        "&jsonpCallbackParam=callback"
-        "&callback=thumb"
-        "&type=isbn"
-        f"&value={isbn}"
-    )
+    url = f"{cover_service}?height=244px&width=244px&jsonpCallbackParam=callback&callback=thumb&type=isbn&value={isbn}"
     try:
         host_url = flask_request.host_url
     except Exception:

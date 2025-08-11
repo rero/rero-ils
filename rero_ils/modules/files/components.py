@@ -44,9 +44,7 @@ class OperationLogRecordFactory(OperationLogFactory):
         """
         data = {}
         if doc := record.get("document"):
-            data.setdefault("file", {})["document"] = (
-                SpecificOperationLog._get_document_data(doc)
-            )
+            data.setdefault("file", {})["document"] = SpecificOperationLog._get_document_data(doc)
         if recid := record.get("recid"):
             data.setdefault("file", {})["recid"] = recid
         return data
@@ -72,13 +70,9 @@ class OperationLogsComponent(ServiceComponent):
         rec["pid"] = record.pid.pid_value
         if library := record.get("metadata", {}).get("library"):
             rec.library_pid = extracted_data_from_ref(library)
-            rec.organisation_pid = Library.get_record_by_pid(
-                rec.library_pid
-            ).organisation_pid
+            rec.organisation_pid = Library.get_record_by_pid(rec.library_pid).organisation_pid
         if document := record.get("metadata", {}).get("document"):
-            rec["document"] = Document.get_record_by_pid(
-                extracted_data_from_ref(document)
-            )
+            rec["document"] = Document.get_record_by_pid(extracted_data_from_ref(document))
         OperationLogRecordFactory().create_operation_log(rec, operation)
 
     def create(self, identity, data, record, errors=None, **kwargs):
@@ -88,9 +82,7 @@ class OperationLogsComponent(ServiceComponent):
         :param data: dict - creation data
         :param record: obj - the created record
         """
-        self._create_operation_logs(
-            record=record, operation=OperationLogOperation.CREATE
-        )
+        self._create_operation_logs(record=record, operation=OperationLogOperation.CREATE)
 
     def update(self, identity, data, record, **kwargs):
         """Update handler.
@@ -99,9 +91,7 @@ class OperationLogsComponent(ServiceComponent):
         :param data: dict - data to update the record
         :param record: obj - the updated record
         """
-        self._create_operation_logs(
-            record=record, operation=OperationLogOperation.UPDATE
-        )
+        self._create_operation_logs(record=record, operation=OperationLogOperation.UPDATE)
 
     def delete(self, identity, record, **kwargs):
         """Delete handler.
@@ -109,9 +99,7 @@ class OperationLogsComponent(ServiceComponent):
         :param identity: flask principal Identity
         :param record: obj - the updated record
         """
-        self._create_operation_logs(
-            record=record, operation=OperationLogOperation.DELETE
-        )
+        self._create_operation_logs(record=record, operation=OperationLogOperation.DELETE)
 
 
 class OperationLogsFileComponent(FileServiceComponent):
@@ -145,17 +133,11 @@ class OperationLogsFileComponent(FileServiceComponent):
         rec["pid"] = file_key
         if library := record.get("metadata", {}).get("library"):
             rec.library_pid = extracted_data_from_ref(library)
-            rec.organisation_pid = Library.get_record_by_pid(
-                rec.library_pid
-            ).organisation_pid
+            rec.organisation_pid = Library.get_record_by_pid(rec.library_pid).organisation_pid
         if document := record.get("metadata", {}).get("document"):
-            rec["document"] = Document.get_record_by_pid(
-                extracted_data_from_ref(document)
-            )
+            rec["document"] = Document.get_record_by_pid(extracted_data_from_ref(document))
         rec["recid"] = record["id"]
-        OperationLogRecordFactory().create_operation_log(
-            record=rec, operation=operation
-        )
+        OperationLogRecordFactory().create_operation_log(record=rec, operation=operation)
 
     def commit_file(self, identity, id_, file_key, record):
         """Commit file handler.
@@ -176,9 +158,7 @@ class OperationLogsFileComponent(FileServiceComponent):
         :param record: obj - record instance.
         :param deleted_file: file instance - the deleted file instance.
         """
-        self._create_operation_logs(
-            record, file_key, OperationLogOperation.DELETE, deleted_file=deleted_file
-        )
+        self._create_operation_logs(record, file_key, OperationLogOperation.DELETE, deleted_file=deleted_file)
 
 
 class ReindexFileComponent(FileServiceComponent):

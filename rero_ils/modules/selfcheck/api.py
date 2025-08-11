@@ -92,9 +92,7 @@ def validate_patron_account(barcode=None, **kwargs):
     :param barcode: patron barcode.
     :return: ``True`` if patron exists or ``False``.
     """
-    patron = Patron.get_patron_by_barcode(
-        barcode=barcode, org_pid=kwargs.get("institution_id")
-    )
+    patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=kwargs.get("institution_id"))
     return patron and patron.is_patron
 
 
@@ -106,9 +104,7 @@ def authorize_patron(barcode, password, **kwargs):
     :param password: patron password.
     :return: ``True`` if patron is authorized or ``False``.
     """
-    patron = Patron.get_patron_by_barcode(
-        barcode=barcode, org_pid=kwargs.get("institution_id")
-    )
+    patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=kwargs.get("institution_id"))
     if patron and patron.is_patron:
         # User email is an optional field. When User hasn't email address,
         # we take his username as login.
@@ -173,15 +169,11 @@ def patron_status(barcode, **kwargs):
         from invenio_sip2.models import SelfcheckPatronStatus
 
         institution_id = kwargs.get("institution_id")
-        language = kwargs.get(
-            "language", current_app.config.get("BABEL_DEFAULT_LANGUAGE")
-        )
+        language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
         # Temporarily overrides the currently selected locale.
         # force_locale is allowed to work outside of application context
         with force_locale(language):
-            patron = Patron.get_patron_by_barcode(
-                barcode=barcode, org_pid=institution_id
-            )
+            patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=institution_id)
             if patron:
                 patron_status_response = SelfcheckPatronStatus(
                     patron_status=get_patron_status(patron),
@@ -218,15 +210,11 @@ def patron_information(barcode, **kwargs):
         from invenio_sip2.models import SelfcheckPatronInformation
 
         institution_id = kwargs.get("institution_id")
-        language = kwargs.get(
-            "language", current_app.config.get("BABEL_DEFAULT_LANGUAGE")
-        )
+        language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
         # Temporarily overrides the currently selected locale.
         # force_locale is allowed to work outside of application context
         with force_locale(language):
-            patron = Patron.get_patron_by_barcode(
-                barcode=barcode, org_pid=institution_id
-            )
+            patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=institution_id)
             if patron:
                 patron_dumps = patron.dumps()
                 patron_account_information = SelfcheckPatronInformation(
@@ -234,12 +222,8 @@ def patron_information(barcode, **kwargs):
                     patron_name=patron.formatted_name,
                     patron_status=get_patron_status(patron),
                     institution_id=patron.organisation_pid,
-                    language=patron.get("patron", {}).get(
-                        "communication_language", "und"
-                    ),
-                    email=patron.get("patron", {}).get(
-                        "additional_communication_email", patron_dumps.get("email")
-                    ),
+                    language=patron.get("patron", {}).get("communication_language", "und"),
+                    email=patron.get("patron", {}).get("additional_communication_email", patron_dumps.get("email")),
                     home_phone=patron_dumps.get("home_phone"),
                     home_address=format_patron_address(patron),
                     currency_type=patron.organisation.get("default_currency"),
@@ -256,16 +240,9 @@ def patron_information(barcode, **kwargs):
                 for loan in get_loans_by_patron_pid(patron.pid, filter_states):
                     item = Item.get_record_by_pid(loan.item_pid)
                     if field := sip2_summary_fields.get(loan["state"]):
-                        patron_account_information.setdefault(field, []).append(
-                            item.get("barcode")
-                        )
-                    if (
-                        loan["state"] == LoanState.ITEM_ON_LOAN
-                        and loan.is_loan_overdue()
-                    ):
-                        patron_account_information.setdefault(
-                            "overdue_items", []
-                        ).append(item.get("barcode"))
+                        patron_account_information.setdefault(field, []).append(item.get("barcode"))
+                    if loan["state"] == LoanState.ITEM_ON_LOAN and loan.is_loan_overdue():
+                        patron_account_information.setdefault("overdue_items", []).append(item.get("barcode"))
 
                 fee_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status="open", with_subscription=False
@@ -274,21 +251,15 @@ def patron_information(barcode, **kwargs):
                 # check for fine items
                 if fee_amount > 0:
                     # Check if fine items exist
-                    transaction_pids = get_transactions_pids_for_patron(
-                        patron.pid, status="open"
-                    )
+                    transaction_pids = get_transactions_pids_for_patron(patron.pid, status="open")
                     for transaction_pid in transaction_pids:
                         # TODO: return screen message to notify patron if there
                         #  are other open transactions
-                        transaction = PatronTransaction.get_record_by_pid(
-                            transaction_pid
-                        )
+                        transaction = PatronTransaction.get_record_by_pid(transaction_pid)
                         if transaction.loan_pid:
                             loan = Loan.get_record_by_pid(transaction.loan_pid)
                             item = Item.get_record_by_pid(loan.item_pid)
-                            patron_account_information.setdefault(
-                                "fine_items", []
-                            ).append(item.get("barcode"))
+                            patron_account_information.setdefault("fine_items", []).append(item.get("barcode"))
                 return patron_account_information
             else:
                 return SelfcheckPatronInformation(
@@ -316,9 +287,7 @@ def item_information(item_barcode, **kwargs):
 
         org_pid = kwargs.get("institution_id")
         item = Item.get_item_by_barcode(item_barcode, org_pid)
-        language = kwargs.get(
-            "language", current_app.config.get("BABEL_DEFAULT_LANGUAGE")
-        )
+        language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
         # Temporarily overrides the currently selected locale.
         # force_locale is allowed to work outside of application context
         with force_locale(language):
@@ -333,15 +302,11 @@ def item_information(item_barcode, **kwargs):
                     fee_type=SelfcheckFeeType.OTHER,
                     security_marker=SelfcheckSecurityMarkerType.OTHER,
                 )
-                item_information["media_type"] = map_media_type(
-                    document["type"][0]["main_type"]
-                )
+                item_information["media_type"] = map_media_type(document["type"][0]["main_type"])
                 item_information["hold_queue_length"] = item.number_of_requests()
                 item_information["owner"] = location.get_library().get("name")
                 item_information["permanent_location"] = location.get("name")
-                item_information["current_location"] = item.get_last_location().get(
-                    "name"
-                )
+                item_information["current_location"] = item.get_last_location().get("name")
                 item_information["fee_type"] = SelfcheckFeeType.OVERDUE
                 # get loan for item
                 loan_pid = Item.get_loan_pid_with_item_on_loan(item.pid)
@@ -350,17 +315,11 @@ def item_information(item_barcode, **kwargs):
                     if loan:
                         # format the end date according selfcheck language
                         item_information["due_date"] = loan["end_date"]
-                        transaction = get_last_transaction_by_loan_pid(
-                            loan_pid=loan.pid, status="open"
-                        )
+                        transaction = get_last_transaction_by_loan_pid(loan_pid=loan.pid, status="open")
                         if transaction:
-                            item_information["fee_amount"] = (
-                                "%.2f" % transaction.total_amount
-                            )
+                            item_information["fee_amount"] = "%.2f" % transaction.total_amount
                             item_information["currency_type"] = transaction.currency
-                            item_information.get("screen_messages", []).append(
-                                _("overdue")
-                            )
+                            item_information.get("screen_messages", []).append(_("overdue"))
                 # public note
                 public_note = item.get_note(ItemNoteTypes.PUBLIC)
                 if public_note:
@@ -387,17 +346,13 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
         from invenio_sip2.errors import SelfcheckCirculationError
         from invenio_sip2.models import SelfcheckCheckout
 
-        language = kwargs.get(
-            "language", current_app.config.get("BABEL_DEFAULT_LANGUAGE")
-        )
+        language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
         # Temporarily overrides the currently selected locale.
         # force_locale is allowed to work outside of application context
         with force_locale(language):
             try:
                 terminal = SelfcheckTerminal.find_terminal(name=kwargs.get("terminal"))
-                item = Item.get_item_by_barcode(
-                    barcode=item_barcode, organisation_pid=terminal.organisation_pid
-                )
+                item = Item.get_item_by_barcode(barcode=item_barcode, organisation_pid=terminal.organisation_pid)
                 if not item:
                     raise ItemBarcodeNotFound
                 document = Document.get_record_by_pid(item.document_pid)
@@ -407,9 +362,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
 
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
                 if staffer.is_professional_user:
-                    patron = Patron.get_patron_by_barcode(
-                        barcode=patron_barcode, org_pid=terminal.organisation_pid
-                    )
+                    patron = Patron.get_patron_by_barcode(barcode=patron_barcode, org_pid=terminal.organisation_pid)
                     if not patron:
                         raise PatronBarcodeNotFound
                     # do checkout
@@ -432,15 +385,9 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media
             except ItemBarcodeNotFound:
-                checkout = SelfcheckCheckout(
-                    title_id="", due_date=datetime.now(timezone.utc)
-                )
-                checkout.get("screen_messages", []).append(
-                    _("Error encountered: item not found")
-                )
-                checkout.get("screen_messages", []).append(
-                    _("Error encountered: please contact a librarian")
-                )
+                checkout = SelfcheckCheckout(title_id="", due_date=datetime.now(timezone.utc))
+                checkout.get("screen_messages", []).append(_("Error encountered: item not found"))
+                checkout.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
             except ItemNotAvailableError:
                 # the due date is a required field from sip2
                 checkout["due_date"] = datetime.now(timezone.utc)
@@ -457,29 +404,17 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
                     checkout["desensitize"] = True
                     checkout["due_date"] = loan["end_date"]
                 else:
-                    checkout.get("screen_messages", []).append(
-                        _("Item is already checked-out or " "requested by patron.")
-                    )
+                    checkout.get("screen_messages", []).append(_("Item is already checked-out or requested by patron."))
             except PatronBarcodeNotFound:
-                checkout = SelfcheckCheckout(
-                    title_id="", due_date=datetime.now(timezone.utc)
-                )
-                checkout.get("screen_messages", []).append(
-                    _("Error encountered: patron not found")
-                )
-                checkout.get("screen_messages", []).append(
-                    _("Error encountered: please contact a librarian")
-                )
+                checkout = SelfcheckCheckout(title_id="", due_date=datetime.now(timezone.utc))
+                checkout.get("screen_messages", []).append(_("Error encountered: patron not found"))
+                checkout.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
             except NoCirculationAction:
-                checkout.get("screen_messages", []).append(
-                    _("No circulation action is possible")
-                )
+                checkout.get("screen_messages", []).append(_("No circulation action is possible"))
             except CirculationException as circ_err:
                 checkout.get("screen_messages", []).append(_(circ_err.description))
             except Exception:
-                checkout.get("screen_messages", []).append(
-                    _("Error encountered: please contact a librarian")
-                )
+                checkout.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
                 raise SelfcheckCirculationError("self checkout failed", checkout)
             return checkout
 
@@ -495,9 +430,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
     if check_sip2_module():
         from invenio_sip2.models import SelfcheckCheckin
 
-        language = kwargs.get(
-            "language", current_app.config.get("BABEL_DEFAULT_LANGUAGE")
-        )
+        language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
         # Temporarily overrides the currently selected locale.
         # force_locale is allowed to work outside of application context
         with force_locale(language):
@@ -505,9 +438,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                 terminal = SelfcheckTerminal.find_terminal(name=kwargs.get("terminal"))
                 library = Library.get_record_by_pid(terminal.library_pid)
                 checkin = SelfcheckCheckin(permanent_location=library.get("name"))
-                item = Item.get_item_by_barcode(
-                    barcode=item_barcode, organisation_pid=terminal.organisation_pid
-                )
+                item = Item.get_item_by_barcode(barcode=item_barcode, organisation_pid=terminal.organisation_pid)
                 if not item:
                     raise ItemBarcodeNotFound
 
@@ -535,23 +466,15 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                         #       magnetic_media
                         # TODO: implements `print_line`
             except ItemBarcodeNotFound:
-                checkin.get("screen_messages", []).append(
-                    _("Error encountered: item not found")
-                )
-                checkin.get("screen_messages", []).append(
-                    _("Error encountered: please contact a librarian")
-                )
+                checkin.get("screen_messages", []).append(_("Error encountered: item not found"))
+                checkin.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
             except NoCirculationAction:
-                checkin.get("screen_messages", []).append(
-                    _("No circulation action is possible")
-                )
+                checkin.get("screen_messages", []).append(_("No circulation action is possible"))
             except CirculationException as circ_err:
                 checkin.get("screen_messages", []).append(_(circ_err.description))
             except Exception:
                 current_app.logger.error("self checkin failed")
-                checkin.get("screen_messages", []).append(
-                    _("Error encountered: please contact a librarian")
-                )
+                checkin.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
         return checkin
 
 
@@ -567,24 +490,18 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
         from invenio_sip2.errors import SelfcheckCirculationError
         from invenio_sip2.models import SelfcheckFeeType, SelfcheckRenew
 
-        language = kwargs.get(
-            "language", current_app.config.get("BABEL_DEFAULT_LANGUAGE")
-        )
+        language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
         # Temporarily overrides the currently selected locale.
         # force_locale is allowed to work outside of application context
         with force_locale(language):
             try:
                 terminal = SelfcheckTerminal.find_terminal(name=kwargs.get("terminal"))
-                item = Item.get_item_by_barcode(
-                    barcode=item_barcode, organisation_pid=terminal.organisation_pid
-                )
+                item = Item.get_item_by_barcode(barcode=item_barcode, organisation_pid=terminal.organisation_pid)
                 if not item:
                     raise ItemBarcodeNotFound
 
                 document = Document.get_record_by_pid(item.document_pid)
-                renew = SelfcheckRenew(
-                    title_id=TitleExtension.format_text(document.get("title"))
-                )
+                renew = SelfcheckRenew(title_id=TitleExtension.format_text(document.get("title")))
 
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
                 if staffer.is_professional_user:
@@ -601,9 +518,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                         renew["renewal"] = True
                         renew["desensitize"] = True
                         renew["due_date"] = loan["end_date"]
-                        transaction = get_last_transaction_by_loan_pid(
-                            loan_pid=loan.pid, status="open"
-                        )
+                        transaction = get_last_transaction_by_loan_pid(loan_pid=loan.pid, status="open")
                         if transaction:
                             # TODO: map transaction type
                             renew["fee_type"] = SelfcheckFeeType.OVERDUE
@@ -614,21 +529,13 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
 
             except ItemBarcodeNotFound:
                 renew = SelfcheckRenew(title_id="")
-                renew.get("screen_messages", []).append(
-                    _("Error encountered: item not found")
-                )
-                renew.get("screen_messages", []).append(
-                    _("Error encountered: please contact a librarian")
-                )
+                renew.get("screen_messages", []).append(_("Error encountered: item not found"))
+                renew.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
             except NoCirculationAction:
-                renew.get("screen_messages", []).append(
-                    _("No circulation action is possible")
-                )
+                renew.get("screen_messages", []).append(_("No circulation action is possible"))
             except CirculationException as circ_err:
                 renew.get("screen_messages", []).append(_(circ_err.description))
             except Exception:
-                renew.get("screen_messages", []).append(
-                    _("Error encountered: please contact a librarian")
-                )
+                renew.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
                 raise SelfcheckCirculationError("self renewal failed", renew)
             return renew

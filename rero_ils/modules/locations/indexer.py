@@ -38,6 +38,4 @@ class LocationIndexerDumper(Dumper):
 
 location_replace_refs_dumper = MultiDumper(dumpers=[Dumper(), ReplaceRefsDumper()])
 
-location_indexer_dumper = MultiDumper(
-    dumpers=[Dumper(), ReplaceRefsDumper(), LocationIndexerDumper()]
-)
+location_indexer_dumper = MultiDumper(dumpers=[Dumper(), ReplaceRefsDumper(), LocationIndexerDumper()])

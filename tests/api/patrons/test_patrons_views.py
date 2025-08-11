@@ -104,34 +104,23 @@ def test_patron_authenticate(
     assert res.status_code == 401
 
     # Missing parameters (username and password)
-    res, _ = postdata(
-        client, "api_patrons.patron_authenticate", url_data=token_url_data
-    )
+    res, _ = postdata(client, "api_patrons.patron_authenticate", url_data=token_url_data)
     assert res.status_code == 400
 
     # User not found
     post_data = {"username": "foo", "password": "bar"}
-    res, _ = postdata(
-        client, "api_patrons.patron_authenticate", post_data, url_data=token_url_data
-    )
+    res, _ = postdata(client, "api_patrons.patron_authenticate", post_data, url_data=token_url_data)
     assert res.status_code == 404
 
     # User found, bad password
     post_data = {"username": username, "password": "bar"}
-    res, _ = postdata(
-        client, "api_patrons.patron_authenticate", post_data, url_data=token_url_data
-    )
+    res, _ = postdata(client, "api_patrons.patron_authenticate", post_data, url_data=token_url_data)
     assert res.status_code == 401
 
     # User found
     post_data = {"username": username, "password": password}
-    res, output = postdata(
-        client, "api_patrons.patron_authenticate", post_data, url_data=token_url_data
-    )
+    res, output = postdata(client, "api_patrons.patron_authenticate", post_data, url_data=token_url_data)
     assert res.status_code == 200
     assert output["city"] == patron_martigny_data["city"]
-    assert (
-        output["fullname"]
-        == patron_martigny_data["first_name"] + " " + patron_martigny_data["last_name"]
-    )
+    assert output["fullname"] == patron_martigny_data["first_name"] + " " + patron_martigny_data["last_name"]
     assert "blocked" not in output

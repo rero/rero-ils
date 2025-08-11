@@ -88,12 +88,7 @@ def format_patron_address(patron):
         city = profile.get("city", "").strip()
     formated_address = f"{street}, {postal_code} {city}"
     # Should never append, but can be imported from an old system
-    return (
-        formated_address.replace(r"\n", " ")
-        .replace(r"\r", " ")
-        .replace("\n", " ")
-        .replace("\r", " ")
-    )
+    return formated_address.replace(r"\n", " ").replace(r"\r", " ").replace("\n", " ").replace("\r", " ")
 
 
 def get_patron_status(patron):
@@ -117,9 +112,7 @@ def get_patron_status(patron):
     # check if patron is blocked
     if patron.is_blocked:
         patron_status.add_patron_status_type(PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
-        patron_status.add_patron_status_type(
-            PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED
-        )
+        patron_status.add_patron_status_type(PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
         patron_status.add_patron_status_type(PatronStatusTypes.RECALL_PRIVILEGES_DENIED)
         patron_status.add_patron_status_type(PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
 
@@ -127,32 +120,22 @@ def get_patron_status(patron):
     # check the patron type checkout limit
     if not patron_type.check_checkout_count_limit(patron):
         patron_status.add_patron_status_type(PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
-        patron_status.add_patron_status_type(
-            PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED
-        )
+        patron_status.add_patron_status_type(PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
         patron_status.add_patron_status_type(PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
         patron_status.add_patron_status_type(PatronStatusTypes.TOO_MANY_ITEMS_CHARGED)
 
     # check the patron type fee amount limit
     if not patron_type.check_fee_amount_limit(patron):
         patron_status.add_patron_status_type(PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
-        patron_status.add_patron_status_type(
-            PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED
-        )
+        patron_status.add_patron_status_type(PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
         patron_status.add_patron_status_type(PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
-        patron_status.add_patron_status_type(
-            PatronStatusTypes.EXCESSIVE_OUTSTANDING_FINES
-        )
-        patron_status.add_patron_status_type(
-            PatronStatusTypes.EXCESSIVE_OUTSTANDING_FEES
-        )
+        patron_status.add_patron_status_type(PatronStatusTypes.EXCESSIVE_OUTSTANDING_FINES)
+        patron_status.add_patron_status_type(PatronStatusTypes.EXCESSIVE_OUTSTANDING_FEES)
 
     # check the patron type overdue limit
     if not patron_type.check_overdue_items_limit(patron):
         patron_status.add_patron_status_type(PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
-        patron_status.add_patron_status_type(
-            PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED
-        )
+        patron_status.add_patron_status_type(PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
         patron_status.add_patron_status_type(PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
         patron_status.add_patron_status_type(PatronStatusTypes.TOO_MANY_ITEMS_OVERDUE)
 
@@ -165,9 +148,7 @@ def map_media_type(media_type):
     :param media_type: Document type
     :return: sip2 media type (see invenio_sip2.models.SelfcheckMediaType)
     """
-    return current_app.config.get("SIP2_MEDIA_TYPES").get(
-        media_type, "docmaintype_other"
-    )
+    return current_app.config.get("SIP2_MEDIA_TYPES").get(media_type, "docmaintype_other")
 
 
 def map_item_circulation_status(item_status):

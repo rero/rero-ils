@@ -68,20 +68,8 @@ def test_acquisition_orders_serializers(
     assert response.status_code == 200
     data = get_json(response)
     record = data.get("hits", {}).get("hits", [])[0]
-    assert (
-        record.get("metadata", {})
-        .get("order_lines", [])[0]
-        .get("account", {})
-        .get("name")
-        == account_a["name"]
-    )
-    assert (
-        record.get("metadata", {})
-        .get("order_lines", [])[0]
-        .get("document", {})
-        .get("pid")
-        == document.pid
-    )
+    assert record.get("metadata", {}).get("order_lines", [])[0].get("account", {}).get("name") == account_a["name"]
+    assert record.get("metadata", {}).get("order_lines", [])[0].get("document", {}).get("pid") == document.pid
 
     # RESET RESOURCES
     _del_resource(client, "acol", order_line_1.pid)

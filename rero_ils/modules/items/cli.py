@@ -69,12 +69,8 @@ def reindex_items():
 
 
 @click.command("create_items")
-@click.option(
-    "-c", "--count", "count", type=click.INT, default=-1, help="default=for all records"
-)
-@click.option(
-    "-i", "--itemscount", "itemscount", type=click.INT, default=1, help="default=1"
-)
+@click.option("-c", "--count", "count", type=click.INT, default=-1, help="default=for all records")
+@click.option("-i", "--itemscount", "itemscount", type=click.INT, default=1, help="default=1")
 @click.option("-m", "--missing", "missing", type=click.INT, default=5, help="default=5")
 # @click.argument('output', type=click.File('w'))
 @click.option("-t", "--items_f", "items_f", help="Items output file.")
@@ -84,7 +80,6 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
     """Create circulation items."""
 
     def generate(count, itemscount, missing):
-
         if count == -1:
             count = Document.count()
 
@@ -103,17 +98,12 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
 
         workshop_item = 1
         documents_pids = Document.get_all_pids()
-        with click.progressbar(
-            reversed(list(documents_pids)[:count]), length=count
-        ) as bar:
+        with click.progressbar(reversed(list(documents_pids)[:count]), length=count) as bar:
             for document_pid in bar:
                 holdings = [{}]
                 # we will not create holdings for ebook and journal documents
                 doc_type = Document.get_record_by_pid(document_pid).get("type")[0]
-                if (
-                    doc_type.get("subtype") == "docsubtype_e-book"
-                    or doc_type.get("main_type") == "docmaintype_serial"
-                ):
+                if doc_type.get("subtype") == "docsubtype_e-book" or doc_type.get("main_type") == "docmaintype_serial":
                     continue
 
                 if Document.get_record_by_pid(document_pid).get("type") in [
@@ -129,10 +119,7 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                     holding_found = False
                     new_holding = None
                     for hold in holdings:
-                        if (
-                            hold.get("location_pid") == location_pid
-                            and hold.get("item_type_pid") == item_type_pid
-                        ):
+                        if hold.get("location_pid") == location_pid and hold.get("item_type_pid") == item_type_pid:
                             item_holding_pid = hold.get("pid")
                             holding_found = True
                     if not holding_found:
@@ -145,9 +132,7 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                                 "item_type_pid": item_type_pid,
                             }
                         )
-                        new_holding = create_holding_record(
-                            item_holding_pid, location_pid, item_type_pid, document_pid
-                        )
+                        new_holding = create_holding_record(item_holding_pid, location_pid, item_type_pid, document_pid)
                     if org == "3":
                         # set a prefix for items of the workshop organisation
                         barcode = f"fictive{workshop_item}"
@@ -306,8 +291,7 @@ def create_random_item(
                 },
                 {
                     "type": ItemNoteTypes.BINDING,
-                    "content": "Link with an other item (same subject) : "
-                    '<a href="javascript:void()">dummy_link</a>',
+                    "content": 'Link with an other item (same subject) : <a href="javascript:void()">dummy_link</a>',
                 },
                 {
                     "type": ItemNoteTypes.PROVENANCE,
@@ -325,9 +309,7 @@ def create_random_item(
     # RANDOMLY ADD SECOND CALL NUMBER
     #   we will add a second call number to +/- 25% of the items.
     if random.random() < 0.25:
-        item["second_call_number"] = "".join(
-            random.choices(string.ascii_uppercase + string.digits, k=5)
-        )
+        item["second_call_number"] = "".join(random.choices(string.ascii_uppercase + string.digits, k=5))
 
     return missing, item
 

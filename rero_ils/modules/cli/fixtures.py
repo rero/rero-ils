@@ -144,9 +144,7 @@ def import_system_role_policies(infile):
 
 
 @fixtures.command("create")
-@click.option(
-    "-u", "--create_or_update", "create_or_update", is_flag=True, default=False
-)
+@click.option("-u", "--create_or_update", "create_or_update", is_flag=True, default=False)
 @click.option("-a", "--append", "append", is_flag=True, default=False)
 @click.option("-r", "--reindex", "reindex", is_flag=True, default=False)
 @click.option("-c", "--dbcommit", "dbcommit", is_flag=True, default=False)
@@ -229,16 +227,9 @@ def create(
                 db_record = record_class.get_record_by_pid(pid)
                 rec = db_record.update(record, dbcommit=dbcommit, reindex=reindex)
                 msg = "updated"
-            elif (
-                create_or_update
-                and pid
-                and not db_record
-                and record_class.record_pid_exists(pid)
-            ):
+            elif create_or_update and pid and not db_record and record_class.record_pid_exists(pid):
                 # case when record not in db but pid is reserved
-                presist_id = PersistentIdentifier.get(
-                    record_class.provider.pid_type, pid
-                )
+                presist_id = PersistentIdentifier.get(record_class.provider.pid_type, pid)
                 rec = record_class.create(record, dbcommit=dbcommit, reindex=reindex)
                 if presist_id.status != PIDStatus.REGISTERED:
                     presist_id.register()
@@ -246,9 +237,7 @@ def create(
                 msg = "created"
             else:
                 # case when record and pid are not in db
-                rec = record_class.create(
-                    record, dbcommit=dbcommit, reindex=reindex, pidcheck=pid_check
-                )
+                rec = record_class.create(record, dbcommit=dbcommit, reindex=reindex, pidcheck=pid_check)
                 if append:
                     pids.append(rec.pid)
             if verbose:
@@ -275,9 +264,7 @@ def create(
     if append:
         click.secho(f"Append fixtures new identifiers: {len(pids)}")
         identifier = record_class.provider.identifier
-        count, err = append_fixtures_new_identifiers(
-            identifier, sorted(pids, key=lambda x: int(x))
-        )
+        count, err = append_fixtures_new_identifiers(identifier, sorted(pids, key=lambda x: int(x)))
         click.echo(f"DB commit append: {count}")
         if err:
             click.secho(f"ERROR append fixtures new identifiers: {err}", fg="red")
@@ -322,22 +309,16 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose, create_p
     errors_count = 0
     with open(json_file) as infile:
         records = read_json_record(infile) if lazy else json.load(infile)
-        file_name_pidstore = os.path.join(
-            output_directory, f"{record_type}_pidstore.csv"
-        )
+        file_name_pidstore = os.path.join(output_directory, f"{record_type}_pidstore.csv")
         click.secho(f"\t{file_name_pidstore}", fg="green")
         with open(file_name_pidstore, "w") as file_pidstore:
-            file_name_metadata = os.path.join(
-                output_directory, f"{record_type}_metadata.csv"
-            )
+            file_name_metadata = os.path.join(output_directory, f"{record_type}_metadata.csv")
             click.secho(f"\t{file_name_metadata}", fg="green")
             file_metadata = open(file_name_metadata, "w")
             file_name_pids = os.path.join(output_directory, f"{record_type}_pids.csv")
             click.secho(f"\t{file_name_pids}", fg="green")
             file_pids = open(file_name_pids, "w")
-            file_name_errors = os.path.join(
-                output_directory, f"{record_type}_errors.json"
-            )
+            file_name_errors = os.path.join(output_directory, f"{record_type}_errors.json")
             file_errors = open(file_name_errors, "w")
             file_errors.write("[")
 
@@ -357,9 +338,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose, create_p
                     file_pidstore.write(csv_pidstore_line(record_type, pid, uuid, date))
                     file_pids.write(pid + "\n")
                 except Exception as err:
-                    click.secho(
-                        f"{count}\t{record_type}: Error validate in record: ", fg="red"
-                    )
+                    click.secho(f"{count}\t{record_type}: Error validate in record: ", fg="red")
                     click.secho(str(err))
                     if errors_count > 0:
                         file_errors.write(",")
@@ -374,7 +353,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose, create_p
         file_errors.close()
     if errors_count == 0:
         os.remove(file_name_errors)
-    click.secho(f"Created: {count-errors_count} Errors: {errors_count}", fg="yellow")
+    click.secho(f"Created: {count - errors_count} Errors: {errors_count}", fg="yellow")
 
 
 @fixtures.command("bulk_load")
@@ -422,9 +401,7 @@ def bulk_load(record_type, csv_metadata_file, bulkcount, reindex, verbose):
     click.secho(message, fg="green")
 
     click.secho(f"  Load pids: {file_name_pids}")
-    bulk_load_pids(
-        pid_type=record_type, ids=file_name_pids, bulk_count=bulk_count, verbose=verbose
-    )
+    bulk_load_pids(pid_type=record_type, ids=file_name_pids, bulk_count=bulk_count, verbose=verbose)
     click.secho(f"  Load pidstore: {file_name_pidstore}")
     bulk_load_pidstore(
         pid_type=record_type,
@@ -475,24 +452,16 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
         # TODO: do we have to save loanid and how we can save it?
         if p_type in ["loanid", "oplg"]:
             continue
-        click.secho(
-            f"Save {p_type} CSV files to directory: {output_directory}", fg="green"
-        )
+        click.secho(f"Save {p_type} CSV files to directory: {output_directory}", fg="green")
         file_prefix = endpoints[p_type].get("search_index")
         if p_type in ["doc", "hold", "item", "count"]:
             if deployment:
                 file_prefix += "_big"
             else:
                 file_prefix += "_small"
-        file_name_metadata = os.path.join(
-            output_directory, f"{file_prefix}_metadata.csv"
-        )
-        bulk_save_metadata(
-            pid_type=p_type, file_name=file_name_metadata, verbose=verbose
-        )
-        file_name_pidstore = os.path.join(
-            output_directory, f"{file_prefix}_pidstore.csv"
-        )
+        file_name_metadata = os.path.join(output_directory, f"{file_prefix}_metadata.csv")
+        bulk_save_metadata(pid_type=p_type, file_name=file_name_metadata, verbose=verbose)
+        file_name_pidstore = os.path.join(output_directory, f"{file_prefix}_pidstore.csv")
         count = bulk_save_pidstore(
             pid_type=p_type,
             file_name=file_name_pidstore,

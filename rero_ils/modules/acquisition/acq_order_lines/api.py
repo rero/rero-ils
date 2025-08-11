@@ -101,15 +101,11 @@ class AcqOrderLine(AcquisitionIlsRecord):
                 AcqOrderStatus.PARTIALLY_RECEIVED,
             ]
         if order_status not in valid_statuses:
-            return _(
-                f"Can not create an order line with an order with a wrong status {order_status}."
-            )
+            return _(f"Can not create an order line with an order with a wrong status {order_status}.")
         return True
 
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs):
         """Create Acquisition Order Line record."""
         # TODO : should be used into `pre_create` hook extensions but seems not
         #        work as expected.
@@ -140,9 +136,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         """Build $ref for the organisation of the acquisition order."""
         if order := extracted_data_from_ref(data.get("acq_order"), data="record"):
             data["library"] = {"$ref": get_ref_for_pid("lib", order.library_pid)}
-            data["organisation"] = {
-                "$ref": get_ref_for_pid("org", order.organisation_pid)
-            }
+            data["organisation"] = {"$ref": get_ref_for_pid("org", order.organisation_pid)}
 
     @classmethod
     def _build_total_amount(cls, data):
@@ -246,11 +240,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         """
         if self.is_cancelled:
             return AcqOrderLineStatus.CANCELLED
-        status = (
-            AcqOrderLineStatus.ORDERED
-            if self.order.get("order_date")
-            else AcqOrderLineStatus.APPROVED
-        )
+        status = AcqOrderLineStatus.ORDERED if self.order.get("order_date") else AcqOrderLineStatus.APPROVED
 
         received_quantity = self.received_quantity
         # not use the property to prevent an extra ES call
@@ -273,11 +263,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         :param note_type: the note type to filter as `OrderLineNoteType` value.
         :return the note content if exists, otherwise returns None.
         """
-        note = [
-            note.get("content")
-            for note in self.get("notes", [])
-            if note.get("type") == note_type
-        ]
+        note = [note.get("content") for note in self.get("notes", []) if note.get("type") == note_type]
         return next(iter(note), None)
 
     def get_links_to_me(self, get_pids=False):

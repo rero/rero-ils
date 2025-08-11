@@ -82,9 +82,7 @@ def test_acq_order_lines_post_put_delete(
     list_url = url_for("invenio_records_rest.acol_list", q="pid:1")
 
     acq_order_line_fiction_saxon["pid"] = "1"
-    res, data = postdata(
-        client, "invenio_records_rest.acol_list", acq_order_line_fiction_saxon
-    )
+    res, data = postdata(client, "invenio_records_rest.acol_list", acq_order_line_fiction_saxon)
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
@@ -97,9 +95,7 @@ def test_acq_order_lines_post_put_delete(
 
     # Update record/PUT
     data = acq_order_line_fiction_saxon
-    data["notes"] = [
-        {"type": AcqOrderLineNoteType.STAFF, "content": "Test update note"}
-    ]
+    data["notes"] = [{"type": AcqOrderLineNoteType.STAFF, "content": "Test update note"}]
     res = client.put(item_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 200
 
@@ -134,9 +130,7 @@ def test_acq_order_lines_can_delete(client, acq_order_line_fiction_martigny):
     assert reasons == {}
 
 
-def test_acq_order_lines_document_can_delete(
-    client, document, acq_order_line_fiction_martigny
-):
+def test_acq_order_lines_document_can_delete(client, document, acq_order_line_fiction_martigny):
     """Test can delete a document with a linked acquisition order line."""
     can, reasons = document.can_delete
     assert not can
@@ -156,12 +150,8 @@ def test_acq_order_line_secure_api_update(
     """Test acq order line secure api update."""
     # Sion
     login_user_via_session(client, librarian_sion.user)
-    record_url = url_for(
-        "invenio_records_rest.acol_item", pid_value=acq_order_line_fiction_sion.pid
-    )
+    record_url = url_for("invenio_records_rest.acol_item", pid_value=acq_order_line_fiction_sion.pid)
     data = acq_order_line_fiction_sion
-    data["notes"] = [
-        {"type": AcqOrderLineNoteType.STAFF, "content": "Test update note"}
-    ]
+    data["notes"] = [{"type": AcqOrderLineNoteType.STAFF, "content": "Test update note"}]
     res = client.put(record_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 200

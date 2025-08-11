@@ -54,6 +54,4 @@ _csv = PatronTransactionEventCSVSerializer(
     ]
 )
 
-csv_ptre_search = search_responsify_file(
-    _csv, "text/csv", file_extension="csv", file_prefix="export-fees"
-)
+csv_ptre_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_prefix="export-fees")

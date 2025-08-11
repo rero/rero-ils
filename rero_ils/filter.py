@@ -118,18 +118,12 @@ def format_date_filter(
     else:
         tzinfo = current_app.config.get("BABEL_DEFAULT_TIMEZONE", timezone_default)
 
-    datetimetz = format_datetime(
-        dateparser.parse(date_str, locales=["en"]), tzinfo=tzinfo, locale="en"
-    )
+    datetimetz = format_datetime(dateparser.parse(date_str, locales=["en"]), tzinfo=tzinfo, locale="en")
 
     if date_format:
-        date = format_date(
-            dateparser.parse(datetimetz), format=date_format, locale=locale
-        )
+        date = format_date(dateparser.parse(datetimetz), format=date_format, locale=locale)
     if time_format:
-        time = format_time(
-            dateparser.parse(datetimetz), format=time_format, locale=locale
-        )
+        time = format_time(dateparser.parse(datetimetz), format=time_format, locale=locale)
     return delimiter.join(filter(None, [date, time]))
 
 
@@ -208,9 +202,7 @@ def translate(data, prefix="", separator=", "):
     """
     if data:
         if isinstance(data, list):
-            translated = [
-                "{prefix}{item}".format(prefix=prefix, item=item) for item in data
-            ]
+            translated = ["{prefix}{item}".format(prefix=prefix, item=item) for item in data]
             return separator.join(translated)
         elif isinstance(data, str):
             return _("{prefix}{data}".format(prefix=prefix, data=data))

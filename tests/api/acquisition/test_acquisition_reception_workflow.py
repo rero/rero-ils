@@ -559,9 +559,7 @@ def test_acquisition_reception_workflow(
             "receipt_date": "2021-11-01",
         },
     ]
-    res, data = postdata(
-        client, "api_receipt.lines", data=data, url_data=dict(receipt_pid=receipt_2.pid)
-    )
+    res, data = postdata(client, "api_receipt.lines", data=data, url_data=dict(receipt_pid=receipt_2.pid))
 
     assert res.status_code == 200
     response = data.get("response")
@@ -591,9 +589,7 @@ def test_acquisition_reception_workflow(
             "receipt_date": "2021-11-01",
         }
     ]
-    res, data = postdata(
-        client, "api_receipt.lines", data=data, url_data=dict(receipt_pid=receipt_2.pid)
-    )
+    res, data = postdata(client, "api_receipt.lines", data=data, url_data=dict(receipt_pid=receipt_2.pid))
     assert res.status_code == 200
     response = data.get("response")
     assert response[0]["status"] == AcqReceiptLineCreationStatus.SUCCESS

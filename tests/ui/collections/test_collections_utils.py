@@ -17,7 +17,6 @@
 
 """Tests ui for collections."""
 
-
 from rero_ils.modules.collections.api import Collection
 from rero_ils.modules.collections.views import _start_end_date, get_teachers
 

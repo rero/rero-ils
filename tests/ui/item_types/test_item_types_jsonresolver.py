@@ -24,9 +24,7 @@ from jsonref import JsonRefError
 
 def test_item_types_jsonresolver(item_type_standard_martigny):
     """Item type resolver tests."""
-    rec = Record.create(
-        {"item_type": {"$ref": "https://bib.rero.ch/api/item_types/itty1"}}
-    )
+    rec = Record.create({"item_type": {"$ref": "https://bib.rero.ch/api/item_types/itty1"}})
     assert rec.replace_refs().get("item_type") == {"type": "itty", "pid": "itty1"}
 
     # deleted record
@@ -35,8 +33,6 @@ def test_item_types_jsonresolver(item_type_standard_martigny):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create(
-        {"item_type": {"$ref": "https://bib.rero.ch/api/item_types/n_e"}}
-    )
+    rec = Record.create({"item_type": {"$ref": "https://bib.rero.ch/api/item_types/n_e"}})
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

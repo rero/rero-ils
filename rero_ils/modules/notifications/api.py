@@ -130,14 +130,10 @@ class Notification(IlsRecord, ABC):
     # INVENIO API METHODS =====================================================
     #   Override some invenio ``RecordBase`` method
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs):
         """Create notification record."""
         # Check if the notification_type is disabled by app configuration
-        if data.get("notification_type") in current_app.config.get(
-            "RERO_ILS_DISABLED_NOTIFICATION_TYPE", []
-        ):
+        if data.get("notification_type") in current_app.config.get("RERO_ILS_DISABLED_NOTIFICATION_TYPE", []):
             return
 
         data.setdefault("status", NotificationStatus.CREATED)
@@ -258,12 +254,7 @@ class Notification(IlsRecord, ABC):
     @property
     def patron_transactions(self):
         """Returns patron transactions attached of a notification."""
-        results = (
-            PatronTransactionsSearch()
-            .filter("term", notification__pid=self.pid)
-            .source(False)
-            .scan()
-        )
+        results = PatronTransactionsSearch().filter("term", notification__pid=self.pid).source(False).scan()
         for result in results:
             yield PatronTransaction.get_record(result.meta.id)
 
@@ -276,9 +267,7 @@ class Notification(IlsRecord, ABC):
         """
         recipients = recipients or []
         for type_, address in recipients:
-            self.setdefault("effective_recipients", []).append(
-                {"type": type_, "address": address}
-            )
+            self.setdefault("effective_recipients", []).append({"type": type_, "address": address})
         return self.update(data=self.dumps(), commit=True, dbcommit=True, reindex=True)
 
     def update_process_date(self, sent=False, status=NotificationStatus.DONE):

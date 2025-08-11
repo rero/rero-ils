@@ -93,35 +93,24 @@ def test_stats_report_number_of_patrons(
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "category": {
-            "indicator": {"type": "number_of_patrons", "distributions": ["gender"]}
-        },
+        "category": {"indicator": {"type": "number_of_patrons", "distributions": ["gender"]}},
     }
     assert StatsReport(cfg).collect() == [["female", 1], ["male", 1]]
     # birth year
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "category": {
-            "indicator": {"type": "number_of_patrons", "distributions": ["birth_year"]}
-        },
+        "category": {"indicator": {"type": "number_of_patrons", "distributions": ["birth_year"]}},
     }
     assert StatsReport(cfg).collect() == [["1947", 1], ["1967", 1]]
     # patron type
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "category": {
-            "indicator": {"type": "number_of_patrons", "distributions": ["type"]}
-        },
+        "category": {"indicator": {"type": "number_of_patrons", "distributions": ["type"]}},
     }
-    label_ptrn_type_children = (
-        f'{patron_type_children_martigny["name"]} '
-        f"({patron_type_children_martigny.pid})"
-    )
-    label_ptrn_type_adult = (
-        f'{patron_type_adults_martigny["name"]} ' f"({patron_type_adults_martigny.pid})"
-    )
+    label_ptrn_type_children = f"{patron_type_children_martigny['name']} ({patron_type_children_martigny.pid})"
+    label_ptrn_type_adult = f"{patron_type_adults_martigny['name']} ({patron_type_adults_martigny.pid})"
     assert StatsReport(cfg).collect() == [
         [label_ptrn_type_adult, 1],
         [label_ptrn_type_children, 1],
@@ -130,18 +119,14 @@ def test_stats_report_number_of_patrons(
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "category": {
-            "indicator": {"type": "number_of_patrons", "distributions": ["postal_code"]}
-        },
+        "category": {"indicator": {"type": "number_of_patrons", "distributions": ["postal_code"]}},
     }
     assert StatsReport(cfg).collect() == [["1920", 2]]
     # role
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "category": {
-            "indicator": {"type": "number_of_patrons", "distributions": ["role"]}
-        },
+        "category": {"indicator": {"type": "number_of_patrons", "distributions": ["role"]}},
     }
     assert StatsReport(cfg).collect() == [["patron", 2]]
     # gender month
@@ -201,9 +186,7 @@ def test_stats_report_number_of_patrons(
                 "trigger": "checkin",
                 "patron": {
                     "pid": patron2_martigny.pid,
-                    "hashed_pid": hashlib.md5(
-                        patron2_martigny.pid.encode()
-                    ).hexdigest(),
+                    "hashed_pid": hashlib.md5(patron2_martigny.pid.encode()).hexdigest(),
                 },
                 "item": {"library_pid": lib_martigny_bourg.pid},
                 "transaction_location": {"pid": loc_public_martigny_bourg.pid},
@@ -236,9 +219,7 @@ def test_stats_report_number_of_patrons(
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "filter_by_libraries": [
-            {"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}
-        ],
+        "filter_by_libraries": [{"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}],
         "category": {
             "indicator": {
                 "type": "number_of_active_patrons",

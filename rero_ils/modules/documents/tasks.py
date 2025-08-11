@@ -48,11 +48,7 @@ def delete_orphan_harvested(delete=False, verbose=False):
     """
     from rero_ils.modules.documents.api import Document, DocumentsSearch
 
-    query = (
-        DocumentsSearch()
-        .filter("term", harvested=True)
-        .exclude("exists", field="holdings")
-    )
+    query = DocumentsSearch().filter("term", harvested=True).exclude("exists", field="holdings")
     pids = [hit.pid for hit in query.source("pid").scan()]
     count = 0
 
@@ -129,9 +125,7 @@ def reindex_document_items(record):
     """
     from rero_ils.modules.items.api import ItemsSearch
 
-    for hit in (
-        ItemsSearch().extra(version=True).filter("term", document__pid=record["pid"])
-    ):
+    for hit in ItemsSearch().extra(version=True).filter("term", document__pid=record["pid"]):
         data = hit.to_dict()
         # update the document type in item if different.
         if data["document"]["document_type"] != record["type"]:

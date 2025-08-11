@@ -24,6 +24,4 @@ birthdate = Scope("birthdate", help_text="Birthdate", group="User")
 expiration_date = Scope("expiration_date", help_text="Expiration date", group="User")
 institution = Scope("institution", help_text="Institution", group="User")
 patron_type = Scope("patron_type", help_text="Patron type", group="User")
-patron_types = Scope(
-    "patron_types", help_text="Patron types (deprecated)", group="User"
-)
+patron_types = Scope("patron_types", help_text="Patron types (deprecated)", group="User")

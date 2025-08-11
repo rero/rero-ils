@@ -21,16 +21,12 @@ from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from tests.utils import get_mapping
 
 
-def test_circ_policy_es_mapping(
-    search_clear, db, org_martigny, circ_policy_martigny_data_tmp
-):
+def test_circ_policy_es_mapping(search_clear, db, org_martigny, circ_policy_martigny_data_tmp):
     """Test circulation policy elasticsearch mapping."""
     search = CircPoliciesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    CircPolicy.create(
-        circ_policy_martigny_data_tmp, dbcommit=True, reindex=True, delete_pid=True
-    )
+    CircPolicy.create(circ_policy_martigny_data_tmp, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
 
 

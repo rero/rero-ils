@@ -30,9 +30,7 @@ from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
 
 
-def test_patron_payment(
-    client, librarian_martigny, patron_transaction_overdue_event_martigny
-):
+def test_patron_payment(client, librarian_martigny, patron_transaction_overdue_event_martigny):
     """Test patron payment."""
     ptre = patron_transaction_overdue_event_martigny
     transaction = ptre.patron_transaction
@@ -132,10 +130,7 @@ def test_patron_transaction_events_facets(
     assert all(key in data["aggregations"] for key in facet_keys)
 
     owning_library = data["aggregations"]["owning_library"]["buckets"]
-    assert (
-        owning_library[0]["owning_location"]["buckets"][0]["name"]
-        == loc_public_martigny["name"]
-    )
+    assert owning_library[0]["owning_location"]["buckets"][0]["name"] == loc_public_martigny["name"]
     params = {"facets": ""}
     url = url_for("invenio_records_rest.ptre_list", **params)
     res = client.get(url, headers=rero_json_header)
@@ -202,7 +197,4 @@ def test_patron_transaction_events_facets(
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
     owning_library = data["aggregations"]["owning_library"]["buckets"]
-    assert (
-        owning_library[0]["owning_location"]["buckets"][0]["name"]
-        == f"Unknown ({loc_pid})"
-    )
+    assert owning_library[0]["owning_location"]["buckets"][0]["name"] == f"Unknown ({loc_pid})"

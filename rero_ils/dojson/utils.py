@@ -123,9 +123,7 @@ _ILLUSTRATIVE_CONTENT_REGEXP = {
         r"front(\.|is|esp|\s|,|s)|front$|dessin",
         re.IGNORECASE,
     ),
-    "maps": re.compile(
-        r"cartes?|cartogra|cartin|cart\.|carta(\s|s)|carta$|maps?|kart", re.IGNORECASE
-    ),
+    "maps": re.compile(r"cartes?|cartogra|cartin|cart\.|carta(\s|s)|carta$|maps?|kart", re.IGNORECASE),
     "portraits": re.compile(r"port(\.|r|\s|s)|portr$|ritr", re.IGNORECASE),
     "graphs": re.compile(r"gra(ph|f)(\.)|^gra(ph|f)|\sgra(ph|f)|diag", re.IGNORECASE),
     "photographs": re.compile(r"(f|ph)oto(g|s|\s|,|typ|\.)|(f|ph)oto^", re.IGNORECASE),
@@ -351,15 +349,11 @@ _CONTRIBUTION_TAGS = [
 MAX_INT_YEAR = 9999
 MIN_INT_YEAR = -9999
 
-schema_in_bytes = (
-    files("rero_ils.jsonschemas").joinpath("common/languages-v0.0.1.json").read_bytes()
-)
+schema_in_bytes = files("rero_ils.jsonschemas").joinpath("common/languages-v0.0.1.json").read_bytes()
 schema = jsonref.loads(schema_in_bytes.decode("utf8"))
 _LANGUAGES = schema["language"]["enum"]
 
-schema_in_bytes = (
-    files("rero_ils.jsonschemas").joinpath("common/countries-v0.0.1.json").read_bytes()
-)
+schema_in_bytes = files("rero_ils.jsonschemas").joinpath("common/countries-v0.0.1.json").read_bytes()
 schema = jsonref.loads(schema_in_bytes.decode("utf8"))
 _COUNTRIES = schema["country"]["enum"]
 
@@ -411,13 +405,7 @@ def get_field_items(value):
 def build_string_from_subfields(value, subfield_selection, separator=" "):
     """Build a string parsing the selected subfields in order."""
     items = get_field_items(value)
-    return separator.join(
-        [
-            remove_special_characters(value)
-            for key, value in items
-            if key in subfield_selection
-        ]
-    )
+    return separator.join([remove_special_characters(value) for key, value in items if key in subfield_selection])
 
 
 def remove_trailing_punctuation(data, punctuation=",", spaced_punctuation=":;/-"):
@@ -441,9 +429,7 @@ def remove_trailing_punctuation(data, punctuation=",", spaced_punctuation=":;/-"
     if spaced_punctuation:
         spaced_punctuation = re.sub(r"([\.\[\]\^\\-])", r"\\\1", spaced_punctuation)
 
-    return re.sub(
-        rf"([{punctuation}]|\s+[{spaced_punctuation}])$", "", data.rstrip()
-    ).rstrip()
+    return re.sub(rf"([{punctuation}]|\s+[{spaced_punctuation}])$", "", data.rstrip()).rstrip()
 
 
 def remove_special_characters(value, chars=["\u0098", "\u009c"]):
@@ -663,9 +649,7 @@ class BookFormatExtraction(object):
                     # {value}ᵒ (U+1d52 MODIFIER LETTER SMALL O)
                     format_code = f"{value}ᵒ"
                 self._book_format_code_and_regexp[value]["code"] = format_code
-                self._book_format_code_and_regexp[value]["regexp"] = re.compile(
-                    _buid_regexp(value), re.IGNORECASE
-                )
+                self._book_format_code_and_regexp[value]["regexp"] = re.compile(_buid_regexp(value), re.IGNORECASE)
 
         _populate_regexp()
 
@@ -712,14 +696,10 @@ class ReroIlsOverdo(Overdo):
             self.record_type = self.leader[6]  # LDR 06
             self.bib_level = self.leader[7]  # LDR 07
 
-        result = super().do(
-            blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers
-        )
+        result = super().do(blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers)
         if not result.get("provisionActivity"):
             self.default_provision_activity(result)
-            error_print(
-                "WARNING PROVISION ACTIVITY SET TO DEFAULT:", self.bib_id, self.rero_id
-            )
+            error_print("WARNING PROVISION ACTIVITY SET TO DEFAULT:", self.bib_id, self.rero_id)
 
         return result
 
@@ -813,15 +793,9 @@ class ReroIlsOverdo(Overdo):
         if int(field["tag"]) < 10:
             raise ValueError("data field expected (tag >= 01x)")
         items = get_field_items(field.get("subfields", {}))
-        return [
-            subfield_data
-            for subfield_code, subfield_data in items
-            if (subfield_code == code) or not code
-        ]
+        return [subfield_data for subfield_code, subfield_data in items if (subfield_code == code) or not code]
 
-    def build_value_with_alternate_graphic(
-        self, tag, code, label, index, link, punct=None, spaced_punct=None
-    ):
+    def build_value_with_alternate_graphic(self, tag, code, label, index, link, punct=None, spaced_punct=None):
         """
         Build the data structure for alternate graphical representation.
 
@@ -848,9 +822,7 @@ class ReroIlsOverdo(Overdo):
         """
 
         def clean_punctuation(value, punct, spaced_punct):
-            return remove_trailing_punctuation(
-                value, punctuation=punct, spaced_punctuation=spaced_punct
-            )
+            return remove_trailing_punctuation(value, punctuation=punct, spaced_punctuation=spaced_punct)
 
         # build_value_with_alternate_graphic starts here
 
@@ -860,9 +832,7 @@ class ReroIlsOverdo(Overdo):
             value = remove_special_characters(value)
             data = [{"value": value}]
         else:
-            error_print(
-                "WARNING NO VALUE:", self.bib_id, self.rero_id, tag, code, label
-            )
+            error_print("WARNING NO VALUE:", self.bib_id, self.rero_id, tag, code, label)
         with contextlib.suppress(Exception):
             alt_gr = self.alternate_graphic[tag][link]
             subfield = self.get_subfields(alt_gr["field"])[index]
@@ -906,9 +876,7 @@ class ReroIlsOverdo(Overdo):
         if value.get("a"):
             extent = utils.force_list(value.get("a", []))[0]
             extent_and_physical_detail_data.append(extent)
-            data["extent"] = remove_trailing_punctuation(
-                data=extent, punctuation=":;", spaced_punctuation=":;"
-            )
+            data["extent"] = remove_trailing_punctuation(data=extent, punctuation=":;", spaced_punctuation=":;")
             if not data["extent"]:
                 data.pop("extent")
             # extract the duration
@@ -931,9 +899,7 @@ class ReroIlsOverdo(Overdo):
             extent_and_physical_detail_data.append(physical_detail)
             # to avoid empty note after removing punctuation
             if physical_detail:
-                add_note(
-                    dict(noteType="otherPhysicalDetails", label=physical_detail), data
-                )
+                add_note(dict(noteType="otherPhysicalDetails", label=physical_detail), data)
 
         physical_details_str = "|".join(physical_details)
         extent_and_physical_detail_str = "|".join(extent_and_physical_detail_data)
@@ -970,9 +936,7 @@ class ReroIlsOverdo(Overdo):
                 production_method_set.remove("rdapm:1005")
 
         # extract production_method from physical_details only
-        if re.search(
-            r"impr|druck|print|offset|s[ée]riegr", physical_details_str, re.IGNORECASE
-        ):
+        if re.search(r"impr|druck|print|offset|s[ée]riegr", physical_details_str, re.IGNORECASE):
             production_method_set.add("rdapm:1010")
 
         # build productionMethod data
@@ -986,9 +950,7 @@ class ReroIlsOverdo(Overdo):
             formats = tool.extract_book_formats_from(dimension)
             for book_format in formats:
                 book_formats.append(book_format)
-            dim = remove_trailing_punctuation(
-                data=dimension.rstrip(), punctuation="+,:;&."
-            )
+            dim = remove_trailing_punctuation(data=dimension.rstrip(), punctuation="+,:;&.")
             if dim:
                 add_data_and_sort_list("dimensions", utils.force_list(dim), data)
         add_data_and_sort_list("bookFormat", book_formats, data)
@@ -1004,9 +966,7 @@ class ReroIlsOverdo(Overdo):
             for material_note in material_notes:
                 if material_note:
                     add_note(
-                        dict(
-                            noteType="accompanyingMaterial", label=material_note.strip()
-                        ),
+                        dict(noteType="accompanyingMaterial", label=material_note.strip()),
                         data,
                     )
 
@@ -1033,12 +993,8 @@ class ReroIlsOverdo(Overdo):
         subseries = []
         count = 0
         tag = key[:3]
-        series_title_subfield_code = self.extract_series_statement_subfield[tag][
-            "series_title"
-        ]
-        series_enumeration_subfield_code = self.extract_series_statement_subfield[tag][
-            "series_enumeration"
-        ]
+        series_title_subfield_code = self.extract_series_statement_subfield[tag]["series_title"]
+        series_enumeration_subfield_code = self.extract_series_statement_subfield[tag]["series_enumeration"]
         subfield_selection = {
             series_title_subfield_code,
             series_enumeration_subfield_code,
@@ -1069,12 +1025,10 @@ class ReroIlsOverdo(Overdo):
                     elif count > 1:
                         if "subseriesEnumeration" in subseries[count - 2]:
                             alt_gr_1 = subseries[count - 2]["subseriesEnumeration"]
-                            subseries[count - 2]["subseriesEnumeration"] = (
-                                join_alternate_graphic_data(
-                                    alt_gr_1=alt_gr_1,
-                                    alt_gr_2=value_data,
-                                    join_str=", ",
-                                )
+                            subseries[count - 2]["subseriesEnumeration"] = join_alternate_graphic_data(
+                                alt_gr_1=alt_gr_1,
+                                alt_gr_2=value_data,
+                                join_str=", ",
                             )
                         else:
                             subseries[count - 2]["subseriesEnumeration"] = value_data
@@ -1084,9 +1038,7 @@ class ReroIlsOverdo(Overdo):
         error_msg = ""
         regexp = re.compile(rf"^[^{series_title_subfield_code}]")
         if regexp.search(subfield_visited):
-            error_msg = (
-                f"missing leading subfield ${series_title_subfield_code} in field {tag}"
-            )
+            error_msg = f"missing leading subfield ${series_title_subfield_code} in field {tag}"
             error_print("ERROR BAD FIELD FORMAT:", self.bib_id, self.rero_id, error_msg)
         else:
             if subseries:
@@ -1160,9 +1112,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             self.is_top_level_record = False
             fields_008 = self.get_fields(tag="008")
             if fields_008:
-                self.field_008_data = self.get_control_field_data(
-                    fields_008[0]
-                ).rstrip()
+                self.field_008_data = self.get_control_field_data(fields_008[0]).rstrip()
                 try:
                     self.serial_type = self.field_008_data[21]
                 except Exception as err:
@@ -1240,9 +1190,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 for subfield_e in self.get_subfields(field_040, "e"):
                     description_conventions.append(subfield_e)
                 if description_conventions:
-                    self.admin_meta_data["descriptionConventions"] = (
-                        description_conventions
-                    )
+                    self.admin_meta_data["descriptionConventions"] = description_conventions
 
             # build the list of links from field 752
             self.links_from_752 = []
@@ -1394,9 +1342,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         if self.date_type_from_008 in ["q", "n"]:
             self.date["note"] = "Date(s) uncertain or unknown"
         start_date = make_year(self.date1_from_008)
-        if not (
-            start_date and start_date >= MIN_INT_YEAR and start_date <= MAX_INT_YEAR
-        ):
+        if not (start_date and start_date >= MIN_INT_YEAR and start_date <= MAX_INT_YEAR):
             start_date = None
         if not start_date:
             fields_264 = self.get_fields("264")
@@ -1503,9 +1449,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         :rtype: str
         """
         if script_code in _LANGUAGES_SCRIPTS:
-            languages = (
-                [self.lang_from_008] + self.langs_from_041_a + self.langs_from_041_h
-            )
+            languages = [self.lang_from_008] + self.langs_from_041_a + self.langs_from_041_h
             for lang in languages:
                 if lang in _LANGUAGES_SCRIPTS[script_code]:
                     return "-".join([lang, script_code])
@@ -1538,9 +1482,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             subfield_246_a = ""
             if subfields_246_a := self.get_subfields(field_246, "a"):
                 subfield_246_a = subfields_246_a[0]
-            subfield_246_a_cleaned = remove_trailing_punctuation(
-                subfield_246_a, ",.", ":;/-="
-            )
+            subfield_246_a_cleaned = remove_trailing_punctuation(subfield_246_a, ",.", ":;/-=")
             if subfield_246_a_cleaned not in string_set:
                 # parse all subfields in order
                 index = 1
@@ -1617,35 +1559,25 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                         linked_data = content_media_carrier_type.get(link, {})
                         if tag == "336":
                             linked_data_type_value = linked_data.get(type_key, [])
-                            type_value = content_media_carrier_map_per_tag[tag].get(
-                                subfield_b, None
-                            )
+                            type_value = content_media_carrier_map_per_tag[tag].get(subfield_b, None)
                             if type_value and type_value not in linked_data_type_value:
                                 linked_data_type_value.append(type_value)
                                 linked_data[type_key] = linked_data_type_value
                                 type_found = True
                         else:
                             if link == "0" and tag == "337":
-                                media_type_from_unlinked_337 = (
-                                    content_media_carrier_map_per_tag[tag].get(
-                                        subfield_b, None
-                                    )
+                                media_type_from_unlinked_337 = content_media_carrier_map_per_tag[tag].get(
+                                    subfield_b, None
                                 )
                             linked_data_type_value = linked_data.get(type_key, "")
-                            if type_value := content_media_carrier_map_per_tag[tag].get(
-                                subfield_b, None
-                            ):
+                            if type_value := content_media_carrier_map_per_tag[tag].get(subfield_b, None):
                                 linked_data_type_value = type_value
                                 linked_data[type_key] = linked_data_type_value
                                 type_found = True
                                 if tag == "338":
-                                    media_type_from_338 = _MEDIA_TYPE_MAPPING.get(
-                                        subfield_b[0]
-                                    )
+                                    media_type_from_338 = _MEDIA_TYPE_MAPPING.get(subfield_b[0])
                                     if media_type_from_338:
-                                        linked_data["mediaTypeFrom338"] = (
-                                            media_type_from_338
-                                        )
+                                        linked_data["mediaTypeFrom338"] = media_type_from_338
                         if type_found:
                             content_media_carrier_type[link] = linked_data
                     break  # subfield $b in not repetitive
@@ -1659,9 +1591,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                     value["mediaType"] = media_type_from_338
                 elif media_type_from_338 != media_type:
                     value["mediaType"] = media_type_from_338
-                    error_print(
-                        "WARNING MEDIA TYPE:", self.bib_id, self.rero_id, media_type
-                    )
+                    error_print("WARNING MEDIA TYPE:", self.bib_id, self.rero_id, media_type)
 
             if media_type_from_338 and not media_type:
                 value["mediaType"] = media_type_from_338
@@ -1692,9 +1622,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
             "physical_detail": "c",
             "book_format": "d",
         }
-        self.extract_series_statement_subfield = {
-            "225": {"series_title": "a", "series_enumeration": "v"}
-        }
+        self.extract_series_statement_subfield = {"225": {"series_title": "a", "series_enumeration": "v"}}
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
         """Translate blob values and instantiate new model instance."""
@@ -1793,12 +1721,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                 subfields_6 = self.get_subfields(field_data, "6")
                 subfields_7 = self.get_subfields(field_data, "7")
                 # alternate graphic link code start with 'a'
-                if (
-                    subfields_6
-                    and subfields_6[0][0] == "a"
-                    and subfields_7
-                    and subfields_7[0] != "ba"
-                ):  # ba=latin
+                if subfields_6 and subfields_6[0][0] == "a" and subfields_7 and subfields_7[0] != "ba":  # ba=latin
                     tag_data = self.alternate_graphic.get(tag, {})
                     tag_data[subfields_6[0]] = {}
                     tag_data[subfields_6[0]]["field"] = field_data
@@ -1856,9 +1779,7 @@ class TitlePartList(object):
         value_data = remove_last_dot(value_data)
         if self.part_number_waiting_name:
             if subfield_code == self.part_name_code:
-                self.part_list.append(
-                    dict(partNumber=self.part_number_waiting_name, partName=value_data)
-                )
+                self.part_list.append(dict(partNumber=self.part_number_waiting_name, partName=value_data))
                 self.part_number_waiting_name = {}
             else:
                 self.part_list.append(dict(partNumber=self.part_number_waiting_name))
@@ -1885,9 +1806,7 @@ class TitlePartList(object):
         return self.part_list
 
 
-def extract_subtitle_and_parallel_titles_from_field_245_b(
-    parallel_title_data, field_245_a_end_with_equal
-):
+def extract_subtitle_and_parallel_titles_from_field_245_b(parallel_title_data, field_245_a_end_with_equal):
     """Extracts subtitle and parallel titles from field 245 $b.
 
     This function retrieves the subtitle and the parallel title list
@@ -1926,11 +1845,7 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(
         for sep in ("'", " "):
             first, sep, rest = string.partition(sep)
             len_rest = len(rest)
-            if (
-                len(first) <= max_article_len
-                and len_rest > 0
-                and len_rest > len(last_rest)
-            ):
+            if len(first) <= max_article_len and len_rest > 0 and len_rest > len(last_rest):
                 last_rest = rest
         return last_rest
 
@@ -1959,14 +1874,8 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(
         if index == 0 and not field_245_a_end_with_equal:
             if data_std.rstrip():
                 main_subtitle.append({"value": data_std.rstrip()})
-                if (
-                    lang
-                    and index < len(data_lang_items)
-                    and data_lang_items[index].rstrip()
-                ):
-                    main_subtitle.append(
-                        {"value": data_lang_items[index].rstrip(), "language": lang}
-                    )
+                if lang and index < len(data_lang_items) and data_lang_items[index].rstrip():
+                    main_subtitle.append({"value": data_lang_items[index].rstrip(), "language": lang})
         else:
             main_title = []
             subtitle = []
@@ -1982,14 +1891,10 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(
                 main_title.append({"value": pararalel_title_str})
                 if lang:
                     try:
-                        data_lang_value = remove_trailing_punctuation(
-                            data_lang_items[index].lstrip(), ",.", ":;/-="
-                        )
+                        data_lang_value = remove_trailing_punctuation(data_lang_items[index].lstrip(), ",.", ":;/-=")
                     except Exception:
                         data_lang_value = "[missing data]"
-                    pararalel_title_altgr_str, sep, subtitle_altgr_str = (
-                        data_lang_value.partition(":")
-                    )
+                    pararalel_title_altgr_str, sep, subtitle_altgr_str = data_lang_value.partition(":")
                     if pararalel_title_altgr_str:
                         main_title.append(
                             {
@@ -1997,9 +1902,7 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(
                                 "language": lang,
                             }
                         )
-                pararalel_title_without_article = remove_leading_article(
-                    pararalel_title_str
-                )
+                pararalel_title_without_article = remove_leading_article(pararalel_title_str)
                 if pararalel_title_without_article:
                     pararalel_title_string_set.add(pararalel_title_without_article)
                 pararalel_title_string_set.add(pararalel_title_str)
@@ -2054,9 +1957,7 @@ def build_responsibility_data(responsibility_data):
             out_data.append({"value": data_value})
             if lang:
                 try:
-                    data_lang_value = remove_trailing_punctuation(
-                        data_lang_items[index].lstrip(), ",.", ":;/-="
-                    )
+                    data_lang_value = remove_trailing_punctuation(data_lang_items[index].lstrip(), ",.", ":;/-=")
                     if not data_lang_value:
                         raise Exception("missing data")
                 except Exception:
@@ -2091,9 +1992,9 @@ def get_gnd_de_101(de_588):
         if response.status_code == requests.codes.ok:
             result = xmltodict.parse(response.text)
             with contextlib.suppress(Exception):
-                return result["searchRetrieveResponse"]["records"]["record"][
-                    "recordData"
-                ]["dc"]["dc:identifier"]["#text"]
+                return result["searchRetrieveResponse"]["records"]["record"]["recordData"]["dc"]["dc:identifier"][
+                    "#text"
+                ]
     except Exception as err:
         current_app.logger.warning(f"get_gnd_de_101 de_588: {de_588} | {err}")
 

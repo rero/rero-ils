@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Utils."""
+
 import csv
 import json
 from copy import deepcopy
@@ -67,9 +68,7 @@ def check_permission(permission_policy, actions, record):
     """
     for action_name, action_result in actions.items():
         result = permission_policy(action_name, record=record).can()
-        assert (
-            result == action_result
-        ), f"{action_name} :: return {result} but should {action_result}"
+        assert result == action_result, f"{action_name} :: return {result} but should {action_result}"
 
 
 def login_user(client, user):
@@ -107,9 +106,7 @@ def parse_csv(raw_data):
     return csv.reader(content)
 
 
-def postdata(
-    client, endpoint, data=None, headers=None, url_data=None, force_data_as_json=True
-):
+def postdata(client, endpoint, data=None, headers=None, url_data=None, force_data_as_json=True):
     """Build URL from given endpoint and send given data to it.
 
     :param force_data_as_json: the data sent forced json.
@@ -135,13 +132,7 @@ def to_relative_url(url):
     external urls.
     """
     parsed = urlparse(url)
-    return (
-        parsed.path
-        + "?"
-        + "&".join(
-            [f"{param}={val[0]}" for param, val in parse_qs(parsed.query).items()]
-        )
-    )
+    return parsed.path + "?" + "&".join([f"{param}={val[0]}" for param, val in parse_qs(parsed.query).items()])
 
 
 def get_mapping(name):
@@ -174,9 +165,7 @@ def loaded_resources_report():
                     {
                         "item_pid": item,
                         "item_status": objects[object].get_record_by_pid(item).status,
-                        "requests": objects[object]
-                        .get_record_by_pid(item)
-                        .number_of_requests(),
+                        "requests": objects[object].get_record_by_pid(item).number_of_requests(),
                         "loans": get_loan_for_item(item_pid_to_object(item)),
                     }
                 )
@@ -184,9 +173,7 @@ def loaded_resources_report():
     return report
 
 
-def mock_response(
-    status=200, content="CONTENT", headers=None, json_data=None, raise_for_status=None
-):
+def mock_response(status=200, content="CONTENT", headers=None, json_data=None, raise_for_status=None):
     """Mock a request response."""
     headers = headers or {"Content-Type": "text/plain"}
     mock_resp = Mock()
@@ -285,9 +272,7 @@ def create_new_item_from_existing_item(item=None):
     return new_item
 
 
-def item_record_to_a_specific_loan_state(
-    item=None, loan_state=None, params=None, copy_item=True
-):
+def item_record_to_a_specific_loan_state(item=None, loan_state=None, params=None, copy_item=True):
     """Put an item into a specific circulation loan state.
 
     :param item: the item record
@@ -305,9 +290,7 @@ def item_record_to_a_specific_loan_state(
     params.setdefault("document_pid", item.document_pid)
 
     # a parameter to allow in_transit returns
-    checkin_transaction_location_pid = params.pop(
-        "checkin_transaction_location_pid", None
-    )
+    checkin_transaction_location_pid = params.pop("checkin_transaction_location_pid", None)
     patron = Patron.get_record_by_pid(params.get("patron_pid"))
     # perform circulation actions
     if loan_state in [
@@ -396,9 +379,7 @@ def patch_expiration_date(data):
     """Patch expiration date for patrons."""
     if data.get("patron", {}).get("expiration_date"):
         # expiration date in one year
-        data["patron"]["expiration_date"] = (
-            datetime.now() + timedelta(days=365)
-        ).strftime("%Y-%m-%d")
+        data["patron"]["expiration_date"] = (datetime.now() + timedelta(days=365)).strftime("%Y-%m-%d")
     return data
 
 

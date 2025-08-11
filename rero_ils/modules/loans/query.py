@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Query factories for Document REST API."""
+
 from elasticsearch_dsl import Q
 
 

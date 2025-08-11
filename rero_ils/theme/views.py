@@ -94,9 +94,7 @@ def index():
         "rero_ils/frontpage.html",
         organisations=Organisation.get_all(),
         viewcode=global_view_code,
-        title=_(view_organisation_name(global_view_code))
-        + " | "
-        + _(current_app.config["THEME_SITENAME"]),
+        title=_(view_organisation_name(global_view_code)) + " | " + _(current_app.config["THEME_SITENAME"]),
     )
 
 
@@ -112,9 +110,7 @@ def index_with_view_code(viewcode):
             "rero_ils/frontpage.html",
             organisations=Organisation.get_all(),
             viewcode=viewcode,
-            title=_(view_organisation_name(viewcode))
-            + " | "
-            + _(current_app.config["THEME_SITENAME"]),
+            title=_(view_organisation_name(viewcode)) + " | " + _(current_app.config["THEME_SITENAME"]),
         )
 
 
@@ -151,9 +147,7 @@ def set_language():
 @check_organisation_viewcode
 def search(viewcode, recordType):
     """Search page ui."""
-    return render_template(
-        current_app.config.get("RERO_ILS_SEARCH_TEMPLATE"), viewcode=viewcode
-    )
+    return render_template(current_app.config.get("RERO_ILS_SEARCH_TEMPLATE"), viewcode=viewcode)
 
 
 @blueprint.app_template_filter()
@@ -168,9 +162,7 @@ def url_active(string, target):
     result = re.findall("(https?://[\\w|.|\\-|\\/]+)", string)
     for link in result:
         if link:
-            string = string.replace(
-                link, f'<a href="{link}" target="{target}">{link}</a>'
-            )
+            string = string.replace(link, f'<a href="{link}" target="{target}">{link}</a>')
     return string
 
 
@@ -201,12 +193,7 @@ def prepare_jsonschema(schema):
     field = schema.get("properties", {}).get("country")
     # patrons: allOf does not works to remove property
     if not field:
-        field = (
-            schema.get("properties", {})
-            .get("second_address", {})
-            .get("properties", {})
-            .get("country")
-        )
+        field = schema.get("properties", {}).get("second_address", {}).get("properties", {}).get("country")
     if field and default_country:
         field["default"] = default_country
     return schema
@@ -259,9 +246,7 @@ def get_schema(path, schema):
         schema = deepcopy(current_refresolver_store[f"local://{schema_path}"])
     except KeyError:
         abort(404)
-    resolved = request.args.get(
-        "resolved", current_app.config.get("JSONSCHEMAS_RESOLVE_SCHEMA"), type=int
-    )
+    resolved = request.args.get("resolved", current_app.config.get("JSONSCHEMAS_RESOLVE_SCHEMA"), type=int)
     new_host = urlparse(request.base_url).netloc
     # Change schema['properties']['$schema']['default'] URL
     if default := schema.get("properties", {}).get("$schema", {}).get("default"):

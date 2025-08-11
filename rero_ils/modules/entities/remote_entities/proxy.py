@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Remote entity proxies."""
+
 import json
 from urllib.parse import quote_plus
 
@@ -134,9 +135,7 @@ class MEFProxyMixin:
         """
         # Call the remote MEF server removing the 'Host' headers from initial
         # request to avoid security problems.
-        request_headers = {
-            key: value for key, value in request.headers if key != "Host"
-        }
+        request_headers = {key: value for key, value in request.headers if key != "Host"}
         response = requests.request(
             method=request.method,
             url=self._build_url(term),
@@ -178,7 +177,7 @@ class MEFProxyMixin:
 
         def _build_filter_value(value):
             if isinstance(value, list):
-                return f'({" OR ".join(value)})'
+                return f"({' OR '.join(value)})"
             return f'"{str(value)}"'
 
         query_params = [
@@ -212,9 +211,7 @@ class MEFProxyMixin:
         if not (metadata := hit.get("metadata")):
             return
         mef_ref_base_url = current_app.config.get("RERO_ILS_MEF_REF_BASE_URL")
-        base_url = get_mef_url(self.mef_entrypoint).replace(
-            mef_ref_base_url, "mef.rero.ch"
-        )
+        base_url = get_mef_url(self.mef_entrypoint).replace(mef_ref_base_url, "mef.rero.ch")
         for source_name in self.sources:
             if not (src_data := metadata.get(source_name)):
                 continue
@@ -222,7 +219,7 @@ class MEFProxyMixin:
                 {
                     "source": "mef",
                     "type": "uri",
-                    "value": f'{base_url}/{source_name}/{src_data["pid"]}',
+                    "value": f"{base_url}/{source_name}/{src_data['pid']}",
                 }
             )
 
@@ -248,7 +245,7 @@ class MefAgentsProxy(MEFProxyMixin):
             for _type in self.entity_types:
                 _type = _type.replace(":", "\\:")
                 ent_types.append(f"type:{_type}")
-            params += [f'({" OR ".join(ent_types)})']
+            params += [f"({' OR '.join(ent_types)})"]
         return params
 
     def _post_process_result_hit(self, hit):
@@ -293,7 +290,7 @@ class MefConceptsProxy(MEFProxyMixin):
             for _type in self.entity_types:
                 _type = _type.replace(":", "\\:")
                 ent_types.append(f"type:{_type}")
-            params += [f'({" OR ".join(ent_types)})']
+            params += [f"({' OR '.join(ent_types)})"]
         return params
 
     def _post_process_result_hit(self, hit):

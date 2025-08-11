@@ -48,9 +48,7 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         metadata = hit.get("metadata", {})
         doc_pid = metadata.get("document").get("pid")
         document = self.get_resource(DocumentsSearch(), doc_pid)
-        metadata["ui_title_text"] = TitleExtension.format_text(
-            document["title"], with_subtitle=True
-        )
+        metadata["ui_title_text"] = TitleExtension.format_text(document["title"], with_subtitle=True)
 
         item = self.get_resource(Item, metadata.get("pid"))
 
@@ -60,9 +58,7 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         # Temporary location
         if (temp_loc := metadata.get("temporary_location")) and "pid" in temp_loc:
             temp_loc_pid = temp_loc["pid"]
-            temp_loc["name"] = self.get_resource(LocationsSearch(), temp_loc_pid).get(
-                "name"
-            )
+            temp_loc["name"] = self.get_resource(LocationsSearch(), temp_loc_pid).get("name")
 
         # Organisation
         org_pid = metadata["organisation"]["pid"]
@@ -109,9 +105,7 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             LocationsSearch,
             "name",
         )
-        JSONSerializer.enrich_bucket_with_data(
-            aggregations.get("vendor", {}).get("buckets", []), VendorsSearch, "name"
-        )
+        JSONSerializer.enrich_bucket_with_data(aggregations.get("vendor", {}).get("buckets", []), VendorsSearch, "name")
         if aggregations.get("current_requests"):
             aggregations["current_requests"]["type"] = "range"
             aggregations["current_requests"]["config"] = {
@@ -132,15 +126,9 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         :param links_factory: Factory function for record links.
         """
         if record.is_issue and (notifications := record.claim_notifications):
-            dates = [
-                notification["creation_date"]
-                for notification in notifications
-                if "creation_date" in notification
-            ]
+            dates = [notification["creation_date"] for notification in notifications if "creation_date" in notification]
             record.setdefault("issue", {})["claims"] = {
                 "counter": len(notifications),
                 "dates": dates,
             }
-        return super().preprocess_record(
-            pid=pid, record=record, links_factory=links_factory, kwargs=kwargs
-        )
+        return super().preprocess_record(pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)

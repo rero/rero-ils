@@ -46,9 +46,7 @@ class ImportsSearchSerializer(JSONSerializer):
         self.record_processor = kwargs.pop("record_processor", marc21.do)
         super(JSONSerializer, self).__init__(*args, **kwargs)
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -121,9 +119,7 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
         if text_title := TitleExtension.format_text(titles, with_subtitle=False):
             metadata["ui_title_text"] = text_title
         responsibility = metadata.get("responsibilityStatement", [])
-        if text_title := TitleExtension.format_text(
-            titles, responsibility, with_subtitle=False
-        ):
+        if text_title := TitleExtension.format_text(titles, responsibility, with_subtitle=False):
             metadata["ui_title_text_responsibility"] = text_title
         for entity_type in ["contribution", "subjects", "genreForm"]:
             entities = metadata.get(entity_type, [])
@@ -131,9 +127,7 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
             for entity in entities:
                 ent = entity["entity"]
                 # convert a MEF link into a local entity
-                if entity_data := JsonRef.replace_refs(ent, loader=None).get(
-                    "metadata"
-                ):
+                if entity_data := JsonRef.replace_refs(ent, loader=None).get("metadata"):
                     ent = {
                         local_value: entity_data[local_key]
                         for local_key, local_value in self.entity_mapping.items()
@@ -166,9 +160,7 @@ class ImportsMarcSearchSerializer(JSONSerializer):
                     if isinstance(value, (tuple, list)):
                         for val in value:
                             if isinstance(val, dict):
-                                res.append(
-                                    [key, cls.convert_marc_to_marc_text_dict(val)]
-                                )
+                                res.append([key, cls.convert_marc_to_marc_text_dict(val)])
                             else:
                                 res.append([key, val])
                     else:
@@ -182,6 +174,4 @@ class ImportsMarcSearchSerializer(JSONSerializer):
         :param search_result: Elasticsearch search result.
         :param links: Dictionary of links to add to response.
         """
-        return json.dumps(
-            self.convert_marc_to_marc_text_dict(record), **self._format_args()
-        )
+        return json.dumps(self.convert_marc_to_marc_text_dict(record), **self._format_args())

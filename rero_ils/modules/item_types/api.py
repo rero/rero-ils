@@ -18,7 +18,6 @@
 
 """API for manipulating item types."""
 
-
 from __future__ import absolute_import, print_function
 
 import contextlib
@@ -76,11 +75,7 @@ class ItemType(IlsRecord):
         per organisation.
         """
         online_type_pid = self.get_organisation().online_circulation_category()
-        if (
-            self.get("type") == "online"
-            and online_type_pid
-            and self.pid != online_type_pid
-        ):
+        if self.get("type") == "online" and online_type_pid and self.pid != online_type_pid:
             return _("Another online item type exists in this organisation")
         return True
 
@@ -97,11 +92,7 @@ class ItemType(IlsRecord):
         pid = None
         with contextlib.suppress(Exception):
             if pids := [
-                n.pid
-                for n in ItemTypesSearch()
-                .filter("term", item_type_name=name)
-                .source(includes=["pid"])
-                .scan()
+                n.pid for n in ItemTypesSearch().filter("term", item_type_name=name).source(includes=["pid"]).scan()
             ]:
                 pid = pids[0]
         return pid
@@ -180,9 +171,7 @@ class ItemType(IlsRecord):
                 if self.get("negative_availability", False)
                 else self.get("circulation_information", [])
             )
-            label = [
-                entry["label"] for entry in labels if entry["language"] == language
-            ]
+            label = [entry["label"] for entry in labels if entry["language"] == language]
             if label and label[0]:
                 return label[0]
         return self.get("name")

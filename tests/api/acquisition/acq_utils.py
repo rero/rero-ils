@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utils for acquisitions."""
+
 import mock
 from flask import url_for
 

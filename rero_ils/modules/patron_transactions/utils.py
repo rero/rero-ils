@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utility functions about PatronTransactions."""
+
 from datetime import datetime, timezone
 
 from flask_babel import gettext as _
@@ -62,9 +63,7 @@ def get_transactions_count_for_patron(patron_pid, status=None):
     return query.source().count()
 
 
-def get_transactions_total_amount_for_patron(
-    patron_pid, status=None, types=None, with_subscription=True
-):
+def get_transactions_total_amount_for_patron(patron_pid, status=None, types=None, with_subscription=True):
     """Get total amount transactions linked to a patron.
 
     :param patron_pid: the patron pid being searched
@@ -101,9 +100,7 @@ def get_last_transaction_by_loan_pid(loan_pid, status=None):
         return None
 
 
-def create_patron_transaction_from_overdue_loan(
-    loan, dbcommit=True, reindex=True, delete_pid=False
-):
+def create_patron_transaction_from_overdue_loan(loan, dbcommit=True, reindex=True, delete_pid=False):
     """Create a patron transaction for an overdue loan."""
     from ..loans.utils import sum_for_fees
 
@@ -119,18 +116,12 @@ def create_patron_transaction_from_overdue_loan(
             "note": _("incremental overdue fees"),
             "total_amount": total_amount,
             "creation_date": datetime.now(timezone.utc).isoformat(),
-            "steps": [
-                {"timestamp": fee[1].isoformat(), "amount": fee[0]} for fee in fees
-            ],
+            "steps": [{"timestamp": fee[1].isoformat(), "amount": fee[0]} for fee in fees],
         }
-        return PatronTransaction.create(
-            data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
-        )
+        return PatronTransaction.create(data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid)
 
 
-def create_patron_transaction_from_notification(
-    notification=None, dbcommit=None, reindex=None, delete_pid=None
-):
+def create_patron_transaction_from_notification(notification=None, dbcommit=None, reindex=None, delete_pid=None):
     """Create a patron transaction from notification."""
     from ..notifications.utils import calculate_notification_amount
 
@@ -140,17 +131,13 @@ def create_patron_transaction_from_notification(
             "notification": {"$ref": get_ref_for_pid("notif", notification.pid)},
             "loan": {"$ref": get_ref_for_pid("loans", notification.loan_pid)},
             "patron": {"$ref": get_ref_for_pid("ptrn", notification.patron_pid)},
-            "organisation": {
-                "$ref": get_ref_for_pid("org", notification.organisation_pid)
-            },
+            "organisation": {"$ref": get_ref_for_pid("org", notification.organisation_pid)},
             "total_amount": total_amount,
             "creation_date": datetime.now(timezone.utc).isoformat(),
             "type": "overdue",
             "status": "open",
         }
-        return PatronTransaction.create(
-            data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
-        )
+        return PatronTransaction.create(data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid)
 
 
 def create_subscription_for_patron(
@@ -185,13 +172,7 @@ def create_subscription_for_patron(
             "creation_date": datetime.now(timezone.utc).isoformat(),
             "type": "subscription",
             "status": "open",
-            "note": _(
-                "Subscription for '{name}' from {start} to {end}".format(
-                    name=name, start=start, end=end
-                )
-            ),
+            "note": _("Subscription for '{name}' from {start} to {end}".format(name=name, start=start, end=end)),
         }
-        record = PatronTransaction.create(
-            data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
-        )
+        record = PatronTransaction.create(data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid)
     return record

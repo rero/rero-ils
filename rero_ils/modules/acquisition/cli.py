@@ -35,9 +35,7 @@ def acquisition():
 
 @acquisition.command("rollover")
 @click.argument("origin_budget_pid", type=str)
-@click.option(
-    "-d", "--destination", "dest_budget_pid", type=str, help="Destination budget pid"
-)
+@click.option("-d", "--destination", "dest_budget_pid", type=str, help="Destination budget pid")
 @click.option(
     "-i",
     "--interactive",
@@ -53,9 +51,7 @@ def acquisition():
     help="Create a new destination budget resource",
 )
 @click.option("--budget-name", "budget_name", help="The new budget name")
-@click.option(
-    "--budget-start-date", "budget_start_date", help="The new budget start-date"
-)
+@click.option("--budget-start-date", "budget_start_date", help="The new budget start-date")
 @click.option("--budget-end-date", "budget_end_date", help="The new budget end-date")
 @click.option("--logging_file", "logging_file", help="Logging file name", default=None)
 @with_appcontext

@@ -23,9 +23,7 @@ from rero_ils.modules.locations.api import Location
 from tests.utils import postdata
 
 
-def test_ilsrecord_pid_after_validationerror(
-    client, loc_online_martigny_data, librarian_martigny
-):
+def test_ilsrecord_pid_after_validationerror(client, loc_online_martigny_data, librarian_martigny):
     """Check PID before and after a ValidationError: it should be the same"""
     loc = Location.create(loc_online_martigny_data, delete_pid=True)
     next_pid = str(int(loc.pid) + 1)

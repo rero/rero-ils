@@ -18,7 +18,6 @@
 
 """API for manipulating documents."""
 
-
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
@@ -52,9 +51,7 @@ from .extensions import (
 from .models import DocumentIdentifier, DocumentMetadata
 
 # provider
-DocumentProvider = type(
-    "DocumentProvider", (Provider,), dict(identifier=DocumentIdentifier, pid_type="doc")
-)
+DocumentProvider = type("DocumentProvider", (Provider,), dict(identifier=DocumentIdentifier, pid_type="doc"))
 # minter
 document_id_minter = partial(id_minter, provider=DocumentProvider)
 # fetcher
@@ -74,9 +71,7 @@ class DocumentsSearch(IlsRecordsSearch):
 
         default_filter = None
 
-    def by_entity(
-        self, entity, subjects=True, imported_subjects=True, genre_forms=True
-    ):
+    def by_entity(self, entity, subjects=True, imported_subjects=True, genre_forms=True):
         """Build a search to get hits related to an entity.
 
         :param entity: the entity record to search.
@@ -264,9 +259,7 @@ class Document(IlsRecord):
 
         # -------------- Holdings --------------------
         # get the number of available and electronic holdings
-        n_available_holdings, n_electronic_holdings = cls.get_n_available_holdings(
-            pid, org_pid
-        )
+        n_available_holdings, n_electronic_holdings = cls.get_n_available_holdings(pid, org_pid)
 
         # available if an electronic holding exists
         if n_electronic_holdings:
@@ -320,12 +313,8 @@ class Document(IlsRecord):
             exclude_states=[LoanState.CANCELLED, LoanState.ITEM_RETURNED],
         )
         file_query = self.get_records_files_query().source()
-        acq_order_lines_query = AcqOrderLinesSearch().filter(
-            "term", document__pid=self.pid
-        )
-        local_fields_query = LocalFieldsSearch().get_local_fields(
-            self.provider.pid_type, self.pid
-        )
+        acq_order_lines_query = AcqOrderLinesSearch().filter("term", document__pid=self.pid)
+        local_fields_query = LocalFieldsSearch().get_local_fields(self.provider.pid_type, self.pid)
         relation_types = {
             "partOf": "partOf.document.pid",
             "supplement": "supplement.pid",
@@ -379,15 +368,11 @@ class Document(IlsRecord):
         """Creates an es query to retrieves the record files."""
         ext = current_app.extensions["rero-invenio-files"]
         sfr = ext.records_service
-        search = sfr.search_request(
-            system_identity, dict(size=1), sfr.record_cls, sfr.config.search
-        )
+        search = sfr.search_request(system_identity, dict(size=1), sfr.record_cls, sfr.config.search)
         # required to avoid exception during the `count()` call
         # TODO: remove this once the issue is solved
         search._params = {}
-        search = search.source(["uuid", "id"]).filter(
-            "term", metadata__document__pid=self.pid
-        )
+        search = search.source(["uuid", "id"]).filter("term", metadata__document__pid=self.pid)
         # filter by library pids
         if lib_pids:
             search = search.filter("terms", metadata__library__pid=lib_pids)
@@ -443,12 +428,7 @@ class Document(IlsRecord):
 
         a serial document has mode_of_issuance main_type equal to rdami:1003
         """
-        es_documents = (
-            DocumentsSearch()
-            .filter("term", issuance__main_type="rdami:1003")
-            .source(["pid"])
-            .scan()
-        )
+        es_documents = DocumentsSearch().filter("term", issuance__main_type="rdami:1003").source(["pid"]).scan()
         for es_document in es_documents:
             yield es_document.pid
 
@@ -463,10 +443,7 @@ class Document(IlsRecord):
         criteria = Q("term", nested_identifiers__type=IdentifierType.ISSN)
         criteria &= Q("term", nested_identifiers__value__raw=issn_number)
         es_documents = (
-            DocumentsSearch()
-            .filter("nested", path="nested_identifiers", query=criteria)
-            .source("pid")
-            .scan()
+            DocumentsSearch().filter("nested", path="nested_identifiers", query=criteria).source("pid").scan()
         )
         for es_document in es_documents:
             yield es_document.pid
@@ -519,15 +496,9 @@ class Document(IlsRecord):
         for electronic_locator in electronic_locators:
             e_content = electronic_locator.get("content")
             e_type = electronic_locator.get("type")
-            if (
-                e_content == "coverImage"
-                and e_type == "relatedResource"
-                and electronic_locator.get("url") == url
-            ):
+            if e_content == "coverImage" and e_type == "relatedResource" and electronic_locator.get("url") == url:
                 return self, False
-        electronic_locators.append(
-            {"content": "coverImage", "type": "relatedResource", "url": url}
-        )
+        electronic_locators.append({"content": "coverImage", "type": "relatedResource", "url": url})
         self["electronicLocator"] = electronic_locators
         self = self.update(data=self, commit=True, dbcommit=dbcommit, reindex=reindex)
         return self, True

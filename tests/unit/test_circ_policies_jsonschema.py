@@ -76,9 +76,7 @@ def test_circ_policy_org(circ_policy_schema, circ_policy_martigny_data_tmp):
         validate(circ_policy_martigny_data_tmp, circ_policy_schema)
 
 
-def test_circ_policy_renewal_duration(
-    circ_policy_schema, circ_policy_martigny_data_tmp
-):
+def test_circ_policy_renewal_duration(circ_policy_schema, circ_policy_martigny_data_tmp):
     """Test renewal_duration for circulation policy jsonschema."""
     validate(circ_policy_martigny_data_tmp, circ_policy_schema)
 
@@ -87,9 +85,7 @@ def test_circ_policy_renewal_duration(
         validate(circ_policy_martigny_data_tmp, circ_policy_schema)
 
 
-def test_circ_policy_checkout_duration(
-    circ_policy_schema, circ_policy_martigny_data_tmp
-):
+def test_circ_policy_checkout_duration(circ_policy_schema, circ_policy_martigny_data_tmp):
     """Test checkout_duration for circulation policy jsonschema."""
     validate(circ_policy_martigny_data_tmp, circ_policy_schema)
 

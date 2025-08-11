@@ -66,10 +66,7 @@ def _indexing_records(record_ids):
 
     LOGGER.info(f"Indexing {len(record_ids)} records ....")
     indexer = DocumentsIndexer()
-    chunks = [
-        record_ids[x : x + indexing_chunck_size]
-        for x in range(0, len(record_ids), indexing_chunck_size)
-    ]
+    chunks = [record_ids[x : x + indexing_chunck_size] for x in range(0, len(record_ids), indexing_chunck_size)]
     for chuncked_ids in chunks:
         indexer.bulk_index(chuncked_ids)
         _, (indexer_count, error_count) = indexer.process_bulk_queue()

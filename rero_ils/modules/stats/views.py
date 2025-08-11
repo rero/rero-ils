@@ -68,16 +68,9 @@ def stats_billing():
     Note: includes old statistics where the field type was absent.
     """
     f = ~Q("exists", field="type") | Q("term", type=StatType.BILLING)
-    search = (
-        StatsSearch()
-        .filter("bool", must=[f])
-        .sort("-_created")
-        .source(["pid", "_created"])
-    )
+    search = StatsSearch().filter("bool", must=[f]).sort("-_created").source(["pid", "_created"])
     hits = search[:100].execute().to_dict()
-    return render_template(
-        "rero_ils/stats_list.html", records=hits["hits"]["hits"], type=StatType.BILLING
-    )
+    return render_template("rero_ils/stats_list.html", records=hits["hits"]["hits"], type=StatType.BILLING)
 
 
 @blueprint.route("/live", methods=["GET"])
@@ -86,9 +79,7 @@ def live_stats_billing():
     """Show the current billing stats values."""
     now = arrow.utcnow()
     stats = StatsForPricing(to_date=now).collect()
-    return render_template(
-        "rero_ils/detailed_view_stats.html", record=dict(created=now, values=stats)
-    )
+    return render_template("rero_ils/detailed_view_stats.html", record=dict(created=now, values=stats))
 
 
 @blueprint.route("/librarian", methods=["GET"])
@@ -102,9 +93,7 @@ def stats_librarian():
         .source(["pid", "_created", "date_range"])
     )
     hits = search[:100].execute().to_dict()
-    return render_template(
-        "rero_ils/stats_list.html", records=hits["hits"]["hits"], type="librarian"
-    )
+    return render_template("rero_ils/stats_list.html", records=hits["hits"]["hits"], type="librarian")
 
 
 @blueprint.route("/librarian/<record_pid>/csv")
@@ -144,9 +133,7 @@ def stats_librarian_queries(record_pid):
         ]
         w.writerow(fieldnames)
         for result in record["values"]:
-            transaction_library = (
-                f"{result['library']['pid']}: {result['library']['name']}"
-            )
+            transaction_library = f"{result['library']['pid']}: {result['library']['name']}"
 
             if not result[query_id]:
                 w.writerow((transaction_library, "-", "-", 0, 0))

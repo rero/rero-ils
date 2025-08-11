@@ -93,14 +93,14 @@ class Monitoring(object):
             5. elasticsearch count
         """
         result = ""
-        msg_head = f'DB - ES{"type":>8}{"count":>11}{"index":>27}{"count":>11}'
-        msg_head += f'\n{"":-^64s}\n'
+        msg_head = f"DB - ES{'type':>8}{'count':>11}{'index':>27}{'count':>11}"
+        msg_head += f"\n{'':-^64s}\n"
         for doc_type, info in sorted(self.info().items()):
             db_es = info.get("db-es", "")
             count_db = info.get("db", "")
             msg = f"{db_es:>7}  {doc_type:>6} {count_db:>10}"
             if index := info.get("index", ""):
-                msg += f'  {index:>25} {info.get("es", ""):>10}'
+                msg += f"  {index:>25} {info.get('es', ''):>10}"
             result += msg + "\n"
         return msg_head + result
 
@@ -179,17 +179,13 @@ class Monitoring(object):
         if index and doc_type not in self.has_no_db:
             date = datetime.utcnow() - timedelta(minutes=self.time_delta)
             pids_es = {}
-            es_query = RecordsSearch(index=index).filter(
-                "range", _created={"lte": date}
-            )
+            es_query = RecordsSearch(index=index).filter("range", _created={"lte": date})
             for hit in es_query.source("pid").scan():
                 if pids_es.get(hit.pid):
                     pids_es_double.append(hit.pid)
                 pids_es[hit.pid] = 1
             pids_db = []
-            for pid in self.get_all_pids(
-                doc_type, with_deleted=with_deleted, date=date
-            ):
+            for pid in self.get_all_pids(doc_type, with_deleted=with_deleted, date=date):
                 if pids_es.get(pid):
                     pids_es.pop(pid)
                 else:
@@ -206,15 +202,11 @@ class Monitoring(object):
         elasticsearch count information.
         """
         info = {}
-        for doc_type, endpoint in current_app.config.get(
-            "RECORDS_REST_ENDPOINTS"
-        ).items():
+        for doc_type, endpoint in current_app.config.get("RECORDS_REST_ENDPOINTS").items():
             info[doc_type] = {}
             date = datetime.utcnow() - timedelta(minutes=self.time_delta)
             if doc_type not in self.has_no_db:
-                count_db = self.get_db_count(
-                    doc_type, with_deleted=with_deleted, date=date
-                )
+                count_db = self.get_db_count(doc_type, with_deleted=with_deleted, date=date)
                 count_db = count_db if isinstance(count_db, int) else 0
                 info[doc_type]["db"] = count_db
             if index := endpoint.get("search_index", ""):
@@ -226,10 +218,8 @@ class Monitoring(object):
                 if doc_type not in self.has_no_db:
                     info[doc_type]["db-es"] = db_es
                     if db_es == 0 and difference_db_es:
-                        missing_in_db, missing_in_es, pids_es_double, index = (
-                            self.get_es_db_missing_pids(
-                                doc_type=doc_type, with_deleted=with_deleted
-                            )
+                        missing_in_db, missing_in_es, pids_es_double, index = self.get_es_db_missing_pids(
+                            doc_type=doc_type, with_deleted=with_deleted
                         )
                         if index:
                             if missing_in_db:
@@ -249,9 +239,7 @@ class Monitoring(object):
         database and elasticsearch counts.
         """
         checks = {}
-        for info, data in self.info(
-            with_deleted=with_deleted, difference_db_es=difference_db_es
-        ).items():
+        for info, data in self.info(with_deleted=with_deleted, difference_db_es=difference_db_es).items():
             db_es = data.get("db-es", "")
             if db_es and db_es not in [0, ""]:
                 checks.setdefault(info, {})
@@ -273,8 +261,8 @@ class Monitoring(object):
         :param doc_type: doc type to get missing pids.
         :return: dictionary with all missing pids.
         """
-        missing_in_db, missing_in_es, pids_es_double, index = (
-            self.get_es_db_missing_pids(doc_type=doc_type, with_deleted=with_deleted)
+        missing_in_db, missing_in_es, pids_es_double, index = self.get_es_db_missing_pids(
+            doc_type=doc_type, with_deleted=with_deleted
         )
         if index:
             return {
@@ -292,19 +280,14 @@ class Monitoring(object):
         """
         missing = self.missing(doc_type=doc_type)
         if "ERROR" in missing:
-            click.secho(f'Error: {missing["ERROR"]}', fg="yellow")
+            click.secho(f"Error: {missing['ERROR']}", fg="yellow")
         else:
             if "ES duplicate" in missing and missing["ES duplicate"]:
                 click.secho(
-                    f"ES duplicate {doc_type}:"
-                    f' {", ".join(missing["ES duplicate"])}',
+                    f"ES duplicate {doc_type}: {', '.join(missing['ES duplicate'])}",
                     fg="red",
                 )
             if "ES" in missing and missing["ES"]:
-                click.secho(
-                    f'ES missing {doc_type}: {", ".join(missing["ES"])}', fg="red"
-                )
+                click.secho(f"ES missing {doc_type}: {', '.join(missing['ES'])}", fg="red")
             if "DB" in missing and missing["DB"]:
-                click.secho(
-                    f'DB missing {doc_type}: {", ".join(missing["DB"])}', fg="red"
-                )
+                click.secho(f"DB missing {doc_type}: {', '.join(missing['DB'])}", fg="red")

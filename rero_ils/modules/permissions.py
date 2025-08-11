@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for all modules."""
+
 import contextlib
 import re
 from copy import deepcopy
@@ -93,9 +94,7 @@ def manage_role_permissions(method, action_name, role_name):
 
     current_access.delete_action_cache(Permission._cache_key(action))
     with db.session.begin_nested():
-        ActionRoles.query_by_action(action).filter(ActionRoles.role == role).delete(
-            synchronize_session=False
-        )
+        ActionRoles.query_by_action(action).filter(ActionRoles.role == role).delete(synchronize_session=False)
         if method == "allow":
             db.session.add(ActionRoles.allow(action, role=role))
     db.session.commit()
@@ -111,9 +110,7 @@ def record_permissions(record_pid=None, route_name=None):
     :return: a JSON object containing permissions for the requested resource.
     """
     try:
-        rec_class, record_permissions_factory = (
-            get_record_class_and_permissions_from_route(route_name)
-        )
+        rec_class, record_permissions_factory = get_record_class_and_permissions_from_route(route_name)
 
         permissions = {"list": {"can": True}, "create": {"can": True}}
         # To check create and list permissions, we don't need to check if the
@@ -121,9 +118,7 @@ def record_permissions(record_pid=None, route_name=None):
         # `None` value as record.
         for action in ["list", "create"]:
             if record_permissions_factory[action]:
-                permissions[action]["can"] = record_permissions_factory[action](
-                    record=None
-                ).can()
+                permissions[action]["can"] = record_permissions_factory[action](record=None).can()
 
         # If record_pid is not None, we can check about others permissions
         # (read, update, delete)
@@ -147,12 +142,8 @@ def record_permissions(record_pid=None, route_name=None):
 
             # To check if the record could be update, just call the update
             # permission factory to get the answer
-            permissions["read"]["can"] = record_permissions_factory["read"](
-                record=record
-            ).can()
-            permissions["update"]["can"] = record_permissions_factory["update"](
-                record=record
-            ).can()
+            permissions["read"]["can"] = record_permissions_factory["read"](record=record).can()
+            permissions["update"]["can"] = record_permissions_factory["update"](record=record).can()
 
             # We have two behaviors for 'can_delete'. Either the record has
             # linked resources and so children resources should be deleted
@@ -162,10 +153,7 @@ def record_permissions(record_pid=None, route_name=None):
             if hasattr(record, "can_delete"):
                 # standard ILS case
                 can_delete, reasons = record.can_delete
-                permissions["delete"]["can"] = (
-                    can_delete
-                    and record_permissions_factory["delete"](record=record).can()
-                )
+                permissions["delete"]["can"] = can_delete and record_permissions_factory["delete"](record=record).can()
                 if not permissions["delete"]["can"] and not reasons:
                     # in this case, it's because config delete factory return
                     # `False`, so the reason is 'Permission denied'
@@ -173,9 +161,7 @@ def record_permissions(record_pid=None, route_name=None):
                 permissions["delete"]["reasons"] = reasons
             else:
                 # invenio records resource case
-                permissions["delete"]["can"] = record_permissions_factory["delete"](
-                    record=record
-                ).can()
+                permissions["delete"]["can"] = record_permissions_factory["delete"](record=record).can()
 
         return jsonify(permissions)
     except Exception as error:
@@ -231,9 +217,7 @@ def expose_action_needs_by_role(roles=None):
     def _perform_system_role(role_names):
         if not role_names:
             return
-        query = ActionSystemRoles.query.filter(
-            ActionSystemRoles.role_name.in_(role_names)
-        ).all()
+        query = ActionSystemRoles.query.filter(ActionSystemRoles.role_name.in_(role_names)).all()
         for row in query:
             matrix.setdefault(
                 row.role_name,
@@ -247,9 +231,9 @@ def expose_action_needs_by_role(roles=None):
         role_ids = [r.id for r in roles_query.all()]
         query = ActionRoles.query.filter(ActionRoles.role_id.in_(role_ids)).all()
         for row in query:
-            matrix.setdefault(
-                row.role.name, {"type": "role", "actions": deepcopy(actions_list)}
-            )["actions"][row.action] = not row.exclude
+            matrix.setdefault(row.role.name, {"type": "role", "actions": deepcopy(actions_list)})["actions"][
+                row.action
+            ] = not row.exclude
 
     actions_list = {action: None for action in current_access.actions}
     matrix = {}
@@ -276,8 +260,7 @@ def expose_action_needs_by_patron(patron):
     base_reasons.update({"user": None, "any_user": None, "authenticated_user": None})
 
     permissions_matrix = {
-        action: {"name": action, "can": False, "reasons": deepcopy(base_reasons)}
-        for action in current_access.actions
+        action: {"name": action, "can": False, "reasons": deepcopy(base_reasons)} for action in current_access.actions
     }
 
     # Load specific ActionRoles permissions from Invenio-access and store them
@@ -298,9 +281,7 @@ def expose_action_needs_by_patron(patron):
     # Load specific ActionSystemRoles permissions form Invenio-access and store
     # them into the permission_matrix.
     system_roles_to_check = ["any_user", "authenticated_user"]
-    query = ActionSystemRoles.query.filter(
-        ActionSystemRoles.role_name.in_(system_roles_to_check)
-    )
+    query = ActionSystemRoles.query.filter(ActionSystemRoles.role_name.in_(system_roles_to_check))
     for row in query.all():
         with contextlib.suppress(KeyError):
             permissions_matrix[row.action]["reasons"][row.role_name] = not row.exclude
@@ -425,9 +406,7 @@ class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
             ``patron_pid`` record attribute will be used.
         :param record_mapper: A function used to transform the record.
         """
-        self.patron_callback = patron_callback or (
-            lambda r: getattr(r, "patron_pid", None)
-        )
+        self.patron_callback = patron_callback or (lambda r: getattr(r, "patron_pid", None))
         self.record_mapper = record_mapper
         super().__init__(action)
 
@@ -466,9 +445,7 @@ class DisallowedIfRollovered(Generator):
             otherwise True.
         """
         self.record_cls = record_cls
-        self.is_rollovered = callback or (
-            lambda record: not getattr(record, "is_active", True)
-        )
+        self.is_rollovered = callback or (lambda record: not getattr(record, "is_active", True))
 
     def excludes(self, record=None, **kwargs):
         """Disallow operation check.

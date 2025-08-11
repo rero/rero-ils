@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common pytest fixtures and plugins."""
+
 from copy import deepcopy
 
 import mock
@@ -48,9 +49,7 @@ def vendor_martigny_data(acquisition):
 @pytest.fixture(scope="module")
 def vendor_martigny(app, org_martigny, vendor_martigny_data):
     """Load vendor record."""
-    vendor = Vendor.create(
-        data=vendor_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    vendor = Vendor.create(data=vendor_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     VendorsSearch.flush_and_refresh()
     return vendor
 
@@ -58,9 +57,7 @@ def vendor_martigny(app, org_martigny, vendor_martigny_data):
 @pytest.fixture(scope="module")
 def vendor_martigny_tmp(app, org_martigny, vendor_martigny):
     """Load vendor record."""
-    vendor = Vendor.create(
-        data=vendor_martigny, delete_pid=True, dbcommit=True, reindex=True
-    )
+    vendor = Vendor.create(data=vendor_martigny, delete_pid=True, dbcommit=True, reindex=True)
     VendorsSearch.flush_and_refresh()
     return vendor
 
@@ -74,9 +71,7 @@ def vendor2_martigny_data(acquisition):
 @pytest.fixture(scope="module")
 def vendor2_martigny(app, org_martigny, vendor2_martigny_data):
     """Load vendor record."""
-    vendor = Vendor.create(
-        data=vendor2_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    vendor = Vendor.create(data=vendor2_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     VendorsSearch.flush_and_refresh()
     return vendor
 
@@ -90,9 +85,7 @@ def vendor3_martigny_data(acquisition):
 @pytest.fixture(scope="module")
 def vendor3_martigny(app, org_martigny, vendor3_martigny_data):
     """Load vendor record."""
-    vendor = Vendor.create(
-        data=vendor3_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    vendor = Vendor.create(data=vendor3_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     VendorsSearch.flush_and_refresh()
     return vendor
 
@@ -106,9 +99,7 @@ def vendor_sion_data(acquisition):
 @pytest.fixture(scope="module")
 def vendor_sion(app, org_sion, vendor_sion_data):
     """Load vendor record."""
-    vendor = Vendor.create(
-        data=vendor_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    vendor = Vendor.create(data=vendor_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     VendorsSearch.flush_and_refresh()
     return vendor
 
@@ -122,9 +113,7 @@ def vendor2_sion_data(acquisition):
 @pytest.fixture(scope="module")
 def vendor2_sion(app, org_sion, vendor2_sion_data):
     """Load vendor record."""
-    vendor = Vendor.create(
-        data=vendor2_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    vendor = Vendor.create(data=vendor2_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     VendorsSearch.flush_and_refresh()
     return vendor
 
@@ -168,9 +157,7 @@ def budget_2017_martigny_data(acquisition):
 @pytest.fixture(scope="module")
 def budget_2017_martigny(app, org_martigny, budget_2017_martigny_data):
     """Load budget 2017 martigny record."""
-    budget = Budget.create(
-        data=budget_2017_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    budget = Budget.create(data=budget_2017_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     BudgetsSearch.flush_and_refresh()
     return budget
 
@@ -178,9 +165,7 @@ def budget_2017_martigny(app, org_martigny, budget_2017_martigny_data):
 @pytest.fixture(scope="module")
 def budget_2018_martigny(app, org_martigny, budget_2018_martigny_data):
     """Load budget 2018 martigny record."""
-    budget = Budget.create(
-        data=budget_2018_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    budget = Budget.create(data=budget_2018_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     BudgetsSearch.flush_and_refresh()
     return budget
 
@@ -188,9 +173,7 @@ def budget_2018_martigny(app, org_martigny, budget_2018_martigny_data):
 @pytest.fixture(scope="module")
 def budget_2020_martigny(app, org_martigny, budget_2020_martigny_data):
     """Load budget 2020 martigny record."""
-    budget = Budget.create(
-        data=budget_2020_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    budget = Budget.create(data=budget_2020_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     BudgetsSearch.flush_and_refresh()
     return budget
 
@@ -198,9 +181,7 @@ def budget_2020_martigny(app, org_martigny, budget_2020_martigny_data):
 @pytest.fixture(scope="module")
 def budget_2019_martigny(app, org_martigny, budget_2019_martigny_data):
     """Load budget 2019 martigny record."""
-    budget = Budget.create(
-        data=budget_2019_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    budget = Budget.create(data=budget_2019_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     BudgetsSearch.flush_and_refresh()
     return budget
 
@@ -208,9 +189,7 @@ def budget_2019_martigny(app, org_martigny, budget_2019_martigny_data):
 @pytest.fixture(scope="module")
 def budget_2020_sion(app, org_sion, budget_2020_sion_data):
     """Load budget 2020 sion record."""
-    budget = Budget.create(
-        data=budget_2020_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    budget = Budget.create(data=budget_2020_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     BudgetsSearch.flush_and_refresh()
     return budget
 
@@ -228,9 +207,7 @@ def acq_account_fiction_martigny_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_account_fiction_martigny(
-    app, lib_martigny, acq_account_fiction_martigny_data, budget_2020_martigny
-):
+def acq_account_fiction_martigny(app, lib_martigny, acq_account_fiction_martigny_data, budget_2020_martigny):
     """Load acq_account lib martigny fiction record."""
     acac = AcqAccount.create(
         data=acq_account_fiction_martigny_data,
@@ -249,9 +226,7 @@ def acq_account_books_martigny_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_account_books_martigny(
-    app, lib_martigny, acq_account_books_martigny_data, budget_2020_martigny
-):
+def acq_account_books_martigny(app, lib_martigny, acq_account_books_martigny_data, budget_2020_martigny):
     """Load acq_account lib martigny books record."""
     acac = AcqAccount.create(
         data=acq_account_books_martigny_data,
@@ -270,13 +245,9 @@ def acq_account_books_saxon_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_account_books_saxon(
-    app, lib_saxon, acq_account_books_saxon_data, budget_2020_martigny
-):
+def acq_account_books_saxon(app, lib_saxon, acq_account_books_saxon_data, budget_2020_martigny):
     """Load acq_account lib saxon books record."""
-    acac = AcqAccount.create(
-        data=acq_account_books_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    acac = AcqAccount.create(data=acq_account_books_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     AcqAccountsSearch.flush_and_refresh()
     return acac
 
@@ -288,9 +259,7 @@ def acq_account_general_fully_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_account_general_fully(
-    app, lib_fully, acq_account_general_fully_data, budget_2020_martigny
-):
+def acq_account_general_fully(app, lib_fully, acq_account_general_fully_data, budget_2020_martigny):
     """Load acq_account lib fully general record."""
     acac = AcqAccount.create(
         data=acq_account_general_fully_data,
@@ -309,9 +278,7 @@ def acq_account_fiction_sion_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_account_fiction_sion(
-    app, lib_sion, acq_account_fiction_sion_data, budget_2020_sion
-):
+def acq_account_fiction_sion(app, lib_sion, acq_account_fiction_sion_data, budget_2020_sion):
     """Load acq_account lib sion fiction record."""
     acac = AcqAccount.create(
         data=acq_account_fiction_sion_data,
@@ -330,9 +297,7 @@ def acq_account_general_aproz_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_account_general_aproz(
-    app, lib_saxon, acq_account_general_aproz_data, budget_2020_sion
-):
+def acq_account_general_aproz(app, lib_saxon, acq_account_general_aproz_data, budget_2020_sion):
     """Load acq_account lib aproz general record."""
     acac = AcqAccount.create(
         data=acq_account_general_aproz_data,
@@ -357,9 +322,7 @@ def acq_order_fiction_martigny_data_tmp(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_order_fiction_martigny(
-    app, lib_martigny, vendor_martigny, acq_order_fiction_martigny_data
-):
+def acq_order_fiction_martigny(app, lib_martigny, vendor_martigny, acq_order_fiction_martigny_data):
     """Load acq_order lib martigny fiction record."""
     acor = AcqOrder.create(
         data=acq_order_fiction_martigny_data,
@@ -477,13 +440,9 @@ def acq_order_fiction_saxon_data(acquisition):
 
 
 @pytest.fixture(scope="module")
-def acq_order_fiction_saxon(
-    app, lib_saxon, vendor2_martigny, acq_order_fiction_saxon_data
-):
+def acq_order_fiction_saxon(app, lib_saxon, vendor2_martigny, acq_order_fiction_saxon_data):
     """Load acq_order lib saxon fiction record."""
-    acor = AcqOrder.create(
-        data=acq_order_fiction_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    acor = AcqOrder.create(data=acq_order_fiction_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     AcqOrdersSearch.flush_and_refresh()
     return acor
 
@@ -560,9 +519,7 @@ def acq_order_fiction_sion_data(acquisition):
 @pytest.fixture(scope="module")
 def acq_order_fiction_sion(app, lib_sion, vendor_sion, acq_order_fiction_sion_data):
     """Load acq_order lib sion fiction record."""
-    acor = AcqOrder.create(
-        data=acq_order_fiction_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    acor = AcqOrder.create(data=acq_order_fiction_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     AcqOrdersSearch.flush_and_refresh()
     return acor
 

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """LocalizedAuthorizedAccessPoint dumper."""
+
 from invenio_records.dumpers import Dumper
 
 from rero_ils.utils import get_i18n_supported_languages
@@ -32,7 +33,5 @@ class LocalizedAuthorizedAccessPointDumper(Dumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         for language in get_i18n_supported_languages():
-            data[f"authorized_access_point_{language}"] = (
-                record.get_authorized_access_point(language)
-            )
+            data[f"authorized_access_point_{language}"] = record.get_authorized_access_point(language)
         return data

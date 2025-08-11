@@ -24,9 +24,7 @@ from jsonref import JsonRefError
 
 def test_locations_jsonresolver(loc_public_martigny):
     """Test location json resolver."""
-    rec = Record.create(
-        {"location": {"$ref": "https://bib.rero.ch/api/locations/loc1"}}
-    )
+    rec = Record.create({"location": {"$ref": "https://bib.rero.ch/api/locations/loc1"}})
     assert rec.replace_refs().get("location") == {"type": "loc", "pid": "loc1"}
 
     # deleted record

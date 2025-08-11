@@ -64,11 +64,7 @@ class PatronTransactionExtension(RecordExtension):
         """Add overdue informations on Patron Transaction Event."""
         if record.get("type") == "overdue":
             data["subtype"] = "overdue"
-            library_pid = (
-                record.loan.library_pid
-                if record.loan_pid
-                else record.notification_transaction_library_pid
-            )
+            library_pid = record.loan.library_pid if record.loan_pid else record.notification_transaction_library_pid
             if library_pid:
                 data["library"] = {"$ref": get_ref_for_pid("lib", library_pid)}
         return data

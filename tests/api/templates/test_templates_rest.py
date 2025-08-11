@@ -140,9 +140,7 @@ def test_templates_post_put_delete(
     item_url = url_for("invenio_records_rest.tmpl_item", pid_value="foo1")
     list_url = url_for("invenio_records_rest.tmpl_list", q="pid:foo1")
     templ_doc_private_martigny_data_tmp["pid"] = "foo1"
-    res, data = postdata(
-        client, "invenio_records_rest.tmpl_list", templ_doc_private_martigny_data_tmp
-    )
+    res, data = postdata(client, "invenio_records_rest.tmpl_list", templ_doc_private_martigny_data_tmp)
     assert res.status_code == 201
 
     # Check that the returned template matches the given data
@@ -287,9 +285,7 @@ def test_template_secure_api_update(
     """Test templates secure api update."""
     # Martigny
     login_user_via_session(client, system_librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.tmpl_item", pid_value=templ_doc_private_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.tmpl_item", pid_value=templ_doc_private_martigny.pid)
 
     original_data = deepcopy(templ_doc_private_martigny_data)
     data = templ_doc_private_martigny_data
@@ -386,9 +382,7 @@ def test_template_update_visibility(
     login_user_via_session(client, system_librarian_martigny.user)
     tmpl_data = deepcopy(templ_doc_private_martigny_data_tmp)
     del tmpl_data["pid"]
-    tmpl_data["creator"]["$ref"] = get_ref_for_pid(
-        "ptrn", system_librarian_martigny.pid
-    )
+    tmpl_data["creator"]["$ref"] = get_ref_for_pid("ptrn", system_librarian_martigny.pid)
 
     res, res_data = postdata(client, post_entrypoint, tmpl_data)
     assert res.status_code == 201

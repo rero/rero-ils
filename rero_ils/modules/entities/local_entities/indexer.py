@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Local entity indexer APIs."""
+
 from datetime import datetime
 
 from celery import shared_task
@@ -59,9 +60,7 @@ class LocalEntitiesIndexer(IlsRecordsIndexer):
     def index(self, entity, arguments=None, **kwargs):
         """Index a Local entity record."""
         super().index(entity)
-        eta = datetime.utcnow() + current_app.config.get(
-            "RERO_ILS_INDEXER_TASK_DELAY", 0
-        )
+        eta = datetime.utcnow() + current_app.config.get("RERO_ILS_INDEXER_TASK_DELAY", 0)
         index_referenced_records.apply_async((entity,), eta=eta)
 
     def bulk_index(self, record_id_iterator):

@@ -26,9 +26,7 @@ def test_library_es_mapping(search, db, lib_martigny_data, org_martigny):
     search = LibrariesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    lib = Library.create(
-        lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    lib = Library.create(lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
     lib.delete(force=True, dbcommit=True, delindex=True)
 
@@ -37,10 +35,7 @@ def test_libraries_search_mapping(app, libraries_records):
     """Test library search mapping."""
     search = LibrariesSearch()
 
-    assert (
-        search.query("query_string", query="Fully Library Restricted Space").count()
-        == 4
-    )
+    assert search.query("query_string", query="Fully Library Restricted Space").count() == 4
     assert search.query("query_string", query="bibliothèque").count() == 1
     assert search.query("query_string", query="library AND Martigny").count() == 1
     assert search.query("match", name="Aproz").count() == 1

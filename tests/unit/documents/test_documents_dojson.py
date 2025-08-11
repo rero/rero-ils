@@ -40,18 +40,12 @@ from tests.utils import mock_response
 def test_not_repetetive(capsys):
     """Test the function not_repetetive."""
     data_dict = {"sub": ("first", "second")}
-    data = not_repetitive(
-        bibid="pid1", reroid="rero1", key="key", value=data_dict, subfield="sub"
-    )
+    data = not_repetitive(bibid="pid1", reroid="rero1", key="key", value=data_dict, subfield="sub")
     assert data == "first"
     out, err = capsys.readouterr()
-    assert (
-        out == f"WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{str(data_dict)}\t\n"
-    )
+    assert out == f"WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{str(data_dict)}\t\n"
     data = {"sub": "only"}
-    data = not_repetitive(
-        bibid="pid1", reroid="rero1", key="key", value=data, subfield="sub", default=""
-    )
+    data = not_repetitive(bibid="pid1", reroid="rero1", key="key", value=data, subfield="sub", default="")
     assert data == "only"
     out, err = capsys.readouterr()
     assert out == ""
@@ -78,9 +72,7 @@ def test_marc21_to_type():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("type") == [
-        {"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}
-    ]
+    assert data.get("type") == [{"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}]
 
     marc21xml = """
     <record>
@@ -866,14 +858,10 @@ def test_marc21_to_title_with_variant_without_subtitle():
         {
             "type": "bf:VariantTitle",
             "mainTitle": [{"value": "Travaux neuchâtelois de linguistique"}],
-            "part": [
-                {"partNumber": [{"value": "T. 1"}], "partName": [{"value": "Tome 1"}]}
-            ],
+            "part": [{"partNumber": [{"value": "T. 1"}], "partName": [{"value": "Tome 1"}]}],
         },
     ]
-    assert data.get("responsibilityStatement") == [
-        [{"value": "Institut de linguistique, UNINE"}]
-    ]
+    assert data.get("responsibilityStatement") == [[{"value": "Institut de linguistique, UNINE"}]]
 
 
 def test_marc21_to_title_with_variant_both_without_subtitle():
@@ -1117,9 +1105,7 @@ def test_marc21_to_language():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("language") == [
-        {"type": "bf:Language", "value": "ara", "note": "LANGUAGE NOTE"}
-    ]
+    assert data.get("language") == [{"type": "bf:Language", "value": "ara", "note": "LANGUAGE NOTE"}]
 
 
 @mock.patch("requests.Session.get")
@@ -1181,8 +1167,7 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
         },
         {
             "entity": {
-                "authorized_access_point": "Biennale de céramique contemporaine (17 : 2003 : "
-                "Châteauroux)",
+                "authorized_access_point": "Biennale de céramique contemporaine (17 : 2003 : Châteauroux)",
                 "type": "bf:Organisation",
             },
             "role": ["aut"],
@@ -1196,15 +1181,11 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
       </datafield>
     </record>
     """
-    mock_get.return_value = mock_response(
-        json_data={"pid": "test", "type": "bf:Person", "idref": {"pid": "XXXXXXXX"}}
-    )
+    mock_get.return_value = mock_response(json_data={"pid": "test", "type": "bf:Person", "idref": {"pid": "XXXXXXXX"}})
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     contribution = data.get("contribution")
-    assert contribution == [
-        {"entity": {"$ref": f"{mef_agents_url}/idref/XXXXXXXX"}, "role": ["cre"]}
-    ]
+    assert contribution == [{"entity": {"$ref": f"{mef_agents_url}/idref/XXXXXXXX"}, "role": ["cre"]}]
 
     marc21xml = """
     <record>
@@ -1980,9 +1961,7 @@ def test_marc21_to_provision_activity_1_place_1_agent_uncertain_date():
             "startDate": 1941,
         }
     ]
-    assert create_publication_statement(data.get("provisionActivity")[0]) == [
-        "Aurillac : Impr. moderne, [1941?]"
-    ]
+    assert create_publication_statement(data.get("provisionActivity")[0]) == ["Aurillac : Impr. moderne, [1941?]"]
 
 
 def test_marc21_to_provision_activity_1_place_1_agent_chi_hani():
@@ -2532,9 +2511,7 @@ def test_marc21_to_physical_description_plano():
     assert data.get("extent") == "116 p."
     assert data.get("bookFormat") == ["in-plano"]
     assert data.get("dimensions") == ["plano 22 cm"]
-    assert data.get("note") == [
-        {"noteType": "otherPhysicalDetails", "label": "litho photogravure gravure"}
-    ]
+    assert data.get("note") == [{"noteType": "otherPhysicalDetails", "label": "litho photogravure gravure"}]
 
 
 def test_marc21_to_physical_description_with_material_note():
@@ -2630,9 +2607,7 @@ def test_marc21_to_physical_description_ill_in_8():
     assert data.get("colorContent") == ["rdacc:1002"]
     assert data.get("bookFormat") == ["8ᵒ"]
     assert data.get("dimensions") == ["in-8, 22 cm"]
-    assert data.get("note") == [
-        {"noteType": "otherPhysicalDetails", "label": "litho Ill.en n. et bl."}
-    ]
+    assert data.get("note") == [{"noteType": "otherPhysicalDetails", "label": "litho Ill.en n. et bl."}]
 
 
 def test_marc21_to_physical_description_multiple_300():
@@ -2900,9 +2875,7 @@ def test_marc21_to_summary():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("summary") == [
-        {"label": [{"value": "This book is about"}], "source": "source"}
-    ]
+    assert data.get("summary") == [{"label": [{"value": "This book is about"}], "source": "source"}]
 
     marc21xml = """
     <record>
@@ -2965,9 +2938,7 @@ def test_marc21_to_intended_audience():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("intendedAudience") == [
-        {"audienceType": "undefined", "value": "Ado (12-15 ans)"}
-    ]
+    assert data.get("intendedAudience") == [{"audienceType": "undefined", "value": "Ado (12-15 ans)"}]
 
 
 def test_marc21_to_original_title_from_500():
@@ -3420,10 +3391,7 @@ def test_marc21_to_sequence_numbering_from_two_362():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert (
-        data.get("sequence_numbering")
-        == "1890-1891 ; 1892/1893 ; 1894-1896/1897 ; 1915/1917-1918/1921 ; 1929"
-    )
+    assert data.get("sequence_numbering") == "1890-1891 ; 1892/1893 ; 1894-1896/1897 ; 1915/1917-1918/1921 ; 1929"
 
 
 def test_marc21_to_table_of_contents_from_505():
@@ -3656,9 +3624,7 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("partOf") == [
-        {"document": {"$ref": "https://bib.rero.ch/api/documents/123456"}}
-    ]
+    assert data.get("partOf") == [{"document": {"$ref": "https://bib.rero.ch/api/documents/123456"}}]
 
     marc21xml = """
     <record>
@@ -3693,9 +3659,7 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("partOf") == [
-        {"document": {"$ref": "https://bib.rero.ch/api/documents/123456"}}
-    ]
+    assert data.get("partOf") == [{"document": {"$ref": "https://bib.rero.ch/api/documents/123456"}}]
 
     marc21xml = """
     <record>
@@ -3925,9 +3889,7 @@ def test_marc21_to_part_of_without_link():
             "seriesEnumeration": [{"value": "411"}],
         }
     ]
-    assert data.get("work_access_point") == [
-        {"title": "Stuart Hall : critical dialogues"}
-    ]
+    assert data.get("work_access_point") == [{"title": "Stuart Hall : critical dialogues"}]
 
     marc21xml = """
     <record>
@@ -4173,9 +4135,7 @@ def test_marc21_to_identified_by_from_024_snl_bnf():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("identifiedBy") == [
-        {"type": "bf:Identifier", "value": "http://slsp.ch/12345"}
-    ]
+    assert data.get("identifiedBy") == [{"type": "bf:Identifier", "value": "http://slsp.ch/12345"}]
 
 
 def test_marc21_to_identified_by_from_024_with_subfield_2():
@@ -4404,14 +4364,10 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     </datafield>
     </record>
     """
-    mock_get.return_value = mock_response(
-        json_data={"pid": "tets", "type": "bf:Person", "idref": {"pid": "XXXXXXXX"}}
-    )
+    mock_get.return_value = mock_response(json_data={"pid": "tets", "type": "bf:Person", "idref": {"pid": "XXXXXXXX"}})
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("subjects") == [
-        {"entity": {"$ref": f"{mef_agents_url}/idref/XXXXXXXX"}}
-    ]
+    assert data.get("subjects") == [{"entity": {"$ref": f"{mef_agents_url}/idref/XXXXXXXX"}}]
 
     # field 600 without $t
     marc21xml = """
@@ -4902,9 +4858,7 @@ def test_marc21_to_identified_by_from_035():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("identifiedBy") == [
-        {"type": "bf:Local", "source": "RERO", "value": "R008945501"}
-    ]
+    assert data.get("identifiedBy") == [{"type": "bf:Local", "source": "RERO", "value": "R008945501"}]
 
     marc21xml = """
         <record>
@@ -4915,9 +4869,7 @@ def test_marc21_to_identified_by_from_035():
         """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("identifiedBy") == [
-        {"type": "bf:Local", "source": "OCoLC", "value": "ocm72868858"}
-    ]
+    assert data.get("identifiedBy") == [{"type": "bf:Local", "source": "OCoLC", "value": "ocm72868858"}]
 
 
 @mock.patch("requests.Session.get")
@@ -5044,9 +4996,7 @@ def test_marc21_to_identified_by_from_930():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("identifiedBy") == [
-        {"type": "bf:Local", "source": "OCoLC", "value": "ocm11113722"}
-    ]
+    assert data.get("identifiedBy") == [{"type": "bf:Local", "source": "OCoLC", "value": "ocm11113722"}]
     # identifier without source in parenthesis
     marc21xml = """
     <record>
@@ -5064,9 +5014,7 @@ def test_marc21_to_identified_by_from_930():
 def test_get_mef_link(mock_get, capsys, app):
     """Test get mef contribution link"""
 
-    mock_get.return_value = mock_response(
-        json_data={"pid": "test", "idref": {"pid": "003945843"}}
-    )
+    mock_get.return_value = mock_response(json_data={"pid": "test", "idref": {"pid": "003945843"}})
     mef_url = get_mef_link(
         bibid="1",
         reroid="1",
@@ -5198,9 +5146,7 @@ def test_marc21_to_content_media_carrier():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("contentMediaCarrier") == [
-        {"contentType": ["rdaco:1020"], "mediaType": "rdamt:1002"}
-    ]
+    assert data.get("contentMediaCarrier") == [{"contentType": ["rdaco:1020"], "mediaType": "rdamt:1002"}]
 
 
 def test_marc21_to_content_media_carrier_with_linked_fields():
@@ -5358,9 +5304,7 @@ def test_scale_and_cartographic(app, marc21_record):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get("scale") == [
-        {"label": "1:25 000", "ratio_linear_horizontal": 25000, "type": "Linear scale"}
-    ]
+    assert data.get("scale") == [{"label": "1:25 000", "ratio_linear_horizontal": 25000, "type": "Linear scale"}]
     assert data.get("cartographicAttributes") is None
 
     marc21xml = """

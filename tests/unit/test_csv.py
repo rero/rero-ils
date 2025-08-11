@@ -17,7 +17,6 @@
 
 """Test csv creation, import et export."""
 
-
 import json
 from os.path import dirname, join
 
@@ -31,9 +30,7 @@ def test_create_csv(app, tmpdir):
     tmp_dir_name = tmpdir.dirname
     json_file_name = join(dirname(__file__), "../data/documents.json")
     runner = CliRunner()
-    result = runner.invoke(
-        create_csv, ["doc", json_file_name, tmp_dir_name, "-l", "-v"]
-    )
+    result = runner.invoke(create_csv, ["doc", json_file_name, tmp_dir_name, "-l", "-v"])
     assert result.exit_code == 0
     file_name_pidstore = join(tmp_dir_name, "doc_pidstore.csv")
     file_name_metadata = join(tmp_dir_name, "doc_metadata.csv")

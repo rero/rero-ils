@@ -132,9 +132,7 @@ def test_items_post_put_delete(
     item_record_with_no_barcode = deepcopy(item_lib_martigny_data)
     item_record_with_no_barcode["pid"] = "pid"
     del item_record_with_no_barcode["barcode"]
-    res, data = postdata(
-        client, "invenio_records_rest.item_list", item_record_with_no_barcode
-    )
+    res, data = postdata(client, "invenio_records_rest.item_list", item_record_with_no_barcode)
     assert res.status_code == 201
     item_barcode = data["metadata"]["barcode"]
     assert item_barcode.startswith("f-")
@@ -149,9 +147,7 @@ def test_items_post_put_delete(
     # test replacing an item with no barcode, regenerates a new barcode
     item_to_replace = deepcopy(updated_item)
     del item_to_replace["barcode"]
-    replaced_item = created_item.replace(
-        data=item_to_replace, dbcommit=True, reindex=True
-    )
+    replaced_item = created_item.replace(data=item_to_replace, dbcommit=True, reindex=True)
     assert replaced_item["barcode"].startswith("f-")
 
     # test when item has a dirty barcode
@@ -161,9 +157,7 @@ def test_items_post_put_delete(
 
     barcode = item_record_with_dirty_barcode.get("barcode")
     item_record_with_dirty_barcode["barcode"] = f" {barcode} "
-    res, data = postdata(
-        client, "invenio_records_rest.item_list", item_record_with_dirty_barcode
-    )
+    res, data = postdata(client, "invenio_records_rest.item_list", item_record_with_dirty_barcode)
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
@@ -229,9 +223,7 @@ def test_checkout_default_policy(
 
     from rero_ils.modules.circ_policies.api import CircPolicy
 
-    circ_policy = CircPolicy.provide_circ_policy(
-        item.organisation_pid, item.library_pid, "ptty1", "itty1"
-    )
+    circ_policy = CircPolicy.provide_circ_policy(item.organisation_pid, item.library_pid, "ptty1", "itty1")
 
     # checkout
     res, data = postdata(
@@ -250,9 +242,7 @@ def test_checkout_default_policy(
     loan = actions[LoanAction.CHECKOUT]
     end_date = loan.get("end_date")
     start_date = loan.get("start_date")
-    checkout_duration = (
-        ciso8601.parse_datetime(end_date) - ciso8601.parse_datetime(start_date)
-    ).days
+    checkout_duration = (ciso8601.parse_datetime(end_date) - ciso8601.parse_datetime(start_date)).days
 
     assert checkout_duration >= circ_policy.get("checkout_duration")
 
@@ -304,9 +294,7 @@ def test_checkout_library_level_policy(
     loan = actions[LoanAction.CHECKOUT]
     end_date = loan.get("end_date")
     start_date = loan.get("start_date")
-    checkout_duration = (
-        ciso8601.parse_datetime(end_date) - ciso8601.parse_datetime(start_date)
-    ).days
+    checkout_duration = (ciso8601.parse_datetime(end_date) - ciso8601.parse_datetime(start_date)).days
     assert checkout_duration >= circ_policy_short_martigny.get("checkout_duration")
 
     # checkin
@@ -357,9 +345,7 @@ def test_checkout_organisation_policy(
     loan = actions[LoanAction.CHECKOUT]
     end_date = loan.get("end_date")
     start_date = loan.get("start_date")
-    checkout_duration = (
-        ciso8601.parse_datetime(end_date) - ciso8601.parse_datetime(start_date)
-    ).days
+    checkout_duration = (ciso8601.parse_datetime(end_date) - ciso8601.parse_datetime(start_date)).days
     assert checkout_duration >= circ_policy_short_martigny.get("checkout_duration")
 
     # checkin
@@ -466,9 +452,7 @@ def test_items_no_extend(
 
     circ_policy_short_martigny["number_renewals"] = 0
 
-    circ_policy_short_martigny.update(
-        data=circ_policy_short_martigny, dbcommit=True, reindex=True
-    )
+    circ_policy_short_martigny.update(data=circ_policy_short_martigny, dbcommit=True, reindex=True)
     CircPoliciesSearch.flush_and_refresh()
 
     # extend loan
@@ -487,9 +471,7 @@ def test_items_no_extend(
 
     circ_policy_short_martigny["number_renewals"] = 1
 
-    circ_policy_short_martigny.update(
-        data=circ_policy_short_martigny, dbcommit=True, reindex=True
-    )
+    circ_policy_short_martigny.update(data=circ_policy_short_martigny, dbcommit=True, reindex=True)
     CircPoliciesSearch.flush_and_refresh()
 
     # checkin
@@ -520,9 +502,7 @@ def test_items_deny_requests(
     """Test items when requests are denied."""
     location = loc_public_martigny
     circ_policy_short_martigny["allow_requests"] = False
-    circ_policy_short_martigny.update(
-        data=circ_policy_short_martigny, dbcommit=True, reindex=True
-    )
+    circ_policy_short_martigny.update(data=circ_policy_short_martigny, dbcommit=True, reindex=True)
     CircPoliciesSearch.flush_and_refresh()
     login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
@@ -558,9 +538,7 @@ def test_items_deny_requests(
     assert not data.get("can_request")
 
     circ_policy_short_martigny["allow_requests"] = True
-    circ_policy_short_martigny.update(
-        data=circ_policy_short_martigny, dbcommit=True, reindex=True
-    )
+    circ_policy_short_martigny.update(data=circ_policy_short_martigny, dbcommit=True, reindex=True)
     CircPoliciesSearch.flush_and_refresh()
     assert circ_policy_short_martigny.get("allow_requests")
 
@@ -605,9 +583,7 @@ def test_extend_possible_actions(
 
     from rero_ils.modules.circ_policies.api import CircPolicy
 
-    circ_policy = CircPolicy.provide_circ_policy(
-        item.organisation_pid, item.library_pid, "ptty1", "itty1"
-    )
+    circ_policy = CircPolicy.provide_circ_policy(item.organisation_pid, item.library_pid, "ptty1", "itty1")
     circ_policy["number_renewals"] = 0
     circ_policy.update(circ_policy, dbcommit=True, reindex=True)
     res = client.get(url_for("api_item.item", item_barcode=item.get("barcode")))
@@ -669,9 +645,7 @@ def test_items_extend_end_date(
     assert not item.get_extension_count()
 
     renewal_duration_policy = circ_policy_short_martigny["renewal_duration"]
-    renewal_duration = get_extension_params(
-        loan=loan, parameter_name="duration_default"
-    )
+    renewal_duration = get_extension_params(loan=loan, parameter_name="duration_default")
     assert renewal_duration_policy <= renewal_duration.days
 
     # Update loan end_date to allow direct renewal
@@ -702,9 +676,9 @@ def test_items_extend_end_date(
     current_date = datetime.now(timezone.utc)
     calc_date = current_date + renewal_duration
     # finally the comparison should give the same date (in UTC)!
-    assert calc_date.strftime("%Y-%m-%d") == ciso8601.parse_datetime(
-        loan_date
-    ).astimezone(timezone.utc).strftime("%Y-%m-%d")
+    assert calc_date.strftime("%Y-%m-%d") == ciso8601.parse_datetime(loan_date).astimezone(timezone.utc).strftime(
+        "%Y-%m-%d"
+    )
 
     # checkin
     res, _ = postdata(
@@ -855,18 +829,14 @@ def test_local_fields_items_get(
     """Test items filter by local_fields."""
     # Librarian Martigny
     login_user_via_session(client, librarian_martigny.user)
-    list_url = url_for(
-        "invenio_records_rest.item_list", q="local_fields.fields.field_1:testfield1"
-    )
+    list_url = url_for("invenio_records_rest.item_list", q="local_fields.fields.field_1:testfield1")
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
 
-    list_url = url_for(
-        "invenio_records_rest.item_list", q="local_fields.fields.field_1:testfield2"
-    )
+    list_url = url_for("invenio_records_rest.item_list", q="local_fields.fields.field_1:testfield2")
 
     res = client.get(list_url)
     assert res.status_code == 200
@@ -897,9 +867,7 @@ def test_items_notes(client, librarian_martigny, item_lib_martigny, json_header)
 
     # add a second public note -- This should fail because we can only have one
     # note of each type for an item
-    item["notes"].append(
-        {"type": ItemNoteTypes.GENERAL, "content": "Second public note"}
-    )
+    item["notes"].append({"type": ItemNoteTypes.GENERAL, "content": "Second public note"})
     res = client.put(
         url_for("invenio_records_rest.item_item", pid_value=item.pid),
         data=json.dumps(item),
@@ -945,15 +913,9 @@ def test_requested_loans_to_validate(
     holding_pid = item2_lib_martigny.holding_pid
     holding = Holding.get_record_by_pid(holding_pid)
     holding["call_number"] = item2_lib_martigny.pop("call_number", None)
-    item2_lib_martigny["item_type"] = {
-        "$ref": get_ref_for_pid("itty", item_type_missing_martigny.pid)
-    }
-    item2_lib_martigny["temporary_item_type"] = {
-        "$ref": get_ref_for_pid("itty", item_type_standard_martigny.pid)
-    }
-    item2_lib_martigny["temporary_location"] = {
-        "$ref": get_ref_for_pid("loc", loc_restricted_martigny.pid)
-    }
+    item2_lib_martigny["item_type"] = {"$ref": get_ref_for_pid("itty", item_type_missing_martigny.pid)}
+    item2_lib_martigny["temporary_item_type"] = {"$ref": get_ref_for_pid("itty", item_type_standard_martigny.pid)}
+    item2_lib_martigny["temporary_location"] = {"$ref": get_ref_for_pid("loc", loc_restricted_martigny.pid)}
 
     holding.update(holding, dbcommit=True, reindex=True)
     item2_lib_martigny.update(item2_lib_martigny, dbcommit=True, reindex=True)
@@ -1005,9 +967,7 @@ def test_patron_request(
     res, data = postdata(
         client,
         "api_item.patron_request",
-        dict(
-            item_pid=item_lib_martigny.pid, pickup_location_pid=loc_public_martigny.pid
-        ),
+        dict(item_pid=item_lib_martigny.pid, pickup_location_pid=loc_public_martigny.pid),
     )
     assert res.status_code == 200
     loan_pid = data.get("action_applied")[LoanAction.REQUEST].get("pid")
@@ -1074,18 +1034,12 @@ def test_requests_with_different_locations(
     loc_public_saxon.update(loc_public_saxon, True, True)
 
 
-def test_item_possible_actions(
-    client, item_lib_martigny, librarian_martigny, patron_martigny, circulation_policies
-):
+def test_item_possible_actions(client, item_lib_martigny, librarian_martigny, patron_martigny, circulation_policies):
     """Possible action changes according to params of cipo."""
     login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     patron_pid = patron_martigny.pid
-    res = client.get(
-        url_for(
-            "api_item.item", item_barcode=item.get("barcode"), patron_pid=patron_pid
-        )
-    )
+    res = client.get(url_for("api_item.item", item_barcode=item.get("barcode"), patron_pid=patron_pid))
     data = get_json(res)
     assert res.status_code == 200
 
@@ -1094,19 +1048,13 @@ def test_item_possible_actions(
 
     from rero_ils.modules.circ_policies.api import CircPolicy
 
-    circ_policy = CircPolicy.provide_circ_policy(
-        item.organisation_pid, item.library_pid, "ptty1", "itty1"
-    )
+    circ_policy = CircPolicy.provide_circ_policy(item.organisation_pid, item.library_pid, "ptty1", "itty1")
 
     original_checkout_duration = circ_policy.get("checkout_duration")
     if original_checkout_duration is not None:
         del circ_policy["checkout_duration"]
     circ_policy.update(circ_policy, dbcommit=True, reindex=True)
-    res = client.get(
-        url_for(
-            "api_item.item", item_barcode=item.get("barcode"), patron_pid=patron_pid
-        )
-    )
+    res = client.get(url_for("api_item.item", item_barcode=item.get("barcode"), patron_pid=patron_pid))
     assert res.status_code == 200
     data = get_json(res)
 
@@ -1147,9 +1095,7 @@ def test_items_facets(
     assert all(name in response.json["aggregations"] for name in facet_names)
 
 
-def test_items_rest_api_sort(
-    client, item_lib_martigny, item_lib_fully, rero_json_header
-):
+def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_json_header):
     """Test sorting option on `Item` REST API endpoints."""
 
     item_lib_fully["second_call_number"] = "second_call_number"
@@ -1168,7 +1114,7 @@ def test_items_rest_api_sort(
 
     url = url_for(
         "invenio_records_rest.item_list",
-        q=f'call_number.raw:{item_lib_martigny["call_number"]}',
+        q=f"call_number.raw:{item_lib_martigny['call_number']}",
     )
     response = client.get(url, headers=rero_json_header)
     assert response.status_code == 200

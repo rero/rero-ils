@@ -56,15 +56,11 @@ def load(migration, infile, dry_run):
             if dry_run:
                 print(ConvertClass.markdown(record), "\n")
             else:
-                migration_data = MigrationData(
-                    raw=record, migration_id=migration.meta.id
-                )
+                migration_data = MigrationData(raw=record, migration_id=migration.meta.id)
                 migration_data.save()
     index = Index(migration.data_index_name)
     index.refresh()
-    n_data = (
-        MigrationData.search().filter("term", migration_id=migration.meta.id).count()
-    )
+    n_data = MigrationData.search().filter("term", migration_id=migration.meta.id).count()
     click.secho(f"Migration ({migration}) has now {n_data} converted files.")
 
 
@@ -190,9 +186,7 @@ def get(migration, id, conversion_status, format, out_file):
 @data.command()
 @click.argument("migration")
 @click.argument("sets", type=str)
-@click.option(
-    "-s", "--status", type=click.Choice([item.value for item in DeduplicationStatus])
-)
+@click.option("-s", "--status", type=click.Choice([item.value for item in DeduplicationStatus]))
 @with_appcontext
 def subsets(migration, sets, status):
     """Get migration data."""

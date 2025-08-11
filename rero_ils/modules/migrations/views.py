@@ -35,9 +35,7 @@ def simple_search_json_serializer(data, code=200, headers=None):
     if code != 200:
         return data
     if data:
-        hits = [
-            dict(metadata=hit["_source"], id=hit["_id"]) for hit in data["hits"]["hits"]
-        ]
+        hits = [dict(metadata=hit["_source"], id=hit["_id"]) for hit in data["hits"]["hits"]]
         new_data = dict(hits=dict(hits=hits, total=data["hits"]["total"]))
         if data.get("aggregations"):
             new_data["aggregations"] = data["aggregations"]
@@ -69,9 +67,7 @@ class MigrationsListResource(ContentNegotiatedMethodView):
     def __init__(self, **kwargs):
         """Init."""
         super().__init__(
-            method_serializers={
-                "GET": {"application/json": simple_search_json_serializer}
-            },
+            method_serializers={"GET": {"application/json": simple_search_json_serializer}},
             serializers_query_aliases={"json": "application/json"},
             default_method_media_type={"GET": "application/json"},
             default_media_type="application/json",
@@ -98,6 +94,4 @@ class MigrationsListResource(ContentNegotiatedMethodView):
         return self.make_response(search.execute().to_dict(), 200)
 
 
-api_blueprint.add_url_rule(
-    "/", view_func=MigrationsListResource.as_view("migrations_list")
-)
+api_blueprint.add_url_rule("/", view_func=MigrationsListResource.as_view("migrations_list"))

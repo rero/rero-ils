@@ -100,9 +100,7 @@ class Transformation(object):
             "subtype": "materialUnit",
         }
         self.json_dict["adminMetadata"] = {"encodingLevel": "Not applicable"}
-        self.json_dict["type"] = [
-            {"main_type": "docmaintype_book", "subtype": "docsubtype_e-book"}
-        ]
+        self.json_dict["type"] = [{"main_type": "docmaintype_book", "subtype": "docsubtype_e-book"}]
 
     def trans_pid(self):
         """Transformation pid."""
@@ -120,9 +118,7 @@ class Transformation(object):
         for media in self.data.get("media", []):
             nature = media.get("nature")
             if nature in ["paper", "epub", "audio"] and media["key_type"] == "isbn13":
-                identified_by.append(
-                    {"type": "bf:Isbn", "value": media.get("key"), "note": nature}
-                )
+                identified_by.append({"type": "bf:Isbn", "value": media.get("key"), "note": nature})
             if nature == "audio":
                 self.json_dict["type"] = [
                     {
@@ -211,10 +207,7 @@ class Transformation(object):
 
     def trans_language(self):
         """Transformation language."""
-        if languages := [
-            {"type": "bf:Language", "value": language}
-            for language in self.data.get("languages", [])
-        ]:
+        if languages := [{"type": "bf:Language", "value": language} for language in self.data.get("languages", [])]:
             self.json_dict["language"] = languages
 
     def trans_orginal_language(self):

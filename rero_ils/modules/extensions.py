@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Shared extensions about RERO-ILS resources."""
+
 import re
 
 from elasticsearch_dsl import Q
@@ -88,11 +89,7 @@ class UniqueFieldsExtension(RecordExtension):
         # Create an `OR` query with all fields to check and exclude the current
         # record from the result. If one hit matches, raise a ValidationError,
         # otherwise, all should be fine. Enjoy !
-        terms = [
-            Q("term", **{es_field: record[attr]})
-            for attr, es_field in self.fields
-            if attr in record
-        ]
+        terms = [Q("term", **{es_field: record[attr]}) for attr, es_field in self.fields if attr in record]
 
         es_query = (
             self.search_class()

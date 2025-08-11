@@ -32,17 +32,13 @@ class AcqOrderJSONSerializer(ACQJSONSerializer):
         JSONSerializer.enrich_bucket_with_data(
             aggregations.get("library", {}).get("buckets", []), LibrariesSearch, "name"
         )
-        JSONSerializer.enrich_bucket_with_data(
-            aggregations.get("vendor", {}).get("buckets", []), VendorsSearch, "name"
-        )
+        JSONSerializer.enrich_bucket_with_data(aggregations.get("vendor", {}).get("buckets", []), VendorsSearch, "name")
         JSONSerializer.enrich_bucket_with_data(
             aggregations.get("account", {}).get("buckets", []),
             AcqAccountsSearch,
             "name",
         )
-        JSONSerializer.enrich_bucket_with_data(
-            aggregations.get("budget", {}).get("buckets", []), BudgetsSearch, "name"
-        )
+        JSONSerializer.enrich_bucket_with_data(aggregations.get("budget", {}).get("buckets", []), BudgetsSearch, "name")
         # Add configuration for order_date and receipt_date buckets
         for aggr_name in ["order_date", "receipt_date"]:
             aggr = aggregations.get(aggr_name, {})

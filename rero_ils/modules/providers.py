@@ -35,9 +35,7 @@ def set_sequence(identifier):
     """
     if db.engine.dialect.name == "postgresql":  # pragma: no cover
         db.session.execute(
-            text(
-                f"SELECT setval(pg_get_serial_sequence('{identifier.__tablename__}', 'recid'), :newval)"
-            ),
+            text(f"SELECT setval(pg_get_serial_sequence('{identifier.__tablename__}', 'recid'), :newval)"),
             dict(newval=identifier.max()),
         )
 
@@ -95,6 +93,4 @@ class Provider(BaseProvider):
             kwargs.setdefault("status", cls.default_status)
             if object_type and object_uuid:
                 kwargs["status"] = PIDStatus.REGISTERED
-            return super().create(
-                object_type=object_type, object_uuid=object_uuid, **kwargs
-            )
+            return super().create(object_type=object_type, object_uuid=object_uuid, **kwargs)

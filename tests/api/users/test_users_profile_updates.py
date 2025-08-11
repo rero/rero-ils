@@ -29,9 +29,7 @@ from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.users.api import User
 
 
-def test_user_profile_updates(
-    client, patron_martigny, system_librarian_martigny, json_header, mailbox
-):
+def test_user_profile_updates(client, patron_martigny, system_librarian_martigny, json_header, mailbox):
     """Test users profile updates."""
     # if none of email nor username is provided the request should failed
     login_user_via_session(client, patron_martigny.user)
@@ -65,10 +63,7 @@ def test_user_profile_updates(
     patron_martigny = Patron.get_record_by_pid(patron_martigny.pid)
     # an email was added to patron, communication_channel will change
     # automatically to email
-    assert (
-        patron_martigny.patron.get("communication_channel")
-        == CommunicationChannel.EMAIL
-    )
+    assert patron_martigny.patron.get("communication_channel") == CommunicationChannel.EMAIL
 
     # removing the email from profile does not send any reset_password
     # notification
@@ -84,9 +79,7 @@ def test_user_profile_updates(
     # autmoatically if user has no email configured and patron has no
     # additional_communication_email configured
     patron_martigny = Patron.get_record_by_pid(patron_martigny.pid)
-    assert (
-        patron_martigny.patron.get("communication_channel") == CommunicationChannel.MAIL
-    )
+    assert patron_martigny.patron.get("communication_channel") == CommunicationChannel.MAIL
 
     # login as a system_librarian this means we are logging into the
     # professional interface
@@ -112,14 +105,10 @@ def test_user_profile_updates(
     assert res.status_code == 200
     assert not (len(mailbox))
     patron_martigny = Patron.get_record_by_pid(patron_martigny.pid)
-    assert (
-        patron_martigny.patron.get("communication_channel") == CommunicationChannel.MAIL
-    )
+    assert patron_martigny.patron.get("communication_channel") == CommunicationChannel.MAIL
 
 
-def test_user_birthdate(
-    client, patron_martigny, system_librarian_martigny, json_header
-):
+def test_user_birthdate(client, patron_martigny, system_librarian_martigny, json_header):
     """Test user birth_date."""
     login_user_via_session(client, system_librarian_martigny.user)
     user_metadata = User.get_record(patron_martigny.user.id).dumps_metadata()

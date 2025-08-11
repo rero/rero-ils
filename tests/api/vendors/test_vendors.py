@@ -87,18 +87,14 @@ def test_vendors_can_delete(
     assert reasons["links"]["holdings"]
 
 
-def test_vendor_post_update_delete(
-    client, librarian_martigny, vendor3_martigny_data, json_header
-):
+def test_vendor_post_update_delete(client, librarian_martigny, vendor3_martigny_data, json_header):
     """Test CRUD on vendor."""
     login_user_via_session(client, librarian_martigny.user)
     item_url = url_for("invenio_records_rest.vndr_item", pid_value="vndr3")
 
     # create
     vendor3_martigny_data["pid"] = "vndr3"
-    res, data = postdata(
-        client, "invenio_records_rest.vndr_list", vendor3_martigny_data
-    )
+    res, data = postdata(client, "invenio_records_rest.vndr_list", vendor3_martigny_data)
     assert res.status_code == 201
 
     # read

@@ -65,8 +65,7 @@ def test_circ_policy_create(
     assert cipo.get("pid") == "2"
 
     cipo_data = {
-        "$schema": "https://bib.rero.ch/schemas/"
-        "circ_policies/circ_policy-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
         "pid": "cipo_test",
         "name": "test",
         "organisation": {"$ref": "https://bib.rero.ch/api/organisations/org1"},
@@ -100,12 +99,8 @@ def test_circ_policy_create(
 def test_circ_policy_exist_name_and_organisation_pid(circ_policy_short_martigny):
     """Test policy name existence."""
     cipo = circ_policy_short_martigny.replace_refs()
-    assert CircPolicy.exist_name_and_organisation_pid(
-        cipo.get("name"), cipo.get("organisation", {}).get("pid")
-    )
-    assert not CircPolicy.exist_name_and_organisation_pid(
-        "not exists yet", cipo.get("organisation", {}).get("pid")
-    )
+    assert CircPolicy.exist_name_and_organisation_pid(cipo.get("name"), cipo.get("organisation", {}).get("pid"))
+    assert not CircPolicy.exist_name_and_organisation_pid("not exists yet", cipo.get("organisation", {}).get("pid"))
 
 
 def test_circ_policy_can_not_delete(circ_policy_short_martigny):

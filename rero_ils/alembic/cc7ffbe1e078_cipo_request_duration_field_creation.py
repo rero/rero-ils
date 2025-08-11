@@ -33,9 +33,7 @@ LOGGER = getLogger("alembic")
 
 def upgrade():
     """Update circulation policy records."""
-    query = (
-        CircPoliciesSearch().filter("term", allow_requests=True).source(["pid"]).scan()
-    )
+    query = CircPoliciesSearch().filter("term", allow_requests=True).source(["pid"]).scan()
     for hit in query:
         cipo = CircPolicy.get_record_by_pid(hit.pid)
         cipo["pickup_hold_duration"] = 10  # default value is 10 days
@@ -47,12 +45,7 @@ def upgrade():
 
 def downgrade():
     """Reset circulation policy records."""
-    query = (
-        CircPoliciesSearch()
-        .filter("exists", field="pickup_hold_duration")
-        .source(["pid"])
-        .scan()
-    )
+    query = CircPoliciesSearch().filter("exists", field="pickup_hold_duration").source(["pid"]).scan()
     for hit in query:
         cipo = CircPolicy.get_record_by_pid(hit.pid)
         del cipo["pickup_hold_duration"]

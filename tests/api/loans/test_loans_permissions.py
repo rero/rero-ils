@@ -24,14 +24,10 @@ from rero_ils.modules.loans.permissions import LoanPermissionPolicy
 from tests.utils import check_permission
 
 
-def test_loan_permissions(
-    patron_martigny, librarian_martigny, loan_overdue_martigny, loan_overdue_sion
-):
+def test_loan_permissions(patron_martigny, librarian_martigny, loan_overdue_martigny, loan_overdue_sion):
     """Test loans permissions api."""
     # Anonymous user
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         LoanPermissionPolicy,
         {

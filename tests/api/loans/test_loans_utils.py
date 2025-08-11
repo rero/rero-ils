@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests loans utils."""
+
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import (
@@ -38,10 +39,6 @@ def test_loans_build_refs(item_lib_martigny, patron_martigny, document):
         }
     )
 
-    assert loan_build_item_ref(None, loan) == get_ref_for_pid(
-        "items", item_lib_martigny.pid
-    )
+    assert loan_build_item_ref(None, loan) == get_ref_for_pid("items", item_lib_martigny.pid)
     assert loan_build_document_ref(None, loan) == get_ref_for_pid("doc", document.pid)
-    assert loan_build_patron_ref(None, loan) == get_ref_for_pid(
-        "patrons", patron_martigny.pid
-    )
+    assert loan_build_patron_ref(None, loan) == get_ref_for_pid("patrons", patron_martigny.pid)

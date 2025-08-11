@@ -64,15 +64,11 @@ def test_operation_logs_serializers(
     loan = data.get("hits", {}).get("hits", [])[0].get("metadata", {}).get("loan", {})
     libary_name = lib_martigny_data["name"]
     # Check if the library data injected into the section
-    assert libary_name == loan.get("transaction_location", {}).get("library").get(
-        "name"
-    )
+    assert libary_name == loan.get("transaction_location", {}).get("library").get("name")
     assert libary_name == loan.get("pickup_location", {}).get("library").get("name")
 
 
-def test_patrons_serializers(
-    client, json_header, librarian_martigny, librarian2_martigny, rero_json_header
-):
+def test_patrons_serializers(client, json_header, librarian_martigny, librarian2_martigny, rero_json_header):
     """Test serializers for patrons."""
     login_user(client, librarian_martigny)
 
@@ -206,9 +202,7 @@ def test_patron_transaction_events_serializers(
     assert record.get("metadata", {}).get("library", {}).get("name")
 
 
-def test_ill_requests_serializers(
-    client, rero_json_header, patron_martigny, ill_request_martigny
-):
+def test_ill_requests_serializers(client, rero_json_header, patron_martigny, ill_request_martigny):
     """Test serializers for ills requests."""
     login_user(client, patron_martigny)
     list_url = url_for("invenio_records_rest.illr_list")
@@ -224,9 +218,7 @@ def test_ill_requests_serializers(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_budgets_serializers(
-    client, rero_json_header, lib_martigny, budget_2020_martigny
-):
+def test_budgets_serializers(client, rero_json_header, lib_martigny, budget_2020_martigny):
     """Test serializers for budgets requests."""
     budget = budget_2020_martigny
     item_url = url_for("invenio_records_rest.budg_item", pid_value=budget.pid)
@@ -331,9 +323,7 @@ def test_acq_receipts_serializers(
     ]:
         assert attr in data["metadata"]
 
-    list_url = url_for(
-        "invenio_records_rest.acrl_list", q=f"acq_receipt.pid:{acre.pid}"
-    )
+    list_url = url_for("invenio_records_rest.acrl_list", q=f"acq_receipt.pid:{acre.pid}")
     response = client.get(list_url, headers=rero_json_header)
     assert response.status_code == 200
     data = get_json(response)
@@ -391,9 +381,7 @@ def test_cached_serializers(
     location["name"] = "new location name"
     location = location.update(location, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
-    assert LocationsSearch().get_record_by_pid(location.pid)["name"] == location.get(
-        "name"
-    )
+    assert LocationsSearch().get_record_by_pid(location.pid)["name"] == location.get("name")
 
     # STEP#3 : second items search serialization
     response = client.get(list_url, headers=rero_json_header)

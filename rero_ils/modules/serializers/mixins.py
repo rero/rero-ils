@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO ILS record serialization."""
+
 import inspect
 from abc import ABC
 

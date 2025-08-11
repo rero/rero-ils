@@ -54,6 +54,4 @@ def test_migration_data_create(migration, migration_xml_data, lib_martigny):
 def test_migrations_library_get_links_to_me(lib_martigny, migration):
     """Test library links."""
     assert lib_martigny.get_links_to_me().get("migrations") == 1
-    assert lib_martigny.get_links_to_me(get_pids=True) == {
-        "migrations": [migration.name]
-    }
+    assert lib_martigny.get_links_to_me(get_pids=True) == {"migrations": [migration.name]}

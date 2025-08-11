@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test User Authentication API."""
+
 import re
 
 from flask import url_for
@@ -135,9 +136,7 @@ def test_change_password(
     data = get_json(res)
     assert res.status_code == 400
     assert data.get("message") == "Validation error."
-    assert data.get("errors")[0].get("message") == gettext(
-        "Field must be at least 8 characters long."
-    )
+    assert data.get("errors")[0].get("message") == gettext("Field must be at least 8 characters long.")
 
     # with a logged user
     res, _ = postdata(
@@ -152,9 +151,7 @@ def test_change_password(
     data = get_json(res)
     assert res.status_code == 400
     assert data.get("message") == "Validation error."
-    assert data.get("errors")[0].get("message") == gettext(
-        "The 2 passwords are not identical."
-    )
+    assert data.get("errors")[0].get("message") == gettext("The 2 passwords are not identical.")
 
     res, _ = postdata(
         client,
@@ -198,9 +195,7 @@ def test_change_password(
     data = get_json(res)
     assert res.status_code == 400
     assert data.get("message") == "Validation error."
-    assert data.get("errors")[0].get("message") == gettext(
-        "The 2 passwords are not identical."
-    )
+    assert data.get("errors")[0].get("message") == gettext("The 2 passwords are not identical.")
 
     res, _ = postdata(
         client,

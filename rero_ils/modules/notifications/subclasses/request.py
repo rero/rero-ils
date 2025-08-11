@@ -71,17 +71,13 @@ class RequestCirculationNotification(InternalCirculationNotification):
             doc_data = notification.document.dumps(dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
             # pickup location name
-            pickup_location = (
-                notification.pickup_location or notification.transaction_location
-            )
+            pickup_location = notification.pickup_location or notification.transaction_location
 
             loan_context = {
                 "creation_date": creation_date,
                 "in_transit": loan.state in LoanState.ITEM_IN_TRANSIT,
                 "document": doc_data,
-                "pickup_name": pickup_location.get(
-                    "pickup_name", pickup_location.get("name")
-                ),
+                "pickup_name": pickup_location.get("pickup_name", pickup_location.get("name")),
                 "patron": notification.patron.dumps(dumper=patron_dumper),
             }
             context["loans"].append(loan_context)

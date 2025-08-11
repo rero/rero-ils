@@ -59,9 +59,7 @@ def test_cli_extract_from_xml(app, tmpdir, document_marcxml):
     xml_path = join(dirname(__file__), "..", "data", "xml", "documents.xml")
     temp_file_name = join(tmpdir, "temp.xml")
     runner = CliRunner()
-    result = runner.invoke(
-        extract_from_xml, [pids_path, xml_path, temp_file_name, "-v"]
-    )
+    result = runner.invoke(extract_from_xml, [pids_path, xml_path, temp_file_name, "-v"])
     assert result.exit_code == 0
     results_output = result.output.split("\n")
     assert results_output[0] == "Extract pids from xml: "
@@ -91,16 +89,12 @@ def test_cli_validate_documents_items_lofi(app, loc_public_martigny):
     ]
 
 
-def test_cli_create_documents_items_lofi(
-    app, loc_public_martigny, item_type_standard_martigny
-):
+def test_cli_create_documents_items_lofi(app, loc_public_martigny, item_type_standard_martigny):
     """Test create documents with items lofis cli."""
     runner = CliRunner()
     file_name = join(dirname(__file__), "../data/documents_items_lofi.json")
 
-    res = runner.invoke(
-        create_documents_with_items_lofis_cli, [file_name, "-v", "-o", "-c"]
-    )
+    res = runner.invoke(create_documents_with_items_lofis_cli, [file_name, "-v", "-o", "-c"])
     assert res.output.strip().split("\n")[1:] == [
         "1          doc: ???",
         "    documents: 'type' is a required property",

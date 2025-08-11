@@ -69,9 +69,7 @@ def test_stats_get(client, stats, csv_header):
     assert data["hits"]["hits"]
 
 
-def test_stats_librarian_data(
-    client, stats_librarian, librarian_martigny, system_librarian_martigny
-):
+def test_stats_librarian_data(client, stats_librarian, librarian_martigny, system_librarian_martigny):
     """Test librarian statistics."""
     params = dict(pid_value=stats_librarian.pid)
     item_url = url_for("invenio_records_rest.stat_item", **params)
@@ -80,9 +78,7 @@ def test_stats_librarian_data(
     login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(item_url)
     data = res.get_json()
-    filtered_stat_libs = {
-        value["library"]["pid"] for value in data["metadata"]["values"]
-    }
+    filtered_stat_libs = {value["library"]["pid"] for value in data["metadata"]["values"]}
     manageable_libs = set(system_librarian_martigny.manageable_library_pids)
 
     assert not filtered_stat_libs.difference(manageable_libs)
@@ -103,9 +99,7 @@ def test_stats_librarian_data(
     # This filter is applied by the 'pre_dump' resource extension
     manageable_libs = set(librarian_martigny.manageable_library_pids)
     initial_stat_libs = {value["library"]["pid"] for value in stats_librarian["values"]}
-    filtered_stat_libs = {
-        value["library"]["pid"] for value in data["metadata"]["values"]
-    }
+    filtered_stat_libs = {value["library"]["pid"] for value in data["metadata"]["values"]}
     assert initial_stat_libs.difference(manageable_libs)
     assert not filtered_stat_libs.difference(manageable_libs)
     from invenio_db import db
@@ -119,9 +113,7 @@ def test_stats_librarian_data(
 )
 def test_stats_report_get(client, stats_report_martigny, csv_header):
     """Test record retrieval."""
-    item_url = url_for(
-        "invenio_records_rest.stat_item", pid_value=stats_report_martigny.pid
-    )
+    item_url = url_for("invenio_records_rest.stat_item", pid_value=stats_report_martigny.pid)
     res = client.get(item_url)
     assert res.status_code == 200
     assert res.headers["ETag"]

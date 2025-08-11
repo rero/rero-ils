@@ -62,17 +62,13 @@ def test_order_properties(
     # NOTES -------------------------------------------------------------------
     note_content = "test note content"
     assert acor.get_note(AcqOrderNoteType.VENDOR) is None
-    acor.setdefault("notes", []).append(
-        {"type": AcqOrderNoteType.VENDOR, "content": note_content}
-    )
+    acor.setdefault("notes", []).append({"type": AcqOrderNoteType.VENDOR, "content": note_content})
     assert acor.get_note(AcqOrderNoteType.VENDOR) == note_content
     del acor["notes"]
 
     # Check that `related notes` content return the note from `acol1`
     assert any(
-        note[0]["type"] == AcqOrderLineNoteType.STAFF
-        and note[1] == acol1.__class__
-        and note[2] == acol1.pid
+        note[0]["type"] == AcqOrderLineNoteType.STAFF and note[1] == acol1.__class__ and note[2] == acol1.pid
         for note in acor.get_related_notes()
     )
 

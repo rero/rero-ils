@@ -39,9 +39,7 @@ from rero_ils.modules.notifications.subclasses.claim_issue import (
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_notification_organisation_pid(
-    app, org_martigny, notification_availability_martigny
-):
+def test_notification_organisation_pid(app, org_martigny, notification_availability_martigny):
     """Test organisation pid has been added during the indexing."""
     assert notification_availability_martigny.organisation_pid == org_martigny.pid
 
@@ -71,9 +69,7 @@ def test_notification_email(notification_late_sion, patron_sion, mailbox):
     assert mailbox[0].recipients == [patron_sion.dumps()["email"]]
 
 
-def test_notification_email_availability(
-    notification_availability_sion, lib_sion, patron_sion, mailbox
-):
+def test_notification_email_availability(notification_availability_sion, lib_sion, patron_sion, mailbox):
     """Test availability notification.
     Patron communication channel is email.
     """

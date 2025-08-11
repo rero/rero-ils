@@ -97,9 +97,9 @@ def permission_management(context, permission, method="allow", **kwargs):
     except Exception as e:
         abort(500, str(e))
 
-    return jsonify(
-        {"context": context, "permission": permission, "method": method} | kwargs
-    ), (204 if method == "deny" else 200)
+    return jsonify({"context": context, "permission": permission, "method": method} | kwargs), (
+        204 if method == "deny" else 200
+    )
 
 
 @api_blueprint.route("/permissions/by_role", methods=["GET"])

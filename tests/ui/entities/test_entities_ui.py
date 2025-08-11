@@ -34,19 +34,11 @@ def test_view(client, entity_person, local_entity_person):
     """Entity detailed view test."""
 
     # Check unauthorized type value in url
-    res = client.get(
-        url_for(
-            "entities.entity_detailed_view", viewcode="global", type="foo", pid="foo"
-        )
-    )
+    res = client.get(url_for("entities.entity_detailed_view", viewcode="global", type="foo", pid="foo"))
     assert res.status_code == 404
 
     # Check 404 error if entity does not exist
-    res = client.get(
-        url_for(
-            "entities.entity_detailed_view", viewcode="global", type="remote", pid="foo"
-        )
-    )
+    res = client.get(url_for("entities.entity_detailed_view", viewcode="global", type="remote", pid="foo"))
     assert res.status_code == 404
 
     # Remote entity
@@ -131,22 +123,10 @@ def test_search_link(app, entity_organisation, local_entity_org, entity_topic):
 
     # test remote link
     link = search_link(entity_organisation)
-    assert (
-        link == "contribution.entity.pids.rero:A027711299 "
-        "OR subjects.entity.pids.rero:A027711299"
-        "&simple=0"
-    )
+    assert link == "contribution.entity.pids.rero:A027711299 OR subjects.entity.pids.rero:A027711299&simple=0"
     # test local link
     link = search_link(local_entity_org)
-    assert (
-        link == "contribution.entity.pids.local:locent_org "
-        "OR subjects.entity.pids.local:locent_org"
-        "&simple=0"
-    )
+    assert link == "contribution.entity.pids.local:locent_org OR subjects.entity.pids.local:locent_org&simple=0"
     # test Topic
     link = search_link(entity_topic)
-    assert (
-        link == "subjects.entity.pids.idref:030752787 "
-        "OR genreForm.entity.pids.idref:030752787"
-        "&simple=0"
-    )
+    assert link == "subjects.entity.pids.idref:030752787 OR genreForm.entity.pids.idref:030752787&simple=0"

@@ -95,10 +95,7 @@ def check_user_readonly_permission(fn):
     @wraps(fn)
     def is_user_readonly(*args, **kwargs):
         """Decorated view."""
-        if (
-            current_app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False)
-            or not current_user.is_authenticated
-        ):
+        if current_app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False) or not current_user.is_authenticated:
             abort(401)
         return fn(*args, **kwargs)
 
@@ -136,8 +133,7 @@ class UsersResource(ContentNegotiatedMethodView):
         user = User.get_record(id)
         user = user.update(request.get_json())
         editing_own_public_profile = str(current_user.id) == id and not (
-            current_user.has_role(UserRole.FULL_PERMISSIONS)
-            and current_user.has_role(UserRole.USER_MANAGER)
+            current_user.has_role(UserRole.FULL_PERMISSIONS) and current_user.has_role(UserRole.USER_MANAGER)
         )
         if editing_own_public_profile:
             Patron.set_communication_channel(user)
@@ -190,8 +186,7 @@ class UsersCreateResource(ContentNegotiatedMethodView):
         """Implement the POST."""
         user = User.create(request.get_json())
         editing_own_public_profile = str(current_user.id) == user.id and not (
-            current_user.has_role(UserRole.FULL_PERMISSIONS)
-            and current_user.has_role(UserRole.USER_MANAGER)
+            current_user.has_role(UserRole.FULL_PERMISSIONS) and current_user.has_role(UserRole.USER_MANAGER)
         )
         if editing_own_public_profile:
             Patron.set_communication_channel(user)

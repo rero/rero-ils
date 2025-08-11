@@ -41,11 +41,7 @@ def upgrade():
     records that doesn't already define such a limit. The default value for
     existing records will be `False` to not generate unstable behavior.
     """
-    query = (
-        PatronTypesSearch()
-        .exclude("exists", field="limits.unpaid_subscription")
-        .source("pid")
-    )
+    query = PatronTypesSearch().exclude("exists", field="limits.unpaid_subscription").source("pid")
     patron_type_pids = [hit.pid for hit in query.scan()]
     ids = []
     for pid in patron_type_pids:
@@ -60,11 +56,7 @@ def upgrade():
 
 def downgrade():
     """Downgrade patron type records."""
-    query = (
-        PatronTypesSearch()
-        .filter("exists", field="limits.unpaid_subscription")
-        .source("pid")
-    )
+    query = PatronTypesSearch().filter("exists", field="limits.unpaid_subscription").source("pid")
     patron_type_pids = [hit.pid for hit in query.scan()]
     ids = []
     for pid in patron_type_pids:

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Patron transaction event record mapping tests."""
+
 from rero_ils.modules.patron_transaction_events.api import (
     PatronTransactionEvent,
     PatronTransactionEventsSearch,
@@ -23,9 +24,7 @@ from rero_ils.modules.patron_transaction_events.api import (
 from tests.utils import get_mapping
 
 
-def test_patron_transaction_event_es_mapping(
-    es, db, patron_transaction_overdue_event_martigny
-):
+def test_patron_transaction_event_es_mapping(es, db, patron_transaction_overdue_event_martigny):
     """Test patron_transaction event elasticsearch mapping."""
     search = PatronTransactionEventsSearch()
     mapping = get_mapping(search.Meta.index)

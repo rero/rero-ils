@@ -18,7 +18,6 @@
 
 """rero-ils MARC21 model definition."""
 
-
 import contextlib
 import re
 import sys
@@ -242,117 +241,59 @@ _CONTRIBUTION_ROLE = [
 _INTENDED_AUDIENCE_REGEXP = {
     # understanding_level
     "target_understanding_children": re.compile(r"^(Enfants*|Kinder)$", re.IGNORECASE),
-    "target_understanding_children_0_3": re.compile(
-        r"(Enfants* \(0-3 ans\)|Kinder \(0-3 Jahre\))", re.IGNORECASE
-    ),
-    "target_understanding_children_3_6": re.compile(
-        r"(Enfants* \(3-6 ans\)|Kinder \(3-6 Jahre\))", re.IGNORECASE
-    ),
-    "target_understanding_children_6_9": re.compile(
-        r"(Enfants* \(6-9 ans\)|Kinder \(6-9 Jahre\))", re.IGNORECASE
-    ),
-    "target_understanding_children_9_12": re.compile(
-        r"(Enfants* \(9-12 ans\)|Kinder \(9-12 Jahre\))", re.IGNORECASE
-    ),
-    "target_understanding_teenagers": re.compile(
-        r"^(Adolescents*|Jugendliche)$", re.IGNORECASE
-    ),
+    "target_understanding_children_0_3": re.compile(r"(Enfants* \(0-3 ans\)|Kinder \(0-3 Jahre\))", re.IGNORECASE),
+    "target_understanding_children_3_6": re.compile(r"(Enfants* \(3-6 ans\)|Kinder \(3-6 Jahre\))", re.IGNORECASE),
+    "target_understanding_children_6_9": re.compile(r"(Enfants* \(6-9 ans\)|Kinder \(6-9 Jahre\))", re.IGNORECASE),
+    "target_understanding_children_9_12": re.compile(r"(Enfants* \(9-12 ans\)|Kinder \(9-12 Jahre\))", re.IGNORECASE),
+    "target_understanding_teenagers": re.compile(r"^(Adolescents*|Jugendliche)$", re.IGNORECASE),
     "target_understanding_teenagers_12_15": re.compile(
         r"(Adolescents* \(12-15 ans\)|Jugendliche \(12-15 Jahre\))", re.IGNORECASE
     ),
     "target_understanding_teenagers_15_18": re.compile(
         r"(Adolescents* \(15-18 ans\)|Jugendliche \(15-18 Jahre\))", re.IGNORECASE
     ),
-    "target_understanding_secondary_level_2": re.compile(
-        r"(Degré secondaire 2|Weiterführende Schulen)", re.IGNORECASE
-    ),
+    "target_understanding_secondary_level_2": re.compile(r"(Degré secondaire 2|Weiterführende Schulen)", re.IGNORECASE),
     "target_understanding_tertiary": re.compile(r"(Tertiaire|Tertiär)", re.IGNORECASE),
-    "target_understanding_apprentices": re.compile(
-        r"(Apprentis*|Lehrlinge)", re.IGNORECASE
-    ),
+    "target_understanding_apprentices": re.compile(r"(Apprentis*|Lehrlinge)", re.IGNORECASE),
     "target_understanding_bachelor_students": re.compile(
         r"(Etudiants* niveau Bachelor|Studierende Bachelor)", re.IGNORECASE
     ),
-    "target_understanding_master_students": re.compile(
-        r"(Etudiants* niveau Master|Studierende Master)", re.IGNORECASE
-    ),
-    "target_understanding_doctoral_students": re.compile(
-        r"(Doctorants*|Doktoranden)", re.IGNORECASE
-    ),
-    "target_understanding_beginners": re.compile(
-        r"(Débutants*|Anfänger)", re.IGNORECASE
-    ),
-    "target_understanding_intermediaries": re.compile(
-        r"(Intermédiaires*|Mittelstufe)", re.IGNORECASE
-    ),
-    "target_understanding_advanced": re.compile(
-        r"(Avancés*|Fortgeschrittene)", re.IGNORECASE
-    ),
-    "target_understanding_specialists": re.compile(
-        r"(Spécialistes*|Spezialisten)", re.IGNORECASE
-    ),
-    "target_understanding_adults": re.compile(
-        r"^(Adultes*|Erwachsene)$", re.IGNORECASE
-    ),
+    "target_understanding_master_students": re.compile(r"(Etudiants* niveau Master|Studierende Master)", re.IGNORECASE),
+    "target_understanding_doctoral_students": re.compile(r"(Doctorants*|Doktoranden)", re.IGNORECASE),
+    "target_understanding_beginners": re.compile(r"(Débutants*|Anfänger)", re.IGNORECASE),
+    "target_understanding_intermediaries": re.compile(r"(Intermédiaires*|Mittelstufe)", re.IGNORECASE),
+    "target_understanding_advanced": re.compile(r"(Avancés*|Fortgeschrittene)", re.IGNORECASE),
+    "target_understanding_specialists": re.compile(r"(Spécialistes*|Spezialisten)", re.IGNORECASE),
+    "target_understanding_adults": re.compile(r"^(Adultes*|Erwachsene)$", re.IGNORECASE),
     "target_understanding_allophone_adults": re.compile(
         r"(Adultes* allophones*|Fremdsprachige Erwachsene)", re.IGNORECASE
     ),
-    "target_understanding_all_audience": re.compile(
-        r"(Tous publics*|Alle Zielgruppen)", re.IGNORECASE
-    ),
+    "target_understanding_all_audience": re.compile(r"(Tous publics*|Alle Zielgruppen)", re.IGNORECASE),
     "target_understanding_teachers_harmos_degree": re.compile(
         r"(Enseignants* \(degré Harmos\)|Lehrpersonen \(Harmos\))", re.IGNORECASE
     ),
     "target_understanding_teachers_secondary_level_2": re.compile(
         r"(Enseignants* Degré secondaire 2|Lehrpersonen Sek II)", re.IGNORECASE
     ),
-    "target_understanding_hep_trainers": re.compile(
-        r"(Formateurs* HEP|PH-Dozierende)", re.IGNORECASE
-    ),
+    "target_understanding_hep_trainers": re.compile(r"(Formateurs* HEP|PH-Dozierende)", re.IGNORECASE),
     "target_understanding_parents": re.compile(r"(Parents*|Eltern)", re.IGNORECASE),
-    "target_understanding_caregivers": re.compile(
-        r"(Soignants*|Pflegepersonal)", re.IGNORECASE
-    ),
+    "target_understanding_caregivers": re.compile(r"(Soignants*|Pflegepersonal)", re.IGNORECASE),
     # school_level
     "target_school_harmos1": re.compile(r"(Harmos1|Kindergarten)", re.IGNORECASE),
     "target_school_harmos2": re.compile(r"(Harmos2|Kindergarten)", re.IGNORECASE),
-    "target_school_harmos3": re.compile(
-        r"(Harmos3|Primarschule \(1\.-2\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_harmos4": re.compile(
-        r"(Harmos4|Primarschule \(1\.-2\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_harmos5": re.compile(
-        r"(Harmos5|Primarschule \(3\.-4\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_harmos6": re.compile(
-        r"(Harmos6|Primarschule \(3\.-4\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_harmos7": re.compile(
-        r"(Harmos7|Primarschule \(5\.-6\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_harmos8": re.compile(
-        r"(Harmos8|Primarschule \(5\.-6\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_harmos9": re.compile(
-        r"(Harmos9|Orientierungsschule \(7\.-9\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_harmos10": re.compile(
-        r"(Harmos10|Orientierungsschule \(7\.-9\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_harmos11": re.compile(
-        r"(Harmos11|Orientierungsschule \(7\.-9\. Kl\.\))", re.IGNORECASE
-    ),
-    "target_school_upper_secondary": re.compile(
-        r"(Degré secondaire 2|Weiterführende Schulen)", re.IGNORECASE
-    ),
+    "target_school_harmos3": re.compile(r"(Harmos3|Primarschule \(1\.-2\. Kl\.\))", re.IGNORECASE),
+    "target_school_harmos4": re.compile(r"(Harmos4|Primarschule \(1\.-2\. Kl\.\))", re.IGNORECASE),
+    "target_school_harmos5": re.compile(r"(Harmos5|Primarschule \(3\.-4\. Kl\.\))", re.IGNORECASE),
+    "target_school_harmos6": re.compile(r"(Harmos6|Primarschule \(3\.-4\. Kl\.\))", re.IGNORECASE),
+    "target_school_harmos7": re.compile(r"(Harmos7|Primarschule \(5\.-6\. Kl\.\))", re.IGNORECASE),
+    "target_school_harmos8": re.compile(r"(Harmos8|Primarschule \(5\.-6\. Kl\.\))", re.IGNORECASE),
+    "target_school_harmos9": re.compile(r"(Harmos9|Orientierungsschule \(7\.-9\. Kl\.\))", re.IGNORECASE),
+    "target_school_harmos10": re.compile(r"(Harmos10|Orientierungsschule \(7\.-9\. Kl\.\))", re.IGNORECASE),
+    "target_school_harmos11": re.compile(r"(Harmos11|Orientierungsschule \(7\.-9\. Kl\.\))", re.IGNORECASE),
+    "target_school_upper_secondary": re.compile(r"(Degré secondaire 2|Weiterführende Schulen)", re.IGNORECASE),
     "target_school_tertiary": re.compile(r"^(Tertiaire|Studierende)$", re.IGNORECASE),
-    "target_school_bachelor": re.compile(
-        r"(Etudiants* niveau Bachelor|Studierende Bachelor)", re.IGNORECASE
-    ),
-    "target_school_master": re.compile(
-        r"(Etudiants* niveau Master|Studierende Master)", re.IGNORECASE
-    ),
+    "target_school_bachelor": re.compile(r"(Etudiants* niveau Bachelor|Studierende Bachelor)", re.IGNORECASE),
+    "target_school_master": re.compile(r"(Etudiants* niveau Master|Studierende Master)", re.IGNORECASE),
     # filmage_ch
     "from the age of 18": re.compile(r"(Dès 18 ans|Ab 18 Jahre)", re.IGNORECASE),
     "from the age of 16": re.compile(r"(Dès 16 ans|Ab 16 Jahre)", re.IGNORECASE),
@@ -436,17 +377,13 @@ def do_type(data, marc21):
     doc_type = [{"main_type": "docmaintype_other"}]
     if marc21.record_type == "a":
         if marc21.bib_level == "m":
-            doc_type = [
-                {"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}
-            ]
+            doc_type = [{"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}]
 
             field_008 = None
             field_008 = marc21.get_fields("008")
             # if it's an electronic book
             if field_008[0]["data"][23] in ("o", "s"):
-                doc_type = [
-                    {"main_type": "docmaintype_book", "subtype": "docsubtype_e-book"}
-                ]
+                doc_type = [{"main_type": "docmaintype_book", "subtype": "docsubtype_e-book"}]
         elif marc21.bib_level == "s":
             doc_type = [{"main_type": "docmaintype_serial"}]
         elif marc21.bib_level == "a":
@@ -463,13 +400,9 @@ def do_type(data, marc21):
                 }
             ]
         elif marc21.record_type in ["i", "j"]:
-            doc_type = [
-                {"main_type": "docmaintype_audio", "subtype": "docsubtype_music"}
-            ]
+            doc_type = [{"main_type": "docmaintype_audio", "subtype": "docsubtype_music"}]
         elif marc21.record_type == "g":
-            doc_type = [
-                {"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"}
-            ]
+            doc_type = [{"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"}]
     data["type"] = doc_type
 
 
@@ -597,16 +530,12 @@ def do_title(data, marc21, value):
                 if value_data:
                     # if title contains << >>, remove it
                     # Ex: <<Les>> beaux dégâts
-                    value_data[0]["value"] = (
-                        value_data[0]["value"].replace("<<", "").replace(">>", "")
-                    )
+                    value_data[0]["value"] = value_data[0]["value"].replace("<<", "").replace(">>", "")
                     title_data["mainTitle"] = value_data
             elif blob_key == "b":
                 if subfield_246_a:
                     subtitle, parallel_titles, pararalel_title_string_set = (
-                        extract_subtitle_and_parallel_titles_from_field_245_b(
-                            value_data, field_245_a_end_with_equal
-                        )
+                        extract_subtitle_and_parallel_titles_from_field_245_b(value_data, field_245_a_end_with_equal)
                     )
                     if subtitle:
                         title_data["subtitle"] = subtitle
@@ -668,12 +597,8 @@ def build_agent(marc21, key, value):
                 if date_of_death := dates[1].strip():
                     agent_data["date_of_death"] = date_of_death
         if value.get("q"):
-            fuller_form_of_name = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, "q"
-            )
-            agent_data["fuller_form_of_name"] = (
-                remove_trailing_punctuation(fuller_form_of_name).lstrip("(").rstrip(")")
-            )
+            fuller_form_of_name = not_repetitive(marc21.bib_id, marc21.bib_id, key, value, "q")
+            agent_data["fuller_form_of_name"] = remove_trailing_punctuation(fuller_form_of_name).lstrip("(").rstrip(")")
 
     # 710|711 Organisation
     if key[:3] in ["710", "711"]:
@@ -688,24 +613,14 @@ def build_agent(marc21, key, value):
         if value.get("n"):
             numbering = not_repetitive(marc21.bib_id, marc21.bib_id, key, value, "n")
 
-            if (
-                numbering := remove_trailing_punctuation(numbering)
-                .lstrip("(")
-                .rstrip(")")
-            ):
+            if numbering := remove_trailing_punctuation(numbering).lstrip("(").rstrip(")"):
                 agent_data["numbering"] = numbering
         if value.get("d"):
-            conference_date = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, "d"
-            )
-            agent_data["conference_date"] = (
-                remove_trailing_punctuation(conference_date).lstrip("(").rstrip(")")
-            )
+            conference_date = not_repetitive(marc21.bib_id, marc21.bib_id, key, value, "d")
+            agent_data["conference_date"] = remove_trailing_punctuation(conference_date).lstrip("(").rstrip(")")
         if value.get("c"):
             place = not_repetitive(marc21.bib_id, marc21.bib_id, key, value, "c")
-            agent_data["place"] = (
-                remove_trailing_punctuation(place).lstrip("(").rstrip(")")
-            )
+            agent_data["place"] = remove_trailing_punctuation(place).lstrip("(").rstrip(")")
     if not agent_data:
         return
     return {
@@ -783,9 +698,7 @@ def do_specific_document_relation(data, marc21, key, value):
     if tag in ["533", "534"]:
         label = build_string_from_subfields(value, _REPRODUCTION_SUBFIELDS_PER_TAG[tag])
         relation = {"label": label}
-    elif subfield_w := not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "w", default=""
-    ).strip():
+    elif subfield_w := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "w", default="").strip():
         pid = None
         if match := re_reroils.match(subfield_w):
             source = match.group(1)
@@ -863,7 +776,6 @@ def do_provision_activity(data, marc21, key, value):
         return GroupableOrderedDict(new_field_values)
 
     def build_statement(field_value, subtags=("a", "b")):
-
         def build_agent_data(code, label, index, link):
             type_per_code = {
                 "a": EntityType.PLACE,
@@ -1001,26 +913,16 @@ def do_table_of_contents(data, value):
 
 def do_usage_and_access_policy_from_field_506_540(marc21, key, value):
     """Get usageAndAccessPolicy from fields: 506, 540."""
-    if subfield_a := not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "a", default=""
-    ).strip():
+    if subfield_a := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a", default="").strip():
         return {"type": "bf:UsageAndAccessPolicy", "label": subfield_a}
 
 
 def do_frequency_field_310_321(marc21, key, value):
     """Get frequency from fields: 310, 321."""
-    subfield_a = not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "a", default="missing_label"
-    ).strip()
-    subfield_b = not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "b", default=""
-    ).strip()
+    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a", default="missing_label").strip()
+    subfield_b = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "b", default="").strip()
 
-    frequency = {
-        "label": remove_trailing_punctuation(
-            data=subfield_a, punctuation=",", spaced_punctuation=","
-        )
-    }
+    frequency = {"label": remove_trailing_punctuation(data=subfield_a, punctuation=",", spaced_punctuation=",")}
     if subfield_b:
         frequency["date"] = subfield_b
     return frequency
@@ -1110,9 +1012,7 @@ def do_identified_by_from_field_010(data, marc21, key, value):
     def build_identifier_from(subfield_data, identified_by):
         subfield_data = subfield_data.strip()
         identifier = {"value": subfield_data}
-        if not_repetitive(
-            marc21.bib_id, marc21.rero_id, key, value, "a", default=""
-        ).strip():
+        if not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a", default="").strip():
             identifier["type"] = "bf:Lccn"
             identified_by.append(identifier)
         return identified_by
@@ -1135,9 +1035,7 @@ def do_identified_by_from_field_020(data, marc21, key, value):
 
         if match := re.search(r"^(.+?)\s*\((.+)\)$", subfield_data):
             # match.group(2) : parentheses content
-            identifier["qualifier"] = ", ".join(
-                filter(None, [match.group(2), identifier.get("qualifier", "")])
-            )
+            identifier["qualifier"] = ", ".join(filter(None, [match.group(2), identifier.get("qualifier", "")]))
             # value without parenthesis and parentheses content
             identifier["value"] = match.group(1)
         if status:
@@ -1150,17 +1048,13 @@ def do_identified_by_from_field_020(data, marc21, key, value):
     subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a")
     if subfield_a:
         build_identifier_from(subfield_a, identified_by)
-    subfield_c = not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "c", default=""
-    ).strip()
+    subfield_c = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "c", default="").strip()
     if subfield_c:
         acquisition_terms = data.get("acquisitionTerms", [])
         acquisition_terms.append(subfield_c)
         data["acquisitionTerms"] = acquisition_terms
     for subfield_z in utils.force_list(value.get("z", [])):
-        identified_by = build_identifier_from(
-            subfield_z, identified_by, status="invalid or cancelled"
-        )
+        identified_by = build_identifier_from(subfield_z, identified_by, status="invalid or cancelled")
     if identified_by:
         data["identifiedBy"] = identified_by
 
@@ -1189,15 +1083,11 @@ def do_identified_by_from_field_024(data, marc21, key, value):
     """Get identifier from field 024."""
 
     def populate_acquisitionTerms_note_qualifier(identifier):
-        if subfield_c := not_repetitive(
-            marc21.bib_id, marc21.rero_id, key, value, "c", default=""
-        ).strip():
+        if subfield_c := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "c", default="").strip():
             acquisition_terms = data.get("acquisitionTerms", [])
             acquisition_terms.append(subfield_c)
             data["acquisitionTerms"] = acquisition_terms
-        if subfield_d := not_repetitive(
-            marc21.bib_id, marc21.rero_id, key, value, "d", default=""
-        ).strip():
+        if subfield_d := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "d", default="").strip():
             identifier["note"] = subfield_d
         if value.get("q"):  # $q is repetitive
             identifier["qualifier"] = ", ".join(utils.force_list(value.get("q")))
@@ -1224,12 +1114,8 @@ def do_identified_by_from_field_024(data, marc21, key, value):
     }
 
     identifier = {}
-    subfield_a = not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "a", default=""
-    ).strip()
-    subfield_2 = not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "2", default=""
-    ).strip()
+    subfield_a = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a", default="").strip()
+    subfield_2 = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "2", default="").strip()
     if subfield_a:
         if re.search(r"permalink\.snl\.ch", subfield_a, re.IGNORECASE):
             identifier.update({"value": subfield_a, "type": "uri", "source": "SNL"})
@@ -1248,9 +1134,7 @@ def do_identified_by_from_field_024(data, marc21, key, value):
                 match = re.search(r"^(.+?)\s*\((.*)\)$", subfield_a)
                 if match:
                     # match.group(2) : parentheses content
-                    identifier["qualifier"] = ", ".join(
-                        filter(None, [match.group(2), identifier.get("qualifier", "")])
-                    )
+                    identifier["qualifier"] = ", ".join(filter(None, [match.group(2), identifier.get("qualifier", "")]))
                     # value without parenthesis and parentheses content
                     identifier["value"] = match.group(1)
                 else:
@@ -1278,15 +1162,11 @@ def do_identified_by_from_field_024(data, marc21, key, value):
 def do_identified_by_from_field_028(data, marc21, key, value):
     """Get identifier from field 028."""
     identified_by = data.get("identifiedBy", [])
-    if subfield_a := not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "a", default=""
-    ).strip():
+    if subfield_a := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a", default="").strip():
         identifier = {"value": subfield_a}
         if value.get("q"):  # $q is repetitive
             identifier["qualifier"] = ", ".join(utils.force_list(value.get("q")))
-        if subfield_b := not_repetitive(
-            marc21.bib_id, marc21.rero_id, key, value, "b", default=""
-        ).strip():
+        if subfield_b := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "b", default="").strip():
             identifier["source"] = subfield_b
         type_for_ind1 = {
             "0": "bf:AudioIssueNumber",
@@ -1307,9 +1187,7 @@ def do_identified_by_from_field_028(data, marc21, key, value):
 def do_identified_by_from_field_035(data, marc21, key, value, source=None):
     """Get identifier from field 035."""
     identified_by = data.get("identifiedBy", [])
-    if subfield_a := not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "a", default=""
-    ).strip():
+    if subfield_a := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a", default="").strip():
         value = subfield_a
         # search source between parenthesis
         if match := re_identified.match(subfield_a):
@@ -1366,7 +1244,7 @@ def do_electronic_locator_from_field_856(data, marc21, key, value):
             "noteOnContent",
             "titlePage",
             "photography",
-            "summarization" "summarization",
+            "summarizationsummarization",
             "onlineResourceViaRERODOC",
             "pressReview",
             "webSite",
@@ -1395,9 +1273,7 @@ def do_electronic_locator_from_field_856(data, marc21, key, value):
             if re_electonic_locator.match(url):
                 electronic_locators.append(electronic_locator)
             else:
-                error_print(
-                    "WARNING ELECTRONICLOCATOR:", marc21.bib_id, marc21.rero_id, url
-                )
+                error_print("WARNING ELECTRONICLOCATOR:", marc21.bib_id, marc21.rero_id, url)
     return electronic_locators or None
 
 
@@ -1411,11 +1287,7 @@ def do_notes_and_original_title(data, key, value):
         if key[:3] == "510":
             items = get_field_items(value)
             subfield_selection = {"a", "c", "x"}
-            note_str = "".join(
-                f"{blob_value} "
-                for blob_key, blob_value in items
-                if blob_key in subfield_selection
-            )
+            note_str = "".join(f"{blob_value} " for blob_key, blob_value in items if blob_key in subfield_selection)
 
             add_note(dict(noteType="cited_by", label=note_str.strip()), data)
         elif key[:3] == "500":
@@ -1680,9 +1552,7 @@ def do_work_access_point(marc21, key, value):
     # work_access_point.creator
     if (tag in ["700", "800"] and value.get("t")) or tag == "710":
         title_tag = "t"
-        if (
-            creator_data := _do_work_access_point_creator(marc21, key, value)
-        ) and creator_data.get("preferred_name"):
+        if (creator_data := _do_work_access_point_creator(marc21, key, value)) and creator_data.get("preferred_name"):
             work_access_point["creator"] = creator_data
     # work_access_point.title
     if value.get(title_tag):
@@ -1691,15 +1561,11 @@ def do_work_access_point(marc21, key, value):
         ).replace("\u009c", "")
 
         if not work_access_point.get("title"):
-            error_print(
-                "WARNING WORK ACCESS POINT:", bib_id, marc21.rero_id, "no title"
-            )
+            error_print("WARNING WORK ACCESS POINT:", bib_id, marc21.rero_id, "no title")
             return None
     # work_access_point.date_of_work
     if value.get("f"):
-        work_access_point["date_of_work"] = not_repetitive(
-            bib_id, bib_id, key, value, "f"
-        )
+        work_access_point["date_of_work"] = not_repetitive(bib_id, bib_id, key, value, "f")
     # work_access_point.miscellaneous_information
     if value.get("g"):
         work_access_point["miscellaneous_information"] = remove_trailing_punctuation(
@@ -1707,12 +1573,7 @@ def do_work_access_point(marc21, key, value):
         )
     # work_access_point.language
     if value.get("l"):
-        language = (
-            not_repetitive(bib_id, bib_id, key, value, "l")
-            .lstrip("(")
-            .rstrip(".")
-            .rstrip(")")
-        )
+        language = not_repetitive(bib_id, bib_id, key, value, "l").lstrip("(").rstrip(".").rstrip(")")
         lang = language
         if language not in _LANGUAGES:
             if len(language.split("-")) > 1 or language == "mehrsprachig":
@@ -1722,13 +1583,9 @@ def do_work_access_point(marc21, key, value):
         if lang in _LANGUAGES:
             work_access_point["language"] = lang
         if lang == "mul" or lang not in _LANGUAGES:
-            error_print(
-                "WARNING WORK ACCESS POINT LANGUAGE:", bib_id, marc21.rero_id, language
-            )
+            error_print("WARNING WORK ACCESS POINT LANGUAGE:", bib_id, marc21.rero_id, language)
             if misc_info := work_access_point.get("miscellaneous_information"):
-                work_access_point["miscellaneous_information"] = (
-                    f"{misc_info} | language: {language}"
-                )
+                work_access_point["miscellaneous_information"] = f"{misc_info} | language: {language}"
             else:
                 work_access_point["miscellaneous_information"] = f"language: {language}"
     # work_access_point.part
@@ -1758,14 +1615,10 @@ def do_work_access_point(marc21, key, value):
         )
     # work_access_point.medium_of_performance_for_music
     if value.get("m"):
-        work_access_point["medium_of_performance_for_music"] = list(
-            utils.force_list(value.get("m"))
-        )
+        work_access_point["medium_of_performance_for_music"] = list(utils.force_list(value.get("m")))
     # work_access_point.arranged_statement_for_music
     if value.get("o"):
-        work_access_point["arranged_statement_for_music"] = not_repetitive(
-            bib_id, bib_id, key, value, "o"
-        )
+        work_access_point["arranged_statement_for_music"] = not_repetitive(bib_id, bib_id, key, value, "o")
     # work_access_point.key_for_music
     if value.get("r"):
         work_access_point["key_for_music"] = remove_trailing_punctuation(
@@ -1800,9 +1653,7 @@ def _do_work_access_point_creator(marc21, key, value):
                 )
             ).rstrip(".")
         if value.get("b"):
-            data["numeration"] = remove_trailing_punctuation(
-                not_repetitive(bib_id, bib_id, key, value, "b")
-            )
+            data["numeration"] = remove_trailing_punctuation(not_repetitive(bib_id, bib_id, key, value, "b"))
         if date := not_repetitive(bib_id, bib_id, key, value, "d"):
             date_parts = [d.strip().rstrip(".") for d in date.split("-")]
             if date_parts and date_parts[0]:
@@ -1810,9 +1661,7 @@ def _do_work_access_point_creator(marc21, key, value):
             if len(date_parts) > 1 and date_parts[1]:
                 data["date_of_death"] = date_parts[1]
         if value.get("c"):
-            data["qualifier"] = remove_trailing_punctuation(
-                not_repetitive(bib_id, bib_id, key, value, "c")
-            ).rstrip(".")
+            data["qualifier"] = remove_trailing_punctuation(not_repetitive(bib_id, bib_id, key, value, "c")).rstrip(".")
 
     # bf:Organisation
     if tag == "710":
@@ -1831,10 +1680,7 @@ def _do_work_access_point_creator(marc21, key, value):
             data["subordinate_unit"] = list(
                 filter(
                     None,
-                    [
-                        remove_trailing_punctuation(unit).rstrip(".")
-                        for unit in list(utils.force_list(value.get("b")))
-                    ],
+                    [remove_trailing_punctuation(unit).rstrip(".") for unit in list(utils.force_list(value.get("b")))],
                 )
             )
 
@@ -1907,9 +1753,7 @@ def do_scale_and_cartographic(data, marc21, key, value):
             subfields_034_c = marc21.get_subfields(fields_034[index], "c")
 
             if subfields_034_a:
-                scale["type"] = _SCALE_TYPE.get(
-                    subfields_034_a[0].strip(), _SCALE_TYPE["z"]
-                )
+                scale["type"] = _SCALE_TYPE.get(subfields_034_a[0].strip(), _SCALE_TYPE["z"])
             if subfields_034_b:
                 ratio_linear_horizontal = subfields_034_b[0]
                 try:
@@ -2057,17 +1901,13 @@ def do_temporal_coverage(marc21, key, value):
             if _PERIOD_CODE.match(subfield_a):
                 correct_subfields_a.append(subfield_a)
             else:
-                error_print(
-                    "WARNING PERIOD CODE:", marc21.bib_id, marc21.rero_id, subfield_a
-                )
+                error_print("WARNING PERIOD CODE:", marc21.bib_id, marc21.rero_id, subfield_a)
         if correct_subfields_a:
             temporal_coverage["period_code"] = correct_subfields_a
     if coverage_type == "time":
         if subfield_b := not_repetitive(marc21.bib_id, marc21.bib_id, key, value, "b"):
             temporal_coverage["date"] = format_date_b(subfield_b)
-        elif subfield_c := not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, "c"
-        ):
+        elif subfield_c := not_repetitive(marc21.bib_id, marc21.bib_id, key, value, "c"):
             temporal_coverage["date"] = format_date_c(subfield_c)
     else:
         if subfields_b := utils.force_list(value.get("b")):
@@ -2099,7 +1939,5 @@ def perform_subdivisions(field, value):
         if tag in subdivisions:
             for v in utils.force_list(val):
                 field.setdefault("subdivisions", []).append(
-                    dict(
-                        entity={"type": subdivisions[tag], "authorized_access_point": v}
-                    )
+                    dict(entity={"type": subdivisions[tag], "authorized_access_point": v})
                 )

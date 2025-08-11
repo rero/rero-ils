@@ -107,9 +107,7 @@ _csv = ItemCSVSerializer(
 
 """CSV serializer."""
 csv_item_response = record_responsify(_csv, "text/csv")
-csv_item_search = search_responsify_file(
-    _csv, "text/csv", file_extension="csv", file_suffix="inventory"
-)
+csv_item_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_suffix="inventory")
 
 """JSON serializer."""
 _json = ItemsJSONSerializer(RecordSchemaJSONV1)

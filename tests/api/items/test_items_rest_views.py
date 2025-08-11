@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API items."""
+
 import time
 
 from elasticsearch_dsl.search import Response
@@ -30,9 +31,7 @@ from rero_ils.modules.stats.api.api import StatsSearch
 from tests.utils import get_json, postdata
 
 
-def test_item_stats_endpoint(
-    item_at_desk_martigny_patron_and_loan_at_desk, client, librarian_martigny
-):
+def test_item_stats_endpoint(item_at_desk_martigny_patron_and_loan_at_desk, client, librarian_martigny):
     """Test loan filter on stats endpoint with real data."""
     item, _, _ = item_at_desk_martigny_patron_and_loan_at_desk
     StatsSearch.flush_and_refresh()
@@ -54,9 +53,7 @@ def test_item_dumps(client, item_lib_martigny, org_martigny, librarian_martigny)
     assert item_dumps.get("organisation").get("pid") == org_martigny.pid
 
     login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.item_item", pid_value=item_lib_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.item_item", pid_value=item_lib_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 200
@@ -104,9 +101,7 @@ def test_patron_checkouts_order(
     assert res.status_code == 200
 
     # sort by transaction_date asc
-    res = client.get(
-        url_for("api_item.loans", patron_pid=patron_martigny.pid, sort="_created")
-    )
+    res = client.get(url_for("api_item.loans", patron_pid=patron_martigny.pid, sort="_created"))
     assert res.status_code == 200
     data = get_json(res)
     items = data["hits"]["hits"]
@@ -115,11 +110,7 @@ def test_patron_checkouts_order(
     assert items[1]["item"]["pid"] == item4_lib_martigny.pid
 
     # sort by transaction_date desc
-    res = client.get(
-        url_for(
-            "api_item.loans", patron_pid=patron_martigny.pid, sort="-transaction_date"
-        )
-    )
+    res = client.get(url_for("api_item.loans", patron_pid=patron_martigny.pid, sort="-transaction_date"))
     assert res.status_code == 200
     data = get_json(res)
     items = data["hits"]["hits"]
@@ -128,9 +119,7 @@ def test_patron_checkouts_order(
     assert items[1]["item"]["pid"] == item3_lib_martigny.pid
 
     # sort by invalid field
-    res = client.get(
-        url_for("api_item.loans", patron_pid=patron_martigny.pid, sort="does not exist")
-    )
+    res = client.get(url_for("api_item.loans", patron_pid=patron_martigny.pid, sort="does not exist"))
     assert res.status_code == 500
     data = get_json(res)
     assert "RequestError(400" in data["status"]
@@ -187,9 +176,7 @@ def test_item_stats(app, client, librarian_martigny, item_lib_martigny):
     )
 
     login_user_via_session(client, librarian_martigny.user)
-    with mock.patch.object(
-        OperationLogsSearch, "execute", mock.MagicMock(return_value=es_response)
-    ):
+    with mock.patch.object(OperationLogsSearch, "execute", mock.MagicMock(return_value=es_response)):
         # We sum the Legacy_count field in the checkout field
         StatsSearch.flush_and_refresh()
         res = client.get(url_for("api_item.stats", item_pid="item1"))
@@ -198,9 +185,7 @@ def test_item_stats(app, client, librarian_martigny, item_lib_martigny):
             "total_year": {"checkout": 1, "extend": 1, "checkin": 1},
         }
 
-    with mock.patch.object(
-        OperationLogsSearch, "execute", mock.MagicMock(return_value=es_response_checkin)
-    ):
+    with mock.patch.object(OperationLogsSearch, "execute", mock.MagicMock(return_value=es_response_checkin)):
         # item found
         # We add the legacy_checkout_count field to the checkout field
         StatsSearch.flush_and_refresh()

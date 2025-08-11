@@ -33,9 +33,7 @@ def test_patron_types_permissions_api(
     patron_type_youngsters_sion,
 ):
     """Test patron types permissions api."""
-    ptty_permissions_url = url_for(
-        "api_blueprint.permissions", route_name="patron_types"
-    )
+    ptty_permissions_url = url_for("api_blueprint.permissions", route_name="patron_types")
     ptty_adult_martigny_permissions_url = url_for(
         "api_blueprint.permissions",
         route_name="patron_types",
@@ -97,9 +95,7 @@ def test_patron_types_permissions(
 
     # Anonymous user
     #    An anonymous user can't operate any operation about PatronType
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(permission_policy, {"search": False}, None)
     check_permission(permission_policy, {"create": False}, {})
     check_permission(

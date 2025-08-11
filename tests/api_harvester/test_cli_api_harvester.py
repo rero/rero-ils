@@ -83,9 +83,7 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
         "\tcode   : mv-cantook",
     ]
 
-    result = runner.invoke(
-        add_api_source_config, ["NJ-CANTOOK", "-c", "ebibliomedia-test", "-u"]
-    )
+    result = runner.invoke(add_api_source_config, ["NJ-CANTOOK", "-c", "ebibliomedia-test", "-u"])
     assert result.exit_code == 0
     output = result.output.strip().split("\n")
     assert output == ["ApiHarvestConfig NJ-CANTOOK: Update code:ebibliomedia-test"]
@@ -142,9 +140,7 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
 
     # test harvest with update and delete
     runner.invoke(set_last_run, ["VS-CANTOOK", "-d", "1900-01-01"])
-    content = json.load(
-        open(join(dirname(__file__), "../data/mv_cantook_deleted.json"))
-    )
+    content = json.load(open(join(dirname(__file__), "../data/mv_cantook_deleted.json")))
     headers_1 = {
         "X-Total-Pages": 1,
         "X-Total-Items": len(content.get("resources", [])),

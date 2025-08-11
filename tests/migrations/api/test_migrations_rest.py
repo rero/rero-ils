@@ -21,9 +21,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 
-def test_migrations_rest(
-    migration, client, patron_martigny, system_librarian_martigny, system_librarian_sion
-):
+def test_migrations_rest(migration, client, patron_martigny, system_librarian_martigny, system_librarian_sion):
     """Test the migration REST API."""
     res = client.get(url_for("api_migrations.migrations_list"))
     assert res.status_code == 401

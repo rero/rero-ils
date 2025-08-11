@@ -17,7 +17,6 @@
 
 """Celery database scheduler using invenios database."""
 
-
 import contextlib
 
 import click
@@ -106,9 +105,7 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         if schema := kwargs.get("schema") or app.conf.get("CELERY_BEAT_SCHEMA"):
             app.conf["beat_schema"] = schema
             logger.info(f"Scheduler schema: {schema}")
-        if engine_options := kwargs.get("engine_options") or app.conf.get(
-            "CELERY_BEAT_ENGINE_OPTIONS"
-        ):
+        if engine_options := kwargs.get("engine_options") or app.conf.get("CELERY_BEAT_ENGINE_OPTIONS"):
             app.conf["beat_engine_options"] = engine_options
             logger.info(f"Scheduler engine options: {engine_options}")
         if schedules := kwargs.get("chedule") or app.conf.get("CELERY_BEAT_SCHEDULE"):
@@ -158,9 +155,7 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
             schedules = {}
             for model in models:
                 with contextlib.suppress(ValueError):
-                    schedules[model.name] = self.Entry(
-                        model, app=self.app, Session=self.Session
-                    )
+                    schedules[model.name] = self.Entry(model, app=self.app, Session=self.Session)
             return schedules
 
     def display_entry(self, entry, prefix="- "):
@@ -185,8 +180,7 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         """
         entries_as_text_list = []
         entries_as_text_list.extend(
-            self.display_entry(entry=entry, prefix=prefix)
-            for _, entry in sorted(self.all_as_schedule().items())
+            self.display_entry(entry=entry, prefix=prefix) for _, entry in sorted(self.all_as_schedule().items())
         )
         return entries_as_text_list
 

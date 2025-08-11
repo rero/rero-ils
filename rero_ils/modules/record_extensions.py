@@ -18,7 +18,6 @@
 
 """RERO ILS common record extensions."""
 
-
 from invenio_records.extensions import RecordExtension
 
 from .locations.api import Location, LocationsSearch
@@ -33,12 +32,7 @@ def _add_org_and_lib(record):
     location_pid = extracted_data_from_ref(record.get("location"))
     # try on the elasticsearch location index
     try:
-        es_loc = next(
-            LocationsSearch()
-            .filter("term", pid=location_pid)
-            .source(["organisation", "library"])
-            .scan()
-        )
+        es_loc = next(LocationsSearch().filter("term", pid=location_pid).source(["organisation", "library"]).scan())
         organisation_pid = es_loc.organisation.pid
         library_pid = es_loc.library.pid
     except StopIteration:
@@ -47,9 +41,7 @@ def _add_org_and_lib(record):
         library_pid = library.pid
         organisation_pid = library.organisation_pid
     base_url = get_base_url()
-    record["organisation"] = {
-        "$ref": f"{base_url}/api/organisations/{organisation_pid}"
-    }
+    record["organisation"] = {"$ref": f"{base_url}/api/organisations/{organisation_pid}"}
     record["library"] = {"$ref": f"{base_url}/api/libraries/{library_pid}"}
 
 

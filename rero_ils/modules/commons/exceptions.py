@@ -51,4 +51,4 @@ class MissingDataException(KeyError):
 
     def __repr__(self):
         """String representation of the exception."""
-        return f'Missing data :: {", ".join(self.missing_data)}'
+        return f"Missing data :: {', '.join(self.missing_data)}"

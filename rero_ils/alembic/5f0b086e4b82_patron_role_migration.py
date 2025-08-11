@@ -71,11 +71,7 @@ def upgrade():
     _datastore.commit()
 
     # assign new roles
-    query = (
-        PatronsSearch()
-        .filter("terms", roles=["librarian", "system_librarian"])
-        .source(False)
-    )
+    query = PatronsSearch().filter("terms", roles=["librarian", "system_librarian"]).source(False)
     patron_uuids = []
 
     for hit in query.scan():
@@ -101,9 +97,7 @@ def downgrade():
         elif any(role in UserRole.LIBRARIAN_ROLES for role in roles):
             return ["librarian"]
 
-    query = (
-        PatronsSearch().filter("terms", roles=UserRole.PROFESSIONAL_ROLES).source(False)
-    )
+    query = PatronsSearch().filter("terms", roles=UserRole.PROFESSIONAL_ROLES).source(False)
     patron_uuids = []
 
     for hit in query.scan():
@@ -127,10 +121,7 @@ def _indexing_records(record_ids):
 
     LOGGER.info(f"Indexing {len(record_ids)} records ....")
     indexer = PatronsIndexer()
-    chunks = [
-        record_ids[x : x + indexing_chunck_size]
-        for x in range(0, len(record_ids), indexing_chunck_size)
-    ]
+    chunks = [record_ids[x : x + indexing_chunck_size] for x in range(0, len(record_ids), indexing_chunck_size)]
     for chuncked_ids in chunks:
         indexer.bulk_index(chuncked_ids)
         count = indexer.process_bulk_queue()

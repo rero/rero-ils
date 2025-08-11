@@ -89,9 +89,7 @@ class Collector:
         def _build_doc(data):
             document_data = {}
             # document title
-            document_titles = filter(
-                lambda t: t.get("type") == "bf:Title", data.get("title", {})
-            )
+            document_titles = filter(lambda t: t.get("type") == "bf:Title", data.get("title", {}))
             if title := next(document_titles):
                 document_data["document_title"] = title.get("_text")
 
@@ -128,9 +126,7 @@ class Collector:
 
             # document_series_statement
             document_data["document_series_statement"] = cls.separator.join(
-                data["value"]
-                for serie in data.get("seriesStatement", [])
-                for data in serie.get("_text", [])
+                data["value"] for serie in data.get("seriesStatement", []) for data in serie.get("_text", [])
             )
 
             # document_edition_statement
@@ -143,17 +139,11 @@ class Collector:
             # provision activity
             #   we only use the first provision activity of type
             #   `bf:publication`
-            publications = [
-                prov
-                for prov in data.get("provisionActivity", [])
-                if prov.get("type") == "bf:Publication"
-            ]
+            publications = [prov for prov in data.get("provisionActivity", []) if prov.get("type") == "bf:Publication"]
             if provision_activity := next(iter(publications), None):
                 start_date = provision_activity.get("startDate", "")
                 end_date = provision_activity.get("endDate")
-                document_data["document_publication_year"] = (
-                    f"{start_date} - {end_date}" if end_date else start_date
-                )
+                document_data["document_publication_year"] = f"{start_date} - {end_date}" if end_date else start_date
 
                 document_data["document_publisher"] = cls.separator.join(
                     data["value"]
@@ -223,17 +213,11 @@ class Collector:
             csv_data[new_field_name] = hit.get(field_name)
         # dates fields
         if end_date := hit.get("temporary_item_type", {}).get("end_date"):
-            csv_data["temporary_item_type_expiry_date"] = ciso8601.parse_datetime(
-                end_date
-            ).date()
+            csv_data["temporary_item_type_expiry_date"] = ciso8601.parse_datetime(end_date).date()
         if acquisition_date := hit.get("acquisition_date"):
-            csv_data["item_acquisition_date"] = ciso8601.parse_datetime(
-                acquisition_date
-            ).date()
+            csv_data["item_acquisition_date"] = ciso8601.parse_datetime(acquisition_date).date()
         if item_create_date := hit.get("_created"):
-            csv_data["item_create_date"] = ciso8601.parse_datetime(
-                item_create_date
-            ).date()
+            csv_data["item_create_date"] = ciso8601.parse_datetime(item_create_date).date()
 
         # process notes
         for note in hit.get("notes", []):
@@ -254,18 +238,12 @@ class Collector:
         if csv_data["item_item_type"] != "issue":
             return
         issue = csv_data.pop("issue", None)
-        if issue.get("inherited_first_call_number") and not csv_data.get(
-            "item_call_number"
-        ):
+        if issue.get("inherited_first_call_number") and not csv_data.get("item_call_number"):
             csv_data["item_call_number"] = issue.get("inherited_first_call_number")
         csv_data["issue_status"] = issue.get("status")
         if issue.get("status_date"):
-            csv_data["issue_status_date"] = ciso8601.parse_datetime(
-                issue.get("status_date")
-            ).date()
-        csv_data["issue_claims_count"] = NotificationsSearch().get_claims_count(
-            csv_data["item_pid"]
-        )
+            csv_data["issue_status_date"] = ciso8601.parse_datetime(issue.get("status_date")).date()
+        csv_data["issue_claims_count"] = NotificationsSearch().get_claims_count(csv_data["item_pid"])
         csv_data["issue_expected_date"] = issue.get("expected_date")
         csv_data["issue_regular"] = issue.get("regular")
 
@@ -280,10 +258,7 @@ class Collector:
             # update csv data with document
             csv_data.update(documents.get(csv_data.get("document_pid")))
         except Exception as err:
-            current_app.logger.error(
-                "ERROR in csv serializer: "
-                f"{err} on document: {csv_data.get('document_pid')}"
-            )
+            current_app.logger.error(f"ERROR in csv serializer: {err} on document: {csv_data.get('document_pid')}")
 
     @classmethod
     def append_local_fields(cls, csv_data):
@@ -301,9 +276,7 @@ class Collector:
             """
             lf_type = "document" if resource_type == "doc" else resource_type
             org_pid = csv_data["item_org_pid"]
-            local_fields = LocalField.get_local_fields_by_id(
-                resource_type, resource_pid, organisation_pid=org_pid
-            )
+            local_fields = LocalField.get_local_fields_by_id(resource_type, resource_pid, organisation_pid=org_pid)
             for field, num in itertools.product(local_fields, range(1, 11)):
                 field_name = f"{lf_type}_local_field_{num}"
                 if field_data := field.get("fields", {}).get(f"field_{num}"):
@@ -322,11 +295,7 @@ class Collector:
 
         def _get_loans_by_item_pids(pids):
             # initial es query to return all loan logs for the given item_pids
-            query = (
-                OperationLogsSearch()
-                .filter("term", record__type="loan")
-                .filter("terms", loan__item__pid=pids)
-            )
+            query = OperationLogsSearch().filter("term", record__type="loan").filter("terms", loan__item__pid=pids)
             # adds checkouts aggregation
             checkout_agg = A(
                 "filter",
@@ -374,9 +343,7 @@ class Collector:
             items_stats = {
                 term.key: {
                     "checkout_count": term.doc_count,
-                    "last_checkout": ciso8601.parse_datetime(
-                        term.last_op.value_as_string
-                    ).date(),
+                    "last_checkout": ciso8601.parse_datetime(term.last_op.value_as_string).date(),
                 }
                 for term in result.aggregations.checkout.item_pid
             }
@@ -387,9 +354,7 @@ class Collector:
             # last_transaction data
             for term in result.aggregations.loans.item_pid:
                 items_stats.setdefault(term.key, {})
-                items_stats[term.key]["last_transaction"] = ciso8601.parse_datetime(
-                    term.last_op.value_as_string
-                ).date()
+                items_stats[term.key]["last_transaction"] = ciso8601.parse_datetime(term.last_op.value_as_string).date()
             return items_stats
 
         chunk_pids = []

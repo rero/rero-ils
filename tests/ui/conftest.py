@@ -110,18 +110,12 @@ def ils_record_2():
 @pytest.fixture(scope="module")
 def es_default_index(search):
     """ES default index."""
-    index_name = list(
-        current_search_client.indices.get_alias("records-record-v1.0.0").keys()
-    ).pop()
+    index_name = list(current_search_client.indices.get_alias("records-record-v1.0.0").keys()).pop()
     current_search_client.indices.delete(index=index_name)
     current_search_client.indices.create(
         index="records-record-v1.0.0",
-        body={
-            "mappings": {"record-v1.0.0": {"properties": {"pid": {"type": "keyword"}}}}
-        },
+        body={"mappings": {"record-v1.0.0": {"properties": {"pid": {"type": "keyword"}}}}},
         ignore=[400],
     )
     yield search
-    current_search_client.indices.delete(
-        index="records-record-v1.0.0", ignore=[400, 404]
-    )
+    current_search_client.indices.delete(index="records-record-v1.0.0", ignore=[400, 404])

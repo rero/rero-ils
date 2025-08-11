@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests circulation operation for item with temporary item_type."""
+
 from datetime import datetime, timedelta
 
 import ciso8601
@@ -57,9 +58,7 @@ def test_checkout_temporary_item_type(
     # add a temporary_item_type on item
     #   due to this change, the cipo used during circulation operation should
     #   be different from the first cipo found.
-    item["temporary_item_type"] = {
-        "$ref": get_ref_for_pid("itty", item_type_on_site_martigny.pid)
-    }
+    item["temporary_item_type"] = {"$ref": get_ref_for_pid("itty", item_type_on_site_martigny.pid)}
     item = item.update(data=item, dbcommit=True, reindex=True)
 
     # check temporary_circulation_category is indexed in document

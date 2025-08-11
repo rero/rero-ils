@@ -59,11 +59,7 @@ def enrich_holding_data(
     item_search = ItemsSearch()[:0].filter("term", holding__pid=record.pid)
 
     if holding is not None and holding["holdings_type"] == "serial":
-        item_search = (
-            ItemsSearch()[:0]
-            .filter("term", holding__pid=record.pid)
-            .filter("term", issue__status="received")
-        )
+        item_search = ItemsSearch()[:0].filter("term", holding__pid=record.pid).filter("term", issue__status="received")
 
     # to compute the number of masked item
     item_search.aggs.bucket("public_items", "terms", field="_masked")
@@ -71,11 +67,7 @@ def enrich_holding_data(
     # number of items
     json["items_count"] = results.hits.total.value
     number_of_masked_items = next(
-        (
-            bucket.doc_count
-            for bucket in results.aggregations.public_items.buckets
-            if bucket.key_as_string == "true"
-        ),
+        (bucket.doc_count for bucket in results.aggregations.public_items.buckets if bucket.key_as_string == "true"),
         0,
     )
     json["public_items_count"] = json["items_count"] - number_of_masked_items
@@ -90,10 +82,7 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
 
     :param record: the holdings record.
     """
-    if (
-        not isinstance(record, Holding)
-        or record.get("holdings_type") != HoldingTypes.SERIAL
-    ):
+    if not isinstance(record, Holding) or record.get("holdings_type") != HoldingTypes.SERIAL:
         return
     # identify all items linked to this holdings that we need to update
     # by excluding form the search items where all the concerned fields
@@ -102,15 +91,11 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
     hold_loc_pid = record.location_pid
 
     search = ItemsSearch().filter("term", holding__pid=record.pid)
-    filters = Q("term", item_type__pid=hold_circ_pid) & Q(
-        "term", location__pid=hold_loc_pid
-    )
+    filters = Q("term", item_type__pid=hold_circ_pid) & Q("term", location__pid=hold_loc_pid)
     if hold_call_number := record.get("call_number", None):
         filters &= Q("term", issue__inherited_first_call_number=hold_call_number)
     if hold_second_call_number := record.get("second_call_number", None):
-        filters &= Q(
-            "term", issue__inherited_second_call_number=hold_second_call_number
-        )
+        filters &= Q("term", issue__inherited_second_call_number=hold_second_call_number)
     item_hits = search.exclude(filters).source(["pid"])
     items = [hit.meta.id for hit in item_hits.scan()]
     items_to_index = []
@@ -126,9 +111,7 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
             # remove the item temporary_location if it is equal to the
             # new item location.
             if temporary_location := item.get("temporary_location"):
-                item_temp_loc_pid = extracted_data_from_ref(
-                    temporary_location.get("$ref")
-                )
+                item_temp_loc_pid = extracted_data_from_ref(temporary_location.get("$ref"))
             if hold_loc_pid != item.location_pid:
                 if item_temp_loc_pid == hold_loc_pid:
                     item.pop("temporary_location", None)
@@ -141,13 +124,9 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
             if hold_circ_pid != item.item_type_pid:
                 if item_temp_type_pid == hold_circ_pid:
                     item.pop("temporary_item_type", None)
-                item["item_type"] = {
-                    "$ref": get_ref_for_pid("item_types", hold_circ_pid)
-                }
+                item["item_type"] = {"$ref": get_ref_for_pid("item_types", hold_circ_pid)}
             # update directly in database.
-            db.session.query(item.model_cls).filter_by(id=item.id).update(
-                {item.model_cls.json: item}
-            )
+            db.session.query(item.model_cls).filter_by(id=item.id).update({item.model_cls.json: item})
 
     if items_to_index:
         # commit session

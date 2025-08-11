@@ -35,15 +35,12 @@ class AcqReceiptReroJSONSerializer(ACQJSONSerializer):
         record["total_amount"] = record.total_amount
         record["quantity"] = record.total_item_quantity
         record["receipt_lines"] = [
-            receipt_line.dumps(dumper=AcqReceiptLineESDumper())
-            for receipt_line in record.get_receipt_lines()
+            receipt_line.dumps(dumper=AcqReceiptLineESDumper()) for receipt_line in record.get_receipt_lines()
         ]
         # add currency to avoid to load related order_line->order to get it
         record["currency"] = record.order.get("currency")
 
-        return super().preprocess_record(
-            pid=pid, record=record, links_factory=links_factory, kwargs=kwargs
-        )
+        return super().preprocess_record(pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)
 
 
 _json = AcqReceiptReroJSONSerializer(RecordSchemaJSONV1)

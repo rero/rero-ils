@@ -78,9 +78,7 @@ def destroy():
 @click.argument("name")
 @click.argument("library_pid")
 @click.argument("conversion_code")
-@click.option(
-    "-s", "--status", type=click.Choice([item.value for item in MigrationStatus])
-)
+@click.option("-s", "--status", type=click.Choice([item.value for item in MigrationStatus]))
 @click.option("-d", "--description", "description", is_flag=False, default="")
 @with_appcontext
 def create(name, library_pid, status, conversion_code, description):
@@ -104,21 +102,16 @@ def create(name, library_pid, status, conversion_code, description):
         migration.save()
         Index(name=migration.data_index_name).refresh()
         click.secho(
-            f"ADD name: {migration.name} library: {migration.library_pid} "
-            f'description:"{description}"',
+            f'ADD name: {migration.name} library: {migration.library_pid} description:"{description}"',
             fg="green",
         )
     except Exception as err:
-        click.secho(
-            f"ERROR EXCEPTION: name: {name} library: {library_pid} {err}", fg="red"
-        )
+        click.secho(f"ERROR EXCEPTION: name: {name} library: {library_pid} {err}", fg="red")
 
 
 @migrations.command()
 @click.argument("name")
-@click.option(
-    "-s", "--status", type=click.Choice([item.value for item in MigrationStatus])
-)
+@click.option("-s", "--status", type=click.Choice([item.value for item in MigrationStatus]))
 @click.option("-l", "--library-pid")
 @click.option("-c", "--conversion-code")
 @click.option("-d", "--description", is_flag=False, default="")
@@ -143,9 +136,7 @@ def update(name, status, library_pid, conversion_code, description):
         migration.save()
         click.secho(f"Migration with name {name} has been updated.", fg="green")
     except Exception as err:
-        click.secho(
-            f"ERROR EXCEPTION: name: {name} library: {library_pid} {err}", fg="red"
-        )
+        click.secho(f"ERROR EXCEPTION: name: {name} library: {library_pid} {err}", fg="red")
 
 
 @migrations.command()

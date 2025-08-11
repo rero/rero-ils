@@ -46,9 +46,7 @@ def test_local_fields(
 
     # INIT :: Create a new Document and a new LocalField
     document = Document.create(document_data, dbcommit=True, reindex=True)
-    lofi_data["parent"]["$ref"] = get_ref_for_pid(
-        document.provider.pid_type, document.pid
-    )
+    lofi_data["parent"]["$ref"] = get_ref_for_pid(document.provider.pid_type, document.pid)
     local_field = LocalField.create(lofi_data, dbcommit=True, reindex=True)
 
     # TEST#1 :: get LocalFields
@@ -99,9 +97,7 @@ def test_local_fields(
     assert len(list(fields)) == 0
 
 
-def test_local_fields_extended_validation(
-    document, document2_ref, local_field_martigny, local_field_martigny_data
-):
+def test_local_fields_extended_validation(document, document2_ref, local_field_martigny, local_field_martigny_data):
     """Test local fields extended validation."""
     lofi_data = deepcopy(local_field_martigny_data)
     lofi_data.pop("pid", None)

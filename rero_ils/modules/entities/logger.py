@@ -38,9 +38,7 @@ def create_logger(name, file_name, log_dir=None, verbose=False):
     """
     # default value
     if not log_dir:
-        log_dir = current_app.config.get(
-            "RERO_ILS_MEF_SYNC_LOG_DIR", os.path.join(current_app.instance_path, "logs")
-        )
+        log_dir = current_app.config.get("RERO_ILS_MEF_SYNC_LOG_DIR", os.path.join(current_app.instance_path, "logs"))
     # create the log directory if does not exists
     if not os.path.exists(log_dir):
         os.mkdir(log_dir)
@@ -48,9 +46,7 @@ def create_logger(name, file_name, log_dir=None, verbose=False):
     logging_config = {
         "version": 1,
         "disable_existing_loggers": False,
-        "formatters": {
-            "standard": {"format": "%(asctime)s [%(levelname)s] :: %(message)s"}
-        },
+        "formatters": {"standard": {"format": "%(asctime)s [%(levelname)s] :: %(message)s"}},
         "handlers": {
             "console": {
                 "class": "logging.StreamHandler",
@@ -66,9 +62,7 @@ def create_logger(name, file_name, log_dir=None, verbose=False):
                 "formatter": "standard",
             },
         },
-        "loggers": {
-            name: {"handlers": ["console", "file"], "level": "INFO", "propagate": False}
-        },
+        "loggers": {name: {"handlers": ["console", "file"], "level": "INFO", "propagate": False}},
     }
     dictConfig(logging_config)
     return logging.getLogger(name)

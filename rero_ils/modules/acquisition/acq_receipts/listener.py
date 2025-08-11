@@ -44,8 +44,7 @@ def enrich_acq_receipt_data(
     if index.split("-")[0] == AcqReceiptsSearch.Meta.index:
         # add related order lines metadata
         json["receipt_lines"] = [
-            receipt_line.dumps(dumper=AcqReceiptLineESDumper())
-            for receipt_line in record.get_receipt_lines()
+            receipt_line.dumps(dumper=AcqReceiptLineESDumper()) for receipt_line in record.get_receipt_lines()
         ]
         # other dynamic keys
         json["total_amount"] = record.total_amount

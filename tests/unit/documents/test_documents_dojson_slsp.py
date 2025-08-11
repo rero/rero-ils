@@ -156,9 +156,7 @@ def test_marc21_to_contribution():
     ]
 
 
-@mock.patch(
-    "rero_ils.modules.documents.dojson.contrib.marc21tojson.slsp.model.get_mef_link"
-)
+@mock.patch("rero_ils.modules.documents.dojson.contrib.marc21tojson.slsp.model.get_mef_link")
 def test_marc21_to_subjects(mock_get_mef_link):
     """Test dojson subjects imported from 6xx."""
 
@@ -187,9 +185,7 @@ def test_marc21_to_subjects(mock_get_mef_link):
             }
         }
     ]
-    assert data.get("subjects") == [
-        {"entity": {"$ref": "https://test.rero.ch/api/agents/gnd/PERSON"}}
-    ]
+    assert data.get("subjects") == [{"entity": {"$ref": "https://test.rero.ch/api/agents/gnd/PERSON"}}]
 
     # 610 Organisation => to import (all subfields)
     marc21xml = """
@@ -216,9 +212,7 @@ def test_marc21_to_subjects(mock_get_mef_link):
             }
         }
     ]
-    assert data.get("subjects") == [
-        {"entity": {"$ref": "https://test.rero.ch/api/agents/gnd/ORGANISATION"}}
-    ]
+    assert data.get("subjects") == [{"entity": {"$ref": "https://test.rero.ch/api/agents/gnd/ORGANISATION"}}]
 
     # 611 Congresses and events => import (all subfields) into which field? Congress does not exist...
     #  611 0x et 611 1x =>organisation;
@@ -334,16 +328,12 @@ def test_marc21_to_subjects(mock_get_mef_link):
             "entity": {
                 "type": "bf:Place",
                 "authorized_access_point": "Schweizer Mittelland",
-                "subdivisions": [
-                    {"entity": {"authorized_access_point": "West", "type": "bf:Place"}}
-                ],
+                "subdivisions": [{"entity": {"authorized_access_point": "West", "type": "bf:Place"}}],
                 "source": "LCSH",
             }
         }
     ]
-    assert data.get("subjects") == [
-        {"entity": {"$ref": "https://test.rero.ch/api/places/gnd/PLACE"}}
-    ]
+    assert data.get("subjects") == [{"entity": {"$ref": "https://test.rero.ch/api/places/gnd/PLACE"}}]
 
     # 655 Genre or form => import (all subfields) in Genre, form
     # 655	_	7	$a Bildband $2 gnd-content

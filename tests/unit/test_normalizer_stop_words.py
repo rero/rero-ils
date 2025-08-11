@@ -51,18 +51,11 @@ def test_normalize(app):
 
     # Deleting words for the defined language.
     text_norm = "été a été très chaud"
-    app.config["RERO_ILS_STOP_WORDS"] = {
-        "fre": ["de", "des", "du", "l'", "la", "le", "les", "un", "une"]
-    }
+    app.config["RERO_ILS_STOP_WORDS"] = {"fre": ["de", "des", "du", "l'", "la", "le", "les", "un", "une"]}
     assert text_norm == normalizer.normalize(text, "fre")
 
-    text = (
-        "Journal des tribunaux : jurisprudence fédérale. "
-        "4, Droit pénal et procédure pénale"
-    )
-    text_norm = (
-        "Journal tribunaux jurisprudence fédérale " "4 Droit pénal et procédure pénale"
-    )
+    text = "Journal des tribunaux : jurisprudence fédérale. 4, Droit pénal et procédure pénale"
+    text_norm = "Journal tribunaux jurisprudence fédérale 4 Droit pénal et procédure pénale"
     assert text_norm == normalizer.normalize(text, "fre")
 
     # The language was not found in the definition of stop words.

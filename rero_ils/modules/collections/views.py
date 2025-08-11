@@ -71,12 +71,8 @@ def collection_view_method(pid, record, template=None, **kwargs):
 
 def _start_end_date(start_date, end_date):
     """Format date."""
-    start = format_date_filter(
-        start_date, date_format="short", time_format=None, locale="fr"
-    )
-    end = format_date_filter(
-        end_date, date_format="short", time_format=None, locale="fr"
-    )
+    start = format_date_filter(start_date, date_format="short", time_format=None, locale="fr")
+    end = format_date_filter(end_date, date_format="short", time_format=None, locale="fr")
     return f"{start} - {end}"
 
 
@@ -87,7 +83,5 @@ def get_teachers(record):
     :param record: record
     :return: list of teachers of the collection
     """
-    teachers = filter(
-        None, [teacher.get("name") for teacher in record.get("teachers", [])]
-    )
+    teachers = filter(None, [teacher.get("name") for teacher in record.get("teachers", [])])
     return ", ".join(teachers)

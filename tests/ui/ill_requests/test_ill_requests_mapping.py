@@ -16,19 +16,16 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """ILL requests record mapping tests."""
+
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from tests.utils import get_mapping
 
 
-def test_ill_request_es_mapping(
-    es, db, loc_public_martigny, patron_martigny, ill_request_martigny_data
-):
+def test_ill_request_es_mapping(es, db, loc_public_martigny, patron_martigny, ill_request_martigny_data):
     """Test ill request elasticsearch mapping."""
     search = ILLRequestsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    request = ILLRequest.create(
-        ill_request_martigny_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    request = ILLRequest.create(ill_request_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
     request.delete(force=True, dbcommit=True, delindex=True)

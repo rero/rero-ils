@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Patron transaction event CSV serializer."""
+
 import csv
 from functools import wraps
 
@@ -40,9 +41,7 @@ from rero_ils.modules.serializers import CachedDataSerializerMixin
 class PatronTransactionEventCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
     """Serialize patron transaction event search for csv."""
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -56,17 +55,13 @@ class PatronTransactionEventCSVSerializer(CSVSerializer, CachedDataSerializerMix
 
             # write the CSV output in memory
             line = Line()
-            writer = csv.DictWriter(
-                line, dialect="excel", quoting=csv.QUOTE_ALL, fieldnames=headers
-            )
+            writer = csv.DictWriter(line, dialect="excel", quoting=csv.QUOTE_ALL, fieldnames=headers)
             writer.writeheader()
             yield line.read()
 
             for hit in search_result:
                 event = hit.to_dict()
-                parent = self.get_resource(
-                    PatronTransaction, event.get("parent", {}).get("pid")
-                )
+                parent = self.get_resource(PatronTransaction, event.get("parent", {}).get("pid"))
                 transaction_date = parse_datetime(event.get("creation_date"))
 
                 # Load related resources used to fill the file.
@@ -94,9 +89,7 @@ class PatronTransactionEventCSVSerializer(CSVSerializer, CachedDataSerializerMix
                 if pid := event.get("library", {}).get("pid"):
                     record = self.get_resource(Library, pid)
                     csv_data |= _extract_transaction_library_data(record)
-                    csv_data["transaction_date"] = transaction_date.astimezone(
-                        tz=record.get_timezone()
-                    ).isoformat()
+                    csv_data["transaction_date"] = transaction_date.astimezone(tz=record.get_timezone()).isoformat()
                 if pid := parent.loan_pid:
                     loan = self.get_resource(Loan, pid)
                     document = self.get_resource(Document, loan.document_pid)
@@ -135,8 +128,7 @@ def _extract_patron_data(record):
     return {
         "patron_name": record.formatted_name,
         "patron_barcode": ", ".join(record.get("patron", {}).get("barcode", [])),
-        "patron_email": record.user.email
-        or record.get("patron", {}).get("additional_communication_email"),
+        "patron_email": record.user.email or record.get("patron", {}).get("additional_communication_email"),
     }
 
 

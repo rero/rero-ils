@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test library dumpers."""
+
 from rero_ils.modules.acquisition.acq_orders.dumpers import AcqOrderNotificationDumper
 
 

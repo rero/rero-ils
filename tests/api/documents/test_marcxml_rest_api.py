@@ -17,16 +17,13 @@
 
 """Tests POST REST API for MARC21 documents."""
 
-
 from click.testing import CliRunner
 
 from rero_ils.modules.cli.utils import token_create
 from tests.utils import login_user_via_session, postdata
 
 
-def test_marcxml_documents_create(
-    client, document_marcxml, documents_marcxml, rero_marcxml_header, librarian_martigny
-):
+def test_marcxml_documents_create(client, document_marcxml, documents_marcxml, rero_marcxml_header, librarian_martigny):
     """Test post of marcxml document for logged users."""
     res, data = postdata(
         client,
@@ -59,9 +56,7 @@ def test_marcxml_documents_create(
     assert res.status_code == 400
 
 
-def test_marcxml_documents_create_with_a_token(
-    app, client, document_marcxml, rero_marcxml_header, librarian_martigny
-):
+def test_marcxml_documents_create_with_a_token(app, client, document_marcxml, rero_marcxml_header, librarian_martigny):
     """Test post of marcxml document with an access token."""
     runner = CliRunner()
     res = runner.invoke(

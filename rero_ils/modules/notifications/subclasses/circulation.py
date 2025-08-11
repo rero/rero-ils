@@ -49,10 +49,7 @@ class CirculationNotification(Notification, ABC):
         if self.type not in NotificationType.CIRCULATION_NOTIFICATIONS:
             return f"'{self.type} isn't a CirculationNotification"
         if not self.loan_pid:
-            return (
-                "`loan` field must be specified into `context` for "
-                "CirculationNotification"
-            )
+            return "`loan` field must be specified into `context` for CirculationNotification"
         return True
 
     # PARENT ABSTRACT IMPLEMENTATION METHODS ==================================
@@ -127,10 +124,7 @@ class CirculationNotification(Notification, ABC):
     def get_recipients_to(self):
         """Get the notification email address for 'TO' recipient type."""
         addresses = []
-        if (
-            self.get_communication_channel() == NotificationChannel.EMAIL
-            and self.patron
-        ):
+        if self.get_communication_channel() == NotificationChannel.EMAIL and self.patron:
             addresses = [
                 self.patron.user.email,
                 self.patron["patron"].get("additional_communication_email"),

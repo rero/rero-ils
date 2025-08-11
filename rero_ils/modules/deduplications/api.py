@@ -73,11 +73,7 @@ class Deduplication(object):
                     **{"retry_on_timeout": True, "max_retries": 5, "timeout": 20},
                 )
             )
-        return (
-            search.exclude("term", harvested=True)
-            .exclude("term", _draft=True)
-            .exclude("term", _masked=True)
-        )
+        return search.exclude("term", harvested=True).exclude("term", _draft=True).exclude("term", _masked=True)
 
     def check_date(self, data, candidates):
         """Check dates from the provision activity.
@@ -87,11 +83,7 @@ class Deduplication(object):
         :returns: the filtered candidate list.
         """
         # build a dict with type: date
-        prov = {
-            p["type"]: p["startDate"]
-            for p in data.get("provisionActivity", [])
-            if p.get("startDate")
-        }
+        prov = {p["type"]: p["startDate"] for p in data.get("provisionActivity", []) if p.get("startDate")}
         new_candidates = []
         for candidate in candidates:
             # build a dict with type: date for each candidate
@@ -104,9 +96,7 @@ class Deduplication(object):
             if not c_prov and not prov:
                 new_candidates.append(candidate)
             # all common data are equal => keep
-            if (prov and c_prov) and (
-                prov == {k: c_prov[k] for k in prov.keys() if c_prov.get(k)}
-            ):
+            if (prov and c_prov) and (prov == {k: c_prov[k] for k in prov.keys() if c_prov.get(k)}):
                 new_candidates.append(candidate)
         return new_candidates
 
@@ -125,9 +115,7 @@ class Deduplication(object):
             if not c_value and not value:
                 new_candidates.append(candidate)
             # keep if both of them match
-            elif (c_value and value) and self.normalize(
-                value[0][0]["value"]
-            ) == self.normalize(c_value[0][0]["value"]):
+            elif (c_value and value) and self.normalize(value[0][0]["value"]) == self.normalize(c_value[0][0]["value"]):
                 new_candidates.append(candidate)
 
         return new_candidates
@@ -277,8 +265,7 @@ class Deduplication(object):
             return None
         return (
             1
-            if cls.normalize(data_field[0]["_text"][0]["value"])
-            == cls.normalize(c_field[0]["_text"][0]["value"])
+            if cls.normalize(data_field[0]["_text"][0]["value"]) == cls.normalize(c_field[0]["_text"][0]["value"])
             else 0
         )
 
@@ -294,8 +281,7 @@ class Deduplication(object):
             return None
         return (
             1
-            if cls.normalize(data_field[0]["_text"][0]["value"])
-            == cls.normalize(c_field[0]["_text"][0]["value"])
+            if cls.normalize(data_field[0]["_text"][0]["value"]) == cls.normalize(c_field[0]["_text"][0]["value"])
             else 0
         )
 
@@ -305,14 +291,7 @@ class Deduplication(object):
 
         :returns: 1 if at least one main type matched.
         """
-        return (
-            1.0
-            if (
-                {t["main_type"] for t in data["type"]}
-                & {t["main_type"] for t in candidate["type"]}
-            )
-            else 0
-        )
+        return 1.0 if ({t["main_type"] for t in data["type"]} & {t["main_type"] for t in candidate["type"]}) else 0
 
     @classmethod
     def get_publication_date_score(cls, data, candidate):
@@ -370,12 +349,8 @@ class Deduplication(object):
         :returns: 1 if both documents have at least one identifier in common (excluding bf:Local).
         """
         # identifiers
-        identifiers = [
-            d for d in data.get("identifiedBy", []) if d["type"] != "bf:Local"
-        ]
-        c_identifiers = [
-            d for d in candidate.get("identifiedBy", []) if d["type"] != "bf:Local"
-        ]
+        identifiers = [d for d in data.get("identifiedBy", []) if d["type"] != "bf:Local"]
+        c_identifiers = [d for d in candidate.get("identifiedBy", []) if d["type"] != "bf:Local"]
         if identifiers and c_identifiers:
             common_ids = {f"{d['type']}-{d['value']}" for d in identifiers} & {
                 f"{d['type']}-{d['value']}" for d in c_identifiers
@@ -494,8 +469,7 @@ class Deduplication(object):
 
         # add score
         candidates = [
-            (hit._source.pid, hit._source.to_dict()) + self.rescore(data, hit)
-            for hit in search.execute().hits.hits
+            (hit._source.pid, hit._source.to_dict()) + self.rescore(data, hit) for hit in search.execute().hits.hits
         ]
 
         # sort by score

@@ -38,8 +38,6 @@ class PasswordValidator:
         :raise ValidationError: If the password is invalid.
         """
         try:
-            password_validator(
-                field.data, length=self.length, special_char=self.special_char
-            )
+            password_validator(field.data, length=self.length, special_char=self.special_char)
         except PasswordValidatorException as e:
             raise ValidationError(str(e)) from e

@@ -18,7 +18,6 @@
 
 """Holding Record tests."""
 
-
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
@@ -78,14 +77,9 @@ def test_holding_item_links(
     assert holding_loan_condition_filter(holding_lib_martigny.pid) == "standard"
     with pytest.raises(Exception):
         assert holding_loan_condition_filter("no pid")
-    holdings = get_holdings_by_document_item_type(
-        document.pid, item_type_standard_martigny.pid
-    )
+    holdings = get_holdings_by_document_item_type(document.pid, item_type_standard_martigny.pid)
     assert holding_lib_martigny.pid == holdings[1].get("pid")
-    assert (
-        list(holding_lib_martigny.get_all_items())[1].get("pid")
-        == item_lib_martigny.pid
-    )
+    assert list(holding_lib_martigny.get_all_items())[1].get("pid") == item_lib_martigny.pid
 
     holding_lib_martigny.delete_from_index()
     assert not holding_lib_martigny.delete_from_index()
@@ -95,9 +89,7 @@ def test_holding_item_links(
     assert holding_lib_martigny.get_items_count_by_holding_pid == 2
 
 
-def test_holding_delete_after_item_deletion(
-    client, holding_lib_martigny, item_lib_martigny
-):
+def test_holding_delete_after_item_deletion(client, holding_lib_martigny, item_lib_martigny):
     """Test automatic holding delete after deleting last item."""
     for pid in Item.get_all_pids():
         if pid != item_lib_martigny.pid:
@@ -120,9 +112,7 @@ def test_holding_delete_after_item_deletion(
     assert not holding
 
 
-def test_holding_delete_after_item_edition(
-    client, holding_lib_saxon, item_lib_saxon, holding_lib_fully
-):
+def test_holding_delete_after_item_edition(client, holding_lib_saxon, item_lib_saxon, holding_lib_fully):
     """Test automatic holding delete after item edition."""
 
     item_lib_saxon["location"] = {"$ref": "https://bib.rero.ch/api/locations/loc5"}

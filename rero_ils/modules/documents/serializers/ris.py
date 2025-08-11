@@ -46,8 +46,7 @@ class RISSerializer(SerializerMixinInterface):
         # enrich record data with encoded identifier alternatives. The
         # record identifiers list should contain only distinct identifier !
         identifiers = {
-            IdentifierFactory.create_identifier(identifier_data)
-            for identifier_data in record.get("identifiedBy", [])
+            IdentifierFactory.create_identifier(identifier_data) for identifier_data in record.get("identifiedBy", [])
         }
 
         for identifier in list(identifiers):
@@ -55,9 +54,7 @@ class RISSerializer(SerializerMixinInterface):
         record["identifiedBy"] = [identifier.dump() for identifier in identifiers]
         return RISFormatter(record=record).format()
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -102,11 +99,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
         :return: mapped RIS reference type.
         """
         return next(
-            (
-                ris_doc_type
-                for ris_doc_type, func in self._doctype_mapping.items()
-                if func(main_type, sub_type)
-            ),
+            (ris_doc_type for ris_doc_type, func in self._doctype_mapping.items() if func(main_type, sub_type)),
             "GEN",
         )
 
@@ -116,8 +109,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
             return ["GEN"]
 
         return [
-            self._doctype_mapper(doc_type.get("main_type"), doc_type.get("subtype"))
-            for doc_type in self.record["type"]
+            self._doctype_mapper(doc_type.get("main_type"), doc_type.get("subtype")) for doc_type in self.record["type"]
         ]
 
     def _get_city(self):
@@ -147,9 +139,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
             "CY": self._get_publication_places(),
             "LA": self._get_languages(),
             "PB": self._get_publisher(),
-            "SN": self._get_identifiers(
-                [IdentifierType.ISBN, IdentifierType.ISSN, IdentifierType.L_ISSN]
-            ),
+            "SN": self._get_identifiers([IdentifierType.ISBN, IdentifierType.ISSN, IdentifierType.L_ISSN]),
             "UR": self._get_electronic_locators(),
             "UR": self._get_permalink(),
             "KW": self._get_subjects(),

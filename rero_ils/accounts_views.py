@@ -135,9 +135,7 @@ def make_password_schema(request):
     # Respect partial updates for PATCH requests
     partial = request.method == "PATCH"
     if request.json.get("username"):
-        return UsernamePassword(
-            only=only, partial=partial, context={"request": request}
-        )
+        return UsernamePassword(only=only, partial=partial, context={"request": request})
     # Add current request to the schema's context
     return PasswordPassword(only=only, partial=partial, context={"request": request})
 

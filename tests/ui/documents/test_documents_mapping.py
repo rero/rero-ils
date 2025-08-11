@@ -41,9 +41,7 @@ def test_document_es_mapping(
     mapping = get_mapping(search.Meta.index)
     assert mapping
     data = deepcopy(document_data_ref)
-    mock_contributions_mef_get.return_value = mock_response(
-        json_data=entity_person_response_data
-    )
+    mock_contributions_mef_get.return_value = mock_response(json_data=entity_person_response_data)
     Document.create(data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
 

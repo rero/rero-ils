@@ -39,9 +39,7 @@ def test_local_entity_permissions(
     # Anonymous user
     #   - Allow search/read actions on any local entity
     #   - Deny create/update/delete actions on any local entity
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         permission_policy,
         {

@@ -45,9 +45,7 @@ def test_patrons_permissions(
     """Test patrons permissions class."""
 
     # Anonymous user & Patron user
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(PatronPermissionPolicy, {"search": False}, {})
     check_permission(
         PatronPermissionPolicy,

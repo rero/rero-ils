@@ -24,15 +24,11 @@ from rero_ils.modules.stats.permissions import StatisticsPermissionPolicy
 from tests.utils import check_permission
 
 
-def test_stats_permissions(
-    patron_martigny, stats_librarian, librarian_martigny, system_librarian_martigny
-):
+def test_stats_permissions(patron_martigny, stats_librarian, librarian_martigny, system_librarian_martigny):
     """Test stat permissions class."""
 
     # Anonymous user & Patron user :: all operation are disallowed
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         StatisticsPermissionPolicy,
         {

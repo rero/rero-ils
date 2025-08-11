@@ -100,19 +100,13 @@ class Entity(IlsRecord, ABC):
             "terms",
             field="organisation_pid",
             min_doc_count=1,
-            size=current_app.config.get("RERO_ILS_AGGREGATION_SIZE", {}).get(
-                "organisations", 10
-            ),
+            size=current_app.config.get("RERO_ILS_AGGREGATION_SIZE", {}).get("organisations", 10),
         )
         search.aggs.bucket("organisation", agg)
         results = search.execute()
-        return list(
-            {result.key for result in results.aggregations.organisation.buckets}
-        )
+        return list({result.key for result in results.aggregations.organisation.buckets})
 
-    def documents_pids(
-        self, with_subjects=True, with_subjects_imported=True, with_genre_forms=True
-    ):
+    def documents_pids(self, with_subjects=True, with_subjects_imported=True, with_genre_forms=True):
         """Get documents pids related to this entity.
 
         :param with_subjects: is the document `subject` field must be analyzed.
@@ -131,9 +125,7 @@ class Entity(IlsRecord, ABC):
         )
         return [hit.pid for hit in search.source("pid").scan()]
 
-    def documents_ids(
-        self, with_subjects=True, with_subjects_imported=True, with_genre_forms=True
-    ):
+    def documents_ids(self, with_subjects=True, with_subjects_imported=True, with_genre_forms=True):
         """Get document ID's/UUID related to this entity.
 
         :param with_subjects: is the document `subject` field must be analyzed.

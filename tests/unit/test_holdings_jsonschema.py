@@ -18,7 +18,6 @@
 
 """Holdings JSON schema tests."""
 
-
 from __future__ import absolute_import, print_function
 
 import copy
@@ -46,9 +45,7 @@ def test_required_patterns(holding_schema, holding_lib_martigny_w_patterns_data)
         validate(holding_lib_martigny_w_patterns_data, holding_schema)
 
 
-def test_required_patterns_frequency(
-    holding_schema, holding_lib_martigny_w_patterns_data
-):
+def test_required_patterns_frequency(holding_schema, holding_lib_martigny_w_patterns_data):
     """Test required for frequency in the patterns."""
     holding = copy.deepcopy(holding_lib_martigny_w_patterns_data)
     del holding["patterns"]["frequency"]
@@ -57,9 +54,7 @@ def test_required_patterns_frequency(
         validate(holding, holding_schema)
 
 
-def test_holdings_all_jsonschema_keys_values(
-    holding_schema, holding_lib_martigny_w_patterns_data
-):
+def test_holdings_all_jsonschema_keys_values(holding_schema, holding_lib_martigny_w_patterns_data):
     """Test all keys and values for holdings jsonschema."""
     record = holding_lib_martigny_w_patterns_data
     validate(record, holding_schema)

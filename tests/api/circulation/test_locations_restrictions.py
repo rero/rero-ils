@@ -17,7 +17,6 @@
 
 """Tests REST API to update loan pickup locations."""
 
-
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -35,9 +34,7 @@ def test_item_pickup_location(client, librarian_martigny, item2_lib_martigny):
     res = client.get(url_for("api_item.get_pickup_locations", item_pid="dummy_pid"))
     assert res.status_code == 404
     # test with an existing item
-    res = client.get(
-        url_for("api_item.get_pickup_locations", item_pid=item2_lib_martigny.pid)
-    )
+    res = client.get(url_for("api_item.get_pickup_locations", item_pid=item2_lib_martigny.pid))
     assert res.status_code == 200
     data = get_json(res)
     assert "locations" in data
@@ -91,16 +88,10 @@ def test_holding_pickup_location(client, patron_martigny, holding_lib_martigny):
     """Test get holding pickup locations for patron."""
     login_user_via_session(client, patron_martigny.user)
     # test with dummy data will return 404
-    res = client.get(
-        url_for("api_holding.get_pickup_locations", holding_pid="dummy_pid")
-    )
+    res = client.get(url_for("api_holding.get_pickup_locations", holding_pid="dummy_pid"))
     assert res.status_code == 404
     # test with an existing holding
-    res = client.get(
-        url_for(
-            "api_holding.get_pickup_locations", holding_pid=holding_lib_martigny.pid
-        )
-    )
+    res = client.get(url_for("api_holding.get_pickup_locations", holding_pid=holding_lib_martigny.pid))
     assert res.status_code == 200
     data = get_json(res)
     assert "locations" in data

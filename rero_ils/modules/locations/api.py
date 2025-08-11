@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating locations."""
+
 from functools import partial
 
 from elasticsearch_dsl.query import Q
@@ -34,9 +35,7 @@ from .indexer import location_indexer_dumper, location_replace_refs_dumper
 from .models import LocationIdentifier, LocationMetadata
 
 # provider
-LocationProvider = type(
-    "LocationProvider", (Provider,), dict(identifier=LocationIdentifier, pid_type="loc")
-)
+LocationProvider = type("LocationProvider", (Provider,), dict(identifier=LocationIdentifier, pid_type="loc"))
 # minter
 location_id_minter = partial(id_minter, provider=LocationProvider)
 # fetcher
@@ -63,12 +62,7 @@ class LocationsSearch(IlsRecordsSearch):
         :return: list of pid locations
         :rtype: list
         """
-        return [
-            location.pid
-            for location in self.filter("term", library__pid=library_pid)
-            .source(source)
-            .scan()
-        ]
+        return [location.pid for location in self.filter("term", library__pid=library_pid).source(source).scan()]
 
     def by_organisation_pid(self, organisation_pid):
         """Build a search to get hits related to an organisation pid.
@@ -100,20 +94,14 @@ class Location(IlsRecord):
         is present and not empty if location is pickup
         """
         online_location_pid = self.get_library().online_location
-        if (
-            self.get("is_online")
-            and online_location_pid
-            and self.pid != online_location_pid
-        ):
+        if self.get("is_online") and online_location_pid and self.pid != online_location_pid:
             return _("Another online location exists in this library")
         if self.get("is_pickup", False) and not self.get("pickup_name", "").strip():
             return _("Pickup location name field is required.")
         return True
 
     @classmethod
-    def get_pickup_location_pids(
-        cls, patron_pid=None, item_pid=None, is_ill_pickup=False
-    ):
+    def get_pickup_location_pids(cls, patron_pid=None, item_pid=None, is_ill_pickup=False):
         """Return pickup locations."""
         from rero_ils.modules.items.api import Item
         from rero_ils.modules.patrons.api import Patron
@@ -219,18 +207,13 @@ class Location(IlsRecord):
     def restrict_pickup_to(self):
         """Get restriction pickup location pid of location."""
         return [
-            extracted_data_from_ref(restrict_pickup_to)
-            for restrict_pickup_to in self.get("restrict_pickup_to", [])
+            extracted_data_from_ref(restrict_pickup_to) for restrict_pickup_to in self.get("restrict_pickup_to", [])
         ]
 
     @property
     def pickup_name(self):
         """Get pickup name for location."""
-        return (
-            self["pickup_name"]
-            if "pickup_name" in self
-            else f"{self.library['code']}: {self['name']}"
-        )
+        return self["pickup_name"] if "pickup_name" in self else f"{self.library['code']}: {self['name']}"
 
     @classmethod
     def can_request(cls, record, **kwargs):

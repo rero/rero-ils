@@ -51,12 +51,8 @@ class StatsForPricing:
         if to_date and isinstance(to_date, datetime):
             to_date = arrow.Arrow.fromdatetime(to_date)
         to_date = to_date or arrow.utcnow() - relativedelta(days=1)
-        self.months_delta = current_app.config.get(
-            "RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHS"
-        )
-        _from = (to_date - relativedelta(months=self.months_delta)).format(
-            fmt="YYYY-MM-DDT00:00:00"
-        )
+        self.months_delta = current_app.config.get("RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHS")
+        _from = (to_date - relativedelta(months=self.months_delta)).format(fmt="YYYY-MM-DDT00:00:00")
         _to = to_date.format(fmt="YYYY-MM-DDT23:59:59")
         self.to_date = to_date
         self.date_range = {"gte": _from, "lte": _to}
@@ -105,26 +101,16 @@ class StatsForPricing:
             "number_of_librarians": self.number_of_librarians(library.pid),
             "number_of_active_patrons": self.number_of_active_patrons(library.pid),
             "number_of_order_lines": self.number_of_order_lines(library.pid),
-            "number_of_checkouts": self.number_of_circ_operations(
-                library.pid, ItemCirculationAction.CHECKOUT
-            ),
-            "number_of_renewals": self.number_of_circ_operations(
-                library.pid, ItemCirculationAction.EXTEND
-            ),
-            "number_of_ill_requests": self.number_of_ill_requests(
-                library.pid, [ILLRequestStatus.DENIED]
-            ),
+            "number_of_checkouts": self.number_of_circ_operations(library.pid, ItemCirculationAction.CHECKOUT),
+            "number_of_renewals": self.number_of_circ_operations(library.pid, ItemCirculationAction.EXTEND),
+            "number_of_ill_requests": self.number_of_ill_requests(library.pid, [ILLRequestStatus.DENIED]),
             "number_of_items": self.number_of_items(library.pid),
             "number_of_new_items": self.number_of_new_items(library.pid),
             "number_of_deleted_items": self.number_of_deleted_items(library.pid),
             "number_of_patrons": self.number_of_patrons(library.organisation.pid),
             "number_of_new_patrons": self.number_of_patrons(library.organisation.pid),
-            "number_of_checkins": self.number_of_circ_operations(
-                library.pid, ItemCirculationAction.CHECKIN
-            ),
-            "number_of_requests": self.number_of_circ_operations(
-                library.pid, ItemCirculationAction.REQUEST
-            ),
+            "number_of_checkins": self.number_of_circ_operations(library.pid, ItemCirculationAction.CHECKIN),
+            "number_of_requests": self.number_of_circ_operations(library.pid, ItemCirculationAction.REQUEST),
             "number_of_docs_with_files": self.number_of_docs_with_files(library.pid),
             "number_of_files": self.number_of_files(library.pid),
             "files_volume": self.files_volume(library.pid),
@@ -173,9 +159,7 @@ class StatsForPricing:
         :rtype: integer
         """
         # this should always count patrons that were active in the past year
-        _from = (self.to_date - relativedelta(months=12)).format(
-            fmt="YYYY-MM-DDT00:00:00"
-        )
+        _from = (self.to_date - relativedelta(months=12)).format(fmt="YYYY-MM-DDT00:00:00")
         _to = self.date_range.get("lte")
         activity_period = {"gte": _from, "lte": _to}
         op_logs_query = (
@@ -186,9 +170,7 @@ class StatsForPricing:
             )
             .filter("term", loan__item__library_pid=library_pid)
         )
-        patrons = {
-            res.loan.patron.hashed_pid for res in op_logs_query.source(["loan"]).scan()
-        }
+        patrons = {res.loan.patron.hashed_pid for res in op_logs_query.source(["loan"]).scan()}
         return len(patrons)
 
     def number_of_order_lines(self, library_pid):
@@ -272,12 +254,7 @@ class StatsForPricing:
         :rtype: integer
         """
         # can be done using the facet or operation logs
-        return (
-            ItemsSearch()
-            .filter("range", _created=self.date_range)
-            .filter("term", library__pid=library_pid)
-            .count()
-        )
+        return ItemsSearch().filter("range", _created=self.date_range).filter("term", library__pid=library_pid).count()
 
     def number_of_new_patrons(self, organisation_pid):
         """New patrons for an organisation during the specified timeframe.
@@ -302,12 +279,7 @@ class StatsForPricing:
         :return: the number of matched patrons
         :rtype: integer
         """
-        return (
-            PatronsSearch()
-            .filter("term", roles="patron")
-            .filter("term", organisation__pid=organisation_pid)
-            .count()
-        )
+        return PatronsSearch().filter("term", roles="patron").filter("term", organisation__pid=organisation_pid).count()
 
     def number_of_docs_with_files(self, library_pid):
         """Number of documents containing files belonging to a given library.

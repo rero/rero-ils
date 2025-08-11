@@ -51,9 +51,7 @@ from rero_ils.modules.users.api import User
 from tests.utils import get_json, postdata
 
 # skip tests if invenio-sip2 module is not installed
-pytestmark = pytest.mark.skipif(
-    not check_sip2_module(), reason="invenio-sip2 not installed"
-)
+pytestmark = pytest.mark.skipif(not check_sip2_module(), reason="invenio-sip2 not installed")
 
 
 def test_invenio_sip2():
@@ -65,9 +63,7 @@ def test_selfcheck_login(librarian_martigny, selfcheck_librarian_martigny):
     """Test selfcheck client login."""
 
     # test failed login
-    response = selfcheck_login(
-        "invalid_user", "invalid_password", terminal_ip="127.0.0.1"
-    )
+    response = selfcheck_login("invalid_user", "invalid_password", terminal_ip="127.0.0.1")
     assert not response
 
     # test success login
@@ -123,9 +119,7 @@ def test_authorize_patron(selfcheck_patron_martigny, default_user_password):
 def test_validate_patron(selfcheck_patron_martigny):
     """Test validate patron."""
     # test valid patron barcode
-    assert validate_patron_account(
-        selfcheck_patron_martigny.get("patron", {}).get("barcode")[0]
-    )
+    assert validate_patron_account(selfcheck_patron_martigny.get("patron", {}).get("barcode")[0])
 
     # test invalid patron barcode
     assert not validate_patron_account("invalid_barcode")
@@ -139,9 +133,7 @@ def test_system_status(selfcheck_librarian_martigny):
 
 def test_enable_patron(selfcheck_patron_martigny):
     """Test enable patron."""
-    response = enable_patron(
-        selfcheck_patron_martigny.get("patron", {}).get("barcode")[0]
-    )
+    response = enable_patron(selfcheck_patron_martigny.get("patron", {}).get("barcode")[0])
     ptrn = selfcheck_patron_martigny
     assert response.get("institution_id") == ptrn.organisation_pid
     assert response.get("patron_id") == ptrn.patron["barcode"]
@@ -233,9 +225,7 @@ def test_patron_information(
     res, data = postdata(client, "api_item.validate_request", dict(circ_params))
     assert res.status_code == 200
     # get patron information
-    response = patron_information(
-        selfcheck_patron_martigny.get("patron", {}).get("barcode")[0]
-    )
+    response = patron_information(selfcheck_patron_martigny.get("patron", {}).get("barcode")[0])
     assert response
     # check required fields
     required_fields = [
@@ -260,9 +250,7 @@ def test_patron_information(
         assert len(response.get(field)) > 0
 
     # get patron status
-    response = patron_status(
-        selfcheck_patron_martigny.get("patron", {}).get("barcode")[0]
-    )
+    response = patron_status(selfcheck_patron_martigny.get("patron", {}).get("barcode")[0])
     assert response
 
     # checkin

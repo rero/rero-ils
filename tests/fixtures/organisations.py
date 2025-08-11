@@ -39,9 +39,7 @@ def org_martigny_data(data):
 @pytest.fixture(scope="module")
 def org_martigny(app, org_martigny_data):
     """Create Martigny organisation."""
-    org = Organisation.create(
-        data=org_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    org = Organisation.create(data=org_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     OrganisationsSearch.flush_and_refresh()
     return org
 
@@ -49,9 +47,7 @@ def org_martigny(app, org_martigny_data):
 @pytest.fixture(scope="function")
 def organisation_temp(app, org_martigny):
     """Scope function organisation data."""
-    org = Organisation.create(
-        data=org_martigny, dbcommit=True, delete_pid=True, reindex=True
-    )
+    org = Organisation.create(data=org_martigny, dbcommit=True, delete_pid=True, reindex=True)
     OrganisationsSearch.flush_and_refresh()
     return org
 
@@ -65,9 +61,7 @@ def org_sion_data(data):
 @pytest.fixture(scope="module")
 def org_sion(app, org_sion_data):
     """Create Sion organisation."""
-    org = Organisation.create(
-        data=org_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    org = Organisation.create(data=org_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     OrganisationsSearch.flush_and_refresh()
     return org
 
@@ -87,9 +81,7 @@ def lib_martigny_bourg_data(data):
 @pytest.fixture(scope="module")
 def lib_martigny(app, org_martigny, lib_martigny_data):
     """Martigny-ville library."""
-    lib = Library.create(
-        data=lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    lib = Library.create(data=lib_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     LibrariesSearch.flush_and_refresh()
     return lib
 
@@ -97,9 +89,7 @@ def lib_martigny(app, org_martigny, lib_martigny_data):
 @pytest.fixture(scope="module")
 def lib_martigny_bourg(app, org_martigny, lib_martigny_bourg_data):
     """Martigny-bourg library."""
-    lib = Library.create(
-        data=lib_martigny_bourg_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    lib = Library.create(data=lib_martigny_bourg_data, delete_pid=False, dbcommit=True, reindex=True)
     LibrariesSearch.flush_and_refresh()
     return lib
 
@@ -113,9 +103,7 @@ def lib_saillon_data(data):
 @pytest.fixture(scope="module")
 def lib_saillon(app, org_martigny, lib_saillon_data):
     """Saillon library."""
-    lib = Library.create(
-        data=lib_saillon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    lib = Library.create(data=lib_saillon_data, delete_pid=False, dbcommit=True, reindex=True)
     LibrariesSearch.flush_and_refresh()
     return lib
 
@@ -129,9 +117,7 @@ def lib_saxon_data(data):
 @pytest.fixture(scope="module")
 def lib_saxon(app, org_martigny, lib_saxon_data):
     """Saxon library."""
-    lib = Library.create(
-        data=lib_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    lib = Library.create(data=lib_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     LibrariesSearch.flush_and_refresh()
     return lib
 
@@ -145,9 +131,7 @@ def lib_fully_data(data):
 @pytest.fixture(scope="module")
 def lib_fully(app, org_martigny, lib_fully_data):
     """Fully library."""
-    lib = Library.create(
-        data=lib_fully_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    lib = Library.create(data=lib_fully_data, delete_pid=False, dbcommit=True, reindex=True)
     LibrariesSearch.flush_and_refresh()
     return lib
 
@@ -161,9 +145,7 @@ def lib_sion_data(data):
 @pytest.fixture(scope="module")
 def lib_sion(app, org_sion, lib_sion_data):
     """Sion library."""
-    lib = Library.create(
-        data=lib_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    lib = Library.create(data=lib_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     LibrariesSearch.flush_and_refresh()
     return lib
 
@@ -177,9 +159,7 @@ def lib_aproz_data(data):
 @pytest.fixture(scope="module")
 def lib_aproz(app, org_sion, lib_aproz_data):
     """Aproz library."""
-    lib = Library.create(
-        data=lib_aproz_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    lib = Library.create(data=lib_aproz_data, delete_pid=False, dbcommit=True, reindex=True)
     LibrariesSearch.flush_and_refresh()
     return lib
 
@@ -317,9 +297,7 @@ def locations(
 @pytest.fixture(scope="module")
 def loc_public_martigny(app, lib_martigny, loc_public_martigny_data):
     """Create public space location for Martigny ville."""
-    loc = Location.create(
-        data=loc_public_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_public_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -338,9 +316,7 @@ def loc_public_martigny_bourg(app, lib_martigny_bourg, loc_public_martigny_bourg
 
 
 @pytest.fixture(scope="module")
-def loc_restricted_martigny_bourg(
-    app, lib_martigny_bourg, loc_restricted_martigny_bourg_data
-):
+def loc_restricted_martigny_bourg(app, lib_martigny_bourg, loc_restricted_martigny_bourg_data):
     """Create restricted space location for Martigny bourg."""
     loc = Location.create(
         data=loc_restricted_martigny_bourg_data,
@@ -355,9 +331,7 @@ def loc_restricted_martigny_bourg(
 @pytest.fixture(scope="module")
 def loc_public_saillon(app, lib_saillon, loc_public_saillon_data):
     """Create public space location for saillon."""
-    loc = Location.create(
-        data=loc_public_saillon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_public_saillon_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -365,9 +339,7 @@ def loc_public_saillon(app, lib_saillon, loc_public_saillon_data):
 @pytest.fixture(scope="module")
 def loc_restricted_martigny(app, lib_martigny, loc_restricted_martigny_data):
     """Create restricted space location for Martigny ville."""
-    loc = Location.create(
-        data=loc_restricted_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_restricted_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -375,9 +347,7 @@ def loc_restricted_martigny(app, lib_martigny, loc_restricted_martigny_data):
 @pytest.fixture(scope="module")
 def loc_public_saxon(app, lib_saxon, loc_public_saxon_data):
     """Create public space location for saxon."""
-    loc = Location.create(
-        data=loc_public_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_public_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -385,9 +355,7 @@ def loc_public_saxon(app, lib_saxon, loc_public_saxon_data):
 @pytest.fixture(scope="module")
 def loc_restricted_saxon(app, lib_saxon, loc_restricted_saxon_data):
     """Create restricted space location for saxon."""
-    loc = Location.create(
-        data=loc_restricted_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_restricted_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -395,9 +363,7 @@ def loc_restricted_saxon(app, lib_saxon, loc_restricted_saxon_data):
 @pytest.fixture(scope="module")
 def loc_public_fully(app, lib_fully, loc_public_fully_data):
     """Create public space location for fully."""
-    loc = Location.create(
-        data=loc_public_fully_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_public_fully_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -405,9 +371,7 @@ def loc_public_fully(app, lib_fully, loc_public_fully_data):
 @pytest.fixture(scope="module")
 def loc_restricted_fully(app, lib_fully, loc_restricted_fully_data):
     """Create restricted space location for fully."""
-    loc = Location.create(
-        data=loc_restricted_fully_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_restricted_fully_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -415,9 +379,7 @@ def loc_restricted_fully(app, lib_fully, loc_restricted_fully_data):
 @pytest.fixture(scope="module")
 def loc_public_sion(app, lib_sion, loc_public_sion_data):
     """Create public space location for sion."""
-    loc = Location.create(
-        data=loc_public_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_public_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -425,9 +387,7 @@ def loc_public_sion(app, lib_sion, loc_public_sion_data):
 @pytest.fixture(scope="module")
 def loc_restricted_sion(app, lib_sion, loc_restricted_sion_data):
     """Create restricted space location for sion."""
-    loc = Location.create(
-        data=loc_restricted_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_restricted_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -435,9 +395,7 @@ def loc_restricted_sion(app, lib_sion, loc_restricted_sion_data):
 @pytest.fixture(scope="module")
 def loc_online_martigny(app, lib_martigny, loc_online_martigny_data):
     """Create online space location for Martigny."""
-    loc = Location.create(
-        data=loc_online_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_online_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -445,9 +403,7 @@ def loc_online_martigny(app, lib_martigny, loc_online_martigny_data):
 @pytest.fixture(scope="module")
 def loc_online_saxon(app, lib_saxon, loc_online_saxon_data):
     """Create online space location for Saxon."""
-    loc = Location.create(
-        data=loc_online_saxon_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_online_saxon_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -455,9 +411,7 @@ def loc_online_saxon(app, lib_saxon, loc_online_saxon_data):
 @pytest.fixture(scope="module")
 def loc_online_fully(app, lib_fully, loc_online_fully_data):
     """Create online space location for Fully."""
-    loc = Location.create(
-        data=loc_online_fully_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_online_fully_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -465,9 +419,7 @@ def loc_online_fully(app, lib_fully, loc_online_fully_data):
 @pytest.fixture(scope="module")
 def loc_online_sion(app, lib_sion, loc_online_sion_data):
     """Create online space location for Sion."""
-    loc = Location.create(
-        data=loc_online_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_online_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -475,9 +427,7 @@ def loc_online_sion(app, lib_sion, loc_online_sion_data):
 @pytest.fixture(scope="module")
 def loc_online_aproz(app, lib_aproz, loc_online_aproz_data):
     """Create online space location for aproz."""
-    loc = Location.create(
-        data=loc_online_aproz_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    loc = Location.create(data=loc_online_aproz_data, delete_pid=False, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
     return loc
 
@@ -554,9 +504,7 @@ def item_type_regular_sion_data(data):
 @pytest.fixture(scope="module")
 def item_type_regular_sion(app, org_sion, item_type_regular_sion_data):
     """Create regular item type of sion."""
-    itty = ItemType.create(
-        data=item_type_regular_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    itty = ItemType.create(data=item_type_regular_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemTypesSearch.flush_and_refresh()
     return itty
 
@@ -570,9 +518,7 @@ def item_type_internal_sion_data(data):
 @pytest.fixture(scope="module")
 def item_type_internal_sion(app, org_sion, item_type_internal_sion_data):
     """Create internal item type of sion."""
-    itty = ItemType.create(
-        data=item_type_internal_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    itty = ItemType.create(data=item_type_internal_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemTypesSearch.flush_and_refresh()
     return itty
 
@@ -624,9 +570,7 @@ def item_type_online_sion_data(data):
 @pytest.fixture(scope="module")
 def item_type_online_sion(app, org_sion, item_type_online_sion_data):
     """Create particular item type of sion."""
-    itty = ItemType.create(
-        data=item_type_online_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    itty = ItemType.create(data=item_type_online_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     ItemTypesSearch.flush_and_refresh()
     return itty
 
@@ -665,16 +609,12 @@ def patron_type_data_tmp(data):
 @pytest.fixture(scope="function")
 def patron_type_tmp(db, org_martigny, patron_type_children_martigny_data):
     """Create scope function children patron type of martigny."""
-    ptty = PatronType.create(
-        data=patron_type_children_martigny_data, dbcommit=True, delete_pid=True
-    )
+    ptty = PatronType.create(data=patron_type_children_martigny_data, dbcommit=True, delete_pid=True)
     return ptty
 
 
 @pytest.fixture(scope="module")
-def patron_type_children_martigny(
-    app, org_martigny, patron_type_children_martigny_data
-):
+def patron_type_children_martigny(app, org_martigny, patron_type_children_martigny_data):
     """Create children patron type of martigny."""
     ptty = PatronType.create(
         data=patron_type_children_martigny_data,
@@ -733,9 +673,7 @@ def patron_type_grown_sion_data(data):
 @pytest.fixture(scope="module")
 def patron_type_grown_sion(app, org_sion, patron_type_grown_sion_data):
     """Crate grown patron type of sion."""
-    ptty = PatronType.create(
-        data=patron_type_grown_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    ptty = PatronType.create(data=patron_type_grown_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     PatronTypesSearch.flush_and_refresh()
     return ptty
 
@@ -753,9 +691,7 @@ def circ_policy_default_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def circ_policy_default_martigny(
-    app, org_martigny, lib_martigny, lib_saxon, circ_policy_default_martigny_data
-):
+def circ_policy_default_martigny(app, org_martigny, lib_martigny, lib_saxon, circ_policy_default_martigny_data):
     """Create default circ policy for organisation martigny."""
     cipo = CircPolicy.create(
         data=circ_policy_default_martigny_data,
@@ -883,9 +819,7 @@ def circ_policy_ebooks_sion(
     circ_policy_ebooks_sion_data,
 ):
     """Create ebooks circ policy for organisation sion."""
-    cipo = CircPolicy.create(
-        data=circ_policy_ebooks_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    cipo = CircPolicy.create(data=circ_policy_ebooks_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     CircPoliciesSearch.flush_and_refresh()
     return cipo
 
@@ -942,13 +876,9 @@ def coll_martigny_1_data(data):
 
 
 @pytest.fixture(scope="module")
-def coll_martigny_1(
-    app, org_martigny, coll_martigny_1_data, item_lib_martigny, item2_lib_martigny
-):
+def coll_martigny_1(app, org_martigny, coll_martigny_1_data, item_lib_martigny, item2_lib_martigny):
     """Create collection Martigny 1."""
-    coll = Collection.create(
-        data=coll_martigny_1_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    coll = Collection.create(data=coll_martigny_1_data, delete_pid=False, dbcommit=True, reindex=True)
     CollectionsSearch.flush_and_refresh()
     return coll
 
@@ -960,13 +890,9 @@ def coll_sion_1_data(data):
 
 
 @pytest.fixture(scope="module")
-def coll_sion_1(
-    app, org_sion, lib_sion, coll_sion_1_data, item_lib_sion, item2_lib_sion
-):
+def coll_sion_1(app, org_sion, lib_sion, coll_sion_1_data, item_lib_sion, item2_lib_sion):
     """Create collection Sion 1."""
-    coll = Collection.create(
-        data=coll_sion_1_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    coll = Collection.create(data=coll_sion_1_data, delete_pid=False, dbcommit=True, reindex=True)
     CollectionsSearch.flush_and_refresh()
     return coll
 
@@ -987,8 +913,6 @@ def coll_saxon_1(
     item_lib_martigny,
 ):
     """Create collection Saxon 1."""
-    coll = Collection.create(
-        data=coll_saxon_1_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    coll = Collection.create(data=coll_saxon_1_data, delete_pid=False, dbcommit=True, reindex=True)
     CollectionsSearch.flush_and_refresh()
     return coll

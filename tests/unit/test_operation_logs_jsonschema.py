@@ -32,9 +32,7 @@ def test_required(operation_log_schema, operation_log_data):
         validate({}, operation_log_schema)
 
 
-def test_operation_log_all_jsonschema_keys_values(
-    operation_log_schema, operation_log_data
-):
+def test_operation_log_all_jsonschema_keys_values(operation_log_schema, operation_log_data):
     """Test all keys and values for operation log jsonschema."""
     record = operation_log_data
     validate(record, operation_log_schema)

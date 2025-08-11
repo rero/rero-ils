@@ -73,9 +73,7 @@ class RecallCirculationNotification(CirculationNotification):
 
         patron = notifications[0].patron
         library = notifications[0].library
-        include_address = (
-            notifications[0].get_communication_channel == NotificationChannel.MAIL
-        )
+        include_address = notifications[0].get_communication_channel == NotificationChannel.MAIL
         # Dump basic informations
         context |= {
             "include_patron_address": include_address,
@@ -91,9 +89,7 @@ class RecallCirculationNotification(CirculationNotification):
                 end_date = end_date.strftime("%d.%m.%Y")
             context["loans"].append(
                 {
-                    "document": notification.document.dumps(
-                        dumper=document_title_dumper
-                    ),
+                    "document": notification.document.dumps(dumper=document_title_dumper),
                     "end_date": end_date,
                 }
             )

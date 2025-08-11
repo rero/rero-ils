@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Marshmallow schema for JSON representation of `Patron` resources."""
+
 from functools import partial
 
 from flask import abort
@@ -54,9 +55,7 @@ class PatronAddressSchema(Schema):
 class PatronNoteSchema(NoteSchema):
     """Marshmallow schema for `notes` on Patron."""
 
-    ttype = SanitizedUnicode(
-        validate=OneOf([NoteTypes.PUBLIC_NOTE, NoteTypes.STAFF_NOTE])
-    )
+    ttype = SanitizedUnicode(validate=OneOf([NoteTypes.PUBLIC_NOTE, NoteTypes.STAFF_NOTE]))
 
 
 class PatronMetadataSchemaV1(StrictKeysMixin):

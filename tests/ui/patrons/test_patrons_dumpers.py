@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Patrons record dumper tests."""
+
 from rero_ils.modules.patrons.dumpers import PatronPropertiesDumper
 
 

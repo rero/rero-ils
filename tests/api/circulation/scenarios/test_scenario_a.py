@@ -17,7 +17,6 @@
 
 """Tests circulation scenario A."""
 
-
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.items.models import ItemStatus

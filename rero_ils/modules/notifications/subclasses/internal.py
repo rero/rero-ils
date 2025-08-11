@@ -56,9 +56,7 @@ class InternalCirculationNotification(CirculationNotification, ABC):
             return can, reason
         # Check loan notification candidate (by unpacking tuple's notification
         # candidate)
-        candidates_types = [
-            n[1] for n in self.loan.get_notification_candidates(trigger=None)
-        ]
+        candidates_types = [n[1] for n in self.loan.get_notification_candidates(trigger=None)]
         if self.type not in candidates_types:
             msg = "Notification type isn't into notification candidate"
             return True, msg

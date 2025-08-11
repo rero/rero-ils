@@ -47,12 +47,8 @@ class ILLRequestDocumentSource(FlaskForm):
         validators=[validators.Optional(), validators.Length(min=3)],
         description=_("Journal or book title"),
     )
-    volume = StringField(
-        description=_("Volume"), render_kw={"placeholder": "1, 2, ..."}
-    )
-    number = StringField(
-        description=_("Number"), render_kw={"placeholder": "1, January, ..."}
-    )
+    volume = StringField(description=_("Volume"), render_kw={"placeholder": "1, 2, ..."})
+    number = StringField(description=_("Number"), render_kw={"placeholder": "1, January, ..."})
 
 
 class ILLRequestDocumentForm(FlaskForm):
@@ -83,7 +79,7 @@ class ILLRequestDocumentForm(FlaskForm):
     )
     identifier = StringField(
         label=_("Identifier"),
-        description=_("Example: 978-0-901690-54-6 (ISBN), " "2049-3630 (ISSN), ..."),
+        description=_("Example: 978-0-901690-54-6 (ISBN), 2049-3630 (ISSN), ..."),
         render_kw={"placeholder": _("ISBN, ISSN")},
     )
     source = FormField(ILLRequestDocumentSource, label=_("Published in"))
@@ -98,9 +94,7 @@ class ILLRequestSourceForm(FlaskForm):
         csrf = False
 
     origin = StringField(description=_("Library catalog name"))
-    url = URLField(
-        description=_("Link of the document"), render_kw={"placeholder": "https://..."}
-    )
+    url = URLField(description=_("Link of the document"), render_kw={"placeholder": "https://..."})
 
     def validate(self, **kwargs):
         """Custom validation for this form."""
@@ -132,7 +126,7 @@ class ILLRequestForm(FlaskForm):
         # Choices will be loaded dynamically because they should
         # be given inside app_context
         choices=[("", lazy_gettext("Select…"))],
-        description=_("Select the location where this request will be " "operated"),
+        description=_("Select the location where this request will be operated"),
         validators=[validators.DataRequired()],
     )
 
@@ -143,13 +137,9 @@ class ILLRequestForm(FlaskForm):
         # if 'copy' is set to True, then 'pages' is required field
         custom_validate = True
         # TODO: and not self.pages.data ???
-        if self.copy.data == "1" and (
-            not self.pages.data or self.pages.data.strip() == 0
-        ):
+        if self.copy.data == "1" and (not self.pages.data or self.pages.data.strip() == 0):
             custom_validate = False
-            self.pages.errors.append(
-                _("As you request a document part, you need to specify requested pages")
-            )
+            self.pages.errors.append(_("As you request a document part, you need to specify requested pages"))
 
         return form_validate and custom_validate
 
@@ -172,9 +162,7 @@ class ILLRequestForm(FlaskForm):
                 # the loan status is required by the jsonschema, it is always
                 # PENDING on ill request creation
                 "loan_status": "PENDING",
-                "pickup_location": {
-                    "$ref": get_ref_for_pid("locations", self.pickup_location.data)
-                },
+                "pickup_location": {"$ref": get_ref_for_pid("locations", self.pickup_location.data)},
                 "pages": self.pages.data,
                 "found_in": {
                     "source": self.source.origin.data,

@@ -39,9 +39,7 @@ def test_trans_constants(app):
     """Test transformation constants."""
 
     data = {}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_constants()
     assert transformation.json == {
         "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
@@ -55,9 +53,7 @@ def test_trans_constants(app):
 def test_trans_pid(app):
     """Test transformation pid."""
     data = {"id": "immateriel.frO1097420"}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_pid()
     assert transformation.json == {"pid": "cantook-immateriel.frO1097420"}
 
@@ -85,9 +81,7 @@ def test_trans_identified_by(app):
             },
         ],
     }
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_identified_by()
     assert transformation.json == {
         "identifiedBy": [
@@ -114,9 +108,7 @@ def test_trans_identified_by(app):
         ],
     }
     # test audio type
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_identified_by()
     assert transformation.json == {
         "identifiedBy": [
@@ -127,9 +119,7 @@ def test_trans_identified_by(app):
             },
             {"note": "audio", "type": "bf:Isbn", "value": "9782354089597"},
         ],
-        "type": [
-            {"main_type": "docmaintype_audio", "subtype": "docsubtype_audio_book"}
-        ],
+        "type": [{"main_type": "docmaintype_audio", "subtype": "docsubtype_audio_book"}],
     }
 
 
@@ -141,13 +131,9 @@ def test_trans_title(app):
         "title_sort": "l'argent des gens",
         "subtitle": None,
     }
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_title()
-    assert transformation.json == {
-        "title": [{"mainTitle": [{"value": "L'argent des gens"}], "type": "bf:Title"}]
-    }
+    assert transformation.json == {"title": [{"mainTitle": [{"value": "L'argent des gens"}], "type": "bf:Title"}]}
     # with sub title
     data = {
         "title": "L'argent des gens",
@@ -155,17 +141,13 @@ def test_trans_title(app):
         "title_sort": "l'argent des gens",
         "subtitle": "Tentative d'épuisement de notre porte-monnaie",
     }
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_title()
     assert transformation.json == {
         "title": [
             {
                 "mainTitle": [{"value": "L'argent des gens"}],
-                "subtitle": [
-                    {"value": "Tentative d'épuisement de notre " "porte-monnaie"}
-                ],
+                "subtitle": [{"value": "Tentative d'épuisement de notre porte-monnaie"}],
                 "type": "bf:Title",
             }
         ],
@@ -203,9 +185,7 @@ def test_trans_contribution(app):
             },
         ],
     }
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_contribution()
     assert transformation.json == {
         "contribution": [
@@ -233,9 +213,7 @@ def test_trans_provision_activity(app):
         "publisher_name": "Éditions Mnémos",
         "created_at": "2022-03-09T07:45:09+01:00",
     }
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_provision_activity()
     assert transformation.json == {
         "provisionActivity": [
@@ -257,9 +235,7 @@ def test_trans_electronic_locator(app):
         "cover": "https://images.immateriel.fr/covers/4MY6AC5.png",
         "flipbook": "https://tw5.immateriel.fr/wiki/immateriel/b/4MY6AC5",
     }
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_electronic_locator()
     assert transformation.json == {
         "electronicLocator": [
@@ -280,9 +256,7 @@ def test_trans_electronic_locator(app):
 def test_trans_fiction(app):
     """Test transformation fiction."""
     data = {"fiction": None}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_fiction()
     assert transformation.json == {"fiction_statement": "unspecified"}
 
@@ -290,21 +264,15 @@ def test_trans_fiction(app):
 def test_trans_language(app):
     """Test transformation language."""
     data = {"languages": ["fre"]}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_language()
-    assert transformation.json == {
-        "language": [{"type": "bf:Language", "value": "fre"}]
-    }
+    assert transformation.json == {"language": [{"type": "bf:Language", "value": "fre"}]}
 
 
 def test_trans_orginal_language(app):
     """Test transformation language."""
     data = {"translated_from": "eng"}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_orginal_language()
     assert transformation.json == {"originalLanguage": ["eng"]}
 
@@ -360,21 +328,15 @@ def test_trans_orginal_language(app):
 def test_trans_summary(app):
     """Test transformation Summary."""
     data = {"summary": "This is a summery."}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_summary()
-    assert transformation.json == {
-        "summary": [{"label": [{"value": "This is a summery."}]}]
-    }
+    assert transformation.json == {"summary": [{"label": [{"value": "This is a summery."}]}]}
 
 
 def test_trans_extent(app):
     """Test transformation Extend."""
     data = {"page_count": 560}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_extent()
     assert transformation.json == {"extent": "560 pages"}
 
@@ -383,31 +345,23 @@ def test_trans_extent(app):
 def test_trans_links(app):
     """Test transformation links."""
     data = {"link": "https://bm.ebibliomedia.ch/resources/648bf704b7e14d000154685f"}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_links()
-    assert transformation.json == {
-        "link": "https://bm.ebibliomedia.ch/resources/648bf704b7e14d000154685f"
-    }
+    assert transformation.json == {"link": "https://bm.ebibliomedia.ch/resources/648bf704b7e14d000154685f"}
 
 
 # to be used for deleted records
 def test_trans_deleted(app):
     """Test transformation deleted."""
     data = {"unavailable_since": "2024-01-03T16:50:35+01:00"}
-    transformation = Transformation(
-        data=data, logger=None, verbose=False, transform=False
-    )
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_deleted()
     assert transformation.json == {"deleted": "2024-01-03T16:50:35+01:00"}
 
 
 def test_trans_do(app):
     """Test dojson do."""
-    content = json.load(
-        open(join(dirname(__file__), "../../data/mv_cantook_deleted.json"))
-    )
+    content = json.load(open(join(dirname(__file__), "../../data/mv_cantook_deleted.json")))
     data = content["resources"][0]
     transformation = Transformation(logger=None, verbose=False, transform=False)
     result = transformation.do(data)
@@ -457,7 +411,7 @@ def test_trans_do(app):
                 "startDate": 2023,
                 "statement": [
                     {
-                        "label": [{"value": "Nouvelles Éditions " "Actu SF"}],
+                        "label": [{"value": "Nouvelles Éditions Actu SF"}],
                         "type": "bf:Agent",
                     },
                     {"label": [{"value": "2023"}], "type": "Date"},

@@ -43,9 +43,7 @@ def test_collections_permissions(
     # Anonymous user & Patron user
     #  - search/read any items are allowed.
     #  - create/update/delete operations are disallowed.
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         CollectionPermissionPolicy,
         {

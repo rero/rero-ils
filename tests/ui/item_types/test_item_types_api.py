@@ -25,9 +25,7 @@ from jsonschema.exceptions import ValidationError
 from rero_ils.modules.item_types.api import ItemType, item_type_id_fetcher
 
 
-def test_item_type_create(
-    db, item_type_data_tmp, org_martigny, item_type_online_martigny
-):
+def test_item_type_create(db, item_type_data_tmp, org_martigny, item_type_online_martigny):
     """Test item type record creation."""
     item_type_data_tmp["type"] = "online"
     with pytest.raises(ValidationError):
@@ -56,12 +54,8 @@ def test_item_type_exist_name_and_organisation_pid(item_type_standard_martigny):
     """Test item type name uniqueness."""
     item_type = item_type_standard_martigny
     itty = item_type.replace_refs()
-    assert ItemType.exist_name_and_organisation_pid(
-        itty.get("name"), itty.get("organisation", {}).get("pid")
-    )
-    assert not ItemType.exist_name_and_organisation_pid(
-        "not exists yet", itty.get("organisation", {}).get("pid")
-    )
+    assert ItemType.exist_name_and_organisation_pid(itty.get("name"), itty.get("organisation", {}).get("pid"))
+    assert not ItemType.exist_name_and_organisation_pid("not exists yet", itty.get("organisation", {}).get("pid"))
 
 
 def test_item_type_get_pid_by_name(item_type_standard_martigny):
@@ -97,12 +91,8 @@ def test_item_type_properties(item_type_standard_martigny):
         "es": (None, "disable_text_spa"),
     }
     for language, labels in label_strings.items():
-        itty.setdefault("circulation_information", []).append(
-            {"language": language, "label": labels[0]}
-        )
-        itty.setdefault("displayed_status", []).append(
-            {"language": language, "label": labels[1]}
-        )
+        itty.setdefault("circulation_information", []).append({"language": language, "label": labels[0]})
+        itty.setdefault("displayed_status", []).append({"language": language, "label": labels[1]})
     assert itty.get_label("en") == label_strings["en"][0]
     assert itty.get_label("fr") == label_strings["fr"][0]
     assert itty.get_label("es") == itty["name"]

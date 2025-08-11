@@ -38,9 +38,7 @@ def test_stats_cfg_permissions(
     """Test statistics configuration permissions class."""
 
     # Anonymous user & Patron user :: all operation are disallowed
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         StatisticsConfigurationPermissionPolicy,
         {
@@ -109,9 +107,7 @@ def test_stats_cfg_permissions(
 
     # Librarian with the right role
     # can update or delete a config of this library
-    stats_cfg_martigny.update(
-        dict(library={"$ref": f"https://bib.test.rero.ch/libraries/{lib_saxon.pid}"})
-    )
+    stats_cfg_martigny.update(dict(library={"$ref": f"https://bib.test.rero.ch/libraries/{lib_saxon.pid}"}))
     check_permission(
         StatisticsConfigurationPermissionPolicy,
         {"search": True, "read": True, "create": True, "update": True, "delete": True},

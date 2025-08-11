@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Circulation policies."""
+
 from __future__ import absolute_import, print_function
 
 import math
@@ -122,16 +123,10 @@ class CircPolicy(IlsRecord):
         #   1) only one "before" reminder can be defined.
         #   2) each delay of "after" reminder must be unique.
         reminders = self.get("reminders", [])
-        due_soon_reminders = [
-            r for r in reminders if r.get("type") == DUE_SOON_REMINDER_TYPE
-        ]
+        due_soon_reminders = [r for r in reminders if r.get("type") == DUE_SOON_REMINDER_TYPE]
         if len(due_soon_reminders) > 1:
             return 'Only one "due soon" reminder can be defined by CircPolicy'
-        overdue_reminder_delays = [
-            r.get("days_delay")
-            for r in reminders
-            if r.get("type") == OVERDUE_REMINDER_TYPE
-        ]
+        overdue_reminder_delays = [r.get("days_delay") for r in reminders if r.get("type") == OVERDUE_REMINDER_TYPE]
         unique_delays = set(overdue_reminder_delays)
         if len(unique_delays) != len(overdue_reminder_delays):
             return 'Delay for "overdue" reminder should be unique.'
@@ -151,15 +146,9 @@ class CircPolicy(IlsRecord):
             if upper_limit is None and interval != intervals[-1]:
                 return "Only the last interval can omit the upper limit."
             if lower_limit <= last_upper_limit:
-                return (
-                    "Another interval covers this lower limit interval "
-                    f":: [{lower_limit}-{upper_limit}]"
-                )
+                return f"Another interval covers this lower limit interval :: [{lower_limit}-{upper_limit}]"
             if upper_limit and upper_limit <= last_lower_limit:
-                return (
-                    "Another interval covers this upper limit interval "
-                    f":: [{lower_limit}-{upper_limit}]"
-                )
+                return f"Another interval covers this upper limit interval :: [{lower_limit}-{upper_limit}]"
             last_lower_limit = lower_limit
             last_upper_limit = upper_limit
 
@@ -295,9 +284,7 @@ class CircPolicy(IlsRecord):
             return None
 
     @classmethod
-    def provide_circ_policy(
-        cls, organisation_pid, library_pid, patron_type_pid, item_type_pid
-    ):
+    def provide_circ_policy(cls, organisation_pid, library_pid, patron_type_pid, item_type_pid):
         """Return a circ policy for library/patron/item.
 
         :param organisation_pid: the organisation_pid.
@@ -310,9 +297,7 @@ class CircPolicy(IlsRecord):
             organisation_pid, library_pid, patron_type_pid, item_type_pid
         ):
             return LPI_policy
-        if PI_policy := CircPolicy.get_circ_policy_by_OPI(
-            organisation_pid, patron_type_pid, item_type_pid
-        ):
+        if PI_policy := CircPolicy.get_circ_policy_by_OPI(organisation_pid, patron_type_pid, item_type_pid):
             return PI_policy
         return CircPolicy.get_default_circ_policy(organisation_pid)
 
@@ -342,11 +327,7 @@ class CircPolicy(IlsRecord):
     @property
     def due_soon_interval_days(self):
         """Get number of days to check if loan is considered as due_soon."""
-        reminder = [
-            r
-            for r in self.get("reminders", [])
-            if r.get("type") == DUE_SOON_REMINDER_TYPE
-        ]
+        reminder = [r for r in self.get("reminders", []) if r.get("type") == DUE_SOON_REMINDER_TYPE]
         return reminder[0].get("days_delay") if reminder else 1
 
     @property
@@ -385,10 +366,7 @@ class CircPolicy(IlsRecord):
         if limit is None:
             limit = math.inf
         for reminder in self.get("reminders", []):
-            if (
-                reminder.get("type") == reminder_type
-                and reminder.get("days_delay") <= limit
-            ):
+            if reminder.get("type") == reminder_type and reminder.get("days_delay") <= limit:
                 yield reminder
 
     def get_reminder(self, reminder_type=DUE_SOON_REMINDER_TYPE, idx=0):
@@ -422,9 +400,7 @@ class CircPolicy(IlsRecord):
             # without 'patron' role, we can't find any patron_type and so we
             # can't find any corresponding cipo --> return False
             return False, ["Patron doesn't have the correct role"]
-        library_pid = (
-            kwargs["library"].pid if kwargs.get("library") else record.library_pid
-        )
+        library_pid = kwargs["library"].pid if kwargs.get("library") else record.library_pid
 
         if isinstance(record, Item):
             record_circulation_category_pid = record.item_type_circulation_category_pid
@@ -464,9 +440,7 @@ class CircPolicy(IlsRecord):
             # without 'patron' role, we can't find any patron_type and so we
             # can't find any corresponding cipo --> return False
             return False, ["Patron doesn't have the correct role"]
-        library_pid = (
-            kwargs["library"].pid if kwargs.get("library") else item.library_pid
-        )
+        library_pid = kwargs["library"].pid if kwargs.get("library") else item.library_pid
         cipo = cls.provide_circ_policy(
             item.organisation_pid,
             library_pid,

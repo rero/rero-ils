@@ -23,9 +23,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_view
 
 
-def test_info_message(
-    app, client, patron_martigny, patron_martigny_data, org_martigny_data
-):
+def test_info_message(app, client, patron_martigny, patron_martigny_data, org_martigny_data):
     """Test info message."""
     patron_martigny["patron"]["blocked"] = True
     patron_martigny["patron"]["blocked_note"] = "This is a blocked message."
@@ -56,15 +54,10 @@ def test_info_message(
         f"Your account is currently blocked. Reason: {blocked_message}"
         == li.find("div", {"class": "message-blocked"}).text
     )
-    assert (
-        "Your account has expired. Please contact your library."
-        == li.find("div", {"class": "message-expired"}).text
-    )
+    assert "Your account has expired. Please contact your library." == li.find("div", {"class": "message-expired"}).text
 
     # If the view of the organization, there is no name of it
-    res = client.get(
-        url_for("rero_ils.index_with_view_code", viewcode=org_martigny_data["code"])
-    )
+    res = client.get(url_for("rero_ils.index_with_view_code", viewcode=org_martigny_data["code"]))
     soup = BeautifulSoup(res.data, "html.parser")
     div = soup.find("div", {"class": "patron-info-message"})
 
@@ -74,6 +67,5 @@ def test_info_message(
         == div.find("div", {"class": "message-blocked"}).text
     )
     assert (
-        "Your account has expired. Please contact your library."
-        == div.find("div", {"class": "message-expired"}).text
+        "Your account has expired. Please contact your library." == div.find("div", {"class": "message-expired"}).text
     )

@@ -61,33 +61,18 @@ class StatsReport:
         self.org_pid = config.organisation_pid
         self.filter_by_libraries = []
         self.filter_by_libraries.extend(
-            extracted_data_from_ref(library)
-            for library in config.get("filter_by_libraries", [])
+            extracted_data_from_ref(library) for library in config.get("filter_by_libraries", [])
         )
         self.libraries = {
             hit.pid: hit.name
-            for hit in LibrariesSearch()
-            .by_organisation_pid(self.org_pid)
-            .source(["pid", "name"])
-            .scan()
+            for hit in LibrariesSearch().by_organisation_pid(self.org_pid).source(["pid", "name"]).scan()
         }
         self.lib_pids = list(self.libraries.keys())
-        es_locations = (
-            LocationsSearch()
-            .by_organisation_pid(self.org_pid)
-            .source(["pid", "name", "library"])
-            .scan()
-        )
-        self.locations = {
-            hit.pid: f"{self.libraries[hit.library.pid]} / {hit.name}"
-            for hit in es_locations
-        }
+        es_locations = LocationsSearch().by_organisation_pid(self.org_pid).source(["pid", "name", "library"]).scan()
+        self.locations = {hit.pid: f"{self.libraries[hit.library.pid]} / {hit.name}" for hit in es_locations}
         self.patron_types = {
             hit.pid: hit.name
-            for hit in PatronTypesSearch()
-            .by_organisation_pid(self.org_pid)
-            .source(["pid", "name"])
-            .scan()
+            for hit in PatronTypesSearch().by_organisation_pid(self.org_pid).source(["pid", "name"]).scan()
         }
 
         self.loc_pids = list(self.locations.keys())
@@ -110,9 +95,7 @@ class StatsReport:
             "number_of_checkouts": NumberOfCirculationCfg(self, "checkout"),
             "number_of_extends": NumberOfCirculationCfg(self, "extend"),
             "number_of_requests": NumberOfRequestsCfg(self, "request"),
-            "number_of_validate_requests": NumberOfRequestsCfg(
-                self, "validate_request"
-            ),
+            "number_of_validate_requests": NumberOfRequestsCfg(self, "validate_request"),
             "number_of_patrons": NumberOfPatronsCfg(self),
             "number_of_active_patrons": NumberOfActivePatronsCfg(self),
         }
@@ -163,9 +146,7 @@ class StatsReport:
         for x_key in x_keys:
             values = [x_key]
             if y_keys:
-                values.extend(
-                    results[x_key].get("values", {}).get(y_key, 0) for y_key in y_keys
-                )
+                values.extend(results[x_key].get("values", {}).get(y_key, 0) for y_key in y_keys)
             else:
                 values.append(results[x_key].get("count", 0))
             data.append(values)

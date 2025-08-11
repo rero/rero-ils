@@ -42,9 +42,7 @@ def test_date_filter_format_timestamp_en(app):
     datestring = format_date_filter("2018-06-06T09:29:55.947149+00:00", locale="fr")
     assert "mercredi 6 juin 2018, 11:29:55" in datestring
 
-    datestring = format_date_filter(
-        "1950-01-01", date_format="short", time_format=None, locale="fr_CH"
-    )
+    datestring = format_date_filter("1950-01-01", date_format="short", time_format=None, locale="fr_CH")
     assert "01.01" in datestring
 
 
@@ -56,17 +54,13 @@ def test_date_filter_format_default_en(app):
 
 def test_date_filter_timezone(app):
     """Test medium english date filter."""
-    datestring = format_date_filter(
-        "2018-06-06T09:29:55.947149+00:00", timezone="Europe/Helsinki"
-    )
+    datestring = format_date_filter("2018-06-06T09:29:55.947149+00:00", timezone="Europe/Helsinki")
     assert "Wednesday, 6 June 2018, 12:29:55" in datestring
 
 
 def test_date_filter_format_medium_date_en(app):
     """Test medium_date english date filter."""
-    datestring = format_date_filter(
-        "1950-01-01", date_format="medium", time_format=None
-    )
+    datestring = format_date_filter("1950-01-01", date_format="medium", time_format=None)
     assert "1 Jan 1950" in datestring
 
 
@@ -78,33 +72,25 @@ def test_date_filter_format_full_en(app):
 
 def test_date_filter_format_full_fr(app):
     """Test full french date filter."""
-    datestring = format_date_filter(
-        "1950-01-01", date_format="full", time_format=None, locale="fr"
-    )
+    datestring = format_date_filter("1950-01-01", date_format="full", time_format=None, locale="fr")
     assert "dimanche 1 janvier 1950" in datestring
 
 
 def test_date_filter_format_short_fr(app):
     """Test short french date filter with pernicious date."""
-    datestring = format_date_filter(
-        "2006-08-14", date_format="short", time_format=None, locale="fr_CH"
-    )
+    datestring = format_date_filter("2006-08-14", date_format="short", time_format=None, locale="fr_CH")
     assert datestring == "14.08.06"
 
 
 def test_time_filter_format_default(app):
     """Test default time."""
-    datestring = format_date_filter(
-        "2018-06-06T09:29:55.947149+00:00", date_format=None
-    )
+    datestring = format_date_filter("2018-06-06T09:29:55.947149+00:00", date_format=None)
     assert datestring == "11:29:55"
 
 
 def test_time_filter_format_fr(app):
     """Test default time."""
-    datestring = format_date_filter(
-        "2018-06-06T09:29:55.947149+00:00", date_format=None, locale="fr"
-    )
+    datestring = format_date_filter("2018-06-06T09:29:55.947149+00:00", date_format=None, locale="fr")
     assert datestring == "11:29:55"
 
 
@@ -136,9 +122,7 @@ def test_empty_data():
 
 def test_address_block_filter(lib_martigny):
     """Test address block filter."""
-    address = lib_martigny.get("acquisition_settings", {}).get(
-        "shipping_informations", {}
-    )
+    address = lib_martigny.get("acquisition_settings", {}).get("shipping_informations", {})
 
     # ensure the fixture define a shipping address with correct data
     assert address and address.get("email") and address.get("phone")

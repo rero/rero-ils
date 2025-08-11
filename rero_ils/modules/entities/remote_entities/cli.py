@@ -38,16 +38,12 @@ def entity():
 @click.option("-d", "--from-last-date", is_flag=True, default=False)
 @click.option("-v", "--verbose", count=True, default=0)
 @click.option("-l", "--log-dir", default=None)
-@click.option(
-    "-f", "--from-date", type=click.DateTime(formats=["%Y-%m-%d"]), default=None
-)
+@click.option("-f", "--from-date", type=click.DateTime(formats=["%Y-%m-%d"]), default=None)
 @click.option("-m", "--in-memory", is_flag=True, default=False)
 @with_appcontext
 def sync(query, dry_run, from_last_date, verbose, log_dir, from_date, in_memory):
     """Updated the MEF records and the linked documents."""
-    sync_entity = SyncEntity(
-        dry_run=dry_run, verbose=verbose, log_dir=log_dir, from_last_date=from_last_date
-    )
+    sync_entity = SyncEntity(dry_run=dry_run, verbose=verbose, log_dir=log_dir, from_last_date=from_last_date)
     if verbose:
         sync_entity.sync(query, from_date)
     else:
@@ -123,14 +119,10 @@ def sync_errors(clear, verbose):
 def replace_identified_by_cli(field, dry_run, verbose, log_dir):
     """Replace identifiedBy with $ref."""
     for parent in field or ReplaceIdentifiedBy.fields:
-        replace_identified_by = ReplaceIdentifiedBy(
-            field=parent, verbose=verbose, dry_run=dry_run, log_dir=log_dir
-        )
+        replace_identified_by = ReplaceIdentifiedBy(field=parent, verbose=verbose, dry_run=dry_run, log_dir=log_dir)
         changed, not_found, rero_only = replace_identified_by.run()
         click.secho(
-            f"{parent:<12} | Changed: {changed} | "
-            f"Not found: {not_found} | "
-            f"RERO only: {rero_only}",
+            f"{parent:<12} | Changed: {changed} | Not found: {not_found} | RERO only: {rero_only}",
             fg="green",
         )
         if verbose:

@@ -33,9 +33,7 @@ from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
 )
 def test_local_fields_get(client, local_field_martigny):
     """Test GET on local fields."""
-    local_fields_url = url_for(
-        "invenio_records_rest.lofi_item", pid_value=local_field_martigny.pid
-    )
+    local_fields_url = url_for("invenio_records_rest.lofi_item", pid_value=local_field_martigny.pid)
     res = client.get(local_fields_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -52,17 +50,13 @@ def test_local_fields_get(client, local_field_martigny):
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_local_fields_post_put_delete(
-    client, org_sion, document, local_field_sion_data, json_header
-):
+def test_local_fields_post_put_delete(client, org_sion, document, local_field_sion_data, json_header):
     """Test POST and PUT on local fields."""
     lf_pid = local_field_sion_data["pid"]
     item_url = url_for("invenio_records_rest.lofi_item", pid_value=lf_pid)
     list_url = url_for("invenio_records_rest.lofi_list", q=f"pid:{lf_pid}")
 
-    res, data = postdata(
-        client, "invenio_records_rest.lofi_list", local_field_sion_data
-    )
+    res, data = postdata(client, "invenio_records_rest.lofi_list", local_field_sion_data)
     assert res.status_code == 201
     assert data["metadata"] == local_field_sion_data
 
@@ -92,7 +86,7 @@ def test_local_fields_post_put_delete(
     res = client.get(
         url_for(
             "invenio_records_rest.lofi_list",
-            q=f'organisation.pid:{data["metadata"]["organisation"]["pid"]}',
+            q=f"organisation.pid:{data['metadata']['organisation']['pid']}",
         )
     )
     data = get_json(res)

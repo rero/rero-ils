@@ -221,9 +221,7 @@ def marc21_to_work_access_point(self, key, value):
                 if blob_key == "q":
                     # fuller_form_of_name = not_repetitive(
                     # marc21.bib_id, marc21.bib_id, blob_key, blob_value, 'q')
-                    agent["fuller_form_of_name"] = (
-                        remove_trailing_punctuation(blob_value).lstrip("(").rstrip(")")
-                    )
+                    agent["fuller_form_of_name"] = remove_trailing_punctuation(blob_value).lstrip("(").rstrip(")")
             work["agent"] = agent
 
     if the_part_list := part_list.get_part_list():
@@ -350,9 +348,7 @@ def marc21_to_series(self, key, value):
         """
         if value.get("a"):
             subseriesStatement = {}
-            subfield_a = remove_punctuation(
-                utils.force_list(value.get("a"))[0], with_dot=True
-            )
+            subfield_a = remove_punctuation(utils.force_list(value.get("a"))[0], with_dot=True)
             series = {"seriesTitle": [{"value": subfield_a}]}
 
             if value.get("p"):
@@ -365,35 +361,19 @@ def marc21_to_series(self, key, value):
                     {"value": remove_punctuation(string_build, with_dot=True).rstrip()}
                 ]
                 if value.get("v"):
-                    parts = [
-                        remove_punctuation(subfield_v)
-                        for subfield_v in utils.force_list(value.get("v"))
-                    ]
+                    parts = [remove_punctuation(subfield_v) for subfield_v in utils.force_list(value.get("v"))]
 
-                    subseriesStatement["subseriesEnumeration"] = [
-                        {"value": "/".join(parts)}
-                    ]
+                    subseriesStatement["subseriesEnumeration"] = [{"value": "/".join(parts)}]
                 series["subseriesStatement"] = [subseriesStatement]
             elif value.get("n"):
                 if value.get("v"):
                     string_build = build_string_from_subfields(value, "nv")
-                    series["seriesEnumeration"] = [
-                        {
-                            "value": remove_punctuation(
-                                string_build, with_dot=True
-                            ).rstrip()
-                        }
-                    ]
+                    series["seriesEnumeration"] = [{"value": remove_punctuation(string_build, with_dot=True).rstrip()}]
                 else:
-                    subseriesStatement["subseriesTitle"] = [
-                        {"value": "".join(utils.force_list(value.get("n")))}
-                    ]
+                    subseriesStatement["subseriesTitle"] = [{"value": "".join(utils.force_list(value.get("n")))}]
                     series["subseriesStatement"] = [subseriesStatement]
             elif value.get("v"):
-                parts = [
-                    remove_punctuation(subfield_v)
-                    for subfield_v in utils.force_list(value.get("v"))
-                ]
+                parts = [remove_punctuation(subfield_v) for subfield_v in utils.force_list(value.get("v"))]
 
                 series["seriesEnumeration"] = [{"value": "/".join(parts)}]
             self["seriesStatement"] = self.get("seriesStatement", [])
@@ -596,9 +576,7 @@ def marc21_to_subjects_6XX(self, key, value):
             "type": data_type,
         }
 
-        string_build = build_string_from_subfields(
-            value, subfield_code_per_tag[tag_key]
-        )
+        string_build = build_string_from_subfields(value, subfield_code_per_tag[tag_key])
         if tag_key == "655":
             # remove the square brackets
             string_build = re.sub(r"^\[(.*)\]$", r"\1", string_build)
@@ -610,15 +588,11 @@ def marc21_to_subjects_6XX(self, key, value):
         if tag_key in ["600t", "610t", "611t"]:
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
             if creator := remove_trailing_punctuation(
-                build_string_from_subfields(
-                    value, subfield_code_per_tag[creator_tag_key]
-                ),
+                build_string_from_subfields(value, subfield_code_per_tag[creator_tag_key]),
                 ".",
                 ".",
             ):
-                subject["authorized_access_point"] = (
-                    f"{creator}. {subject['authorized_access_point']}"
-                )
+                subject["authorized_access_point"] = f"{creator}. {subject['authorized_access_point']}"
 
         if ref := get_mef_link(
             bibid=marc21.bib_id,
@@ -638,9 +612,7 @@ def marc21_to_subjects_6XX(self, key, value):
         if subject.get("authorized_access_point") or subject.get("$ref"):
             self.setdefault(field_key, []).append(dict(entity=subject))
     elif indicator_2 in ["0", "2"]:
-        if term_string := build_string_from_subfields(
-            value, "abcdefghijklmnopqrstuw", " - "
-        ):
+        if term_string := build_string_from_subfields(value, "abcdefghijklmnopqrstuw", " - "):
             data = {
                 "type": type_per_tag[tag_key],
                 "source": source_per_indicator_2[indicator_2],

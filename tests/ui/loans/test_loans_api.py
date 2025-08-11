@@ -127,9 +127,7 @@ def test_item_loans_default_duration(
     del new_loan["transaction_location_pid"]
     # should have the same duration
     with freeze_time():
-        assert get_default_loan_duration(new_loan, None) == get_default_loan_duration(
-            loan, None
-        )
+        assert get_default_loan_duration(new_loan, None) == get_default_loan_duration(loan, None)
 
     policy = get_circ_policy(loan)
     # the checkout duration should be enougth long
@@ -159,12 +157,8 @@ def test_item_loans_default_duration(
             end_date = utc_end_date.astimezone(tz=lib_martigny.get_timezone())
             expected_utc_end_date = now + timedelta(days=policy["checkout_duration"])
             # expected end date at the library timezone
-            expected_end_date = expected_utc_end_date.astimezone(
-                lib_martigny.get_timezone()
-            )
-            assert end_date.strftime("%Y-%m-%d") == expected_end_date.strftime(
-                "%Y-%m-%d"
-            )
+            expected_end_date = expected_utc_end_date.astimezone(lib_martigny.get_timezone())
+            assert end_date.strftime("%Y-%m-%d") == expected_end_date.strftime("%Y-%m-%d")
             assert end_date.hour == 23
             assert end_date.minute == 59
 
@@ -182,9 +176,7 @@ def test_item_loans_default_duration(
         # saturday and sunday is closed (+2)
         expected_utc_end_date = now + timedelta(days=(policy["checkout_duration"] + 2))
         # expected end date at the library timezone
-        expected_end_date = expected_utc_end_date.astimezone(
-            lib_martigny.get_timezone()
-        )
+        expected_end_date = expected_utc_end_date.astimezone(lib_martigny.get_timezone())
         assert end_date.strftime("%Y-%m-%d") == expected_end_date.strftime("%Y-%m-%d")
         assert end_date.hour == 23
         assert end_date.minute == 59
@@ -455,9 +447,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
         count_open = library.count_open(start_date=end + timedelta(days=1))
         if count_open == 0:
             continue
-        assert (
-            sum_for_fees(loan.get_overdue_fees) == expected_due_amount[count_open - 1]
-        )
+        assert sum_for_fees(loan.get_overdue_fees) == expected_due_amount[count_open - 1]
 
     # CASE#2 :: no more overdue after 3 days.
     #    * same definition than before, but add a upper limit to the last
@@ -478,9 +468,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
         count_open = library.count_open(start_date=end + timedelta(days=1))
         if count_open == 0:
             continue
-        assert (
-            sum_for_fees(loan.get_overdue_fees) == expected_due_amount[count_open - 1]
-        )
+        assert sum_for_fees(loan.get_overdue_fees) == expected_due_amount[count_open - 1]
 
     # CASE#3 :: classic setting + maximum overdue.
     #    * 3 intervals with no gap into each one.
@@ -503,9 +491,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
         count_open = library.count_open(start_date=end + timedelta(days=1))
         if count_open == 0:
             continue
-        assert (
-            sum_for_fees(loan.get_overdue_fees) == expected_due_amount[count_open - 1]
-        )
+        assert sum_for_fees(loan.get_overdue_fees) == expected_due_amount[count_open - 1]
 
     # CASE#4 :: intervals with gaps
     #    * define 2 intervals with gaps between
@@ -527,9 +513,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
         count_open = library.count_open(start_date=end + timedelta(days=1))
         if count_open == 0:
             continue
-        assert (
-            sum_for_fees(loan.get_overdue_fees) == expected_due_amount[count_open - 1]
-        )
+        assert sum_for_fees(loan.get_overdue_fees) == expected_due_amount[count_open - 1]
 
     # RESET THE CIPO
     del cipo["overdue_fees"]

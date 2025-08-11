@@ -22,7 +22,6 @@
 http://www.loc.gov/standards/sru/explain/
 """
 
-
 import contextlib
 
 import jsonref
@@ -41,16 +40,10 @@ class Explain:
     def __init__(self, database, doc_type="doc"):
         """Constructor."""
         self.database = database
-        self.number_of_records = current_app.config.get(
-            "RERO_SRU_NUMBER_OF_RECORDS", 100
-        )
+        self.number_of_records = current_app.config.get("RERO_SRU_NUMBER_OF_RECORDS", 100)
         self.maximum_records = current_app.config.get("RERO_SRU_MAXIMUM_RECORDS", 1000)
         self.doc_type = doc_type
-        self.index = (
-            current_app.config.get("RECORDS_REST_ENDPOINTS", {})
-            .get(doc_type, {})
-            .get("search_index")
-        )
+        self.index = current_app.config.get("RECORDS_REST_ENDPOINTS", {}).get(doc_type, {}).get("search_index")
         self.es_mappings = {}
         for index in self.get_es_mappings(self.index):
             self.es_mappings[index.lower().replace(".", "__")] = index
@@ -145,9 +138,7 @@ class Explain:
     def init_index_info(self):
         """Init index info."""
         rero_ils_ns = get_schema_for_resource("doc")
-        element_rero_ils = ElementMaker(
-            namespace=rero_ils_ns, nsmap={"rero-ils": rero_ils_ns}
-        )
+        element_rero_ils = ElementMaker(namespace=rero_ils_ns, nsmap={"rero-ils": rero_ils_ns})
         index = element_rero_ils.index()
         es_map = element_rero_ils.map()
         for rero_ils_index in self.es_mappings.keys():
@@ -159,18 +150,12 @@ class Explain:
         """Init schema info."""
         schema = element.schemaInfo()
         # Todo: documents -> doc
-        schema.append(
-            element.set({"name": "json", "identifier": get_schema_for_resource("doc")})
-        )
+        schema.append(element.set({"name": "json", "identifier": get_schema_for_resource("doc")}))
         return schema
 
     def init_config_info(self, element):
         """Init config info."""
         config = element.configInfo()
-        config.append(
-            element.default(str(self.number_of_records), {"type": "numberOfRecords"})
-        )
-        config.append(
-            element.setting(str(self.maximum_records), {"type": "maximumRecords"})
-        )
+        config.append(element.default(str(self.number_of_records), {"type": "numberOfRecords"}))
+        config.append(element.setting(str(self.maximum_records), {"type": "maximumRecords"}))
         return config

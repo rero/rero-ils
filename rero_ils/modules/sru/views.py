@@ -111,9 +111,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
                     },
                 }
             }
-            return self.make_response(
-                pid_fetcher=document_id_fetcher, search_result=result
-            )
+            return self.make_response(pid_fetcher=document_id_fetcher, search_result=result)
 
         explain = Explain("api/sru/documents")
         response = Response(str(explain))

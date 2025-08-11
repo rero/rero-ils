@@ -44,9 +44,7 @@ class ApiHarvestConfig(db.Model):
     name = db.Column(db.String(255), nullable=False)
     classname = db.Column(db.String(255), nullable=False)
     code = db.Column(db.Text, nullable=True)
-    lastrun = db.Column(
-        db.DateTime, default=datetime(year=1900, month=1, day=1), nullable=True
-    )
+    lastrun = db.Column(db.DateTime, default=datetime(year=1900, month=1, day=1), nullable=True)
 
     def save(self):
         """Save object to persistent storage."""

@@ -24,6 +24,7 @@ Author:  Rob Sanderson (azaroth@liv.ac.uk)
 Version: 2.0    (CQL 1.2)
 With thanks to Adam Dickmeiss and Mike Taylor for their valuable input.
 """
+
 from copy import deepcopy
 from io import StringIO
 from shlex import shlex
@@ -78,8 +79,7 @@ ES_INDEX_MAPPINGS = {
     "tch OR tld OR tlp OR trc OR trl OR vac OR vdg OR wac OR wal OR wat OR "
     "win OR wpr OR wst) AND "
     "authorized_access_point",
-    "dc.date": 'provisionActivity.type:"bf:Publication" '
-    "AND provisionActivity.startDate",
+    "dc.date": 'provisionActivity.type:"bf:Publication" AND provisionActivity.startDate',
     "dc.title": "title.\\*",
     # TOTO: description search also in: note.label, dissertation.label and
     # supplementaryContent.discription
@@ -138,9 +138,7 @@ class Diagnostic(Exception):
         srw_ns = "http://www.loc.gov/zing/srw/"
         element_srw = ElementMaker(namespace=srw_ns, nsmap={"srw": srw_ns})
         srw_diag_ns = "http://www.loc.gov/zing/srw/diagnostic/"
-        element_srw_diag = ElementMaker(
-            namespace=srw_diag_ns, nsmap={"diag": srw_diag_ns}
-        )
+        element_srw_diag = ElementMaker(namespace=srw_diag_ns, nsmap={"diag": srw_diag_ns})
         self.xml_root = element_srw.searchRetrieveResponse()
         self.xml_root.append(element_srw.version("1.1"))
 
@@ -173,9 +171,7 @@ class PrefixableObject:
 
     def add_prefix(self, name, identifier):
         """Add prefix."""
-        if self.error_on_duplicate_prefix and (
-            name in self.prefixes or name in RESERVED_PREFIXES
-        ):
+        if self.error_on_duplicate_prefix and (name in self.prefixes or name in RESERVED_PREFIXES):
             # Maybe error
             diag = Diagnostic()
             diag.code = 45
@@ -204,9 +200,7 @@ class PrefixedObject:
     value = ""
     parent = None
 
-    def __init__(
-        self, val, query, error_on_quoted_identifier=ERROR_ON_QUOTED_IDENTIFIER
-    ):
+    def __init__(self, val, query, error_on_quoted_identifier=ERROR_ON_QUOTED_IDENTIFIER):
         """Constructor."""
         # All prefixed things are case insensitive
         self.error_on_quoted_identifier = error_on_quoted_identifier
@@ -271,11 +265,7 @@ class ModifiableObject:
             except Exception:
                 return None
         return next(
-            (
-                modifier
-                for modifier in self.modifiers
-                if str(modifier.type) == key or modifier.type.value == key
-            ),
+            (modifier for modifier in self.modifiers if str(modifier.type) == key or modifier.type.value == key),
             None,
         )
 
@@ -315,7 +305,7 @@ class Triple(PrefixableObject):
             # for sort_key in self.sort_keys:
             #     txt.append(sort_key.to_es())
         pre = "NOT" if boolean == "not" else ""
-        return f'{pre}({" ".join(txt)})'
+        return f"{pre}({' '.join(txt)})"
 
     def get_result_set_id(self, top=None):
         """Get result set id."""
@@ -395,9 +385,9 @@ class SearchClause(PrefixableObject):
                 texts[0] = texts[0].replace('"', "")
                 texts[-1] = texts[-1].rstrip('"')
             if relation == "any":
-                text = f'({" OR ".join(texts)})'
+                text = f"({' OR '.join(texts)})"
             elif relation == "all":
-                text = f'({" AND ".join(texts)})'
+                text = f"({' AND '.join(texts)})"
             else:
                 diag = Diagnostic()
                 diag.code = 19
@@ -421,10 +411,7 @@ class SearchClause(PrefixableObject):
         """Get result set id."""
         idx = self.index
         idx.resolve_prefix()
-        if (
-            idx.prefix_uri == RESERVED_PREFIXES["cql"]
-            and idx.value.lower() == "resultsetid"
-        ):
+        if idx.prefix_uri == RESERVED_PREFIXES["cql"] and idx.value.lower() == "resultsetid":
             return self.term.value
         return ""
 
@@ -718,11 +705,7 @@ class CQLshlex(shlex):
                 if nextchar in self.commenters:
                     self.instream.readline()
                     self.lineno = self.lineno + 1
-                elif (
-                    ord(nextchar) > 126
-                    or nextchar in self.wordchars
-                    or nextchar in self.quotes
-                ):
+                elif ord(nextchar) > 126 or nextchar in self.wordchars or nextchar in self.quotes:
                     self.token = self.token + nextchar
                 elif nextchar in [">", "<"]:
                     self.next_token = nextchar
@@ -864,9 +847,7 @@ class CQLParser:
         sort = self.is_sort(self.next_token)
         if not sort and not is_boolean and self.next_token not in [")", "(", ""]:
             irt = self._extracted_from_clause_6()
-        elif self.current_token and (
-            is_boolean or sort or self.next_token in [")", ""]
-        ):
+        elif self.current_token and (is_boolean or sort or self.next_token in [")", ""]):
             irt = RelatioSearchClauseType(
                 IndexerType(SERVER_CHOISE_INDEX, self.parser.query),
                 RelationType(SERVER_CHOISE_RELATION, self.parser.query),

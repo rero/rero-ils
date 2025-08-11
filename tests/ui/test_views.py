@@ -193,9 +193,7 @@ def test_login(client, app, user_with_profile):
     ## bad password
     # be sure that no one is logged
     client.get(url_for_security("logout"))
-    res = login_user_via_view(
-        client=client, email=user_with_profile.username, password="bad password"
-    )
+    res = login_user_via_view(client=client, email=user_with_profile.username, password="bad password")
     assert "Invalid user or password" in res.text
     assert res.status_code == 200
 

@@ -85,10 +85,7 @@ class AllowedByActionTemplateReadRestriction(AllowedByAction):
             if UserRole.FULL_PERMISSIONS in roles:
                 pass
             elif UserRole.LIBRARY_ADMINISTRATOR in roles:
-                if all(
-                    LibraryNeed(lib_pid) not in provided_needs
-                    for lib_pid in current_librarian.library_pids
-                ):
+                if all(LibraryNeed(lib_pid) not in provided_needs for lib_pid in current_librarian.library_pids):
                     return []  # empty array == disable operation
             elif OwnerNeed(record.creator_pid) not in provided_needs:
                 return []  # empty array == disable operation

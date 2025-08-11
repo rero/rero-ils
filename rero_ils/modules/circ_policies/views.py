@@ -38,8 +38,6 @@ blueprint = Blueprint(
 def name_validate(name):
     """Circulation policy name validation."""
     response = {"name": None}
-    if circ_policy := CircPolicy.exist_name_and_organisation_pid(
-        name, current_librarian.organisation.pid
-    ):
+    if circ_policy := CircPolicy.exist_name_and_organisation_pid(name, current_librarian.organisation.pid):
         response = {"name": circ_policy.name}
     return jsonify(response)

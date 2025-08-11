@@ -102,9 +102,7 @@ def system_librarian2_martigny_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
-def system_librarian2_martigny(
-    app, roles, lib_martigny, system_librarian2_martigny_data
-):
+def system_librarian2_martigny(app, roles, lib_martigny, system_librarian2_martigny_data):
     """Create Martigny system librarian record."""
     data = system_librarian2_martigny_data
     yield create_patron(data)
@@ -144,9 +142,7 @@ def librarian_martigny_bourg_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
-def librarian_martigny_bourg(
-    app, roles, lib_martigny_bourg, librarian_martigny_bourg_data
-):
+def librarian_martigny_bourg(app, roles, lib_martigny_bourg, librarian_martigny_bourg_data):
     """Create Martigny bourg librarian record."""
     data = librarian_martigny_bourg_data
     yield create_patron(data)
@@ -226,9 +222,7 @@ def patron_martigny_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
-def patron_martigny(
-    app, roles, lib_martigny, patron_type_children_martigny, patron_martigny_data
-):
+def patron_martigny(app, roles, lib_martigny, patron_type_children_martigny, patron_martigny_data):
     """Create Martigny patron record."""
     data = patron_martigny_data
     yield create_patron(data)
@@ -261,9 +255,7 @@ def patron2_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def patron2_martigny(
-    app, roles, lib_martigny, patron_type_adults_martigny, patron2_martigny_data
-):
+def patron2_martigny(app, roles, lib_martigny, patron_type_adults_martigny, patron2_martigny_data):
     """Create Martigny patron record."""
     data = patron2_martigny_data
     yield create_patron(data)
@@ -297,9 +289,7 @@ def patron4_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def patron4_martigny(
-    app, roles, lib_martigny, patron_type_adults_martigny, patron4_martigny_data
-):
+def patron4_martigny(app, roles, lib_martigny, patron_type_adults_martigny, patron4_martigny_data):
     """Create Martigny patron record."""
     data = patron4_martigny_data
     yield create_patron(data)
@@ -360,9 +350,7 @@ def patron_sion(app, roles, lib_sion, patron_type_grown_sion, patron_sion_data):
 
 
 @pytest.fixture(scope="module")
-def patron_sion_multiple(
-    app, roles, lib_sion, patron_type_grown_sion, patron2_martigny_data
-):
+def patron_sion_multiple(app, roles, lib_sion, patron_type_grown_sion, patron2_martigny_data):
     """Create a Sion patron with the same user as Martigny patron."""
     data = deepcopy(patron2_martigny_data)
     data["pid"] = "ptrn13"
@@ -382,9 +370,7 @@ def patron_sion_multiple(
 
 
 @pytest.fixture(scope="module")
-def patron_sion_without_email1(
-    app, roles, lib_sion, patron_type_grown_sion, patron_sion_data
-):
+def patron_sion_without_email1(app, roles, lib_sion, patron_type_grown_sion, patron_sion_data):
     """Create Sion patron without sending reset password instruction."""
     data = deepcopy(patron_sion_data)
     del data["email"]
@@ -396,9 +382,7 @@ def patron_sion_without_email1(
 
 
 @pytest.fixture(scope="module")
-def patron_sion_with_additional_email(
-    app, roles, lib_sion, patron_type_grown_sion, patron_sion_data
-):
+def patron_sion_with_additional_email(app, roles, lib_sion, patron_type_grown_sion, patron_sion_data):
     """Create Sion patron with an additional email only."""
     data = deepcopy(patron_sion_data)
     del data["email"]
@@ -480,9 +464,7 @@ def loan_validated_martigny(
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
 
-    loan = list(
-        item2_lib_martigny.get_loans_by_item_pid(item_pid=item2_lib_martigny.pid)
-    )[0]
+    loan = list(item2_lib_martigny.get_loans_by_item_pid(item_pid=item2_lib_martigny.pid))[0]
     item2_lib_martigny.validate_request(
         pid=loan.pid,
         patron_pid=patron_martigny.pid,
@@ -495,9 +477,7 @@ def loan_validated_martigny(
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
-    loan = list(
-        item2_lib_martigny.get_loans_by_item_pid(item_pid=item2_lib_martigny.pid)
-    )[0]
+    loan = list(item2_lib_martigny.get_loans_by_item_pid(item_pid=item2_lib_martigny.pid))[0]
     return loan
 
 
@@ -520,9 +500,7 @@ def loan2_validated_martigny(
     transaction_date = datetime.now(timezone.utc).isoformat()
 
     # delete old loans
-    for loan in item3_lib_martigny.get_loans_by_item_pid(
-        item_pid=item3_lib_martigny.pid
-    ):
+    for loan in item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid):
         loan.delete(dbcommit=True, delindex=True)
 
     item3_lib_martigny.request(
@@ -537,9 +515,7 @@ def loan2_validated_martigny(
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
 
-    loan = list(
-        item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid)
-    )[0]
+    loan = list(item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid))[0]
 
     item3_lib_martigny.validate_request(
         pid=loan.pid,
@@ -553,9 +529,7 @@ def loan2_validated_martigny(
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
-    loan = list(
-        item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid)
-    )[0]
+    loan = list(item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid))[0]
     return loan
 
 
@@ -586,9 +560,7 @@ def loan_validated_sion(
     NotificationsSearch.flush_and_refresh()
 
     loan = list(item2_lib_sion.get_loans_by_item_pid(item_pid=item2_lib_sion.pid))[0]
-    with mock.patch(
-        "rero_ils.modules.loans.logs.api.current_librarian", librarian_sion
-    ):
+    with mock.patch("rero_ils.modules.loans.logs.api.current_librarian", librarian_sion):
         item2_lib_sion.validate_request(
             pid=loan.pid,
             patron_pid=patron_sion.pid,
@@ -610,33 +582,25 @@ def loan_validated_sion(
 @pytest.fixture(scope="module")
 def notification_availability_martigny(loan_validated_martigny):
     """Availability notification of martigny."""
-    return get_notification(
-        loan_validated_martigny, notification_type=NotificationType.AVAILABILITY
-    )
+    return get_notification(loan_validated_martigny, notification_type=NotificationType.AVAILABILITY)
 
 
 @pytest.fixture(scope="module")
 def notification2_availability_martigny(loan2_validated_martigny):
     """Availability notification of martigny."""
-    return get_notification(
-        loan2_validated_martigny, notification_type=NotificationType.AVAILABILITY
-    )
+    return get_notification(loan2_validated_martigny, notification_type=NotificationType.AVAILABILITY)
 
 
 @pytest.fixture(scope="module")
 def notification_availability_sion(loan_validated_sion):
     """Availability notification of sion."""
-    return get_notification(
-        loan_validated_sion, notification_type=NotificationType.AVAILABILITY
-    )
+    return get_notification(loan_validated_sion, notification_type=NotificationType.AVAILABILITY)
 
 
 @pytest.fixture(scope="module")
 def notification_availability_sion2(loan_validated_sion2):
     """Availability notification of sion."""
-    return get_notification(
-        loan_validated_sion2, notification_type=NotificationType.AVAILABILITY
-    )
+    return get_notification(loan_validated_sion2, notification_type=NotificationType.AVAILABILITY)
 
 
 # ------------ Notifications: dummy notification ----------
@@ -683,9 +647,7 @@ def loan_due_soon_martigny(
 @pytest.fixture(scope="module")
 def notification_due_soon_martigny(app, loan_due_soon_martigny):
     """Create a due soon notification for an due_soon loan."""
-    notification = loan_due_soon_martigny.create_notification(
-        _type=NotificationType.DUE_SOON
-    ).pop()
+    notification = loan_due_soon_martigny.create_notification(_type=NotificationType.DUE_SOON).pop()
     NotificationsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     PatronTransactionsSearch.flush_and_refresh()
@@ -719,9 +681,7 @@ def loan_overdue_martigny(
     )
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
-    loan = Loan.get_record_by_pid(
-        item4_lib_martigny.get_loan_pid_with_item_on_loan(item4_lib_martigny.pid)
-    )
+    loan = Loan.get_record_by_pid(item4_lib_martigny.get_loan_pid_with_item_on_loan(item4_lib_martigny.pid))
     end_date = datetime.now(timezone.utc) - timedelta(days=25)
     loan["end_date"] = end_date.isoformat()
     return loan.update(loan, dbcommit=True, reindex=True)
@@ -730,9 +690,7 @@ def loan_overdue_martigny(
 @pytest.fixture(scope="module")
 def notification_late_martigny(app, loan_overdue_martigny):
     """Create an overdue notification for an overdue loan."""
-    notification = loan_overdue_martigny.create_notification(
-        _type=NotificationType.OVERDUE
-    ).pop()
+    notification = loan_overdue_martigny.create_notification(_type=NotificationType.OVERDUE).pop()
     NotificationsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     PatronTransactionsSearch.flush_and_refresh()
@@ -754,9 +712,7 @@ def patron_transaction_overdue_event_martigny(app, patron_transaction_overdue_ma
 
 
 @pytest.fixture(scope="module")
-def patron_transaction_overdue_events_martigny(
-    app, patron_transaction_overdue_martigny
-):
+def patron_transaction_overdue_events_martigny(app, patron_transaction_overdue_martigny):
     """Return overdue events for patron transaction for a notification."""
     return patron_transaction_overdue_martigny.events
 
@@ -788,9 +744,7 @@ def loan_overdue_saxon(
     )
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
-    loan = Loan.get_record_by_pid(
-        item2_lib_saxon.get_loan_pid_with_item_on_loan(item2_lib_saxon.pid)
-    )
+    loan = Loan.get_record_by_pid(item2_lib_saxon.get_loan_pid_with_item_on_loan(item2_lib_saxon.pid))
     end_date = datetime.now(timezone.utc) - timedelta(days=25)
     loan["end_date"] = end_date.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
@@ -800,9 +754,7 @@ def loan_overdue_saxon(
 @pytest.fixture(scope="module")
 def notification_late_saxon(app, loan_overdue_saxon):
     """Create an overdue notification for an overdue loan."""
-    notification = loan_overdue_saxon.create_notification(
-        _type=NotificationType.OVERDUE
-    ).pop()
+    notification = loan_overdue_saxon.create_notification(_type=NotificationType.OVERDUE).pop()
     NotificationsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     PatronTransactionsSearch.flush_and_refresh()
@@ -842,13 +794,9 @@ def patron_transaction_photocopy_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def patron_transaction_photocopy_martigny(
-    patron_transaction_photocopy_martigny_data, system_librarian_martigny
-):
+def patron_transaction_photocopy_martigny(patron_transaction_photocopy_martigny_data, system_librarian_martigny):
     """."""
-    trans = PatronTransaction.create(
-        patron_transaction_photocopy_martigny_data, dbcommit=True, reindex=True
-    )
+    trans = PatronTransaction.create(patron_transaction_photocopy_martigny_data, dbcommit=True, reindex=True)
     from rero_ils.modules.patron_transaction_events.api import (
         PatronTransactionEventsSearch,
     )
@@ -887,9 +835,7 @@ def loan_overdue_sion(
     )
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
-    loan = Loan.get_record_by_pid(
-        item_lib_sion.get_loan_pid_with_item_on_loan(item_lib_sion.pid)
-    )
+    loan = Loan.get_record_by_pid(item_lib_sion.get_loan_pid_with_item_on_loan(item_lib_sion.pid))
     end_date = datetime.now(timezone.utc) - timedelta(days=25)
     loan["end_date"] = end_date.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
@@ -899,9 +845,7 @@ def loan_overdue_sion(
 @pytest.fixture(scope="module")
 def notification_late_sion(app, loan_overdue_sion):
     """Create an overdue notification for an overdue loan."""
-    notification = loan_overdue_sion.create_notification(
-        _type=NotificationType.OVERDUE
-    ).pop()
+    notification = loan_overdue_sion.create_notification(_type=NotificationType.OVERDUE).pop()
     NotificationsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     PatronTransactionsSearch.flush_and_refresh()
@@ -1651,13 +1595,9 @@ def ill_request_martigny_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
-def ill_request_martigny(
-    app, loc_public_martigny, patron_martigny, ill_request_martigny_data
-):
+def ill_request_martigny(app, loc_public_martigny, patron_martigny, ill_request_martigny_data):
     """Create ill request for Martigny location."""
-    illr = ILLRequest.create(
-        data=ill_request_martigny_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    illr = ILLRequest.create(data=ill_request_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     ILLRequestsSearch.flush_and_refresh()
     OperationLogsSearch.flush_and_refresh()
     return illr
@@ -1670,13 +1610,9 @@ def ill_request_martigny2_data(data):
 
 
 @pytest.fixture(scope="module")
-def ill_request_martigny2(
-    app, loc_public_martigny, patron_martigny_no_email, ill_request_martigny2_data
-):
+def ill_request_martigny2(app, loc_public_martigny, patron_martigny_no_email, ill_request_martigny2_data):
     """Create ill request for Martigny2 location."""
-    illr = ILLRequest.create(
-        data=ill_request_martigny2_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    illr = ILLRequest.create(data=ill_request_martigny2_data, delete_pid=False, dbcommit=True, reindex=True)
     ILLRequestsSearch.flush_and_refresh()
     return illr
 
@@ -1690,9 +1626,7 @@ def ill_request_sion_data(data):
 @pytest.fixture(scope="module")
 def ill_request_sion(app, loc_public_sion, patron_sion, ill_request_sion_data):
     """Create ill request for Sion location."""
-    illr = ILLRequest.create(
-        data=ill_request_sion_data, delete_pid=False, dbcommit=True, reindex=True
-    )
+    illr = ILLRequest.create(data=ill_request_sion_data, delete_pid=False, dbcommit=True, reindex=True)
     ILLRequestsSearch.flush_and_refresh()
     return illr
 

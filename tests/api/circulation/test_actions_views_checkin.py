@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST return an item API methods in the item api_views."""
+
 from datetime import date, datetime, timedelta, timezone
 
 from flask import url_for
@@ -119,9 +120,7 @@ def test_auto_checkin_else(
         ),
     )
     assert res.status_code == 400
-    assert get_json(res)["status"] == _(
-        "error: No circulation action performed: on shelf"
-    )
+    assert get_json(res)["status"] == _("error: No circulation action performed: on shelf")
 
 
 def test_checkin_overdue_item(

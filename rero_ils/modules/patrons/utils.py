@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utilities functions for patrons."""
+
 from flask import current_app
 from flask_login import current_user
 from marshmallow import ValidationError
@@ -101,6 +102,4 @@ def create_patron_from_data(data, dbcommit=True, reindex=True, send_email=False)
     from .api import Patron
 
     data = create_user_from_data(data, send_email)
-    return Patron.create(
-        data=data, delete_pid=False, dbcommit=dbcommit, reindex=reindex
-    )
+    return Patron.create(data=data, delete_pid=False, dbcommit=dbcommit, reindex=reindex)

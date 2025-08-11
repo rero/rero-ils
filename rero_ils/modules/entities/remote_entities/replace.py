@@ -140,9 +140,7 @@ class ReplaceIdentifiedBy(object):
                 # TODO: try to optimize with parent commit and reindex
                 #       bulk operation
                 RemoteEntity.create(data=new_mef_data, dbcommit=True, reindex=True)
-            self.logger.info(
-                f"Create a new MEF {mef_type} " f'record(pid: {mef_data["pid"]})'
-            )
+            self.logger.info(f"Create a new MEF {mef_type} record(pid: {mef_data['pid']})")
 
     def _do_entity(self, entity, doc_pid):
         """Do entity.
@@ -159,59 +157,37 @@ class ReplaceIdentifiedBy(object):
             source_pid = entity["entity"]["identifiedBy"]["value"]
             source = entity["entity"]["identifiedBy"]["type"].lower()
             identifier = f"{source}:{source_pid}"
-            if (
-                identifier in self.not_found[doc_entity_type]
-                or identifier in self.rero_only[doc_entity_type]
-            ):
+            if identifier in self.not_found[doc_entity_type] or identifier in self.rero_only[doc_entity_type]:
                 # MEF was not found previously. Do not try it again.
                 return None
             if mef_data := self._get_latest(mef_type, source, source_pid):
-                new_source, new_source_pid = self._find_other_source(
-                    source=source, mef_data=mef_data
-                )
+                new_source, new_source_pid = self._find_other_source(source=source, mef_data=mef_data)
                 if new_source:
                     mef_entity_type = mef_data.get("type")
                     # verify local and MEF type are the same
                     if mef_entity_type == doc_entity_type:
                         self._create_entity(mef_type, mef_data)
-                        authorized_access_point = entity["entity"][
-                            "authorized_access_point"
-                        ]
-                        mef_authorized_access_point = mef_data[new_source][
-                            "authorized_access_point"
-                        ]
+                        authorized_access_point = entity["entity"]["authorized_access_point"]
+                        mef_authorized_access_point = mef_data[new_source]["authorized_access_point"]
                         self.logger.info(
                             f"Replace document:{doc_pid} "
                             f'{self.field} "{authorized_access_point}" - '
-                            f'({mef_type}:{mef_data["pid"]}) '
+                            f"({mef_type}:{mef_data['pid']}) "
                             f"{new_source}:{new_source_pid} "
                             f'"{mef_authorized_access_point}"'
                         )
                         entity["entity"] = {
-                            "$ref": (
-                                f"{self._get_base_url(mef_type)}"
-                                f"/{new_source}/{new_source_pid}"
-                            ),
+                            "$ref": (f"{self._get_base_url(mef_type)}/{new_source}/{new_source_pid}"),
                             "pid": mef_data["pid"],
                         }
                         changed = True
                     else:
-                        authorized_access_point = mef_data.get(source, {}).get(
-                            "authorized_access_point"
-                        )
-                        info = (
-                            f"{doc_entity_type} != {mef_entity_type} "
-                            f': "{authorized_access_point}"'
-                        )
+                        authorized_access_point = mef_data.get(source, {}).get("authorized_access_point")
+                        info = f'{doc_entity_type} != {mef_entity_type} : "{authorized_access_point}"'
                         self.rero_only[doc_entity_type][identifier] = info
-                        self.logger.warning(
-                            f"Type differ:{doc_pid} "
-                            f"{self.field} - ({mef_type}) {identifier} {info}"
-                        )
+                        self.logger.warning(f"Type differ:{doc_pid} {self.field} - ({mef_type}) {identifier} {info}")
                 else:
-                    authorized_access_point = mef_data.get(source, {}).get(
-                        "authorized_access_point"
-                    )
+                    authorized_access_point = mef_data.get(source, {}).get("authorized_access_point")
                     info = f"{authorized_access_point}"
                     self.rero_only[doc_entity_type][identifier] = info
                     self.logger.info(
@@ -223,10 +199,7 @@ class ReplaceIdentifiedBy(object):
                 authorized_access_point = entity["entity"]["authorized_access_point"]
                 info = f"{authorized_access_point}"
                 self.not_found[doc_entity_type][identifier] = info
-                self.logger.info(
-                    f"No MEF found for document:{doc_pid} "
-                    f' - ({mef_type}) {identifier} "{info}"'
-                )
+                self.logger.info(f'No MEF found for document:{doc_pid}  - ({mef_type}) {identifier} "{info}"')
         self.not_found = {k: v for k, v in self.not_found.items() if v}
         self.rero_only = {k: v for k, v in self.rero_only.items() if v}
         return changed
@@ -261,11 +234,7 @@ class ReplaceIdentifiedBy(object):
         self.not_found = {}
         self.rero_only = {}
         self.logger.info(f"Found {self.field} identifiedBy: {self.count()}")
-        query = (
-            self.query.params(preserve_order=True)
-            .sort({"_created": {"order": "asc"}})
-            .source(["pid", self.field])
-        )
+        query = self.query.params(preserve_order=True).sort({"_created": {"order": "asc"}}).source(["pid", self.field])
         for hit in list(query.scan()):
             if doc := self._replace_entities_in_document(hit.meta.id):
                 self.changed += 1

@@ -41,11 +41,7 @@ def remove_location_from_restriction(restricted_location):
     # `restrict_pickup_to` field. For each of these locations, remove the
     # restricted location from this field and reindex the record.
     restricted_pid = restricted_location["pid"]
-    query = (
-        LocationsSearch()
-        .filter("term", restrict_pickup_to__pid=restricted_pid)
-        .source(False)
-    )
+    query = LocationsSearch().filter("term", restrict_pickup_to__pid=restricted_pid).source(False)
     for hit in query.scan():
         location = Location.get_record(hit.meta.id)
         restricted_location = [

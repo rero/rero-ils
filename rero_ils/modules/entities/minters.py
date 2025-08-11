@@ -17,11 +17,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Persistent identifier minters."""
+
 from collections import namedtuple
 
-EntityMinter = namedtuple(
-    "EntityMinter", ["pid_type", "pid_value", "object_uuid", "object_type"]
-)
+EntityMinter = namedtuple("EntityMinter", ["pid_type", "pid_value", "object_uuid", "object_type"])
 
 
 def id_minter(record_uuid, data, provider, pid_key="pid", object_type="rec"):

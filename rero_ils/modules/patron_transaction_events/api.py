@@ -42,13 +42,9 @@ PatronTransactionEventProvider = type(
     dict(identifier=PatronTransactionEventIdentifier, pid_type="ptre"),
 )
 # minter
-patron_transaction_event_id_minter = partial(
-    id_minter, provider=PatronTransactionEventProvider
-)
+patron_transaction_event_id_minter = partial(id_minter, provider=PatronTransactionEventProvider)
 # fetcher
-patron_transaction_event_id_fetcher = partial(
-    id_fetcher, provider=PatronTransactionEventProvider
-)
+patron_transaction_event_id_fetcher = partial(id_fetcher, provider=PatronTransactionEventProvider)
 
 
 class PatronTransactionEventsSearch(IlsRecordsSearch):
@@ -103,9 +99,7 @@ class PatronTransactionEvent(IlsRecord):
     # For PatronTransaction we have to set it to True for the tests.
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update data for record."""
-        return super().update(
-            data=data, commit=commit, dbcommit=dbcommit, reindex=reindex
-        )
+        return super().update(data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
 
     def update_parent_patron_transaction(self):
         """Update parent patron transaction amount and status."""

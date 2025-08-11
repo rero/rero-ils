@@ -55,21 +55,12 @@ class AcquisitionOrderNotification(Notification):
         if self.type != NotificationType.ACQUISITION_ORDER:
             return f"'{self.type} isn't an AcquisitionNotification"
         if not self.acq_order_pid:
-            return (
-                "`order` field must be specified into `context` for "
-                "AcquisitionNotification"
-            )
+            return "`order` field must be specified into `context` for AcquisitionNotification"
 
         # validate that at least one email of type `to` exist and one email of
         # type `reply_to` is given in the ist of emails.
-        recipient_types = {
-            recipient.get("type")
-            for recipient in self.get("context", {}).get("recipients", [])
-        }
-        if (
-            RecipientType.TO not in recipient_types
-            or RecipientType.REPLY_TO not in recipient_types
-        ):
+        recipient_types = {recipient.get("type") for recipient in self.get("context", {}).get("recipients", [])}
+        if RecipientType.TO not in recipient_types or RecipientType.REPLY_TO not in recipient_types:
             return "Recipient type `to` and `reply_to` are required"
         return True
 

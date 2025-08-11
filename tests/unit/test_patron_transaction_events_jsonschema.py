@@ -30,21 +30,15 @@ def test_patron_transaction_events_required(
     patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
 ):
     """Test required for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         validate({}, patron_transaction_event_schema)
 
 
-def test_patron_transaction_events_pid(
-    patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
-):
+def test_patron_transaction_events_pid(patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data):
     """Test pid for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
@@ -52,13 +46,9 @@ def test_patron_transaction_events_pid(
         validate(data, patron_transaction_event_schema)
 
 
-def test_patron_transaction_events_note(
-    patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
-):
+def test_patron_transaction_events_note(patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data):
     """Test note for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
@@ -66,13 +56,9 @@ def test_patron_transaction_events_note(
         validate(data, patron_transaction_event_schema)
 
 
-def test_patron_transaction_events_type(
-    patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
-):
+def test_patron_transaction_events_type(patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data):
     """Test type for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
@@ -84,9 +70,7 @@ def test_patron_transaction_events_subtype(
     patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
 ):
     """Test subtype for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
@@ -98,9 +82,7 @@ def test_patron_transaction_events_operator(
     patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
 ):
     """Test operator for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
@@ -112,9 +94,7 @@ def test_patron_transaction_events_library(
     patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
 ):
     """Test library for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
@@ -126,9 +106,7 @@ def test_patron_transaction_events_creation_date(
     patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
 ):
     """Test creation_date for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
@@ -136,13 +114,9 @@ def test_patron_transaction_events_creation_date(
         validate(data, patron_transaction_event_schema)
 
 
-def test_patron_transaction_events_amount(
-    patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
-):
+def test_patron_transaction_events_amount(patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data):
     """Test amount for patron transaction event jsonschemas."""
-    validate(
-        patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema
-    )
+    validate(patron_transaction_overdue_event_saxon_data, patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
@@ -150,9 +124,7 @@ def test_patron_transaction_events_amount(
         validate(data, patron_transaction_event_schema)
 
 
-def test_patron_transaction_steps(
-    patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data
-):
+def test_patron_transaction_steps(patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data):
     """Test amount for patron transaction event jsonschemas."""
 
     with pytest.raises(ValidationError):

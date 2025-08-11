@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO ILS Record schema for serialization."""
+
 from invenio_records_rest.schemas import RecordSchemaJSONV1 as _RecordSchemaJSONV1
 from marshmallow import fields
 

@@ -110,9 +110,7 @@ def migration_data(migration_xml_data, migration):
     data = dict(
         raw=migration_xml_data.encode(),
         migration_id=migration.meta.id,
-        deduplication=Deduplication(
-            status="pending", subset="set 1", modified_by="system"
-        ),
+        deduplication=Deduplication(status="pending", subset="set 1", modified_by="system"),
     )
     MigrationData = migration.data_class
     m_data = MigrationData(**data)

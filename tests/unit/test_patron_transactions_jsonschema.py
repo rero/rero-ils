@@ -26,9 +26,7 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_patron_transactions_required(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_required(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test required for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -36,9 +34,7 @@ def test_patron_transactions_required(
         validate({}, patron_transaction_schema)
 
 
-def test_patron_transactions_pid(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_pid(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test pid for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -48,9 +44,7 @@ def test_patron_transactions_pid(
         validate(data, patron_transaction_schema)
 
 
-def test_patron_transactions_note(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_note(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test note for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -60,9 +54,7 @@ def test_patron_transactions_note(
         validate(data, patron_transaction_schema)
 
 
-def test_patron_transactions_status(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_status(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test status for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -72,9 +64,7 @@ def test_patron_transactions_status(
         validate(data, patron_transaction_schema)
 
 
-def test_patron_transactions_type(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_type(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test type for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -84,9 +74,7 @@ def test_patron_transactions_type(
         validate(data, patron_transaction_schema)
 
 
-def test_patron_transactions_patron(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_patron(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test patron for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -96,9 +84,7 @@ def test_patron_transactions_patron(
         validate(data, patron_transaction_schema)
 
 
-def test_patron_transactions_notification(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_notification(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test notification for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -108,9 +94,7 @@ def test_patron_transactions_notification(
         validate(data, patron_transaction_schema)
 
 
-def test_patron_transactions_organisation(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_organisation(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test organisation for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -120,9 +104,7 @@ def test_patron_transactions_organisation(
         validate(data, patron_transaction_schema)
 
 
-def test_patron_transactions_creation_date(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_creation_date(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test creation_date for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 
@@ -132,9 +114,7 @@ def test_patron_transactions_creation_date(
         validate(data, patron_transaction_schema)
 
 
-def test_patron_transactions_total_amount(
-    patron_transaction_schema, patron_transaction_overdue_saxon_data
-):
+def test_patron_transactions_total_amount(patron_transaction_schema, patron_transaction_overdue_saxon_data):
     """Test total_amount for patron transaction jsonschemas."""
     validate(patron_transaction_overdue_saxon_data, patron_transaction_schema)
 

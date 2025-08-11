@@ -51,9 +51,7 @@ class RecordServiceConfig(RecordServiceConfig):
     ]
 
     # Dumper for the indexer
-    index_dumper = SearchDumper(
-        extensions=[IndexedAtDumperExt(), FileInformationDumperExt()]
-    )
+    index_dumper = SearchDumper(extensions=[IndexedAtDumperExt(), FileInformationDumperExt()])
 
     # Marshmalow schema
     schema = RecordSchema

@@ -17,7 +17,6 @@
 
 """Test item circulation extend actions at external library."""
 
-
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
@@ -77,12 +76,8 @@ def test_item_loans_extend_duration(
                 end_date = utc_end_date.astimezone(tz=lib_martigny.get_timezone())
                 expected_utc_end_date = now + timedelta(days=policy["renewal_duration"])
                 # expected end date at the library timezone
-                expected_end_date = expected_utc_end_date.astimezone(
-                    lib_martigny.get_timezone()
-                )
-                assert end_date.strftime("%Y-%m-%d") == expected_end_date.strftime(
-                    "%Y-%m-%d"
-                )
+                expected_end_date = expected_utc_end_date.astimezone(lib_martigny.get_timezone())
+                assert end_date.strftime("%Y-%m-%d") == expected_end_date.strftime("%Y-%m-%d")
                 assert end_date.hour == 23
                 assert end_date.minute == 59
             # checkin the item for the next tests
@@ -107,13 +102,9 @@ def test_extend_on_item_on_loan_with_no_requests_external_library(
     circulation_policies,
 ):
     """Test extend an on_loan item at an external library."""
-    patron_martigny["patron"]["type"]["$ref"] = get_ref_for_pid(
-        "ptty", patron_type_adults_martigny.pid
-    )
+    patron_martigny["patron"]["type"]["$ref"] = get_ref_for_pid("ptty", patron_type_adults_martigny.pid)
     patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
-    item_lib_martigny["item_type"]["$ref"] = get_ref_for_pid(
-        "itty", item_type_on_site_martigny.pid
-    )
+    item_lib_martigny["item_type"]["$ref"] = get_ref_for_pid("itty", item_type_on_site_martigny.pid)
     item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
     # the library level cipo3 is used here circ_policy_temp_martigny
     params = {

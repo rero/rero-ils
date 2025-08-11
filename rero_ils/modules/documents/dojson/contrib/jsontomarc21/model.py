@@ -123,9 +123,7 @@ def do_contribution(contribution, source_order):
         # we have a $ref, get the real entity
         ref = entity.get("$ref")
         if entity_db := RemoteEntity.get_record_by_pid(pid):
-            contribution = replace_contribution_sources(
-                contribution={"entity": entity_db}, source_order=source_order
-            )
+            contribution = replace_contribution_sources(contribution={"entity": entity_db}, source_order=source_order)
             # We got an entity from db. Replace the used entity with this one.
             entity = contribution["entity"]
         else:
@@ -146,16 +144,8 @@ def do_contribution(contribution, source_order):
 
         dates = " - ".join(
             [
-                (
-                    entity["date_of_birth"][:4]
-                    if len(entity.get("date_of_birth", "")) > 3
-                    else ""
-                ),
-                (
-                    entity["date_of_death"][:4]
-                    if len(entity.get("date_of_death", "")) > 3
-                    else ""
-                ),
+                (entity["date_of_birth"][:4] if len(entity.get("date_of_birth", "")) > 3 else ""),
+                (entity["date_of_death"][:4] if len(entity.get("date_of_death", "")) > 3 else ""),
             ]
         )
         if dates != " - ":
@@ -174,7 +164,7 @@ def do_contribution(contribution, source_order):
         result["0"] = []
     for ref in refs:
         result["__order__"].append("0")
-        result["0"].append(f'({ref["source"]}){ref["pid"]}')
+        result["0"].append(f"({ref['source']}){ref['pid']}")
     return result, entity_type, surname, conference
 
 
@@ -196,18 +186,16 @@ def do_concept(entity, source_order):
             error_print(f"No entity found for pid:{pid} {ref}")
             return None
     else:
-        authorized_access_point = entity.get(
-            f"authorized_access_point_{to_marc21.language}"
-        ) or entity.get("authorized_access_point")
+        authorized_access_point = entity.get(f"authorized_access_point_{to_marc21.language}") or entity.get(
+            "authorized_access_point"
+        )
     result = {}
     if authorized_access_point:
         result = add_value(result, "a", authorized_access_point)
     return result
 
 
-def get_holdings_items(
-    document_pid, organisation_pids=None, library_pids=None, location_pids=None
-):
+def get_holdings_items(document_pid, organisation_pids=None, library_pids=None, location_pids=None):
     """Create Holding and Item informations.
 
     :param document_pid: document pid to use for holdings search
@@ -233,9 +221,7 @@ def get_holdings_items(
 
     results = []
     if document_pid:
-        holding_pids = Holding.get_holdings_pid_by_document_pid(
-            document_pid=document_pid, with_masked=False
-        )
+        holding_pids = Holding.get_holdings_pid_by_document_pid(document_pid=document_pid, with_masked=False)
 
         holding_pids = list(holding_pids)
         organisations = {}
@@ -252,9 +238,7 @@ def get_holdings_items(
             holding = hit.to_dict()
             organisation_pid = hit.organisation.pid
             if organisation_pid not in organisations:
-                organisations[organisation_pid] = get_name(
-                    Organisation, organisation_pid
-                )
+                organisations[organisation_pid] = get_name(Organisation, organisation_pid)
             library_pid = hit.library.pid
             if library_pid not in libraries:
                 libraries[library_pid] = get_name(Library, library_pid)
@@ -281,9 +265,7 @@ def get_holdings_items(
                 },
             }
             if hit.holdings_type == "standard":
-                item_pids = Item.get_items_pid_by_holding_pid(
-                    hit.pid, with_masked=False
-                )
+                item_pids = Item.get_items_pid_by_holding_pid(hit.pid, with_masked=False)
                 item_hits = ItemsSearch().filter("terms", pid=list(item_pids)).scan()
                 for item_hit in item_hits:
                     item_data = item_hit.to_dict()
@@ -292,9 +274,7 @@ def get_holdings_items(
                         "barcode": item_data.get("barcode"),
                         "all_number": item_data.get("all_number"),
                         "second_call_number": item_data.get("second_call_number"),
-                        "enumerationAndChronology": item_data.get(
-                            "enumerationAndChronology"
-                        ),
+                        "enumerationAndChronology": item_data.get("enumerationAndChronology"),
                         "url": item_data.get("url"),
                         "notes": item_data.get("notes", []),
                     }
@@ -380,10 +360,7 @@ class ToMarc21Overdo(Underdo):
                     type_of_date = "s"
                     if end_date:
                         type_of_date = "m"
-                    fixed_data = (
-                        f"{fixed_data[:6]}{type_of_date}"
-                        f"{start_date}{fixed_data[11:]}"
-                    )
+                    fixed_data = f"{fixed_data[:6]}{type_of_date}{start_date}{fixed_data[11:]}"
                     break
         if language := utils.force_list(blob.get("language")):
             language = language[0].get("value")
@@ -398,11 +375,7 @@ class ToMarc21Overdo(Underdo):
         if blob.get("title"):
             blob["title_responsibility"] = {
                 "titles": blob.get("title", {}),
-                "responsibility": " ; ".join(
-                    create_title_responsibilites(
-                        blob.get("responsibilityStatement", [])
-                    )
-                ),
+                "responsibility": " ; ".join(create_title_responsibilites(blob.get("responsibilityStatement", []))),
             }
         # Fix ContributionsSearch
         # Try to get RERO_ILS_AGENTS_LABEL_ORDER from current app
@@ -435,23 +408,13 @@ class ToMarc21Overdo(Underdo):
                 physical_description["extent"] = f"{extent} ({durations})"
         note = blob.get("note", [])
         other_physical_details = []
-        other_physical_details.extend(
-            value["label"]
-            for value in note
-            if value["noteType"] == "otherPhysicalDetails"
-        )
+        other_physical_details.extend(value["label"] for value in note if value["noteType"] == "otherPhysicalDetails")
         if not other_physical_details:
-            other_physical_details.extend(
-                translate(value) for value in blob.get("productionMethod", [])
-            )
+            other_physical_details.extend(translate(value) for value in blob.get("productionMethod", []))
             other_physical_details.extend(iter(blob.get("illustrativeContent", [])))
-            other_physical_details.extend(
-                translate(value) for value in blob.get("colorContent", [])
-            )
+            other_physical_details.extend(translate(value) for value in blob.get("colorContent", []))
         if other_physical_details:
-            physical_description["other_physical_details"] = " ; ".join(
-                other_physical_details
-            )
+            physical_description["other_physical_details"] = " ; ".join(other_physical_details)
         if accompanying_material := " ; ".join(
             [v.get("label") for v in note if v["noteType"] == "accompanyingMaterial"]
         ):
@@ -486,9 +449,7 @@ class ToMarc21Overdo(Underdo):
         for key in ORDER:
             order.extend(key for _ in range(keys.get(key, 0)))
         blob["__order__"] = order
-        result = super().do(
-            blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers
-        )
+        result = super().do(blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers)
         return result
 
 
@@ -599,31 +560,23 @@ def reverse_title(self, key, value):
     for title in titles:
         if title.get("type") == "bf:Title":
             for main_title in title.get("mainTitle"):
-                if display_alternate_graphic_first(
-                    main_title.get("language", "default")
-                ):
+                if display_alternate_graphic_first(main_title.get("language", "default")):
                     main_titles.insert(0, main_title["value"])
                 else:
                     main_titles.append(main_title["value"])
             for sub_title in title.get("subtitle", []):
-                if display_alternate_graphic_first(
-                    sub_title.get("language", "default")
-                ):
+                if display_alternate_graphic_first(sub_title.get("language", "default")):
                     sub_titles.insert(0, sub_title["value"])
                 else:
                     sub_titles.append(sub_title["value"])
         if title.get("type") == "bf:ParallelTitle":
             for main_title in title.get("mainTitle"):
-                if display_alternate_graphic_first(
-                    main_title.get("language", "default")
-                ):
+                if display_alternate_graphic_first(main_title.get("language", "default")):
                     main_titles_parallel.insert(0, main_title["value"])
                 else:
                     main_titles_parallel.append(main_title["value"])
             for sub_title in title.get("subtitle", []):
-                if display_alternate_graphic_first(
-                    sub_title.get("language", "default")
-                ):
+                if display_alternate_graphic_first(sub_title.get("language", "default")):
                     sub_titles_parallel.insert(0, sub_title["value"])
                 else:
                     sub_titles_parallel.append(sub_title["value"])
@@ -635,13 +588,13 @@ def reverse_title(self, key, value):
         result["b"] = ". ".join(sub_titles)
     if main_titles_parallel:
         if result.get("b"):
-            result["b"] += f' = {". ".join(main_titles_parallel)}'
+            result["b"] += f" = {'. '.join(main_titles_parallel)}"
         else:
             result["__order__"].append("b")
             result["b"] = ". ".join(main_titles_parallel)
     if sub_titles_parallel:
         if result.get("b"):
-            result["b"] += f' : {". ".join(sub_titles_parallel)}'
+            result["b"] += f" : {'. '.join(sub_titles_parallel)}"
         else:
             result["__order__"].append("b")
             result["b"] = ". ".join(sub_titles_parallel)
@@ -768,9 +721,9 @@ def reverse_subjects(self, key, value):
             tag = "650__"
         elif entity_type == EntityType.WORK:
             # TODO: to change in the future if $ref's are used.
-            if authorized_access_point := entity.get(
-                f"authorized_access_point_{to_marc21.language}"
-            ) or entity.get("authorized_access_point"):
+            if authorized_access_point := entity.get(f"authorized_access_point_{to_marc21.language}") or entity.get(
+                "authorized_access_point"
+            ):
                 result = {}
                 result = add_value(result, "t", authorized_access_point)
                 if identified_by := entity.get("identifiedBy"):
@@ -779,9 +732,9 @@ def reverse_subjects(self, key, value):
             return
         elif entity_type == EntityType.PLACE:
             # TODO: to change in the future if $ref's are used.
-            if authorized_access_point := entity.get(
-                f"authorized_access_point_{to_marc21.language}"
-            ) or entity.get("authorized_access_point"):
+            if authorized_access_point := entity.get(f"authorized_access_point_{to_marc21.language}") or entity.get(
+                "authorized_access_point"
+            ):
                 result = {}
                 result = add_value(result, "a", authorized_access_point)
                 if identified_by := entity.get("identifiedBy"):
@@ -790,9 +743,9 @@ def reverse_subjects(self, key, value):
             return
         elif entity_type == EntityType.TEMPORAL:
             # TODO: to change in the future if $ref's are used.
-            if authorized_access_point := entity.get(
-                f"authorized_access_point_{to_marc21.language}"
-            ) or entity.get("authorized_access_point"):
+            if authorized_access_point := entity.get(f"authorized_access_point_{to_marc21.language}") or entity.get(
+                "authorized_access_point"
+            ):
                 result = {}
                 result = add_value(result, "a", authorized_access_point)
                 if identified_by := entity.get("identifiedBy"):
@@ -814,9 +767,7 @@ def reverse_genre_form(self, key, value):
     Genre / Forme > 655 - Genre ou forme
     """
     if value.get("entity"):
-        if result := do_concept(
-            entity=value.get("entity"), source_order=to_marc21.source_order
-        ):
+        if result := do_concept(entity=value.get("entity"), source_order=to_marc21.source_order):
             self.append(("655__", utils.GroupableOrderedDict(result)))
 
 
@@ -825,9 +776,7 @@ def reverse_genre_form(self, key, value):
 @utils.ignore_value
 def reverse_contribution(self, key, value):
     """Reverse - contribution."""
-    result, entity_type, surname, conference = do_contribution(
-        contribution=value, source_order=to_marc21.source_order
-    )
+    result, entity_type, surname, conference = do_contribution(contribution=value, source_order=to_marc21.source_order)
     tag = None
     if entity_type == EntityType.PERSON:
         tag = "7001_" if surname else "7000_"
@@ -876,11 +825,7 @@ def reverse_holdings_items(self, key, value):
     add_value(result, "D", holdings.get("enumerationAndChronology"))
     uris = [data["uri"] for data in holdings.get("electronic_location")]
     add_values(result, "E", uris)
-    if notes := [
-        note["content"]
-        for note in holdings.get("notes", [])
-        if note["type"] in note_types_to_display
-    ]:
+    if notes := [note["content"] for note in holdings.get("notes", []) if note["type"] in note_types_to_display]:
         add_values(result, "F", notes)
     add_value(result, "G", holdings.get("supplementaryContent"))
     add_value(result, "H", holdings.get("index"))
@@ -891,11 +836,7 @@ def reverse_holdings_items(self, key, value):
     add_value(result, "b", item.get("call_number"))
     add_value(result, "c", item.get("enumerationAndChronology"))
     add_value(result, "e", item.get("url"))
-    if notes := [
-        note["content"]
-        for note in item.get("notes", [])
-        if note["type"] in note_types_to_display
-    ]:
+    if notes := [note["content"] for note in item.get("notes", []) if note["type"] in note_types_to_display]:
         add_values(result, "f", notes)
 
     return result

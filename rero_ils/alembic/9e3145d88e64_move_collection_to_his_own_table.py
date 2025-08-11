@@ -40,9 +40,7 @@ def upgrade():
     """Upgrade database."""
     CollectionMetadata.metadata.create_all(bind=db.engine)
     assert CollectionMetadata.query.count() == 0
-    results = RecordMetadata.query.filter(
-        RecordMetadata.json["$schema"].as_string() == SCHEMA
-    ).all()
+    results = RecordMetadata.query.filter(RecordMetadata.json["$schema"].as_string() == SCHEMA).all()
     collections = [
         {
             "id": col.id,
@@ -62,12 +60,7 @@ def upgrade():
 
 def downgrade():
     """Downgrade database."""
-    assert (
-        RecordMetadata.query.filter(
-            RecordMetadata.json["$schema"].as_string() == SCHEMA
-        ).count()
-        == 0
-    )
+    assert RecordMetadata.query.filter(RecordMetadata.json["$schema"].as_string() == SCHEMA).count() == 0
     results = CollectionMetadata.query.all()
     collections = [
         {

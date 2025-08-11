@@ -25,21 +25,15 @@ from rero_ils.modules.organisations.permissions import OrganisationPermissionPol
 from tests.utils import check_permission, get_json
 
 
-def test_organisation_permissions_api(
-    client, patron_martigny, org_martigny, org_sion, system_librarian_martigny
-):
+def test_organisation_permissions_api(client, patron_martigny, org_martigny, org_sion, system_librarian_martigny):
     """Test organisations permissions api."""
-    org_permissions_url = url_for(
-        "api_blueprint.permissions", route_name="organisations"
-    )
+    org_permissions_url = url_for("api_blueprint.permissions", route_name="organisations")
     org_martigny_permission_url = url_for(
         "api_blueprint.permissions",
         route_name="organisations",
         record_pid=org_martigny.pid,
     )
-    org_sion_permission_url = url_for(
-        "api_blueprint.permissions", route_name="organisations", record_pid=org_sion.pid
-    )
+    org_sion_permission_url = url_for("api_blueprint.permissions", route_name="organisations", record_pid=org_sion.pid)
 
     # Not logged
     res = client.get(org_permissions_url)
@@ -83,9 +77,7 @@ def test_organisation_permissions(
     permission_policy = OrganisationPermissionPolicy
 
     # Anonymous user
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         permission_policy,
         {

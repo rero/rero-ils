@@ -17,7 +17,6 @@
 
 """Tests availability."""
 
-
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -46,9 +45,7 @@ def test_item_holding_document_availability(
     item_lib_martigny_data,
 ):
     """Test item, holding and document availability."""
-    assert item_availablity_status(
-        client, item_lib_martigny.pid, librarian_martigny.user
-    )
+    assert item_availablity_status(client, item_lib_martigny.pid, librarian_martigny.user)
     assert item_lib_martigny.is_available()
     assert holding_lib_martigny.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
@@ -78,9 +75,7 @@ def test_item_holding_document_availability(
     actions = data.get("action_applied")
     loan_pid = actions[LoanAction.REQUEST].get("pid")
     assert not item_lib_martigny.is_available()
-    assert not item_availablity_status(
-        client, item_lib_martigny.pid, librarian_martigny.user
-    )
+    assert not item_availablity_status(client, item_lib_martigny.pid, librarian_martigny.user)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
@@ -100,9 +95,7 @@ def test_item_holding_document_availability(
     )
     assert res.status_code == 200
     assert not item_lib_martigny.is_available()
-    assert not item_availablity_status(
-        client, item_lib_martigny.pid, librarian_martigny.user
-    )
+    assert not item_availablity_status(client, item_lib_martigny.pid, librarian_martigny.user)
     assert not item_lib_martigny.is_available()
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.is_available()
@@ -123,9 +116,7 @@ def test_item_holding_document_availability(
     )
     assert res.status_code == 200
     assert not item_lib_martigny.is_available()
-    assert not item_availablity_status(
-        client, item_lib_martigny.pid, librarian_saxon.user
-    )
+    assert not item_availablity_status(client, item_lib_martigny.pid, librarian_saxon.user)
     item = Item.get_record_by_pid(item_lib_martigny.pid)
     assert not item.is_available()
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
@@ -201,16 +192,12 @@ def test_item_holding_document_availability(
     )
     assert res.status_code == 200
     assert not item2_lib_martigny.is_available()
-    assert not item_availablity_status(
-        client, item2_lib_martigny.pid, librarian_martigny.user
-    )
+    assert not item_availablity_status(client, item2_lib_martigny.pid, librarian_martigny.user)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert not holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
     assert not Document.is_available(document.pid, "global")
-    assert not document_availability_status(
-        client, document.pid, librarian_martigny.user
-    )
+    assert not document_availability_status(client, document.pid, librarian_martigny.user)
 
 
 def item_availablity_status(client, pid, user):
@@ -228,9 +215,7 @@ def item_availablity_status(client, pid, user):
 
 def document_availability_status(client, pid, user):
     """Returns document availability."""
-    res = client.get(
-        url_for("api_documents.document_availability", pid=pid, view_code="global")
-    )
+    res = client.get(url_for("api_documents.document_availability", pid=pid, view_code="global"))
     assert res.status_code == 200
     data = get_json(res)
     return data.get("available")
@@ -268,15 +253,11 @@ def test_availability_cipo_allow_request(
     cipo.update(cipo.dumps(), dbcommit=True, reindex=True)
 
 
-def test_document_availability_failed(
-    client, item_lib_martigny, document_with_issn, org_martigny
-):
+def test_document_availability_failed(client, item_lib_martigny, document_with_issn, org_martigny):
     """Test document availability with dummy data should failed."""
     res = client.get(url_for("api_documents.document_availability", pid="dummy_pid"))
     assert res.status_code == 404
-    res = client.get(
-        url_for("api_documents.document_availability", pid=document_with_issn.pid)
-    )
+    res = client.get(url_for("api_documents.document_availability", pid=document_with_issn.pid))
     assert res.status_code == 200
     assert not res.json.get("available")
     res = client.get(
@@ -301,9 +282,7 @@ def test_item_availability_extra(client, item_lib_sion):
     res = client.get(url_for("api_item.item_availability", pid=item_lib_sion.pid))
     assert list(res.json.keys()) == ["available"]
 
-    res = client.get(
-        url_for("api_item.item_availability", pid=item_lib_sion.pid, more_info=1)
-    )
+    res = client.get(url_for("api_item.item_availability", pid=item_lib_sion.pid, more_info=1))
     assert list(res.json.keys()) == [
         "available",
         "circulation_message",
@@ -317,8 +296,6 @@ def test_holding_availability(client, holding_lib_martigny):
     res = client.get(url_for("api_holding.holding_availability", pid="dummy_pid"))
     assert res.status_code == 404
 
-    res = client.get(
-        url_for("api_holding.holding_availability", pid=holding_lib_martigny.pid)
-    )
+    res = client.get(url_for("api_holding.holding_availability", pid=holding_lib_martigny.pid))
     assert res.status_code == 200
     assert "available" in res.json

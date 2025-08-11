@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Operation log record extensions."""
+
 import uuid
 from datetime import datetime, timezone
 from functools import partialmethod
@@ -100,19 +101,13 @@ class OperationLogFactory:
 class OperationLogObserverExtension(RecordExtension, OperationLogFactory):
     """Observe a resource and build operation log when it changes."""
 
-    post_create = partialmethod(
-        OperationLogFactory.create_operation_log, operation=OperationLogOperation.CREATE
-    )
+    post_create = partialmethod(OperationLogFactory.create_operation_log, operation=OperationLogOperation.CREATE)
     """Called after a record is created."""
 
-    pre_commit = partialmethod(
-        OperationLogFactory.create_operation_log, operation=OperationLogOperation.UPDATE
-    )
+    pre_commit = partialmethod(OperationLogFactory.create_operation_log, operation=OperationLogOperation.UPDATE)
     """Called before a record is committed."""
 
-    post_delete = partialmethod(
-        OperationLogFactory.create_operation_log, operation=OperationLogOperation.DELETE
-    )
+    post_delete = partialmethod(OperationLogFactory.create_operation_log, operation=OperationLogOperation.DELETE)
     """Called after a record is deleted."""
 
 
@@ -187,9 +182,7 @@ class ResolveRefsExtension(RecordExtension):
         for k, v in record.items():
             if isinstance(v, dict):
                 if v.get("$ref"):
-                    if _type := self.mod_type.get(
-                        extracted_data_from_ref(v, data="resource")
-                    ):
+                    if _type := self.mod_type.get(extracted_data_from_ref(v, data="resource")):
                         resolved = dict(pid=extracted_data_from_ref(v), type=_type)
                         record[k] = resolved
                 else:

@@ -406,9 +406,7 @@ def marc21_to_subjects_6XX(self, key, value):
             "655": "a",
         }
 
-        string_build = build_string_from_subfields(
-            value, subfield_code_per_tag[tag_key]
-        )
+        string_build = build_string_from_subfields(value, subfield_code_per_tag[tag_key])
         if tag_key == "655":
             # remove the square brackets
             string_build = re.sub(r"^\[(.*)\]$", r"\1", string_build)
@@ -418,15 +416,11 @@ def marc21_to_subjects_6XX(self, key, value):
         if tag_key in ["600t", "610t", "611t"]:
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
             if creator := remove_trailing_punctuation(
-                build_string_from_subfields(
-                    value, subfield_code_per_tag[creator_tag_key]
-                ),
+                build_string_from_subfields(value, subfield_code_per_tag[creator_tag_key]),
                 ".",
                 ".",
             ):
-                subject["authorized_access_point"] = (
-                    f"{creator}. {subject['authorized_access_point']}"
-                )
+                subject["authorized_access_point"] = f"{creator}. {subject['authorized_access_point']}"
         if ref := get_mef_link(
             bibid=marc21.bib_id,
             reroid=marc21.rero_id,
@@ -450,14 +444,8 @@ def marc21_to_subjects_6XX(self, key, value):
             self.setdefault(field_key, []).append(dict(entity=subject))
 
     elif subfield_2 == "rerovoc" or indicator_2 in ["0", "2"]:
-        if term_string := build_string_from_subfields(
-            value, "abcdefghijklmnopqrstuw", " - "
-        ):
-            source = (
-                "rerovoc"
-                if subfield_2 == "rerovoc"
-                else source_per_indicator_2[indicator_2]
-            )
+        if term_string := build_string_from_subfields(value, "abcdefghijklmnopqrstuw", " - "):
+            source = "rerovoc" if subfield_2 == "rerovoc" else source_per_indicator_2[indicator_2]
             data = {
                 "type": type_per_tag[tag_key],
                 "source": source,

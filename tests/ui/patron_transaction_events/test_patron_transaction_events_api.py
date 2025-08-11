@@ -39,15 +39,10 @@ def test_patron_transaction_event_properties(
     events = PatronTransactionEvent.get_events_by_transaction_id(pttr.pid)
     assert ptre.pid in [hit.pid for hit in events]
     assert ptre.parent_pid == pttr.pid
-    assert (
-        PatronTransactionEvent.get_initial_amount_transaction_event(pttr.pid)
-        == pttr.total_amount
-    )
+    assert PatronTransactionEvent.get_initial_amount_transaction_event(pttr.pid) == pttr.total_amount
 
 
-def test_patron_transaction_event_create(
-    db, search_clear, patron_transaction_overdue_event_martigny
-):
+def test_patron_transaction_event_create(db, search_clear, patron_transaction_overdue_event_martigny):
     """Test patron transaction event creation."""
     patron_event = deepcopy(patron_transaction_overdue_event_martigny)
     patron_event["type"] = "no_type"

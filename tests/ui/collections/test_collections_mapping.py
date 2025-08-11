@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Collections record mapping tests."""
+
 from rero_ils.modules.collections.api import Collection, CollectionsSearch
 from tests.utils import get_mapping
 
@@ -32,8 +33,6 @@ def test_collections_es_mapping(
     search = CollectionsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    collection = Collection.create(
-        coll_martigny_1_data, dbcommit=True, reindex=True, delete_pid=True
-    )
+    collection = Collection.create(coll_martigny_1_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
     collection.delete(force=True, dbcommit=True, delindex=True)

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Add keys into loan index."""
+
 from logging import getLogger
 
 from invenio_circulation.proxies import current_circulation
@@ -58,10 +59,7 @@ def _indexing_records(record_ids):
 
     LOGGER.info(f"Indexing {len(record_ids)} records ....")
     indexer = LoansIndexer()
-    chunks = [
-        record_ids[x : x + indexing_chunck_size]
-        for x in range(0, len(record_ids), indexing_chunck_size)
-    ]
+    chunks = [record_ids[x : x + indexing_chunck_size] for x in range(0, len(record_ids), indexing_chunck_size)]
     for chuncked_ids in chunks:
         indexer.bulk_index(chuncked_ids)
         count = indexer.process_bulk_queue()

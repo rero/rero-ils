@@ -18,7 +18,6 @@
 
 """Document record extension to add the MEF pid in the database."""
 
-
 from invenio_db import db
 from invenio_records.extensions import RecordExtension
 
@@ -50,9 +49,7 @@ class AddMEFPidExtension(RecordExtension):
             fields = record.get(field_name, [])
             if not isinstance(fields, list):
                 fields = [fields]
-            remote_entities.extend(
-                [field["entity"] for field in fields if "entity" in field]
-            )
+            remote_entities.extend([field["entity"] for field in fields if "entity" in field])
 
         # For each found entity, add its PID into the entity data.
         for entity_data in remote_entities:

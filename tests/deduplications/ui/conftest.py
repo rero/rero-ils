@@ -30,9 +30,7 @@ def dedup_doc_data():
             {
                 "type": "bf:Title",
                 "mainTitle": [{"value": "La reine Berthe et sa fille"}],
-                "subtitle": [
-                    {"value": "une page du dixi\u00e8me si\u00e8cle offerte aux jeunes"}
-                ],
+                "subtitle": [{"value": "une page du dixi\u00e8me si\u00e8cle offerte aux jeunes"}],
             },
         ],
         "responsibilityStatement": [[{"value": "Nebehay, Christian Michael"}]],

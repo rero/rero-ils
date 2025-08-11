@@ -33,9 +33,7 @@ class LoanOperationLogsSearch(OperationLogsSearch):
         :param triggers: list[str] - loan triggers value to filter
         :return: an elasticsearch dsl search query
         """
-        query = self.filter("term", record__type="loan").filter(
-            "terms", loan__trigger=triggers
-        )
+        query = self.filter("term", record__type="loan").filter("terms", loan__trigger=triggers)
         if date_range:
             query = query.filter("range", date=date_range)
         return query
@@ -67,9 +65,7 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
                 "trigger": data["trigger"],
                 "override_flag": False,
                 "auto_extend": data.get("auto_extend", False),
-                "transaction_channel": (
-                    "sip2" if data.get("selfcheck_terminal_id") else "system"
-                ),
+                "transaction_channel": ("sip2" if data.get("selfcheck_terminal_id") else "system"),
                 "transaction_location": {
                     "pid": data["transaction_location_pid"],
                     "name": cls._get_location_name(data["transaction_location_pid"]),
@@ -78,12 +74,8 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
                     "pid": data["pickup_location_pid"],
                     "name": cls._get_location_name(data["pickup_location_pid"]),
                 },
-                "patron": cls._get_patron_data(
-                    Patron.get_record_by_pid(data["patron_pid"])
-                ),
-                "item": cls._get_item_data(
-                    Item.get_record_by_pid(data["item_pid"]["value"])
-                ),
+                "patron": cls._get_patron_data(Patron.get_record_by_pid(data["patron_pid"])),
+                "item": cls._get_item_data(Item.get_record_by_pid(data["item_pid"]["value"])),
             },
         }
         if request_start_date := data.get("request_start_date"):

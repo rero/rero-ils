@@ -37,18 +37,14 @@ class SpecificOperationLog:
         patron_type = None
 
         if patron.get("patron"):
-            patron_type = extracted_data_from_ref(
-                patron["patron"]["type"], data="record"
-            )
+            patron_type = extracted_data_from_ref(patron["patron"]["type"], data="record")
 
         hashed_pid = hashlib.md5(patron.pid.encode()).hexdigest()
         data = {
             "name": patron.formatted_name,
             "type": patron_type["name"] if patron_type else None,
             "age": patron.age,
-            "postal_code": patron.user.user_profile.get(
-                "postal_code", "no_information"
-            ),
+            "postal_code": patron.user.user_profile.get("postal_code", "no_information"),
             "gender": patron.user.user_profile.get("gender", "no_information"),
             "pid": patron.pid,
             "hashed_pid": hashed_pid,
@@ -70,12 +66,8 @@ class SpecificOperationLog:
             "pid": item.pid,
             "library_pid": item.library_pid,
             "category": item["type"],
-            "document": cls._get_document_data(
-                extracted_data_from_ref(item["document"], data="record")
-            ),
-            "holding": cls._get_holding_data(
-                extracted_data_from_ref(item["holding"], data="record")
-            ),
+            "document": cls._get_document_data(extracted_data_from_ref(item["document"], data="record")),
+            "holding": cls._get_holding_data(extracted_data_from_ref(item["holding"], data="record")),
         }
         if item.get("call_number"):
             data["call_number"] = item.get("call_number")
@@ -93,12 +85,8 @@ class SpecificOperationLog:
         document = document.dumps()
         return {
             "pid": document["pid"],
-            "title": next(
-                filter(lambda x: x.get("type") == "bf:Title", document.get("title"))
-            ).get("_text"),
-            "type": document["type"][0].get(
-                "subtype", document["type"][0]["main_type"]
-            ),
+            "title": next(filter(lambda x: x.get("type") == "bf:Title", document.get("title"))).get("_text"),
+            "type": document["type"][0].get("subtype", document["type"][0]["main_type"]),
         }
 
     @classmethod

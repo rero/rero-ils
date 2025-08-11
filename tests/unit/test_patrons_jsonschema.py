@@ -125,10 +125,7 @@ def test_additional_email(app, patron_martigny):
     patron_martigny["patron"]["communication_channel"] = "email"
     with pytest.raises(ValidationError) as e:
         Patron.validate(patron_martigny)
-    assert (
-        "At least one email should be defined for an email "
-        "communication channel" in str(e)
-    )
+    assert "At least one email should be defined for an email communication channel" in str(e)
 
     user._email = original_user_email
 

@@ -37,9 +37,7 @@ from tests.utils import VerifyRecordPermissionPatch, get_json
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_create_accounts(
-    client, rero_json_header, org_martigny, lib_martigny, budget_2020_martigny
-):
+def test_create_accounts(client, rero_json_header, org_martigny, lib_martigny, budget_2020_martigny):
     """Basic scenario to test account creation."""
     # STEP 1 :: Create a root account
     root_account_data = {

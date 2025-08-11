@@ -55,10 +55,7 @@ def enrich_item_data(
     # Current pending requests
     json["current_pending_requests"] = record.get_requests(output="count")
 
-    if local_fields := [
-        field.dumps(dumper=LocalFieldESDumper())
-        for field in LocalField.get_local_fields(record)
-    ]:
+    if local_fields := [field.dumps(dumper=LocalFieldESDumper()) for field in LocalField.get_local_fields(record)]:
         json["local_fields"] = local_fields
 
     if record.is_issue:
@@ -77,9 +74,5 @@ def enrich_item_data(
             json["vendor"] = {"pid": vendor_pid, "type": "vndr"}
         # inject claims information: counter and dates
         if notifications := record.claim_notifications:
-            dates = [
-                notification["creation_date"]
-                for notification in notifications
-                if "creation_date" in notification
-            ]
+            dates = [notification["creation_date"] for notification in notifications if "creation_date" in notification]
             json["issue"]["claims"] = {"counter": len(notifications), "dates": dates}

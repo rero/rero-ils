@@ -119,18 +119,14 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
             request_loan = notification.request_loan
             pickup_location = Location.get_record_by_pid(
                 request_loan.get("pickup_location_pid")
-            ) or Location.get_record_by_pid(
-                request_loan.get("transaction_location_pid")
-            )
+            ) or Location.get_record_by_pid(request_loan.get("transaction_location_pid"))
             # request_patron
             request_patron = Patron.get_record_by_pid(request_loan.get("patron_pid"))
 
             loan_context = {
                 "creation_date": creation_date,
                 "document": doc_data,
-                "pickup_name": pickup_location.get(
-                    "pickup_name", pickup_location.get("name")
-                ),
+                "pickup_name": pickup_location.get("pickup_name", pickup_location.get("name")),
                 "request_expire_date": request_expire_date,
                 "patron": request_patron.dumps(dumper=patron_dumper),
             }

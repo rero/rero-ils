@@ -63,9 +63,7 @@ def init_api_harvest_config(configfile, update):
             url = values.get("url", "")
             classname = values.get("classname", "")
             code = values.get("code", "")
-            msg = api_source(
-                name=name, url=url, classname=classname, code=code, update=update
-            )
+            msg = api_source(name=name, url=url, classname=classname, code=code, update=update)
             click.echo(f"ApiHarvestConfig {name}: {msg}")
 
     else:
@@ -73,9 +71,7 @@ def init_api_harvest_config(configfile, update):
 
 
 @api_harvester.command()
-@click.option(
-    "-n", "--name", default=None, help="Name of persistent configuration to use."
-)
+@click.option("-n", "--name", default=None, help="Name of persistent configuration to use.")
 @click.option(
     "-f",
     "--from-date",
@@ -105,15 +101,11 @@ def harvest(name, from_date, enqueue, harvest_count, verbose):
     if from_date:
         from_date = dateparser.parse(from_date).isoformat()
     if enqueue:
-        async_id = harvest_records.delay(
-            name=name, from_date=from_date, harvest_count=harvest_count, verbose=verbose
-        )
+        async_id = harvest_records.delay(name=name, from_date=from_date, harvest_count=harvest_count, verbose=verbose)
         if verbose:
             click.echo(f"AsyncResult {async_id}")
     else:
-        harvest_records(
-            name=name, from_date=from_date, harvest_count=harvest_count, verbose=verbose
-        )
+        harvest_records(name=name, from_date=from_date, harvest_count=harvest_count, verbose=verbose)
 
 
 @api_harvester.command("info")

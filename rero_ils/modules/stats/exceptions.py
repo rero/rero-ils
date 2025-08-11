@@ -33,4 +33,4 @@ class NotActiveStatConfigException(Exception):
 
     def __str__(self):
         """Exception as string."""
-        return f"Statistics configuration pid: {self.pid} " "is not active."
+        return f"Statistics configuration pid: {self.pid} is not active."

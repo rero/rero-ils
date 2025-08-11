@@ -28,9 +28,7 @@ def test_deduplications_documents(app, dedup_doc_data):
     document_data = dedup_doc_data
     dedup = Deduplication()
     assert dedup.get_candidates(deepcopy(document_data)) == []
-    doc = Document.create(
-        data=deepcopy(document_data), delete_pid=True, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=deepcopy(document_data), delete_pid=True, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     [(pid, _, score, _)] = dedup.get_candidates(deepcopy(document_data))
     assert (pid, score) == (doc.pid, 1.0)

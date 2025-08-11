@@ -82,8 +82,7 @@ class BaseDocumentFormatterMixin(ABC):
         """Return document types."""
         doc_types = []
         for main_type, subtype in [
-            (doc_type.get("main_type"), doc_type.get("subtype"))
-            for doc_type in self.record["type"]
+            (doc_type.get("main_type"), doc_type.get("subtype")) for doc_type in self.record["type"]
         ]:
             if subtype:
                 main_type = f"{main_type} / {subtype}"
@@ -101,16 +100,12 @@ class BaseDocumentFormatterMixin(ABC):
 
     def _get_title(self):
         """Return first title."""
-        return next(
-            filter(lambda x: x.get("type") == "bf:Title", self.record.get("title")), {}
-        ).get("_text")
+        return next(filter(lambda x: x.get("type") == "bf:Title", self.record.get("title")), {}).get("_text")
 
     def _get_series_statement(self):
         """Return series statement title."""
         return [
-            data["value"]
-            for statement in self.record.get("seriesStatement", [])
-            for data in statement.get("_text", [])
+            data["value"] for statement in self.record.get("seriesStatement", []) for data in statement.get("_text", [])
         ]
 
     def _get_secondary_title(self):
@@ -124,18 +119,10 @@ class BaseDocumentFormatterMixin(ABC):
             pid = part_of.get("document", {}).get("pid")
             if es_doc := DocumentsSearch().get_record_by_pid(pid):
                 title = es_doc.to_dict().get("title", [])
-                return next(
-                    filter(lambda x: x.get("type") == "bf:Title", title), {}
-                ).get("_text")
+                return next(filter(lambda x: x.get("type") == "bf:Title", title), {}).get("_text")
 
         # get partOf title
-        return [
-            title
-            for title in map(
-                _extract_part_of_title_callback, self.record.get("partOf", [])
-            )
-            if title
-        ]
+        return [title for title in map(_extract_part_of_title_callback, self.record.get("partOf", [])) if title]
 
     def _get_localized_contribution(self, agent):
         """Return localized contribution.
@@ -154,15 +141,11 @@ class BaseDocumentFormatterMixin(ABC):
             agent = contribution.get("entity", {})
             role = contribution.get("role", [])
             if any(r in role for r in CREATOR_ROLES):
-                return self._get_localized_contribution(agent) or agent.get(
-                    "authorized_access_point"
-                )
+                return self._get_localized_contribution(agent) or agent.get("authorized_access_point")
 
         return [
             contribution
-            for contribution in map(
-                _extract_contribution_callback, self.record.get("contribution", [])
-            )
+            for contribution in map(_extract_contribution_callback, self.record.get("contribution", []))
             if contribution
         ]
 
@@ -174,15 +157,11 @@ class BaseDocumentFormatterMixin(ABC):
             agent = contribution.get("entity", {})
             role = contribution.get("role", [])
             if all(r not in role for r in CREATOR_ROLES):
-                return self._get_localized_contribution(agent) or agent.get(
-                    "preferred_name"
-                )
+                return self._get_localized_contribution(agent) or agent.get("preferred_name")
 
         return [
             contribution
-            for contribution in map(
-                _extract_contribution_callback, self.record.get("contribution", [])
-            )
+            for contribution in map(_extract_contribution_callback, self.record.get("contribution", []))
             if contribution
         ]
 
@@ -191,8 +170,7 @@ class BaseDocumentFormatterMixin(ABC):
         for start_date, end_date in [
             (provision.get("startDate", ""), provision.get("endDate"))
             for provision in self.record.get("provisionActivity", [])
-            if provision["type"] == "bf:Publication"
-            and any(label in provision for label in ["startDate", "endDate"])
+            if provision["type"] == "bf:Publication" and any(label in provision for label in ["startDate", "endDate"])
         ]:
             # return only the first date
             return f"{start_date} - {end_date}" if end_date else start_date
@@ -222,8 +200,7 @@ class BaseDocumentFormatterMixin(ABC):
             for provision in self.record.get("provisionActivity", [])
             for statement in provision.get("statement", [])
             for data in statement.get("label", [])
-            if provision["type"] == "bf:Publication"
-            and statement["type"] == EntityType.PLACE
+            if provision["type"] == "bf:Publication" and statement["type"] == EntityType.PLACE
         ]
 
     def _get_languages(self):
@@ -237,8 +214,7 @@ class BaseDocumentFormatterMixin(ABC):
             for provision in self.record.get("provisionActivity", [])
             for statement in provision.get("statement", [])
             for data in statement.get("label", [])
-            if provision["type"] == "bf:Publication"
-            and statement["type"] == EntityType.AGENT
+            if provision["type"] == "bf:Publication" and statement["type"] == EntityType.AGENT
         ]
 
     def _get_identifiers(self, types, states=None):
@@ -254,11 +230,7 @@ class BaseDocumentFormatterMixin(ABC):
             if identifier["type"] in types
         ]
         states = states or [IdentifierStatus.UNDEFINED]
-        return [
-            identifier.normalize()
-            for identifier in identifiers
-            if identifier.status in states
-        ]
+        return [identifier.normalize() for identifier in identifiers if identifier.status in states]
 
     def _get_isbn(self, states=None):
         """Return ISBN identifiers.
@@ -273,9 +245,7 @@ class BaseDocumentFormatterMixin(ABC):
 
         :param states: list of identifier status.
         """
-        return self._get_identifiers(
-            [IdentifierType.ISSN, IdentifierType.L_ISSN], states
-        )
+        return self._get_identifiers([IdentifierType.ISSN, IdentifierType.L_ISSN], states)
 
     def _get_doi(self):
         """Return DOI identifiers."""
@@ -331,9 +301,7 @@ class DocumentFormatter(BaseDocumentFormatterMixin):
     def __init__(self, record, language=None, include_fields=None):
         """Initialize RIS formatter with the specific record."""
         super().__init__(record)
-        self._language = language or current_app.config.get(
-            "BABEL_DEFAULT_LANGUAGE", "en"
-        )
+        self._language = language or current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
         self._include_fields = include_fields or [
             "document_pid",
             "document_type",
@@ -395,10 +363,7 @@ class DocumentFormatter(BaseDocumentFormatterMixin):
 
     def _fetch_fields(self):
         """Return formatted output based on export fields."""
-        return {
-            field: self.post_process(self.available_fields[field]())
-            for field in self._include_fields
-        }
+        return {field: self.post_process(self.available_fields[field]()) for field in self._include_fields}
 
     def post_process(self, data):
         """Post process data."""

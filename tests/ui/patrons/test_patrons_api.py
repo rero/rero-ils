@@ -63,11 +63,7 @@ def test_patron_extended_validation(
     patron_sion_barcode = patron_sion["patron"]["barcode"]
     created_patron_sion = create_user_from_data(patron_sion_data_tmp)
     created_patron_sion["patron"]["barcode"] = [patron_martigny["patron"]["barcode"][0]]
-    assert (
-        created_user := Patron.create(
-            created_patron_sion, dbcommit=True, reindex=True, delete_pid=True
-        )
-    )
+    assert (created_user := Patron.create(created_patron_sion, dbcommit=True, reindex=True, delete_pid=True))
 
     # check that we can update a patron with existing barcode in another
     # organisation
@@ -133,9 +129,7 @@ def test_patron_create(
             "start_date": "2000-01-01",
             "end_date": "2001-01-01",
             "patron_type": {"$ref": "https://bib.rero.ch/api/patron_types/xxx"},
-            "patron_transaction": {
-                "$ref": "https://bib.rero.ch/api/patron_transactions/xxx"
-            },
+            "patron_transaction": {"$ref": "https://bib.rero.ch/api/patron_transactions/xxx"},
         }
     ]
     with pytest.raises(ValidationError):
@@ -223,9 +217,7 @@ def test_patron_create(
 
 
 @pytest.mark.skip(reason="no way of currently testing this")
-def test_patron_create_without_email(
-    app, roles, patron_type_children_martigny, patron_martigny_data_tmp, mailbox
-):
+def test_patron_create_without_email(app, roles, patron_type_children_martigny, patron_martigny_data_tmp, mailbox):
     """Test Patron creation without an email."""
     patron_martigny_data_tmp = deepcopy(patron_martigny_data_tmp)
 
@@ -244,9 +236,7 @@ def test_patron_create_without_email(
         Patron.create(patron_martigny_data_tmp, dbcommit=True, delete_pid=True)
 
     # create a patron without email
-    patron_martigny_data_tmp["patron"][
-        "communication_channel"
-    ] = CommunicationChannel.MAIL
+    patron_martigny_data_tmp["patron"]["communication_channel"] = CommunicationChannel.MAIL
     ptrn = Patron.create(patron_martigny_data_tmp, dbcommit=True, delete_pid=True)
     # user has been created
     user = User.query.filter_by(id=ptrn.get("user_id")).first()
@@ -330,10 +320,7 @@ def test_patron_properties(
 
     # TEST `manageable_library_pids`
     assert librarian_martigny.manageable_library_pids == [lib_martigny.pid]
-    assert (
-        system_librarian_martigny.manageable_library_pids
-        == org_martigny.get_libraries_pids()
-    )
+    assert system_librarian_martigny.manageable_library_pids == org_martigny.get_libraries_pids()
 
     # TEST `blocked`
     patron = Patron.get_patron_by_email(patron_martigny.dumps().get("email"))
@@ -374,9 +361,7 @@ def test_user_librarian_can_delete(librarian_martigny):
     assert can and reasons == {}
 
 
-def test_get_patron_for_organisation(
-    patron_martigny, patron_sion, org_martigny, org_sion
-):
+def test_get_patron_for_organisation(patron_martigny, patron_sion, org_martigny, org_sion):
     """Test get patron_pid for organisation."""
 
     pids = Patron.get_all_pids_for_organisation(org_martigny.pid)
@@ -396,9 +381,5 @@ def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
     del data["libraries"]
     patron_sion_multiple.update(data, dbcommit=True, reindex=True)
     assert patron2_martigny.user.roles == [UserRole.PATRON]
-    assert Patron.get_record_by_pid(patron_sion_multiple.pid).get("roles") == [
-        UserRole.PATRON
-    ]
-    assert Patron.get_record_by_pid(patron2_martigny.pid).get("roles") == [
-        UserRole.PATRON
-    ]
+    assert Patron.get_record_by_pid(patron_sion_multiple.pid).get("roles") == [UserRole.PATRON]
+    assert Patron.get_record_by_pid(patron2_martigny.pid).get("roles") == [UserRole.PATRON]

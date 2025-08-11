@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Record serialization."""
+
 import csv
 
 from flask import current_app
@@ -57,9 +58,7 @@ class StatCSVSerializer(CSVSerializer):
             writer = csv.writer(line)
             writer.writerow(headers)
             yield line.read()
-            values = sorted(
-                record["metadata"]["values"], key=lambda v: v["library"]["name"]
-            )
+            values = sorted(record["metadata"]["values"], key=lambda v: v["library"]["name"])
 
             for value in values:
                 library = value["library"]
@@ -68,9 +67,7 @@ class StatCSVSerializer(CSVSerializer):
                 del value["library"]
                 for v in value:
                     if isinstance(value[v], dict):
-                        dict_to_text = "".join(
-                            f"{k} :{m}\r\n" for k, m in value[v].items()
-                        )
+                        dict_to_text = "".join(f"{k} :{m}\r\n" for k, m in value[v].items())
                         value[v] = dict_to_text
                 value = StatCSVSerializer.sort_dict_by_key(value)[1]
                 writer.writerow(value)
@@ -87,9 +84,7 @@ class StatCSVSerializer(CSVSerializer):
             writer.writeheader()
             yield line.read()
             # sort by library name
-            values = sorted(
-                record["metadata"]["values"], key=lambda v: v["library"]["name"]
-            )
+            values = sorted(record["metadata"]["values"], key=lambda v: v["library"]["name"])
 
             for value in values:
                 library = value["library"]
@@ -98,9 +93,7 @@ class StatCSVSerializer(CSVSerializer):
                 del value["library"]
                 for v in value:
                     if isinstance(value[v], dict):
-                        dict_to_text = "".join(
-                            f"{k} :{m}\r\n" for k, m in value[v].items()
-                        )
+                        dict_to_text = "".join(f"{k} :{m}\r\n" for k, m in value[v].items())
                         value[v] = dict_to_text
                 writer.writerow(value)
                 yield line.read()
@@ -121,9 +114,7 @@ class StatCSVSerializer(CSVSerializer):
         :returns: a list of tuples
         :rtype: list
         """
-        tuple_list = sorted(
-            dictionary.items(), key=lambda x: cls.ordered_keys.index(x[0])
-        )
+        tuple_list = sorted(dictionary.items(), key=lambda x: cls.ordered_keys.index(x[0]))
         return list(zip(*tuple_list))
 
     def process_dict(self, dictionary):
@@ -167,9 +158,7 @@ def record_responsify(serializer, mimetype):
         date = record.created.isoformat()
         filename = f"stats-{date}.csv"
         if not response.headers.get("Content-Disposition"):
-            response.headers["Content-Disposition"] = (
-                f'attachment; filename="{filename}"'
-            )
+            response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
 
         if links_factory is not None:
             add_link_header(response, links_factory(pid))

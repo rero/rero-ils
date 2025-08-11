@@ -37,9 +37,7 @@ def test_loan_operation_log(
     """Test operation logs creation."""
     login_user_for_view(client, librarian_martigny, default_user_password)
 
-    operation_log = LoanOperationLog.create(
-        deepcopy(loan_validated_martigny), index_refresh="wait_for"
-    )
+    operation_log = LoanOperationLog.create(deepcopy(loan_validated_martigny), index_refresh="wait_for")
     operation_log["$schema"] = current_jsonschemas.path_to_url(LoanOperationLog._schema)
     operation_log.validate()
     log_data = LoanOperationLog.get_record(operation_log.id)
@@ -50,21 +48,10 @@ def test_loan_operation_log(
     assert not log_data["loan"]["override_flag"]
     assert log_data["loan"]["transaction_channel"] == "system"
     assert log_data["loan"]["transaction_user"]["name"] == "Pedronni, Marie"
-    assert (
-        log_data["loan"]["transaction_location"]["name"]
-        == "Martigny Library Public Space"
-    )
-    assert (
-        log_data["loan"]["pickup_location"]["name"] == "Martigny Library Public Space"
-    )
-    assert (
-        log_data["loan"]["request_start_date"]
-        == loan_validated_martigny["request_start_date"]
-    )
-    assert (
-        log_data["loan"]["request_expire_date"]
-        == loan_validated_martigny["request_expire_date"]
-    )
+    assert log_data["loan"]["transaction_location"]["name"] == "Martigny Library Public Space"
+    assert log_data["loan"]["pickup_location"]["name"] == "Martigny Library Public Space"
+    assert log_data["loan"]["request_start_date"] == loan_validated_martigny["request_start_date"]
+    assert log_data["loan"]["request_expire_date"] == loan_validated_martigny["request_expire_date"]
     assert log_data["loan"]["patron"] == {
         "pid": "ptrn6",
         "hashed_pid": "e11ff43bff5be4cf70350e2d15149e29",
@@ -80,8 +67,7 @@ def test_loan_operation_log(
         "call_number": "001313",
         "document": {
             "pid": "doc1",
-            "title": "titre en chinois. Part Number, Part Number = Titolo cinese : "
-            "sottotitolo in cinese",
+            "title": "titre en chinois. Part Number, Part Number = Titolo cinese : sottotitolo in cinese",
             "type": "docsubtype_other_book",
         },
         "holding": {"pid": "1", "location_name": "Martigny Library Public Space"},
@@ -110,9 +96,7 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
     assert len(logs) == 3
     for log in logs:
         if log["record"]["type"] == "notif":
-            assert log["notification"]["recipients"] == [
-                "reroilstest+martigny+atdesk@gmail.com"
-            ]
+            assert log["notification"]["recipients"] == ["reroilstest+martigny+atdesk@gmail.com"]
         assert log["loan"]["patron"]["pid"] == patron["pid"]
         assert log["loan"]["patron"]["name"] == "Roduit, Louis"
 

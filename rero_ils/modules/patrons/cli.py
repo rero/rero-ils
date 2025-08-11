@@ -91,7 +91,6 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error, de
     pids = []
     error_records = []
     for count, patron_data in enumerate(data, 1):
-
         try:
             # patron creation
             patron = None
@@ -99,9 +98,7 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error, de
             if patron_pid:
                 patron = Patron.get_record_by_pid(patron_pid)
             if not patron:
-                patron = create_patron_from_data(
-                    data=patron_data, dbcommit=True, reindex=True
-                )
+                patron = create_patron_from_data(data=patron_data, dbcommit=True, reindex=True)
                 pids.append(patron.pid)
             else:
                 # remove profile fields from patron record
@@ -129,9 +126,7 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error, de
     if append:
         click.secho(f"Append fixtures new identifiers: {len(pids)}")
         identifier = Patron.provider.identifier
-        count, err = append_fixtures_new_identifiers(
-            identifier, sorted(pids, key=lambda x: int(x))
-        )
+        count, err = append_fixtures_new_identifiers(identifier, sorted(pids, key=lambda x: int(x)))
         click.echo(f"DB commit append: {count}")
         if err:
             click.secho(f"ERROR append fixtures new identifiers: {err}", fg="red")
@@ -166,15 +161,13 @@ def users_validate(jsonfile, verbose, debug):
     merger_schema = {"properties": {"required": {"mergeStrategy": "append"}}}
     merger = Merger(merger_schema)
     schema = merger.merge(user_schema, ptrn_schema)
-    schema["required"] = [
-        s for s in schema["required"] if s not in ["$schema", "user_id"]
-    ]
+    schema["required"] = [s for s in schema["required"] if s not in ["$schema", "user_id"]]
 
     datas = read_json_record(jsonfile)
     librarien_roles_users = {}
     for idx, data in enumerate(datas):
         if verbose:
-            click.echo(f'\tTest record: {idx} pid: {data.get("pid")}')
+            click.echo(f"\tTest record: {idx} pid: {data.get('pid')}")
         try:
             validate(data, schema)
             patron = data.get("patron", {})
@@ -184,10 +177,7 @@ def users_validate(jsonfile, verbose, debug):
                 and data.get("email") is None
                 and patron.get("additional_communication_email") is None
             ):
-                raise ValidationError(
-                    "At least one email should be defined "
-                    "for an email communication channel."
-                )
+                raise ValidationError("At least one email should be defined for an email communication channel.")
             librarian_roles = [Patron.ROLE_SYSTEM_LIBRARIAN, Patron.ROLE_LIBRARIAN]
             roles = data.get("roles", [])
             if any(role in librarian_roles for role in roles):
@@ -206,8 +196,7 @@ def users_validate(jsonfile, verbose, debug):
 
         except ValidationError as err:
             click.secho(
-                f'Error validate in record: {idx} pid: {data.get("pid")} '
-                f'username: {data.get("username")}',
+                f"Error validate in record: {idx} pid: {data.get('pid')} username: {data.get('username')}",
                 fg="red",
             )
             if debug:

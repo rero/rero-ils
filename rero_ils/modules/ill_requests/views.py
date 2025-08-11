@@ -96,15 +96,11 @@ def ill_request_form(viewcode):
                 if ptrn.organisation_pid == loc.organisation_pid:
                     return ptrn
 
-        ill_request_data["patron"] = {
-            "$ref": get_ref_for_pid("patrons", get_patron(loc_pid).pid)
-        }
+        ill_request_data["patron"] = {"$ref": get_ref_for_pid("patrons", get_patron(loc_pid).pid)}
         ill_request_data["status"] = ILLRequestStatus.PENDING
         ILLRequest.create(ill_request_data, dbcommit=True, reindex=True)
         flash(_("The request has been transmitted to your library."), "success")
-        return redirect(
-            url_for("patrons.profile", viewcode=viewcode, org_pids=org_pids)
-        )
+        return redirect(url_for("patrons.profile", viewcode=viewcode, org_pids=org_pids))
 
     return render_template(
         "rero_ils/ill_request_form.html",
@@ -133,9 +129,7 @@ def _populate_document_data_form(doc_pid, form):
     if authors:
         form.document.authors.data = "; ".join(authors[:3])
     # Document publisher and year
-    if production_activity := next(
-        get_production_activity(doc, ["bf:Publication"]), None
-    ):
+    if production_activity := next(get_production_activity(doc, ["bf:Publication"]), None):
         # Document date
         if date := production_activity.get("startDate"):
             form.document.year.data = date

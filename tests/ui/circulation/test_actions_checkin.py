@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test item circulation checkin actions."""
+
 from datetime import timedelta
 
 import ciso8601
@@ -150,10 +151,7 @@ def test_checkin_on_item_on_shelf_with_requests_external(
     item, actions = item.checkin(**params)
     item = Item.get_record_by_pid(item.pid)
     assert item.status == ItemStatus.IN_TRANSIT
-    assert (
-        Loan.get_record_by_pid(loan.pid)["state"]
-        == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-    )
+    assert Loan.get_record_by_pid(loan.pid)["state"] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
     assert Loan.get_record_by_pid(requested_loan.pid)["state"] == LoanState.PENDING
 
 

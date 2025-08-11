@@ -141,9 +141,7 @@ class Import(object):
         :param id: id for the type
         """
         if data:
-            ids_indexes = self.aggregations_creation[type].get(
-                data, {"ids": set(), "sub_type": sub_type, "sub": {}}
-            )
+            ids_indexes = self.aggregations_creation[type].get(data, {"ids": set(), "sub_type": sub_type, "sub": {}})
             ids_indexes["ids"].add(id)
             # check if we have data for subtype
             if sub_data:
@@ -178,9 +176,7 @@ class Import(object):
 
         for agent in record.get("contribution", []):
             name = None
-            if authorized_access_point := agent.get("entity", {}).get(
-                "authorized_access_point"
-            ):
+            if authorized_access_point := agent.get("entity", {}).get("authorized_access_point"):
                 name = authorized_access_point
             elif text := agent.get("entity", {}).get("_text"):
                 name = text
@@ -298,11 +294,7 @@ class Import(object):
         buckets = results.get("aggregations").get(agg, {}).get("buckets", [])
         if bucket := list(filter(lambda bucket: bucket["key"] == str(key), buckets)):
             sub_buckets = bucket[0].get(sub_agg, {}).get("buckets", [])
-            sub_bucket = list(
-                filter(
-                    lambda sub_bucket: sub_bucket["key"] == str(sub_key), sub_buckets
-                )
-            )
+            sub_bucket = list(filter(lambda sub_bucket: sub_bucket["key"] == str(sub_key), sub_buckets))
             ids = sub_bucket[0]["ids"]
         return ids
 
@@ -345,24 +337,15 @@ class Import(object):
             new_order.append("leader")
         for key in sorted(json_data.keys()):
             # Don't use 9XX tag's
-            if (
-                key[0] != "9"
-                and key != "leader"
-                and key != "__order__"
-                and key[:3].isdigit()
-            ):
+            if key[0] != "9" and key != "leader" and key != "__order__" and key[:3].isdigit():
                 new_json_data[key] = json_data[key]
         new_order.extend(
-            key
-            for key in list(json_data["__order__"])
-            if (key[0] != "9" and key != "leader" and key[:3].isdigit())
+            key for key in list(json_data["__order__"]) if (key[0] != "9" and key != "leader" and key[:3].isdigit())
         )
         new_json_data["__order__"] = new_order
         return GroupableOrderedDict(new_json_data)
 
-    def search_records(
-        self, what, relation, where="anywhere", max_results=0, no_cache=False
-    ):
+    def search_records(self, what, relation, where="anywhere", max_results=0, no_cache=False):
         """Get the records.
 
         :param what: what term to search
@@ -375,14 +358,10 @@ class Import(object):
         def _split_stream(stream):
             """Yield record elements from given XML stream."""
             try:
-                for _, element in etree.iterparse(
-                    stream, tag="{http://www.loc.gov/zing/srw/}record"
-                ):
+                for _, element in etree.iterparse(stream, tag="{http://www.loc.gov/zing/srw/}record"):
                     yield element
             except Exception:
-                current_app.logger.error(
-                    f"Import: {self.name} error: XML SPLIT url: {url_api}"
-                )
+                current_app.logger.error(f"Import: {self.name} error: XML SPLIT url: {url_api}")
                 return []
 
         if max_results == 0:
@@ -402,12 +381,8 @@ class Import(object):
                 self.data = cache_data["data"]
                 self.status_code = 200
             else:
-                url_api = self._create_sru_url(
-                    what=what, relation=relation, where=where, max_results=max_results
-                )
-                response = requests.get(
-                    url_api, timeout=(self.timeout_connect, self.timeout_request)
-                )
+                url_api = self._create_sru_url(what=what, relation=relation, where=where, max_results=max_results)
+                response = requests.get(url_api, timeout=(self.timeout_connect, self.timeout_request))
                 self.status_code = response.status_code
                 self.status_msg = "Request error."
                 response.raise_for_status()
@@ -436,9 +411,7 @@ class Import(object):
                         self.data.append(json_data)
                         self.results["hits"]["hits"].append(data)
                         self.results["hits"]["remote_total"] = int(
-                            etree.parse(BytesIO(response.content))
-                            .find("{*}numberOfRecords")
-                            .text
+                            etree.parse(BytesIO(response.content)).find("{*}numberOfRecords").text
                         )
                 # save to cache if we have hits
                 if self.results["hits"]["hits"]:
@@ -466,10 +439,7 @@ class Import(object):
             # TODO: enable error logging only for 500
             # if self.status_code == 500:
             current_app.logger.error(
-                f"Import: {self.name} "
-                f"code: {self.status_code} "
-                f"error: {self.status_msg} "
-                f"url: {url_api}"
+                f"Import: {self.name} code: {self.status_code} error: {self.status_msg} url: {url_api}"
             )
             self.results["errors"] = {
                 "code": self.status_code,

@@ -42,9 +42,7 @@ def list_available_template():
     template_path = os.path.join(base_path, blueprint.template_folder)
 
     template_directories = set()
-    for glob_pattern in current_app.config.get(
-        "RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPLATE_FILES"
-    ):
+    for glob_pattern in current_app.config.get("RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPLATE_FILES"):
         for path in pathlib.Path(template_path).rglob(glob_pattern):
             parent_path = str(path.parent.absolute())
             parent_path = parent_path.replace(template_path, "").lstrip("/")

@@ -50,11 +50,7 @@ class RestrictStatistics(AllowedByAction):
         :param kwargs: extra named arguments.
         :returns: a list of Needs to disable access.
         """
-        if (
-            record
-            and record.get("type") == StatType.BILLING
-            and not admin_permission.require().can()
-        ):
+        if record and record.get("type") == StatType.BILLING and not admin_permission.require().can():
             return [any_user]
         return []
 

@@ -29,9 +29,7 @@ from rero_ils.modules.locations.api import Location, LocationsSearch
 from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
-def test_location_pickup_locations(
-    locations, patron_martigny, patron_sion, loc_public_martigny, item2_lib_martigny
-):
+def test_location_pickup_locations(locations, patron_martigny, patron_sion, loc_public_martigny, item2_lib_martigny):
     """Test for pickup locations."""
 
     # At the beginning, if we load all locations from fixtures, there are 4
@@ -58,14 +56,10 @@ def test_location_pickup_locations(
     ]
     loc_public_martigny.update(loc_public_martigny, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
-    pickup_locations = Location.get_pickup_location_pids(
-        item_pid=item2_lib_martigny.pid
-    )
+    pickup_locations = Location.get_pickup_location_pids(item_pid=item2_lib_martigny.pid)
     assert set(pickup_locations) == {"loc3"}
 
-    pickup_locations = Location.get_pickup_location_pids(
-        patron_pid=patron_sion.pid, item_pid=item2_lib_martigny.pid
-    )
+    pickup_locations = Location.get_pickup_location_pids(patron_pid=patron_sion.pid, item_pid=item2_lib_martigny.pid)
     assert set(pickup_locations) == set([])
 
     # check document.views::record_library_pickup_locations
@@ -90,9 +84,7 @@ def test_locations_get(client, loc_public_martigny, lib_martigny, org_martigny):
     location = loc_public_martigny
     item_url = url_for("invenio_records_rest.loc_item", pid_value=location.pid)
     list_url = url_for("invenio_records_rest.loc_list", q=f"pid:{location.pid}")
-    item_url_with_resolve = url_for(
-        "invenio_records_rest.loc_item", pid_value=location.pid, resolve=1
-    )
+    item_url_with_resolve = url_for("invenio_records_rest.loc_item", pid_value=location.pid, resolve=1)
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -133,9 +125,7 @@ def test_locations_get(client, loc_public_martigny, lib_martigny, org_martigny):
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_locations_post_put_delete(
-    client, lib_martigny, loc_public_martigny_data, json_header
-):
+def test_locations_post_put_delete(client, lib_martigny, loc_public_martigny_data, json_header):
     """Test record retrieval."""
     item_url = url_for("invenio_records_rest.loc_item", pid_value="1")
     list_url = url_for("invenio_records_rest.loc_list", q="pid:1")
@@ -246,7 +236,6 @@ def test_location_serializers(client, locations, librarian_martigny, rero_json_h
     response = client.get(list_url, headers=rero_json_header)
     assert response.status_code == 200
     assert all(
-        hit["metadata"]["library"].get("code")
-        and hit["metadata"]["library"].get("name")
+        hit["metadata"]["library"].get("code") and hit["metadata"]["library"].get("name")
         for hit in response.json["hits"]["hits"]
     )

@@ -52,9 +52,7 @@ def upgrade():
         loan = Loan.get_record_by_pid(pid)
         trans_date = ciso8601.parse_datetime(loan.transaction_date)
         expire_date = trans_date + timedelta(days=10)
-        expire_date = expire_date.replace(
-            hour=23, minute=59, second=00, microsecond=000, tzinfo=None
-        )
+        expire_date = expire_date.replace(hour=23, minute=59, second=00, microsecond=000, tzinfo=None)
         expire_date = pytz.timezone("Europe/Zurich").localize(expire_date)
         loan["request_expire_date"] = expire_date.isoformat()
         loan["request_start_date"] = datetime.now().isoformat()

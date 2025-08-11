@@ -107,11 +107,7 @@ class LocalField(IlsRecord):
         :param organisation_pid: organisation pid filter value.
         :returns: a generator of `LocalField` records.
         """
-        search = (
-            LocalFieldsSearch()
-            .get_local_fields(parent_type, parent_pid, organisation_pid)
-            .source(False)
-        )
+        search = LocalFieldsSearch().get_local_fields(parent_type, parent_pid, organisation_pid).source(False)
         for hit in search.scan():
             yield LocalField.get_record(hit.meta.id)
 
@@ -123,9 +119,7 @@ class LocalField(IlsRecord):
         :param organisation_pid: organisation pid filter value.
         :returns: a generator of `LocalField` records.
         """
-        return LocalField.get_local_fields_by_id(
-            parent.provider.pid_type, parent.pid, organisation_pid
-        )
+        return LocalField.get_local_fields_by_id(parent.provider.pid_type, parent.pid, organisation_pid)
 
 
 class LocalFieldsIndexer(IlsRecordsIndexer):

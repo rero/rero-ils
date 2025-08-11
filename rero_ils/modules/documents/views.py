@@ -89,9 +89,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
 
     query = DocumentsSearch().filter("term", partOf__document__pid=pid.pid_value)
     if organisation:
-        query = query.filter(
-            "term", holdings__organisation__organisation_pid=organisation.pid
-        )
+        query = query.filter("term", holdings__organisation__organisation_pid=organisation.pid)
     linked_documents_count = query.count()
     return render_template(
         template,
@@ -169,16 +167,13 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
             args = {
                 "viewcode": viewcode,
                 "recordType": "documents",
-                "q": f"contribution.entity.pids.{entity.resource_type}:"
-                f"{entity.pid}",
+                "q": f"contribution.entity.pids.{entity.resource_type}:{entity.pid}",
                 "simple": 0,
             }
         else:
             default_key = "authorized_access_point"
             localized_key = f"authorized_access_point_{language}"
-            text = contrib["entity"].get(localized_key) or contrib["entity"].get(
-                default_key
-            )
+            text = contrib["entity"].get(localized_key) or contrib["entity"].get(default_key)
             args = {
                 "viewcode": viewcode,
                 "recordType": "documents",
@@ -342,14 +337,11 @@ def get_other_accesses(record):
     def filter_type(electronic_locator):
         """Filter electronic locator for related resources and no info."""
         return (
-            electronic_locator.get("type")
-            in ["noInfo", "resource", "relatedResource", "versionOfResource"]
+            electronic_locator.get("type") in ["noInfo", "resource", "relatedResource", "versionOfResource"]
             and electronic_locator.get("content") != "coverImage"
         )
 
-    filtered_electronic_locators = filter(
-        filter_type, record.get("electronicLocator", [])
-    )
+    filtered_electronic_locators = filter(filter_type, record.get("electronicLocator", []))
     for electronic_locator in filtered_electronic_locators:
         url = electronic_locator.get("url")
         content = _(electronic_locator.get("content"))
@@ -377,9 +369,7 @@ def create_title_text(titles, responsibility_statement=None):
     :return: the title text for display purpose
     :rtype: str
     """
-    return TitleExtension.format_text(
-        titles, responsibility_statement, with_subtitle=True
-    )
+    return TitleExtension.format_text(titles, responsibility_statement, with_subtitle=True)
 
 
 @blueprint.app_template_filter()
@@ -451,10 +441,7 @@ def record_library_pickup_locations(record):
     if "restrict_pickup_to" in location:
         # Get all pickup locations as Location objects and append it to the
         # location record (removing possible None values)
-        pickup_locations = [
-            Location.get_record_by_pid(loc_pid)
-            for loc_pid in location.restrict_pickup_to
-        ]
+        pickup_locations = [Location.get_record_by_pid(loc_pid) for loc_pid in location.restrict_pickup_to]
     else:
         org = Organisation.get_record_by_pid(location.organisation_pid)
         # Get the pickup location from each library of the record organisation
@@ -462,8 +449,7 @@ def record_library_pickup_locations(record):
         pickup_locations = []
         for library in org.get_libraries():
             pickup_locations.extend(
-                Location.get_record_by_pid(location_pid)
-                for location_pid in list(library.get_pickup_locations_pids())
+                Location.get_record_by_pid(location_pid) for location_pid in list(library.get_pickup_locations_pids())
             )
     return sorted(
         list(filter(None, pickup_locations)),

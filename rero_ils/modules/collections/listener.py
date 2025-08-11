@@ -21,9 +21,7 @@ from ..utils import extracted_data_from_ref
 from .api import Collection, CollectionsSearch
 
 
-def enrich_collection_data(
-    sender, json=None, record=None, index=None, doc_type=None, **dummy_kwargs
-):
+def enrich_collection_data(sender, json=None, record=None, index=None, doc_type=None, **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.

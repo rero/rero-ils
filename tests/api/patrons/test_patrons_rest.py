@@ -35,9 +35,7 @@ from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
-def test_patrons_shortcuts(
-    client, librarian_martigny, patron_martigny, librarian_sion, yesterday, tomorrow
-):
+def test_patrons_shortcuts(client, librarian_martigny, patron_martigny, librarian_sion, yesterday, tomorrow):
     """Test patron shortcuts."""
     new_patron = deepcopy(patron_martigny)
     assert new_patron.patron_type_pid
@@ -59,9 +57,7 @@ def test_patrons_shortcuts(
     assert not new_patron.is_expired
 
 
-def test_filtered_patrons_get(
-    client, librarian_martigny, patron_martigny, librarian_sion
-):
+def test_filtered_patrons_get(client, librarian_martigny, patron_martigny, librarian_sion):
     """Test patron filter by organisation."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
@@ -185,9 +181,7 @@ def test_patron_pending_subscription(
     # Pay this subscription.
     login_user_via_session(client, librarian_sion.user)
     post_entrypoint = "invenio_records_rest.ptre_list"
-    trans_pid = extracted_data_from_ref(
-        pending_subscription[0]["patron_transaction"], data="pid"
-    )
+    trans_pid = extracted_data_from_ref(pending_subscription[0]["patron_transaction"], data="pid")
     transaction = PatronTransaction.get_record_by_pid(trans_pid)
     payment = deepcopy(patron_transaction_overdue_event_martigny)
     del payment["pid"]
@@ -216,12 +210,8 @@ def test_patron_pending_subscription(
 def test_patrons_get(client, librarian_martigny):
     """Test record retrieval."""
     patron = librarian_martigny
-    item_url = url_for(
-        "invenio_records_rest.ptrn_item", pid_value=librarian_martigny.pid
-    )
-    list_url = url_for(
-        "invenio_records_rest.ptrn_list", q=f"pid:{librarian_martigny.pid}"
-    )
+    item_url = url_for("invenio_records_rest.ptrn_item", pid_value=librarian_martigny.pid)
+    list_url = url_for("invenio_records_rest.ptrn_list", q=f"pid:{librarian_martigny.pid}")
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -394,9 +384,7 @@ def test_patrons_circulation_informations(
     ill_request_sion,
 ):
     """test patron circulation informations."""
-    url = url_for(
-        "api_patrons.patron_circulation_informations", patron_pid=patron_sion.pid
-    )
+    url = url_for("api_patrons.patron_circulation_informations", patron_pid=patron_sion.pid)
     res = client.get(url)
     assert res.status_code == 401
 
@@ -406,9 +394,7 @@ def test_patrons_circulation_informations(
     data = res.json
     assert len(data["messages"]) == 0
 
-    url = url_for(
-        "api_patrons.patron_circulation_informations", patron_pid=patron_sion.pid
-    )
+    url = url_for("api_patrons.patron_circulation_informations", patron_pid=patron_sion.pid)
     res = client.get(url)
     data = res.json
     assert res.status_code == 200
@@ -461,10 +447,7 @@ def test_patron_messages(client, patron_martigny):
     data = get_json(res)
     assert len(data) == 1
     assert data[0]["type"] == "warn"
-    assert (
-        data[0]["content"] == "This person will be in vacations.\n"
-        "Will be back in february."
-    )
+    assert data[0]["content"] == "This person will be in vacations.\nWill be back in february."
 
 
 def test_patron_info(app, client, patron_martigny, librarian_martigny):
@@ -541,9 +524,7 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
     assert res.status_code == 401
 
     # minimal information without scope
-    res = client.get(
-        url_for("api_patrons.info", access_token=no_scope_token.access_token)
-    )
+    res = client.get(url_for("api_patrons.info", access_token=no_scope_token.access_token))
     assert res.status_code == 200
     barcode = patron_martigny["patron"]["barcode"].pop()
     assert res.json == {
@@ -562,8 +543,7 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
         "fullname": "Roduit, Louis",
         "patron_types": [
             {
-                "expiration_date": patron_martigny["patron"]["expiration_date"]
-                + "T00:00:00",
+                "expiration_date": patron_martigny["patron"]["expiration_date"] + "T00:00:00",
                 "institution": "org1",
                 "patron_pid": patron_martigny.pid,
                 "patron_type": "patron-code",
@@ -571,8 +551,7 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
         ],
         "patron_info": {
             "org1": {
-                "expiration_date": patron_martigny["patron"]["expiration_date"]
-                + "T00:00:00",
+                "expiration_date": patron_martigny["patron"]["expiration_date"] + "T00:00:00",
                 "institution": "org1",
                 "patron_pid": patron_martigny.pid,
                 "patron_type": "patron-code",
@@ -581,9 +560,7 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
     }
 
     # librarian information with all scopes
-    res = client.get(
-        url_for("api_patrons.info", access_token=librarian_token.access_token)
-    )
+    res = client.get(url_for("api_patrons.info", access_token=librarian_token.access_token))
     assert res.status_code == 200
     assert res.json == {
         "birthdate": "1965-02-07",
@@ -603,9 +580,7 @@ def test_patrons_search(client, librarian_martigny):
     assert hits["total"]["value"] == 1
 
     # birth year
-    list_url = url_for(
-        "invenio_records_rest.ptrn_list", q=f'{birthdate.split("-")[0]}', simple="1"
-    )
+    list_url = url_for("invenio_records_rest.ptrn_list", q=f"{birthdate.split('-')[0]}", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
@@ -623,9 +598,7 @@ def test_patrons_expired(client, librarian_martigny, patron_martigny):
     patron_martigny["patron"]["barcode"] = ["4098124352"]
 
     new_expiration_date = datetime.now() - timedelta(days=10)
-    patron_martigny["patron"]["expiration_date"] = new_expiration_date.strftime(
-        "%Y-%m-%d"
-    )
+    patron_martigny["patron"]["expiration_date"] = new_expiration_date.strftime("%Y-%m-%d")
     patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
 
     list_url = url_for("invenio_records_rest.ptrn_list", expired="true", simple="1")
@@ -637,9 +610,7 @@ def test_patrons_expired(client, librarian_martigny, patron_martigny):
     patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
 
 
-def test_patrons_blocked(
-    client, librarian_martigny, patron_martigny, patron3_martigny_blocked
-):
+def test_patrons_blocked(client, librarian_martigny, patron_martigny, patron3_martigny_blocked):
     """Test patron blocked filter."""
     login_user_via_session(client, librarian_martigny.user)
     list_url = url_for("invenio_records_rest.ptrn_list", simple="1")

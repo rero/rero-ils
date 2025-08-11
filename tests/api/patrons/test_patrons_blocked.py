@@ -25,17 +25,13 @@ from rero_ils.modules.loans.utils import can_be_requested
 from tests.utils import get_json, item_pid_to_object
 
 
-def test_blocked_field_exists(
-    client, librarian_martigny, patron_martigny, patron3_martigny_blocked
-):
+def test_blocked_field_exists(client, librarian_martigny, patron_martigny, patron3_martigny_blocked):
     """Test ptrn6 have blocked field present and set to False."""
     login_user_via_session(client, librarian_martigny.user)
     patron3 = patron3_martigny_blocked
 
     # non blocked patron
-    non_blocked_patron_url = url_for(
-        "invenio_records_rest.ptrn_item", pid_value=patron_martigny.pid
-    )
+    non_blocked_patron_url = url_for("invenio_records_rest.ptrn_item", pid_value=patron_martigny.pid)
     res = client.get(non_blocked_patron_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -43,9 +39,7 @@ def test_blocked_field_exists(
     assert data["metadata"]["patron"]["blocked"] is False
 
     # blocked patron
-    blocked_patron_url = url_for(
-        "invenio_records_rest.ptrn_item", pid_value=patron3_martigny_blocked.pid
-    )
+    blocked_patron_url = url_for("invenio_records_rest.ptrn_item", pid_value=patron3_martigny_blocked.pid)
     res = client.get(blocked_patron_url)
     assert res.status_code == 200
     data = get_json(res)

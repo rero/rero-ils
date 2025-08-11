@@ -49,11 +49,7 @@ class UserName:
 
     def __html__(self):
         """Jinja call this method during the rendering."""
-        account = (
-            session.get("user_name", _("My Account"))
-            if current_user.is_authenticated
-            else _("My Account")
-        )
+        account = session.get("user_name", _("My Account")) if current_user.is_authenticated else _("My Account")
         if len(account) > 30:
             account = f"{account[0:30]}..."
         # TODO: fix the unclosed span tag
@@ -125,9 +121,7 @@ def init_menu_tools(app):
         item,
         endpoint="ill_requests.ill_request_form",
         endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-            )
+            viewcode=request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
         ),
         visible_when=lambda: bool(current_patrons),
         text=TextWithIcon(
@@ -143,9 +137,7 @@ def init_menu_tools(app):
         item,
         endpoint="stats.stats_billing",
         visible_when=lambda: admin_permission.require().can(),
-        text=TextWithIcon(
-            icon='<i class="fa fa-money"></i>', text="Statistics billing"
-        ),
+        text=TextWithIcon(icon='<i class="fa fa-money"></i>', text="Statistics billing"),
         order=20,
         id="stats-menu-billing",
     )
@@ -165,18 +157,12 @@ def init_menu_tools(app):
         item,
         endpoint="rero_ils.search",
         endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-            ),
+            viewcode=request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")),
             recordType="collections",
         ),
         visible_when=lambda: app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-        != request.view_args.get(
-            "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-        ),
-        text=TextWithIcon(
-            icon='<i class="fa fa-graduation-cap"></i>', text="Exhibition/course"
-        ),
+        != request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")),
+        text=TextWithIcon(icon='<i class="fa fa-graduation-cap"></i>', text="Exhibition/course"),
         order=2,
         id="collections-menu",
     )
@@ -199,9 +185,7 @@ def init_menu_lang(app):
     # We so check that 'id' already exists. If yes, do not create again
     # the item.
 
-    rero_register(
-        item, endpoint=None, text=CurrentLanguage(), order=0, id="language-menu"
-    )
+    rero_register(item, endpoint=None, text=CurrentLanguage(), order=0, id="language-menu")
 
     order = 10
 
@@ -217,9 +201,7 @@ def init_menu_lang(app):
         rero_register(
             item,
             endpoint="invenio_i18n.set_lang",
-            endpoint_arguments_constructor=partial(
-                return_language, language_item.language
-            ),
+            endpoint_arguments_constructor=partial(return_language, language_item.language),
             text=TextWithIcon(icon='<i class="fa fa-language"></i>', text=ui_language),
             visible_when=partial(hide_language, language_item.language),
             order=order,
@@ -233,10 +215,7 @@ def init_menu_profile(app):
 
     def is_not_read_only():
         """Hide element menu if the flag is ready only."""
-        return (
-            not app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False)
-            and current_user.is_authenticated
-        )
+        return not app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False) and current_user.is_authenticated
 
     item = current_menu.submenu("main.profile")
     rero_register(
@@ -264,9 +243,7 @@ def init_menu_profile(app):
         item,
         endpoint="rero_ils.professional",
         visible_when=lambda: current_librarian,
-        text=TextWithIcon(
-            icon='<i class="fa fa-briefcase"></i>', text="Professional interface"
-        ),
+        text=TextWithIcon(icon='<i class="fa fa-briefcase"></i>', text="Professional interface"),
         order=1,
         id="professional-interface-menu",
     )
@@ -291,9 +268,7 @@ def init_menu_profile(app):
         item,
         endpoint=profile_endpoint,
         endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-            )
+            viewcode=request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
         ),
         visible_when=lambda: len(current_patrons) > 0,
         text=TextWithIcon(icon='<i class="fa fa-book"></i>', text="My Account"),
@@ -306,9 +281,7 @@ def init_menu_profile(app):
         item,
         endpoint=profile_endpoint,
         endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-            ),
+            viewcode=request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")),
             path="user/edit",
         ),
         visible_when=lambda: is_not_read_only(),
@@ -322,9 +295,7 @@ def init_menu_profile(app):
         item,
         endpoint=profile_endpoint,
         endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-            ),
+            viewcode=request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")),
             path="password/edit",
         ),
         visible_when=lambda: is_not_read_only(),
@@ -340,9 +311,7 @@ def init_menu_profile(app):
     rero_register(
         item,
         endpoint="security.register",
-        visible_when=lambda: not app.config.get(
-            "RERO_PUBLIC_USERPROFILES_READONLY", False
-        )
+        visible_when=lambda: not app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False)
         and not current_user.is_authenticated,
         text=TextWithIcon(icon='<i class="fa fa-user-plus"></i>', text="Sign Up"),
         order=2,

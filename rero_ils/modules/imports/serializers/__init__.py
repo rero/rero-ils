@@ -39,16 +39,12 @@ def json_record_serializer_factory(import_class, serializer_type="record"):
     """
     if serializer_type == "record":
         return record_responsify(
-            ImportsSearchSerializer(
-                ImportSchemaJSONV1, record_processor=import_class.to_json_processor
-            ),
+            ImportsSearchSerializer(ImportSchemaJSONV1, record_processor=import_class.to_json_processor),
             "application/json",
         )
     if serializer_type == "uirecord":
         return record_responsify(
-            UIImportsSearchSerializer(
-                ImportSchemaJSONV1, record_processor=import_class.to_json_processor
-            ),
+            UIImportsSearchSerializer(ImportSchemaJSONV1, record_processor=import_class.to_json_processor),
             "application/rero+json",
         )
 
@@ -59,6 +55,4 @@ json_v1_record_marc = ImportsMarcSearchSerializer(ImportSchemaJSONV1)
 
 json_v1_import_search = search_responsify(json_v1_search, "application/json")
 json_v1_import_uisearch = search_responsify(json_v1_uisearch, "application/rero+json")
-json_v1_import_record_marc = record_responsify(
-    json_v1_record_marc, "application/json+marc"
-)
+json_v1_import_record_marc = record_responsify(json_v1_record_marc, "application/json+marc")

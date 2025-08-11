@@ -60,13 +60,9 @@ def process(notification_type, enqueue, verbose):
             break
         click.secho(f"Process notification: {n_type}", fg="green")
         if enqueue:
-            enqueue_results[n_type] = process_notifications.delay(
-                notification_type=n_type, verbose=verbose
-            )
+            enqueue_results[n_type] = process_notifications.delay(notification_type=n_type, verbose=verbose)
         else:
-            results[n_type] = process_notifications(
-                notification_type=n_type, verbose=verbose
-            )
+            results[n_type] = process_notifications(notification_type=n_type, verbose=verbose)
 
     if verbose:
         if enqueue_results:

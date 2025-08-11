@@ -51,16 +51,12 @@ def test_serializers(
     assert response.status_code == 200
     assert response.json["metadata"].get("item_type", {}).get("$ref")
 
-    item_url = url_for(
-        "invenio_records_rest.item_item", pid_value=item_lib_martigny.pid
-    )
+    item_url = url_for("invenio_records_rest.item_item", pid_value=item_lib_martigny.pid)
     response = client.get(item_url, headers=json_header)
     assert response.status_code == 200
     assert response.json["metadata"].get("item_type", {}).get("$ref")
 
-    item_url = url_for(
-        "invenio_records_rest.item_item", pid_value=item_lib_fully.pid, resolve=1
-    )
+    item_url = url_for("invenio_records_rest.item_item", pid_value=item_lib_fully.pid, resolve=1)
     response = client.get(item_url, headers=json_header)
     data = response.json
     assert data["metadata"].get("item_type", {}).get("pid")

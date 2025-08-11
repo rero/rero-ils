@@ -40,9 +40,7 @@ def test_vendor_permissions_api(
         route_name="vendors",
         record_pid=vendor_martigny.pid,
     )
-    vendor_sion_permission_url = url_for(
-        "api_blueprint.permissions", route_name="vendors", record_pid=vendor_sion.pid
-    )
+    vendor_sion_permission_url = url_for("api_blueprint.permissions", route_name="vendors", record_pid=vendor_sion.pid)
 
     # Not logged
     res = client.get(vendor_permissions_url)
@@ -84,9 +82,7 @@ def test_vendor_permissions(
 
     # Anonymous user
     #   - all actions is denied
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         VendorPermissionPolicy,
         {

@@ -39,9 +39,7 @@ def test_orders_permissions(
     """Test orders permissions class."""
 
     # Anonymous user & Patron :: None action allowed
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         AcqOrderPermissionPolicy,
         {
@@ -139,9 +137,7 @@ def test_orders_permissions(
 
     # Special case !!! An acquisition order linked to a closed budget
     # should be considerate as roll-overed and can't be updated.
-    with mock.patch(
-        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.is_active", False
-    ):
+    with mock.patch("rero_ils.modules.acquisition.acq_orders.api.AcqOrder.is_active", False):
         check_permission(
             AcqOrderPermissionPolicy,
             {

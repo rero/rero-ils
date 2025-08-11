@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Items dumpers."""
+
 from copy import deepcopy
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
@@ -57,9 +58,7 @@ class ItemNotificationDumper(InvenioRecordsDumper):
             if item_type := ItemType.get_record_by_pid(item_type_pid):
                 data["item_type"] = item_type["name"]
         if temporary_item_type_pid := record.temporary_item_type_pid:
-            if temporary_item_type := ItemType.get_record_by_pid(
-                temporary_item_type_pid
-            ):
+            if temporary_item_type := ItemType.get_record_by_pid(temporary_item_type_pid):
                 data["temporary_item_type"] = temporary_item_type["name"]
         data = {k: v for k, v in data.items() if v}
         return data
@@ -106,9 +105,7 @@ class ClaimIssueNotificationDumper(InvenioRecordsDumper):
             {
                 "vendor": vendor.dumps(dumper=VendorClaimIssueNotificationDumper()),
                 "document": holding.document.dumps(dumper=DocumentTitleDumper()),
-                "library": holding.library.dumps(
-                    dumper=LibrarySerialClaimNotificationDumper()
-                ),
+                "library": holding.library.dumps(dumper=LibrarySerialClaimNotificationDumper()),
                 "holdings": holding.dumps(dumper=ClaimIssueHoldingDumper()),
                 "enumerationAndChronology": record.enumerationAndChronology,
                 "claim_counter": record.claims_count,
@@ -136,7 +133,7 @@ class CirculationActionDumper(InvenioRecordsDumper):
 
         # add library and location name on same field (used for sorting)
         library = location.get_library()
-        data["library_location_name"] = f'{library["name"]}: {data["location"]["name"]}'
+        data["library_location_name"] = f"{library['name']}: {data['location']['name']}"
 
         data["actions"] = list(record.actions)
 
@@ -148,17 +145,9 @@ class CirculationActionDumper(InvenioRecordsDumper):
             data["pending_loans"] = [first_request.dumps(LoanCirculationDumper())]
         # add temporary location name
         if temporary_location_pid := item.get("temporary_location", {}).get("pid"):
-            data["temporary_location"]["name"] = Location.get_record_by_pid(
-                temporary_location_pid
-            ).get("name")
+            data["temporary_location"]["name"] = Location.get_record_by_pid(temporary_location_pid).get("name")
         # add collections
-        results = (
-            CollectionsSearch()
-            .active_by_item_pid(item["pid"])
-            .params(preserve_order=True)
-            .source("title")
-            .scan()
-        )
+        results = CollectionsSearch().active_by_item_pid(item["pid"]).params(preserve_order=True).source("title").scan()
         if collections := [collection.title for collection in results]:
             data["collections"] = collections
         return data

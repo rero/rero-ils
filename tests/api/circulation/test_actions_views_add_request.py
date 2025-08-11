@@ -17,7 +17,6 @@
 
 """Tests REST librarian request API methods in the item api_views."""
 
-
 from invenio_accounts.testutils import login_user_via_session
 
 from tests.utils import postdata
@@ -48,9 +47,7 @@ def test_add_request_failed_actions(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            patron_pid=patron_martigny.pid, pickup_location_pid=loc_public_martigny.pid
-        ),
+        dict(patron_pid=patron_martigny.pid, pickup_location_pid=loc_public_martigny.pid),
     )
     assert res.status_code == 404
 
@@ -58,9 +55,7 @@ def test_add_request_failed_actions(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid, pickup_location_pid=loc_public_martigny.pid
-        ),
+        dict(item_pid=item_lib_martigny.pid, pickup_location_pid=loc_public_martigny.pid),
     )
     assert res.status_code == 400
 

@@ -33,9 +33,7 @@ def test_required(template_schema, templ_doc_public_martigny_data_tmp):
         validate(templ_doc_public_martigny_data_tmp, template_schema)
 
 
-def test_template_all_jsonschema_keys_values(
-    template_schema, templ_doc_public_martigny_data_tmp
-):
+def test_template_all_jsonschema_keys_values(template_schema, templ_doc_public_martigny_data_tmp):
     """Test all keys and values for template jsonschema."""
     record = templ_doc_public_martigny_data_tmp
     validate(record, template_schema)

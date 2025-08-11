@@ -18,7 +18,6 @@
 
 """Stats Report tests for number of ill requests."""
 
-
 from invenio_search import current_search_client as es
 
 from rero_ils.modules.stats.api.report import StatsReport
@@ -36,18 +35,12 @@ def test_stats_report_number_of_ill_requests(
     loc_public_sion,
 ):
     """Test the number of ill requests."""
-    label_loc_pub_martigny = (
-        f'{lib_martigny["name"]} / '
-        f'{loc_public_martigny["name"]} ({loc_public_martigny.pid})'
-    )
+    label_loc_pub_martigny = f"{lib_martigny['name']} / {loc_public_martigny['name']} ({loc_public_martigny.pid})"
     label_loc_rest_martigny = (
-        f'{lib_martigny["name"]} / '
-        f'{loc_restricted_martigny["name"]} ({loc_restricted_martigny.pid})'
+        f"{lib_martigny['name']} / {loc_restricted_martigny['name']} ({loc_restricted_martigny.pid})"
     )
     label_loc_pub_martigny_bourg = (
-        f'{lib_martigny_bourg["name"]} / '
-        f'{loc_public_martigny_bourg["name"]} '
-        f"({loc_public_martigny_bourg.pid})"
+        f"{lib_martigny_bourg['name']} / {loc_public_martigny_bourg['name']} ({loc_public_martigny_bourg.pid})"
     )
     # no data
     cfg = {
@@ -117,9 +110,7 @@ def test_stats_report_number_of_ill_requests(
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "filter_by_libraries": [
-            {"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}
-        ],
+        "filter_by_libraries": [{"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}],
         "category": {"indicator": {"type": "number_of_ill_requests"}},
     }
     assert StatsReport(cfg).collect() == [[1]]

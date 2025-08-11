@@ -33,9 +33,7 @@ from .models import SelfcheckTerminal
 
 @click.command("create_terminal")
 @click.option("-n", "--name", required=True)
-@click.option(
-    "-u", "--user", required=True, callback=process_user, help="User ID or email."
-)
+@click.option("-u", "--user", required=True, callback=process_user, help="User ID or email.")
 @click.option("-l", "--location-pid", required=True)
 @click.option("-s", "--scope", "scopes", multiple=True, callback=process_scopes)
 @click.option("-i", "--internal", is_flag=True)
@@ -136,7 +134,7 @@ def update_terminal(name, enable, disable, location_pid, access_token, comments)
             terminal.access_token = token.access_token
         else:
             click.secho(
-                f"WARNING token is not valid or does not exist : " f"{access_token}",
+                f"WARNING token is not valid or does not exist : {access_token}",
                 fg="yellow",
             )
     if comments:

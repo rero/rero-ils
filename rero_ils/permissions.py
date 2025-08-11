@@ -62,9 +62,7 @@ def librarian_update_permission_factory(record, *args, **kwargs):
     return type("Check", (), {"can": lambda x: False})()
 
 
-def librarian_delete_permission_factory(
-    record, credentials_only=False, *args, **kwargs
-):
+def librarian_delete_permission_factory(record, credentials_only=False, *args, **kwargs):
     """User can delete record."""
     if credentials_only or record.can_delete[0]:
         return librarian_permission

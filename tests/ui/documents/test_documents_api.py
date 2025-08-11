@@ -75,9 +75,7 @@ def test_document_create_with_mef(
     entity_person_response_data,
 ):
     """Load document with mef records reference."""
-    mock_contributions_mef_get.return_value = mock_response(
-        json_data=entity_person_response_data
-    )
+    mock_contributions_mef_get.return_value = mock_response(json_data=entity_person_response_data)
     assert RemoteEntitiesSearch().count() == 0
     doc = Document.create(
         data=deepcopy(document_data_ref),
@@ -143,17 +141,13 @@ def test_document_linked_subject(
     mef_concept1_es_response,
 ):
     """Load document with MEF reference as a subject."""
-    mock_subjects_mef_get.return_value = mock_response(
-        json_data=mef_concept1_es_response
-    )
+    mock_subjects_mef_get.return_value = mock_response(json_data=mef_concept1_es_response)
 
     concept_pid = mef_concept1_data["idref"]["pid"]
     entity_uri = f"https://mef.rero.ch/api/concepts/idref/{concept_pid}"
     document_data_tmp["subjects"] = [{"entity": {"$ref": entity_uri}}]
 
-    doc = Document.create(
-        document_data_tmp, delete_pid=True, dbcommit=True, reindex=True
-    )
+    doc = Document.create(document_data_tmp, delete_pid=True, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
     doc = Document.get_record(doc.id)
 
@@ -237,9 +231,7 @@ def test_document_can_delete_harvested(app, ebook_1_data):
     assert reasons["others"]["harvested"]
 
 
-def test_document_can_delete_with_loans(
-    client, item_lib_martigny, loan_pending_martigny, document
-):
+def test_document_can_delete_with_loans(client, item_lib_martigny, loan_pending_martigny, document):
     """Test can delete a document."""
     can, reasons = document.can_delete
     assert not can
@@ -247,15 +239,11 @@ def test_document_can_delete_with_loans(
     assert reasons["links"]["loans"]
 
 
-def test_document_contribution_resolve_exception(
-    search_clear, db, mef_agents_url, document_data_ref
-):
+def test_document_contribution_resolve_exception(search_clear, db, mef_agents_url, document_data_ref):
     """Test document contribution resolve."""
     document_data_ref["contribution"] = ([{"$ref": f"{mef_agents_url}/rero/XXXXXX"}],)
     with pytest.raises(Exception):
-        Document.create(
-            data=document_data_ref, delete_pid=False, dbcommit=True, reindex=True
-        )
+        Document.create(data=document_data_ref, delete_pid=False, dbcommit=True, reindex=True)
 
 
 def test_document_create_invalid_data(search_clear, db, document_data):
@@ -273,9 +261,7 @@ def test_document_create_invalid_data(search_clear, db, document_data):
 def test_document_get_links_to_me(document, export_document):
     """Test document links."""
     assert document.get_links_to_me() == {"documents": 1}
-    assert document.get_links_to_me(get_pids=True) == {
-        "documents": {"partOf": [export_document.pid]}
-    }
+    assert document.get_links_to_me(get_pids=True) == {"documents": {"partOf": [export_document.pid]}}
 
 
 def test_document_indexing(document, export_document):
@@ -287,9 +273,7 @@ def test_document_indexing(document, export_document):
     record = next(s.source("partOf").scan())
     # get the titles from the host document
     parent_titles = [
-        v["_text"]
-        for v in document.dumps().get("title")
-        if v.get("_text") and v.get("type") == "bf:Title"
+        v["_text"] for v in document.dumps().get("title") if v.get("_text") and v.get("type") == "bf:Title"
     ]
     assert record.partOf[0].document.title == parent_titles.pop()
 
@@ -308,9 +292,7 @@ def test_document_indexing(document, export_document):
     record = next(s.source("partOf").scan())
     # get the titles from the host document
     parent_titles = [
-        v["_text"]
-        for v in document.dumps().get("title")
-        if v.get("_text") and v.get("type") == "bf:Title"
+        v["_text"] for v in document.dumps().get("title") if v.get("_text") and v.get("type") == "bf:Title"
     ]
     assert record.partOf[0].document.title == parent_titles.pop()
 
@@ -332,9 +314,7 @@ def test_document_replace_refs(document, mef_agents_url):
     assert len(data.get("contribution")) == 1
 
     # add MEF contribution agent
-    document["contribution"].append(
-        {"entity": {"$ref": f"{mef_agents_url}/rero/A017671081"}, "role": ["aut"]}
-    )
+    document["contribution"].append({"entity": {"$ref": f"{mef_agents_url}/rero/A017671081"}, "role": ["aut"]})
 
     document.update(document, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
@@ -359,16 +339,12 @@ def test_document_delete_draft(app, document_chinese_data):
     assert delete_drafts(days=0, delete=True) == 1
 
 
-def test_document_delete_orphan_harvested(
-    app, document_data, holding_lib_sion_electronic
-):
+def test_document_delete_orphan_harvested(app, document_data, holding_lib_sion_electronic):
     """Test document delete orphan harvested.
 
     Make sure that ebooks with electronic holdings (holding_lib_sion_electronic are not deleted).
     """
-    doc = Document.create(
-        data=document_data, delete_pid=True, dbcommit=True, reindex=True
-    )
+    doc = Document.create(data=document_data, delete_pid=True, dbcommit=True, reindex=True)
     assert delete_orphan_harvested(delete=True) == 0
     doc["harvested"] = True
     doc.update(data=doc, dbcommit=True, reindex=True)
@@ -382,12 +358,7 @@ def test_document_type_change(app, document, item_lib_martigny):
     item_lib_martigny.update(data=item_lib_martigny, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
 
-    es_item = next(
-        ItemsSearch()
-        .filter("term", document__pid=document.pid)
-        .source("document")
-        .scan()
-    ).to_dict()
+    es_item = next(ItemsSearch().filter("term", document__pid=document.pid).source("document").scan()).to_dict()
     # Test document.type and es.item.document.document_type are the same.
     assert document["type"] == es_item["document"]["document_type"]
 
@@ -398,12 +369,7 @@ def test_document_type_change(app, document, item_lib_martigny):
     ]
     document.update(data=document, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
-    for hit in (
-        ItemsSearch()
-        .filter("term", document__pid=document.pid)
-        .source("document")
-        .scan()
-    ):
+    for hit in ItemsSearch().filter("term", document__pid=document.pid).source("document").scan():
         es_item = hit.to_dict()
         # Test document.type and es.item.document.document_type are the same.
         assert document["type"] == es_item["document"]["document_type"]

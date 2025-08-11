@@ -95,17 +95,13 @@ def test_filtered_circ_policies_get(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_circ_policies_post_put_delete(
-    client, org_martigny, circ_policy_short_martigny_data, json_header
-):
+def test_circ_policies_post_put_delete(client, org_martigny, circ_policy_short_martigny_data, json_header):
     """Test policy retrieval."""
     # Create policy / POST
     item_url = url_for("invenio_records_rest.cipo_item", pid_value="1")
     list_url = url_for("invenio_records_rest.cipo_list", q="pid:1")
     del circ_policy_short_martigny_data["pid"]
-    res, data = postdata(
-        client, "invenio_records_rest.cipo_list", circ_policy_short_martigny_data
-    )
+    res, data = postdata(client, "invenio_records_rest.cipo_list", circ_policy_short_martigny_data)
     assert res.status_code == 201
 
     # Check that the returned policy matches the given data
@@ -153,9 +149,7 @@ def test_circ_policies_name_validate(client):
         class organisation:
             pid = "org1"
 
-    with mock.patch(
-        "rero_ils.modules.circ_policies.views.current_librarian", current_librarian
-    ):
+    with mock.patch("rero_ils.modules.circ_policies.views.current_librarian", current_librarian):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {"name": "Default"}
@@ -164,9 +158,7 @@ def test_circ_policies_name_validate(client):
         class organisation:
             pid = "does not exists"
 
-    with mock.patch(
-        "rero_ils.modules.circ_policies.views.current_librarian", current_librarian
-    ):
+    with mock.patch("rero_ils.modules.circ_policies.views.current_librarian", current_librarian):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {"name": None}

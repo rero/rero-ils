@@ -43,9 +43,7 @@ def test_template_permissions(
 
     # Anonymous user & Patron user
     #  - None operation are allowed
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         TemplatePermissionPolicy,
         {

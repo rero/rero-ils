@@ -39,9 +39,7 @@ def test_csv_serializer(
 ):
     """Test CSV formatter"""
     login_user_via_session(client, librarian_martigny.user)
-    list_url = url_for(
-        "api_exports.acq_account_export", q=f"pid:{acq_account_fiction_martigny.pid}"
-    )
+    list_url = url_for("api_exports.acq_account_export", q=f"pid:{acq_account_fiction_martigny.pid}")
     response = client.get(list_url, headers=csv_header)
     assert response.status_code == 200
     data = get_csv(response)

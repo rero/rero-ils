@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO-ILS Loan resource serializers."""
+
 from rero_ils.modules.serializers import (
     RecordSchemaJSONV1,
     search_responsify,
@@ -51,6 +52,4 @@ _streamed_csv = LoanStreamedCSVSerializer(
 )
 
 json_loan_search = search_responsify(_json, "application/rero+json")
-csv_stream_search = search_responsify_file(
-    _streamed_csv, "text/csv", file_extension="csv", file_prefix="export-loans"
-)
+csv_stream_search = search_responsify_file(_streamed_csv, "text/csv", file_extension="csv", file_prefix="export-loans")

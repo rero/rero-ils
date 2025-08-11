@@ -49,9 +49,7 @@ def test_provisional_items_creation(
 ):
     """Test creation of provisional items."""
     holding = holding_lib_martigny_w_patterns
-    provisional_item_lib_martigny_data["holding"] = {
-        "$ref": get_ref_for_pid("hold", holding.pid)
-    }
+    provisional_item_lib_martigny_data["holding"] = {"$ref": get_ref_for_pid("hold", holding.pid)}
     item = Item.create(provisional_item_lib_martigny_data, dbcommit=True, reindex=True)
 
     item_url = url_for("invenio_records_rest.item_item", pid_value=item.pid)
@@ -149,9 +147,7 @@ def test_holding_requests(
         ),
     )
     assert res.status_code == 200
-    loan = Loan.get_record_by_pid(
-        data.get("action_applied")[LoanAction.REQUEST].get("pid")
-    )
+    loan = Loan.get_record_by_pid(data.get("action_applied")[LoanAction.REQUEST].get("pid"))
     assert loan.state == LoanState.PENDING
     item = Item.get_record_by_pid(loan.item_pid)
     assert item.get("type") == TypeOfItem.PROVISIONAL
@@ -241,9 +237,7 @@ def test_holding_requests(
         ),
     )
     assert res.status_code == 200
-    loan_2 = Loan.get_record_by_pid(
-        data.get("action_applied")[LoanAction.REQUEST].get("pid")
-    )
+    loan_2 = Loan.get_record_by_pid(data.get("action_applied")[LoanAction.REQUEST].get("pid"))
     assert loan_2.state == LoanState.PENDING
     item_2 = Item.get_record_by_pid(loan_2.item_pid)
     assert item_2.get("type") == TypeOfItem.PROVISIONAL

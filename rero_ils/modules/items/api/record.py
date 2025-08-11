@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating item records."""
+
 from contextlib import suppress
 from datetime import datetime, timezone
 
@@ -84,13 +85,7 @@ class ItemRecord(IlsRecord):
         from . import ItemsSearch
 
         if barcode := self.get("barcode"):
-            if (
-                ItemsSearch()
-                .exclude("term", pid=self.pid)
-                .filter("term", barcode=barcode)
-                .source("pid")
-                .count()
-            ):
+            if ItemsSearch().exclude("term", pid=self.pid).filter("term", barcode=barcode).source("pid").count():
                 return _("Barcode {barcode} is already taken.".format(barcode=barcode))
 
         from ...holdings.api import Holding
@@ -98,9 +93,7 @@ class ItemRecord(IlsRecord):
         holding_pid = extracted_data_from_ref(self.get("holding").get("$ref"))
         holding = Holding.get_record_by_pid(holding_pid)
         if not holding:
-            return _(
-                "Holding does not exist: {holding_pid}".format(holding_pid=holding_pid)
-            )
+            return _("Holding does not exist: {holding_pid}".format(holding_pid=holding_pid))
 
         if self.get("issue") and self.get("type") == TypeOfItem.STANDARD:
             return _("Standard item can not have a issue field.")
@@ -108,9 +101,7 @@ class ItemRecord(IlsRecord):
             if not self.get("issue", {}):
                 return _("Issue item must have an issue field.")
             if not self.get("enumerationAndChronology"):
-                return _(
-                    "enumerationAndChronology field is required " "for an issue item"
-                )
+                return _("enumerationAndChronology field is required for an issue item")
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
             return _("Can not have multiple notes of the same type.")
@@ -118,31 +109,21 @@ class ItemRecord(IlsRecord):
         # check temporary item type data
         if tmp_itty := self.get("temporary_item_type"):
             if tmp_itty["$ref"] == self["item_type"]["$ref"]:
-                return _(
-                    "Temporary circulation category cannot be the same "
-                    "than default circulation category."
-                )
+                return _("Temporary circulation category cannot be the same than default circulation category.")
             if tmp_itty.get("end_date"):
                 end_date = date_string_to_utc(tmp_itty.get("end_date"))
                 if end_date <= pytz.utc.localize(datetime.now()):
-                    return _(
-                        "Temporary circulation category end date must be "
-                        "a date in the future."
-                    )
+                    return _("Temporary circulation category end date must be a date in the future.")
 
         return True
 
     @classmethod
-    def create(
-        cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs
-    ):
+    def create(cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs):
         """Create item record."""
         data = cls._prepare_item_record(data=data, mode="create")
         data = cls._set_issue_status_date(data=data)
         record = super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        holding = cls._increment_next_prediction_for_holding(
-            record, dbcommit=dbcommit, reindex=reindex
-        )
+        holding = cls._increment_next_prediction_for_holding(record, dbcommit=dbcommit, reindex=reindex)
         # As we potentially update the parent holding when we create an issue
         # item, we need to commit this holding even if `dbcommit` iss set to
         # false. Without this commit, only the current (Item) resource will be
@@ -211,9 +192,7 @@ class ItemRecord(IlsRecord):
         return data
 
     @classmethod
-    def _increment_next_prediction_for_holding(
-        cls, item, dbcommit=False, reindex=False
-    ):
+    def _increment_next_prediction_for_holding(cls, item, dbcommit=False, reindex=False):
         """Increment next issue for items with regular frequencies."""
         from ...holdings.api import Holding
 
@@ -226,9 +205,7 @@ class ItemRecord(IlsRecord):
             and holding.get("patterns", {}).get("frequency") != "rdafr:1016"
         ):
             updated_holding = holding.increment_next_prediction()
-            return holding.update(
-                data=updated_holding, dbcommit=dbcommit, reindex=reindex
-            )
+            return holding.update(data=updated_holding, dbcommit=dbcommit, reindex=reindex)
 
     @classmethod
     def link_item_to_holding(cls, record, mode):
@@ -376,12 +353,7 @@ class ItemRecord(IlsRecord):
         """
         from . import ItemsSearch
 
-        results = (
-            ItemsSearch()
-            .filter("term", document__pid=document_pid)
-            .source(["pid"])
-            .scan()
-        )
+        results = ItemsSearch().filter("term", document__pid=document_pid).source(["pid"]).scan()
         for item in results:
             yield item_pid_to_object(item.pid)
 
@@ -498,9 +470,7 @@ class ItemRecord(IlsRecord):
             data = [self.get(key) for key in ["call_number", "second_call_number"]]
         else:
             data = []
-            holding = Holding.get_record_by_pid(
-                extracted_data_from_ref(self.get("holding"))
-            )
+            holding = Holding.get_record_by_pid(extracted_data_from_ref(self.get("holding")))
 
             for key in ["call_number", "second_call_number"]:
                 if self.get(key):
@@ -572,9 +542,7 @@ class ItemRecord(IlsRecord):
         :param note_type: the type of note (see ``ItemNoteTypes``)
         :return the content of the note, None if note type is not found
         """
-        notes = [
-            note.get("content") for note in self.notes if note.get("type") == note_type
-        ]
+        notes = [note.get("content") for note in self.notes if note.get("type") == note_type]
         return next(iter(notes), None)
 
     @property
@@ -597,8 +565,4 @@ class ItemRecord(IlsRecord):
         from . import ItemsSearch
 
         query = ItemsSearch().filter("term", holding__pid=holding_pid)
-        return (
-            query.filter("bool", must_not=[Q("term", _masked=True)])
-            .source(["pid"])
-            .count()
-        )
+        return query.filter("bool", must_not=[Q("term", _masked=True)]).source(["pid"]).count()

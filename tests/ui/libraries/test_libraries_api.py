@@ -142,15 +142,10 @@ def test_libraries_is_open(lib_martigny):
 
     # Other tests on opening day/hour
     assert library.next_open(date=saturday).date() == parser.parse("2018-12-17").date()
-    assert (
-        library.next_open(date=saturday, previous=True).date()
-        == parser.parse("2018-12-14").date()
-    )
+    assert library.next_open(date=saturday, previous=True).date() == parser.parse("2018-12-14").date()
 
     assert library.count_open(start_date=monday, end_date=saturday) == 6
-    assert library.in_working_days(
-        count=6, date=date_string_to_utc("2018-12-10")
-    ) == date_string_to_utc("2018-12-17")
+    assert library.in_working_days(count=6, date=date_string_to_utc("2018-12-10")) == date_string_to_utc("2018-12-17")
 
 
 def test_library_can_delete(lib_martigny):
@@ -191,9 +186,7 @@ def test_library_get_email(lib_martigny):
             if setting.get("type") == notif_type:
                 return setting.get("email")
 
-    assert lib_martigny.get_email(NotificationType.RECALL) == notification_email(
-        lib_martigny, NotificationType.RECALL
-    )
+    assert lib_martigny.get_email(NotificationType.RECALL) == notification_email(lib_martigny, NotificationType.RECALL)
     assert not lib_martigny.get_email("dummy_notification_type")
 
 

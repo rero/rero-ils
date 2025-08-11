@@ -100,9 +100,7 @@ def test_limits(patron_type_schema, patron_type_tmp):
     data["limits"]["checkout_limits"]["library_limit"] = 15
     with pytest.raises(ValidationError):
         lib_ref = get_ref_for_pid("lib", "dummy")
-        data["limits"]["checkout_limits"]["library_exceptions"] = [
-            {"library": {"$ref": lib_ref}, "value": 15}
-        ]
+        data["limits"]["checkout_limits"]["library_exceptions"] = [{"library": {"$ref": lib_ref}, "value": 15}]
         validate(data, patron_type_schema)  # valid for JSON schema
         data.validate()  # invalid against extented_validation rules
 

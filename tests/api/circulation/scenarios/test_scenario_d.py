@@ -17,7 +17,6 @@
 
 """Tests circulation scenario D."""
 
-
 from invenio_accounts.testutils import login_user_via_session
 
 from tests.utils import get_json, postdata

@@ -69,10 +69,7 @@ def test_add_years():
     tow_years_later = add_years(initial_date, 2)
     four_years_later = add_years(initial_date, 4)
     assert tow_years_later.month == 3 and tow_years_later.day == 1
-    assert (
-        four_years_later.month == initial_date.month
-        and four_years_later.day == initial_date.day
-    )
+    assert four_years_later.month == initial_date.month and four_years_later.day == initial_date.day
 
 
 def test_get_schema_for_resources(app):

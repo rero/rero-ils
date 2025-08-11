@@ -50,7 +50,5 @@ def test_patron_types_search_mapping(app, patron_types_records):
     # there is one more result from test_patron_type_es_mapping function
     assert c == 1
 
-    pids = [
-        r.pid for r in search.query("match", name="children").source(["pid"]).scan()
-    ]
+    pids = [r.pid for r in search.query("match", name="children").source(["pid"]).scan()]
     assert "ptty1" in pids

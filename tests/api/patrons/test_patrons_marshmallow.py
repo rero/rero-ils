@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Marshmallow schema through REST API for Patrons."""
+
 import json
 
 from flask import url_for
@@ -28,9 +29,7 @@ from rero_ils.modules.users.models import UserRole
 from tests.utils import postdata
 
 
-def test_patrons_marshmallow_loaders(
-    client, librarian_martigny, system_librarian_martigny_data_tmp, json_header
-):
+def test_patrons_marshmallow_loaders(client, librarian_martigny, system_librarian_martigny_data_tmp, json_header):
     """Test marshmallow schema/restrictions for Patron resources."""
 
     # TEST#1 :: Use console to manage patron/role

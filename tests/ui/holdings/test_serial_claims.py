@@ -30,9 +30,7 @@ from rero_ils.modules.items.models import ItemIssueStatus
 from rero_ils.modules.items.tasks import process_late_issues
 
 
-def test_late_expected(
-    holding_lib_martigny_w_patterns, holding_lib_sion_w_patterns, yesterday, tomorrow
-):
+def test_late_expected(holding_lib_martigny_w_patterns, holding_lib_sion_w_patterns, yesterday, tomorrow):
     """Test automatic change of late expected issues status to late."""
     martigny = holding_lib_martigny_w_patterns
     sion = holding_lib_sion_w_patterns

@@ -48,11 +48,5 @@ def test_replace_refs(app):
         },
     }
     schema = replace_ref_url(schema, "test.org")
-    assert (
-        schema["properties"]["test1"]["$ref"]
-        == "https://test.org/schemas/tests/test1.json#/1"
-    )
-    assert (
-        schema["properties"]["test2"]["$ref"]
-        == "https://test.org/schemas/tests/test2.json#/2"
-    )
+    assert schema["properties"]["test1"]["$ref"] == "https://test.org/schemas/tests/test1.json#/1"
+    assert schema["properties"]["test2"]["$ref"] == "https://test.org/schemas/tests/test2.json#/2"

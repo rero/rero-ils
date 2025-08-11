@@ -46,9 +46,7 @@ class DublinCoreOverdo(Overdo):
         """
         self.language = language
 
-        result = super().do(
-            blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers
-        )
+        result = super().do(blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers)
         titles = blob.get("title", [])
         bf_titles = list(filter(lambda t: t["type"] == "bf:Title", titles))
 
@@ -199,8 +197,7 @@ def json_to_identifiers(self, key, value):
 
 @dublincore.over(
     "relations",
-    "^(issuedWith|otherEdition|otherPhysicalFormat|precededBy|"
-    "relatedTo|succeededBy|supplement|supplementTo)",
+    "^(issuedWith|otherEdition|otherPhysicalFormat|precededBy|relatedTo|succeededBy|supplement|supplementTo)",
 )
 @utils.for_each_value
 @utils.ignore_value

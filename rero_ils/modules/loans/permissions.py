@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for loans."""
+
 from invenio_access import action_factory, any_user
 from invenio_records_permissions.generators import Generator
 
@@ -48,14 +49,8 @@ class DisallowedIfAnonymized(Generator):
 class LoanPermissionPolicy(RecordPermissionPolicy):
     """Loan Permission Policy used by the CRUD operations."""
 
-    can_search = [
-        AllowedByActionRestrictByOwnerOrOrganisation(
-            search_action, record_mapper=lambda r: Loan(r)
-        )
-    ]
+    can_search = [AllowedByActionRestrictByOwnerOrOrganisation(search_action, record_mapper=lambda r: Loan(r))]
     can_read = [
         DisallowedIfAnonymized(),
-        AllowedByActionRestrictByOwnerOrOrganisation(
-            read_action, record_mapper=lambda r: Loan(r)
-        ),
+        AllowedByActionRestrictByOwnerOrOrganisation(read_action, record_mapper=lambda r: Loan(r)),
     ]

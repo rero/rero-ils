@@ -104,9 +104,7 @@ class PatronType(IlsRecord):
                 exceptions = checkout_limits_data.get("library_exceptions", [])
                 for exception in exceptions:
                     if exception.get("value") == library_limit:
-                        return _(
-                            "Exception limit cannot have same value than library limit"
-                        )
+                        return _("Exception limit cannot have same value than library limit")
                     ref = exception.get("library").get("$ref")
                     if ref in exceptions_lib:
                         return _("Only one specific limit by library allowed.")
@@ -124,9 +122,7 @@ class PatronType(IlsRecord):
                 exceptions = request_limits_data.get("library_exceptions", [])
                 for exception in exceptions:
                     if exception.get("value") == library_limit:
-                        return _(
-                            "Exception limit cannot have same value as library limit"
-                        )
+                        return _("Exception limit cannot have same value as library limit")
                     ref = exception.get("library").get("$ref")
                     if ref in exceptions_lib:
                         return _("Only one specific limit by library allowed.")
@@ -151,12 +147,7 @@ class PatronType(IlsRecord):
     @classmethod
     def get_yearly_subscription_patron_types(cls):
         """Get PatronType with an active yearly subscription."""
-        results = (
-            PatronTypesSearch()
-            .filter("range", subscription_amount={"gt": 0})
-            .source("pid")
-            .scan()
-        )
+        results = PatronTypesSearch().filter("range", subscription_amount={"gt": 0}).source("pid").scan()
         for result in results:
             yield cls.get_record_by_pid(result.pid)
 
@@ -250,12 +241,7 @@ class PatronType(IlsRecord):
 
     def get_linked_patron(self):
         """Get patron linked to this patron type."""
-        results = (
-            PatronsSearch()
-            .filter("term", patron__type__pid=self.pid)
-            .source("pid")
-            .scan()
-        )
+        results = PatronsSearch().filter("term", patron__type__pid=self.pid).source("pid").scan()
         for result in results:
             yield Patron.get_record_by_pid(result.pid)
 
@@ -304,9 +290,7 @@ class PatronType(IlsRecord):
         :return False if patron has more overdue items than defined limit. True
                 in all other cases.
         """
-        if limit := (
-            self.get("limits", {}).get("overdue_items_limits", {}).get("default_value")
-        ):
+        if limit := (self.get("limits", {}).get("overdue_items_limits", {}).get("default_value")):
             overdue_items = list(get_overdue_loan_pids(patron.pid))
             return limit > len(overdue_items)
         return True
@@ -329,9 +313,7 @@ class PatronType(IlsRecord):
             return True, None
 
         # [0] get the stats for this patron by library
-        patron_library_stats = get_loans_count_by_library_for_patron_pid(
-            patron.pid, LoanState.REQUEST_STATES
-        )
+        patron_library_stats = get_loans_count_by_library_for_patron_pid(patron.pid, LoanState.REQUEST_STATES)
 
         # [1] check the general limit
         patron_total_count = sum(patron_library_stats.values()) or 0
@@ -371,24 +353,18 @@ class PatronType(IlsRecord):
           - True|False : to know if the check is success or not.
           - message(string) : the reason why the check fails.
         """
-        checkout_limits = (
-            self.replace_refs().get("limits", {}).get("checkout_limits", {})
-        )
+        checkout_limits = self.replace_refs().get("limits", {}).get("checkout_limits", {})
         global_limit = checkout_limits.get("global_limit")
         if not global_limit:
             return True, None
 
         # [0] get the stats for this patron by library
-        patron_library_stats = get_loans_count_by_library_for_patron_pid(
-            patron.pid, [LoanState.ITEM_ON_LOAN]
-        )
+        patron_library_stats = get_loans_count_by_library_for_patron_pid(patron.pid, [LoanState.ITEM_ON_LOAN])
 
         # [1] check the general limit
         patron_total_count = sum(patron_library_stats.values()) or 0
         if patron_total_count >= global_limit:
-            return False, _(
-                "Checkout denied: maximum number of checked out items reached"
-            )
+            return False, _("Checkout denied: maximum number of checked out items reached")
 
         # [2] check library_limit if item is not none
         if item:
@@ -406,10 +382,7 @@ class PatronType(IlsRecord):
                 and item_lib_pid in patron_library_stats
                 and patron_library_stats[item_lib_pid] >= library_limit_value
             ):
-                return False, _(
-                    "Checkout denied: maximum number of "
-                    "checked out items for this library reached"
-                )
+                return False, _("Checkout denied: maximum number of checked out items for this library reached")
 
         # [3] no problem detected, checkout is allowed
         return True, None
@@ -422,9 +395,7 @@ class PatronType(IlsRecord):
         :return boolean to know if the check is success or not.
         """
         # get fee amount limit
-        fee_amount_limits = (
-            self.replace_refs().get("limits", {}).get("fee_amount_limits", {})
-        )
+        fee_amount_limits = self.replace_refs().get("limits", {}).get("fee_amount_limits", {})
         if default_limit := fee_amount_limits.get("default_value"):
             # get total amount for open transactions on overdue and without
             # subscription fee
@@ -442,9 +413,7 @@ class PatronType(IlsRecord):
         :param patron: the patron who tried to execute a circulation operation.
         :return boolean to know if the check is success or not.
         """
-        unpaid_subscription_limit = self.get("limits", {}).get(
-            "unpaid_subscription", True
-        )
+        unpaid_subscription_limit = self.get("limits", {}).get("unpaid_subscription", True)
         if not unpaid_subscription_limit:
             return True, None
         unpaid_amount = get_transactions_total_amount_for_patron(

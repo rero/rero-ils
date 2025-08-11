@@ -142,20 +142,11 @@ class Organisation(IlsRecord):
 
     def get_online_locations(self):
         """Get list of online locations."""
-        return [
-            library.online_location
-            for library in self.get_libraries()
-            if library.online_location
-        ]
+        return [library.online_location for library in self.get_libraries() if library.online_location]
 
     def get_libraries_pids(self):
         """Get all libraries pids related to the organisation."""
-        query = (
-            LibrariesSearch()
-            .source(["pid"])
-            .filter("term", organisation__pid=self.pid)
-            .source("pid")
-        )
+        query = LibrariesSearch().source(["pid"]).filter("term", organisation__pid=self.pid).source("pid")
         return [hit.pid for hit in query.scan()]
 
     def get_libraries(self):
@@ -165,12 +156,7 @@ class Organisation(IlsRecord):
 
     def get_vendor_pids(self):
         """Get all vendor pids related to the organisation."""
-        query = (
-            VendorsSearch()
-            .source(["pid"])
-            .filter("term", organisation__pid=self.pid)
-            .source("pid")
-        )
+        query = VendorsSearch().source(["pid"]).filter("term", organisation__pid=self.pid).source("pid")
         return [hit.pid for hit in query.scan()]
 
     def get_vendors(self):

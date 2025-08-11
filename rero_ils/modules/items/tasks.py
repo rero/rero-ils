@@ -96,17 +96,13 @@ def clean_obsolete_temporary_item_types_and_locations():
         counter += 1
         if field_type == "itty":
             tmp_itty_data = item.pop("temporary_item_type", {})
-            tmp_itty_name = extracted_data_from_ref(
-                tmp_itty_data["$ref"], "record"
-            ).get("name")
+            tmp_itty_name = extracted_data_from_ref(tmp_itty_data["$ref"], "record").get("name")
             tmp_itty_enddate = tmp_itty_data["end_date"]
             msg = f"Removed obsolete temporary_item_type {tmp_itty_name} \
                     {tmp_itty_enddate} from item pid {item.pid}"
         elif field_type == "loc":
             tmp_loc_data = item.pop("temporary_location", {})
-            tmp_loc_name = extracted_data_from_ref(tmp_loc_data["$ref"], "record").get(
-                "name"
-            )
+            tmp_loc_name = extracted_data_from_ref(tmp_loc_data["$ref"], "record").get("name")
             tmp_loc_enddate = tmp_loc_data["end_date"]
             msg = f"Removed obsolete temporary_location {tmp_loc_name} \
                     {tmp_loc_enddate} from item pid {item.pid}"

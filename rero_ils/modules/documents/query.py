@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Query factories for Document REST API."""
+
 import re
 from datetime import datetime
 
@@ -31,7 +32,6 @@ def acquisition_filter():
     """
 
     def inner(values):
-
         # `values` params could contains one or two values. Values must be
         # separate by a ':' character. Values are :
         #   1) from_date (optional) : the lower limit range acquisition_date.
@@ -60,22 +60,16 @@ def acquisition_filter():
             # We transform the timestamp into a date
             values = dict(zip(["from", "to"], range_values.split("--")))
             if "from" in values:
-                values["from"] = datetime.fromtimestamp(
-                    float(values["from"]) / 1000
-                ).strftime("%Y-%m-%d")
+                values["from"] = datetime.fromtimestamp(float(values["from"]) / 1000).strftime("%Y-%m-%d")
             if "to" in values:
-                values["to"] = datetime.fromtimestamp(
-                    float(values["to"]) / 1000
-                ).strftime("%Y-%m-%d")
+                values["to"] = datetime.fromtimestamp(float(values["to"]) / 1000).strftime("%Y-%m-%d")
         else:
             values = dict(zip(["from", "to"], range_values.split(":")))
         range_acquisition_dates = {"lte": values.get("to") or "now/d"}
         if values.get("from"):
             range_acquisition_dates["gte"] = values.get("from")
         # build general 'match' query (including acq date range query)
-        must_queries = [
-            Q("range", holdings__items__acquisition__date=range_acquisition_dates)
-        ]
+        must_queries = [Q("range", holdings__items__acquisition__date=range_acquisition_dates)]
 
         # Check others filters from command line and add them to the query if
         # needed
@@ -113,9 +107,7 @@ def nested_identified_filter():
         return Q("nested", path="nested_identifiers", query=criteria)
 
     def inner(identifiers):
-        queries = [
-            _build_nested_identifier_query(identifier) for identifier in identifiers
-        ]
+        queries = [_build_nested_identifier_query(identifier) for identifier in identifiers]
         return Q("bool", should=queries)
 
     return inner

@@ -47,9 +47,7 @@ def test_pid_to_marc21(app, marc21_record):
         "fiction_statement": "fiction",
         "provisionActivity": [
             {
-                "_text": [
-                    {"language": "default", "value": "Paris : Ed. Cornélius, 2007-"}
-                ],
+                "_text": [{"language": "default", "value": "Paris : Ed. Cornélius, 2007-"}],
                 "place": [{"country": "fr", "type": "bf:Place"}],
                 "startDate": 2007,
                 "endDate": 2020,
@@ -106,7 +104,6 @@ def test_identified_by_to_marc21(app, marc21_record):
     record.update(
         {
             "__order__": ("leader", "005", "008", "020__", "020__"),
-            ""
             "020__": (
                 {"__order__": ("a",), "a": "9782824606835"},
                 {"__order__": ("z", "q"), "z": "12345678901??", "q": "qualifier"},
@@ -157,10 +154,7 @@ def test_title_to_marc21(app, marc21_record):
                     {
                         "partNumber": [{"value": "T. 1"}],
                         "partName": [
-                            {
-                                "value": "Licence ès sciences économiques, 1ère année, "
-                                "étudiants de Grandes écoles"
-                            }
+                            {"value": "Licence ès sciences économiques, 1ère année, étudiants de Grandes écoles"}
                         ],
                     },
                     {
@@ -185,8 +179,7 @@ def test_title_to_marc21(app, marc21_record):
                 "c": "Edmond Berrebi",
                 "n": ("T. 1", "Section 2"),
                 "p": (
-                    "Licence ès sciences économiques, 1ère année, étudiants de "
-                    "Grandes écoles",
+                    "Licence ès sciences économiques, 1ère année, étudiants de Grandes écoles",
                     "Grandes écoles",
                 ),
             },
@@ -290,12 +283,7 @@ def test_provision_activity_copyright_date_to_marc21(app, marc21_record):
                 "statement": [
                     {"label": [{"value": "La Chaux-de-Fonds"}], "type": "bf:Place"},
                     {
-                        "label": [
-                            {
-                                "value": "[successivement] Impr. C. & J. "
-                                "Robert-Tissot, Imp. Robert-Tissot & Fils"
-                            }
-                        ],
+                        "label": [{"value": "[successivement] Impr. C. & J. Robert-Tissot, Imp. Robert-Tissot & Fils"}],
                         "type": "bf:Agent",
                     },
                 ],
@@ -320,8 +308,7 @@ def test_provision_activity_copyright_date_to_marc21(app, marc21_record):
             "264_3": {
                 "__order__": ("a", "b"),
                 "a": "La Chaux-de-Fonds",
-                "b": "[successivement] Impr. C. & J. "
-                "Robert-Tissot, Imp. Robert-Tissot & Fils",
+                "b": "[successivement] Impr. C. & J. Robert-Tissot, Imp. Robert-Tissot & Fils",
             },
         }
     )
@@ -356,9 +343,7 @@ def test_physical_description_to_marc21(app, marc21_record):
         "duration": ["1h42"],
         "dimensions": ["In-plano", "128ᵒ"],
         "bookFormat": ["128ᵒ", "in-plano"],
-        "note": [
-            {"label": "accompanying material", "noteType": "accompanyingMaterial"}
-        ],
+        "note": [{"label": "accompanying material", "noteType": "accompanyingMaterial"}],
     }
     date, record = add_created_updated(record)
     result = to_marc21.do(record)
@@ -511,9 +496,7 @@ def test_subjects_to_marc21(
                 GroupableOrderedDict({"a": "Roman pour la jeunesse"}),
                 GroupableOrderedDict({"a": "Antienzymes"}),
             ),
-            "6001_": (
-                GroupableOrderedDict({"a": "Fujimoto, Satoko", "d": "1923 - 1999"})
-            ),
+            "6001_": (GroupableOrderedDict({"a": "Fujimoto, Satoko", "d": "1923 - 1999"})),
             "600__": (
                 GroupableOrderedDict(
                     {
@@ -531,17 +514,9 @@ def test_subjects_to_marc21(
                     "0": ("(idref)02643136X", "(gnd)004058518"),
                 },
             ),
-            "611__": (
-                GroupableOrderedDict({"a": "Congrès des animaux volants", "d": "1989"})
-            ),
-            "651__": (
-                GroupableOrderedDict({"a": "Suisse", "2": "idref", "0": "027249654"})
-            ),
-            "648_7": (
-                GroupableOrderedDict(
-                    {"a": "2500 av. J.-C.-20e siècle", "2": "rero", "0": "A026984216"}
-                )
-            ),
+            "611__": (GroupableOrderedDict({"a": "Congrès des animaux volants", "d": "1989"})),
+            "651__": (GroupableOrderedDict({"a": "Suisse", "2": "idref", "0": "027249654"})),
+            "648_7": (GroupableOrderedDict({"a": "2500 av. J.-C.-20e siècle", "2": "rero", "0": "A026984216"})),
         }
     )
     assert result["__order__"] == record["__order__"]
@@ -612,7 +587,7 @@ def test_contribution_to_marc21(
             },
             {
                 "entity": {
-                    "$ref": f"{mef_agents_url}/idref/" "mef_record_with_idref_rero",
+                    "$ref": f"{mef_agents_url}/idref/mef_record_with_idref_rero",
                     "pid": "6627670",
                     "type": "bf:Person",
                 },
@@ -628,8 +603,7 @@ def test_contribution_to_marc21(
             },
             {
                 "entity": {
-                    "$ref": f"{mef_agents_url}/api/agents/gnd/"
-                    "mef_record_with_idref_gnd",
+                    "$ref": f"{mef_agents_url}/api/agents/gnd/mef_record_with_idref_gnd",
                     "pid": "5890765",
                     "type": "bf:Organisation",
                 },
@@ -648,7 +622,7 @@ def test_contribution_to_marc21(
             },
             {
                 "entity": {
-                    "$ref": f"{mef_agents_url}/idref/" "mef_record_with_idref_gnd_rero",
+                    "$ref": f"{mef_agents_url}/idref/mef_record_with_idref_gnd_rero",
                     "pid": "5777972",
                     "type": "bf:Organisation",
                 },
@@ -658,7 +632,7 @@ def test_contribution_to_marc21(
     }
     date, record = add_created_updated(record)
     with mock.patch(
-        "rero_ils.modules.entities.remote_entities.api." "RemoteEntity.get_entity",
+        "rero_ils.modules.entities.remote_entities.api.RemoteEntity.get_entity",
         side_effect=[
             mef_record_with_idref_rero,
             mef_record_with_idref_gnd,
@@ -757,9 +731,7 @@ def test_type_to_marc21(app, marc21_record):
     assert result == record
 
 
-def test_holdings_items_to_marc21(
-    app, marc21_record, document, item2_lib_sion, ebook_5, holding_lib_sion_electronic
-):
+def test_holdings_items_to_marc21(app, marc21_record, document, item2_lib_sion, ebook_5, holding_lib_sion_electronic):
     """Test holding items to MARC21 transformation."""
     record = {"pid": document.pid}
     date, record = add_created_updated(record)

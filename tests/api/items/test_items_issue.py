@@ -55,9 +55,7 @@ def _receive_regular_issue(client, holding):
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_issues_permissions(
-    client, holding_lib_martigny_w_patterns, librarian_martigny
-):
+def test_issues_permissions(client, holding_lib_martigny_w_patterns, librarian_martigny):
     """Test specific items issues permissions."""
 
     # receive a regular issue
@@ -66,11 +64,7 @@ def test_issues_permissions(
     login_user_via_session(client, librarian_martigny.user)
     issue_item = _receive_regular_issue(client, holding)
 
-    res = client.get(
-        url_for(
-            "api_blueprint.permissions", route_name="items", record_pid=issue_item.pid
-        )
-    )
+    res = client.get(url_for("api_blueprint.permissions", route_name="items", record_pid=issue_item.pid))
     assert res.status_code == 200
     data = get_json(res)
     assert data["delete"]["can"]
@@ -147,10 +141,7 @@ def test_issues_claim_notifications(
     ):
         response = client.get(url)
         assert response.status_code == 200
-        assert all(
-            field in response.json
-            for field in ["recipient_suggestions", "preview", "message"]
-        )
+        assert all(field in response.json for field in ["recipient_suggestions", "preview", "message"])
 
     # Now really claim the issue
     #   1) sending bad item_pid --> return 4xx HTTP code
@@ -216,9 +207,7 @@ def test_issues_claim_notifications(
     assert issue_item.claims_count == 2
 
     # Check that all is correctly indexed into ES
-    url = url_for(
-        "invenio_records_rest.item_list", q=f"pid:{issue_pid}", facets="claims_date"
-    )
+    url = url_for("invenio_records_rest.item_list", q=f"pid:{issue_pid}", facets="claims_date")
     response = client.get(url)
     data = response.json["hits"]["hits"][0]["metadata"]
     assert data["issue"]["claims"]["counter"] == 2

@@ -24,15 +24,11 @@ from rero_ils.modules.acquisition.budgets.permissions import BudgetPermissionPol
 from tests.utils import check_permission
 
 
-def test_budget_permissions(
-    patron_martigny, librarian_martigny, budget_2018_martigny, budget_2020_sion
-):
+def test_budget_permissions(patron_martigny, librarian_martigny, budget_2018_martigny, budget_2020_sion):
     """Test budget permissions class."""
 
     # Anonymous user
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         BudgetPermissionPolicy,
         {

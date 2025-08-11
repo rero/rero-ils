@@ -54,9 +54,7 @@ def test_document_files(
     assert hits["total"]["value"] == 1
 
     # check for collections
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q=f"_exists_:files", view=org_martigny.pid
-    )
+    list_url = url_for("invenio_records_rest.doc_list", q=f"_exists_:files", view=org_martigny.pid)
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1

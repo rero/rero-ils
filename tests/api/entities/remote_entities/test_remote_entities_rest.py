@@ -117,15 +117,8 @@ def test_remote_search_proxy(
             term="UCLouvain",
         )
     )
-    identifier = mef_agents1_es_response["hits"]["hits"][0]["metadata"]["idref"][
-        "identifier"
-    ]
-    assert (
-        identifier
-        == response.json["hits"]["hits"][0]["metadata"]["idref"]["identifiedBy"][0][
-            "value"
-        ]
-    )
+    identifier = mef_agents1_es_response["hits"]["hits"][0]["metadata"]["idref"]["identifier"]
+    assert identifier == response.json["hits"]["hits"][0]["metadata"]["idref"]["identifiedBy"][0]["value"]
 
     # TEST#3 :: Places
     #   All result must include a `identifiedBy` object if a root
@@ -137,15 +130,8 @@ def test_remote_search_proxy(
             term="Rouen",
         )
     )
-    authorized_access_point = mef_places1_es_response["hits"]["hits"][0]["metadata"][
-        "idref"
-    ]["authorized_access_point"]
-    assert (
-        authorized_access_point
-        == response.json["hits"]["hits"][0]["metadata"]["idref"][
-            "authorized_access_point"
-        ]
-    )
+    authorized_access_point = mef_places1_es_response["hits"]["hits"][0]["metadata"]["idref"]["authorized_access_point"]
+    assert authorized_access_point == response.json["hits"]["hits"][0]["metadata"]["idref"]["authorized_access_point"]
 
     # TEST#4 :: Unknown MEF search type
     #   Try to execute a search on a not-configured MEF category. It should be

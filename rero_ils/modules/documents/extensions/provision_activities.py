@@ -18,7 +18,6 @@
 
 """Document record extension to enrich the provision activity."""
 
-
 from invenio_records.extensions import RecordExtension
 
 from rero_ils.dojson.utils import remove_trailing_punctuation
@@ -48,9 +47,7 @@ class ProvisionActivitiesExtension(RecordExtension):
                 statement_with_language.setdefault(language, "")
                 if statement_with_language[language]:
                     if last_statement_type == statement["type"]:
-                        statement_with_language[language] += punctuation[
-                            last_statement_type
-                        ]
+                        statement_with_language[language] += punctuation[last_statement_type]
                     elif statement["type"] == EntityType.PLACE:
                         statement_with_language[language] += " ; "
                     elif statement["type"] == "Date":

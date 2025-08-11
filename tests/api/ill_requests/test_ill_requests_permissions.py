@@ -34,9 +34,7 @@ def test_ill_requests_permissions(
 ):
     """Test ill requests permissions class."""
     # Anonymous user
-    identity_changed.send(
-        current_app._get_current_object(), identity=AnonymousIdentity()
-    )
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(
         ILLRequestPermissionPolicy,
         {

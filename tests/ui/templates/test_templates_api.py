@@ -27,9 +27,7 @@ from rero_ils.modules.templates.api import template_id_fetcher as fetcher
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_template_create(
-    db, search, templ_doc_public_martigny_data, org_martigny, system_librarian_martigny
-):
+def test_template_create(db, search, templ_doc_public_martigny_data, org_martigny, system_librarian_martigny):
     """Test template creation."""
     templ_doc_public_martigny_data["toto"] = "toto"
     with pytest.raises(ValidationError):
@@ -61,9 +59,7 @@ def test_template_can_delete(templ_doc_public_martigny):
 def test_template_replace_refs(templ_doc_public_martigny):
     """Test template replace_refs method."""
     tmpl = templ_doc_public_martigny
-    tmpl.setdefault("data", {})["document"] = {
-        "$ref": get_ref_for_pid("doc", "dummy_pid")
-    }
+    tmpl.setdefault("data", {})["document"] = {"$ref": get_ref_for_pid("doc", "dummy_pid")}
     tmpl = tmpl.update(tmpl, dbcommit=True, reindex=True)
     assert "$ref" in tmpl["data"]["document"]
     assert "$ref" in tmpl["creator"]

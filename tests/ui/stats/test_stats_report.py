@@ -64,14 +64,8 @@ def test_stats_report_range(app, lib_martigny):
     }
     with mock.patch("rero_ils.modules.stats.api.report.datetime") as mock_datetime:
         mock_datetime.now.return_value = datetime(year=2023, month=2, day=1)
-        assert StatsReport(cfg).get_range_period("month") == dict(
-            gte="2023-01-01T00:00:00", lte="2023-01-31T23:59:59"
-        )
-        assert StatsReport(cfg).get_range_period("year") == dict(
-            gte="2022-01-01T00:00:00", lte="2022-12-31T23:59:59"
-        )
+        assert StatsReport(cfg).get_range_period("month") == dict(gte="2023-01-01T00:00:00", lte="2023-01-31T23:59:59")
+        assert StatsReport(cfg).get_range_period("year") == dict(gte="2022-01-01T00:00:00", lte="2022-12-31T23:59:59")
         mock_datetime.now.return_value = datetime(year=2023, month=1, day=5)
-        assert StatsReport(cfg).get_range_period("month") == dict(
-            gte="2022-12-01T00:00:00", lte="2022-12-31T23:59:59"
-        )
+        assert StatsReport(cfg).get_range_period("month") == dict(gte="2022-12-01T00:00:00", lte="2022-12-31T23:59:59")
         assert not StatsReport(cfg).get_range_period("foo")

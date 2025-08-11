@@ -68,14 +68,7 @@ def test_location_restrict_pickup(
     loc_sax = loc_sax.update(loc_sax, dbcommit=True, reindex=True)
     LocationsSearch.flush_and_refresh()
 
-    assert (
-        len(
-            LocationsSearch()
-            .get_record_by_pid(loc_m1.pid)
-            .to_dict()["restrict_pickup_to"]
-        )
-        == 2
-    )
+    assert len(LocationsSearch().get_record_by_pid(loc_m1.pid).to_dict()["restrict_pickup_to"]) == 2
 
     # STEP 2 :: Define that loc_m2 isn't yet a pickup location
     #   The `loc_m1` must now only contain `loc_sax` as restriction for
@@ -86,10 +79,7 @@ def test_location_restrict_pickup(
     assert loc_m1.restrict_pickup_to == [loc_sax.pid]
     LocationsSearch.flush_and_refresh()
     es_restrictions = [
-        restriction_loc.pid
-        for restriction_loc in LocationsSearch()
-        .get_record_by_pid(loc_m1.pid)
-        .restrict_pickup_to
+        restriction_loc.pid for restriction_loc in LocationsSearch().get_record_by_pid(loc_m1.pid).restrict_pickup_to
     ]
     assert es_restrictions == [loc_sax.pid]
 
@@ -102,10 +92,7 @@ def test_location_restrict_pickup(
     loc_m1 = Location.get_record(loc_m1.id)
     assert not loc_m1.restrict_pickup_to
     LocationsSearch.flush_and_refresh()
-    assert (
-        "restrict_pickup_to"
-        not in LocationsSearch().get_record_by_pid(loc_sax.pid).to_dict()
-    )
+    assert "restrict_pickup_to" not in LocationsSearch().get_record_by_pid(loc_sax.pid).to_dict()
 
     # Reset fixtures
     loc_m1.update(loc_public_martigny_data, dbcommit=True, reindex=True)

@@ -354,13 +354,9 @@ def marc21_to_subjects_6XX(self, key, value):
     subfield_2 = subfields_2[0] if subfields_2 else None
 
     if subfield_2 == "lcsh" or indicator_2 in ["0", "2", "7"]:
-        term_string = build_string_from_subfields(
-            value, "abcdefghijklmnopqrstuw", " - "
-        )
+        term_string = build_string_from_subfields(value, "abcdefghijklmnopqrstuw", " - ")
         if term_string:
-            source = (
-                "LCSH" if subfield_2 == "lcsh" else source_per_indicator_2[indicator_2]
-            )
+            source = "LCSH" if subfield_2 == "lcsh" else source_per_indicator_2[indicator_2]
             data = {
                 "type": type_per_tag[tag_key],
                 "source": source,

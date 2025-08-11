@@ -26,13 +26,7 @@ from rero_ils.modules.utils import extracted_data_from_ref
 
 def test_patron_transaction_event_jsonresolver(patron_transaction_overdue_event_saxon):
     """Test patron transaction event json resolver."""
-    rec = Record.create(
-        {
-            "patron_transaction_event": {
-                "$ref": "https://bib.rero.ch/api/patron_transaction_events/1"
-            }
-        }
-    )
+    rec = Record.create({"patron_transaction_event": {"$ref": "https://bib.rero.ch/api/patron_transaction_events/1"}})
     assert extracted_data_from_ref(rec.get("patron_transaction_event")) == "1"
 
     # deleted record
@@ -41,12 +35,6 @@ def test_patron_transaction_event_jsonresolver(patron_transaction_overdue_event_
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create(
-        {
-            "patron_transaction": {
-                "$ref": "https://bib.rero.ch/api/patron_transaction_events/n_e"
-            }
-        }
-    )
+    rec = Record.create({"patron_transaction": {"$ref": "https://bib.rero.ch/api/patron_transaction_events/n_e"}})
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

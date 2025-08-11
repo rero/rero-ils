@@ -43,9 +43,7 @@ from .api import RemoteEntitiesSearch, RemoteEntity
 class SyncEntity:
     """Entity MEF synchronization."""
 
-    def __init__(
-        self, dry_run=False, verbose=False, log_dir=None, from_last_date=False
-    ):
+    def __init__(self, dry_run=False, verbose=False, log_dir=None, from_last_date=False):
         """Constructor.
 
         :param dry_run: bool - if true the data are not modified
@@ -101,9 +99,7 @@ class SyncEntity:
             ignore_order=True,
         )
         if diff:
-            self.logger.debug(
-                f"Entity differs: {entity1['pid']}, {entity2['pid']}", diff
-            )
+            self.logger.debug(f"Entity differs: {entity1['pid']}, {entity2['pid']}", diff)
             return True
         return False
 
@@ -144,9 +140,7 @@ class SyncEntity:
         remote_entities = []
         for field in ["contribution", "subjects", "genreForm"]:
             remote_entities += [
-                entity["entity"]
-                for entity in doc.get(field, [])
-                if entity.get("entity", {}).get("$ref")
+                entity["entity"] for entity in doc.get(field, []) if entity.get("entity", {}).get("$ref")
             ]
         if not remote_entities:
             self.logger.debug(f"No entity to update for document {doc.pid}")
@@ -155,14 +149,11 @@ class SyncEntity:
         for mef_url, (old_pid, new_pid) in pids_to_replace.items():
             old_entity_url = f"{mef_url}/{old_pid}"
             new_entity_url = f"{mef_url}/{new_pid}"
-            entities_to_update = filter(
-                lambda c: c.get("$ref") == old_entity_url, remote_entities
-            )
+            entities_to_update = filter(lambda c: c.get("$ref") == old_entity_url, remote_entities)
             for entity in entities_to_update:
                 if old_entity_url != new_entity_url:
                     self.logger.info(
-                        f"Entitiy URL changed from {old_entity_url} to "
-                        f"{new_entity_url} for document {doc.pid}"
+                        f"Entitiy URL changed from {old_entity_url} to {new_entity_url} for document {doc.pid}"
                     )
                 # update the entity URL
                 entity["$ref"] = new_entity_url
@@ -202,12 +193,7 @@ class SyncEntity:
                 n_part = int(total / chunk_size)
                 for i in range(n_part):
                     # processing the slice should be faster than 30m
-                    for hit in (
-                        es_query.extra(slice={"id": i, "max": n_part})
-                        .params(scroll="30m")
-                        .source("pid")
-                        .scan()
-                    ):
+                    for hit in es_query.extra(slice={"id": i, "max": n_part}).params(scroll="30m").source("pid").scan():
                         yield hit.pid
             # no need to slice as the part is smaller than the number
             # of results
@@ -228,8 +214,8 @@ class SyncEntity:
                 """
                 # MEF urls for updated pids
                 urls = [
-                    f'{get_mef_url("agents")}/mef/updated',
-                    f'{get_mef_url("concepts")}/mef/updated',
+                    f"{get_mef_url('agents')}/mef/updated",
+                    f"{get_mef_url('concepts')}/mef/updated",
                 ]
                 # number of provided updated MEF pids
                 n_provided = 0
@@ -240,15 +226,10 @@ class SyncEntity:
                             # pids form a given date
                             res = requests_retry_session().post(
                                 url,
-                                json=dict(
-                                    from_date=from_date.strftime("%Y-%m-%d"), pids=chunk
-                                ),
+                                json=dict(from_date=from_date.strftime("%Y-%m-%d"), pids=chunk),
                             )
                             if res.status_code != 200:
-                                requests.ConnectionError(
-                                    "Expected status code 200, but got "
-                                    f"{res.status_code} {url}"
-                                )
+                                requests.ConnectionError(f"Expected status code 200, but got {res.status_code} {url}")
                             for hit in res.json():
                                 n_provided += 1
                                 yield hit.get("pid")
@@ -283,20 +264,15 @@ class SyncEntity:
             if not (entity := RemoteEntity.get_record_by_pid(pid)):
                 raise RecordNotFound(RemoteEntity, pid)
 
-            self.logger.debug(f'Processing {entity["type"]} MEF(pid: {pid})')
+            self.logger.debug(f"Processing {entity['type']} MEF(pid: {pid})")
             # iterate over all entity sources: rero, gnd, idref
             pids_to_replace = {}
             for source in entity["sources"]:
-                mef = self._get_latest(
-                    entity_type=entity.type, source=source, pid=entity[source]["pid"]
-                )
+                mef = self._get_latest(entity_type=entity.type, source=source, pid=entity[source]["pid"])
                 # MEF sever failed to retrieve the latest MEF record
                 # for the given entity
                 if not (mef_pid := mef.get("pid")):
-                    raise Exception(
-                        f"Error cannot get latest for "
-                        f'{entity["type"]} {source}:{entity[source]["pid"]}'
-                    )
+                    raise Exception(f"Error cannot get latest for {entity['type']} {source}:{entity[source]['pid']}")
 
                 old_entity_pid = entity[source]["pid"]
                 new_entity_pid = mef[source]["pid"]
@@ -324,12 +300,9 @@ class SyncEntity:
                         if RemoteEntity.get_record_by_pid(new_mef_pid):
                             # update the new MEF - recursion
                             self.logger.info(
-                                f'{entity["type"]} MEF(pid: {entity.pid}) '
-                                f"recursion with (pid:{new_mef_pid})"
+                                f"{entity['type']} MEF(pid: {entity.pid}) recursion with (pid:{new_mef_pid})"
                             )
-                            new_doc_updated, new_updated, new_error = self.sync_record(
-                                new_mef_pid
-                            )
+                            new_doc_updated, new_updated, new_error = self.sync_record(new_mef_pid)
                             # TODO: find a better way
                             doc_updated.update(new_doc_updated)
                             updated = updated or new_updated
@@ -337,46 +310,29 @@ class SyncEntity:
                         else:
                             # if the MEF record does not exist create it
                             if not self.dry_run:
-                                RemoteEntity.create(
-                                    data=new_mef_data, dbcommit=True, reindex=True
-                                )
+                                RemoteEntity.create(data=new_mef_data, dbcommit=True, reindex=True)
                                 RemoteEntitiesSearch.flush_and_refresh()
-                            self.logger.info(
-                                f'Create a new MEF {entity["type"]} '
-                                f"record(pid: {new_mef_pid})"
-                            )
+                            self.logger.info(f"Create a new MEF {entity['type']} record(pid: {new_mef_pid})")
                     # something changed, update the content
-                    self.logger.info(
-                        f'MEF {entity["type"]} record(pid: {entity.pid}) '
-                        "content has been updated"
-                    )
+                    self.logger.info(f"MEF {entity['type']} record(pid: {entity.pid}) content has been updated")
                     if not self.dry_run:
                         if old_mef_pid == new_mef_pid:
-                            RemoteEntity.get_record(entity.id).replace(
-                                new_mef_data, dbcommit=True, reindex=True
-                            )
+                            RemoteEntity.get_record(entity.id).replace(new_mef_data, dbcommit=True, reindex=True)
                         else:
                             # as we have only the last mef but not the old one
                             # we need get it from the MEF server
                             # this is important as it can still be used by
                             # other entities
-                            RemoteEntity.get_record_by_pid(pid).update_online(
-                                dbcommit=True, reindex=True
-                            )
+                            RemoteEntity.get_record_by_pid(pid).update_online(dbcommit=True, reindex=True)
                     updated = True
 
             if updated:
                 # need to update each documents
                 doc_pids = entity.documents_pids()
-                self.logger.info(
-                    f'MEF {entity["type"]} record(pid: {entity.pid}) '
-                    f" try to update documents: {doc_pids}"
-                )
+                self.logger.info(f"MEF {entity['type']} record(pid: {entity.pid})  try to update documents: {doc_pids}")
 
                 for doc_pid in doc_pids:
-                    self._update_entities_in_document(
-                        doc_pid=doc_pid, pids_to_replace=pids_to_replace
-                    )
+                    self._update_entities_in_document(doc_pid=doc_pid, pids_to_replace=pids_to_replace)
                 doc_updated = set(doc_pids)
         except Exception as err:
             self.logger.error(f"ERROR: MEF record(pid: {pid}) -> {str(err)}")
@@ -389,17 +345,13 @@ class SyncEntity:
         """Add logging information about the starting process."""
         self.start_timestamp = datetime.now()
         if self.dry_run:
-            self.logger.info(
-                "--------- Starting synchronization in dry run mode ---------"
-            )
+            self.logger.info("--------- Starting synchronization in dry run mode ---------")
         else:
             self.logger.info("--------- Starting synchronization ---------")
 
     def end_sync(self, n_doc_updated, n_mef_updated, mef_errors):
         """Add logging and cache information about the ending process."""
-        self.logger.info(
-            f"DONE: doc updated: {n_doc_updated}, " f"mef updated: {n_mef_updated}."
-        )
+        self.logger.info(f"DONE: doc updated: {n_doc_updated}, mef updated: {n_mef_updated}.")
         if self.dry_run:
             return
         if data := get_timestamp("sync_entities"):
@@ -460,9 +412,7 @@ class SyncEntity:
             if not self.dry_run:
                 # remove from the database and the index: no tombstone
                 entity.delete(True, True, True)
-            self.logger.info(
-                f'MEF {entity["type"]} record(pid: {entity.pid}) ' "has been deleted."
-            )
+            self.logger.info(f"MEF {entity['type']} record(pid: {entity.pid}) has been deleted.")
             return True
         return False
 

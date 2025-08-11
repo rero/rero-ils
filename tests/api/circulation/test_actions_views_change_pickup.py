@@ -17,7 +17,6 @@
 
 """Tests REST change pickup location API methods in the item api_views."""
 
-
 from invenio_accounts.testutils import login_user_via_session
 
 from tests.utils import postdata
@@ -38,9 +37,7 @@ def test_change_pickup_location_request(
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
 
     # test fails when there is a missing required parameter
-    res, data = postdata(
-        client, "api_item.update_loan_pickup_location", dict(pid=loan.pid)
-    )
+    res, data = postdata(client, "api_item.update_loan_pickup_location", dict(pid=loan.pid))
     assert res.status_code == 400
 
     # test fails when there is a missing required parameter

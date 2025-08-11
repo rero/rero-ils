@@ -48,23 +48,14 @@ def create_ill_requests(input_file):
                 if organisation_pid not in patron_pids:
                     patron_pids[organisation_pid] = [
                         pid
-                        for pid in Patron.get_all_pids_for_organisation(
-                            organisation_pid
-                        )
+                        for pid in Patron.get_all_pids_for_organisation(organisation_pid)
                         if Patron.get_record_by_pid(pid).is_patron
                     ]
                 patron_pid = random.choice(patron_pids[organisation_pid])
-                request_data["patron"] = {
-                    "$ref": get_ref_for_pid("patrons", patron_pid)
-                }
-                request_data["pickup_location"] = {
-                    "$ref": get_ref_for_pid("locations", location_pid)
-                }
+                request_data["patron"] = {"$ref": get_ref_for_pid("patrons", patron_pid)}
+                request_data["pickup_location"] = {"$ref": get_ref_for_pid("locations", location_pid)}
                 request = ILLRequest.create(request_data, dbcommit=True, reindex=True)
-                click.echo(
-                    f"\tRequest: #{request.pid}  \t"
-                    f"for org#{request.organisation_pid}"
-                )
+                click.echo(f"\tRequest: #{request.pid}  \tfor org#{request.organisation_pid}")
 
 
 def get_locations():

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition receipts API tests."""
+
 import pytest
 from jsonschema.exceptions import ValidationError
 
@@ -55,10 +56,7 @@ def test_receipts_properties(
     assert acre1.total_item_quantity == sum([acrl1.quantity, acrl2.quantity])
     # ACQ ACCOUNT -------------------------------------------------------------
     for amount in acre1.amount_adjustments:
-        assert (
-            extracted_data_from_ref(amount.get("acq_account"))
-            == acq_account_fiction_martigny.pid
-        )
+        assert extracted_data_from_ref(amount.get("acq_account")) == acq_account_fiction_martigny.pid
     # RECEIPT LINES -----------------------------------------------------------
     lines = [acrl1, acrl2]
     assert all(line in lines for line in acre1.get_receipt_lines())

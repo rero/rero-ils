@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Local entity proxies."""
+
 from elasticsearch_dsl import Q
 
 from ..models import EntityType
@@ -49,9 +50,7 @@ class LocalEntityProxy:
         :return: local entities matching the search term.
         :rtype: generator.
         """
-        query = self._create_base_query()[:size].filter(
-            "query_string", query=search_term
-        )
+        query = self._create_base_query()[:size].filter("query_string", query=search_term)
         yield from query.execute()
 
     def _create_base_query(self):

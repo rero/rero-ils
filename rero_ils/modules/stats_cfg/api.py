@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Statistics configuration for report."""
+
 from functools import partial
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -73,11 +74,7 @@ class StatConfiguration(IlsRecord):
 
         links = {}
 
-        query = (
-            StatsSearch()
-            .filter("term", type="report")
-            .filter("term", config__pid=self.pid)
-        )
+        query = StatsSearch().filter("term", type="report").filter("term", config__pid=self.pid)
 
         if get_pids:
             query = query.source(["pid"]).scan()

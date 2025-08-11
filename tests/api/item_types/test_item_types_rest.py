@@ -90,18 +90,14 @@ def test_item_types_get(client, item_type_standard_martigny):
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_item_types_post_put_delete(
-    client, org_martigny, item_type_standard_martigny_data, json_header
-):
+def test_item_types_post_put_delete(client, org_martigny, item_type_standard_martigny_data, json_header):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for("invenio_records_rest.itty_item", pid_value="1")
     list_url = url_for("invenio_records_rest.itty_list", q="pid:1")
 
     item_type_standard_martigny_data["pid"] = "1"
-    res, data = postdata(
-        client, "invenio_records_rest.itty_list", item_type_standard_martigny_data
-    )
+    res, data = postdata(client, "invenio_records_rest.itty_list", item_type_standard_martigny_data)
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
@@ -152,9 +148,7 @@ def test_item_types_name_validate(client):
         class organisation:
             pid = "org1"
 
-    with mock.patch(
-        "rero_ils.modules.item_types.views.current_librarian", current_librarian
-    ):
+    with mock.patch("rero_ils.modules.item_types.views.current_librarian", current_librarian):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {"name": "standard"}
@@ -163,17 +157,13 @@ def test_item_types_name_validate(client):
         class organisation:
             pid = "does not exists"
 
-    with mock.patch(
-        "rero_ils.modules.item_types.views.current_librarian", current_librarian
-    ):
+    with mock.patch("rero_ils.modules.item_types.views.current_librarian", current_librarian):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {"name": None}
 
 
-def test_item_types_can_delete(
-    client, item_type_standard_martigny, item_lib_martigny, circulation_policies
-):
+def test_item_types_can_delete(client, item_type_standard_martigny, item_lib_martigny, circulation_policies):
     """Test can delete an item type."""
     can, reasons = item_type_standard_martigny.can_delete
     assert not can
@@ -212,24 +202,18 @@ def test_filtered_item_types_get(
     assert data["hits"]["total"]["value"] == 4
 
 
-def test_item_type_secure_api(
-    client, json_header, item_type_standard_martigny, librarian_martigny, librarian_sion
-):
+def test_item_type_secure_api(client, json_header, item_type_standard_martigny, librarian_martigny, librarian_sion):
     """Test item type secure api access."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.itty_item", pid_value=item_type_standard_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.itty_item", pid_value=item_type_standard_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 200
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
-    record_url = url_for(
-        "invenio_records_rest.itty_item", pid_value=item_type_standard_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.itty_item", pid_value=item_type_standard_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 403
@@ -270,9 +254,7 @@ def test_item_type_secure_api_update(
     """Test item type secure api update."""
     # Martigny
     login_user_via_session(client, system_librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.itty_item", pid_value=item_type_on_site_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.itty_item", pid_value=item_type_on_site_martigny.pid)
 
     data = item_type_on_site_martigny
     data["name"] = "Test Name"
@@ -297,9 +279,7 @@ def test_item_type_secure_api_delete(
     """Test item type secure api delete."""
     # Martigny
     login_user_via_session(client, system_librarian_martigny.user)
-    record_url = url_for(
-        "invenio_records_rest.itty_item", pid_value=item_type_on_site_martigny.pid
-    )
+    record_url = url_for("invenio_records_rest.itty_item", pid_value=item_type_on_site_martigny.pid)
 
     with pytest.raises(IlsRecordError.NotDeleted):
         res = client.delete(record_url)

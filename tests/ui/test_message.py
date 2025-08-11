@@ -52,16 +52,12 @@ def test_message_cli(app):
     runner = CliRunner()
     result = runner.invoke(set_message, ["MYKEY", "MYTYPE", "MY MESSAGE"])
     assert result.exit_code == 0
-    assert result.output.strip().split("\n") == [
-        'OK: MYKEY               MYTYPE         "MY MESSAGE"'
-    ]
+    assert result.output.strip().split("\n") == ['OK: MYKEY               MYTYPE         "MY MESSAGE"']
 
     runner = CliRunner()
     result = runner.invoke(get, ["MYKEY"])
     assert result.exit_code == 0
-    assert result.output.strip().split("\n") == [
-        'MYKEY               MYTYPE         "MY MESSAGE"'
-    ]
+    assert result.output.strip().split("\n") == ['MYKEY               MYTYPE         "MY MESSAGE"']
 
     runner = CliRunner()
     result = runner.invoke(get, ["NOKEY"])
@@ -84,6 +80,4 @@ def test_message_cli(app):
     runner = CliRunner()
     result = runner.invoke(info)
     assert result.exit_code == 0
-    assert result.output.strip().split("\n") == [
-        "KEY                 TYPE           MESSAGE"
-    ]
+    assert result.output.strip().split("\n") == ["KEY                 TYPE           MESSAGE"]

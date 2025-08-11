@@ -55,9 +55,7 @@ class NormalizerStopWords:
         :param language: Language of the text
         :returns: Normalized text
         """
-        word_regex = self.stop_words_regex.get(
-            language, self.stop_words_regex.get("default")
-        )
+        word_regex = self.stop_words_regex.get(language, self.stop_words_regex.get("default"))
         if word_regex:
             compiled = re.compile(rf"{word_regex}", re.IGNORECASE)
             text = compiled.sub("", text)

@@ -23,9 +23,7 @@ from flask import request as flask_request
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt
 from rero_ils.modules.decorators import check_logged_as_librarian, jsonify_error
 
-api_blueprint = Blueprint(
-    "api_receipt", __name__, url_prefix="/acq_receipt", template_folder="templates"
-)
+api_blueprint = Blueprint("api_receipt", __name__, url_prefix="/acq_receipt", template_folder="templates")
 
 
 @api_blueprint.route("/<receipt_pid>/lines", methods=["POST"])

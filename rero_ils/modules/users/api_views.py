@@ -37,9 +37,7 @@ def password_generate():
     length = int(request.args.get("length", min_length))
     if length < min_length:
         abort(400, f"The password must be at least {min_length} characters long.")
-    generator = obj_or_import_string(
-        current_app.config.get("RERO_ILS_PASSWORD_GENERATOR")
-    )
+    generator = obj_or_import_string(current_app.config.get("RERO_ILS_PASSWORD_GENERATOR"))
     try:
         return generator(length=length, special_char=special_char)
     except Exception:

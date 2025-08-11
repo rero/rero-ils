@@ -29,9 +29,7 @@ from tests.utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 )
 def test_stats_cfg_get(client, stats_cfg_martigny):
     """Test record retrieval."""
-    item_url = url_for(
-        "invenio_records_rest.stacfg_item", pid_value=stats_cfg_martigny.pid
-    )
+    item_url = url_for("invenio_records_rest.stacfg_item", pid_value=stats_cfg_martigny.pid)
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)

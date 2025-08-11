@@ -18,7 +18,6 @@
 
 """rero-ils MARC21 model definition."""
 
-
 import contextlib
 import re
 
@@ -85,9 +84,10 @@ class MyReroIlsMarc21Overdo(ReroIlsMarc21Overdo):
         if "genreForm" in result and "harvested" not in result:
             for genre_form in result.get("genreForm", []):
                 entity = genre_form["entity"]
-                if entity["type"] == "bf:Topic" and entity[
-                    "authorized_access_point"
-                ] in ["Fictions", "Films de fiction"]:
+                if entity["type"] == "bf:Topic" and entity["authorized_access_point"] in [
+                    "Fictions",
+                    "Films de fiction",
+                ]:
                     result["fiction_statement"] = DocumentFictionType.Fiction.value
             if "fiction_statement" not in result and "subjects" in result:
                 result["fiction_statement"] = DocumentFictionType.NonFiction.value
@@ -186,24 +186,18 @@ def marc21_to_contribution(self, key, value):
     agent_data = {}
     if not agent.get("$ref") and value.get("a"):
         if value.get("a"):
-            if name := not_repetitive(
-                marc21.bib_id, marc21.rero_id, key, value, "a"
-            ).rstrip("."):
+            if name := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a").rstrip("."):
                 agent_data["preferred_name"] = name
 
         # 100|700 Person
         if key[:3] in ["100", "700"]:
             agent_data["type"] = EntityType.PERSON
             if value.get("b"):
-                numeration = not_repetitive(
-                    marc21.bib_id, marc21.rero_id, key, value, "b"
-                )
+                numeration = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "b")
                 if numeration := remove_trailing_punctuation(numeration):
                     agent_data["numeration"] = numeration
             if value.get("c"):
-                qualifier = not_repetitive(
-                    marc21.bib_id, marc21.rero_id, key, value, "c"
-                )
+                qualifier = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "c")
                 agent_data["qualifier"] = remove_trailing_punctuation(qualifier)
             if value.get("d"):
                 date = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "d")
@@ -216,16 +210,8 @@ def marc21_to_contribution(self, key, value):
                     if date_of_death := dates[1].strip():
                         agent_data["date_of_death"] = date_of_death
             if value.get("q"):
-                fuller_form_of_name = not_repetitive(
-                    marc21.bib_id, marc21.rero_id, key, value, "q"
-                )
-                if (
-                    fuller_form_of_name := remove_trailing_punctuation(
-                        fuller_form_of_name
-                    )
-                    .lstrip("(")
-                    .rstrip(")")
-                ):
+                fuller_form_of_name = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "q")
+                if fuller_form_of_name := remove_trailing_punctuation(fuller_form_of_name).lstrip("(").rstrip(")"):
                     agent_data["fuller_form_of_name"] = fuller_form_of_name
             if identifier := build_identifier(value):
                 agent_data["identifiedBy"] = identifier
@@ -235,8 +221,7 @@ def marc21_to_contribution(self, key, value):
             agent_data["conference"] = key[:3] == "711"
             if value.get("b"):
                 subordinate_units = [
-                    subordinate_unit.rstrip(".")
-                    for subordinate_unit in utils.force_list(value.get("b"))
+                    subordinate_unit.rstrip(".") for subordinate_unit in utils.force_list(value.get("b"))
                 ]
 
                 agent_data["subordinate_unit"] = subordinate_units
@@ -246,24 +231,12 @@ def marc21_to_contribution(self, key, value):
                     subordinate_units.append(subordinate_unit.rstrip("."))
                 agent_data["subordinate_unit"] = subordinate_units
             if value.get("n"):
-                numbering = not_repetitive(
-                    marc21.bib_id, marc21.rero_id, key, value, "n"
-                )
-                if (
-                    numbering := remove_trailing_punctuation(numbering)
-                    .lstrip("(")
-                    .rstrip(")")
-                ):
+                numbering = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "n")
+                if numbering := remove_trailing_punctuation(numbering).lstrip("(").rstrip(")"):
                     agent_data["numbering"] = numbering
             if value.get("d"):
-                conference_date = not_repetitive(
-                    marc21.bib_id, marc21.rero_id, key, value, "d"
-                )
-                if (
-                    conference_date := remove_trailing_punctuation(conference_date)
-                    .lstrip("(")
-                    .rstrip(")")
-                ):
+                conference_date = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "d")
+                if conference_date := remove_trailing_punctuation(conference_date).lstrip("(").rstrip(")"):
                     agent_data["conference_date"] = conference_date
             if value.get("c"):
                 place = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "c")
@@ -503,9 +476,7 @@ def marc21_to_identified_by_from_field_035(self, key, value):
 @utils.ignore_value
 def marc21_to_identified_by_from_field_930(self, key, value):
     """Get identifier from field 930."""
-    if subfield_a := not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "a", default=""
-    ).strip():
+    if subfield_a := not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "a", default="").strip():
         identifier = {}
         if match := re_identified.match(subfield_a):
             # match.group(1) : parentheses content
@@ -619,9 +590,7 @@ def marc21_to_subjects(self, key, value):
             "655": "a",
         }
 
-        string_build = build_string_from_subfields(
-            value, subfield_code_per_tag[tag_key]
-        )
+        string_build = build_string_from_subfields(value, subfield_code_per_tag[tag_key])
         if tag_key == "655":
             # remove the square brackets
             string_build = re.sub(r"^\[(.*)\]$", r"\1", string_build)
@@ -631,9 +600,7 @@ def marc21_to_subjects(self, key, value):
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
             subject["authorized_access_point"] = (
                 remove_trailing_punctuation(
-                    build_string_from_subfields(
-                        value, subfield_code_per_tag[creator_tag_key]
-                    ),
+                    build_string_from_subfields(value, subfield_code_per_tag[creator_tag_key]),
                     ".",
                     ".",
                 )
@@ -666,14 +633,8 @@ def marc21_to_subjects(self, key, value):
             self[field_key] = subjects
 
     elif subfield_2 == "rerovoc" or indicator_2 in ["0", "2"]:
-        if term_string := build_string_from_subfields(
-            value, "abcdefghijklmnopqrstuw", " - "
-        ):
-            source = (
-                "rerovoc"
-                if subfield_2 == "rerovoc"
-                else source_per_indicator_2[indicator_2]
-            )
+        if term_string := build_string_from_subfields(value, "abcdefghijklmnopqrstuw", " - "):
+            source = "rerovoc" if subfield_2 == "rerovoc" else source_per_indicator_2[indicator_2]
             subject_imported = {
                 "type": type_per_tag[tag_key],
                 "source": source,
@@ -692,12 +653,8 @@ def marc21_to_subjects(self, key, value):
 @utils.ignore_value
 def marc21_to_subjects_imported(self, key, value):
     """Get subject and genreForm_imported imported from 919 (L53, L54)."""
-    specific_contains_regexp = re.compile(
-        r"\[(carte postale|affiche|document photographique)\]"
-    )
-    contains_specific_voc_regexp = re.compile(
-        r"^(chrero|rerovoc|ram|rameau|gnd|rerovoc|gatbegr|gnd-content)$"
-    )
+    specific_contains_regexp = re.compile(r"\[(carte postale|affiche|document photographique)\]")
+    contains_specific_voc_regexp = re.compile(r"^(chrero|rerovoc|ram|rameau|gnd|rerovoc|gatbegr|gnd-content)$")
 
     subfields_2 = utils.force_list(value.get("2"))
     term_string = ""
@@ -724,17 +681,13 @@ def marc21_to_subjects_imported(self, key, value):
                 if subfield_2 in ["gatbegr", "gnd-content"]:
                     field_key = "genreForm_imported"
             if add_data_imported:
-                term_string = build_string_from_subfields(
-                    value, "abcdefghijklmnopqrstuvwxyz", " - "
-                )
+                term_string = build_string_from_subfields(value, "abcdefghijklmnopqrstuvwxyz", " - ")
                 data_imported = {
                     "type": EntityType.TOPIC,
                     "source": subfield_2,
                     "authorized_access_point": term_string,
                 }
-    elif term_string := build_string_from_subfields(
-        value, "abcdefghijklmnopqrstuvwxyz", " - "
-    ):
+    elif term_string := build_string_from_subfields(value, "abcdefghijklmnopqrstuvwxyz", " - "):
         data_imported = {
             "type": EntityType.TOPIC,
             "authorized_access_point": term_string,
@@ -782,9 +735,7 @@ def marc21_to_classification(self, key, value):
             if regexp.search(subfield_2):
                 classification_type = classification_type_per_tag_980_2[key]
                 if key in subdivision_subfield_codes_per_tag_980_2:
-                    subdivision_subfield_codes = (
-                        subdivision_subfield_codes_per_tag_980_2[key]
-                    )
+                    subdivision_subfield_codes = subdivision_subfield_codes_per_tag_980_2[key]
                 break
         return classification_type, subdivision_subfield_codes
 
@@ -810,9 +761,7 @@ def marc21_to_classification(self, key, value):
                 subjects.append(dict(entity=subject))
                 self["subjects"] = subjects
 
-            classif_type, subdivision_subfield_codes = (
-                get_classif_type_and_subdivision_codes_from_980_2(subfield_2)
-            )
+            classif_type, subdivision_subfield_codes = get_classif_type_and_subdivision_codes_from_980_2(subfield_2)
             if classif_type:
                 classification["type"] = classif_type
                 if subdivision_subfield_codes:
@@ -990,9 +939,7 @@ def marc21_to_part_of(self, key, value):
 
     part_of = {}
     numbering_list = []
-    subfield_w = not_repetitive(
-        marc21.bib_id, marc21.rero_id, key, value, "w", default=""
-    ).strip()
+    subfield_w = not_repetitive(marc21.bib_id, marc21.rero_id, key, value, "w", default="").strip()
     if subfield_w:
         match = re.compile(r"^REROILS:")
         pid = match.sub("", subfield_w)

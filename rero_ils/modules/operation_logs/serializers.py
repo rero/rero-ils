@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Operation Logs serialization."""
+
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.serializers import (
@@ -33,9 +34,7 @@ class OperationLogsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         """Post-process each hit of a search result."""
         # add library name if the library entry exists.
         if library := hit.get("metadata", {}).get("library"):
-            library["name"] = self.get_resource(
-                LibrariesSearch(), library.get("value")
-            )["name"]
+            library["name"] = self.get_resource(LibrariesSearch(), library.get("value"))["name"]
         if "loan" in (metadata := hit.get("metadata", {})):
             # enrich `transaction_location` and `pickup_location` fields with
             # related library information

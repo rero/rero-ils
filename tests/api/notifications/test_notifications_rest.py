@@ -51,9 +51,7 @@ from tests.utils import (
 )
 
 
-def test_delayed_notifications(
-    loan_validated_martigny, item2_lib_martigny, mailbox, patron_martigny, lib_martigny
-):
+def test_delayed_notifications(loan_validated_martigny, item2_lib_martigny, mailbox, patron_martigny, lib_martigny):
     """Test availability notification created from a loan."""
     mailbox.clear()
     loan = loan_validated_martigny
@@ -80,9 +78,7 @@ def test_delayed_notifications(
     # Ensure than `effective_recipients` is filled
     #   The notification should be sent to library AT_DESK email setting.
     notification = Notification.get_record(notification.id)
-    effective_recipients = [
-        recipient["address"] for recipient in notification.get("effective_recipients")
-    ]
+    effective_recipients = [recipient["address"] for recipient in notification.get("effective_recipients")]
     assert effective_recipients == [lib_martigny.get_email(NotificationType.AT_DESK)]
 
     # One notification will be sent : AVAILABILITY (sent to patron).
@@ -92,9 +88,7 @@ def test_delayed_notifications(
     mailbox.clear()
 
 
-def test_filtered_notifications_get(
-    client, notification_availability_martigny, librarian_martigny, librarian_sion
-):
+def test_filtered_notifications_get(client, notification_availability_martigny, librarian_martigny, librarian_sion):
     """Test notification filter by organisation."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
@@ -186,9 +180,7 @@ def test_notifications_get(client, notification_availability_martigny):
 
     item_url = url_for("invenio_records_rest.notif_item", pid_value=pid)
     list_url = url_for("invenio_records_rest.notif_list", q="pid:" + pid)
-    item_url_with_resolve = url_for(
-        "invenio_records_rest.notif_item", pid_value=record.pid, resolve=1, sources=1
-    )
+    item_url_with_resolve = url_for("invenio_records_rest.notif_item", pid_value=record.pid, resolve=1, sources=1)
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -231,9 +223,7 @@ def test_notifications_get(client, notification_availability_martigny):
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_notifications_post_put_delete(
-    client, dummy_notification, loan_validated_martigny, json_header
-):
+def test_notifications_post_put_delete(client, dummy_notification, loan_validated_martigny, json_header):
     """Test record delete and update."""
 
     record = deepcopy(dummy_notification)
@@ -451,9 +441,7 @@ def test_recall2_notifications(
     )
     process_notifications(NotificationType.RECALL)
     NotificationsSearch.flush_and_refresh()
-    assert not loan_request1.is_notified(
-        notification_type=NotificationType.RECALL, counter=1
-    )
+    assert not loan_request1.is_notified(notification_type=NotificationType.RECALL, counter=1)
     assert len(mailbox) == 1
 
     # RESET
@@ -484,9 +472,7 @@ def test_recall_notification_with_disabled_config(
 ):
     """Test the recall notification if app config disable it."""
     initial_config = deepcopy(app.config.get("RERO_ILS_DISABLED_NOTIFICATION_TYPE", []))
-    app.config.setdefault("RERO_ILS_DISABLED_NOTIFICATION_TYPE", []).append(
-        NotificationType.RECALL
-    )
+    app.config.setdefault("RERO_ILS_DISABLED_NOTIFICATION_TYPE", []).append(NotificationType.RECALL)
 
     # STEP#0 :: INIT
     #   Create a checkout
@@ -684,9 +670,7 @@ def test_recall_notification_with_patron_additional_email_only(
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
     # one new email for the librarian
-    assert mailbox[0].recipients == [
-        patron_sion_with_additional_email["patron"]["additional_communication_email"]
-    ]
+    assert mailbox[0].recipients == [patron_sion_with_additional_email["patron"]["additional_communication_email"]]
     mailbox.clear()
     params = {
         "transaction_location_pid": loc_public_martigny.pid,
@@ -758,9 +742,7 @@ def test_multiple_notifications(
     # REQUEST
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.PENDING
-    assert mailbox[-1].recipients == [
-        lib_martigny.get("notification_settings")[5].get("email")
-    ]
+    assert mailbox[-1].recipients == [lib_martigny.get("notification_settings")[5].get("email")]
     mailbox.clear()
 
     # validate request
@@ -781,9 +763,7 @@ def test_multiple_notifications(
     item_lib_martigny.checkin(**params)
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
-    assert mailbox[-1].recipients == [
-        lib_fully.get("notification_settings")[5].get("email")
-    ]
+    assert mailbox[-1].recipients == [lib_fully.get("notification_settings")[5].get("email")]
     mailbox.clear()
 
     # back on shelf: required to restore the initial stat for other tests
@@ -813,9 +793,7 @@ def test_request_notifications_temp_item_type(
 ):
     """Test request notifications with item type with negative availability."""
     mailbox.clear()
-    item_lib_martigny["temporary_item_type"] = {
-        "$ref": get_ref_for_pid("itty", item_type_missing_martigny.pid)
-    }
+    item_lib_martigny["temporary_item_type"] = {"$ref": get_ref_for_pid("itty", item_type_missing_martigny.pid)}
     item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
     login_user_via_session(client, librarian_martigny.user)
 
@@ -889,9 +867,7 @@ def test_request_notifications(
 
     NotificationsSearch.flush_and_refresh()
     assert len(mailbox) == 1
-    assert mailbox[-1].recipients == [
-        lib_martigny.get("notification_settings")[5].get("email")
-    ]
+    assert mailbox[-1].recipients == [lib_martigny.get("notification_settings")[5].get("email")]
     # cancel request
     res, _ = postdata(
         client,
@@ -907,9 +883,7 @@ def test_request_notifications(
     mailbox.clear()
 
 
-@mock.patch.object(
-    Dispatcher, "_process_notification", mock.MagicMock(side_effect=Exception("Test!"))
-)
+@mock.patch.object(Dispatcher, "_process_notification", mock.MagicMock(side_effect=Exception("Test!")))
 def test_dispatch_error(
     client,
     patron_martigny,
@@ -1042,7 +1016,7 @@ def test_multiple_request_booking_notifications(
     }
     _, actions = item_lib_martigny.checkin(**params)
     assert actions.get(LoanAction.CHECKIN)
-    search_string = f'Lieu de retrait: {loc_public_sion.get("code")}'
+    search_string = f"Lieu de retrait: {loc_public_sion.get('code')}"
     assert any(search_string in message.body for message in mailbox)
 
     # CHECKOUT & CHECKIN FOR PATRON#2
@@ -1061,7 +1035,7 @@ def test_multiple_request_booking_notifications(
     # checkin at the request pickup of patron3
     loan, actions = item_lib_martigny.checkin(**params)
     assert actions.get(LoanAction.CHECKIN)
-    search_string = f'Lieu de retrait: {loc_public_saxon.get("code")}'
+    search_string = f"Lieu de retrait: {loc_public_saxon.get('code')}"
     assert any(search_string in message.body for message in mailbox)
 
     # checkout for patron3
@@ -1083,9 +1057,7 @@ def test_multiple_request_booking_notifications(
         process_notifications(notification_type)
 
 
-@mock.patch(
-    "flask.current_app.logger.error", mock.MagicMock(side_effect=Exception("Test!"))
-)
+@mock.patch("flask.current_app.logger.error", mock.MagicMock(side_effect=Exception("Test!")))
 def test_cancel_notifications(
     client,
     patron_martigny,
@@ -1249,9 +1221,7 @@ def test_booking_notifications(
     # pickup
     loan = Loan.get_record_by_pid(request_loan_pid)
     assert loan.state == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-    assert mailbox[0].recipients == [
-        lib_fully.get("notification_settings")[5].get("email")
-    ]
+    assert mailbox[0].recipients == [lib_fully.get("notification_settings")[5].get("email")]
     # the patron information is the patron request
     assert patron_martigny["patron"]["barcode"][0] in mailbox[0].body
     mailbox.clear()
@@ -1268,9 +1238,7 @@ def test_booking_notifications(
     item_lib_martigny.receive(**params)
 
 
-def test_delete_pickup_location(
-    loan2_validated_martigny, loc_restricted_martigny, mailbox
-):
+def test_delete_pickup_location(loan2_validated_martigny, loc_restricted_martigny, mailbox):
     """Test delete pickup location."""
     mailbox.clear()
     loan = loan2_validated_martigny
@@ -1332,9 +1300,7 @@ def test_reminder_notifications_after_extend(
     process_notifications(NotificationType.DUE_SOON)
 
     first_notification = get_notification(loan, NotificationType.DUE_SOON)
-    assert (
-        first_notification and first_notification["status"] == NotificationStatus.DONE
-    )
+    assert first_notification and first_notification["status"] == NotificationStatus.DONE
     assert len(mailbox) == 1
     counter = (
         NotificationsSearch()
@@ -1393,14 +1359,10 @@ def test_reminder_notifications_after_extend(
     process_notifications(NotificationType.DUE_SOON)
     assert len(mailbox) == 2
     second_notification = get_notification(loan, NotificationType.DUE_SOON)
-    assert (
-        second_notification and second_notification["status"] == NotificationStatus.DONE
-    )
+    assert second_notification and second_notification["status"] == NotificationStatus.DONE
     assert second_notification.pid != first_notification
 
 
 # should be at the end to avoid notifications in other tests
 def test_transaction_library_pid(notification_late_martigny, lib_martigny_data):
-    assert notification_late_martigny.transaction_library_pid == lib_martigny_data.get(
-        "pid"
-    )
+    assert notification_late_martigny.transaction_library_pid == lib_martigny_data.get("pid")

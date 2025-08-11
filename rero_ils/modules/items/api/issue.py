@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating the item issue."""
+
 from datetime import datetime, timezone
 
 from rero_ils.modules.notifications.api import Notification, NotificationsSearch
@@ -139,18 +140,10 @@ class ItemIssue(ItemRecord):
         """
         from .api import ItemsSearch
 
-        query = (
-            ItemsSearch()
-            .filter("term", issue__status=issue_status)
-            .filter("term", type="issue")
-        )
+        query = ItemsSearch().filter("term", issue__status=issue_status).filter("term", type="issue")
         if holdings_pid:
             query = query.filter("term", holding__pid=holdings_pid)
-        query = (
-            query.params(preserve_order=True)
-            .sort({"_created": {"order": "asc"}})
-            .source(["pid"])
-        )
+        query = query.params(preserve_order=True).sort({"_created": {"order": "asc"}}).source(["pid"])
 
         return [hit.pid for hit in query.scan()]
 
@@ -189,9 +182,7 @@ class ItemIssue(ItemRecord):
             },
         }
         notif = Notification.create(data=record, dbcommit=True, reindex=True)
-        dispatcher_result = Dispatcher.dispatch_notifications(
-            notification_pids=[notif.get("pid")]
-        )
+        dispatcher_result = Dispatcher.dispatch_notifications(notification_pids=[notif.get("pid")])
 
         # If the dispatcher result is correct, reindex myself to update claims
         # information into ElasticSearch engine. Reload the notification to

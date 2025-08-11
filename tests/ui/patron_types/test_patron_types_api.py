@@ -40,9 +40,7 @@ def test_patron_type_create(db, org_martigny, patron_type_children_martigny_data
 def test_patron_type_exist_name_and_organisation_pid(patron_type_children_martigny):
     """Test patron type name uniquness."""
     org_pid = extracted_data_from_ref(patron_type_children_martigny.get("organisation"))
-    assert PatronType.exist_name_and_organisation_pid(
-        patron_type_children_martigny.get("name"), org_pid
-    )
+    assert PatronType.exist_name_and_organisation_pid(patron_type_children_martigny.get("name"), org_pid)
     assert not PatronType.exist_name_and_organisation_pid("not exists yet", org_pid)
 
 

@@ -29,9 +29,7 @@ from rero_ils.modules.organisations.api import Organisation
 class ApiHarvest:
     """ApiHarvest class."""
 
-    def __init__(
-        self, name, file_name=None, process=False, harvest_count=-1, verbose=False
-    ):
+    def __init__(self, name, file_name=None, process=False, harvest_count=-1, verbose=False):
         """Class init.
 
         :param name: name of API config
@@ -56,9 +54,7 @@ class ApiHarvest:
         self._count_upd = 0
         self._count_del = 0
         info = {}
-        for organisation in Organisation.get_records_by_online_harvested_source(
-            self._code
-        ):
+        for organisation in Organisation.get_records_by_online_harvested_source(self._code):
             locations = {}
             for location_pid in organisation.get_online_locations():
                 locations[location_pid] = None

@@ -48,24 +48,14 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
             if getattr(record, "enable_jsonref", False):
                 metadata = metadata.dumps()
         else:
-            metadata = (
-                deepcopy(record.replace_refs()) if self.replace_refs else record.dumps()
-            )
+            metadata = deepcopy(record.replace_refs()) if self.replace_refs else record.dumps()
         return dict(
             pid=pid,
             metadata=metadata,
             links=links_factory(pid, record=record, **kwargs),
             revision=record.revision_id,
-            created=(
-                pytz.utc.localize(record.created).isoformat()
-                if record.created
-                else None
-            ),
-            updated=(
-                pytz.utc.localize(record.updated).isoformat()
-                if record.updated
-                else None
-            ),
+            created=(pytz.utc.localize(record.created).isoformat() if record.created else None),
+            updated=(pytz.utc.localize(record.updated).isoformat() if record.updated else None),
         )
 
     @staticmethod
@@ -79,9 +69,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
             del record["_explanation"]
         return record
 
-    def serialize_search(
-        self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
-    ):
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -122,11 +110,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
         if not isinstance(attributes_name, list):
             attributes_name = [attributes_name]
         # search all requested values using search class
-        query = (
-            search_cls()
-            .filter("terms", pid=[term["key"] for term in buckets])
-            .source(["pid"] + attributes_name)
-        )
+        query = search_cls().filter("terms", pid=[term["key"] for term in buckets]).source(["pid"] + attributes_name)
         data = {result.pid: result.to_dict() for result in query.scan()}
         # complete buckets with data
         for term in buckets:
@@ -135,7 +119,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
                     if attr_term := info.get(attr):
                         term[attr] = attr_term
                 else:
-                    term[attr] = f'{_("Unknown")} ({term["key"]})'
+                    term[attr] = f"{_('Unknown')} ({term['key']})"
 
     @staticmethod
     def add_date_range_configuration(aggregation, step=86400000):
@@ -160,6 +144,4 @@ class ACQJSONSerializer(JSONSerializer, PostprocessorMixin):
         """Prepare a record and persistent identifier for serialization."""
         # add some dynamic key related to the record.
         record["is_current_budget"] = record.is_active
-        return super().preprocess_record(
-            pid=pid, record=record, links_factory=links_factory, kwargs=kwargs
-        )
+        return super().preprocess_record(pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)

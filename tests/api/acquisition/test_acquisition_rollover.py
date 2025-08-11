@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests acquisition rollover process."""
+
 import os
 from copy import deepcopy
 
@@ -71,9 +72,7 @@ def test_rollover_cli(client, acq_full_structure_a, org_martigny):
         assert result.exit_code == 0  # all works fine !
 
 
-def test_rollover_exceptions(
-    client, acq_full_structure_a, org_martigny, org_sion, lib_martigny
-):
+def test_rollover_exceptions(client, acq_full_structure_a, org_martigny, org_sion, lib_martigny):
     """Test rollover process exceptions."""
     origin_budget = acq_full_structure_a
     # budget data
@@ -107,9 +106,7 @@ def test_rollover_exceptions(
     #   * testing original budget is active
     #   * testing destination budget is empty
     with pytest.raises(BudgetDoesNotExist):
-        AcqRollover(
-            origin_budget, {}, logging_config=logging_config, propagate_errors=True
-        )
+        AcqRollover(origin_budget, {}, logging_config=logging_config, propagate_errors=True)
 
     destination_budget["organisation"]["$ref"] = ref_org_sion
     sion_budget = _make_resource(client, "budg", destination_budget)
@@ -178,14 +175,10 @@ def test_rollover_misc_functions(client, acq_full_structure_a, org_martigny):
     logging_config = deepcopy(ROLLOVER_LOGGING_CONFIG)
     logging_config["handlers"]["console"] = {"class": "logging.NullHandler"}
     logging_config["handlers"]["file"] = {"class": "logging.NullHandler"}
-    process = AcqRollover(
-        original_budget, destination_budget, logging_config=logging_config
-    )
+    process = AcqRollover(original_budget, destination_budget, logging_config=logging_config)
 
     # TEST#1 :: budget creation by rollover process
-    new_budget = process._create_new_budget(
-        name="test_budget", start_date="2000-01-01", end_date="2000-12-31"
-    )
+    new_budget = process._create_new_budget(name="test_budget", start_date="2000-01-01", end_date="2000-12-31")
     assert new_budget
     assert new_budget.name == "test_budget"
 

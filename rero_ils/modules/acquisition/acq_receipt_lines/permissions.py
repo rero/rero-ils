@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for Acquisition receipt line."""
+
 from invenio_access import action_factory
 
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
@@ -51,9 +52,7 @@ class AcqReceiptLinePermissionPolicy(RecordPermissionPolicy):
     can_update = [
         AllowedByActionRestrictByManageableLibrary(update_action),
         DisallowedIfRollovered(AcqReceiptLine),
-        DisallowedByOrderStatus(
-            AcqReceiptLine, [AcqOrderStatus.PARTIALLY_RECEIVED, AcqOrderStatus.RECEIVED]
-        ),
+        DisallowedByOrderStatus(AcqReceiptLine, [AcqOrderStatus.PARTIALLY_RECEIVED, AcqOrderStatus.RECEIVED]),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),

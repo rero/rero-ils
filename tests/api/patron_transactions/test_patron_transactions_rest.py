@@ -40,17 +40,13 @@ from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_rela
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_patron_transactions_get(
-    client, patron_transaction_overdue_martigny, rero_json_header
-):
+def test_patron_transactions_get(client, patron_transaction_overdue_martigny, rero_json_header):
     """Test record retrieval."""
     transaction = patron_transaction_overdue_martigny
     pid = transaction.pid
     item_url = url_for("invenio_records_rest.pttr_item", pid_value=pid)
     list_url = url_for("invenio_records_rest.pttr_list", q=f"pid:{pid}")
-    item_url_with_resolve = url_for(
-        "invenio_records_rest.pttr_item", pid_value=pid, resolve=1, sources=1
-    )
+    item_url_with_resolve = url_for("invenio_records_rest.pttr_item", pid_value=pid, resolve=1, sources=1)
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -98,9 +94,7 @@ def test_patron_transactions_get(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_patron_transactions_get_delete_resources(
-    client, patron_transaction_overdue_martigny, item4_lib_martigny
-):
+def test_patron_transactions_get_delete_resources(client, patron_transaction_overdue_martigny, item4_lib_martigny):
     """Test patron transaction list if related resources are unavailable."""
     list_url = url_for("invenio_records_rest.pttr_list", format="rero")
     item4_lib_martigny.delete(force=True, dbcommit=False, delindex=False)
@@ -113,9 +107,7 @@ def test_patron_transactions_get_delete_resources(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_patron_transactions_post_put_delete(
-    client, lib_martigny, patron_transaction_overdue_martigny, json_header
-):
+def test_patron_transactions_post_put_delete(client, lib_martigny, patron_transaction_overdue_martigny, json_header):
     """Test record retrieval."""
     pttr_pid = "new_pttr"
     item_url = url_for("invenio_records_rest.pttr_item", pid_value=pttr_pid)
@@ -190,9 +182,7 @@ def test_patron_transaction_photocopy_create(
     clear_patron_transaction_data(pid)
 
 
-def test_patron_transaction_shortcuts_utils(
-    client, patron_transaction_overdue_martigny, loan_overdue_martigny
-):
+def test_patron_transaction_shortcuts_utils(client, patron_transaction_overdue_martigny, loan_overdue_martigny):
     """Test patron transaction shortcuts and utils."""
     can, reasons = patron_transaction_overdue_martigny.can_delete
     assert not can
@@ -200,10 +190,7 @@ def test_patron_transaction_shortcuts_utils(
 
     assert patron_transaction_overdue_martigny.loan_pid == loan_overdue_martigny.pid
 
-    assert (
-        patron_transaction_overdue_martigny.patron_pid
-        == loan_overdue_martigny.patron_pid
-    )
+    assert patron_transaction_overdue_martigny.patron_pid == loan_overdue_martigny.patron_pid
 
 
 def test_filtered_patron_transactions_get(
@@ -274,9 +261,7 @@ def test_patron_subscription_transaction(patron_type_youngsters_sion, patron_sio
 
 def test_get_transactions_pids_for_patron(patron_sion):
     """Test function get_transactions_pids_for_patron."""
-    assert (
-        len(list(get_transactions_pids_for_patron(patron_sion.pid, status="open"))) == 1
-    )
+    assert len(list(get_transactions_pids_for_patron(patron_sion.pid, status="open"))) == 1
     assert not list(get_transactions_pids_for_patron(patron_sion.pid, status="closed"))
 
 

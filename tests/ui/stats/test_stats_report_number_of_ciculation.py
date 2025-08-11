@@ -99,9 +99,7 @@ def test_stats_report_circulation_trigger(
         cfg = {
             "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
             "is_active": True,
-            "filter_by_libraries": [
-                {"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}
-            ],
+            "filter_by_libraries": [{"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}],
             "category": {"indicator": {"type": f"number_of_{trigger}s"}},
         }
         assert StatsReport(cfg).collect() == [[1]]
@@ -118,14 +116,9 @@ def test_stats_report_number_of_checkins(
     loc_public_sion,
 ):
     """Test the number of circulation checkins operations."""
-    label_loc_pub_martigny = (
-        f'{lib_martigny["name"]} / '
-        f'{loc_public_martigny["name"]} ({loc_public_martigny.pid})'
-    )
+    label_loc_pub_martigny = f"{lib_martigny['name']} / {loc_public_martigny['name']} ({loc_public_martigny.pid})"
     label_loc_pub_martigny_bourg = (
-        f'{lib_martigny_bourg["name"]} / '
-        f'{loc_public_martigny_bourg["name"]} '
-        f"({loc_public_martigny_bourg.pid})"
+        f"{lib_martigny_bourg['name']} / {loc_public_martigny_bourg['name']} ({loc_public_martigny_bourg.pid})"
     )
 
     # fixtures
@@ -362,9 +355,7 @@ def test_stats_report_number_of_checkins(
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "category": {
-            "indicator": {"type": "number_of_checkins", "distributions": ["patron_age"]}
-        },
+        "category": {"indicator": {"type": "number_of_checkins", "distributions": ["patron_age"]}},
     }
     assert StatsReport(cfg).collect() == [[13, 1], [30, 1]]
 
@@ -435,8 +426,8 @@ def test_stats_report_number_of_checkins(
         },
     }
     assert StatsReport(cfg).collect() == [
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1],
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 1],
+        [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 1],
     ]
 
     # owning location
@@ -460,14 +451,9 @@ def test_stats_report_number_of_requests(
     lib_martigny, lib_martigny_bourg, loc_public_martigny, loc_public_martigny_bourg
 ):
     """Test the number of circulation checkins operations."""
-    label_loc_pub_martigny = (
-        f'{lib_martigny["name"]} / '
-        f'{loc_public_martigny["name"]} ({loc_public_martigny.pid})'
-    )
+    label_loc_pub_martigny = f"{lib_martigny['name']} / {loc_public_martigny['name']} ({loc_public_martigny.pid})"
     label_loc_pub_martigny_bourg = (
-        f'{lib_martigny_bourg["name"]} / '
-        f'{loc_public_martigny_bourg["name"]} '
-        f"({loc_public_martigny_bourg.pid})"
+        f"{lib_martigny_bourg['name']} / {loc_public_martigny_bourg['name']} ({loc_public_martigny_bourg.pid})"
     )
 
     # fixtures

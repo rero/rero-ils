@@ -24,9 +24,7 @@ from jsonref import JsonRefError
 
 def test_ill_requests_jsonresolver(ill_request_martigny):
     """Ill request resolver tests."""
-    rec = Record.create(
-        {"ill_request": {"$ref": "https://bib.rero.ch/api/ill_requests/illr1"}}
-    )
+    rec = Record.create({"ill_request": {"$ref": "https://bib.rero.ch/api/ill_requests/illr1"}})
     assert rec.replace_refs().get("ill_request") == {"type": "illr", "pid": "illr1"}
 
     # deleted record
@@ -35,8 +33,6 @@ def test_ill_requests_jsonresolver(ill_request_martigny):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create(
-        {"ill_request": {"$ref": "https://bib.rero.ch/api/ill_requests/n_e"}}
-    )
+    rec = Record.create({"ill_request": {"$ref": "https://bib.rero.ch/api/ill_requests/n_e"}})
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

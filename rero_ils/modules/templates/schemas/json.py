@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Marshmallow schema for JSON representation of `Template` resources."""
+
 from functools import partial
 
 from flask_babel import gettext as _
@@ -78,9 +79,7 @@ class TemplateMetadataSchemaV1(StrictKeysMixin):
         :raises ValidationError: if error has detected on visibility attribute
         """
         if data == TemplateVisibility.PUBLIC:
-            raise ValidationError(
-                _("Template can be created only with `private` visibility")
-            )
+            raise ValidationError(_("Template can be created only with `private` visibility"))
 
     @validates_schema()
     @http_applicable_method("PUT")
@@ -98,7 +97,7 @@ class TemplateMetadataSchemaV1(StrictKeysMixin):
         # Load DB record
         db_record = Template.get_record_by_pid(data.get("pid"))
         if not db_record:
-            raise ValidationError(f'Unable to load Template#{data.get("pid")}')
+            raise ValidationError(f"Unable to load Template#{data.get('pid')}")
 
         # Check if visibility of the template changed. If not, we can stop
         # the validation process.
@@ -111,6 +110,4 @@ class TemplateMetadataSchemaV1(StrictKeysMixin):
         if current_librarian:
             user_roles = set(current_librarian.get("roles", []))
         if not user_roles.intersection(allowed_roles):
-            raise ValidationError(
-                _("You are not allowed to change template visibility")
-            )
+            raise ValidationError(_("You are not allowed to change template visibility"))

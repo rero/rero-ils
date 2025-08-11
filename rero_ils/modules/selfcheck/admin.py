@@ -49,9 +49,7 @@ class SelfcheckTerminalView(ModelView):
         "last_login_ip",
     )
 
-    column_list = column_searchable_list = column_sortable_list = (
-        column_details_list
-    ) = list_all
+    column_list = column_searchable_list = column_sortable_list = column_details_list = list_all
 
     form_columns = ("name", "access_token", "location_pid", "active")
 
@@ -62,8 +60,7 @@ class SelfcheckTerminalView(ModelView):
             label="Location",
             validators=[DataRequired()],
             choices=lambda: [
-                (opts.get("location_pid"), opts.get("location_name"))
-                for opts in locations_form_options()
+                (opts.get("location_pid"), opts.get("location_name")) for opts in locations_form_options()
             ],
         ),
     )
