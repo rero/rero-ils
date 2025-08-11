@@ -37,7 +37,7 @@ from .models import OrganisationIdentifier, OrganisationMetadata
 OrganisationProvider = type(
     "OrganisationProvider",
     (Provider,),
-    dict(identifier=OrganisationIdentifier, pid_type="org"),
+    {"identifier": OrganisationIdentifier, "pid_type": "org"},
 )
 # minter
 organisation_id_minter = partial(id_minter, provider=OrganisationProvider)
@@ -108,6 +108,7 @@ class Organisation(IlsRecord):
         """
         for org in cls.get_records_by_online_harvested_source(source):
             return org
+        return None
 
     @classmethod
     def get_records_by_online_harvested_source(cls, source):

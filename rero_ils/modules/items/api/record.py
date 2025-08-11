@@ -86,14 +86,14 @@ class ItemRecord(IlsRecord):
 
         if barcode := self.get("barcode"):
             if ItemsSearch().exclude("term", pid=self.pid).filter("term", barcode=barcode).source("pid").count():
-                return _("Barcode {barcode} is already taken.".format(barcode=barcode))
+                return _(f"Barcode {barcode} is already taken.")
 
         from ...holdings.api import Holding
 
         holding_pid = extracted_data_from_ref(self.get("holding").get("$ref"))
         holding = Holding.get_record_by_pid(holding_pid)
         if not holding:
-            return _("Holding does not exist: {holding_pid}".format(holding_pid=holding_pid))
+            return _(f"Holding does not exist: {holding_pid}")
 
         if self.get("issue") and self.get("type") == TypeOfItem.STANDARD:
             return _("Standard item can not have a issue field.")
@@ -206,6 +206,7 @@ class ItemRecord(IlsRecord):
         ):
             updated_holding = holding.increment_next_prediction()
             return holding.update(data=updated_holding, dbcommit=dbcommit, reindex=reindex)
+        return None
 
     @classmethod
     def link_item_to_holding(cls, record, mode):
@@ -278,8 +279,7 @@ class ItemRecord(IlsRecord):
         # Since the barcode is a mandatory field, we set it to current
         # timestamp if not given
         data = generate_item_barcode(data=data)
-        data = cls.link_item_to_holding(data, mode)
-        return data
+        return cls.link_item_to_holding(data, mode)
 
     @classmethod
     def get_items_pid_by_holding_pid(cls, holding_pid, with_masked=True):
@@ -313,12 +313,14 @@ class ItemRecord(IlsRecord):
         """Shortcut for holding location pid of an item."""
         if holding := self.holding:
             return holding.location_pid
+        return None
 
     @property
     def holding_library_pid(self):
         """Shortcut for holding library pid of an item."""
         if holding := self.holding:
             return holding.library_pid
+        return None
 
     @property
     def document_pid(self):
@@ -418,6 +420,7 @@ class ItemRecord(IlsRecord):
         """Shortcut for item type pid."""
         if self.get("item_type"):
             return extracted_data_from_ref(self.get("item_type"))
+        return None
 
     @property
     def temporary_item_type_pid(self):
@@ -430,6 +433,7 @@ class ItemRecord(IlsRecord):
                 if now_date > end_date:
                     return None
             return extracted_data_from_ref(tmp_item_type.get("$ref"))
+        return None
 
     @property
     def item_type_circulation_category_pid(self):
@@ -457,6 +461,7 @@ class ItemRecord(IlsRecord):
 
         if self.holding_pid:
             return Holding.get_record_by_pid(self.holding_pid).circulation_category_pid
+        return None
 
     @property
     def call_numbers(self):
@@ -484,24 +489,28 @@ class ItemRecord(IlsRecord):
         """Shortcut for item location pid."""
         if self.get("location"):
             return extracted_data_from_ref(self.get("location"))
+        return None
 
     @property
     def location(self):
         """Shortcut to get item related location resource."""
         if self.get("location"):
             return extracted_data_from_ref(self.get("location"), data="record")
+        return None
 
     @property
     def library_pid(self):
         """Shortcut for item library pid."""
         if location := self.location:
             return location.library_pid
+        return None
 
     @property
     def library(self):
         """Shortcut for item library resource."""
         if location := self.location:
             return location.library
+        return None
 
     @property
     def organisation_pid(self):

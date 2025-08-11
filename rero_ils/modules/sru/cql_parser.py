@@ -422,7 +422,7 @@ class Index(PrefixedObject, ModifiableObject):
     def __init__(self, val, query):
         """Constructor."""
         PrefixedObject.__init__(self, val, query)
-        if self.value in ["(", ")"] + ORDER:
+        if self.value in ["(", ")", *ORDER]:
             diag = Diagnostic()
             diag.message = "Invalid characters in index name"
             diag.details = self.value

@@ -21,6 +21,7 @@ import csv
 import json
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from unittest.mock import MagicMock, Mock
 
 import jsonref
 import xmltodict
@@ -31,7 +32,6 @@ from invenio_circulation.api import get_loan_for_item
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
 from invenio_search import current_search
-from mock import MagicMock, Mock
 from six import StringIO
 from six.moves.urllib.parse import parse_qs, urlparse
 
@@ -53,7 +53,7 @@ from rero_ils.modules.patrons.utils import create_patron_from_data
 from rero_ils.modules.selfcheck.models import SelfcheckTerminal
 
 
-class VerifyRecordPermissionPatch(object):
+class VerifyRecordPermissionPatch:
     """Verify record permissions."""
 
     status_code = 200

@@ -18,7 +18,8 @@
 
 """Test acquisition order API."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -97,27 +98,27 @@ def test_send_order(
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=emails),
-        url_data=dict(order_pid="toto"),
+        data={"emails": emails},
+        url_data={"order_pid": "toto"},
     )
     assert res.status_code == 404
     # test when email data is not provided
-    res, data = postdata(client, "api_order.send_order", url_data=dict(order_pid=acor.pid))
+    res, data = postdata(client, "api_order.send_order", url_data={"order_pid": acor.pid})
     assert res.status_code == 400
     # test when email data provided but empty
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=[]),
-        url_data=dict(order_pid=acor.pid),
+        data={"emails": []},
+        url_data={"order_pid": acor.pid},
     )
     assert res.status_code == 400
     # test when email data provided and has no "to" email address
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=emails),
-        url_data=dict(order_pid=acor.pid),
+        data={"emails": emails},
+        url_data={"order_pid": acor.pid},
     )
     assert res.status_code == 400
     assert "required" in data["message"] and "`to`" in data["message"]
@@ -135,8 +136,8 @@ def test_send_order(
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=emails),
-        url_data=dict(order_pid=acor.pid),
+        data={"emails": emails},
+        url_data={"order_pid": acor.pid},
     )
     data = get_json(res)
     assert res.status_code == 200

@@ -47,6 +47,7 @@ def json_record_serializer_factory(import_class, serializer_type="record"):
             UIImportsSearchSerializer(ImportSchemaJSONV1, record_processor=import_class.to_json_processor),
             "application/rero+json",
         )
+    return None
 
 
 json_v1_search = ImportsSearchSerializer(ImportSchemaJSONV1)

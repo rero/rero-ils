@@ -17,8 +17,6 @@
 
 """Pytest fixtures and plugins for the API application."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime
 
@@ -57,12 +55,12 @@ def user_with_profile(db, default_user_password):
             active=True,
         )
         db.session.add(user)
-        profile = dict(
-            birth_date=datetime(1990, 1, 1),
-            first_name="User",
-            last_name="With Profile",
-            city="Nowhere",
-        )
+        profile = {
+            "birth_date": datetime(1990, 1, 1),
+            "first_name": "User",
+            "last_name": "With Profile",
+            "city": "Nowhere",
+        }
         profile.username = "user_with_profile"
         user.user_profile = profile
         db.session.merge(user)

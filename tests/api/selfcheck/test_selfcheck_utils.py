@@ -18,8 +18,6 @@
 
 """Tests Selfcheck api."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.selfcheck.utils import map_item_circulation_status, map_media_type
 
@@ -27,22 +25,22 @@ from rero_ils.modules.selfcheck.utils import map_item_circulation_status, map_me
 def test_media_type(client):
     """Test invenio-sip2 media type mapping."""
     # TODO: test all document types
-    assert "BOOK" == map_media_type("docmaintype_book")
-    assert "MAGAZINE" == map_media_type("docmaintype_article")
-    assert "MAGAZINE" == map_media_type("docmaintype_serial")
-    assert "BOUND_JOURNAL" == map_media_type("docmaintype_series")
-    assert "AUDIO" == map_media_type("docmaintype_audio")
-    assert "VIDEO" == map_media_type("docmaintype_movie_series")
+    assert map_media_type("docmaintype_book") == "BOOK"
+    assert map_media_type("docmaintype_article") == "MAGAZINE"
+    assert map_media_type("docmaintype_serial") == "MAGAZINE"
+    assert map_media_type("docmaintype_series") == "BOUND_JOURNAL"
+    assert map_media_type("docmaintype_audio") == "AUDIO"
+    assert map_media_type("docmaintype_movie_series") == "VIDEO"
 
 
 def test_circulation_status():
     """Test invenio-sip2 item circultation status mapping."""
-    assert "AVAILABLE" == map_item_circulation_status(ItemStatus.ON_SHELF)
-    assert "WAITING_ON_HOLD_SHELF" == map_item_circulation_status(ItemStatus.AT_DESK)
-    assert "CHARGED" == map_item_circulation_status(ItemStatus.ON_LOAN)
-    assert "IN_TRANSIT" == map_item_circulation_status(ItemStatus.IN_TRANSIT)
-    assert "MISSING" == map_item_circulation_status(ItemStatus.MISSING)
-    assert "OTHER" == map_item_circulation_status(ItemStatus.EXCLUDED)
-    assert "OTHER" == map_item_circulation_status(ItemIssueStatus.RECEIVED)
-    assert "OTHER" == map_item_circulation_status(ItemIssueStatus.DELETED)
-    assert "OTHER" == map_item_circulation_status(ItemIssueStatus.LATE)
+    assert map_item_circulation_status(ItemStatus.ON_SHELF) == "AVAILABLE"
+    assert map_item_circulation_status(ItemStatus.AT_DESK) == "WAITING_ON_HOLD_SHELF"
+    assert map_item_circulation_status(ItemStatus.ON_LOAN) == "CHARGED"
+    assert map_item_circulation_status(ItemStatus.IN_TRANSIT) == "IN_TRANSIT"
+    assert map_item_circulation_status(ItemStatus.MISSING) == "MISSING"
+    assert map_item_circulation_status(ItemStatus.EXCLUDED) == "OTHER"
+    assert map_item_circulation_status(ItemIssueStatus.RECEIVED) == "OTHER"
+    assert map_item_circulation_status(ItemIssueStatus.DELETED) == "OTHER"
+    assert map_item_circulation_status(ItemIssueStatus.LATE) == "OTHER"

@@ -17,8 +17,6 @@
 
 """Celery tasks for holdings records."""
 
-from __future__ import absolute_import, print_function
-
 from celery import shared_task
 from flask import current_app
 
@@ -31,7 +29,7 @@ def delete_standard_holdings_having_no_items():
     """Removes standard holdings records with no attached items."""
     es_query = HoldingsSearch().filter("term", holdings_type="standard").filter("term", items_count=0).source("pid")
 
-    search_results = [hit for hit in es_query.scan()]
+    search_results = list(es_query.scan())
     count = len(search_results)
     deleted = 0
     errors = 0

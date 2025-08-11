@@ -18,7 +18,8 @@
 
 """Stats Pricing tests."""
 
-import mock
+from unittest import mock
+
 from arrow import utcnow
 from dateutil.relativedelta import relativedelta
 from invenio_db import db
@@ -32,29 +33,27 @@ from rero_ils.modules.stats.api.pricing import StatsForPricing
 def test_stats_pricing_collect(stat_for_pricing):
     """Test the stat pricing collect keys."""
 
-    assert set(stat_for_pricing.collect()[0].keys()) == set(
-        [
-            "library",
-            "number_of_docs_with_files",
-            "number_of_files",
-            "files_volume",
-            "number_of_documents",
-            "number_of_libraries",
-            "number_of_librarians",
-            "number_of_active_patrons",
-            "number_of_order_lines",
-            "number_of_checkouts",
-            "number_of_renewals",
-            "number_of_ill_requests",
-            "number_of_items",
-            "number_of_new_items",
-            "number_of_deleted_items",
-            "number_of_patrons",
-            "number_of_new_patrons",
-            "number_of_checkins",
-            "number_of_requests",
-        ]
-    )
+    assert set(stat_for_pricing.collect()[0].keys()) == {
+        "library",
+        "number_of_docs_with_files",
+        "number_of_files",
+        "files_volume",
+        "number_of_documents",
+        "number_of_libraries",
+        "number_of_librarians",
+        "number_of_active_patrons",
+        "number_of_order_lines",
+        "number_of_checkouts",
+        "number_of_renewals",
+        "number_of_ill_requests",
+        "number_of_items",
+        "number_of_new_items",
+        "number_of_deleted_items",
+        "number_of_patrons",
+        "number_of_new_patrons",
+        "number_of_checkins",
+        "number_of_requests",
+    }
 
 
 def test_stats_pricing_number_of_documents(stat_for_pricing, item_lib_martigny):

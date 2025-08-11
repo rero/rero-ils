@@ -114,7 +114,7 @@ def get_allowed_roles_management():
     """
     allowed_roles = []
     if current_librarian:
-        allowed_roles += [UserRole.PATRON] + UserRole.LIBRARIAN_ROLES
+        allowed_roles += [UserRole.PATRON, *UserRole.LIBRARIAN_ROLES]
         if current_librarian.has_full_permissions:
             allowed_roles += [UserRole.FULL_PERMISSIONS]
     return allowed_roles

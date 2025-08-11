@@ -39,6 +39,7 @@ def http_applicable_method(*http_methods):
         def wrapper(*args, **kwargs):
             if request.method in http_methods:
                 return func(*args, **kwargs)
+            return None
 
         return wrapper
 

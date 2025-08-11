@@ -300,21 +300,21 @@ class Collector:
             checkout_agg = A(
                 "filter",
                 term={"loan.trigger": ItemCirculationAction.CHECKOUT},
-                aggs=dict(
-                    item_pid=A(
+                aggs={
+                    "item_pid": A(
                         "terms",
                         field="loan.item.pid",
                         size=chunk_size,
-                        aggs=dict(last_op=A("max", field="date")),
+                        aggs={"last_op": A("max", field="date")},
                     )
-                ),
+                },
             )
             query.aggs.bucket("checkout", checkout_agg)
             # adds renewal aggregation
             renewal_agg = A(
                 "filter",
                 term={"loan.trigger": ItemCirculationAction.EXTEND},
-                aggs=dict(item_pid=A("terms", size=chunk_size, field="loan.item.pid")),
+                aggs={"item_pid": A("terms", size=chunk_size, field="loan.item.pid")},
             )
             query.aggs.bucket("renewal", renewal_agg)
             # adds last transaction aggregation for the fours triggers below.
@@ -326,14 +326,14 @@ class Collector:
             loans_agg = A(
                 "filter",
                 terms={"loan.trigger": triggers},
-                aggs=dict(
-                    item_pid=A(
+                aggs={
+                    "item_pid": A(
                         "terms",
                         field="loan.item.pid",
                         size=chunk_size,
-                        aggs=dict(last_op=A("max", field="date")),
+                        aggs={"last_op": A("max", field="date")},
                     )
-                ),
+                },
             )
             query.aggs.bucket("loans", loans_agg)
             # query execution

@@ -18,7 +18,8 @@
 
 """Stats Librarian tests."""
 
-import mock
+from unittest import mock
+
 from invenio_db import db
 
 from rero_ils.modules.documents.api import Document

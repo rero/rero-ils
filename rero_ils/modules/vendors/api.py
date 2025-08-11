@@ -31,7 +31,7 @@ from rero_ils.modules.utils import sorted_pids
 from .models import VendorContactType, VendorIdentifier, VendorMetadata
 
 # provider
-VendorProvider = type("VendorProvider", (Provider,), dict(identifier=VendorIdentifier, pid_type="vndr"))
+VendorProvider = type("VendorProvider", (Provider,), {"identifier": VendorIdentifier, "pid_type": "vndr"})
 # minter
 vendor_id_minter = partial(id_minter, provider=VendorProvider)
 # fetcher
@@ -89,6 +89,7 @@ class Vendor(IlsRecord):
         for contact in self.get("contacts", []):
             if contact["type"] == contact_type:
                 return contact
+        return None
 
     @property
     def order_email(self):

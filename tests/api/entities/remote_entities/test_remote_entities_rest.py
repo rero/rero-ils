@@ -18,7 +18,8 @@
 
 """Tests `Entity` resource REST API."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 
 from rero_ils.modules.entities.dumpers import indexer_dumper

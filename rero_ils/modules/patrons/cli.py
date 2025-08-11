@@ -17,8 +17,6 @@
 
 """Click command-line interface for record management."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import os
 import sys
@@ -82,12 +80,7 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error, de
         "country",
         "email",
     ]
-    if lazy:
-        # try to lazy read json file (slower, better memory management)
-        data = read_json_record(infile)
-    else:
-        # load everything in memory (faster, bad memory management)
-        data = json.load(infile)
+    data = read_json_record(infile) if lazy else json.load(infile)
     pids = []
     error_records = []
     for count, patron_data in enumerate(data, 1):
@@ -187,8 +180,7 @@ def users_validate(jsonfile, verbose, debug):
                 username = data.get("username")
                 if username in librarien_roles_users:
                     raise ValidationError("Multiple librarian roles")
-                else:
-                    librarien_roles_users[username] = 1
+                librarien_roles_users[username] = 1
 
             birth_date = data.get("birth_date")
             if birth_date[0] == "0":

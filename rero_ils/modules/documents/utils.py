@@ -17,8 +17,6 @@
 
 """Documents utils."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import re
 
@@ -45,7 +43,7 @@ def get_document_types_from_schema(schema="doc"):
     for schema_type in schema_types:
         schema_title = schema_type["title"]
         sub_types = schema_type.get("properties", {}).get("subtype", {}).get("enum", [])
-        doc_types[schema_title] = {sub_type: True for sub_type in sub_types}
+        doc_types[schema_title] = dict.fromkeys(sub_types, True)
     return doc_types
 
 
@@ -323,3 +321,4 @@ def get_remote_cover(isbn):
     if result["success"]:
         return result
     current_app.logger.debug(f"Unable to get cover for isbn: {isbn}")
+    return None

@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 import json
 from functools import wraps
 
@@ -59,7 +57,7 @@ def check_user_permission(fn):
         """Decorated view."""
         if not current_user.is_authenticated:
             abort(401)
-        if not current_librarian and str(current_user.id) != kwargs.get("id", None):
+        if not current_librarian and str(current_user.id) != kwargs.get("id"):
             abort(403)
         return fn(*args, **kwargs)
 

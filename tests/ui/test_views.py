@@ -17,8 +17,6 @@
 
 """Views tests."""
 
-from __future__ import absolute_import, print_function
-
 import pytest
 from flask import session, url_for
 from flask_login import login_user, logout_user
@@ -32,7 +30,7 @@ from tests.utils import postdata
 
 def test_nl2br():
     """Test nl2br function view."""
-    assert "foo<br>Bar" == nl2br("foo\nBar")
+    assert nl2br("foo\nBar") == "foo<br>Bar"
 
 
 def test_error(client):
@@ -119,18 +117,18 @@ def test_help(client):
 
 def test_language(client, app):
     """Test the language endpoint."""
-    res, data = postdata(client, "rero_ils.set_language", dict(lang="fr"))
+    res, data = postdata(client, "rero_ils.set_language", {"lang": "fr"})
     assert session[app.config["I18N_SESSION_KEY"]] == "fr"
-    assert data == dict(lang="fr")
+    assert data == {"lang": "fr"}
     assert res.status_code == 200
 
-    res, data = postdata(client, "rero_ils.set_language", dict(lang="it"))
+    res, data = postdata(client, "rero_ils.set_language", {"lang": "it"})
     assert session[app.config["I18N_SESSION_KEY"]] == "it"
 
-    res, data = postdata(client, "rero_ils.set_language", dict(language="fr"))
+    res, data = postdata(client, "rero_ils.set_language", {"language": "fr"})
     assert res.status_code == 400
 
-    res, data = postdata(client, "rero_ils.set_language", dict(lang="foo"))
+    res, data = postdata(client, "rero_ils.set_language", {"lang": "foo"})
     assert res.status_code == 400
 
     # session is unchanged

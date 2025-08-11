@@ -18,8 +18,6 @@
 
 """API for manipulating patron types."""
 
-from __future__ import absolute_import, print_function
-
 from functools import partial
 
 from elasticsearch_dsl import Q
@@ -41,7 +39,7 @@ from .models import PatronTypeIdentifier, PatronTypeMetadata
 PatronTypeProvider = type(
     "PatronTypeProvider",
     (Provider,),
-    dict(identifier=PatronTypeIdentifier, pid_type="ptty"),
+    {"identifier": PatronTypeIdentifier, "pid_type": "ptty"},
 )
 # minter
 patron_type_id_minter = partial(id_minter, provider=PatronTypeProvider)

@@ -27,9 +27,9 @@ from .replace_refs import ReplaceRefsContributionsDumper, ReplaceRefsEntitiesDum
 from .title import TitleDumper
 
 __all__ = (
-    "TitleDumper",
     "ReplaceRefsContributionsDumper",
     "ReplaceRefsEntitiesDumper",
+    "TitleDumper",
 )
 
 # replace linked data

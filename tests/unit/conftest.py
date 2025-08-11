@@ -17,8 +17,6 @@
 
 """Pytest configuration."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime, timezone
 
@@ -344,7 +342,6 @@ def mef_record_with_idref_rero_data():
         "sources": ["rero", "idref"],
         "type": "bf:Person",
         "viaf_pid": "37141584",
-        "type": "bf:Person",
     }
 
 

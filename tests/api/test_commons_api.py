@@ -18,7 +18,8 @@
 
 """Tests Commons RERO-ILS REST API."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 from flask_principal import Identity, RoleNeed
 from invenio_access import ActionUsers, Permission
@@ -37,7 +38,7 @@ from tests.utils import get_json, mock_response, postdata
 def test_librarian_delete_permission_factory(client, librarian_fully, org_martigny, lib_martigny):
     """Test librarian_delete_permission_factory"""
     login_user_via_session(client, librarian_fully.user)
-    assert type(librarian_delete_permission_factory(None, credentials_only=True)) == Permission
+    assert isinstance(librarian_delete_permission_factory(None, credentials_only=True), Permission)
     assert librarian_delete_permission_factory(org_martigny) is not None
 
 
@@ -93,7 +94,7 @@ def test_permission_exposition(app, db, client, system_librarian_martigny):
     assert len(data) == len(app.extensions["invenio-access"].actions)
 
     # system librarian should access to 'can-use-debug-mode'
-    perm = [p for p in data if p["name"] == can_use_debug_mode.value][0]
+    perm = next(p for p in data if p["name"] == can_use_debug_mode.value)
     assert perm["can"]
     # add a restriction specific for this user
     db.session.add(ActionUsers.deny(can_use_debug_mode, user_id=system_librarian_martigny.user.id))
@@ -106,7 +107,7 @@ def test_permission_exposition(app, db, client, system_librarian_martigny):
     )
     data = get_json(res)
     assert res.status_code == 200
-    perm = [p for p in data if p["name"] == can_use_debug_mode.value][0]
+    perm = next(p for p in data if p["name"] == can_use_debug_mode.value)
     assert not perm["can"]
     # reset DB
     ActionUsers.query_by_action(can_use_debug_mode).filter(
@@ -133,10 +134,10 @@ def test_permission_management(client, system_librarian_martigny):
     res, data = postdata(
         client,
         "api_blueprint.permission_management",
-        dict(
-            context=PermissionContext.BY_ROLE,
-            permission=budget_search_action.value,
-        ),
+        {
+            "context": PermissionContext.BY_ROLE,
+            "permission": budget_search_action.value,
+        },
     )
     assert res.status_code == 400
     assert "role_name" in data["message"]
@@ -144,29 +145,29 @@ def test_permission_management(client, system_librarian_martigny):
     res, data = postdata(
         client,
         "api_blueprint.permission_management",
-        dict(context=PermissionContext.BY_USER, permission=budget_search_action.value),
+        {"context": PermissionContext.BY_USER, "permission": budget_search_action.value},
     )
     assert res.status_code == 501
 
     res, data = postdata(
         client,
         "api_blueprint.permission_management",
-        dict(
-            context=PermissionContext.BY_ROLE,
-            permission="unknown-permission",
-            role_name=UserRole.PROFESSIONAL_READ_ONLY,
-        ),
+        {
+            "context": PermissionContext.BY_ROLE,
+            "permission": "unknown-permission",
+            "role_name": UserRole.PROFESSIONAL_READ_ONLY,
+        },
     )
     assert res.status_code == 400
     assert "not found" in data["message"]
     res, data = postdata(
         client,
         "api_blueprint.permission_management",
-        dict(
-            context=PermissionContext.BY_ROLE,
-            permission=budget_search_action.value,
-            role_name="dummy-role",
-        ),
+        {
+            "context": PermissionContext.BY_ROLE,
+            "permission": budget_search_action.value,
+            "role_name": "dummy-role",
+        },
     )
     assert res.status_code == 400
     assert "not found" in data["message"]
@@ -181,11 +182,11 @@ def test_permission_management(client, system_librarian_martigny):
     assert fake_identity.can(permission)
 
     perm_url = url_for("api_blueprint.permission_management")
-    perm_data = dict(
-        context=PermissionContext.BY_ROLE,
-        permission=budget_search_action.value,
-        role_name=UserRole.PROFESSIONAL_READ_ONLY,
-    )
+    perm_data = {
+        "context": PermissionContext.BY_ROLE,
+        "permission": budget_search_action.value,
+        "role_name": UserRole.PROFESSIONAL_READ_ONLY,
+    }
     res = client.delete(perm_url, json=perm_data)
     assert res.status_code == 204
     assert not fake_identity.can(permission)

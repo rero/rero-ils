@@ -378,7 +378,7 @@ def marc21_to_series(self, key, value):
                 series["seriesEnumeration"] = [{"value": "/".join(parts)}]
             self["seriesStatement"] = self.get("seriesStatement", [])
             self["seriesStatement"].append(series)
-    return None
+    return
 
 
 @marc21.over("tableOfContents", "^505..")
@@ -510,6 +510,7 @@ def marc21_to_notes_and_original_title_504(self, key, value):
     """Get notes and original title."""
     if value.get("a"):
         return utils.force_list(value.get("a"))[0]
+    return None
 
 
 @marc21.over("subjects", "^(600|610|611|630|650|651|655)..")
@@ -610,7 +611,7 @@ def marc21_to_subjects_6XX(self, key, value):
             if identifier := build_identifier(value):
                 subject["identifiedBy"] = identifier
         if subject.get("authorized_access_point") or subject.get("$ref"):
-            self.setdefault(field_key, []).append(dict(entity=subject))
+            self.setdefault(field_key, []).append({"entity": subject})
     elif indicator_2 in ["0", "2"]:
         if term_string := build_string_from_subfields(value, "abcdefghijklmnopqrstuw", " - "):
             data = {
@@ -620,7 +621,7 @@ def marc21_to_subjects_6XX(self, key, value):
             }
             perform_subdivisions(data, value)
             if data:
-                self.setdefault(field_key, []).append(dict(entity=data))
+                self.setdefault(field_key, []).append({"entity": data})
 
 
 @marc21.over("sequence_numbering", "^362..")

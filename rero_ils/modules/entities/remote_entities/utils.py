@@ -18,8 +18,6 @@
 
 """Entities utilities."""
 
-from __future__ import absolute_import, print_function
-
 from flask import current_app
 from requests import RequestException
 from requests import codes as requests_codes

@@ -17,7 +17,8 @@
 
 """Tests Form for users."""
 
-import mock
+from unittest import mock
+
 from bs4 import BeautifulSoup
 from flask import url_for
 
@@ -28,14 +29,14 @@ def test_register_form(client, app):
     res = client.post(url_for("security.register"), data=form_data)
     soup = BeautifulSoup(res.data, "html.parser")
     el = soup.find("div", {"class": "alert-danger"}).find("p")
-    assert "Field must be at least 8 characters long." == el.text
+    assert el.text == "Field must be at least 8 characters long."
 
     app.config["RERO_ILS_PASSWORD_MIN_LENGTH"] = 10
     form_data = {"email": "foo@bar.com", "password": "123", "password_confirm": "123"}
     res = client.post(url_for("security.register"), data=form_data)
     soup = BeautifulSoup(res.data, "html.parser")
     el = soup.find("div", {"class": "alert-danger"}).find("p")
-    assert "Field must be at least 10 characters long." == el.text
+    assert el.text == "Field must be at least 10 characters long."
 
     app.config["RERO_ILS_PASSWORD_MIN_LENGTH"] = 8
     form_data = {
@@ -117,7 +118,7 @@ def test_reset_password_form(client, app):
     res = client.post(url_for("security.reset_password", token="123ab"), data=form_data)
     soup = BeautifulSoup(res.data, "html.parser")
     el = soup.find("div", {"class": "text-danger"}).find("p")
-    assert "Field must be at least 8 characters long." == el.text
+    assert el.text == "Field must be at least 8 characters long."
 
     form_data = {
         "email": "foo@bar.com",

@@ -44,7 +44,7 @@ class OperationLogFactory:
         :param record: the observed record.
         :return a dict with additional informations.
         """
-        return None
+        return
 
     def _build_operation_log(self, record, operation):
         """Build the operation log dict based on record.
@@ -183,7 +183,7 @@ class ResolveRefsExtension(RecordExtension):
             if isinstance(v, dict):
                 if v.get("$ref"):
                     if _type := self.mod_type.get(extracted_data_from_ref(v, data="resource")):
-                        resolved = dict(pid=extracted_data_from_ref(v), type=_type)
+                        resolved = {"pid": extracted_data_from_ref(v), "type": _type}
                         record[k] = resolved
                 else:
                     self._resolve_refs(v)

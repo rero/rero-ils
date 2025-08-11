@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from flask import current_app
 from flask import request as flask_request
 from invenio_rest import ContentNegotiatedMethodView

@@ -77,7 +77,7 @@ def test_request_library_limit(
     res, data = postdata(
         client,
         "api_item.patron_request",
-        dict(item_pid=item1.pid, pickup_location_pid=loc_public_martigny.pid),
+        {"item_pid": item1.pid, "pickup_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 200
     loan1_pid = data.get("action_applied")[LoanAction.REQUEST].get("pid")
@@ -87,7 +87,7 @@ def test_request_library_limit(
     res, data = postdata(
         client,
         "api_item.patron_request",
-        dict(item_pid=item2.pid, pickup_location_pid=loc_public_martigny.pid),
+        {"item_pid": item2.pid, "pickup_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 403
     assert "Maximum number of requests for this library reached" in data["message"]
@@ -106,14 +106,14 @@ def test_request_library_limit(
     res, data = postdata(
         client,
         "api_item.patron_request",
-        dict(item_pid=item2.pid, pickup_location_pid=loc_public_martigny.pid),
+        {"item_pid": item2.pid, "pickup_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 200
     loan2_pid = data.get("action_applied")[LoanAction.REQUEST].get("pid")
     res, data = postdata(
         client,
         "api_item.patron_request",
-        dict(item_pid=item3.pid, pickup_location_pid=loc_public_martigny.pid),
+        {"item_pid": item3.pid, "pickup_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 403
     assert "Maximum number of requests for this library reached" in data["message"]
@@ -126,7 +126,7 @@ def test_request_library_limit(
     res, data = postdata(
         client,
         "api_item.patron_request",
-        dict(item_pid=item3.pid, pickup_location_pid=loc_public_martigny.pid),
+        {"item_pid": item3.pid, "pickup_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 403
     assert "Maximum number of requests reached" in data["message"]
@@ -137,7 +137,7 @@ def test_request_library_limit(
     res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)
-    assert "error" == data["messages"][0]["type"]
+    assert data["messages"][0]["type"] == "error"
     assert "Maximum number of requests reached" in data["messages"][0]["content"]
 
     # validate one of the requests to change its status
@@ -145,23 +145,23 @@ def test_request_library_limit(
     res, data = postdata(
         client,
         "api_item.validate_request",
-        dict(
-            pid=loan1_pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "pid": loan1_pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item3.pid,
-            patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item3.pid,
+            "patron_pid": patron_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "Maximum number of requests reached" in data["message"]
@@ -171,12 +171,12 @@ def test_request_library_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item1.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item1.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert data.get("action_applied")[LoanAction.CHECKOUT].get("pid") == loan1_pid
@@ -184,13 +184,13 @@ def test_request_library_limit(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item3.pid,
-            patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item3.pid,
+            "patron_pid": patron_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan3_pid = data.get("action_applied")[LoanAction.REQUEST].get("pid")
@@ -203,32 +203,32 @@ def test_request_library_limit(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item3.pid,
-            pid=loan1_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item3.pid,
+            "pid": loan1_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     res, data = postdata(
         client,
         "api_item.cancel_item_request",
-        dict(
-            pid=loan2_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "pid": loan2_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     res, data = postdata(
         client,
         "api_item.cancel_item_request",
-        dict(
-            pid=loan3_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "pid": loan3_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     del patron_type["limits"]

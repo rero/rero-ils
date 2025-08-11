@@ -18,8 +18,8 @@
 """Tests REST API holdings."""
 
 import json
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -36,7 +36,7 @@ def test_holding_can_delete_and_utils(client, holding_lib_martigny, document, it
     assert holding_lib_martigny.document_pid == document.pid
     assert holding_lib_martigny.circulation_category_pid == item_type_standard_martigny.pid
     assert Holding.get_document_pid_by_holding_pid(holding_lib_martigny.pid) == document.pid
-    assert list(Holding.get_holdings_pid_by_document_pid(document.pid))[0] == holding_lib_martigny.pid
+    assert next(iter(Holding.get_holdings_pid_by_document_pid(document.pid))) == holding_lib_martigny.pid
 
 
 @mock.patch(

@@ -75,5 +75,4 @@ class ReplaceRefsDumper(InvenioRecordsDumper):
         """
         from copy import deepcopy
 
-        data = deepcopy(_records_state.replace_refs(data))
-        return data
+        return deepcopy(_records_state.replace_refs(data))

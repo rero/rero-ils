@@ -34,7 +34,7 @@ from ..logger import create_logger
 from .api import RemoteEntity
 
 
-class ReplaceIdentifiedBy(object):
+class ReplaceIdentifiedBy:
     """Entity replace identifiedBy with $ref.
 
     Usage example:
@@ -105,7 +105,7 @@ class ReplaceIdentifiedBy(object):
         """
         if source in ("idref", "gnd"):
             return source, mef_data[source]["pid"]
-        elif source == "rero":
+        if source == "rero":
             for new_source in ("idref", "gnd"):
                 if source_data := mef_data.get(new_source):
                     return new_source, source_data["pid"]
@@ -223,6 +223,7 @@ class ReplaceIdentifiedBy(object):
                     self.logger.error(f'Error document:{doc.pid} {entity} {err}"')
             if changed:
                 return doc
+        return None
 
     def _error_count(self, counter_dict):
         """Summ of error count."""

@@ -18,8 +18,6 @@
 
 """Click command-line utilities."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import sys
 
@@ -60,11 +58,6 @@ def connect_queue(connection, name):
     else:
         queue = current_app.config["INDEXER_MQ_QUEUE"]
     return queue(connection)
-
-
-@click.group()
-def index():
-    """Index management commands."""
 
 
 @index.command()
@@ -338,18 +331,18 @@ def update_mapping(aliases, settings):
     if not aliases:
         aliases = current_search.aliases.keys()
     for alias in aliases:
-        for index, f_mapping in iter(current_search.aliases.get(alias).items()):
+        for idx, f_mapping in iter(current_search.aliases.get(alias).items()):
             mapping = json.load(open(f_mapping))
             try:
                 if mapping.get("settings") and settings:
-                    current_search_client.indices.close(index=index)
-                    current_search_client.indices.put_settings(body=mapping.get("settings"), index=index)
-                    current_search_client.indices.open(index=index)
-                res = current_search_client.indices.put_mapping(body=mapping.get("mappings"), index=index)
+                    current_search_client.indices.close(index=idx)
+                    current_search_client.indices.put_settings(body=mapping.get("settings"), index=idx)
+                    current_search_client.indices.open(index=idx)
+                res = current_search_client.indices.put_mapping(body=mapping.get("mappings"), index=idx)
             except Exception as excep:
                 click.secho(f"error: {excep}", fg="red")
             if res.get("acknowledged"):
-                click.secho(f"index: {index} has been sucessfully updated", fg="green")
+                click.secho(f"index: {idx} has been sucessfully updated", fg="green")
             else:
                 click.secho(f"error: {res}", fg="red")
 

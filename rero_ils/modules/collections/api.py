@@ -33,7 +33,7 @@ from .models import CollectionIdentifier, CollectionMetadata
 CollectionProvider = type(
     "CollectionProvider",
     (Provider,),
-    dict(identifier=CollectionIdentifier, pid_type="coll"),
+    {"identifier": CollectionIdentifier, "pid_type": "coll"},
 )
 # minter
 collection_id_minter = partial(id_minter, provider=CollectionProvider)

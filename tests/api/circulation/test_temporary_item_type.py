@@ -86,12 +86,12 @@ def test_checkout_temporary_item_type(
 
     # try a checkout and check the transaction end_date is related to the cipo
     # corresponding to the temporary item_type
-    params = dict(
-        item_pid=item.pid,
-        patron_pid=patron_martigny.pid,
-        transaction_user_pid=librarian_martigny.pid,
-        transaction_location_pid=loc_public_martigny.pid,
-    )
+    params = {
+        "item_pid": item.pid,
+        "patron_pid": patron_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+        "transaction_location_pid": loc_public_martigny.pid,
+    }
     res, data = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
     transaction_end_date = data["action_applied"]["checkout"]["end_date"]

@@ -116,6 +116,7 @@ def json_to_contributors(self, key, value):
         contributors.append(result)
         # save contributors directly into self
         self["contributors"] = contributors
+    return None
 
 
 @dublincore.over("descriptions", "^(summary|note|dissertation|supplementaryContent)")
@@ -179,8 +180,7 @@ def json_to_types(self, key, value):
     main_type = value.get("main_type")
     if subtype_type := value.get("subtype"):
         return " / ".join([_(main_type), _(subtype_type)])
-    else:
-        return _(main_type)
+    return _(main_type)
 
 
 @dublincore.over("identifiers", "^identifiedBy")
@@ -207,6 +207,7 @@ def json_to_relations(self, key, value):
         return label
     if titles := [title["_text"] for title in value.get("title", [])]:
         return ", ".join(titles)
+    return None
 
 
 @dublincore.over("subjects", "^subjects")

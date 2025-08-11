@@ -43,6 +43,7 @@ def get_patron_pid_by_email(email):
     query = PatronsSearch().filter("term", email=email).source(["pid"])
     if hit := next(query.scan(), None):
         return hit.pid
+    return None
 
 
 def validate_role_changes(user, changes, raise_exc=True):
@@ -68,8 +69,7 @@ def validate_role_changes(user, changes, raise_exc=True):
         if raise_exc:
             error_roles = ", ".join(role_diffs)
             raise ValidationError(f"Unable to manage role(s): {error_roles}")
-        else:
-            return False
+        return False
     # No problems were detected
     return True
 

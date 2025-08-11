@@ -17,7 +17,8 @@
 
 """Tests Serializers."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 
 from rero_ils.modules.loans.models import LoanState

@@ -48,7 +48,7 @@ def upgrade():
         .filter("bool", must_not=[Q("exists", field="checkout_location_pid")])
         .source(["pid", "transaction_location_pid"])
     )
-    loans_hits = [hit for hit in query.scan()]
+    loans_hits = list(query.scan())
     ids = []
     for hit in loans_hits:
         loan = Loan.get_record_by_pid(hit.pid)
@@ -63,7 +63,7 @@ def upgrade():
 def downgrade():
     """Downgrade Loan records removing `checkout_location_pid` field."""
     query = current_circulation.loan_search_cls().filter("exists", field="checkout_location_pid").source("pid")
-    loans_hits = [hit for hit in query.scan()]
+    loans_hits = list(query.scan())
     ids = []
     for hit in loans_hits:
         loan = Loan.get_record_by_pid(hit.pid)

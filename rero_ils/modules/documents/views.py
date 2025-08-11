@@ -18,8 +18,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from typing import Optional
 
 import click
@@ -35,11 +33,6 @@ from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import current_patrons
 from rero_ils.modules.utils import extracted_data_from_ref
 
-from ..entities.api import Entity
-from ..locations.api import Location
-from ..organisations.api import Organisation
-from ..patrons.api import current_patrons
-from ..utils import extracted_data_from_ref
 from .api import Document
 from .dumpers import document_indexer_dumper
 from .extensions import (
@@ -323,6 +316,7 @@ def get_cover_art(record, save_cover_url=True, verbose=False):
                 if verbose:
                     click.echo(msg)
             return url
+    return None
 
 
 @blueprint.app_template_filter()
@@ -417,6 +411,7 @@ def document_main_type(record, translate: bool = True) -> Optional[str]:
     if "type" in record:
         doc_type = record["type"][0]["main_type"]
         return _(doc_type) if translate else doc_type
+    return None
 
 
 @blueprint.app_template_filter()
@@ -452,7 +447,7 @@ def record_library_pickup_locations(record):
                 Location.get_record_by_pid(location_pid) for location_pid in list(library.get_pickup_locations_pids())
             )
     return sorted(
-        list(filter(None, pickup_locations)),
+        filter(None, pickup_locations),
         key=lambda location: location.get("pickup_name", location.get("code")),
     )
 

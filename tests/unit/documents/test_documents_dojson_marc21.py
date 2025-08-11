@@ -17,12 +17,10 @@
 
 """DOJSON transformation for RERO MARC21 module tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime, timezone
+from unittest import mock
 
-import mock
 from dojson.utils import GroupableOrderedDict
 
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21

@@ -18,12 +18,9 @@
 
 """Entities Record tests."""
 
-from __future__ import absolute_import, print_function
-
 import tempfile
 from copy import deepcopy
-
-import mock
+from unittest import mock
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.remote_entities.api import (
@@ -119,13 +116,13 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
     # nothing touched as it is up-to-date
     assert (0, 0, set()) == sync_entity.sync(f"{pers.pid}")
     # nothing removed
-    assert (0, []) == sync_entity.remove_unused(f"{pers.pid}")
+    assert sync_entity.remove_unused(f"{pers.pid}") == (0, [])
 
     # === MEF metadata has been changed
     data = deepcopy(entity_person_data_tmp)
     data["idref"]["authorized_access_point"] = "foo"
     sync_entity._get_latest = mock.MagicMock(return_value=data)
-    mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
+    mock_resp = {"hits": {"hits": [{"id": data["pid"], "metadata": data}]}}
     mock_get.return_value = mock_response(json_data=mock_resp)
     assert DocumentsSearch().query("term", contribution__entity__authorized_access_point_fr="foo").count() == 0
     # synchronization the same document has been updated 3 times, one MEF
@@ -137,7 +134,7 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
     assert RemoteEntity.get_record_by_pid(pers.pid)["idref"]["authorized_access_point"] == "foo"
     assert DocumentsSearch().query("term", contribution__entity__authorized_access_point_fr="foo").count()
     # nothing has been removed as only metadata has been changed
-    assert (0, []) == sync_entity.remove_unused(f"{pers.pid}")
+    assert sync_entity.remove_unused(f"{pers.pid}") == (0, [])
 
     # === a new MEF exists with the same content
     data = deepcopy(entity_person_data_tmp)
@@ -145,7 +142,7 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
     data["pid"] = "foo_mef"
     # mock MEF services
     sync_entity._get_latest = mock.MagicMock(return_value=data)
-    mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
+    mock_resp = {"hits": {"hits": [{"id": data["pid"], "metadata": data}]}}
     mock_get.return_value = mock_response(json_data=mock_resp)
 
     # synchronization the same document has been updated 3 times, one MEF
@@ -158,7 +155,7 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
     db_agent = Document.get_record_by_pid(doc.pid).get("contribution")[0]["entity"]
     assert db_agent["pid"] == "foo_mef"
     # the old MEF has been removed
-    assert (1, []) == sync_entity.remove_unused(f"{pers.pid}")
+    assert sync_entity.remove_unused(f"{pers.pid}") == (1, [])
     # should not exists anymore
     assert not RemoteEntity.get_record_by_pid(pers.pid)
 
@@ -170,7 +167,7 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
     data["idref"]["pid"] = "foo_idref"
     # mock MEF services
     sync_entity._get_latest = mock.MagicMock(return_value=data)
-    mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
+    mock_resp = {"hits": {"hits": [{"id": data["pid"], "metadata": data}]}}
     mock_get.return_value = mock_response(json_data=mock_resp)
 
     # synchronization the same document has been updated 3 times,
@@ -192,7 +189,7 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
     DocumentsSearch.flush_and_refresh()
 
     # the MEF record can be removed
-    assert (1, []) == sync_entity.remove_unused()
+    assert sync_entity.remove_unused() == (1, [])
     # should not exists anymore
     assert not RemoteEntity.get_record_by_pid("foo_mef")
 
@@ -225,13 +222,13 @@ def test_sync_concept(mock_get, app, mef_concepts_url, entity_topic_data, docume
     # nothing touched as it is up-to-date
     assert (0, 0, set()) == sync_entity.sync(f"pid:{topic.pid}")
     # nothing removed
-    assert (0, []) == sync_entity.remove_unused(f"pid:{topic.pid}")
+    assert sync_entity.remove_unused(f"pid:{topic.pid}") == (0, [])
 
     # === MEF metadata has been changed
     data = deepcopy(entity_topic_data)
     data["idref"]["authorized_access_point"] = "foo"
     sync_entity._get_latest = mock.MagicMock(return_value=data)
-    mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
+    mock_resp = {"hits": {"hits": [{"id": data["pid"], "metadata": data}]}}
     mock_get.return_value = mock_response(json_data=mock_resp)
     assert DocumentsSearch().query("term", subjects__entity__authorized_access_point_fr="foo").count() == 0
     # synchronization the same document has been updated 3 times, one MEF
@@ -244,7 +241,7 @@ def test_sync_concept(mock_get, app, mef_concepts_url, entity_topic_data, docume
     assert entity["idref"]["authorized_access_point"] == "foo"
     assert DocumentsSearch().query("term", subjects__entity__authorized_access_point_fr="foo").count()
     # nothing has been removed as only metadata has been changed
-    assert (0, []) == sync_entity.remove_unused(topic.pid)
+    assert sync_entity.remove_unused(topic.pid) == (0, [])
 
     # RESET FIXTURES
     #  * Remove the document
@@ -252,7 +249,7 @@ def test_sync_concept(mock_get, app, mef_concepts_url, entity_topic_data, docume
     doc = Document.get_record_by_pid(doc.pid)
     doc.delete(True, True, True)
     DocumentsSearch.flush_and_refresh()
-    assert (1, []) == sync_entity.remove_unused()
+    assert sync_entity.remove_unused() == (1, [])
     assert not RemoteEntity.get_record_by_pid("foo_mef")
 
 
@@ -426,7 +423,7 @@ def test_replace_identified_by(
 def test_entity_get_record_by_ref(mef_agents_url, entity_person, entity_person_data_tmp):
     """Test remote entity: get record by ref."""
     dummy_ref = f"{mef_agents_url}/idref/dummy_idref_pid"
-    assert (None, False) == RemoteEntity.get_record_by_ref(dummy_ref)
+    assert RemoteEntity.get_record_by_ref(dummy_ref) == (None, False)
 
     # Remote entity from ES index
     RemoteEntitiesSearch().filter("term", pid=entity_person.pid).delete()

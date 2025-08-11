@@ -45,18 +45,18 @@ def test_create_lines(
         client,
         "api_receipt.lines",
         data=receipt_lines,
-        url_data=dict(receipt_pid="toto"),
+        url_data={"receipt_pid": "toto"},
     )
     assert res.status_code == 404
     # test when receipt_lines data is not provided
-    res, data = postdata(client, "api_receipt.lines", url_data=dict(receipt_pid=receipt.pid))
+    res, data = postdata(client, "api_receipt.lines", url_data={"receipt_pid": receipt.pid})
     assert res.status_code == 400
     # test when receipt_lines data provided but empty
     res, data = postdata(
         client,
         "api_receipt.lines",
         data=receipt_lines,
-        url_data=dict(receipt_pid=receipt.pid),
+        url_data={"receipt_pid": receipt.pid},
     )
     assert res.status_code == 400
     # test when receipt_lines data provided
@@ -80,7 +80,7 @@ def test_create_lines(
         client,
         "api_receipt.lines",
         data=receipt_lines,
-        url_data=dict(receipt_pid=receipt.pid),
+        url_data={"receipt_pid": receipt.pid},
     )
     assert res.status_code == 200
     response = get_json(res).get("response")

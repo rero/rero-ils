@@ -18,8 +18,9 @@
 
 """Entities Record utils."""
 
+from unittest import mock
+
 import pytest
-from mock import mock
 from requests import RequestException
 
 from rero_ils.modules.entities.remote_entities.utils import get_mef_data_by_type

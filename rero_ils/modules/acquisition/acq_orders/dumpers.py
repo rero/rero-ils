@@ -59,8 +59,7 @@ class AcqOrderNotificationDumper(InvenioRecordsDumper):
             order_line.dumps(dumper=AcqOrderLineNotificationDumper())
             for order_line in record.get_order_lines(includes=[AcqOrderLineStatus.APPROVED])
         ]
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}
 
 
 class AcqOrderHistoryDumper(InvenioRecordsDumper):

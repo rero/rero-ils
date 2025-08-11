@@ -20,8 +20,8 @@
 
 import json
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from flask import url_for
 
 from rero_ils.modules.templates.api import Template

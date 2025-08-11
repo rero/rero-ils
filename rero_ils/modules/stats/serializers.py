@@ -76,7 +76,7 @@ class StatCSVSerializer(CSVSerializer):
             # statistics of type billing
             headers = {"library name", "library id"}
             for value in record["metadata"]["values"]:
-                headers.update([v for v in value.keys() if v != "library"])
+                headers.update([v for v in value if v != "library"])
 
             # write the CSV output in memory
             line = Line()

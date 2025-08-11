@@ -61,9 +61,7 @@ class Explain:
                 if properties := value.get("properties"):
                     sub_keys = self.get_properties(properties)
                     for sub_key in sub_keys:
-                        if "." in sub_key and sub_key[0] != "$":
-                            keys.append(".".join([key, sub_key]))
-                        elif properties[sub_key].get("index", True):
+                        if ("." in sub_key and sub_key[0] != "$") or properties[sub_key].get("index", True):
                             keys.append(".".join([key, sub_key]))
                 elif key[0] != "$":
                     keys.append(key)
@@ -74,7 +72,7 @@ class Explain:
         mappings = {}
         with contextlib.suppress(Exception):
             index_alias = current_search.aliases.get(index)
-            index_file_name = list(index_alias.values())[0]
+            index_file_name = next(iter(index_alias.values()))
             data = jsonref.load(open(index_file_name))
             mappings = self.get_properties(data.get("mappings").get("properties"))
         return mappings
@@ -141,7 +139,7 @@ class Explain:
         element_rero_ils = ElementMaker(namespace=rero_ils_ns, nsmap={"rero-ils": rero_ils_ns})
         index = element_rero_ils.index()
         es_map = element_rero_ils.map()
-        for rero_ils_index in self.es_mappings.keys():
+        for rero_ils_index in self.es_mappings:
             es_map.append(element_rero_ils.name(rero_ils_index))
         index.append(es_map)
         return index

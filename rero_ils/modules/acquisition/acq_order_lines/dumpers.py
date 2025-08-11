@@ -90,5 +90,4 @@ class AcqOrderLineNotificationDumper(InvenioRecordsDumper):
                 "document": record.document.dumps(dumper=document_acquisition_dumper),
             }
         )
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}

@@ -17,8 +17,6 @@
 
 """Define relation between records and buckets."""
 
-from __future__ import absolute_import
-
 from datetime import datetime, timezone
 from enum import Enum
 

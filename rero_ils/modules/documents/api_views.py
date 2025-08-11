@@ -61,12 +61,11 @@ def advanced_search_config():
         a, b = a["label"], b["label"]
         if a.startswith("rda") and b.startswith("rda"):
             return a > b
-        elif a.startswith("rda"):
+        if a.startswith("rda"):
             return -1
-        elif b.startswith("rda"):
+        if b.startswith("rda"):
             return 1
-        else:
-            return a > b
+        return a > b
 
     try:
         cantons = current_jsonschemas.get_schema("common/cantons-v0.0.1.json")

@@ -26,7 +26,6 @@ from invenio_circulation.errors import (
     NoValidTransitionAvailableError,
     TransitionConstraintsViolationError,
 )
-from invenio_circulation.ext import NoValidTransitionAvailableError
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus

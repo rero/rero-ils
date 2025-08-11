@@ -45,14 +45,14 @@ def test_checkin_an_item(
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # test fails when there is a missing required parameter
-    res, data = postdata(client, "api_item.checkin", dict(item_pid=item.pid))
+    res, data = postdata(client, "api_item.checkin", {"item_pid": item.pid})
     assert res.status_code == 400
 
     # test fails when there is a missing required parameter
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(item_pid=item.pid, transaction_location_pid=loc_public_martigny.pid),
+        {"item_pid": item.pid, "transaction_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 400
 
@@ -61,10 +61,10 @@ def test_checkin_an_item(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 404
 
@@ -72,11 +72,11 @@ def test_checkin_an_item(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item.pid)
@@ -87,11 +87,11 @@ def test_checkin_an_item(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item.pid)
@@ -113,11 +113,11 @@ def test_auto_checkin_else(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 400
     assert get_json(res)["status"] == _("error: No circulation action performed: on shelf")
@@ -177,11 +177,11 @@ def test_checkin_overdue_item(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item.pid)

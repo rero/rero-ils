@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 import copy
 import re
 from copy import deepcopy
@@ -105,13 +103,12 @@ def index_with_view_code(viewcode):
     """Home Page with viewcode."""
     if viewcode == current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
         return redirect(url_for("rero_ils.index"))
-    else:
-        return render_template(
-            "rero_ils/frontpage.html",
-            organisations=Organisation.get_all(),
-            viewcode=viewcode,
-            title=_(view_organisation_name(viewcode)) + " | " + _(current_app.config["THEME_SITENAME"]),
-        )
+    return render_template(
+        "rero_ils/frontpage.html",
+        organisations=Organisation.get_all(),
+        viewcode=viewcode,
+        title=_(view_organisation_name(viewcode)) + " | " + _(current_app.config["THEME_SITENAME"]),
+    )
 
 
 @blueprint.route("/language", methods=["POST", "PUT"])
@@ -180,6 +177,7 @@ def footer_message():
     """Get footer message."""
     if message := Message.get("footer"):
         return message["message"]
+    return None
 
 
 def prepare_jsonschema(schema):

@@ -95,7 +95,7 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                 metadata["is_late"] = loan.is_loan_late()
             elif loan_state in LoanState.REQUEST_STATES:
                 _post_process_search_request_hit(metadata, item)
-            elif loan_state in LoanState.CONCLUDED + [LoanState.ITEM_IN_TRANSIT_TO_HOUSE]:
+            elif loan_state in [*LoanState.CONCLUDED, LoanState.ITEM_IN_TRANSIT_TO_HOUSE]:
                 _post_process_search_concluded_hit(metadata, loan)
 
     def _postprocess_search_aggregations(self, aggregations):

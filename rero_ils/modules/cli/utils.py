@@ -18,8 +18,6 @@
 
 """Click command-line utilities."""
 
-from __future__ import absolute_import, print_function
-
 import contextlib
 import difflib
 import itertools
@@ -34,7 +32,6 @@ from collections import OrderedDict
 from copy import deepcopy
 from datetime import datetime
 from glob import glob
-from pprint import pprint
 from time import sleep
 
 import click
@@ -94,10 +91,10 @@ def queue_count():
     inspector = current_celery.control.inspect()
     task_count = 0
     if reserved := inspector.reserved():
-        for _, values in reserved.items():
+        for values in reserved.values():
             task_count += len(values)
     if active := inspector.active():
-        for _, values in active.items():
+        for values in active.values():
             task_count += len(values)
     return task_count
 
@@ -187,7 +184,7 @@ def check_json(paths, replace, indent, sort_keys, verbose):
         error_cnt = 0
         try:
             fname = path_file
-            with open(fname, "r") as opened_file:
+            with open(fname) as opened_file:
                 json_orig = opened_file.read().rstrip()
                 opened_file.seek(0)
                 json_file = json.load(opened_file, object_pairs_hook=OrderedDict)
@@ -629,7 +626,7 @@ def check_license(configfile, verbose, progress):
         if progress:
             click.secho("License test: ", fg="green", nl=False)
             click.echo(file_name)
-        with open(file_name, "r") as file:
+        with open(file_name) as file:
             result = test_license(
                 file=file,
                 extension=extensions[extension],
@@ -781,7 +778,7 @@ def check_validate(jsonfile, type, verbose, debug, error_file_name, ok_file_name
             if error_file_name:
                 error_file.write(data)
             if debug:
-                pprint(data)
+                pass
 
 
 def error_record(pid, record, notes):
@@ -844,7 +841,7 @@ def do_worker(marc21records, results, pid_required, debug, dojson, schema=None):
             results.append({"status": True, "record": record})
         except ValidationError as err:
             if debug:
-                pprint(record)
+                pass
             trace_lines = traceback.format_exc(1).split("\n")
             trace = trace_lines[5].strip()
             field_035 = data_json.get("035__", {})
@@ -884,26 +881,26 @@ class Marc21toJson:
     """Class for Marc21 recorts to Json transformation."""
 
     __slots__ = [
-        "xml_file",
-        "json_file_ok",
-        "xml_file_error",
-        "parallel",
-        "chunk",
-        "dojson",
-        "verbose",
-        "debug",
-        "pid_required",
-        "count",
-        "count_ok",
-        "count_ko",
-        "ctx",
-        "results",
         "active_buffer",
         "buffer",
-        "schema",
-        "pid_mapping",
-        "pids",
+        "chunk",
+        "count",
+        "count_ko",
+        "count_ok",
+        "ctx",
+        "debug",
+        "dojson",
         "error_records",
+        "json_file_ok",
+        "parallel",
+        "pid_mapping",
+        "pid_required",
+        "pids",
+        "results",
+        "schema",
+        "verbose",
+        "xml_file",
+        "xml_file_error",
     ]
 
     def __init__(
@@ -1014,10 +1011,7 @@ class Marc21toJson:
         new_process.start()
         self.active_process = new_process
         if self.verbose:
-            if self.count < self.chunk:
-                start = 1
-            else:
-                start = self.count - len(self.active_records) + 1
+            start = 1 if self.count < self.chunk else self.count - len(self.active_records) + 1
             pid = new_process.pid
             click.echo(f"Start process: {pid} records: {start}..{self.count}")
         self.next_active_buffer()
@@ -1176,7 +1170,7 @@ def extract_from_xml(pid_file, xml_file_in, xml_file_out, tag, progress, verbose
             is_tag = child.get("tag") == tag
             if is_controlfield and is_tag:
                 if progress:
-                    click.secho(f"{idx:>10} {repr(child.text):>20}\r", nl=False)
+                    click.secho(f"{idx:>10} {child.text!r:>20}\r", nl=False)
                 if pids.get(child.text, -1) >= 0:
                     found += 1
                     pids[child.text] += 1
@@ -1416,7 +1410,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
             self.name = test["name"]
             file_name = os.path.join(self.directory, test["filename"])
             self.test_data.setdefault(self.name, {})
-            with open(file_name, "r") as infile:
+            with open(file_name) as infile:
                 if self.verbose:
                     click.echo(f"{self.name}: {file_name}")
                 records = read_json_record(infile)
@@ -1493,10 +1487,7 @@ def export(verbose, pid_type, outfile_name, pidfile, indent, schema):
     outfile = JsonWriter(outfile_name)
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
-    if pidfile:
-        pids = list(filter(None, [line.rstrip() for line in pidfile]))
-    else:
-        pids = record_class.get_all_pids()
+    pids = list(filter(None, [line.rstrip() for line in pidfile])) if pidfile else record_class.get_all_pids()
 
     agents_sources = current_app.config.get("RERO_ILS_AGENTS_SOURCES", [])
     for count, pid in enumerate(pids, 1):

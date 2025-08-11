@@ -135,10 +135,7 @@ class DecimalAmountExtension(RecordExtension):
         # Get the values to check. Either the value must be found into the
         # record regarding the 'field_name', either we will use the callback
         # function to retrieve data to check.
-        if self.amount_field:
-            values_to_check = record.get(self.amount_field)
-        else:
-            values_to_check = self.callback(record)
+        values_to_check = record.get(self.amount_field) if self.amount_field else self.callback(record)
 
         # Ensure the values to check is a list and this list isn't empty. If
         # the list is empty, we can return without any check

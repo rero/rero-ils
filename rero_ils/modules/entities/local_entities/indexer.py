@@ -46,7 +46,7 @@ def index_referenced_records(entity):
             referenced = []
             for pid in pids:
                 record = record_cls.get_record_by_pid(pid)
-                referenced.append(dict(pid_type=pid_type, record=record))
+                referenced.append({"pid_type": pid_type, "record": record})
             indexer.index(indexer_cls, referenced)
 
 

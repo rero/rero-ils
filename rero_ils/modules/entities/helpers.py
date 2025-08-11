@@ -72,3 +72,4 @@ def get_entity_record_from_data(data):
         # check if local entity
         if entity and isinstance(entity, LocalEntity):
             return entity
+    return None

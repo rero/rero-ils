@@ -32,7 +32,7 @@ from .models import StatCfgIdentifier, StatCfgMetadata
 StatCfgProvider = type(
     "StatCfgProvider",
     (Provider,),
-    dict(identifier=StatCfgIdentifier, pid_type="stacfg"),
+    {"identifier": StatCfgIdentifier, "pid_type": "stacfg"},
 )
 # minter
 stat_cfg_id_minter = partial(id_minter, provider=StatCfgProvider)

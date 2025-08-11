@@ -18,6 +18,8 @@
 
 """RIS Document serialization."""
 
+from typing import Optional
+
 from flask import current_app, request, stream_with_context
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.serializers.base import SerializerMixinInterface
@@ -91,7 +93,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
         """Return RIS export for single record."""
         return f"{self._fetch_fields()}ER{self.separator}\n"
 
-    def _doctype_mapper(self, main_type: str, sub_type: str = None):
+    def _doctype_mapper(self, main_type: str, sub_type: Optional[str] = None):
         """Document type mapper.
 
         :param: main_type: main document type.
@@ -140,8 +142,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
             "LA": self._get_languages(),
             "PB": self._get_publisher(),
             "SN": self._get_identifiers([IdentifierType.ISBN, IdentifierType.ISSN, IdentifierType.L_ISSN]),
-            "UR": self._get_electronic_locators(),
-            "UR": self._get_permalink(),
+            "UR": [*self._get_electronic_locators(), self._get_permalink()],
             "KW": self._get_subjects(),
             "DO": self._get_identifiers([IdentifierType.DOI]),
             "VL": self._get_volume_numbers(),

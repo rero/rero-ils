@@ -20,8 +20,8 @@
 
 import os
 from copy import deepcopy
+from unittest import mock
 
-import mock
 import pytest
 from click.testing import CliRunner
 

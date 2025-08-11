@@ -51,7 +51,7 @@ from .extensions import (
 from .models import DocumentIdentifier, DocumentMetadata
 
 # provider
-DocumentProvider = type("DocumentProvider", (Provider,), dict(identifier=DocumentIdentifier, pid_type="doc"))
+DocumentProvider = type("DocumentProvider", (Provider,), {"identifier": DocumentIdentifier, "pid_type": "doc"})
 # minter
 document_id_minter = partial(id_minter, provider=DocumentProvider)
 # fetcher
@@ -368,7 +368,7 @@ class Document(IlsRecord):
         """Creates an es query to retrieves the record files."""
         ext = current_app.extensions["rero-invenio-files"]
         sfr = ext.records_service
-        search = sfr.search_request(system_identity, dict(size=1), sfr.record_cls, sfr.config.search)
+        search = sfr.search_request(system_identity, {"size": 1}, sfr.record_cls, sfr.config.search)
         # required to avoid exception during the `count()` call
         # TODO: remove this once the issue is solved
         search._params = {}
@@ -394,7 +394,7 @@ class Document(IlsRecord):
         if links:
             cannot_delete["links"] = links
         if self.harvested:
-            cannot_delete["others"] = dict(harvested=True)
+            cannot_delete["others"] = {"harvested": True}
         return cannot_delete
 
     def index_entities(self, bulk=False):

@@ -18,9 +18,6 @@
 
 """Holdings records."""
 
-from __future__ import absolute_import, print_function
-
-from builtins import classmethod
 from copy import deepcopy
 from datetime import datetime, timezone
 from functools import partial
@@ -65,7 +62,7 @@ from rero_ils.modules.utils import (
 from .models import HoldingIdentifier, HoldingMetadata, HoldingTypes
 
 # holing provider
-HoldingProvider = type("HoldingProvider", (Provider,), dict(identifier=HoldingIdentifier, pid_type="hold"))
+HoldingProvider = type("HoldingProvider", (Provider,), {"identifier": HoldingIdentifier, "pid_type": "hold"})
 # holing minter
 holding_id_minter = partial(id_minter, provider=HoldingProvider)
 # holing fetcher
@@ -162,7 +159,7 @@ class Holding(IlsRecord):
         document_pid = extracted_data_from_ref(self.get("document").get("$ref"))
         document = Document.get_record_by_pid(document_pid)
         if not document:
-            return _("Document does not exist {document_pid}.".format(document_pid=document_pid))
+            return _(f"Document does not exist {document_pid}.")
 
         if self.is_serial:
             patterns = self.get("patterns", {})
@@ -187,7 +184,7 @@ class Holding(IlsRecord):
             ]
             for field in fields:
                 if self.get(field):
-                    return _("{field} is allowed only for serial holdings".format(field=field))
+                    return _(f"{field} is allowed only for serial holdings")
         # No multiple notes with same type
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
@@ -203,8 +200,7 @@ class Holding(IlsRecord):
                 for item in self.get_all_items():
                     item.delete(force=force, dbcommit=dbcommit, delindex=False)
             return super().delete(force=force, dbcommit=dbcommit, delindex=delindex)
-        else:
-            raise IlsRecordError.NotDeleted()
+        raise IlsRecordError.NotDeleted()
 
     @property
     def is_serial(self):
@@ -266,12 +262,14 @@ class Holding(IlsRecord):
         """Shortcut for vendor pid of the holding."""
         if self.get("vendor"):
             return extracted_data_from_ref(self.get("vendor"))
+        return None
 
     @property
     def vendor(self):
         """Shortcut to return the vendor record."""
         if self.get("vendor"):
             return extracted_data_from_ref(self.get("vendor"), data="record")
+        return None
 
     def get_available_item_pids(self):
         """Get the list of the available item pids.
@@ -365,8 +363,7 @@ class Holding(IlsRecord):
     @property
     def get_items_count_by_holding_pid(self):
         """Returns items count from holding pid."""
-        results = ItemsSearch().filter("term", holding__pid=self.pid).source(["pid"]).count()
-        return results
+        return ItemsSearch().filter("term", holding__pid=self.pid).source(["pid"]).count()
 
     @classmethod
     def get_document_pid_by_holding_pid(cls, holding_pid):
@@ -380,6 +377,7 @@ class Holding(IlsRecord):
         holding = cls.get_record_by_pid(holding_pid)
         if holding:
             return holding.holdings_type
+        return None
 
     @classmethod
     def get_holdings_pid_by_document_pid(cls, document_pid, with_masked=True):
@@ -446,12 +444,10 @@ class Holding(IlsRecord):
                 for reason in reasons_not_to_delete:
                     counts.setdefault(reason, 0)
                     # Add reason count for received loans and all other reasons.
-                    if reason == "loans" and issue_status == ItemIssueStatus.RECEIVED or reason != "loans":
+                    if (reason == "loans" and issue_status == ItemIssueStatus.RECEIVED) or reason != "loans":
                         counts[reason] += 1
                 if cannot_delete_msgs := {
-                    _("has {value} items with {name} attached".format(value=value, name=name)): value
-                    for name, value in counts.items()
-                    if value > 0
+                    _(f"has {value} items with {name} attached"): value for name, value in counts.items() if value > 0
                 }:
                     cannot_delete["others"] = cannot_delete_msgs
         else:
@@ -472,6 +468,7 @@ class Holding(IlsRecord):
             for ptrn in current_patrons:
                 if ptrn.organisation_pid == organisation_pid:
                     return ptrn
+            return None
 
         patron = find_patron(self.organisation_pid)
         if patron:
@@ -484,8 +481,7 @@ class Holding(IlsRecord):
             name = _(cipo.get("name"))
             checkout_duration = cipo.get("checkout_duration")
             return f"{name} {checkout_duration} days"
-        else:
-            return ItemType.get_record_by_pid(self.circulation_category_pid).get("name")
+        return ItemType.get_record_by_pid(self.circulation_category_pid).get("name")
 
     @property
     def patterns(self):
@@ -497,6 +493,7 @@ class Holding(IlsRecord):
         """Display the text of the next predicted issue."""
         if self.patterns:
             return self._get_next_issue_display_text(self.patterns)[0]
+        return None
 
     def get_location(self):
         """Shortcut to the location of holding."""
@@ -569,7 +566,7 @@ class Holding(IlsRecord):
     def increment_next_prediction(self):
         """Increment next prediction."""
         if not self.patterns or not self.patterns.get("values"):
-            return
+            return None
         self["patterns"] = self._increment_next_prediction(self.patterns)
         return self
 

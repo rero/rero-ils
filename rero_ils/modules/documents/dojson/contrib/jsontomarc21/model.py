@@ -218,6 +218,7 @@ def get_holdings_items(document_pid, organisation_pids=None, library_pids=None, 
         data = resource.get_record_by_pid(pid)
         if data:
             return data.get("name")
+        return None
 
     results = []
     if document_pid:
@@ -402,7 +403,7 @@ class ToMarc21Overdo(Underdo):
         extent = blob.get("extent")
         durations = ", ".join(blob.get("duration", []))
         if extent:
-            if durations and f"({durations})" in extent or not durations:
+            if (durations and f"({durations})" in extent) or not durations:
                 physical_description["extent"] = extent
             else:
                 physical_description["extent"] = f"{extent} ({durations})"
@@ -449,8 +450,7 @@ class ToMarc21Overdo(Underdo):
         for key in ORDER:
             order.extend(key for _ in range(keys.get(key, 0)))
         blob["__order__"] = order
-        result = super().do(blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers)
-        return result
+        return super().do(blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers)
 
 
 def add_value(result, sub_tag, value):
@@ -516,7 +516,7 @@ def reverse_identified_by(self, key, value):
             result["__order__"].append("q")
             result["q"] = qualifier
         self.append(("020__", utils.GroupableOrderedDict(result)))
-    return None
+    return
 
 
 @to_marc21.over("245", "^title_responsibility")
@@ -621,55 +621,54 @@ def reverse_title(self, key, value):
 @utils.ignore_value
 def reverse_provision_activity(self, key, value):
     """Reverse - provisionActivity."""
-    # Pour chaque objet de "provisionActivity" (répétitif), créer une 264 :
+    # Pour chaque objet de "provisionActivity" (répétitif), créer une 264:
     # * si type=bf:Publication, ind2=1
     #     * sinon si type=bf:Distribution, ind2=2
     #         * sinon si type=bf:Manufacture, ind2=3
     #             * sinon si type=bf:Production, ind2=0
-    # * prendre dans l’ordre chaque chaque objet de "statement"
+    # * prendre dans l'ordre chaque chaque objet de "statement"
     #     * $a = [label] si type=bf:Place
     #     * $a = [label] si type=bf:Agent
     #     * $a = [label] si type=bf:Date
-    # Pour chaque "copyrightDate" :
+    # Pour chaque "copyrightDate":
     # * 264 ind2=4 $a = [copyrightDate]
     if key == "copyrightDate":
         result = {
             "$ind2": "4",
         }
-        result = add_value(result, "a", value)
+        return add_value(result, "a", value)
+    data = {}
+    order = []
+    for statement in value.get("statement", []):
+        statement_type = statement.get("type")
+        subfield = "a"
+        if statement_type == "bf:Agent":
+            subfield = "b"
+        elif statement_type == "Date":
+            subfield = "c"
+        for label in statement.get("label"):
+            order.append(subfield)
+            data.setdefault(subfield, [])
+            data[subfield].append(label["value"])
+            # only take the first label
+            break
+    if data:
+        provision_activity_type = value.get("type")
+        ind2 = ""
+        if provision_activity_type == "bf:Publication":
+            ind2 = "1"
+        elif provision_activity_type == "bf:Distribution":
+            ind2 = "2"
+        elif provision_activity_type == "bf:Manufacture":
+            ind2 = "3"
+        elif provision_activity_type == "bf:Production":
+            ind2 = "0"
+        result = {"$ind2": ind2}
+        for key, value in data.items():
+            result = add_values(result, key, value)
+        result["__order__"] = order
         return result
-    else:
-        data = {}
-        order = []
-        for statement in value.get("statement", []):
-            statement_type = statement.get("type")
-            subfield = "a"
-            if statement_type == "bf:Agent":
-                subfield = "b"
-            elif statement_type == "Date":
-                subfield = "c"
-            for label in statement.get("label"):
-                order.append(subfield)
-                data.setdefault(subfield, [])
-                data[subfield].append(label["value"])
-                # only take the first label
-                break
-        if data:
-            provision_activity_type = value.get("type")
-            ind2 = ""
-            if provision_activity_type == "bf:Publication":
-                ind2 = "1"
-            elif provision_activity_type == "bf:Distribution":
-                ind2 = "2"
-            elif provision_activity_type == "bf:Manufacture":
-                ind2 = "3"
-            elif provision_activity_type == "bf:Production":
-                ind2 = "0"
-            result = {"$ind2": ind2}
-            for key, value in data.items():
-                result = add_values(result, key, value)
-            result["__order__"] = order
-            return result
+    return None
 
 
 @to_marc21.over("300", "^physical_description")
@@ -698,8 +697,7 @@ def reverse_subjects(self, key, value):
     def add_identified_by(result, identified_by):
         """Adds $2 and $0 to result."""
         result = add_value(result, "2", identified_by["type"].lower())
-        result = add_value(result, "0", identified_by["value"])
-        return result
+        return add_value(result, "0", identified_by["value"])
 
     if entity := value.get("entity"):
         tag = None

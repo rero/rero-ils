@@ -17,8 +17,6 @@
 
 """CircPolicy Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.patron_types.api import PatronType, patron_type_id_fetcher
 from rero_ils.modules.utils import extracted_data_from_ref
 

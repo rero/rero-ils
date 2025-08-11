@@ -18,8 +18,6 @@
 
 """API for manipulating "availability" circulation notifications."""
 
-from __future__ import absolute_import, print_function
-
 import ciso8601
 
 from rero_ils.modules.documents.dumpers import document_title_dumper

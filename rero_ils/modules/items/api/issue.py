@@ -87,12 +87,14 @@ class ItemIssue(ItemRecord):
         """Shortcut for related vendor resource if exists."""
         if holding := self.holding:
             return holding.vendor
+        return None
 
     @property
     def vendor_pid(self):
         """Shortcut for vendor pid if exists."""
         if vendor := self.vendor:
             return vendor.pid
+        return None
 
     @property
     def claims_count(self):
@@ -116,6 +118,7 @@ class ItemIssue(ItemRecord):
         if self.is_issue and not self.get("call_number"):
             holding = Holding.get_record_by_pid(self.holding_pid)
             return holding.get("call_number")
+        return None
 
     @property
     def issue_inherited_second_call_number(self):
@@ -129,6 +132,7 @@ class ItemIssue(ItemRecord):
         if self.is_issue and not self.get("second_call_number"):
             holding = Holding.get_record_by_pid(self.holding_pid)
             return holding.get("second_call_number")
+        return None
 
     @classmethod
     def get_issues_pids_by_status(cls, issue_status, holdings_pid=None):

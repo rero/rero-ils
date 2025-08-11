@@ -19,8 +19,6 @@
 
 """Serial claims tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime, timedelta
 

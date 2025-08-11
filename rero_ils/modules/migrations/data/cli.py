@@ -144,6 +144,7 @@ def get(migration, id, conversion_status, format, out_file):
             return ConversionClass.markdown(data.raw)
         if format == "conversion-status" and hasattr(data.conversion, "status"):
             return (data.meta.id, data.conversion.status)
+        return None
 
     if out_file:
         out_file = JsonWriter(out_file) if format == "json" else open(out_file, "w")

@@ -63,5 +63,4 @@ class LocalEntityProxy:
         query = LocalEntitiesSearch()
         if self.category in CATEGORY_FILTERS:
             return query.filter(CATEGORY_FILTERS[self.category])
-        else:
-            return query.filter("term", type=self.category)
+        return query.filter("term", type=self.category)

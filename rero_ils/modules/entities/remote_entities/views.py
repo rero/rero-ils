@@ -18,8 +18,6 @@
 
 """Blueprint about remote entities."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, abort
 
 from rero_ils.modules.decorators import check_logged_as_librarian

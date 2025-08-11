@@ -17,8 +17,6 @@
 
 """Pytest fixtures and plugins for the UI application."""
 
-from __future__ import absolute_import, print_function
-
 import pytest
 
 

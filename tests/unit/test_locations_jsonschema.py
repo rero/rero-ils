@@ -17,8 +17,6 @@
 
 """Location JSON schema tests."""
 
-from __future__ import absolute_import, print_function
-
 import copy
 
 import pytest

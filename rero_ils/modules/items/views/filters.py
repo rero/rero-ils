@@ -34,3 +34,4 @@ def issue_client_reference(issue_data):
             )
         )
         return f"({'/'.join(parts)})" if parts else ""
+    return None

@@ -35,7 +35,7 @@ def collect_stats_billing():
     stats_pricing = StatsForPricing().collect()
     with current_app.app_context():
         stat = Stat.create(
-            dict(type=StatType.BILLING, values=stats_pricing),
+            {"type": StatType.BILLING, "values": stats_pricing},
             dbcommit=True,
             reindex=True,
         )
@@ -54,7 +54,7 @@ def collect_stats_librarian():
     stats_values = stats_librarian.collect()
     with current_app.app_context():
         stat = Stat.create(
-            dict(type=StatType.LIBRARIAN, date_range=date_range, values=stats_values),
+            {"type": StatType.LIBRARIAN, "date_range": date_range, "values": stats_values},
             dbcommit=True,
             reindex=True,
         )

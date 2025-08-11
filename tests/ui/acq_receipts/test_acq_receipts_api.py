@@ -73,7 +73,7 @@ def test_receipts_custom_validation(
     acq_receipt_fiction_martigny,
     acq_receipt_fiction_martigny_data,
 ):
-    """test receipts custom validations."""
+    """Test receipts custom validations."""
     acre1 = acq_receipt_fiction_martigny
     # TEST ADJUSTMENT AMOUNT WITH BAD DECIMALS --------------------------------
     acre1["amount_adjustments"][0]["amount"] = 1.000003

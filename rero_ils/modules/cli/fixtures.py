@@ -18,8 +18,7 @@
 
 """Click command-line utilities."""
 
-from __future__ import absolute_import, print_function
-
+import contextlib
 import json
 import os
 import sys
@@ -385,10 +384,7 @@ def bulk_load(record_type, csv_metadata_file, bulkcount, reindex, verbose):
     :param reindex: add record to reindex.
     :param verbose: Verbose.
     """
-    if bulkcount > 0:
-        bulk_count = bulkcount
-    else:
-        bulk_count = current_app.config.get("BULK_CHUNK_COUNT", 100000)
+    bulk_count = bulkcount if bulkcount > 0 else current_app.config.get("BULK_CHUNK_COUNT", 100000)
 
     message = f"Load {record_type} CSV files into database."
     click.secho(message, fg="green")
@@ -433,10 +429,8 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
     :param verbose: Verbose.
     """
     file_name_tmp_pidstore = os.path.join(output_directory, "tmp_pidstore.csv")
-    try:
+    with contextlib.suppress(OSError):
         os.remove(file_name_tmp_pidstore)
-    except OSError:
-        pass
 
     all_pid_types = []
     endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS")
@@ -472,7 +466,5 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
         file_name_pids = os.path.join(output_directory, f"{file_prefix}_pids.csv")
         bulk_save_pids(pid_type=p_type, file_name=file_name_pids, verbose=verbose)
         click.secho(f"Saved records: {count}", fg="yellow")
-    try:
+    with contextlib.suppress(OSError):
         os.remove(file_name_tmp_pidstore)
-    except OSError:
-        pass

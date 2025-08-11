@@ -76,7 +76,6 @@ class NumberOfCirculationCfg(IndicatorCfg):
             "transaction_year": A("date_histogram", field="date", calendar_interval="year", format="yyyy"),
             "patron_type": A("terms", field="loan.patron.type", size=self.cfg.aggs_size),
             "patron_age": A("terms", field="loan.patron.age", size=self.cfg.aggs_size),
-            "patron_type": A("terms", field="loan.patron.type", size=self.cfg.aggs_size),
             "patron_postal_code": A("terms", field="loan.patron.postal_code", size=self.cfg.aggs_size),
             "document_type": A("terms", field="loan.item.document.type", size=self.cfg.aggs_size),
             "transaction_channel": A("terms", field="loan.transaction_channel", size=self.cfg.aggs_size),

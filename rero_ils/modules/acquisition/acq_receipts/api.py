@@ -51,7 +51,7 @@ from .models import (
 AcqReceiptProvider = type(
     "AcqReceiptProvider",
     (Provider,),
-    dict(identifier=AcqReceiptIdentifier, pid_type="acre"),
+    {"identifier": AcqReceiptIdentifier, "pid_type": "acre"},
 )
 # minter
 acq_receipt_id_minter = partial(id_minter, provider=AcqReceiptProvider)
@@ -201,10 +201,7 @@ class AcqReceipt(AcquisitionIlsRecord):
 
         links = {}
         receipt_lines_query = AcqReceiptLinesSearch().filter("term", acq_receipt__pid=self.pid)
-        if get_pids:
-            acq_receipt_lines = sorted_pids(receipt_lines_query)
-        else:
-            acq_receipt_lines = receipt_lines_query.count()
+        acq_receipt_lines = sorted_pids(receipt_lines_query) if get_pids else receipt_lines_query.count()
 
         if acq_receipt_lines:
             links["acq_receipt_lines"] = acq_receipt_lines
@@ -306,10 +303,9 @@ class AcqReceipt(AcquisitionIlsRecord):
 
         if output == "count":
             return query.count()
-        elif output == "pids":
+        if output == "pids":
             return sorted_pids(query)
-        else:
-            return get_objects(AcqReceiptLine, query)
+        return get_objects(AcqReceiptLine, query)
 
     def get_note(self, note_type):
         """Get a specific type of note.

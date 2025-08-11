@@ -17,11 +17,9 @@
 
 """Document Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
+from unittest import mock
 
-import mock
 import pytest
 from invenio_db import db
 from jsonschema.exceptions import ValidationError

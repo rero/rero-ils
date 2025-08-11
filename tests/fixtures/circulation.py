@@ -19,8 +19,8 @@
 
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from unittest import mock
 
-import mock
 import pytest
 from invenio_db import db
 
@@ -285,7 +285,7 @@ def patron3_martigny_blocked(
 @pytest.fixture(scope="module")
 def patron4_martigny_data(data):
     """Load Martigny patron data."""
-    return deepcopy(patch_expiration_date((data.get("ptrn12"))))
+    return deepcopy(patch_expiration_date(data.get("ptrn12")))
 
 
 @pytest.fixture(scope="module")
@@ -418,7 +418,7 @@ def loan_pending_martigny(
     )
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
-    return list(item_lib_fully.get_loans_by_item_pid(item_pid=item_lib_fully.pid))[0]
+    return next(iter(item_lib_fully.get_loans_by_item_pid(item_pid=item_lib_fully.pid)))
 
 
 @pytest.fixture(scope="module")
@@ -464,7 +464,7 @@ def loan_validated_martigny(
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
 
-    loan = list(item2_lib_martigny.get_loans_by_item_pid(item_pid=item2_lib_martigny.pid))[0]
+    loan = next(iter(item2_lib_martigny.get_loans_by_item_pid(item_pid=item2_lib_martigny.pid)))
     item2_lib_martigny.validate_request(
         pid=loan.pid,
         patron_pid=patron_martigny.pid,
@@ -477,8 +477,7 @@ def loan_validated_martigny(
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
-    loan = list(item2_lib_martigny.get_loans_by_item_pid(item_pid=item2_lib_martigny.pid))[0]
-    return loan
+    return next(iter(item2_lib_martigny.get_loans_by_item_pid(item_pid=item2_lib_martigny.pid)))
 
 
 @pytest.fixture(scope="module")
@@ -515,7 +514,7 @@ def loan2_validated_martigny(
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
 
-    loan = list(item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid))[0]
+    loan = next(iter(item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid)))
 
     item3_lib_martigny.validate_request(
         pid=loan.pid,
@@ -529,8 +528,7 @@ def loan2_validated_martigny(
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
-    loan = list(item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid))[0]
-    return loan
+    return next(iter(item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid)))
 
 
 @pytest.fixture(scope="module")
@@ -559,7 +557,7 @@ def loan_validated_sion(
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
 
-    loan = list(item2_lib_sion.get_loans_by_item_pid(item_pid=item2_lib_sion.pid))[0]
+    loan = next(iter(item2_lib_sion.get_loans_by_item_pid(item_pid=item2_lib_sion.pid)))
     with mock.patch("rero_ils.modules.loans.logs.api.current_librarian", librarian_sion):
         item2_lib_sion.validate_request(
             pid=loan.pid,
@@ -574,8 +572,7 @@ def loan_validated_sion(
     LoansSearch.flush_and_refresh()
     NotificationsSearch.flush_and_refresh()
     LoanOperationLogsSearch.flush_and_refresh()
-    loan = list(item2_lib_sion.get_loans_by_item_pid(item_pid=item2_lib_sion.pid))[0]
-    return loan
+    return next(iter(item2_lib_sion.get_loans_by_item_pid(item_pid=item2_lib_sion.pid)))
 
 
 # ------------ Notifications: availability ----------
@@ -709,6 +706,7 @@ def patron_transaction_overdue_event_martigny(app, patron_transaction_overdue_ma
     """Return overdue events for patron transaction for a notification."""
     for event in patron_transaction_overdue_martigny.events:
         return event
+    return None
 
 
 @pytest.fixture(scope="module")
@@ -747,8 +745,7 @@ def loan_overdue_saxon(
     loan = Loan.get_record_by_pid(item2_lib_saxon.get_loan_pid_with_item_on_loan(item2_lib_saxon.pid))
     end_date = datetime.now(timezone.utc) - timedelta(days=25)
     loan["end_date"] = end_date.isoformat()
-    loan = loan.update(loan, dbcommit=True, reindex=True)
-    return loan
+    return loan.update(loan, dbcommit=True, reindex=True)
 
 
 @pytest.fixture(scope="module")
@@ -773,6 +770,7 @@ def patron_transaction_overdue_event_saxon(app, patron_transaction_overdue_saxon
     """Return overdue events for patron transaction for a notification."""
     for event in patron_transaction_overdue_saxon.events:
         return event
+    return None
 
 
 @pytest.fixture(scope="module")
@@ -838,8 +836,7 @@ def loan_overdue_sion(
     loan = Loan.get_record_by_pid(item_lib_sion.get_loan_pid_with_item_on_loan(item_lib_sion.pid))
     end_date = datetime.now(timezone.utc) - timedelta(days=25)
     loan["end_date"] = end_date.isoformat()
-    loan = loan.update(loan, dbcommit=True, reindex=True)
-    return loan
+    return loan.update(loan, dbcommit=True, reindex=True)
 
 
 @pytest.fixture(scope="module")
@@ -864,6 +861,7 @@ def patron_transaction_overdue_event_sion(app, patron_transaction_overdue_sion):
     """Return overdue events for patron transaction for a notification."""
     for event in patron_transaction_overdue_sion.events:
         return event
+    return None
 
 
 @pytest.fixture(scope="module")

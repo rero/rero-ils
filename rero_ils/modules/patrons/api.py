@@ -72,7 +72,7 @@ current_patrons = LocalProxy(
 )
 
 # provider
-PatronProvider = type("PatronProvider", (Provider,), dict(identifier=PatronIdentifier, pid_type="ptrn"))
+PatronProvider = type("PatronProvider", (Provider,), {"identifier": PatronIdentifier, "pid_type": "ptrn"})
 # minter
 patron_id_minter = partial(id_minter, provider=PatronProvider)
 # fetcher
@@ -327,7 +327,7 @@ class Patron(IlsRecord):
         :return: a dictionary containing records linked to this patron.
         """
         if not self.pid:
-            return
+            return None
         links = {}
         exclude_states = [
             LoanState.CANCELLED,
@@ -385,6 +385,7 @@ class Patron(IlsRecord):
         main = _("Your account is currently blocked.") if public else _("This patron is currently blocked.")
         if self.is_blocked:
             return f"{main} {_('Reason')}: {self.patron.get('blocked_note')}"
+        return None
 
     def add_subscription(
         self,
@@ -513,7 +514,7 @@ class Patron(IlsRecord):
     def remove_user_data(cls, data):
         """Remove the user data."""
         data = deepcopy(data)
-        profile_fields = User.profile_fields + ["username", "email", "password"]
+        profile_fields = [*User.profile_fields, "username", "email", "password"]
         for field in profile_fields:
             data.pop(field, None)
         return data
@@ -548,6 +549,7 @@ class Patron(IlsRecord):
         """Get patron by email."""
         if pid := get_patron_pid_by_email(email):
             return cls.get_record_by_pid(pid)
+        return None
 
     @classmethod
     def get_patron_by_barcode(cls, barcode, org_pid=None):
@@ -563,6 +565,7 @@ class Patron(IlsRecord):
         query = PatronsSearch().filter("bool", must=[filters]).source(["pid"])
         if hit := next(query.scan(), None):
             return cls.get_record_by_pid(hit.pid)
+        return None
 
     @classmethod
     def can_request(cls, item, **kwargs):
@@ -681,6 +684,7 @@ class Patron(IlsRecord):
         for ptrn in current_patrons:
             if ptrn.organisation_pid == record.organisation_pid:
                 return ptrn
+        return None
 
     # =========================================================================
     # PROPERTY METHODS
@@ -709,6 +713,7 @@ class Patron(IlsRecord):
         """Shortcut to find the patron expiration date."""
         if date_string := self.patron.get("expiration_date"):
             return datetime.strptime(date_string, "%Y-%m-%d")
+        return None
 
     @property
     def is_expired(self):
@@ -726,6 +731,7 @@ class Patron(IlsRecord):
         """Shortcut for patron type pid."""
         if patron_type := self.get("patron", {}).get("type"):
             return extracted_data_from_ref(patron_type)
+        return None
 
     @property
     def is_patron(self):
@@ -758,6 +764,7 @@ class Patron(IlsRecord):
 
             patron_type = PatronType.get_record_by_pid(patron_type_pid)
             return patron_type.organisation_pid
+        return None
 
     @property
     def organisation(self):
@@ -769,12 +776,14 @@ class Patron(IlsRecord):
         """Shortcut for patron library pid."""
         if self.library_pids:
             return self.library_pids[0]
+        return None
 
     @property
     def library_pids(self):
         """Shortcut for patron libraries pid."""
         if self.is_professional_user:
             return [extracted_data_from_ref(library) for library in self.get("libraries", [])]
+        return None
 
     @property
     def manageable_library_pids(self):

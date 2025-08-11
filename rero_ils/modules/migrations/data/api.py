@@ -150,6 +150,7 @@ class MigrationData(Document):
 
         if self.migration_id:
             return Migration.get(id=self.migration_id)
+        return None
 
     def _set_default_values(self):
         """Set the default values."""

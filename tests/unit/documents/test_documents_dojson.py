@@ -17,9 +17,8 @@
 
 """DOJSON module tests."""
 
-from __future__ import absolute_import, print_function
+from unittest import mock
 
-import mock
 from dojson.contrib.marc21.utils import create_record
 
 from rero_ils.dojson.utils import MAX_INT_YEAR, not_repetitive
@@ -43,7 +42,7 @@ def test_not_repetetive(capsys):
     data = not_repetitive(bibid="pid1", reroid="rero1", key="key", value=data_dict, subfield="sub")
     assert data == "first"
     out, err = capsys.readouterr()
-    assert out == f"WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{str(data_dict)}\t\n"
+    assert out == f"WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{data_dict!s}\t\n"
     data = {"sub": "only"}
     data = not_repetitive(bibid="pid1", reroid="rero1", key="key", value=data, subfield="sub", default="")
     assert data == "only"

@@ -45,10 +45,7 @@ class RecordServiceConfig(RecordServiceConfig):
     permission_policy_cls = FilePermissionPolicy
 
     # Service components
-    components = RecordServiceConfig.components + [
-        OperationLogsComponent,
-        ReindexRecordComponent,
-    ]
+    components = [*RecordServiceConfig.components, OperationLogsComponent, ReindexRecordComponent]
 
     # Dumper for the indexer
     index_dumper = SearchDumper(extensions=[IndexedAtDumperExt(), FileInformationDumperExt()])
@@ -78,7 +75,4 @@ class RecordFileServiceConfig(FileServiceConfig):
         return max_ui_files * 3 + 100
 
     # Service components
-    components = FileServiceConfig.components + [
-        ReindexFileComponent,
-        OperationLogsFileComponent,
-    ]
+    components = [*FileServiceConfig.components, ReindexFileComponent, OperationLogsFileComponent]

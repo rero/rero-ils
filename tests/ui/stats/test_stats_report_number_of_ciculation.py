@@ -19,8 +19,8 @@
 """Stats Report tests circulation indicators."""
 
 from datetime import datetime
+from unittest import mock
 
-import mock
 from invenio_search import current_search_client as es
 
 from rero_ils.modules.stats.api.report import StatsReport

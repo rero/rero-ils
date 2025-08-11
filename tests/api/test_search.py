@@ -17,7 +17,8 @@
 
 """Search tests."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 
 from tests.utils import VerifyRecordPermissionPatch, get_json

@@ -20,8 +20,8 @@
 import json
 from copy import deepcopy
 from datetime import datetime, timedelta
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
@@ -383,7 +383,7 @@ def test_patrons_circulation_informations(
     tomorrow,
     ill_request_sion,
 ):
-    """test patron circulation informations."""
+    """Test patron circulation informations."""
     url = url_for("api_patrons.patron_circulation_informations", patron_pid=patron_sion.pid)
     res = client.get(url)
     assert res.status_code == 401
@@ -410,7 +410,7 @@ def test_patrons_circulation_informations(
     res = client.get(url)
     assert res.status_code == 200
     data = res.json
-    assert "error" == data["messages"][0]["type"]
+    assert data["messages"][0]["type"] == "error"
     assert "This patron is currently blocked" in data["messages"][0]["content"]
 
     patron = patron3_martigny_blocked
@@ -420,7 +420,7 @@ def test_patrons_circulation_informations(
     patron.update(patron, dbcommit=True, reindex=True)
     res = client.get(url)
     data = res.json
-    assert "error" == data["messages"][0]["type"]
+    assert data["messages"][0]["type"] == "error"
     assert "Patron rights expired" in data["messages"][0]["content"]
 
     # reset the patron

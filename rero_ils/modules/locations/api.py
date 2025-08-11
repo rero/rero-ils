@@ -35,7 +35,7 @@ from .indexer import location_indexer_dumper, location_replace_refs_dumper
 from .models import LocationIdentifier, LocationMetadata
 
 # provider
-LocationProvider = type("LocationProvider", (Provider,), dict(identifier=LocationIdentifier, pid_type="loc"))
+LocationProvider = type("LocationProvider", (Provider,), {"identifier": LocationIdentifier, "pid_type": "loc"})
 # minter
 location_id_minter = partial(id_minter, provider=LocationProvider)
 # fetcher

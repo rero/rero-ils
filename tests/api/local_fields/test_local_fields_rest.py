@@ -19,8 +19,8 @@
 
 import json
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from flask import url_for
 
 from rero_ils.modules.local_fields.api import LocalFieldsSearch

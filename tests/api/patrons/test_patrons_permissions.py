@@ -18,7 +18,8 @@
 
 """Tests Permission for REST API patrons."""
 
-import mock
+from unittest import mock
+
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user

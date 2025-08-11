@@ -334,10 +334,10 @@ class AcqRollover:
         log.info("  Testing order lines ...")
         for line in data.get("order_lines", []):
             if line.unreceived_quantity == 0:
-                log.warning(f"\t* Unreceived quantity for {str(line)} is 0 !")
+                log.warning(f"\t* Unreceived quantity for {line!s} is 0 !")
                 error_count += 1
             if line.document.harvested:
-                log.warning(f"\t* {str(line)} related to harvested document !")
+                log.warning(f"\t* {line!s} related to harvested document !")
                 error_count += 1
         if error_count:
             raise RolloverError(f"Data validation failed : {error_count} error(s) found")
@@ -364,7 +364,7 @@ class AcqRollover:
                     data["parent"]["$ref"] = get_ref_for_pid("acac", p_pid)
                 else:
                     raise RolloverError(
-                        f"Unable to find new parent account for {str(acc)} : parent pid was {old_parent_pid}"
+                        f"Unable to find new parent account for {acc!s} : parent pid was {old_parent_pid}"
                     )
             # Create the new account.
             #   If create failed :: raise an error.
@@ -377,7 +377,7 @@ class AcqRollover:
                 new_label = truncate(str(new_account), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(f"Account creation failed on [acac#{acc.pid}] :: {str(e)}") from e
+                raise RolloverError(f"Account creation failed on [acac#{acc.pid}] :: {e!s}") from e
 
     def _migrate_orders(self, orders):
         """Migrate a list of orders.
@@ -404,7 +404,7 @@ class AcqRollover:
                 new_label = truncate(str(new_order), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(f"Order creation failed on [acor#{order.pid}] :: {str(e)}") from e
+                raise RolloverError(f"Order creation failed on [acor#{order.pid}] :: {e!s}") from e
 
     def _migrate_order_lines(self, order_lines):
         """Migrate a list of order lines.
@@ -422,11 +422,11 @@ class AcqRollover:
             o_order_pid = line.order_pid
             p_order_pid = self._mapping_table.get("orders").get(o_order_pid)
             if not p_order_pid:
-                raise RolloverError(f"Unable to find new parent order for {str(line)} : parent pid was {p_order_pid}")
+                raise RolloverError(f"Unable to find new parent order for {line!s} : parent pid was {p_order_pid}")
             o_acc_pid = line.account_pid
             p_acc_pid = self._mapping_table.get("accounts").get(o_acc_pid)
             if not p_acc_pid:
-                raise RolloverError(f"Unable to find new parent account for {str(line)} : parent pid was {p_acc_pid}")
+                raise RolloverError(f"Unable to find new parent account for {line!s} : parent pid was {p_acc_pid}")
             data["acq_order"]["$ref"] = get_ref_for_pid("acor", p_order_pid)
             data["acq_account"]["$ref"] = get_ref_for_pid("acac", p_acc_pid)
             # Update specific order line fields
@@ -444,7 +444,7 @@ class AcqRollover:
                 new_label = truncate(str(new_line), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(f"Order line creation failed on [acol#{line.pid}] :: {str(e)}") from e
+                raise RolloverError(f"Order line creation failed on [acol#{line.pid}] :: {e!s}") from e
 
     def _update_budgets(self, orig_state=False, dest_state=False):
         """Update rollover budgets to activate/deactivate them.
@@ -495,7 +495,7 @@ class AcqRollover:
         self.logger.info("Purging created resources...")
         for obj in reversed(self._stack):
             obj.delete(force=True, dbcommit=True, delindex=True)
-            self.logger.info(f"\t* object {str(obj)} deleted")
+            self.logger.info(f"\t* object {obj!s} deleted")
 
     def _confirm(self, question, default="yes"):
         """Ask a yes/no question via raw_input() and return their answer.
@@ -521,10 +521,9 @@ class AcqRollover:
             choice = input().lower()
             if default is not None and choice == "":
                 return valid[default]
-            elif choice in valid:
+            if choice in valid:
                 return valid[choice]
-            else:
-                self.logger.warning("Please respond with 'yes' or 'no'.")
+            self.logger.warning("Please respond with 'yes' or 'no'.")
 
     def _create_new_budget(self, **kwargs):
         """Create a new budget to use for rollover setting.
@@ -603,9 +602,9 @@ class AcqRollover:
         d_org_pid = self.destination_budget.organisation_pid
         if o_org_pid != d_org_pid:
             raise IncompatibleBudgetError(o_org_pid, d_org_pid)
-        elif not self.original_budget.is_active:
+        if not self.original_budget.is_active:
             raise InactiveBudgetError(self.original_budget.pid)
-        elif self.destination_budget.get_links_to_me():
+        if self.destination_budget.get_links_to_me():
             raise BudgetNotEmptyError(self.destination_budget.pid)
 
     # PRIVATE STATIC METHODS ==================================================

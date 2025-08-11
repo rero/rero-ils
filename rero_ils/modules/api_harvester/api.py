@@ -17,8 +17,6 @@
 
 """API for cantook records."""
 
-from __future__ import absolute_import, print_function
-
 import click
 
 from rero_ils.modules.api_harvester.models import ApiHarvestConfig

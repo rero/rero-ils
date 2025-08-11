@@ -18,8 +18,6 @@
 
 """Holding Patterns Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime
 
@@ -34,31 +32,6 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.utils import get_ref_for_pid, get_schema_for_resource
 from tests.utils import get_json, postdata
-
-
-def test_pattern_preview_api(client, holding_lib_martigny_w_patterns, librarian_martigny):
-    """Test holdings patterns preview api."""
-    login_user_via_session(client, librarian_martigny.user)
-    holding = holding_lib_martigny_w_patterns
-    # holding = Holding.get_record_by_pid(holding.pid)
-    # test preview by default 10 issues returned
-    res = client.get(url_for("api_holding.patterns_preview", holding_pid=holding.pid))
-    assert res.status_code == 200
-    issues = get_json(res).get("issues")
-    assert issues[0]["issue"] == "no 61 mars 2020"
-    assert len(issues) == 10
-    # test invalid size
-    res = client.get(url_for("api_holding.patterns_preview", holding_pid=holding.pid, size="no size"))
-    assert res.status_code == 200
-    issues = get_json(res).get("issues")
-    assert issues[0]["issue"] == "no 61 mars 2020"
-    assert len(issues) == 10
-    # test preview for a given size
-    res = client.get(url_for("api_holding.patterns_preview", holding_pid=holding.pid, size=13))
-    assert res.status_code == 200
-    issues = get_json(res).get("issues")
-    assert issues[12]["issue"] == "no 73 mars 2023"
-    assert len(issues) == 13
 
 
 def test_pattern_preview_api(client, holding_lib_martigny_w_patterns, librarian_martigny):
@@ -101,7 +74,7 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         "api_holding.receive_regular_issue",
-        url_data=dict(holding_pid=holding.pid),
+        url_data={"holding_pid": holding.pid},
     )
     assert res.status_code == 401
 
@@ -111,7 +84,7 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         "api_holding.receive_regular_issue",
-        url_data=dict(holding_pid=holding.pid),
+        url_data={"holding_pid": holding.pid},
     )
     assert res.status_code == 401
     # only users of same organisation may receive issues.
@@ -119,7 +92,7 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         "api_holding.receive_regular_issue",
-        url_data=dict(holding_pid=holding.pid),
+        url_data={"holding_pid": holding.pid},
     )
     assert res.status_code == 401
 
@@ -127,7 +100,7 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         "api_holding.receive_regular_issue",
-        url_data=dict(holding_pid=holding.pid),
+        url_data={"holding_pid": holding.pid},
     )
     assert res.status_code == 200
     issue = get_json(res).get("issue")
@@ -145,8 +118,8 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         "api_holding.receive_regular_issue",
-        data=dict(item=item),
-        url_data=dict(holding_pid=holding.pid),
+        data={"item": item},
+        url_data={"holding_pid": holding.pid},
     )
     assert res.status_code == 200
     issue = get_json(res).get("issue")
@@ -216,7 +189,7 @@ def test_holding_pattern_preview_api(client, pattern_yearly_one_level_data, libr
     login_user_via_session(client, librarian_martigny.user)
     patterns = pattern_yearly_one_level_data.get("patterns")
     # test preview by default 10 issues returned
-    res, data = postdata(client, "api_holding.pattern_preview", dict(data=patterns, size=15))
+    res, data = postdata(client, "api_holding.pattern_preview", {"data": patterns, "size": 15})
     assert res.status_code == 200
 
     issues = get_json(res).get("issues")
@@ -225,7 +198,7 @@ def test_holding_pattern_preview_api(client, pattern_yearly_one_level_data, libr
 
     # test invalid patterns
     del patterns["values"]
-    res, data = postdata(client, "api_holding.pattern_preview", dict(data=patterns))
+    res, data = postdata(client, "api_holding.pattern_preview", {"data": patterns})
     assert res.status_code == 200
 
     issues = get_json(res).get("issues")

@@ -41,7 +41,7 @@ from .models import AcqReceiptLineIdentifier, AcqReceiptLineMetadata
 AcqReceiptLineProvider = type(
     "AcqReceiptLineProvider",
     (Provider,),
-    dict(identifier=AcqReceiptLineIdentifier, pid_type="acrl"),
+    {"identifier": AcqReceiptLineIdentifier, "pid_type": "acrl"},
 )
 # minter
 acq_receipt_line_id_minter = partial(id_minter, provider=AcqReceiptLineProvider)

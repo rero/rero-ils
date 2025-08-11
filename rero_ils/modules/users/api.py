@@ -44,7 +44,7 @@ def get_profile_countries():
     """Get country list from the jsonschema."""
     schema = current_jsonschemas.get_schema("common/countries-v0.0.1.json")
     options = schema["country"]["form"]["options"]
-    return [(option.get("value"), _((option.get("label")))) for option in options]
+    return [(option.get("value"), _(option.get("label"))) for option in options]
 
 
 def get_readonly_profile_fields() -> list[str]:
@@ -87,7 +87,7 @@ def user_formatted_name(base_user):
     return ", ".join(filter(None, name_parts))
 
 
-class User(object):
+class User:
     """User API."""
 
     profile_fields = [
@@ -273,6 +273,7 @@ class User(object):
         """
         if base_user := BaseUser.query.filter_by(username=username).first():
             return cls(base_user)
+        return None
 
     @classmethod
     def get_by_email(cls, email):

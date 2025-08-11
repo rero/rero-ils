@@ -27,12 +27,12 @@ from invenio_search import current_search_client
 def user_with_profile(db, default_user_password):
     """Create a simple invenio user with a profile."""
     with db.session.begin_nested():
-        profile = dict(
-            birth_date="1990-01-01",
-            first_name="User",
-            last_name="With Profile",
-            city="Nowhere",
-        )
+        profile = {
+            "birth_date": "1990-01-01",
+            "first_name": "User",
+            "last_name": "With Profile",
+            "city": "Nowhere",
+        }
         user = User(
             email="user_with_profile@test.com",
             username="user_with_profile",
@@ -50,10 +50,10 @@ def user_with_profile(db, default_user_password):
 def user_without_name_email(db, default_user_password):
     """Create a simple invenio user without email."""
     with db.session.begin_nested():
-        profile = dict(
-            birth_date="1990-01-01",
-            city="Nowhere",
-        )
+        profile = {
+            "birth_date": "1990-01-01",
+            "city": "Nowhere",
+        }
         user = User(
             password=hash_password(default_user_password),
             user_profile=profile,
@@ -70,10 +70,10 @@ def user_without_name_email(db, default_user_password):
 def user_without_name(db, default_user_password):
     """Create a simple invenio user without nmae."""
     with db.session.begin_nested():
-        profile = dict(
-            birth_date="1990-01-01",
-            city="Nowhere",
-        )
+        profile = {
+            "birth_date": "1990-01-01",
+            "city": "Nowhere",
+        }
         user = User(
             password=hash_password(default_user_password),
             user_profile=profile,

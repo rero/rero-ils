@@ -18,8 +18,6 @@
 
 """API for manipulating Circulation policies."""
 
-from __future__ import absolute_import, print_function
-
 import math
 import sys
 from functools import partial
@@ -43,7 +41,7 @@ OVERDUE_REMINDER_TYPE = "overdue"
 CircPolicyProvider = type(
     "CircPolicyProvider",
     (Provider,),
-    dict(identifier=CircPolicyIdentifier, pid_type="cipo"),
+    {"identifier": CircPolicyIdentifier, "pid_type": "cipo"},
 )
 # cipo minter
 circ_policy_id_minter = partial(id_minter, provider=CircPolicyProvider)
@@ -346,6 +344,7 @@ class CircPolicy(IlsRecord):
                     reminder.get("days_delay") if reminder else sys.maxsize,
                 ]
             )
+        return None
 
     def get_overdue_intervals(self):
         """Return sorted overdue intervals for this circulation policy."""
@@ -378,6 +377,7 @@ class CircPolicy(IlsRecord):
         reminders = list(self.get_reminders(reminder_type=reminder_type))
         if reminders and idx < len(reminders):
             return reminders[idx]
+        return None
 
     @classmethod
     def can_request(cls, record, **kwargs):

@@ -119,4 +119,3 @@ def test_cli_create_documents_items_lofi(app, loc_public_martigny, item_type_sta
         "    ok    : 2",
         "    errors: 2",
     ]
-    print(res.output.strip())

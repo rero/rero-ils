@@ -17,8 +17,6 @@
 
 """CircPolicy Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.theme.views import replace_ref_url
 
 

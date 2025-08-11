@@ -273,6 +273,7 @@ class IlsRecord(Record):
             # TODO: is it better to raise a error or to return None?
             except (NoResultFound, PIDDoesNotExistError):
                 return None
+        return None
 
     @classmethod
     def get_records_by_pids(cls, pids):
@@ -396,8 +397,7 @@ class IlsRecord(Record):
             if dbcommit:
                 db.session.commit()
             return self
-        else:
-            raise IlsRecordError.NotDeleted()
+        raise IlsRecordError.NotDeleted()
 
     def update(self, data, commit=False, dbcommit=False, reindex=False):
         """Update data for record.
@@ -459,8 +459,7 @@ class IlsRecord(Record):
         else:
             raise IlsRecordError.NotDeleted()
 
-        self = self.revert(self.revision_id - 2, reindex=reindex)
-        return self
+        return self.revert(self.revision_id - 2, reindex=reindex)
 
     def dbcommit(self, reindex=False, forceindex=False):
         """Commit changes to db."""
@@ -474,8 +473,7 @@ class IlsRecord(Record):
         indexer = self.get_indexer_class()
         if forceindex:
             return indexer(version_type="external_gte").index(self)
-        else:
-            return indexer().index(self)
+        return indexer().index(self)
 
     def delete_from_index(self):
         """Delete record from index."""
@@ -554,7 +552,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
     def index(self, record):
         """Indexing a record."""
-        return super().index(record, arguments=dict(refresh="true"))
+        return super().index(record, arguments={"refresh": "true"})
 
     def delete(self, record):
         """Delete a record.
@@ -626,7 +624,7 @@ class IlsRecordsIndexer(RecordIndexer):
         """
         with self.create_producer() as producer:
             for rec in record_id_iterator:
-                data = dict(id=str(rec), op=op_type, index=index, doc_type=doc_type)
+                data = {"id": str(rec), "op": op_type, "index": index, "doc_type": doc_type}
                 producer.publish(
                     data,
                     declare=[self.mq_queue],
@@ -702,12 +700,9 @@ class IlsRecordsIndexer(RecordIndexer):
             # records. Also, we're adding extra information into the record
             # like _created and _updated afterwards, which the Record.dumps()
             # have no control over.
-            if current_app.config.get("INDEXER_REPLACE_REFS"):
-                data = record.replace_refs().dumps()
-                # Original code
-                # data = copy.deepcopy(record.replace_refs())
-            else:
-                data = record.dumps()
+            # Original code
+            # data = copy.deepcopy(record.replace_refs())
+            data = record.replace_refs().dumps() if current_app.config.get("INDEXER_REPLACE_REFS") else record.dumps()
 
         data["_created"] = pytz.utc.localize(record.created).isoformat() if record.created else None
         data["_updated"] = pytz.utc.localize(record.updated).isoformat() if record.updated else None
@@ -741,4 +736,4 @@ class ReferencedRecordsIndexer:
                 record_to_index = r["record"]
                 indexer.index(record_to_index)
             except Exception as err:
-                current_app.logger.error(f"Record indexing error {r['pid_type']} {r['record']['pid']}: {str(err)}")
+                current_app.logger.error(f"Record indexing error {r['pid_type']} {r['record']['pid']}: {err!s}")

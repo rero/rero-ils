@@ -18,9 +18,8 @@
 
 """Holding Record tests."""
 
-from __future__ import absolute_import, print_function
+from unittest import mock
 
-import mock
 import pytest
 from jsonschema.exceptions import ValidationError
 

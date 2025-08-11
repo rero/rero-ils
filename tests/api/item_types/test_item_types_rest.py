@@ -18,8 +18,8 @@
 """Tests REST API item types."""
 
 import json
+from unittest import mock
 
-import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session

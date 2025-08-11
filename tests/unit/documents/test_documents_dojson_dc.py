@@ -17,8 +17,6 @@
 
 """DOJSON transformation for Dublin Core module tests."""
 
-from __future__ import absolute_import, print_function
-
 from flask_babel import gettext as _
 
 from rero_ils.modules.documents.dojson.contrib.jsontodc import dublincore

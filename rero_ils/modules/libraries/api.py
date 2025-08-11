@@ -48,7 +48,7 @@ from .extensions import LibraryCalendarChangesExtension
 from .models import LibraryAddressType, LibraryIdentifier, LibraryMetadata
 
 # provider
-LibraryProvider = type("LibraryProvider", (Provider,), dict(identifier=LibraryIdentifier, pid_type="lib"))
+LibraryProvider = type("LibraryProvider", (Provider,), {"identifier": LibraryIdentifier, "pid_type": "lib"})
 # minter
 library_id_minter = partial(id_minter, provider=LibraryProvider)
 # fetcher
@@ -126,8 +126,7 @@ class Library(IlsRecord):
         """
         if address_type == LibraryAddressType.MAIN_ADDRESS:
             return self.get("address")
-        else:
-            return self.get("acquisition_settings", {}).get(f"{address_type}_informations", {}).get("address")
+        return self.get("acquisition_settings", {}).get(f"{address_type}_informations", {}).get("address")
 
     def get_email(self, notification_type):
         """Get the email corresponding to the given notification type.
@@ -141,6 +140,7 @@ class Library(IlsRecord):
             for setting in self.get("notification_settings", []):
                 if setting["type"] == notification_type:
                     return setting["email"]
+        return None
 
     def _pickup_location_query(self):
         """Search the location index for pickup locations."""
@@ -295,6 +295,7 @@ class Library(IlsRecord):
         days = [day for day in self.get("opening_hours", []) if day["day"] == day_name and day["is_open"]]
         if days and days[0]["times"]:
             return days[0]["times"][0]["start_time"]
+        return None
 
     def next_open(self, date=None, previous=False, ensure=False):
         """Get next open day."""
@@ -413,6 +414,7 @@ class Library(IlsRecord):
         for harvested_source in self.get("online_harvested_source", []):
             if harvested_source.get("source") == source:
                 return harvested_source["url"]
+        return None
 
 
 class LibrariesIndexer(IlsRecordsIndexer):

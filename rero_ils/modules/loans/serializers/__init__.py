@@ -27,7 +27,7 @@ from rero_ils.modules.serializers import (
 from .csv import LoanStreamedCSVSerializer
 from .json import LoanJSONSerializer
 
-__all__ = ["json_loan_search", "csv_stream_search"]
+__all__ = ["csv_stream_search", "json_loan_search"]
 
 
 _json = LoanJSONSerializer(RecordSchemaJSONV1)

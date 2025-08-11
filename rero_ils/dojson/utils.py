@@ -163,7 +163,7 @@ _PRODUCTION_METHOD_FROM_EXTENT_AND_PHYSICAL_DETAILS = {
 _COLOR_CONTENT_REGEXP = {
     # monochrom
     "rdacc:1002": re.compile(
-        r"noir|black|schwarz|nero|n\.\set|schw|b\&w|" r"b\/n|s\/w|^n\set\sb|\sn\set\sb",
+        r"noir|black|schwarz|nero|n\.\set|schw|b\&w|b\/n|s\/w|^n\set\sb|\sn\set\sb",
         re.IGNORECASE,
     ),
     # polychrome
@@ -398,8 +398,7 @@ def get_field_items(value):
     """Get field items."""
     if isinstance(value, utils.GroupableOrderedDict):
         return value.iteritems(repeated=True)
-    else:
-        return utils.iteritems(value)
+    return utils.iteritems(value)
 
 
 def build_string_from_subfields(value, subfield_selection, separator=" "):
@@ -459,7 +458,7 @@ def get_mef_link(bibid, reroid, entity_type, ids, key):
     # RERO_ILS_MEF_APP_BASE_URL in config.py
     # https://mef.rero.ch/api/agents/mef/?q=rero.rero_pid:A012327677
     if not ids:
-        return
+        return None
     try:
         # Try to get RERO_ILS_ENTITY_TYPES and RERO_ILS_MEF_CONFIG from current app
         # In the dojson cli is no current app and we have to get the value directly
@@ -472,7 +471,7 @@ def get_mef_link(bibid, reroid, entity_type, ids, key):
     entity_type = entity_types.get(entity_type)
     mef_url = mef_config.get(entity_type, {}).get("base_url")
     if not mef_url:
-        return
+        return None
     sources = mef_config.get(entity_type, {}).get("sources")
     has_no_de_101 = True
     for id_ in ids:
@@ -483,10 +482,7 @@ def get_mef_link(bibid, reroid, entity_type, ids, key):
                     has_no_de_101 = False
                     break
     for id_ in ids:
-        if type(id_) is str:
-            match = re_identified.search(id_)
-        else:
-            match = re_identified.search(id_[0])
+        match = re_identified.search(id_) if type(id_) is str else re_identified.search(id_[0])
         if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
             match_type = match.group(1).lower()
             match_value = match.group(2)
@@ -538,6 +534,7 @@ def get_mef_link(bibid, reroid, entity_type, ids, key):
                                 break
         elif match:
             error_print("ERROR GET MEF CONTRIBUTION:", bibid, reroid, key, id_)
+    return None
 
 
 def add_note(new_note, data):
@@ -570,7 +567,7 @@ def add_data_and_sort_list(key, new_data, data):
         new_set = set(existing_data)
         for value_data in new_data:
             new_set.add(value_data)
-        data[key] = sorted(list(new_set))
+        data[key] = sorted(new_set)
 
 
 def join_alternate_graphic_data(alt_gr_1, alt_gr_2, join_str):
@@ -598,7 +595,7 @@ def join_alternate_graphic_data(alt_gr_1, alt_gr_2, join_str):
     return new_alt_gr_data
 
 
-class BookFormatExtraction(object):
+class BookFormatExtraction:
     """Extract book formats from a marc subfield data.
 
     The regular expression patterns needed to extract book formats are build by
@@ -899,7 +896,7 @@ class ReroIlsOverdo(Overdo):
             extent_and_physical_detail_data.append(physical_detail)
             # to avoid empty note after removing punctuation
             if physical_detail:
-                add_note(dict(noteType="otherPhysicalDetails", label=physical_detail), data)
+                add_note({"noteType": "otherPhysicalDetails", "label": physical_detail}, data)
 
         physical_details_str = "|".join(physical_details)
         extent_and_physical_detail_str = "|".join(extent_and_physical_detail_data)
@@ -931,7 +928,7 @@ class ReroIlsOverdo(Overdo):
 
         # remove 'rdapm:1005' if specific production_method exists
         if ("rdapm:1005") in production_method_set:
-            del_set = set(("rdapm:1009", "rdapm:1012", "rdapm:1014", "rdapm:1016"))
+            del_set = {"rdapm:1009", "rdapm:1012", "rdapm:1014", "rdapm:1016"}
             if production_method_set.intersection(del_set):
                 production_method_set.remove("rdapm:1005")
 
@@ -966,7 +963,7 @@ class ReroIlsOverdo(Overdo):
             for material_note in material_notes:
                 if material_note:
                     add_note(
-                        dict(noteType="accompanyingMaterial", label=material_note.strip()),
+                        {"noteType": "accompanyingMaterial", "label": material_note.strip()},
                         data,
                     )
 
@@ -1449,7 +1446,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         :rtype: str
         """
         if script_code in _LANGUAGES_SCRIPTS:
-            languages = [self.lang_from_008] + self.langs_from_041_a + self.langs_from_041_h
+            languages = [self.lang_from_008, *self.langs_from_041_a, *self.langs_from_041_h]
             for lang in languages:
                 if lang in _LANGUAGES_SCRIPTS[script_code]:
                     return "-".join([lang, script_code])
@@ -1732,7 +1729,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         return fields
 
 
-class TitlePartList(object):
+class TitlePartList:
     """The purpose of this class is to build the title part list.
 
     The title part list is build parsing the subfields $n, $p of fields 245
@@ -1779,16 +1776,16 @@ class TitlePartList(object):
         value_data = remove_last_dot(value_data)
         if self.part_number_waiting_name:
             if subfield_code == self.part_name_code:
-                self.part_list.append(dict(partNumber=self.part_number_waiting_name, partName=value_data))
+                self.part_list.append({"partNumber": self.part_number_waiting_name, "partName": value_data})
                 self.part_number_waiting_name = {}
             else:
-                self.part_list.append(dict(partNumber=self.part_number_waiting_name))
+                self.part_list.append({"partNumber": self.part_number_waiting_name})
                 self.part_number_waiting_name = value_data
         else:
             if subfield_code == self.part_number_code:
                 self.part_number_waiting_name = value_data
             else:
-                self.part_list.append(dict(partName=value_data))
+                self.part_list.append({"partName": value_data})
 
     def get_part_list(self):
         """Get the part list.
@@ -1802,7 +1799,7 @@ class TitlePartList(object):
         :rtype: list
         """
         if self.part_number_waiting_name:
-            self.part_list.append(dict(partNumber=self.part_number_waiting_name))
+            self.part_list.append({"partNumber": self.part_number_waiting_name})
         return self.part_list
 
 
@@ -2030,8 +2027,9 @@ def build_identifier(data):
                     if identifier_type := sources_mapping.get(source.upper()):
                         result["type"] = identifier_type
                         return result
-                    elif source.upper() == "DE-588" and has_no_de_101:
+                    if source.upper() == "DE-588" and has_no_de_101:
                         if idn := get_gnd_de_101(match.group(2)):
                             result["value"] = idn
                             result["type"] = "GND"
                             return result
+    return None

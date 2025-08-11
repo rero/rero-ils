@@ -120,6 +120,7 @@ class BaseDocumentFormatterMixin(ABC):
             if es_doc := DocumentsSearch().get_record_by_pid(pid):
                 title = es_doc.to_dict().get("title", [])
                 return next(filter(lambda x: x.get("type") == "bf:Title", title), {}).get("_text")
+            return None
 
         # get partOf title
         return [title for title in map(_extract_part_of_title_callback, self.record.get("partOf", [])) if title]
@@ -142,6 +143,7 @@ class BaseDocumentFormatterMixin(ABC):
             role = contribution.get("role", [])
             if any(r in role for r in CREATOR_ROLES):
                 return self._get_localized_contribution(agent) or agent.get("authorized_access_point")
+            return None
 
         return [
             contribution
@@ -158,6 +160,7 @@ class BaseDocumentFormatterMixin(ABC):
             role = contribution.get("role", [])
             if all(r not in role for r in CREATOR_ROLES):
                 return self._get_localized_contribution(agent) or agent.get("preferred_name")
+            return None
 
         return [
             contribution
@@ -174,6 +177,7 @@ class BaseDocumentFormatterMixin(ABC):
         ]:
             # return only the first date
             return f"{start_date} - {end_date}" if end_date else start_date
+        return None
 
     def _get_start_pages(self):
         """Return start pages."""

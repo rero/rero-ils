@@ -18,8 +18,6 @@
 
 """API for dispatch Notifications."""
 
-from __future__ import absolute_import, print_function
-
 from flask import current_app
 from invenio_mail.api import TemplatedMessage
 from invenio_mail.tasks import send_email as task_send_email
@@ -78,7 +76,7 @@ class Dispatcher:
         #   are always send to same recipient (patron, lib, vendor, ...) with
         #   the same communication channel. So we can check any notification
         #   of the set to get the these informations.
-        for aggr_key, aggr_notifications in aggregated.items():
+        for aggr_notifications in aggregated.values():
             notification = aggr_notifications[0]
             comm_channel = notification.get_communication_channel()
             dispatcher_function = get_dispatcher_function(comm_channel)
@@ -172,12 +170,12 @@ class Dispatcher:
     def send_mail_for_printing(notifications=None):
         """Send a set of notification by mail.
 
-         A this time, we doesn't have any way to send a notification using
-         classic mail (postal) process. The solution is to send an email
-         to the library address. The library will print this email and send it
-         to the correct recipient.
+        A this time, we doesn't have any way to send a notification using
+        classic mail (postal) process. The solution is to send an email
+        to the library address. The library will print this email and send it
+        to the correct recipient.
 
-         TODO : Implement a way to send notifications to a async PDF’s
+        TODO : Implement a way to send notifications to a async PDF
                 generator process working with CUPS (using RabbitMQ queue)
 
         :param notifications: the notification set to perform.

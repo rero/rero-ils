@@ -62,7 +62,7 @@ DB_CONNECTIONS_QUERY = text(
 )
 
 
-class Monitoring(object):
+class Monitoring:
     """Monitoring class.
 
     The main idea here is to check the consistency between the database and
@@ -270,8 +270,7 @@ class Monitoring(object):
                 "ES": list(missing_in_es),
                 "ES duplicate": pids_es_double,
             }
-        else:
-            return {"ERROR": f"Document type not found: {doc_type}"}
+        return {"ERROR": f"Document type not found: {doc_type}"}
 
     def print_missing(self, doc_type):
         """Print missing pids for the given document type.
@@ -282,12 +281,12 @@ class Monitoring(object):
         if "ERROR" in missing:
             click.secho(f"Error: {missing['ERROR']}", fg="yellow")
         else:
-            if "ES duplicate" in missing and missing["ES duplicate"]:
+            if missing.get("ES duplicate"):
                 click.secho(
                     f"ES duplicate {doc_type}: {', '.join(missing['ES duplicate'])}",
                     fg="red",
                 )
-            if "ES" in missing and missing["ES"]:
+            if missing.get("ES"):
                 click.secho(f"ES missing {doc_type}: {', '.join(missing['ES'])}", fg="red")
-            if "DB" in missing and missing["DB"]:
+            if missing.get("DB"):
                 click.secho(f"DB missing {doc_type}: {', '.join(missing['DB'])}", fg="red")

@@ -232,8 +232,8 @@ def validate_item_pickup_transaction_locations(loan, destination, **kwargs):
     :param kwargs : all others named arguments
     :return: validation of the loan to next transition, True or False
     """
-    pickup_library_pid = kwargs.get("pickup_library_pid", None)
-    transaction_library_pid = kwargs.get("transaction_library_pid", None)
+    pickup_library_pid = kwargs.get("pickup_library_pid")
+    transaction_library_pid = kwargs.get("transaction_library_pid")
 
     # validation is made at the library level
     if not pickup_library_pid:
@@ -245,8 +245,9 @@ def validate_item_pickup_transaction_locations(loan, destination, **kwargs):
 
     if destination == "ITEM_AT_DESK":
         return pickup_library_pid == transaction_library_pid
-    elif destination == "ITEM_IN_TRANSIT_FOR_PICKUP":
+    if destination == "ITEM_IN_TRANSIT_FOR_PICKUP":
         return pickup_library_pid != transaction_library_pid
+    return None
 
 
 def sum_for_fees(fee_steps):
@@ -276,3 +277,4 @@ def get_loan_checkout_date(loan_pid):
     )
     if hit := next(query.scan(), None):
         return ciso8601.parse_datetime(hit.date)
+    return None

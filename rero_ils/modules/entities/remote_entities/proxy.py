@@ -178,7 +178,7 @@ class MEFProxyMixin:
         def _build_filter_value(value):
             if isinstance(value, list):
                 return f"({' OR '.join(value)})"
-            return f'"{str(value)}"'
+            return f'"{value!s}"'
 
         query_params = [
             f'(idref.authorized_access_point:"{term}" OR gnd.authorized_access_point:"{term}")^10 OR (autocomplete_name:{term} OR "{term}")^4 OR ({term})'

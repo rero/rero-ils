@@ -226,7 +226,7 @@ class SyncEntity:
                             # pids form a given date
                             res = requests_retry_session().post(
                                 url,
-                                json=dict(from_date=from_date.strftime("%Y-%m-%d"), pids=chunk),
+                                json={"from_date": from_date.strftime("%Y-%m-%d"), "pids": chunk},
                             )
                             if res.status_code != 200:
                                 requests.ConnectionError(f"Expected status code 200, but got {res.status_code} {url}")
@@ -241,11 +241,9 @@ class SyncEntity:
                     get_updated_mef(pids=get_mef_pids(es_query), chunk_size=5000),
                     total,
                 )
-            else:
-                return [], 0
+            return [], 0
         # considers all MEF pids
-        else:
-            return get_mef_pids(es_query), total
+        return get_mef_pids(es_query), total
 
     def sync_record(self, pid):
         """Sync a MEF record.
@@ -335,7 +333,7 @@ class SyncEntity:
                     self._update_entities_in_document(doc_pid=doc_pid, pids_to_replace=pids_to_replace)
                 doc_updated = set(doc_pids)
         except Exception as err:
-            self.logger.error(f"ERROR: MEF record(pid: {pid}) -> {str(err)}")
+            self.logger.error(f"ERROR: MEF record(pid: {pid}) -> {err!s}")
             error = True
             # uncomment to debug
             # raise
@@ -354,10 +352,7 @@ class SyncEntity:
         self.logger.info(f"DONE: doc updated: {n_doc_updated}, mef updated: {n_mef_updated}.")
         if self.dry_run:
             return
-        if data := get_timestamp("sync_entities"):
-            errors = data.get("errors", [])
-        else:
-            errors = []
+        errors = data.get("errors", []) if (data := get_timestamp("sync_entities")) else []
         errors += mef_errors
         set_timestamp(
             "sync_entities",

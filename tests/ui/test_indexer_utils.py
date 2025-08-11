@@ -17,9 +17,10 @@
 
 """API tests for indexer utilities."""
 
+from unittest import mock
+
 import pytest
 from elasticsearch import NotFoundError
-from mock import mock
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.indexer_utils import record_to_index

@@ -17,8 +17,6 @@
 
 """Patron transaction Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 
 import pytest

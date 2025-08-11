@@ -119,6 +119,7 @@ def create_patron_transaction_from_overdue_loan(loan, dbcommit=True, reindex=Tru
             "steps": [{"timestamp": fee[1].isoformat(), "amount": fee[0]} for fee in fees],
         }
         return PatronTransaction.create(data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid)
+    return None
 
 
 def create_patron_transaction_from_notification(notification=None, dbcommit=None, reindex=None, delete_pid=None):
@@ -138,6 +139,7 @@ def create_patron_transaction_from_notification(notification=None, dbcommit=None
             "status": "open",
         }
         return PatronTransaction.create(data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid)
+    return None
 
 
 def create_subscription_for_patron(
@@ -172,7 +174,7 @@ def create_subscription_for_patron(
             "creation_date": datetime.now(timezone.utc).isoformat(),
             "type": "subscription",
             "status": "open",
-            "note": _("Subscription for '{name}' from {start} to {end}".format(name=name, start=start, end=end)),
+            "note": _(f"Subscription for '{name}' from {start} to {end}"),
         }
         record = PatronTransaction.create(data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid)
     return record

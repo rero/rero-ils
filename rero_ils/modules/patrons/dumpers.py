@@ -71,5 +71,4 @@ class PatronNotificationDumper(InvenioRecordsDumper):
             "barcode": record.get("patron", {}).get("barcode"),
         }
         data["address"] = {k: v for k, v in data["address"].items() if v}
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}

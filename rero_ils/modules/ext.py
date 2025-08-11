@@ -174,7 +174,7 @@ def load_actions(sender, app):
     )
 
 
-class REROILSAPP(object):
+class REROILSAPP:
     """rero-ils extension."""
 
     def __init__(self, app=None):

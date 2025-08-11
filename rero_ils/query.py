@@ -18,15 +18,12 @@
 
 """Query factories for REST API."""
 
-from __future__ import absolute_import, print_function
-
 import re
 from datetime import datetime, timezone
 
 from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl.query import Q
-from flask import current_app
-from flask import request
+from flask import current_app, request
 from flask import request as flask_request
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError

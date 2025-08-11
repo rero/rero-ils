@@ -89,7 +89,7 @@ class TitleExtension(RecordExtension):
                             parallel_titles.append(parallel_title_text.get("value"))
         output_value = ". ".join(head_titles)
         for parallel_title in parallel_titles:
-            output_value += f" = {str(parallel_title)}"
+            output_value += f" = {parallel_title!s}"
         responsabilities = responsabilities or []
         for responsibility in responsabilities:
             if len(responsibility) == 1:

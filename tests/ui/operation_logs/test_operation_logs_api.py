@@ -39,7 +39,7 @@ def test_operation_create(client, search_clear, operation_log_data):
     tmp = deepcopy(operation_log_data)
     tmp["date"] = "2020-01-21T09:51:52.879533+00:00"
     oplg2 = OperationLog.create(tmp, index_refresh="wait_for")
-    assert OperationLog.get_indices() == set(("operation_logs-2020", f"operation_logs-{datetime.now().year}"))
+    assert OperationLog.get_indices() == {"operation_logs-2020", f"operation_logs-{datetime.now().year}"}
     assert OperationLog.get_record(oplg.id)
     assert OperationLog.get_record(oplg2.id)
     # clean up the index
@@ -63,9 +63,9 @@ def test_operation_bulk_index(client, search_clear, operation_log_data):
     OperationLog.bulk_index(data)
     # flush the index for the test
     current_search.flush_and_refresh(OperationLog.index_name)
-    assert OperationLog.get_indices() == set(("operation_logs-2020", "operation_logs-2021"))
+    assert OperationLog.get_indices() == {"operation_logs-2020", "operation_logs-2021"}
     with pytest.raises(Exception) as excinfo:
-        data[0]["operation"] = dict(name="foo")
+        data[0]["operation"] = {"name": "foo"}
         OperationLog.bulk_index(data)
         assert "BulkIndexError" in str(excinfo.value)
     # clean up the index
@@ -96,23 +96,23 @@ def test_operation_record_create(document, item_lib_martigny, local_entity_perso
     """Test update log."""
     OperationLogsSearch.flush_and_refresh()
     records = [
-        ("doc", {"record": dict(type="doc", value=document.pid)}),
+        ("doc", {"record": {"type": "doc", "value": document.pid}}),
         (
             "hold",
-            {"record": dict(type="hold", value="1", library_pid="lib1", organisation_pid="org1")},
+            {"record": {"type": "hold", "value": "1", "library_pid": "lib1", "organisation_pid": "org1"}},
         ),
         (
             "item",
             {
-                "record": dict(
-                    type="item",
-                    value=item_lib_martigny.pid,
-                    library_pid="lib1",
-                    organisation_pid="org1",
-                )
+                "record": {
+                    "type": "item",
+                    "value": item_lib_martigny.pid,
+                    "library_pid": "lib1",
+                    "organisation_pid": "org1",
+                }
             },
         ),
-        ("locent", {"record": dict(type="locent", value=local_entity_person.pid)}),
+        ("locent", {"record": {"type": "locent", "value": local_entity_person.pid}}),
         (
             "illr",
             {
@@ -121,7 +121,7 @@ def test_operation_record_create(document, item_lib_martigny, local_entity_perso
                     "library_pid": "lib1",
                     "loan_status": "PENDING",
                 },
-                "record": dict(type="illr", value=ill_request_martigny.pid, organisation_pid="org1"),
+                "record": {"type": "illr", "value": ill_request_martigny.pid, "organisation_pid": "org1"},
             },
         ),
     ]
@@ -129,19 +129,17 @@ def test_operation_record_create(document, item_lib_martigny, local_entity_perso
         res = next(
             OperationLogsSearch().filter("term", record__type=rec_type).filter("term", operation="create").scan()
         ).to_dict()
-        assert set(res.keys()) == set(
-            [
-                "date",
-                "record",
-                "operation",
-                "user_name",
-                "_created",
-                "pid",
-                "_updated",
-                "$schema",
-            ]
-            + list(extra)
-        )
+        assert set(res.keys()) == {
+            "date",
+            "record",
+            "operation",
+            "user_name",
+            "_created",
+            "pid",
+            "_updated",
+            "$schema",
+            *list(extra),
+        }
         assert res["operation"] == "create"
         assert res["user_name"] == "system"
         for key, value in extra.items():

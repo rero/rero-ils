@@ -94,6 +94,7 @@ def extract_data_from_remote_entity(record):
     for source in sources:
         if data := record.get(source):
             return source, data
+    return None
 
 
 @blueprint.app_template_filter()
@@ -142,7 +143,7 @@ def search_link(metadata):
     fields_config = current_app.config.get("RERO_ILS_APP_ENTITIES_TYPES_FIELDS", {})
     fields_ref = current_app.config.get("RERO_ILS_APP_ENTITIES_FIELDS_REF", [])
     entity_type = metadata["type"]
-    fields = fields_config[entity_type] if (entity_type in fields_config) else fields_ref
+    fields = fields_config.get(entity_type, fields_ref)
     queries = []
     for field in fields:
         if "sources" in metadata:

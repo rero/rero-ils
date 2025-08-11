@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates for all modules."""
 
-from __future__ import absolute_import, print_function
-
 import os
 
 import polib
@@ -39,11 +37,9 @@ from .permissions import (
     expose_action_needs_by_patron,
     expose_action_needs_by_role,
     manage_role_permissions,
-)
-from .permissions import permission_management as permission_management_action
-from .permissions import (
     record_permissions,
 )
+from .permissions import permission_management as permission_management_action
 
 api_blueprint = Blueprint("api_blueprint", __name__, url_prefix="")
 

@@ -32,9 +32,9 @@ class MainFileList(FileList):
                 continue
             projection = self._service.file_schema.dump(
                 entry,
-                context=dict(
-                    identity=self._identity,
-                ),
+                context={
+                    "identity": self._identity,
+                },
             )
             if self._links_item_tpl:
                 projection["links"] = self._links_item_tpl.expand(self._identity, entry)

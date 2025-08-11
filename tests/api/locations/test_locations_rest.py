@@ -19,8 +19,8 @@
 
 import json
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -60,7 +60,7 @@ def test_location_pickup_locations(locations, patron_martigny, patron_sion, loc_
     assert set(pickup_locations) == {"loc3"}
 
     pickup_locations = Location.get_pickup_location_pids(patron_pid=patron_sion.pid, item_pid=item2_lib_martigny.pid)
-    assert set(pickup_locations) == set([])
+    assert set(pickup_locations) == set()
 
     # check document.views::record_library_pickup_locations
     #   As we limit pickup to two specific location, this tests will also

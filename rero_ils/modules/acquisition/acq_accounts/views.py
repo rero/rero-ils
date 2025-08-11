@@ -18,8 +18,6 @@
 
 """Blueprint used for acquuisition account API."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, jsonify, request
 
 from rero_ils.modules.decorators import check_logged_as_librarian, jsonify_error
@@ -58,12 +56,12 @@ def transfer_funds():
     source_acq = AcqAccount.get_record_by_pid(request.args["source"])
     if source_acq is None:
         raise ValueError("Unable to load source account.")
-    elif not source_acq.is_active:
+    if not source_acq.is_active:
         raise ValueError("Source account isn't active.")
     target_acq = AcqAccount.get_record_by_pid(request.args["target"])
     if target_acq is None:
         raise ValueError("Unable to load target account.")
-    elif not target_acq.is_active:
+    if not target_acq.is_active:
         raise ValueError("Target account isn't active.")
     amount = float(request.args["amount"])
     if amount < 0:

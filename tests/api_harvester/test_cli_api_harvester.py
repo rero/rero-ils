@@ -19,8 +19,8 @@
 
 import json
 from os.path import dirname, join
+from unittest import mock
 
-import mock
 from click.testing import CliRunner
 
 from rero_ils.modules.api_harvester.cli import (
@@ -125,7 +125,6 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
         result = runner.invoke(harvest, ["-n", "VS-CANTOOK", "-v"])
         assert result.exit_code == 0
         output = result.output.strip().split("\n")
-        print(output)
         assert output == [
             "Harvest api: VS-CANTOOK",
             "API page: 1 url: "
@@ -154,7 +153,6 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
         result = runner.invoke(harvest, ["-n", "VS-CANTOOK", "-v"])
         assert result.exit_code == 0
         output = result.output.strip().split("\n")
-        print(output)
         assert output == [
             "Harvest api: VS-CANTOOK",
             "API page: 1 url: "

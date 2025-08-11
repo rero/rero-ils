@@ -18,8 +18,8 @@
 """Common pytest fixtures and plugins."""
 
 from copy import deepcopy
+from unittest import mock
 
-import mock
 import pytest
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch

@@ -60,8 +60,7 @@ class ItemNotificationDumper(InvenioRecordsDumper):
         if temporary_item_type_pid := record.temporary_item_type_pid:
             if temporary_item_type := ItemType.get_record_by_pid(temporary_item_type_pid):
                 data["temporary_item_type"] = temporary_item_type["name"]
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}
 
 
 class ItemCirculationDumper(InvenioRecordsDumper):

@@ -26,8 +26,8 @@ from .title import TitleExtension
 
 __all__ = (
     "AddMEFPidExtension",
+    "EditionStatementExtension",
     "ProvisionActivitiesExtension",
     "SeriesStatementExtension",
-    "EditionStatementExtension",
     "TitleExtension",
 )
