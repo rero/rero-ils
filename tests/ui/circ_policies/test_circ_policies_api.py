@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2025 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,7 +22,12 @@ from copy import deepcopy
 import pytest
 from jsonschema.exceptions import ValidationError
 
-from rero_ils.modules.circ_policies.api import CircPolicy, circ_policy_id_fetcher
+from rero_ils.modules.circ_policies.api import (
+    DUE_SOON_REMINDER_TYPE,
+    OVERDUE_REMINDER_TYPE,
+    CircPolicy,
+    circ_policy_id_fetcher,
+)
 
 
 def test_no_default_policy(app):
@@ -152,3 +157,44 @@ def test_circ_policy_extended_validation(
     with pytest.raises(ValidationError) as err:
         CircPolicy.create(cipo_sion_data, delete_pid=True)
     assert "renewal duration is required" in str(err.value)
+
+
+def test_circ_policy_get_reminders(circ_policy_short_martigny):
+    """Check that the reminders of a circulation policy are correctly ordered when returned."""
+    original_reminders = deepcopy(circ_policy_short_martigny["reminders"])
+    circ_policy_short_martigny["reminders"] = [
+        {
+            "communication_channel": "mail",
+            "days_delay": 2,
+            "template": "email/due_soon",
+            "type": "due_soon",
+        },
+        {"communication_channel": "mail", "days_delay": 49, "template": "email/overdue", "type": "overdue"},
+        {"communication_channel": "mail", "days_delay": 25, "template": "email/overdue", "type": "overdue"},
+        {
+            "communication_channel": "patron_setting",
+            "days_delay": 1,
+            "template": "email/overdue",
+            "type": "overdue",
+        },
+    ]
+
+    due_soon_reminders = circ_policy_short_martigny.get_reminders(DUE_SOON_REMINDER_TYPE)
+    overdue_reminders = circ_policy_short_martigny.get_reminders(OVERDUE_REMINDER_TYPE)
+    overdue_reminders_limit = circ_policy_short_martigny.get_reminders(OVERDUE_REMINDER_TYPE, limit=30)
+
+    assert len(due_soon_reminders) == 1
+    assert due_soon_reminders[0]["days_delay"] == 2
+    assert due_soon_reminders[0]["communication_channel"] == "mail"
+
+    assert len(overdue_reminders) == 3
+    assert overdue_reminders[0]["days_delay"] == 1
+    assert overdue_reminders[0]["communication_channel"] == "patron_setting"
+    assert overdue_reminders[-1]["days_delay"] == 49
+    assert overdue_reminders[-1]["communication_channel"] == "mail"
+
+    assert len(overdue_reminders_limit) == 2
+    assert overdue_reminders_limit[-1]["days_delay"] == 25
+    assert overdue_reminders_limit[-1]["communication_channel"] == "mail"
+
+    circ_policy_short_martigny["reminders"] = original_reminders

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2025 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -356,17 +356,25 @@ class CircPolicy(IlsRecord):
         return intervals
 
     def get_reminders(self, reminder_type=DUE_SOON_REMINDER_TYPE, limit=None):
-        """Get reminders corresponding to arguments.
+        """Get reminders by type and sort overdue reminders by 'days_delay'.
 
         :param reminder_type: the type of reminder to search.
         :param limit: the number of day limit. All reminders defined after
                       these limit will not be returned
+        :return: a generator of reminder dicts
         """
         if limit is None:
             limit = math.inf
+
+        reminders = []
         for reminder in self.get("reminders", []):
-            if reminder.get("type") == reminder_type and reminder.get("days_delay") <= limit:
-                yield reminder
+            if reminder["type"] == reminder_type and reminder["days_delay"] <= limit:
+                reminders.append(reminder)
+
+        if reminder_type == OVERDUE_REMINDER_TYPE:
+            reminders = sorted(reminders, key=lambda x: x["days_delay"])
+
+        return reminders
 
     def get_reminder(self, reminder_type=DUE_SOON_REMINDER_TYPE, idx=0):
         """Get the best possible reminder based on argument criteria.
@@ -374,7 +382,7 @@ class CircPolicy(IlsRecord):
         :param reminder_type: the type of reminder to search.
         :param idx: the reminder index to search. First reminder has 0 index.
         """
-        reminders = list(self.get_reminders(reminder_type=reminder_type))
+        reminders = self.get_reminders(reminder_type=reminder_type)
         if reminders and idx < len(reminders):
             return reminders[idx]
         return None
