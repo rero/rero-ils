@@ -665,7 +665,7 @@ class SLSPImport(Import):
     """Import class for SLSP."""
 
     name = "SLSP"
-    url = "https://swisscovery.slsp.ch"
+    url = "https://swisscovery.ch"
     url_api = (
         "{url}/view/sru/41SLSP_NETWORK?"
         "version=1.2&operation=searchRetrieve"
