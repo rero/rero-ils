@@ -6,6 +6,15 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
     },
+    "overdue_fees": {
+      "intervals": [
+        {
+          "fee_amount": 0.2,
+          "from": 2
+        }
+      ],
+      "maximum_total_amount": 20
+    },
     "checkout_duration": 30,
     "allow_requests": true,
     "pickup_hold_duration": 10,
@@ -67,6 +76,15 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
     },
+    "overdue_fees": {
+      "intervals": [
+        {
+          "fee_amount": 0.2,
+          "from": 2
+        }
+      ],
+      "maximum_total_amount": 20
+    },
     "checkout_duration": 7,
     "allow_requests": true,
     "pickup_hold_duration": 10,
@@ -112,6 +130,15 @@
     "description": "Short loan (14 days)",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
+    },
+    "overdue_fees": {
+      "intervals": [
+        {
+          "fee_amount": 0.2,
+          "from": 2
+        }
+      ],
+      "maximum_total_amount": 20
     },
     "checkout_duration": 14,
     "allow_requests": true,
@@ -162,6 +189,15 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
     },
+    "overdue_fees": {
+      "intervals": [
+        {
+          "fee_amount": 0.2,
+          "from": 2
+        }
+      ],
+      "maximum_total_amount": 20
+    },
     "checkout_duration": 28,
     "allow_requests": true,
     "pickup_hold_duration": 10,
@@ -202,6 +238,15 @@
     "description": "Extended loan (3 months).",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
+    },
+    "overdue_fees": {
+      "intervals": [
+        {
+          "fee_amount": 0.2,
+          "from": 2
+        }
+      ],
+      "maximum_total_amount": 20
     },
     "reminders": [
       {
@@ -478,6 +523,15 @@
     "description": "Loan 28 days, requests not allowed, used for missing items",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
+    },
+    "overdue_fees": {
+      "intervals": [
+        {
+          "fee_amount": 0.2,
+          "from": 2
+        }
+      ],
+      "maximum_total_amount": 20
     },
     "checkout_duration": 28,
     "allow_requests": false,
