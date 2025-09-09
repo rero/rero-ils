@@ -29,59 +29,6 @@ from rero_ils.modules.patrons.utils import create_user_from_data
 from rero_ils.modules.users.models import UserRole
 
 
-def test_patron_extended_validation(
-    app,
-    patron_martigny,
-    patron_martigny_data_tmp,
-    patron2_martigny,
-    patron_sion,
-    patron_sion_data_tmp,
-):
-    """Test that a patron barcode must be unique within organisation"""
-    ds = app.extensions["invenio-accounts"].datastore
-
-    # check that we cannot create a patron with an existing barcode
-    with pytest.raises(ValidationError) as err:
-        created_patron_martigny = create_user_from_data(patron_martigny_data_tmp)
-        Patron.create(created_patron_martigny, delete_pid=True)
-    assert "already taken" in str(err)
-
-    # check if resource update doesn't trigger validation error on own barcode
-    patron_martigny["patron"]["barcode"].append("duplicate")
-    assert patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
-
-    # check that we cannot update a patron to an existing barcode
-    patron2_martigny["patron"]["barcode"].append("duplicate")
-    with pytest.raises(ValidationError) as err:
-        patron2_martigny.update(patron2_martigny)
-    assert "already taken" in str(err)
-
-    # check that we can create a patron even with existing barcode in another
-    # organisation
-    patron_sion_barcode = patron_sion["patron"]["barcode"]
-    created_patron_sion = create_user_from_data(patron_sion_data_tmp)
-    created_patron_sion["patron"]["barcode"] = [patron_martigny["patron"]["barcode"][0]]
-    assert (created_user := Patron.create(created_patron_sion, dbcommit=True, reindex=True, delete_pid=True))
-
-    # check that we can update a patron with existing barcode in another
-    # organisation
-    patron_sion["patron"]["barcode"] = ["duplicate"]
-    assert patron_sion.update(patron_sion)
-
-    # clean up fixtures
-    patron_sion["patron"]["barcode"] = patron_sion_barcode
-    patron_martigny["patron"]["barcode"].pop()
-    patron2_martigny["patron"]["barcode"].pop()
-    patron_sion.update(patron_sion, commit=True, dbcommit=True, reindex=True)
-    patron_martigny.update(patron_martigny, commit=True, dbcommit=True, reindex=True)
-    patron2_martigny.update(patron2_martigny, commit=True, dbcommit=True, reindex=True)
-
-    # clean up created user
-    created_user.delete(True, True, True)
-    user = created_user.user
-    ds.delete_user(user)
-
-
 def test_patron_create(
     app,
     roles,
@@ -212,6 +159,80 @@ def test_patron_create(
     ptrn.delete(True, True, True)
     # clean up the user
     ds.delete_user(user)
+
+
+def test_patron_extended_validation(
+    app,
+    patron_martigny,
+    patron_martigny_data_tmp,
+    patron2_martigny,
+    patron_sion,
+    patron_sion_data_tmp,
+    loan_overdue_martigny,
+):
+    """Test patron extended validation"""
+    ds = app.extensions["invenio-accounts"].datastore
+
+    # check that we cannot create a patron with an existing barcode
+    with pytest.raises(ValidationError) as err:
+        created_patron_martigny = create_user_from_data(patron_martigny_data_tmp)
+        Patron.create(created_patron_martigny, delete_pid=True)
+    assert "already taken" in str(err)
+
+    # check if resource update doesn't trigger validation error on own barcode
+    patron_martigny["patron"]["barcode"].append("duplicate")
+    assert patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
+
+    # check that we cannot update a patron to an existing barcode
+    patron2_martigny["patron"]["barcode"].append("duplicate")
+    with pytest.raises(ValidationError) as err:
+        patron2_martigny.update(patron2_martigny)
+    assert "already taken" in str(err)
+
+    # check that we can create a patron even with existing barcode in another
+    # organisation
+    patron_sion_barcode = patron_sion["patron"]["barcode"]
+    created_patron_sion = create_user_from_data(patron_sion_data_tmp)
+    created_patron_sion["patron"]["barcode"] = [patron_martigny["patron"]["barcode"][0]]
+    assert (created_user := Patron.create(created_patron_sion, dbcommit=True, reindex=True, delete_pid=True))
+
+    # check that we can update a patron with existing barcode in another
+    # organisation
+    patron_sion["patron"]["barcode"] = ["duplicate"]
+    assert patron_sion.update(patron_sion)
+
+    # clean up fixtures
+    patron_sion["patron"]["barcode"] = patron_sion_barcode
+    patron_martigny["patron"]["barcode"].pop()
+    patron2_martigny["patron"]["barcode"].pop()
+    patron_sion.update(patron_sion, commit=True, dbcommit=True, reindex=True)
+    patron_martigny.update(patron_martigny, commit=True, dbcommit=True, reindex=True)
+    patron2_martigny.update(patron2_martigny, commit=True, dbcommit=True, reindex=True)
+
+    # clean up created user
+    created_user.delete(True, True, True)
+    user = created_user.user
+    ds.delete_user(user)
+
+    # check that we cannot remove patron role with an existing transaction
+    ptrn_sion = patron_sion  # has an active transaction
+    patron_sion_roles = ptrn_sion["roles"]
+    ptrn_sion["roles"] = [UserRole.CATALOG_MANAGER]
+    with pytest.raises(ValidationError) as err:
+        patron_sion.update(ptrn_sion, commit=True, dbcommit=True, reindex=True)
+    assert "cannot remove patron role" in str(err)
+
+    # check that we cannot remove patron role with an existing loan
+    ptrn_mart = patron_martigny  # has an overdue loan
+    patron_mart_roles = ptrn_mart["roles"]
+    ptrn_mart["roles"] = [UserRole.CATALOG_MANAGER]
+    with pytest.raises(ValidationError) as err:
+        patron_martigny.update(ptrn_mart, commit=True, dbcommit=True, reindex=True)
+    assert "cannot remove patron role" in str(err)
+
+    # clean up fixtures
+    ptrn_sion["roles"] = patron_sion_roles
+    ptrn_mart["roles"] = patron_mart_roles
 
 
 @pytest.mark.skip(reason="no way of currently testing this")

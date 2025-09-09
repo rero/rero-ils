@@ -111,6 +111,7 @@ class Patron(IlsRecord):
 
         :return: Error message if
             - barcode already exists in organisation
+            - no patron role while existing loans or transactions
         """
         org_pid = self.organisation_pid
         if patron_barcodes := self.get("patron", {}).get("barcode", []):
@@ -128,9 +129,13 @@ class Patron(IlsRecord):
             if taken_barcodes:
                 return ngettext(
                     f"Barcode {taken_barcodes[0]} is already taken",
-                    f"Barcodes {', '.join(taken_barcodes)} are already taken.",
+                    f"Barcodes {', '.join(taken_barcodes)} are already taken",
                     num=len(taken_barcodes),
                 )
+
+        if not self.is_patron:
+            if any(key in self.get_links_to_me() for key in ("loans", "transactions")):
+                return _("Patron has active loans or fees, cannot remove patron role")
 
         return True
 
