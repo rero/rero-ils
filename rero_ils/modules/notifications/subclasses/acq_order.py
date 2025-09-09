@@ -107,7 +107,7 @@ class AcquisitionOrderNotification(Notification):
         # in the vendor setting. Override this method if needed in the future.
         return self.order.vendor.get(
             "communication_language",
-            current_app.config.get("RERO_ILS_APP_DEFAULT_LANGUAGE", "eng"),
+            current_app.config.get("RERO_ILS_DEFAULT_LANGUAGE", "eng"),
         )
 
     def get_template_path(self):

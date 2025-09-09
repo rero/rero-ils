@@ -115,17 +115,17 @@ def logged_user():
     data = {
         "permissions": expose_actions_need_for_user(),
         "settings": {
-            "maxFilesCount": config.get("RERO_ILS_APP_FILES_UI_MAX", 600),
+            "maxFilesCount": config.get("RERO_ILS_FILES_UI_MAX", 600),
             "language": current_i18n.locale.language,
             "globalView": config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"),
             "baseUrl": get_base_url(),
             "agentLabelOrder": config.get("RERO_ILS_AGENTS_LABEL_ORDER", {}),
             "agentSources": config.get("RERO_ILS_AGENTS_SOURCES", []),
             "operationLogs": config.get("RERO_ILS_ENABLE_OPERATION_LOG", []),
-            "documentAdvancedSearch": config.get("RERO_ILS_APP_DOCUMENT_ADVANCED_SEARCH", False),
+            "documentAdvancedSearch": config.get("RERO_ILS_DOCUMENT_ADVANCED_SEARCH", False),
             "userProfile": {
-                "readOnly": config.get("RERO_PUBLIC_USERPROFILES_READONLY", False),
-                "readOnlyFields": config.get("RERO_PUBLIC_USERPROFILES_READONLY_FIELDS", []),
+                "readOnly": config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY", False),
+                "readOnlyFields": config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY_FIELDS", []),
             },
         },
     }
@@ -153,7 +153,7 @@ def profile(viewcode, path):
     """Patron Profile Page."""
     if (path not in ["user/edit", "password/edit"]) and not current_patrons:
         abort(401)
-    if (path in ["user/edit", "password/edit"]) and current_app.config.get("RERO_PUBLIC_USERPROFILES_READONLY"):
+    if (path in ["user/edit", "password/edit"]) and current_app.config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY"):
         abort(401)
     return render_template("rero_ils/patron_profile.html", viewcode=viewcode)
 

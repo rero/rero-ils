@@ -295,10 +295,10 @@ eval ${PREFIX} invenio roles add gipi@ngscan.com document_importer
 
 # create token access for monitoring
 info_msg "Create token for: monitoring@rero.ch"
-create_token monitoring monitoring@rero.ch ${INVENIO_RERO_ACCESS_TOKEN_MONITORING}
+create_token monitoring monitoring@rero.ch ${INVENIO_RERO_ILS_ACCESS_TOKEN_MONITORING}
 # create token access for ngscan (ezpump)
 info_msg "Create token for: gipi@ngscan.com"
-create_token ezpump gipi@ngscan.com ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
+create_token ezpump gipi@ngscan.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_NGSCAN}
 
 # Generate fixtures
 info_msg "Generate fixtures:"
@@ -591,9 +591,9 @@ eval ${PREFIX} invenio reroils notifications process
 
 # create token access for system librarians
 info_msg "create an access token for all system librarians"
-create_token organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_AOSTA_LIBRARIAN}
-create_token organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
-create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
+create_token organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_AOSTA_LIBRARIAN}
+create_token organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_RERO_ILS_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
+create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
 
 # # OAI configuration
 info_msg "API configuration: ${DATA_PATH}/apisources.yml"

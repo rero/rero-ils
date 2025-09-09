@@ -234,7 +234,7 @@ class REROILSAPP:
             return "not found", 404
 
         blueprint = Blueprint("api_imports", __name__)
-        endpoints = app.config.get("RERO_IMPORT_REST_ENDPOINTS", {})
+        endpoints = app.config.get("RERO_ILS_IMPORT_REST_ENDPOINTS", {})
         for key, config in endpoints.items():
             # search view
             search_view_name = f"import_{key}"
@@ -281,7 +281,7 @@ class REROILSAPP:
         """Initialize configuration."""
         # Use theme's base template if theme is installed
         for k in dir(app.config):
-            if k.startswith("RERO_ILS_APP_"):
+            if k.startswith("RERO_ILS_"):
                 app.config.setdefault(k, getattr(app.config, k))
         # add keep alive support for angular application
         # NOTE: this will not work for werkzeug> 2.1.2

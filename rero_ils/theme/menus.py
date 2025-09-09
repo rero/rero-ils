@@ -215,7 +215,7 @@ def init_menu_profile(app):
 
     def is_not_read_only():
         """Hide element menu if the flag is ready only."""
-        return not app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False) and current_user.is_authenticated
+        return not app.config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY", False) and current_user.is_authenticated
 
     item = current_menu.submenu("main.profile")
     rero_register(
@@ -311,7 +311,7 @@ def init_menu_profile(app):
     rero_register(
         item,
         endpoint="security.register",
-        visible_when=lambda: not app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False)
+        visible_when=lambda: not app.config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY", False)
         and not current_user.is_authenticated,
         text=TextWithIcon(icon='<i class="fa fa-user-plus"></i>', text="Sign Up"),
         order=2,

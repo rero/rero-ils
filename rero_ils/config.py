@@ -196,7 +196,7 @@ RERO_ILS_ILL_DEFAULT_SOURCE = "RERO +"
 RERO_ILS_ILL_HIDE_MONTHS = 6
 
 # DOCUMENT ADVANCED SEARCH
-RERO_ILS_APP_DOCUMENT_ADVANCED_SEARCH = True
+RERO_ILS_DOCUMENT_ADVANCED_SEARCH = True
 
 # Rate limiting
 # =============
@@ -209,7 +209,7 @@ RATELIMIT_ENABLED = False
 # ====
 #: Default language
 BABEL_DEFAULT_LANGUAGE = "en"
-RERO_ILS_APP_DEFAULT_LANGUAGE = "eng"
+RERO_ILS_DEFAULT_LANGUAGE = "eng"
 #: Default time zone
 BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 #: Other supported languages (do not include the default language in list).
@@ -328,8 +328,8 @@ ACCOUNTS_USERNAME_RULES_TEXT = _(
 )
 
 ACCOUNTS_USER_PROFILE_SCHEMA = UserProfile
-RERO_PUBLIC_USERPROFILES_READONLY = False
-RERO_PUBLIC_USERPROFILES_READONLY_FIELDS = ["first_name", "last_name", "birth_date"]
+RERO_ILS_PUBLIC_USERPROFILES_READONLY = False
+RERO_ILS_PUBLIC_USERPROFILES_READONLY_FIELDS = ["first_name", "last_name", "birth_date"]
 
 #: USER PROFILES
 USERPROFILES_READ_ONLY = False
@@ -532,8 +532,8 @@ CELERY_BEAT_SCHEDULE = {
 
 INDEXER_BULK_REQUEST_TIMEOUT = 60
 
-RERO_IMPORT_CACHE = "redis://localhost:6379/5"
-RERO_IMPORT_CACHE_EXPIRE = 10
+RERO_ILS_IMPORT_CACHE = "redis://localhost:6379/5"
+RERO_ILS_IMPORT_CACHE_EXPIRE = 10
 
 # Database
 # ========
@@ -633,7 +633,7 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 # REST API Configuration
 # ======================
-RERO_ILS_APP_DISABLE_PERMISSION_CHECKS = False
+RERO_ILS_DISABLE_PERMISSION_CHECKS = False
 """Disable permission checks during API calls. Useful when API is test from
 command line or progams like postman."""
 
@@ -3479,25 +3479,23 @@ INDEXER_RECORD_TO_INDEX = "rero_ils.modules.indexer_utils.record_to_index"
 #: Trigger delay for celery tasks to index referenced records.
 RERO_ILS_INDEXER_TASK_DELAY = schedules.timedelta(seconds=2)
 
-RERO_ILS_APP_URL_SCHEME = "https"
-RERO_ILS_APP_HOST = "bib.rero.ch"
+RERO_ILS_URL_SCHEME = "https"
+RERO_ILS_HOST = "bib.rero.ch"
 #: Actual URL used to construct links in notifications for example
-RERO_ILS_APP_URL = "https://bib.rero.ch"
-
-RERO_ILS_PERMALINK_RERO_URL = "http://data.rero.ch/01-{identifier}"
+RERO_ILS_URL = "https://bib.rero.ch"
 
 # Flag to determine the state of ILS
 # Show or hide message on red
 RERO_ILS_STATE_PRODUCTION = False
 RERO_ILS_STATE_MESSAGE = _("This is a TEST VERSION.")
 RERO_ILS_STATE_LINK_MESSAGE = _("Go to the production site.")
-RERO_ILS_STATE_LINK = RERO_ILS_APP_URL
+RERO_ILS_STATE_LINK = RERO_ILS_URL
 
 # robots.txt response
 RERO_ILS_ROBOTS = "User-Agent: *\nDisallow: /\n"
 #: Git commit hash. If set, a link to github commit page
 #: is displayed on RERO-ILS frontpage.
-RERO_ILS_APP_GIT_HASH = None
+RERO_ILS_GIT_HASH = None
 #: rero-ils-ui Git commit hash. If set, a link to github commit
 #: page is displayed on RERO-ILS frontpage.
 RERO_ILS_UI_GIT_HASH = None
@@ -3537,7 +3535,7 @@ RERO_ILS_ENTITY_TYPES = {
 # instance  path
 # RERO_ILS_MEF_SYNC_LOG_DIR = "/var/logs/reroils"
 
-RERO_ILS_APP_HELP_PAGE = "https://github.com/rero/rero-ils/wiki/Public-demo-help"
+RERO_ILS_HELP_PAGE = "https://github.com/rero/rero-ils/wiki/Public-demo-help"
 
 #: Cover service
 RERO_ILS_THUMBNAIL_SERVICE_URL = "https://services.test.rero.ch/cover"
@@ -3552,13 +3550,13 @@ RERO_ILS_AGENTS_LABEL_ORDER = {
 }
 RERO_ILS_DEFAULT_SUGGESTION_LIMIT = 10
 
-RERO_ILS_APP_ENTITIES_FIELDS_REF = [
+RERO_ILS_ENTITIES_FIELDS_REF = [
     EntityFieldWithRef.CONTRIBUTION,
     EntityFieldWithRef.GENRE_FORM,
     EntityFieldWithRef.SUBJECTS,
 ]
 
-RERO_ILS_APP_ENTITIES_TYPES_FIELDS = {
+RERO_ILS_ENTITIES_TYPES_FIELDS = {
     EntityType.ORGANISATION: [
         EntityFieldWithRef.CONTRIBUTION,
         EntityFieldWithRef.SUBJECTS,
@@ -3851,7 +3849,7 @@ WIKI_MARKDOWN_EXTENSIONS = set(("extra", "markdown_captions"))
 #                interface. Default value is 100. Lower is the weight, higher
 #                is the priority.
 
-RERO_IMPORT_REST_ENDPOINTS = dict(
+RERO_ILS_IMPORT_REST_ENDPOINTS = dict(
     loc=dict(
         key="loc",
         import_class="rero_ils.modules.imports.api:LoCImport",
@@ -3957,9 +3955,9 @@ RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
 # SRU
 # ====
 # Default number of harvested records for a request.
-RERO_SRU_NUMBER_OF_RECORDS = 100
+RERO_ILS_SRU_NUMBER_OF_RECORDS = 100
 # Maximum number of records which can be harvested with an request.
-RERO_SRU_MAXIMUM_RECORDS = 1000
+RERO_ILS_SRU_MAXIMUM_RECORDS = 1000
 
 # SIP2
 # ====
@@ -4179,7 +4177,7 @@ def search_type(field):
     return output
 
 
-RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
+RERO_ILS_ADVANCED_SEARCH_CONFIG = [
     {
         "label": _("Title"),
         "value": "title",
@@ -4304,7 +4302,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
 
 # Babeltheque Configuration
 # =========================
-RERO_ILS_APP_BABELTHEQUE_ENABLED_VIEWS = []
+RERO_ILS_BABELTHEQUE_ENABLED_VIEWS = []
 
 FILES_REST_STORAGE_CLASS_LIST = {"L": "Local"}
 
@@ -4318,5 +4316,5 @@ RERO_FILES_RECORD_SERVICE_CONFIG = "rero_ils.modules.files.services.RecordServic
 RERO_FILES_RECORD_FILE_SERVICE_CONFIG = (
     "rero_ils.modules.files.services.RecordFileServiceConfig"
 )
-RERO_ILS_APP_FILES_UI_MAX = 600
-RERO_ILS_APP_FILES_FULL_TEXT_MAX = 10 * 1024 * 1024  # 10Mb
+RERO_ILS_FILES_UI_MAX = 600
+RERO_ILS_FILES_FULL_TEXT_MAX = 10 * 1024 * 1024  # 10Mb

@@ -700,7 +700,7 @@ class Patron(IlsRecord):
     def profile_url(self):
         """Get the link to the RERO_ILS patron profile URL."""
         view_code = self.organisation.get("code")
-        base_url = current_app.config.get("RERO_ILS_APP_URL")
+        base_url = current_app.config.get("RERO_ILS_URL")
         return f"{base_url}/{view_code}/patrons/profile"
 
     @property

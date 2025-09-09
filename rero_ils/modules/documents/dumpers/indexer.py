@@ -223,7 +223,7 @@ class IndexerDumper(Dumper):
         """Add full text from files."""
         files = []
         full_text_size = 0
-        full_text_size_max = current_app.config.get("RERO_ILS_APP_FILES_FULL_TEXT_MAX", 10 * 1024 * 1024)
+        full_text_size_max = current_app.config.get("RERO_ILS_FILES_FULL_TEXT_MAX", 10 * 1024 * 1024)
         for record_file in record.get_records_files():
             record_files_information = {}
             collections = record_file.get("metadata", {}).get("collections")

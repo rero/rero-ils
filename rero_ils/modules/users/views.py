@@ -93,7 +93,7 @@ def check_user_readonly_permission(fn):
     @wraps(fn)
     def is_user_readonly(*args, **kwargs):
         """Decorated view."""
-        if current_app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False) or not current_user.is_authenticated:
+        if current_app.config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY", False) or not current_user.is_authenticated:
             abort(401)
         return fn(*args, **kwargs)
 

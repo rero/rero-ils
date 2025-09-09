@@ -108,7 +108,7 @@ blueprint = Blueprint(
 @blueprint.app_template_filter()
 def babeltheque_enabled_view(view):
     """Check if the view is activated for babeltheque."""
-    enabled_views = current_app.config.get("RERO_ILS_APP_BABELTHEQUE_ENABLED_VIEWS", [])
+    enabled_views = current_app.config.get("RERO_ILS_BABELTHEQUE_ENABLED_VIEWS", [])
     return view in enabled_views
 
 

@@ -309,7 +309,7 @@ def get_remote_cover(isbn):
     try:
         host_url = flask_request.host_url
     except Exception:
-        host_url = current_app.config.get("RERO_ILS_APP_URL", "??")
+        host_url = current_app.config.get("RERO_ILS_URL", "??")
         if host_url[-1] != "/":
             host_url = f"{host_url}/"
     response = requests.get(url, headers={"referer": host_url})

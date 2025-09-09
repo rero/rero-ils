@@ -191,7 +191,7 @@ def app_config(app_config):
     app_config["ACCOUNTS_SESSION_REDIS_URL"] = "redis://localhost:6379/1"
     app_config["CELERY_RESULT_BACKEND"] = "redis://localhost:6379/2"
     app_config["RATELIMIT_STORAGE_URI"] = "redis://localhost:6379/3"
-    app_config["RERO_IMPORT_CACHE"] = "redis://localhost:6379/5"
+    app_config["RERO_ILS_IMPORT_CACHE"] = "redis://localhost:6379/5"
     app_config["WTF_CSRF_ENABLED"] = False
     # enable operation logs validation for the tests
     app_config["RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION"] = True

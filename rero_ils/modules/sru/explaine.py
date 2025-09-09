@@ -40,8 +40,8 @@ class Explain:
     def __init__(self, database, doc_type="doc"):
         """Constructor."""
         self.database = database
-        self.number_of_records = current_app.config.get("RERO_SRU_NUMBER_OF_RECORDS", 100)
-        self.maximum_records = current_app.config.get("RERO_SRU_MAXIMUM_RECORDS", 1000)
+        self.number_of_records = current_app.config.get("RERO_ILS_SRU_NUMBER_OF_RECORDS", 100)
+        self.maximum_records = current_app.config.get("RERO_ILS_SRU_MAXIMUM_RECORDS", 1000)
         self.doc_type = doc_type
         self.index = current_app.config.get("RECORDS_REST_ENDPOINTS", {}).get(doc_type, {}).get("search_index")
         self.es_mappings = {}
@@ -96,11 +96,11 @@ class Explain:
             {
                 "protocol": "SRU",
                 "version": "1.1",
-                "transport": current_app.config.get("RERO_ILS_APP_URL_SCHEME"),
+                "transport": current_app.config.get("RERO_ILS_URL_SCHEME"),
                 "method": "GET",
             }
         )
-        server_info.append(element_zr.host(current_app.config.get("RERO_ILS_APP_HOST")))
+        server_info.append(element_zr.host(current_app.config.get("RERO_ILS_HOST")))
         # server_info.append(element_zr.port('5000'))
         server_info.append(element_zr.database(self.database))
         explain.append(server_info)

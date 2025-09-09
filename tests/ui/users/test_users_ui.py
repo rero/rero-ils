@@ -58,11 +58,11 @@ def test_user_profile_authorization(app, client, librarian_martigny):
 def test_users_readonly_not_authorized_access(app, client, patron_martigny):
     """Test profile and change password with readonly config."""
 
-    app.config["RERO_PUBLIC_USERPROFILES_READONLY"] = True
+    app.config["RERO_ILS_PUBLIC_USERPROFILES_READONLY"] = True
     login_user_via_session(client, patron_martigny.user)
     res = client.get(url_for("patrons.profile", viewcode="global", path="user/edit"))
     assert res.status_code == 401
 
     res = client.get(url_for("patrons.profile", viewcode="global", path="password/edit"))
     assert res.status_code == 401
-    app.config["RERO_PUBLIC_USERPROFILES_READONLY"] = False
+    app.config["RERO_ILS_PUBLIC_USERPROFILES_READONLY"] = False

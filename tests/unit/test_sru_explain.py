@@ -26,7 +26,7 @@ def test_explain(app):
     explain_strings = str(explain).split("\n")
     assert explain_strings[0] == '<sru:explainResponse xmlns:sru="http://www.loc.gov/standards/sru/">'
     assert explain.database == "api/sru"
-    assert explain.number_of_records == app.config.get("RERO_SRU_NUMBER_OF_RECORDS")
-    assert explain.maximum_records == app.config.get("RERO_SRU_MAXIMUM_RECORDS")
+    assert explain.number_of_records == app.config.get("RERO_ILS_SRU_NUMBER_OF_RECORDS")
+    assert explain.maximum_records == app.config.get("RERO_ILS_SRU_MAXIMUM_RECORDS")
     assert explain.doc_type == "doc"
     assert explain.index == app.config.get("RECORDS_REST_ENDPOINTS", {}).get("doc", {}).get("search_index")

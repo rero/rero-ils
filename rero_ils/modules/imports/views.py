@@ -40,7 +40,7 @@ api_blueprint = Blueprint("api_import", __name__, url_prefix="/imports")
 @check_logged_as_librarian
 def get_config():
     """Get configuration from config.py."""
-    sources = current_app.config.get("RERO_IMPORT_REST_ENDPOINTS", {}).values()
+    sources = current_app.config.get("RERO_ILS_IMPORT_REST_ENDPOINTS", {}).values()
     for source in sources:
         source.pop("import_class", None)
         source.pop("import_size", None)

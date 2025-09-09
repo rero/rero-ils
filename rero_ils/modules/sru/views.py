@@ -69,10 +69,10 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
             int(
                 flask_request.args.get(
                     "maximumRecords",
-                    current_app.config.get("RERO_SRU_NUMBER_OF_RECORDS", 100),
+                    current_app.config.get("RERO_ILS_SRU_NUMBER_OF_RECORDS", 100),
                 )
             ),
-            current_app.config.get("RERO_SRU_MAXIMUM_RECORDS", 1000),
+            current_app.config.get("RERO_ILS_SRU_MAXIMUM_RECORDS", 1000),
         )
         # TODO: enable es query string
         # query_string = flask_request.args.get('q', None)

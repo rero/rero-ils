@@ -25,7 +25,7 @@ from tests.utils import login_user_for_view
 def test_has_superuser_access(app):
     """Test permissions of has_superuser_access functions."""
     assert not has_superuser_access()
-    app.config["RERO_ILS_APP_DISABLE_PERMISSION_CHECKS"] = True
+    app.config["RERO_ILS_DISABLE_PERMISSION_CHECKS"] = True
     assert has_superuser_access()
 
 

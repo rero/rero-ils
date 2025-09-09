@@ -475,7 +475,7 @@ def pids_exists_in_data(info, data, required=None, not_required=None):
 
 def get_base_url():
     """Get base url."""
-    return f"{current_app.config.get('RERO_ILS_APP_URL_SCHEME')}://{current_app.config.get('RERO_ILS_APP_HOST')}"
+    return f"{current_app.config.get('RERO_ILS_URL_SCHEME')}://{current_app.config.get('RERO_ILS_HOST')}"
 
 
 def get_ref_for_pid(module, pid):

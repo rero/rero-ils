@@ -240,7 +240,7 @@ def test_babeltheque_enabled_view():
     class CurrentApp:
         """Current app mock."""
 
-        config = {"RERO_ILS_APP_BABELTHEQUE_ENABLED_VIEWS": ["global"]}
+        config = {"RERO_ILS_BABELTHEQUE_ENABLED_VIEWS": ["global"]}
 
     with mock.patch("rero_ils.modules.documents.views.current_app", CurrentApp):
         assert babeltheque_enabled_view("global")

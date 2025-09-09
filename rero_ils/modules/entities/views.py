@@ -140,8 +140,8 @@ def search_link(metadata):
     :param metadata: the record metadata.
     :returns: the search link.
     """
-    fields_config = current_app.config.get("RERO_ILS_APP_ENTITIES_TYPES_FIELDS", {})
-    fields_ref = current_app.config.get("RERO_ILS_APP_ENTITIES_FIELDS_REF", [])
+    fields_config = current_app.config.get("RERO_ILS_ENTITIES_TYPES_FIELDS", {})
+    fields_ref = current_app.config.get("RERO_ILS_ENTITIES_FIELDS_REF", [])
     entity_type = metadata["type"]
     fields = fields_config.get(entity_type, fields_ref)
     queries = []

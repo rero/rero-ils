@@ -87,7 +87,7 @@ def advanced_search_config():
                     carrier_types.append(option)
     return jsonify(
         {
-            "fieldsConfig": current_app.config.get("RERO_ILS_APP_ADVANCED_SEARCH_CONFIG", []),
+            "fieldsConfig": current_app.config.get("RERO_ILS_ADVANCED_SEARCH_CONFIG", []),
             "fieldsData": {
                 "country": countries["country"]["widget"]["formlyConfig"]["props"]["options"],
                 "canton": cantons["canton"]["widget"]["formlyConfig"]["props"]["options"],

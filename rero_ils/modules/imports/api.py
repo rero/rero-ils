@@ -63,8 +63,8 @@ class Import:
         assert self.search.get("anywhere")
         assert self.to_json_processor
         self.init_results()
-        self.cache = Redis.from_url(current_app.config.get("RERO_IMPORT_CACHE"))
-        self.cache_expire = current_app.config.get("RERO_IMPORT_CACHE_EXPIRE")
+        self.cache = Redis.from_url(current_app.config.get("RERO_ILS_IMPORT_CACHE"))
+        self.cache_expire = current_app.config.get("RERO_ILS_IMPORT_CACHE_EXPIRE")
 
     def init_results(self):
         """Init results."""

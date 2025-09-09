@@ -175,7 +175,7 @@ def has_superuser_access():
 
     This function is used in app context and can be called in all templates.
     """
-    if current_app.config.get("RERO_ILS_APP_DISABLE_PERMISSION_CHECKS"):
+    if current_app.config.get("RERO_ILS_DISABLE_PERMISSION_CHECKS"):
         return True
     # TODO : create a super_user role
     #   ... superuser_access_permission = Permission(ActionNeed('superuser'))
