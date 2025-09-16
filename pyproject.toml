@@ -447,9 +447,9 @@ lint = {cmd = "ruff check rero_ils tests", help = "Checks linting"}
 run_tests = {cmd = "./scripts/test", help = "Runs all tests"}
 tests = {cmd = "pytest", help = "pytest"}
 tests_debug = {cmd = "pytest -s -vv --no-cov", help = "pytest -s -vv --no-cov"}
-server = {shell = "./scripts/server", help = "Starts the server "}
 setup = {cmd = "./scripts/setup", help = "Runs setup"}
 update = {cmd = "./scripts/update", help = "Runs update"}
+server = {cmd  = "./scripts/server", help = "Starts the server"}
 
 # Translations
 compile_catalog = {cmd = "pybabel compile -d rero_ils/translations/", help = "compile message catalogs to MO files"}
@@ -471,7 +471,7 @@ line-length = 120
 
 [tool.ruff.lint]
 extend-select = ["A", "C4", "INT", "ISC", "T20", "PIE", "Q", "RET", "SIM", "I", "N", "PERF", "W", "D", "F", "UP", "RUF"]
-ignore = ["A001", "A002", "D100", "D101", "D103", "D200", "D202", "D205", "D400", "D401", "F403", "F405", "F841", "INT001", "N801", "N802", "N803", "N806", "N811", "N818", "PERF203", "PERF401", "PERF402", "RUF001", "RUF012", "RUF018", "SIM102", "SIM113", "SIM115", "SIM117", "T201", "T203", "UP009"]
+ignore = ["A001", "A002", "D100", "D101", "D103", "D200", "D202", "D205", "D400", "D401", "F403", "F405", "F841", "INT001", "N801", "N802", "N803", "N806", "N811", "N818", "PERF203", "PERF401", "PERF402", "RUF001", "RUF012", "RUF018", "RUF059", "SIM102", "SIM113", "SIM115", "SIM117", "T201", "T203", "UP009"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257"
