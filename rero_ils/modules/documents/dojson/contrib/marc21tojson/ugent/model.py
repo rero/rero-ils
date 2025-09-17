@@ -329,9 +329,7 @@ def marc21_to_subjects_6XX(self, key, value):
     """Get subjects.
 
     - create an object :
-        genreForm : for the field 655
-        subjects :  for 6xx with $2 rero
-        subjects_imported : for 6xx having indicator 2 '0' or '2'
+        subjects_imported with 6XX fields
     """
     type_per_tag = {
         "600": EntityType.PERSON,
@@ -347,14 +345,14 @@ def marc21_to_subjects_6XX(self, key, value):
     }
 
     conference_per_tag = {"610": False, "611": True}
-    source_per_indicator_2 = {"7": "LCSH", "2": "MeSH"}
+    source_per_indicator_2 = {"7": "LCSH", "2": "MeSH", "0": "UGent"}
 
     indicator_2 = key[4]
     tag_key = key[:3]
     subfields_2 = utils.force_list(value.get("2"))
     subfield_2 = subfields_2[0] if subfields_2 else None
 
-    if subfield_2 == "lcsh" or indicator_2 in ["0", "2", "7"]:
+    if subfield_2 == "lcsh" or indicator_2 in source_per_indicator_2:
         term_string = build_string_from_subfields(value, "abcdefghijklmnopqrstuw", " - ")
         if term_string:
             source = "LCSH" if subfield_2 == "lcsh" else source_per_indicator_2[indicator_2]

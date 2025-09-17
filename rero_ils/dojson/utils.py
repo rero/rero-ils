@@ -485,53 +485,53 @@ def get_mef_link(bibid, reroid, entity_type, ids, key):
         match = re_identified.search(id_) if type(id_) is str else re_identified.search(id_[0])
         if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
             match_type = match.group(1).lower()
-            match_value = match.group(2)
-            if match_type == "de-101":
-                match_type = "gnd"
-            elif match_type == "de-588" and has_no_de_101:
-                match_type = "gnd"
-                match_value = get_gnd_de_101(match_value)
-            if match_type and match_type in sources:
-                url = f"{mef_url}/mef/latest/{match_type}:{match_value}"
-                response = requests_retry_session().get(url)
-                status_code = response.status_code
-                total = 0
-                if status_code == requests.codes.ok:
-                    if value := response.json().get(match_type, {}).get("pid"):
-                        if match_value != value:
-                            error_print(
-                                f"INFO GET MEF {entity_type}:",
-                                bibid,
-                                reroid,
-                                key,
-                                id_,
-                                "NEW",
-                                f"({match_type.upper()}){value}",
-                            )
-                        return f"{mef_url}/{match_type}/{value}"
-                error_print(
-                    "WARNING GET MEF CONTRIBUTION:",
-                    bibid,
-                    reroid,
-                    key,
-                    id_,
-                    url,
-                    status_code,
-                    total,
-                )
-            # if we have a viaf id, look for the contributor in MEF
-            elif match_type == "viaf":
-                url = f"{mef_url}/mef?q=viaf_pid:{match_value}"
-                response = requests_retry_session().get(url)
-                status_code = response.status_code
-                if status_code == requests.codes.ok:
-                    resp = response.json()
-                    with contextlib.suppress(IndexError, KeyError):
-                        mdata = resp["hits"]["hits"][0]["metadata"]
-                        for source in ["idref", "gnd"]:
-                            if match_value := mdata.get(source, {}).get("pid"):
-                                match_type = source
-                                break
+            if match_value := match.group(2):
+                if match_type == "de-101":
+                    match_type = "gnd"
+                elif match_type == "de-588" and has_no_de_101:
+                    match_type = "gnd"
+                    match_value = get_gnd_de_101(match_value)
+                if match_type and match_type in sources:
+                    url = f"{mef_url}/mef/latest/{match_type}:{match_value}"
+                    response = requests_retry_session().get(url)
+                    status_code = response.status_code
+                    total = 0
+                    if status_code == requests.codes.ok:
+                        if value := response.json().get(match_type, {}).get("pid"):
+                            if match_value != value:
+                                error_print(
+                                    f"INFO GET MEF {entity_type}:",
+                                    bibid,
+                                    reroid,
+                                    key,
+                                    id_,
+                                    "NEW",
+                                    f"({match_type.upper()}){value}",
+                                )
+                            return f"{mef_url}/{match_type}/{value}"
+                    error_print(
+                        "WARNING GET MEF CONTRIBUTION:",
+                        bibid,
+                        reroid,
+                        key,
+                        id_,
+                        url,
+                        status_code,
+                        total,
+                    )
+                # if we have a viaf id, look for the contributor in MEF
+                elif match_type == "viaf":
+                    url = f"{mef_url}/mef?q=viaf_pid:{match_value}"
+                    response = requests_retry_session().get(url)
+                    status_code = response.status_code
+                    if status_code == requests.codes.ok:
+                        resp = response.json()
+                        with contextlib.suppress(IndexError, KeyError):
+                            mdata = resp["hits"]["hits"][0]["metadata"]
+                            for source in ["idref", "gnd"]:
+                                if match_value := mdata.get(source, {}).get("pid"):
+                                    match_type = source
+                                    break
         elif match:
             error_print("ERROR GET MEF CONTRIBUTION:", bibid, reroid, key, id_)
     return None

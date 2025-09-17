@@ -705,25 +705,25 @@ class UGentImport(Import):
     """Import class for Univ. of Gent (Belgium)."""
 
     name = "UGent"
-    url = "https://lib.ugent.be/sru"
+    url = "https://libcatalog.ugent.be"
     url_api = (
-        "{url}?"
-        "version=1.1&operation=searchRetrieve"
+        "{url}/view/sru/32RUG_INST?"
+        "version=1.2&operation=searchRetrieve"
         "&recordSchema=marcxml&maximumRecords={max_results}"
         '&startRecord=1&query={where} {relation} "{what}"'
     )
 
-    # https://lib.ugent.be/sru
+    # https://libcatalog.ugent.be/view/sru/32RUG_INST?version=1.2&operation=explain
     search = {
         "ean": "isbn",
         "anywhere": "all",
-        "author": "author",
+        "author": "creator",
         "title": "title",
-        "doctype": "dc.type",
+        "doctype": "dc_type",
         "recordid": "all",
         "isbn": "isbn",
         "issn": "issn",
-        "date": "year",
+        "date": "main_pub_date",
     }
 
     to_json_processor = marc21_ugent.do
