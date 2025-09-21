@@ -62,9 +62,7 @@ def create_next_late_expected_issues(dbcommit=False, reindex=False):
     counter = 0
     for holding in get_late_serial_holdings():
         try:
-            issue = holding.create_regular_issue(status=ItemIssueStatus.LATE, dbcommit=dbcommit, reindex=reindex)
-            issue.issue_status = ItemIssueStatus.LATE
-            issue.update(issue, dbcommit=dbcommit, reindex=reindex)
+            holding.create_regular_issue(status=ItemIssueStatus.LATE, dbcommit=dbcommit, reindex=reindex)
             counter += 1
         except RegularReceiveNotAllowed as err:
             pid = holding.pid
