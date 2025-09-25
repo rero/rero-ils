@@ -2276,8 +2276,6 @@ RECORDS_REST_FACETS = dict(
             _("claims_date"): range_filter(
                 "issue.claims.dates",
                 format="epoch_millis",
-                start_date_math="/d",
-                end_date_math="/d",
             ),
             _("current_requests"): range_filter("current_pending_requests"),
         },
@@ -2357,14 +2355,10 @@ RECORDS_REST_FACETS = dict(
             _("request_expire_date"): range_filter(
                 "request_expire_date",
                 format="epoch_millis",
-                start_date_math="/d",
-                end_date_math="/d",
             ),
             _("end_date"): range_filter(
                 "end_date",
                 format="epoch_millis",
-                start_date_math="/d",
-                end_date_math="/d",
             ),
             _("exclude_status"): exclude_terms_filter("state"),
         },
@@ -2474,14 +2468,10 @@ RECORDS_REST_FACETS = dict(
             _("order_date"): range_filter(
                 "order_date",
                 format="epoch_millis",
-                start_date_math="/d",
-                end_date_math="/d",
             ),
             _("receipt_date"): range_filter(
                 "receipts.receipt_date",
                 format="epoch_millis",
-                start_date_math="/d",
-                end_date_math="/d",
             ),
         },
         post_filters={
@@ -2709,8 +2699,6 @@ RECORDS_REST_FACETS = dict(
             "transaction_date": range_filter(
                 "creation_date",
                 format="epoch_millis",
-                start_date_math="/d",
-                end_date_math="/d",
             ),
         },
         post_filters={
