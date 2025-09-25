@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2025 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -30,17 +30,9 @@ from invenio_records_rest.utils import obj_or_import_string
 from jinja2 import Environment
 
 from rero_ils.filter import format_date_filter
-from rero_ils.modules.api import (
-    IlsRecord,
-    IlsRecordError,
-    IlsRecordsIndexer,
-    IlsRecordsSearch,
-)
+from rero_ils.modules.api import IlsRecord, IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.errors import (
-    MissingRequiredParameterError,
-    RegularReceiveNotAllowed,
-)
+from rero_ils.modules.errors import MissingRequiredParameterError, RegularReceiveNotAllowed
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.items.models import ItemIssueStatus
@@ -52,12 +44,7 @@ from rero_ils.modules.operation_logs.extensions import OperationLogObserverExten
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.record_extensions import OrgLibRecordExtension
-from rero_ils.modules.utils import (
-    extracted_data_from_ref,
-    get_ref_for_pid,
-    get_schema_for_resource,
-    sorted_pids,
-)
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, get_schema_for_resource, sorted_pids
 
 from .models import HoldingIdentifier, HoldingMetadata, HoldingTypes
 
@@ -446,9 +433,11 @@ class Holding(IlsRecord):
                     # Add reason count for received loans and all other reasons.
                     if (reason == "loans" and issue_status == ItemIssueStatus.RECEIVED) or reason != "loans":
                         counts[reason] += 1
-                if cannot_delete_msgs := {
-                    _(f"has {value} items with {name} attached"): value for name, value in counts.items() if value > 0
-                }:
+                if cannot_delete_msgs := [
+                    {"message": _("has {{value}} items with {{name}} attached"), "data": {"value": value, "name": name}}
+                    for name, value in counts.items()
+                    if value > 0
+                ]:
                     cannot_delete["others"] = cannot_delete_msgs
         else:
             links = self.get_links_to_me()

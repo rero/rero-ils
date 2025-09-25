@@ -37,17 +37,8 @@ from invenio_circulation.utils import str2datetime
 from invenio_jsonschemas import current_jsonschemas
 from werkzeug.utils import cached_property
 
-from rero_ils.modules.api import (
-    IlsRecord,
-    IlsRecordError,
-    IlsRecordsIndexer,
-    IlsRecordsSearch,
-)
-from rero_ils.modules.circ_policies.api import (
-    DUE_SOON_REMINDER_TYPE,
-    OVERDUE_REMINDER_TYPE,
-    CircPolicy,
-)
+from rero_ils.modules.api import IlsRecord, IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, OVERDUE_REMINDER_TYPE, CircPolicy
 from rero_ils.modules.errors import NoCirculationActionIsPermitted
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.items.utils import item_pid_to_object

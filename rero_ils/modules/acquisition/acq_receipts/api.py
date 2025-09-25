@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2025 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -23,29 +23,17 @@ from functools import partial
 
 from flask_babel import gettext as _
 
-from rero_ils.modules.acquisition.acq_receipt_lines.api import (
-    AcqReceiptLine,
-    AcqReceiptLinesSearch,
-)
+from rero_ils.modules.acquisition.acq_receipt_lines.api import AcqReceiptLine, AcqReceiptLinesSearch
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
 from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.extensions import DecimalAmountExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
-from rero_ils.modules.utils import (
-    extracted_data_from_ref,
-    get_objects,
-    get_ref_for_pid,
-    sorted_pids,
-)
+from rero_ils.modules.utils import extracted_data_from_ref, get_objects, get_ref_for_pid, sorted_pids
 
 from .extensions import AcqReceiptExtension, AcquisitionReceiptCompleteDataExtension
-from .models import (
-    AcqReceiptIdentifier,
-    AcqReceiptLineCreationStatus,
-    AcqReceiptMetadata,
-)
+from .models import AcqReceiptIdentifier, AcqReceiptLineCreationStatus, AcqReceiptMetadata
 
 # provider
 AcqReceiptProvider = type(
@@ -222,7 +210,7 @@ class AcqReceipt(AcquisitionIlsRecord):
             AcqOrderStatus.RECEIVED,
             AcqOrderStatus.PARTIALLY_RECEIVED,
         ]:
-            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
+            cannot_delete["others"] = {"message": _("Order status is {{status}}"), "data": {"status": order_status}}
         # Note : linked receipt lines aren't yet a reason to keep the record.
         #        These lines will be deleted with the record.
         # TODO :: add a reason if order is concluded (rollovered or invoiced)

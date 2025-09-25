@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2025 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -24,10 +24,7 @@ from functools import partial
 from flask_babel import gettext as _
 from invenio_records_rest.utils import obj_or_import_string
 
-from rero_ils.modules.acquisition.acq_order_lines.api import (
-    AcqOrderLine,
-    AcqOrderLinesSearch,
-)
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
@@ -436,7 +433,7 @@ class AcqOrder(AcquisitionIlsRecord):
         # ``pre_delete`` hook.
         links.pop("acq_order_lines", None)
         if self.status != AcqOrderStatus.PENDING:
-            cannot_delete["others"] = {_("Order status is %s") % _(self.status): True}
+            cannot_delete["others"] = {"message": _("Order status is {{status}}"), "data": {"status": self.status}}
         if links:
             cannot_delete["links"] = links
         return cannot_delete

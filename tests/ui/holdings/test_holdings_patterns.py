@@ -148,12 +148,18 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
         "rero_ils.modules.items.api.Item.get_links_to_me",
         return_value={"fees": 1},
     ):
-        assert holding.reasons_not_to_delete() == {"others": {"has 3 items with fees attached": 3}}
+        assert holding.reasons_not_to_delete() == {
+            "others": [{"message": "has {{value}} items with {{name}} attached", "data": {"name": "fees", "value": 3}}]
+        }
     with mock.patch(
         "rero_ils.modules.items.api.Item.get_links_to_me",
         return_value={"collections": 1},
     ):
-        assert holding.reasons_not_to_delete() == {"others": {"has 3 items with collections attached": 3}}
+        assert holding.reasons_not_to_delete() == {
+            "others": [
+                {"message": "has {{value}} items with {{name}} attached", "data": {"name": "collections", "value": 3}}
+            ]
+        }
 
 
 def test_patterns_yearly_one_level(holding_lib_martigny_w_patterns, pattern_yearly_one_level_data):

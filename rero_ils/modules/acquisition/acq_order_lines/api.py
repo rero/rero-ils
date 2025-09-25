@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2025 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -212,9 +212,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         The received quantity is number of quantity received for the resource
         acq_receipt_line and for the corresponding acq_line_order.
         """
-        from rero_ils.modules.acquisition.acq_receipt_lines.api import (
-            AcqReceiptLinesSearch,
-        )
+        from rero_ils.modules.acquisition.acq_receipt_lines.api import AcqReceiptLinesSearch
 
         search = AcqReceiptLinesSearch().filter("term", acq_order_line__pid=self.pid)
         search.aggs.metric("sum_order_line_recieved", "sum", field="quantity")
@@ -272,9 +270,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        from rero_ils.modules.acquisition.acq_receipt_lines.api import (
-            AcqReceiptLinesSearch,
-        )
+        from rero_ils.modules.acquisition.acq_receipt_lines.api import AcqReceiptLinesSearch
 
         links = {}
         query = AcqReceiptLinesSearch().filter("term", acq_order_line__pid=self.pid)
@@ -299,7 +295,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
             cannot_delete["links"] = links
         order_status = AcqOrder.get_status_by_pid(self.order_pid)
         if order_status not in [AcqOrderStatus.CANCELLED, AcqOrderStatus.PENDING]:
-            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
+            cannot_delete["others"] = {"message": _("Order status is {{status}}"), "data": {"status": order_status}}
         return cannot_delete
 
 

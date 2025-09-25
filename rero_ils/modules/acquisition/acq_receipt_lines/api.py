@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2025 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -31,10 +31,7 @@ from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 
-from .extensions import (
-    AcqReceiptLineValidationExtension,
-    AcquisitionReceiptLineCompleteDataExtension,
-)
+from .extensions import AcqReceiptLineValidationExtension, AcquisitionReceiptLineCompleteDataExtension
 from .models import AcqReceiptLineIdentifier, AcqReceiptLineMetadata
 
 # provider
@@ -214,7 +211,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
             AcqOrderStatus.PARTIALLY_RECEIVED,
             AcqOrderStatus.RECEIVED,
         ]:
-            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
+            cannot_delete["others"] = {"message": _("Order status is {{status}}"), "data": {"status": order_status}}
         return cannot_delete
 
 
