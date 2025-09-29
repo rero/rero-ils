@@ -36,7 +36,7 @@
         },
         "email": {
           "title": "E-mail",
-          "description": "The notifications for patrons without e-mail are sent to this address. No notification is sent if the field is empty.",
+          "description": "The notifications for patrons without e-mail are sent to this address.",
           "type": "string",
           "format": "email"
         }
@@ -58,7 +58,7 @@
         },
         "email": {
           "title": "E-mail",
-          "description": "The notifications for patrons without e-mail are sent to this address. No notification is sent if the field is empty.",
+          "description": "The notifications for patrons without e-mail are sent to this address.",
           "type": "string",
           "format": "email"
         },
