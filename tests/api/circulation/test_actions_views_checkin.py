@@ -126,6 +126,7 @@ def test_auto_checkin_else(
 def test_checkin_overdue_item(
     client,
     librarian_martigny,
+    patron2_martigny,
     loc_public_martigny,
     item_on_loan_martigny_patron_and_loan_on_loan,
 ):
@@ -156,16 +157,35 @@ def test_checkin_overdue_item(
     assert total_fees > 0
 
     # Check overdues preview API and check result
-    url = url_for("api_loan.preview_loan_overdue", loan_pid=loan.pid)
+    loan_url = url_for("api_loan.preview_loan_overdue", loan_pid=loan.pid)
+    patron_url = url_for("api_patrons.patron_overdue_preview_api", patron_pid=patron.pid)
+
+    res = client.get(loan_url)
+    assert res.status_code == 401
+    res = client.get(patron_url)
+    assert res.status_code == 401
+
+    login_user_via_session(client, patron.user)
+    res = client.get(loan_url)
+    assert res.status_code == 200
+    res = client.get(patron_url)
+    assert res.status_code == 200
+
+    assert patron.pid != patron2_martigny.pid
+    login_user_via_session(client, patron2_martigny.user)
+    res = client.get(loan_url)
+    assert res.status_code == 403
+    res = client.get(patron_url)
+    assert res.status_code == 403
+
     login_user_via_session(client, librarian_martigny.user)
-    res = client.get(url)
+    res = client.get(loan_url)
     data = get_json(res)
     assert res.status_code == 200
     assert len(data["steps"]) > 0
     assert data["total"] > 0
 
-    url = url_for("api_patrons.patron_overdue_preview_api", patron_pid=patron.pid)
-    res = client.get(url)
+    res = client.get(patron_url)
     data = get_json(res)
     assert res.status_code == 200
     assert len(data) == 1

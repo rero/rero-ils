@@ -90,6 +90,11 @@ def patron_circulation_informations(patron_pid):
 @login_required
 def patron_overdue_preview_api(patron_pid):
     """Get all overdue preview linked to a patron."""
+    current_patrons_pids = [patron.pid for patron in current_patrons]
+    # if the logged user is a patron the pid should be his own
+    # otherwise the user should be a librarian
+    if patron_pid not in current_patrons_pids and not current_librarian:
+        abort(403)
     data = []
     for loan in get_overdue_loans(patron_pid):
         fees = loan.get_overdue_fees

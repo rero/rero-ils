@@ -29,6 +29,7 @@ from rero_ils.modules.items.views.api_views import (
 )
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 
 api_blueprint = Blueprint("api_loan", __name__, url_prefix="/loan")
 
@@ -53,6 +54,11 @@ def preview_loan_overdue(loan_pid):
     loan = Loan.get_record_by_pid(loan_pid)
     if not loan:
         abort(404, "Loan not found")
+    current_patrons_pids = [patron.pid for patron in current_patrons]
+    # if the logged user is a patron the pid should be his own
+    # otherwise the user should be a librarian
+    if loan.get("patron_pid") not in current_patrons_pids and not current_librarian:
+        abort(403)
     fees = loan.get_overdue_fees
     fees = [(fee[0], fee[1].isoformat()) for fee in fees]  # format date
     return jsonify({"total": sum_for_fees(fees), "steps": fees})
