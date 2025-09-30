@@ -88,15 +88,15 @@ class Collection(IlsRecord):
         items = []
         for item in self.get("items", []):
             item_pid = extracted_data_from_ref(item)
-            item = Item.get_record_by_pid(item_pid)
-            # inherit holdings first call number when possible
-            if first_call_number := item.issue_inherited_first_call_number:
-                item["call_number"] = first_call_number
-            # inherit holdings second call number when possible
-            if second_call_number := item.issue_inherited_second_call_number:
-                item["second_call_number"] = second_call_number
+            if item := Item.get_record_by_pid(item_pid):
+                # inherit holdings first call number when possible
+                if first_call_number := item.issue_inherited_first_call_number:
+                    item["call_number"] = first_call_number
+                # inherit holdings second call number when possible
+                if second_call_number := item.issue_inherited_second_call_number:
+                    item["second_call_number"] = second_call_number
 
-            items.append(item)
+                items.append(item)
         return items
 
 

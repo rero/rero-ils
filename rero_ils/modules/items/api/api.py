@@ -104,6 +104,13 @@ class Item(ItemCirculation, ItemIssue):
         },
     }
 
+    def delete(self, force=False, dbcommit=False, delindex=False):
+        """Delete record."""
+        from rero_ils.modules.items.tasks import delete_item_in_collections
+
+        delete_item_in_collections.delay(self.pid, dbcommit=True, reindex=True)
+        return super().delete(force, dbcommit, delindex)
+
     def delete_from_index(self):
         """Delete record from index."""
         with contextlib.suppress(NotFoundError, ValueError):

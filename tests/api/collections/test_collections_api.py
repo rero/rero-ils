@@ -20,4 +20,9 @@
 
 def test_get_items(item_lib_martigny, item2_lib_martigny, coll_martigny_1):
     """Test get items for a collection"""
+    # collection should have 2 items
     assert coll_martigny_1.get_items() == [item_lib_martigny, item2_lib_martigny]
+
+    item_lib_martigny.delete(dbcommit=True, delindex=True)
+    # after deleting on item collection should have only one item
+    assert coll_martigny_1.get_items() == [item2_lib_martigny]

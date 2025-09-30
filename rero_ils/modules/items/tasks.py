@@ -22,6 +22,7 @@ from celery import shared_task
 from flask import current_app
 
 from rero_ils.modules.api import IlsRecordError
+from rero_ils.modules.collections.api import Collection, CollectionsSearch
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.utils import create_next_late_expected_issues
 from rero_ils.modules.utils import extracted_data_from_ref, set_timestamp
@@ -121,3 +122,18 @@ def delete_holding(holding_pid, force=False, dbcommit=True, delindex=True):
             holding_rec.delete(force=force, dbcommit=dbcommit, delindex=delindex)
         except IlsRecordError.NotDeleted:
             current_app.logger.warning(f"Holding not deleted: {holding_pid}")
+
+
+@shared_task
+def delete_item_in_collections(item_pid, dbcommit=True, reindex=True):
+    """Delete item in collections."""
+    query_collections = CollectionsSearch().filter("term", items__pid=item_pid)
+
+    for hit in query_collections.source("pid").scan():
+        try:
+            coll = Collection.get_record(hit.meta.id)
+            new_items = [item for item in coll["items"] if extracted_data_from_ref(item) != item_pid]
+            coll["items"] = new_items
+            coll.update(data=coll, dbcommit=dbcommit, reindex=reindex)
+        except Exception as err:
+            current_app.logger.error(f"Delete item: {item_pid} in collections: {err}")
