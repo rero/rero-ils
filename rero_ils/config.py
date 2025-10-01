@@ -283,8 +283,6 @@ RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = "https://resources.rero.ch/bib/test/c
 THEME_TRACKINGCODE_TEMPLATE = "rero_ils/trackingcode.html"
 THEME_JAVASCRIPT_TEMPLATE = "rero_ils/javascript.html"
 
-WEBPACKEXT_PROJECT = "rero_ils.theme.webpack:project"
-
 # Email configuration
 # ===================
 #: Email address for support.

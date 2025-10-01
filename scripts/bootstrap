@@ -144,7 +144,10 @@ info_msg "Build web assets: collect"
 invenio collect -v
 
 info_msg "Build web assets: using webpack"
-invenio webpack buildall
+# TODO: remove CI when the following issue is solved:
+# https://github.com/inveniosoftware/invenio-assets/issues/162
+# on the patch-module the option --error-on-fail is switched on by default on CI
+CI="" invenio webpack buildall
 
 if $deploy ; then
   if ! $ci ; then
