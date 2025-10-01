@@ -48,8 +48,8 @@ def get_late_serial_holdings():
         .exclude("term", patterns__frequency="rdafr:1016")
         .source(False)
     )
-    for hit in query.scan():
-        yield Holding.get_record(hit.meta.id)
+    for id_ in [hit.meta.id for hit in query.scan()]:
+        yield Holding.get_record(id_)
 
 
 def create_next_late_expected_issues(dbcommit=False, reindex=False):
