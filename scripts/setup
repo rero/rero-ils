@@ -599,11 +599,17 @@ create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVE
 info_msg "API configuration: ${DATA_PATH}/apisources.yml"
 eval ${PREFIX} invenio reroils api-harvester init-config ${DATA_PATH}/apisources.yml
 
-eval ${PREFIX} invenio reroils scheduler init -r
-eval ${PREFIX} invenio reroils scheduler enable-tasks -a -v
-info_msg disable VS/NJ CANTOOK harvesting
-eval ${PREFIX} invenio reroils scheduler enable-tasks -n harvest-vs-cantook -d
-eval ${PREFIX} invenio reroils scheduler enable-tasks -n harvest-nj-cantook -d
+info_msg "Scheduler initialisation"
+eval ${PREFIX} invenio reroils scheduler init --reset
+if ${DEPLOYMENT}
+then
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --all --verbose
+  info_msg disable VS/NJ CANTOOK harvesting
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-vs-cantook --disable
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-nj-cantook --disable
+else
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --all --verbose --disable
+fi
 
 if ${ES_MAPPING}
 then
