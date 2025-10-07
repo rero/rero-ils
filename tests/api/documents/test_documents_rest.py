@@ -337,7 +337,7 @@ def test_documents_facets(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_documents_organisation_facets(client, document, item_lib_martigny, rero_json_header):
+def test_documents_organisation_facets(client, document, item_lib_martigny, item_lib_saxon, rero_json_header):
     """Test record retrieval."""
     list_url = url_for("invenio_records_rest.doc_list", view="global")
 
@@ -345,7 +345,39 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, rero
     data = get_json(res)
     aggs = data["aggregations"]
 
-    assert "organisation" in aggs
+    assert aggs["organisation"]["buckets"] == [
+        {
+            "doc_count": 2,
+            "key": "org1",
+            "library": {
+                "buckets": [
+                    {
+                        "doc_count": 1,
+                        "key": "lib1",
+                        "location": {
+                            "buckets": [{"doc_count": 1, "key": "loc1", "name": "Martigny Library Public Space"}],
+                            "doc_count_error_upper_bound": 0,
+                            "sum_other_doc_count": 0,
+                        },
+                        "name": "Library of Martigny-ville",
+                    },
+                    {
+                        "doc_count": 1,
+                        "key": "lib2",
+                        "location": {
+                            "buckets": [{"doc_count": 1, "key": "loc3", "name": "Saxon Library Public Space"}],
+                            "doc_count_error_upper_bound": 0,
+                            "sum_other_doc_count": 0,
+                        },
+                        "name": "Library of Saxon",
+                    },
+                ],
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+            },
+            "name": "The district of Martigny Libraries",
+        }
+    ]
 
 
 @mock.patch(

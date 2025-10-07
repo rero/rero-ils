@@ -33,6 +33,7 @@ from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.organisations.api import OrganisationsSearch
 from rero_ils.modules.serializers import JSONSerializer
+from rero_ils.modules.serializers.mixins import CachedDataSerializerMixin
 
 from ..dumpers import document_replace_refs_dumper
 from ..dumpers.indexer import IndexerDumper
@@ -41,7 +42,7 @@ from ..extensions import TitleExtension
 GLOBAL_VIEW_CODE = LocalProxy(lambda: current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
 
 
-class DocumentJSONSerializer(JSONSerializer):
+class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `Document` records as JSON."""
 
     @staticmethod
@@ -157,47 +158,42 @@ class DocumentJSONSerializer(JSONSerializer):
                     "max": extract_acquisition_date("date_max", datetime.now().strftime("%Y-%m-%d")),
                 },
             }
+        # organisation aggregation is a nested aggregation, we need to
+        # remove this useless level.
+        if aggr_by_org := aggregations.pop("organisation", None):
+            aggregations["organisation"] = aggr_by_org["organisation"]
 
         if aggr_org := aggregations.get("organisation", {}).get("buckets", []):
+            # nested aggregation, we need to filter empty buckets
+            aggr_org = filter(lambda agg: agg["doc_count"] > 0, aggr_org)
+            # load all organisations, libraries and locations in cache
+            # to avoid multiple queries
+            self.load_all(
+                OrganisationsSearch().source(["name", "pid"]),
+                LibrariesSearch().source(["name", "pid"]),
+                LocationsSearch().source(["name", "pid"]),
+            )
             # For a "local view", we only need the facet on the location
             # organisation. We can filter the organisation aggregation to keep
             # only this value
             if view_code != GLOBAL_VIEW_CODE:
+                # nested aggregation, we need to filter empty buckets
                 aggr_org = list(filter(lambda term: term["key"] == view_id, aggr_org))
                 aggregations["organisation"]["buckets"] = aggr_org
-
             for org in aggr_org:
-                # filter libraries by organisation
-                #   Keep only libraries for the current selected organisation.
-                query = LibrariesSearch().filter("term", organisation__pid=org["key"]).source(["pid", "name"])
-                org_libraries = {hit.pid: hit.name for hit in query.scan()}
-                org["library"]["buckets"] = list(
-                    filter(
-                        lambda lib: lib["key"] in org_libraries,
-                        org["library"]["buckets"],
+                # add aggregation name
+                org["name"] = self.get_resource(OrganisationsSearch(), org["key"])["name"]
+                org["library"]["buckets"] = list(filter(lambda agg: agg["doc_count"] > 0, org["library"]["buckets"]))
+                for lib_term in org["library"].get("buckets", []):
+                    # add aggregation name
+                    lib_term["name"] = self.get_resource(LibrariesSearch(), lib_term["key"])["name"]
+                    # nested aggregation, we need to filter empty buckets
+                    lib_term["location"]["buckets"] = list(
+                        filter(lambda agg: agg["doc_count"] > 0, lib_term["location"]["buckets"])
                     )
-                )
-                for term in org["library"]["buckets"]:
-                    if term["key"] in org_libraries:
-                        term["name"] = org_libraries[term["key"]]
-
-                # filter locations by library
-                for library in org["library"]["buckets"]:
-                    query = LocationsSearch().filter("term", library__pid=library["key"]).source(["pid", "name"])
-                    lib_locations = {hit.pid: hit.name for hit in query.scan()}
-                    library["location"]["buckets"] = list(
-                        filter(
-                            lambda lib: lib["key"] in lib_locations,
-                            library["location"]["buckets"],
-                        )
-                    )
-                    for term in library["location"]["buckets"]:
-                        if term["key"] in lib_locations:
-                            term["name"] = lib_locations[term["key"]]
-
-            # Complete Organisation aggregation information
-            # with corresponding resource name
-            JSONSerializer.enrich_bucket_with_data(aggr_org, OrganisationsSearch, "name")
+                    for loc_term in lib_term["location"].get("buckets", []):
+                        # add aggregation name
+                        loc_term["name"] = self.get_resource(LocationsSearch(), loc_term["key"])["name"]
 
             # For a "local view", we replace the organisation aggregation by
             # a library aggregation containing only for the local organisation

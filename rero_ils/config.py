@@ -2100,28 +2100,35 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="language.value", size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             organisation=dict(
-                terms=dict(
-                    field="organisation_pid",
-                    size=DOCUMENTS_AGGREGATION_SIZE,
-                    min_doc_count=0,
+                nested=dict(
+                    path="nested_holdings"
                 ),
                 aggs=dict(
-                    library=dict(
+                    organisation=dict(
                         terms=dict(
-                            field="library_pid",
+                            field="nested_holdings.organisation.organisation_pid",
                             size=DOCUMENTS_AGGREGATION_SIZE,
                             min_doc_count=0,
                         ),
                         aggs=dict(
-                            location=dict(
+                            library=dict(
                                 terms=dict(
-                                    field="location_pid",
-                                    size=DOCUMENTS_AGGREGATION_SIZE,
+                                    field="nested_holdings.organisation.library_pid",
+                                    size=50,
                                     min_doc_count=0,
-                                )
+                                ),
+                                aggs=dict(
+                                    location=dict(
+                                        terms=dict(
+                                            field="nested_holdings.location.pid",
+                                            size=100,
+                                            min_doc_count=0,
+                                        )
+                                    )
+                                ),
                             )
                         ),
-                    )
+                    ),
                 ),
             ),
             status=dict(

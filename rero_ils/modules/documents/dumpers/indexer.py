@@ -114,6 +114,7 @@ class IndexerDumper(Dumper):
 
         if holdings:
             data["holdings"] = holdings
+            data["nested_holdings"] = holdings
 
     @staticmethod
     def _process_identifiers(record, data):

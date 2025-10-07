@@ -1329,6 +1329,210 @@
           }
         }
       },
+      "nested_holdings": {
+        "type": "nested",
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword",
+                "copy_to": "location_pid"
+              }
+            }
+          },
+          "circulation_category": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "organisation": {
+            "type": "object",
+            "properties": {
+              "organisation_pid": {
+                "type": "keyword",
+                "copy_to": "organisation_pid"
+              },
+              "library_pid": {
+                "type": "keyword",
+                "copy_to": "library_pid"
+              }
+            }
+          },
+          "holdings_type": {
+            "type": "keyword"
+          },
+          "local_fields": {
+            "properties": {
+              "organisation_pid": {
+                "type": "keyword"
+              },
+              "fields": {
+                "type": "object",
+                "properties": {
+                  "field_1": {
+                    "type": "text"
+                  },
+                  "field_2": {
+                    "type": "text"
+                  },
+                  "field_3": {
+                    "type": "text"
+                  },
+                  "field_4": {
+                    "type": "text"
+                  },
+                  "field_5": {
+                    "type": "text"
+                  },
+                  "field_6": {
+                    "type": "text"
+                  },
+                  "field_7": {
+                    "type": "text"
+                  },
+                  "field_8": {
+                    "type": "text"
+                  },
+                  "field_9": {
+                    "type": "text"
+                  },
+                  "field_10": {
+                    "type": "text"
+                  }
+                }
+              }
+            }
+          },
+          "call_number": {
+            "type": "text",
+            "copy_to": "call_numbers"
+          },
+          "second_call_number": {
+            "type": "text",
+            "copy_to": "call_numbers"
+          },
+          "index": {
+            "type": "text"
+          },
+          "enumerationAndChronology": {
+            "type": "text"
+          },
+          "supplementaryContent": {
+            "type": "text"
+          },
+          "notes": {
+            "type": "text"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "barcode": {
+                "type": "keyword"
+              },
+              "call_number": {
+                "type": "text",
+                "copy_to": "call_numbers"
+              },
+              "second_call_number": {
+                "type": "text",
+                "copy_to": "call_numbers"
+              },
+              "status": {
+                "type": "keyword"
+              },
+              "acquisition": {
+                "type": "nested",
+                "properties": {
+                  "organisation_pid": {
+                    "type": "keyword"
+                  },
+                  "library_pid": {
+                    "type": "keyword"
+                  },
+                  "location_pid": {
+                    "type": "keyword"
+                  },
+                  "date": {
+                    "type": "date",
+                    "format": "yyyy-MM-dd"
+                  }
+                }
+              },
+              "notes": {
+                "type": "text"
+              },
+              "local_fields": {
+                "properties": {
+                  "organisation_pid": {
+                    "type": "keyword"
+                  },
+                  "fields": {
+                    "type": "object",
+                    "properties": {
+                      "field_1": {
+                        "type": "text"
+                      },
+                      "field_2": {
+                        "type": "text"
+                      },
+                      "field_3": {
+                        "type": "text"
+                      },
+                      "field_4": {
+                        "type": "text"
+                      },
+                      "field_5": {
+                        "type": "text"
+                      },
+                      "field_6": {
+                        "type": "text"
+                      },
+                      "field_7": {
+                        "type": "text"
+                      },
+                      "field_8": {
+                        "type": "text"
+                      },
+                      "field_9": {
+                        "type": "text"
+                      },
+                      "field_10": {
+                        "type": "text"
+                      }
+                    }
+                  }
+                }
+              },
+              "temporary_item_type": {
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "pid": {
+                    "type": "keyword"
+                  },
+                  "end_date": {
+                    "type": "date"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "local_fields": {
         "type": "object",
         "properties": {
