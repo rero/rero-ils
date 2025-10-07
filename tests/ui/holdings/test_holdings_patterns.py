@@ -151,9 +151,9 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
         assert holding.reasons_not_to_delete() == {"links": {"items_with_loans_or_fees": 3}}
     with mock.patch(
         "rero_ils.modules.items.api.Item.get_links_to_me",
-        return_value={"loans": 2},
+        return_value={"collections": 2},
     ):
-        assert holding.reasons_not_to_delete() == {"links": {"items_with_loans_or_fees": 3}}
+        assert holding.reasons_not_to_delete() == {}
 
 
 def test_patterns_yearly_one_level(holding_lib_martigny_w_patterns, pattern_yearly_one_level_data):

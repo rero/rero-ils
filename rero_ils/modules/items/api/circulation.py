@@ -1041,6 +1041,7 @@ class ItemCirculation(ItemRecord):
                          if False count of linked records
         """
         # avoid circular import
+        from rero_ils.modules.collections.api import CollectionsSearch
         from rero_ils.modules.local_fields.api import LocalFieldsSearch
 
         query_loans = search_by_pid(
@@ -1057,19 +1058,23 @@ class ItemCirculation(ItemRecord):
             .filter("term", status="open")
             .filter("range", total_amount={"gt": 0})
         )
+        query_collections = CollectionsSearch().filter("term", items__pid=self.pid)
         query_local_fields = LocalFieldsSearch().get_local_fields(self.provider.pid_type, self.pid)
 
         if get_pids:
             loans = sorted_pids(query_loans)
             fees = sorted_pids(query_fees)
+            collections = sorted_pids(query_collections)
             local_fields = sorted_pids(query_local_fields)
         else:
             loans = query_loans.count()
             fees = query_fees.count()
+            collections = query_collections.count()
             local_fields = query_local_fields.count()
         links = {
             "loans": loans,
             "fees": fees,
+            "collections": collections,
             "local_fields": local_fields,
         }
         return {k: v for k, v in links.items() if v}

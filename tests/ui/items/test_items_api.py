@@ -280,6 +280,13 @@ def test_get_links_to_me_with_fees(patron_transaction_overdue_saxon):
     assert item.get_links_to_me(get_pids=True) == {"loans": ["1"]}
 
 
+def test_get_links_to_me_with_collection(coll_martigny_1, item_lib_martigny):
+    """Test item deletion used by a collection."""
+    assert item_lib_martigny.get_links_to_me() == {"collections": 1}
+    assert item_lib_martigny.get_links_to_me(get_pids=True) == {"collections": [coll_martigny_1.pid]}
+    assert item_lib_martigny.can_delete
+
+
 def test_items_properties(item_lib_martigny):
     """Test some properties about item class."""
     item = item_lib_martigny
