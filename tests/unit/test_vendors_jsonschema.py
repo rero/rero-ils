@@ -35,10 +35,10 @@ def test_vendors_special_rero_validation(app, vendor_martigny_data, vendors_sche
     record["contacts"].append(record["contacts"][0])
     with pytest.raises(ValidationError) as err:
         Vendor.validate(Vendor(record))
-    assert "Can not have multiple contacts with the same type" in str(err)
+    assert "Cannot have multiple contacts with the same type" in str(err)
 
     record["contacts"] = vendor_martigny_data["contacts"]
     record["notes"].append(record["notes"][0])
     with pytest.raises(ValidationError) as err:
         Vendor.validate(Vendor(record))
-    assert "Can not have multiple notes with the same type" in str(err)
+    assert "Cannot have multiple notes with the same type" in str(err)

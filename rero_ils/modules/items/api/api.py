@@ -99,7 +99,7 @@ class Item(ItemCirculation, ItemIssue):
         "required": {"loc": "location", "doc": "document", "itty": "item_type"},
         "not_required": {
             "org": "organisation",
-            # We can not make the holding required because it is created later
+            # We cannot make the holding required because it is created later
             "hold": "holding",
         },
     }

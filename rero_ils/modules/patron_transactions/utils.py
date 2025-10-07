@@ -164,7 +164,6 @@ def create_subscription_for_patron(
     """
     record = {}
     if patron_type.is_subscription_required:
-        name = (patron_type.get("name"),)
         start = (start_date.strftime("%Y-%m-%d"),)
         end = end_date.strftime("%Y-%m-%d")
         data = {
@@ -174,7 +173,7 @@ def create_subscription_for_patron(
             "creation_date": datetime.now(timezone.utc).isoformat(),
             "type": "subscription",
             "status": "open",
-            "note": _(f"Subscription for '{name}' from {start} to {end}"),
+            "note": f"{start}-{end}",
         }
         record = PatronTransaction.create(data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid)
     return record

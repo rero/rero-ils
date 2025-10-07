@@ -39,7 +39,7 @@ def test_add_request_on_item_on_shelf(
 
     # the following tests the circulation action ADD_REQUEST_1_2_1
     # for an item on_shelf with a pending loan, the patron that owns the
-    # pending loan can not add a new pending loan on same item.
+    # pending loan cannot add a new pending loan on same item.
     params = {
         "patron_pid": patron.pid,
         "transaction_location_pid": loc_public_martigny.pid,
@@ -159,7 +159,7 @@ def test_add_request_on_item_in_transit_for_pickup(
     item, patron, loan = item_in_transit_martigny_patron_and_loan_for_pickup
 
     # the following tests the circulation action ADD_REQUEST_4_1
-    # the owner of the IN_TRANSIT_FOR_PICKUP loan can not add a pending loan
+    # the owner of the IN_TRANSIT_FOR_PICKUP loan cannot add a pending loan
     params = {
         "patron_pid": patron.pid,
         "transaction_location_pid": loc_public_martigny.pid,
@@ -211,7 +211,7 @@ def test_add_request_on_item_in_transit_to_house(
 
     # the following tests the circulation action ADD_REQUEST_5_2_1
     # when a pending loan exist on an item with loan ITEM_IN_TRANSIT_TO_HOUSE
-    # the patron who owns the pending loan can not add a new pending loan
+    # the patron who owns the pending loan cannot add a new pending loan
     with pytest.raises(RecordCannotBeRequestedError):
         item, requested_loan = item_record_to_a_specific_loan_state(
             item=item, loan_state=LoanState.PENDING, params=params, copy_item=False

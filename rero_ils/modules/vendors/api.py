@@ -71,11 +71,11 @@ class Vendor(IlsRecord):
         # CONTACTS field
         types = [contact.get("type") for contact in self.get("contacts", [])]
         if len(types) != len(set(types)):
-            return _("Can not have multiple contacts with the same type.")
+            return _("Cannot have multiple contacts with the same type.")
         # NOTES field
         types = [note.get("type") for note in self.get("notes", [])]
         if len(types) != len(set(types)):
-            return _("Can not have multiple notes with the same type.")
+            return _("Cannot have multiple notes with the same type.")
 
         return True
 

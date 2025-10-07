@@ -1244,7 +1244,7 @@ def test_delete_pickup_location(loan2_validated_martigny, loc_restricted_martign
     loan = loan2_validated_martigny
     notification = get_notification(loan, NotificationType.AVAILABILITY)
     assert notification.pickup_location.pid == loc_restricted_martigny.pid
-    # We can not delete location used as transaction or pickup location
+    # We cannot delete location used as transaction or pickup location
     # # any more.
     reasons_not_to_delete = loc_restricted_martigny.reasons_not_to_delete()
     assert reasons_not_to_delete == {"links": {"loans": 1}}

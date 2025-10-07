@@ -1503,7 +1503,7 @@ def export(verbose, pid_type, outfile_name, pidfile, indent, schema):
             outfile.write(rec)
         except Exception as err:
             click.echo(err)
-            click.echo(f"ERROR: Can not export pid:{pid}")
+            click.echo(f"ERROR: Cannot export pid:{pid}")
 
 
 def create_personal(name, user_id, scopes=None, is_internal=False, access_token=None):

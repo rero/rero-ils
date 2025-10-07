@@ -159,7 +159,7 @@ class Holding(IlsRecord):
         document_pid = extracted_data_from_ref(self.get("document").get("$ref"))
         document = Document.get_record_by_pid(document_pid)
         if not document:
-            return _(f"Document does not exist {document_pid}.")
+            return f"Document {document_pid} does not exist."
 
         if self.is_serial:
             patterns = self.get("patterns", {})
@@ -184,11 +184,11 @@ class Holding(IlsRecord):
             ]
             for field in fields:
                 if self.get(field):
-                    return _(f"{field} is allowed only for serial holdings")
+                    return f"{field} only allowed for serial holdings."
         # No multiple notes with same type
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
-            return _("Can not have multiple notes of the same type.")
+            return _("Cannot have multiple notes of the same type.")
         return True
 
     def delete(self, force=False, dbcommit=False, delindex=False):
@@ -438,18 +438,9 @@ class Holding(IlsRecord):
         cannot_delete = {}
         if self.is_serial:
             counts = {}
-            for item in self.get_all_items():
-                reasons_not_to_delete = item.reasons_not_to_delete().get("links", {})
-                issue_status = item.issue_status
-                for reason in reasons_not_to_delete:
-                    counts.setdefault(reason, 0)
-                    # Add reason count for received loans and all other reasons.
-                    if (reason == "loans" and issue_status == ItemIssueStatus.RECEIVED) or reason != "loans":
-                        counts[reason] += 1
-                if cannot_delete_msgs := {
-                    _(f"has {value} items with {name} attached"): value for name, value in counts.items() if value > 0
-                }:
-                    cannot_delete["others"] = cannot_delete_msgs
+            if not_deletable_items := [item for item in self.get_all_items() if item.reasons_not_to_delete()]:
+                count = len(not_deletable_items)
+                cannot_delete["links"] = {"items_with_loans_or_fees": count}
         else:
             links = self.get_links_to_me()
             # local_fields isn't a reason to block holding suppression

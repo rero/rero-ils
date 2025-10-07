@@ -200,7 +200,7 @@ def reindex(pid_types, from_date, until_date, direct, queue):
                     indxer = IlsRecordsIndexer(queue=simple_queue, routing_key=queue)
                     indxer.bulk_index((x[0] for x in query), doc_type=pid_type)
             else:
-                click.echo("Can not index by date.")
+                click.echo("Cannot index by date.")
         else:
             click.secho(f"ERROR type does not exist: {pid_type}", fg="red")
         if not direct:

@@ -243,7 +243,7 @@ class Loan(IlsRecord):
             # Anonymize loan operation logs
             LoanOperationLog.anonymize_logs(self.pid)
         except Exception as err:
-            current_app.logger.error(f"Can not anonymize loan: {self.get('pid')} {err}")
+            current_app.logger.error(f"Cannot anonymize loan: {self.get('pid')} {err}")
         return self
 
     def date_fields2datetime(self):
@@ -992,7 +992,7 @@ class Loan(IlsRecord):
         if patron:
             keep_history = patron.user.user_profile.get("keep_history", True)
         else:
-            msg = f"Can not anonymize loan: {loan_data.get('pid')} no patron: {loan_data.get('patron_pid')}"
+            msg = f"Cannot anonymize loan: {loan_data.get('pid')} no patron: {loan_data.get('patron_pid')}"
             current_app.logger.warning(msg)
         return not keep_history
 

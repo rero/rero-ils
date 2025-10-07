@@ -137,7 +137,7 @@ def test_holdings_post_put_delete(
     list_url = url_for("invenio_records_rest.hold_list", q="pid:2")
     holding_data = holding_lib_martigny_data_tmp
     # Create record / POST
-    # We can not use pid=1 here. It is already used!
+    # We cannot use pid=1 here. It is already used!
     holding_data["pid"] = "2"
     res, data = postdata(client, "invenio_records_rest.hold_list", holding_data)
     assert res.status_code == 201

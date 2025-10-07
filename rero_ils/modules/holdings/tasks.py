@@ -41,7 +41,7 @@ def delete_standard_holdings_having_no_items():
             except Exception as err:
                 errors += 1
                 reasons = record.reasons_not_to_delete()
-                current_app.logger.error(f"Can not delete standard holding: {hit.pid} {reasons} {err}")
+                current_app.logger.error(f"Cannot delete standard holding: {hit.pid} {reasons} {err}")
         else:
             # delete holding from index
             HoldingsIndexer().client.delete(id=hit.meta.id, index="holdings", doc_type="_doc")

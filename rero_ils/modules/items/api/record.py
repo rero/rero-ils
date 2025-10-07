@@ -86,17 +86,17 @@ class ItemRecord(IlsRecord):
 
         if barcode := self.get("barcode"):
             if ItemsSearch().exclude("term", pid=self.pid).filter("term", barcode=barcode).source("pid").count():
-                return _(f"Barcode {barcode} is already taken.")
+                return _("Barcode is already taken.")
 
         from ...holdings.api import Holding
 
         holding_pid = extracted_data_from_ref(self.get("holding").get("$ref"))
         holding = Holding.get_record_by_pid(holding_pid)
         if not holding:
-            return _(f"Holding does not exist: {holding_pid}")
+            return f"Holdings {holding_pid} does not exist."
 
         if self.get("issue") and self.get("type") == TypeOfItem.STANDARD:
-            return _("Standard item can not have a issue field.")
+            return _("Standard item cannot have a issue field.")
         if self.get("type") == TypeOfItem.ISSUE:
             if not self.get("issue", {}):
                 return _("Issue item must have an issue field.")
@@ -104,7 +104,7 @@ class ItemRecord(IlsRecord):
                 return _("enumerationAndChronology field is required for an issue item")
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
-            return _("Can not have multiple notes of the same type.")
+            return _("Cannot have multiple notes of the same type.")
 
         # check temporary item type data
         if tmp_itty := self.get("temporary_item_type"):

@@ -151,7 +151,7 @@ class AcqReceipt(AcquisitionIlsRecord):
             AcqOrderStatus.PARTIALLY_RECEIVED,
             AcqOrderStatus.RECEIVED,
         ]:
-            return _(f"Can not create a receipt with an order with a wrong status {order_status}.")
+            return _("Cannot create a receipt with an order with a wrong status.")
         return True
 
     @classmethod
@@ -222,7 +222,7 @@ class AcqReceipt(AcquisitionIlsRecord):
             AcqOrderStatus.RECEIVED,
             AcqOrderStatus.PARTIALLY_RECEIVED,
         ]:
-            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
+            cannot_delete["others"] = {"order_not_in_reception": True}
         # Note : linked receipt lines aren't yet a reason to keep the record.
         #        These lines will be deleted with the record.
         # TODO :: add a reason if order is concluded (rollovered or invoiced)

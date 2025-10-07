@@ -875,7 +875,7 @@ def test_items_notes(client, librarian_martigny, item_lib_martigny, json_header)
     )
     assert get_json(res) == {
         "status": 400,
-        "message": "Validation error: Can not have multiple notes of the same type..",
+        "message": "Validation error: Cannot have multiple notes of the same type..",
     }
     item["notes"] = item.notes[:-1]
 

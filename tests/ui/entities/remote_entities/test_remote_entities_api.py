@@ -60,7 +60,7 @@ def test_remote_entity_create(app, entity_person_data_tmp, caplog):
     assert caplog.record_tuples[1] == (
         "invenio",
         30,
-        "Can not delete from index RemoteEntity: 2",
+        "Cannot delete from index RemoteEntity: 2",
     )
 
 

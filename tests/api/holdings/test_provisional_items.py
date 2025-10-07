@@ -58,7 +58,7 @@ def test_provisional_items_creation(
     assert item_es.status == ItemStatus.ON_SHELF
     assert item_es.holding_pid == holding.pid
 
-    # TEST: logged patrons can not have the provisional items in the results.
+    # TEST: logged patrons cannot have the provisional items in the results.
     # for both global and insitutional view.
     login_user_via_session(client, patron_martigny.user)
 

@@ -112,7 +112,7 @@ def test_holding_extended_validation(
     record.get("notes").append({"type": "general_note", "content": "note"})
     with pytest.raises(ValidationError) as err:
         record.validate()
-    assert "Can not have multiple notes of the same type" in str(err)
+    assert "Cannot have multiple notes of the same type" in str(err)
     del record["notes"]
 
     with (
@@ -120,13 +120,13 @@ def test_holding_extended_validation(
         pytest.raises(ValidationError) as err,
     ):
         record.validate()
-    assert "Document does not exist" in str(err)
+    assert "Document doc4 does not exist" in str(err)
 
     record["holdings_type"] = HoldingTypes.STANDARD
     assert record["enumerationAndChronology"]
     with pytest.raises(ValidationError) as err:
         record.validate()
-    assert "is allowed only for serial holdings" in str(err)
+    assert "only allowed for serial holdings" in str(err)
 
     # TESTING ELECTRONIC HOLDING
     #   1. instantiate electronic holding

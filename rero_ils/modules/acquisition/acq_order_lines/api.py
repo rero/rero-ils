@@ -86,7 +86,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         # NOTES fields testing
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
-            return _("Can not have multiple notes of the same type.")
+            return _("Cannot have multiple notes of the same type.")
         from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
         from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 
@@ -101,7 +101,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
                 AcqOrderStatus.PARTIALLY_RECEIVED,
             ]
         if order_status not in valid_statuses:
-            return _(f"Can not create an order line with an order with a wrong status {order_status}.")
+            return _("Cannot create an order line with an order with a wrong status.")
         return True
 
     @classmethod
@@ -299,7 +299,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
             cannot_delete["links"] = links
         order_status = AcqOrder.get_status_by_pid(self.order_pid)
         if order_status not in [AcqOrderStatus.CANCELLED, AcqOrderStatus.PENDING]:
-            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
+            cannot_delete["others"] = {"order_has_active_status": True}
         return cannot_delete
 
 

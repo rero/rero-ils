@@ -577,7 +577,7 @@ def set_timestamp(name, **kwargs):
     utc_now = datetime.now(timezone.utc)
     time_stamps[name] = kwargs | {"time": utc_now, "name": name}
     if not current_cache.set(key="timestamps", value=time_stamps, timeout=0):
-        current_app.logger.warning(f"Can not set time stamp for: {name}")
+        current_app.logger.warning(f"Cannot set time stamp for: {name}")
     return utc_now
 
 
@@ -1051,7 +1051,7 @@ def sorted_pids(query):
     try:
         return sorted(pids, key=int)
     except Exception as err:
-        current_app.logger.info(f"Can not sort pids from query: {err}")
+        current_app.logger.info(f"Cannot sort pids from query: {err}")
     return pids
 
 

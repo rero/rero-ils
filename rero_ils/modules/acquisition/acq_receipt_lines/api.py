@@ -99,7 +99,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
             AcqOrderStatus.PARTIALLY_RECEIVED,
             AcqOrderStatus.RECEIVED,
         ]:
-            return _(f"Can not create a receipt with an order with a wrong status {order_status}.")
+            return _("Cannot create a receipt with an order with a wrong status.")
         return True
 
     def update(self, data, commit=True, dbcommit=True, reindex=True):
@@ -214,7 +214,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
             AcqOrderStatus.PARTIALLY_RECEIVED,
             AcqOrderStatus.RECEIVED,
         ]:
-            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
+            cannot_delete["others"] = {"order_not_in_reception": True}
         return cannot_delete
 
 

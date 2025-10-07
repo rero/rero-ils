@@ -107,7 +107,7 @@ def test_circ_policy_exist_name_and_organisation_pid(circ_policy_short_martigny)
 
 
 def test_circ_policy_can_not_delete(circ_policy_short_martigny):
-    """Test can not delete a policy."""
+    """Test cannot delete a policy."""
     org_pid = circ_policy_short_martigny.organisation_pid
     defaut_cipo = CircPolicy.get_default_circ_policy(org_pid)
     can, reasons = defaut_cipo.can_delete

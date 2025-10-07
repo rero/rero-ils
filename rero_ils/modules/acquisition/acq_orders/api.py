@@ -99,7 +99,7 @@ class AcqOrder(AcquisitionIlsRecord):
         # NOTES fields testing
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
-            return _("Can not have multiple notes of the same type.")
+            return _("Cannot have multiple notes of the same type.")
 
         return True
 
@@ -436,7 +436,7 @@ class AcqOrder(AcquisitionIlsRecord):
         # ``pre_delete`` hook.
         links.pop("acq_order_lines", None)
         if self.status != AcqOrderStatus.PENDING:
-            cannot_delete["others"] = {_("Order status is %s") % _(self.status): True}
+            cannot_delete["others"] = {"order_already_sent": True}
         if links:
             cannot_delete["links"] = links
         return cannot_delete
