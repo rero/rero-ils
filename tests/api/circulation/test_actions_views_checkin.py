@@ -26,6 +26,7 @@ from invenio_accounts.testutils import login_user_via_session
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.patron_transactions.utils import get_last_transaction_by_loan_pid
 from tests.utils import get_json, postdata
 
@@ -121,6 +122,10 @@ def test_auto_checkin_else(
     )
     assert res.status_code == 400
     assert get_json(res)["status"] == _("error: No circulation action performed: on shelf")
+    query = OperationLogsSearch().filter("term", record__type="scan_item").filter("exists", field="scan")
+    assert query.count() == 1
+    log_data = query.execute()[0].to_dict()
+    assert log_data["scan"]["note"] == "No circulation action performed: on shelf"
 
 
 def test_checkin_overdue_item(

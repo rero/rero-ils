@@ -43,7 +43,8 @@
             "loan",
             "illr",
             "notif",
-            "locent"
+            "locent",
+            "scan_item"
           ]
         },
         "value": {
@@ -293,7 +294,8 @@
             "validate_request",
             "cancel",
             "receive",
-            "extend"
+            "extend",
+            "scan_item"
           ]
         },
         "override_flag": {
@@ -540,6 +542,156 @@
               "minLength": 1
             }
           }
+        },
+        "note": {
+          "title": "Note",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scan": {
+      "title": "Item scan",
+      "description": "Item scan specific data",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transaction_location",
+        "item"
+      ],
+      "properties": {
+        "transaction_location": {
+          "title": "Transaction location",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pid",
+            "name"
+          ],
+          "properties": {
+            "pid": {
+              "title": "Location PID",
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "title": "Location name",
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        },
+        "pickup_location": {
+          "title": "Transaction location",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pid",
+            "name"
+          ],
+          "properties": {
+            "pid": {
+              "title": "Location PID",
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "title": "Location Name",
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        },
+        "item": {
+          "title": "Item",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pid",
+            "holding",
+            "document",
+            "library_pid"
+          ],
+          "properties": {
+            "pid": {
+              "title": "Item PID",
+              "type": "string",
+              "minLength": 1
+            },
+            "category": {
+              "title": "Category",
+              "type": "string",
+              "minLength": 1
+            },
+            "call_number": {
+              "title": "Call number",
+              "type": "string",
+              "minLength": 1
+            },
+            "library_pid": {
+              "title": "Library PID",
+              "type": "string",
+              "minLength": 1
+            },
+            "holding": {
+              "title": "Holding",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "pid",
+                "location_name"
+              ],
+              "properties": {
+                "pid": {
+                  "title": "PID",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "location_name": {
+                  "title": "Location name",
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "document": {
+              "title": "Document",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "pid",
+                "type",
+                "title"
+              ],
+              "properties": {
+                "pid": {
+                  "title": "Document PID",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "type": {
+                  "title": "Type",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "enumerationAndChronology": {
+              "title": "Unit",
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "note": {
+          "title": "Note",
+          "type": "string",
+          "minLength": 1
         }
       }
     },
