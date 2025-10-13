@@ -103,7 +103,7 @@ def test_collections_permissions(
     )
     check_permission(
         CollectionPermissionPolicy,
-        {"search": True, "read": True, "create": True, "update": True, "delete": True},
+        {"search": True, "read": True, "create": False, "update": False, "delete": False},
         coll_saxon_1,
     )
     check_permission(

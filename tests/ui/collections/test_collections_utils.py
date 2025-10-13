@@ -27,7 +27,7 @@ def test_get_teachers(db, coll_martigny_1_data):
     assert get_teachers(coll_martigny_1_data) == result
 
 
-def test_start_end_date(db, coll_martigny_1_data):
+def test_start_end_date(db, coll_martigny_1_data, item_lib_martigny, item2_lib_martigny):
     """Test date format."""
     result = "01/09/2020 - 31/12/2020"
     coll = Collection.create(coll_martigny_1_data, delete_pid=True)

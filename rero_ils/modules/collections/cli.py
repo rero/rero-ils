@@ -33,14 +33,14 @@ from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 @with_appcontext
 def create_collections(input_file, max_item=10):
     """Create collections."""
-    organisation_items = {}
     with open(input_file, encoding="utf-8") as request_file:
         collections = json.load(request_file)
         for collection_data in collections:
-            organisation_pid = extracted_data_from_ref(collection_data.get("organisation").get("$ref"))
-            if organisation_pid not in organisation_items:
-                organisation_items[organisation_pid] = get_items_by_organisation_pid(organisation_pid)
-            items = random.choices(organisation_items[organisation_pid], k=random.randint(1, max_item))
+            libraries_pids = [
+                extracted_data_from_ref(library.get("$ref")) for library in collection_data.get("libraries")
+            ]
+            eligible_items = get_items_by_libraries_pid(libraries_pids)
+            items = random.choices(eligible_items, k=random.randint(1, max_item))
             collection_data["items"] = []
             for item_pid in items:
                 ref = get_ref_for_pid("items", item_pid)
@@ -49,7 +49,7 @@ def create_collections(input_file, max_item=10):
             click.echo(f"\tCollection: #{request.pid}")
 
 
-def get_items_by_organisation_pid(organisation_pid):
+def get_items_by_libraries_pid(libraries_pids):
     """Get items by organisation pid."""
-    query = ItemsSearch().filter("term", organisation__pid=organisation_pid).source("pid")
+    query = ItemsSearch().filter("terms", library__pid=libraries_pids).source("pid")
     return [item.pid for item in query.scan()]

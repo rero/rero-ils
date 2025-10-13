@@ -60,6 +60,11 @@
     "collection_id": "Expo 1",
     "title": "Expo \u2013 The Number 1",
     "collection_type": "exhibition",
+    "libraries": [
+      {
+        "$ref": "https://bib.rero.ch/api/libraries/2"
+      }
+    ],
     "description": "List of items for the exhibition",
     "start_date": "2020-10-01",
     "end_date": "2021-06-30",
@@ -124,6 +129,11 @@
     "collection_id": "Expo 2",
     "title": "Expo \u2013 The Number 2",
     "collection_type": "exhibition",
+    "libraries": [
+      {
+        "$ref": "https://bib.rero.ch/api/libraries/5"
+      }
+    ],
     "description": "List of items for the exhibition",
     "start_date": "2020-10-01",
     "end_date": "2021-06-30",
@@ -180,6 +190,11 @@
     "collection_id": "Expo 3",
     "title": "Expo \u2013 The Number 3",
     "collection_type": "exhibition",
+    "libraries": [
+      {
+        "$ref": "https://bib.rero.ch/api/libraries/5"
+      }
+    ],
     "description": "List of items for the exhibition",
     "start_date": "2020-10-01",
     "end_date": "2021-06-30",
@@ -236,6 +251,11 @@
     "collection_id": "Expo 4",
     "title": "Expo \u2013 The Number 4",
     "collection_type": "exhibition",
+    "libraries": [
+      {
+        "$ref": "https://bib.rero.ch/api/libraries/5"
+      }
+    ],
     "description": "List of items for the exhibition",
     "start_date": "2020-10-01",
     "end_date": "2021-12-31",

@@ -20,7 +20,9 @@
 from datetime import datetime, timezone
 from functools import partial
 
-from rero_ils.modules.items.api import Item
+from flask_babel import gettext as _
+
+from rero_ils.modules.items.api import Item, ItemsSearch
 
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -78,6 +80,27 @@ class Collection(IlsRecord):
             "item": "item",
         }
     }
+
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        :return: Validation message if
+            - an item does not belong to selected libraries.
+        """
+        library_pids = []
+        for library in self.get("libraries", []):
+            library_pids.append(extracted_data_from_ref(library))
+
+        for item in self.get("items", []):
+            query = (
+                ItemsSearch()
+                .filter("term", pid=extracted_data_from_ref(item))
+                .filter("terms", library__pid=library_pids)
+                .count()
+            )
+            if query < 1:
+                return _("All items should belong to one of the selected libraries.")
+        return True
 
     def get_items(self):
         """Get items.

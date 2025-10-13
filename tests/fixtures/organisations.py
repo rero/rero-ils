@@ -908,8 +908,8 @@ def coll_saxon_1(
     org_martigny,
     lib_saxon,
     coll_saxon_1_data,
-    item2_lib_martigny,
-    item_lib_martigny,
+    item2_lib_saxon,
+    item_lib_saxon,
 ):
     """Create collection Saxon 1."""
     coll = Collection.create(data=coll_saxon_1_data, delete_pid=False, dbcommit=True, reindex=True)

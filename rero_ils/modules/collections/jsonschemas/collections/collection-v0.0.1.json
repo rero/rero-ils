@@ -12,6 +12,7 @@
     "start_date",
     "end_date",
     "organisation",
+    "libraries",
     "published"
   ],
   "propertiesOrder": [

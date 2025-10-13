@@ -5180,6 +5180,11 @@
         "name": "Pr. Smith, Will"
       }
     ],
+    "libraries": [
+      {
+        "$ref": "https://bib.rero.ch/api/libraries/lib2"
+      }
+    ],
     "description": "List of items for course 1",
     "subjects": [
       {
@@ -5193,10 +5198,10 @@
     },
     "items": [
       {
-        "$ref": "https://bib.rero.ch/api/items/item1"
+        "$ref": "https://bib.rero.ch/api/items/item2"
       },
       {
-        "$ref": "https://bib.rero.ch/api/items/item5"
+        "$ref": "https://bib.rero.ch/api/items/item9"
       }
     ],
     "published": true
