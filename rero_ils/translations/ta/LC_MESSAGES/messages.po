@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 1.24.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-07-21 14:52+0200\n"
-"PO-Revision-Date: 2025-07-19 03:02+0000\n"
+"PO-Revision-Date: 2025-08-30 18:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
+"ta/>\n"
 "Language: ta\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/rero_plus/rero-"
-"ils/ta/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13.1-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -459,7 +460,7 @@ msgstr "ஆர்டிஏ கேரியர் வகை"
 #: rero_ils/filter.py:216
 #, python-brace-format
 msgid "{prefix}{data}"
-msgstr ""
+msgstr "{prefix} {data}"
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:498
@@ -5233,7 +5234,7 @@ msgstr "தொடர்பு சேனல்"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:210
 msgid "patron_setting"
-msgstr ""
+msgstr "புரவலர்_செட்டிங்"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:214
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:288
@@ -5545,7 +5546,7 @@ msgstr "புனைகதை"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:329
 msgid "non_fiction"
-msgstr "non_fiction"
+msgstr "புனைகதை அல்லாத"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:333
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:755
@@ -9523,7 +9524,7 @@ msgstr "பெற்றோர் ஆவணம் யூரி"
 #: rero_ils/modules/holdings/api.py:167
 #, python-brace-format
 msgid "Document does not exist {document_pid}."
-msgstr ""
+msgstr "ஆவணம் இல்லை {document_pid}."
 
 #: rero_ils/modules/holdings/api.py:179
 msgid "Must have next expected date for regular frequencies."
@@ -9532,12 +9533,12 @@ msgstr "வழக்கமான அதிர்வெண்களுக்க�
 #: rero_ils/modules/holdings/api.py:200
 #, python-brace-format
 msgid "{field} is allowed only for serial holdings"
-msgstr ""
+msgstr "{field} தொடர் இருப்புக்களுக்கு மட்டுமே அனுமதிக்கப்படுகிறது"
 
 #: rero_ils/modules/holdings/api.py:483
 #, python-brace-format
 msgid "has {value} items with {name} attached"
-msgstr ""
+msgstr "{value} இணைக்கப்பட்ட {name} உருப்படிகளைக் கொண்டுள்ளது"
 
 #: rero_ils/modules/holdings/api.py:566
 msgid "Only serial holdings can be requested."
@@ -10492,12 +10493,12 @@ msgstr "உருப்படி ஏற்கனவே சரிபார்க�
 #: rero_ils/modules/items/api/record.py:94
 #, python-brace-format
 msgid "Barcode {barcode} is already taken."
-msgstr ""
+msgstr "பார்கோடு {barcode} ஏற்கனவே எடுக்கப்பட்டுள்ளது."
 
 #: rero_ils/modules/items/api/record.py:102
 #, python-brace-format
 msgid "Holding does not exist: {holding_pid}"
-msgstr ""
+msgstr "வைத்திருத்தல் இல்லை: {holding_pid}"
 
 #: rero_ils/modules/items/api/record.py:106
 msgid "Standard item can not have a issue field."
@@ -10918,7 +10919,7 @@ msgstr "rollover_no_transfer"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:553
 msgid "rollover_allocated_amount"
-msgstr "rollover_allocated_amount"
+msgstr "ரோல்ஓவர் ஒதுக்கப்பட்ட தொகை"
 
 #: rero_ils/modules/loans/api.py:132
 msgid "The loan cannot be extended"
@@ -11684,7 +11685,7 @@ msgstr "அதிகரிக்கும் தாமதக் கட்டண�
 #: rero_ils/modules/patron_transactions/utils.py:189
 #, python-brace-format
 msgid "Subscription for '{name}' from {start} to {end}"
-msgstr ""
+msgstr "{name} முதல் {start} வரை '{end}' க்கான சந்தா"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:386
@@ -13435,4 +13436,3 @@ msgstr "சொத்துக்களைக் கண்டறியவும�
 
 #~ msgid "Always per mail"
 #~ msgstr "எப்போதும் ஒரு அஞ்சலுக்கு"
-
