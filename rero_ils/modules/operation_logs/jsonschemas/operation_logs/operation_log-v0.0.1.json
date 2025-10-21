@@ -135,6 +135,10 @@
           "type": "string",
           "minLength": 1
         },
+        "reminder_counter": {
+          "title": "Current reminder count",
+          "type": "number"
+        },
         "recipients": {
           "title": "Recipients",
           "type": "array",

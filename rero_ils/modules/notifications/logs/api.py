@@ -77,5 +77,9 @@ class NotificationOperationLog(OperationLog, SpecificOperationLog):
                 "recipients": recipients,
             },
         }
+        reminder_counter = data.get("context", {}).get("reminder_counter")
+        # if the reminder_counter == 0, we need to take it as well
+        if reminder_counter is not None:
+            log["notification"]["reminder_counter"] = reminder_counter
 
         return super().create(log, index_refresh=index_refresh)

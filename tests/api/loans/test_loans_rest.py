@@ -345,7 +345,9 @@ def test_overdue_loans(
     OperationLogsSearch.flush_and_refresh()
     assert number_of_notifications_sent(loan) == 1
     # Check notification is created on operation logs
-    assert len(list(OperationLogsSearch().get_logs_by_notification_pid(notification.get("pid")))) == 1
+    notif_operation_logs = list(OperationLogsSearch().get_logs_by_notification_pid(notification.get("pid")))
+    assert len(notif_operation_logs) == 1
+    assert notif_operation_logs[0]["notification"].get("reminder_counter") == 0
 
     # Try a checkout for a blocked user :: It should be blocked
     res, data = postdata(
