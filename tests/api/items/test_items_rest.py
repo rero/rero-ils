@@ -1095,7 +1095,7 @@ def test_items_facets(
     assert all(name in response.json["aggregations"] for name in facet_names)
 
 
-def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_json_header):
+def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_json_header, roles):
     """Test sorting option on `Item` REST API endpoints."""
 
     item_lib_fully["second_call_number"] = "second_call_number"
@@ -1148,3 +1148,23 @@ def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_jso
     # Reset fixtures
     del item_lib_fully["second_call_number"]
     item_lib_fully.update(item_lib_fully, dbcommit=True, reindex=True)
+
+
+def test_item_field_mapping(client, item_lib_martigny, rero_json_header, roles):
+    """Test for fields definition."""
+    item = deepcopy(dict(item_lib_martigny))
+
+    item_lib_martigny["barcode"] = "10000001350"
+    item_lib_martigny["enumerationAndChronology"] = "no 69 mars 2022"
+    item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
+    ItemsSearch.flush_and_refresh()
+
+    # Field enumerationAndChronology
+    url = url_for("invenio_records_rest.item_list", q="enumerationAndChronology.analyzed:*20*")
+    response = client.get(url, headers=rero_json_header)
+    assert response.status_code == 200
+    assert response.json["hits"]["total"]["value"] == 1
+
+    # Reset fixtures
+    item_lib_martigny.replace(item, dbcommit=True, reindex=True)
+    ItemsSearch.flush_and_refresh()

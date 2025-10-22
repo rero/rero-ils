@@ -72,6 +72,9 @@
             "type": "icu_collation_keyword",
             "index": false,
             "numeric": true
+          },
+          "analyzed": {
+            "type": "text"
           }
         }
       },
