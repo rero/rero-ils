@@ -1,5 +1,71 @@
 # Changelog
 
+## [v1.26.0](https://github.com/rero/rero-ils/tree/v1.26.0) (2025-10-22)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.25.2...v1.26.0)
+
+**New features:**
+
+- feat: import DNB subjects as MEF links [#3896](https://github.com/rero/rero-ils/pull/3896) (by @rerowep)
+- feat(import): add HelveticAll [#3913](https://github.com/rero/rero-ils/pull/3913) (by @PascalRepond)
+- feat(collections): enhance detailed view [#3912](https://github.com/rero/rero-ils/pull/3912) (by @PascalRepond)
+- Remove an item from linked collections automatically on delete [#3911](https://github.com/rero/rero-ils/issues/3911) (by @rerowep)
+- Display own barcode from the public app [#3838](https://github.com/rero/rero-ils/issues/3838) (by @Garfield-fr)
+- Limit the number of requests same as the number of checkouts limit [#2574](https://github.com/rero/rero-ils/issues/2574) (by @PascalRepond)
+- Display descriptive page titles in the pro UI [#3747](https://github.com/rero/rero-ils/issues/3747) (by @Garfield-fr)
+
+**Enhancements:**
+
+- fix(collections): restrict adding items of selected libraries [#3968](https://github.com/rero/rero-ils/pull/3968) (by @PascalRepond)
+- Not all locations displayed in the library facet [#2658](https://github.com/rero/rero-ils/issues/2658) (by @jma, @rerowep)
+- operation_logs: index notif reminder_counter [#3971](https://github.com/rero/rero-ils/issues/3971) (by @PascalRepond)
+- Uniformize configuration prefix [#3478](https://github.com/rero/rero-ils/issues/3478) (by @PascalRepond)
+- Add "request_start_date" and "request_expired_date" into operation logs [#3351](https://github.com/rero/rero-ils/issues/3351) (by @PascalRepond)
+
+**Fixes:**
+
+- fix(patron_type): add missing request limits to ES mapping [#3980](https://github.com/rero/rero-ils/pull/3980) (by @PascalRepond)
+- docs: remove confusing indication in library emails [#3950](https://github.com/rero/rero-ils/pull/3950) (by @PascalRepond)
+- fix(import): update UGent import url [#3945](https://github.com/rero/rero-ils/pull/3945) (by @PascalRepond)
+- bug: plaintext email contains html tags [#3969](https://github.com/rero/rero-ils/issues/3969) (by @PascalRepond)
+- It is possible to display and edit exhibitions/courses from other libraries and organisations [#2717](https://github.com/rero/rero-ils/issues/2717)
+- Formatted string not translated in the interface [#3920](https://github.com/rero/rero-ils/issues/3920) (by @PascalRepond)
+- Circulation: Expected fees transaction history sometimes not loading [#3957](https://github.com/rero/rero-ils/issues/3957)
+- Circulation history: "Show more" button disappears [#3655](https://github.com/rero/rero-ils/issues/3655) (by @Garfield-fr)
+- Quick receive: cannot edit or delete without reloading page [#3625](https://github.com/rero/rero-ils/issues/3625) (by @Garfield-fr)
+- Serial holdings: cancelling an item delete hides the item [#3853](https://github.com/rero/rero-ils/issues/3853) (by @Garfield-fr)
+- File upload error [#3936](https://github.com/rero/rero-ils/issues/3936) (by @rerowep)
+- String not translated in autocomplete component [#3943](https://github.com/rero/rero-ils/issues/3943) (by @Garfield-fr)
+- Request expire date filter incorrect [#3937](https://github.com/rero/rero-ils/issues/3937)
+- Submit editor on "Enter" [#3939](https://github.com/rero/rero-ils/issues/3939)
+- Pro UI: using quotation marks crashes the search bar [#3935](https://github.com/rero/rero-ils/issues/3935) (by @Garfield-fr)
+- Document import: re-implement number of displayed results [#3929](https://github.com/rero/rero-ils/issues/3929) (by @Garfield-fr)
+- Remove patron role [#931](https://github.com/rero/rero-ils/issues/931) (by @PascalRepond)
+- Patron: country saved on wrong field if addresses are missing [#3504](https://github.com/rero/rero-ils/issues/3504)
+- The circulation policy reminder is sometimes not correct [#3930](https://github.com/rero/rero-ils/issues/3930) (by @PascalRepond)
+- Patron editor: "cannot manage role" error is not clear [#3733](https://github.com/rero/rero-ils/issues/3733) (by @Garfield-fr, @jma)
+- fix(permissions): restrict the overdue APIs [#3951](https://github.com/rero/rero-ils/pull/3951) (by @jma)
+- chore(fixtures): add predicted fees to fixtures [#3938](https://github.com/rero/rero-ils/pull/3938) (by @PascalRepond)
+- fix(files): update nginx config on docker [#3933](https://github.com/rero/rero-ils/pull/3933) (by @PascalRepond)
+- fix(documents): set the provision activity date [#3894](https://github.com/rero/rero-ils/pull/3894) (by @rerowep)
+- fix(patron editor): make the `country` field bigger [#3927](https://github.com/rero/rero-ils/pull/3927) (by @PascalRepond)
+- fix: remove multiple headers [#3923](https://github.com/rero/rero-ils/pull/3923) (by @PascalRepond)
+
+**Other changes:**
+
+- fix: remove webpack project [#3955](https://github.com/rero/rero-ils/pull/3955) (by @rerowep)
+- fix(holding): ES timeout in process_late_issues [#3956](https://github.com/rero/rero-ils/pull/3956) (by @rerowep)
+- chore(actions): auto-assign PR author [#3967](https://github.com/rero/rero-ils/pull/3967) (by @PascalRepond)
+- fix(items): restore collections in item `get_links_to_me` [#3960](https://github.com/rero/rero-ils/pull/3960) (by @PascalRepond)
+- scheduler: disable tasks for development [#3958](https://github.com/rero/rero-ils/pull/3958) (by @rerowep)
+- fix(poe): correct server command for parameters [#3944](https://github.com/rero/rero-ils/pull/3944) (by @rerowep)
+- chore(fixtures): remove auto_renewal in some circulation_policies [#3953](https://github.com/rero/rero-ils/pull/3953) (by @PascalRepond)
+- fix(holding): remove duplicate code [#3946](https://github.com/rero/rero-ils/pull/3946) (by @rerowep)
+- chore: update dependencies [#3942](https://github.com/rero/rero-ils/pull/3942) (by @PascalRepond)
+- chore(dev): add ruff linter and formatter [#3884](https://github.com/rero/rero-ils/pull/3884) (by @PascalRepond)
+- chore: replace poetry by uv  [#3883](https://github.com/rero/rero-ils/pull/3883) (by @jma)
+- invenio: new version [#3897](https://github.com/rero/rero-ils/pull/3897) (by @rerowep)
+
 ## [v1.25.2](https://github.com/rero/rero-ils/tree/v1.25.2) (2025-07-22)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.25.1...v1.25.2)

@@ -20,4 +20,4 @@
 This file is imported by ``rero_ils.__init__``.
 """
 
-__version__ = "1.25.2"
+__version__ = "1.26.0"

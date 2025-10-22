@@ -1,10 +1,10 @@
 [project]
 name = "rero-ils"
-version = "1.25.2"
+version = "1.26.0"
 description = "The elegant solution for heritage, public and school libraries or networks."
 authors = [{name = "RERO+", email = "software@rero.ch"}]
 keywords = ["rero-ils", "invenio", "integrated library system"]
-license = "AGPL-3.0"
+license = "AGPL-3.0-or-later"
 urls = {homepage = "https://www.rero.ch/en/products/ils", repository="https://github.com/rero/rero-ils"}
 # dynamic = ["classifiers"]
 requires-python = ">= 3.9.2,<3.13"
