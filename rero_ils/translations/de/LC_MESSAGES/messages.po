@@ -19,7 +19,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-10-22 08:58+0200\n"
 "PO-Revision-Date: 2025-10-22 09:00+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -13024,11 +13025,11 @@ msgstr "Bereits ein Konto?"
 
 #: rero_ils/theme/templates/rero_ils/reset_password.html:21
 msgid "Reset password"
-msgstr ""
+msgstr "Passwort zurücksetzen"
 
 #: rero_ils/theme/templates/rero_ils/search.html:21
 msgid "Documents"
-msgstr ""
+msgstr "Dokumente"
 
 #: rero_ils/theme/templates/rero_ils/tombstone.html:30
 msgid "The document"
