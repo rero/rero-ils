@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-10-22 08:58+0200\n"
-"PO-Revision-Date: 2025-07-21 13:20+0000\n"
+"PO-Revision-Date: 2025-10-22 09:00+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.14-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -4782,11 +4783,12 @@ msgstr "%"
 #: rero_ils/modules/ill_requests/api.py:103
 #: rero_ils/modules/items/api/record.py:107
 msgid "Cannot have multiple notes of the same type."
-msgstr ""
+msgstr "Impossible d'avoir plusieurs notes du même type."
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:104
 msgid "Cannot create an order line with an order with a wrong status."
 msgstr ""
+"Impossible d'ajouter une ligne sur une commande ayant le mauvais statut."
 
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:70
 msgid "Cannot link to an harvested document"
@@ -4993,7 +4995,7 @@ msgstr "Version précédente"
 #: rero_ils/modules/acquisition/acq_receipt_lines/api.py:102
 #: rero_ils/modules/acquisition/acq_receipts/api.py:154
 msgid "Cannot create a receipt with an order with a wrong status."
-msgstr ""
+msgstr "Impossible de créer une réception : la commande n'a pas le bon statut."
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/extensions.py:64
 msgid "Received quantity is grower than ordered quantity"
@@ -5370,6 +5372,8 @@ msgstr "jour(s)"
 #: rero_ils/modules/collections/api.py:102
 msgid "All items should belong to one of the selected libraries."
 msgstr ""
+"Tous les exemplaires doivent appartenir à une des bibliothèques "
+"sélectionnées."
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:4
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:21
@@ -5423,6 +5427,8 @@ msgstr "Exemplaires"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:266
 msgid "Items must belong to one of the libraries defined above."
 msgstr ""
+"Les exemplaires doivent appartenir à une des bibliothèques définies ci-"
+"dessus."
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:269
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:277
@@ -9519,7 +9525,7 @@ msgstr "Rechercher les documents"
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:23
 #: rero_ils/modules/entities/templates/rero_ils/entity_remote.html:23
 msgid "Author/Subject"
-msgstr ""
+msgstr "Auteur/Sujet"
 
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:34
 msgid "LOCAL ID"
@@ -10514,11 +10520,11 @@ msgstr "L'exemplaire est déjà prêté ou demandé par un lecteur."
 
 #: rero_ils/modules/items/api/record.py:89
 msgid "Barcode is already taken."
-msgstr ""
+msgstr "Le code-barres est déjà pris."
 
 #: rero_ils/modules/items/api/record.py:99
 msgid "Standard item cannot have a issue field."
-msgstr ""
+msgstr "Un exemplaire standard ne peut pas avoir de champ 'issue'."
 
 #: rero_ils/modules/items/api/record.py:102
 msgid "Issue item must have an issue field."
@@ -10757,6 +10763,7 @@ msgstr "E-mail"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:61
 msgid "The notifications for patrons without e-mail are sent to this address."
 msgstr ""
+"Les notifications aux lecteurs sans e-mail sont envoyées à cette adresse."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:66
 msgid "Delay in minutes"
@@ -11763,19 +11770,21 @@ msgstr ""
 #: rero_ils/modules/patron_types/api.py:108
 #: rero_ils/modules/patron_types/api.py:126
 msgid "Only one specific limit by library allowed."
-msgstr ""
+msgstr "Une seule limite spécifique par bibliothèque autorisée."
 
 #: rero_ils/modules/patron_types/api.py:123
 msgid "Exception limit cannot have same value as library limit"
 msgstr ""
+"La limite d'une exception ne peut pas avoir la même valeur que la limite par "
+"bibliothèque"
 
 #: rero_ils/modules/patron_types/api.py:170
 msgid "Checkout denied: maximum number of late items reached"
-msgstr ""
+msgstr "Prêt refusé : maximum d'exemplaires en retard atteint"
 
 #: rero_ils/modules/patron_types/api.py:177
 msgid "Checkout denied: maximum amount of overdue fees reached"
-msgstr ""
+msgstr "Prêt refusé : montant maximum de frais atteint"
 
 #: rero_ils/modules/patron_types/api.py:180
 msgid "Checkout denied: patron has unpaid subscription"
@@ -11783,23 +11792,23 @@ msgstr "Prêt refusé : le lecteur a des cotisations non payées"
 
 #: rero_ils/modules/patron_types/api.py:200
 msgid "Maximum number of late items is reached"
-msgstr ""
+msgstr "Maximum d'exemplaires en retard atteint"
 
 #: rero_ils/modules/patron_types/api.py:207
 msgid "Maximum amount of overdue fees reached"
-msgstr ""
+msgstr "Montant maximal de frais atteint"
 
 #: rero_ils/modules/patron_types/api.py:210
 msgid "Patron has unpaid subscription"
-msgstr ""
+msgstr "Le lecteur a une cotisation non-payée"
 
 #: rero_ils/modules/patron_types/api.py:231
 msgid "Renewal denied: maximum number of overdue items reached"
-msgstr ""
+msgstr "Prolongation refusée : maximum d'exemplaires en retard atteint"
 
 #: rero_ils/modules/patron_types/api.py:234
 msgid "Renewal denied: maximum amount of overdue fees reached"
-msgstr ""
+msgstr "Prolongation refusée : montant maximum de frais atteint"
 
 #: rero_ils/modules/patron_types/api.py:237
 msgid "Renewal denied: patron has unpaid subscription"
@@ -11807,21 +11816,21 @@ msgstr "Prolongation refusée : le lecteur a des cotisations non payées"
 
 #: rero_ils/modules/patron_types/api.py:319
 msgid "Maximum number of requests reached"
-msgstr ""
+msgstr "Maximum de demandes atteint"
 
 #: rero_ils/modules/patron_types/api.py:337
 msgid "Maximum number of requests for this library reached"
-msgstr ""
+msgstr "Maximum de demandes atteint pour cette bibliothèque"
 
 #: rero_ils/modules/patron_types/api.py:365
 msgid "Checkout denied: maximum number of checked out items reached"
-msgstr ""
+msgstr "Prêt refusé : maximum de prêts en cours atteint"
 
 #: rero_ils/modules/patron_types/api.py:383
 msgid ""
 "Checkout denied: maximum number of checked out items for this library "
 "reached"
-msgstr ""
+msgstr "Prêt refusé : maximum de prêts en cours atteint pour cette bibliothèque"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:5
 msgid "Categorization of patrons."
@@ -11900,21 +11909,23 @@ msgstr "Limite d'emprunt"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:172
 msgid "Limit requests"
-msgstr ""
+msgstr "Limite de demandes"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:182
 msgid "Number of active requests in the organisation"
-msgstr ""
+msgstr "Nombre de demandes actives dans l'organisation"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:183
 msgid ""
 "Requests are blocked once the specified number of requests is reached by "
 "the patron."
 msgstr ""
+"Les demandes sont bloquées quand le lecteur atteint un certain nombre de "
+"demandes en attente."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:188
 msgid "Number of active requests by library"
-msgstr ""
+msgstr "Nombre de demandes actives par bibliothèque"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:189
 msgid ""
@@ -11922,14 +11933,17 @@ msgid ""
 "the patron for items of the same owning library. This is the same limit "
 "for all libraries."
 msgstr ""
+"Les demandes sont bloquées quand le lecteur atteint un certain nombre de "
+"demandes en attente pour des exemplaires de la même bibliothèque. Cette "
+"limite sera la même pour chaque bibliothèque."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:195
 msgid "Exceptions by library to the requests limits"
-msgstr ""
+msgstr "Exceptions par bibliothèque aux limites de demandes"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:232
 msgid "Requests limit"
-msgstr ""
+msgstr "Limite de demandes"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:249
 msgid "Limit by overdue fee amount"
@@ -11969,7 +11983,7 @@ msgstr "Bloquer le lecteur si les cotisations ne sont pas payées"
 
 #: rero_ils/modules/patrons/api.py:138
 msgid "Patron has active loans or fees, cannot remove patron role"
-msgstr ""
+msgstr "Prêts/frais actifs, impossible de retirer le rôle \"lecteur\""
 
 #: rero_ils/modules/patrons/api.py:390
 msgid "Your account is currently blocked."
@@ -11986,15 +12000,15 @@ msgstr "Motif"
 
 #: rero_ils/modules/patrons/api.py:465
 msgid "Patron rights expired"
-msgstr ""
+msgstr "Droits du lecteur expirés"
 
 #: rero_ils/modules/patrons/api.py:484
 msgid "Transactions denied: maximum amount of overdue fees reached"
-msgstr ""
+msgstr "Transactions refusées : montant maximum de frais atteint"
 
 #: rero_ils/modules/patrons/api.py:492
 msgid "Checkout denied: maximum number of overdue items reached"
-msgstr ""
+msgstr "Prêt refusé : maximum d'exemplaires en retard atteint"
 
 #: rero_ils/modules/patrons/api.py:596
 msgid "Patron account expired."
@@ -12259,7 +12273,7 @@ msgstr "Statistique"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:20
 msgid "Report"
-msgstr ""
+msgstr "Rapport"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:91
 msgid "Postal code: number of patrons"
@@ -12275,7 +12289,7 @@ msgstr "Code postal : nombre de nouveaux lecteurs"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:20
 msgid "Reports"
-msgstr ""
+msgstr "Rapports"
 
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:24
 msgid "Live values"
@@ -12751,11 +12765,11 @@ msgstr "Mot de passe"
 
 #: rero_ils/modules/vendors/api.py:74
 msgid "Cannot have multiple contacts with the same type."
-msgstr ""
+msgstr "Impossible d'avoir plusieurs contacts du même type."
 
 #: rero_ils/modules/vendors/api.py:78
 msgid "Cannot have multiple notes with the same type."
-msgstr ""
+msgstr "Impossible d'avoir plusieurs notes du même type."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "Agent who can receive and fulfill document/acquisition orders."
@@ -12940,7 +12954,7 @@ msgstr "Déclaration de protection des données"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:21
 msgid "Forgot password"
-msgstr ""
+msgstr "Mot de passe oublié"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:29
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:43
@@ -13002,11 +13016,11 @@ msgstr "Vous avez oublié votre mot de passe ?"
 
 #: rero_ils/theme/templates/rero_ils/page_error.html:21
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: rero_ils/theme/templates/rero_ils/register_user.html:21
 msgid "Register"
-msgstr ""
+msgstr "S'inscrire"
 
 #: rero_ils/theme/templates/rero_ils/register_user.html:29
 #, python-format
@@ -13019,11 +13033,11 @@ msgstr "Vous avez déjà un compte ?"
 
 #: rero_ils/theme/templates/rero_ils/reset_password.html:21
 msgid "Reset password"
-msgstr ""
+msgstr "Réinitialiser le mot de passe"
 
 #: rero_ils/theme/templates/rero_ils/search.html:21
 msgid "Documents"
-msgstr ""
+msgstr "Documents"
 
 #: rero_ils/theme/templates/rero_ils/tombstone.html:30
 msgid "The document"
@@ -13655,4 +13669,3 @@ msgstr "Votre mot de passe a été réinitialisé avec succès."
 
 #~ msgid "Invenio assets"
 #~ msgstr "Assets Invenio"
-
