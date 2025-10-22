@@ -20,7 +20,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-10-22 08:58+0200\n"
 "PO-Revision-Date: 2025-10-22 09:01+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
 "Language: it\n"
@@ -12986,11 +12987,11 @@ msgstr "Avete dimenticato la password?"
 
 #: rero_ils/theme/templates/rero_ils/page_error.html:21
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: rero_ils/theme/templates/rero_ils/register_user.html:21
 msgid "Register"
-msgstr ""
+msgstr "Registrati"
 
 #: rero_ils/theme/templates/rero_ils/register_user.html:29
 #, python-format
@@ -13003,11 +13004,11 @@ msgstr "Hai già un account?"
 
 #: rero_ils/theme/templates/rero_ils/reset_password.html:21
 msgid "Reset password"
-msgstr ""
+msgstr "Reimpostare la password"
 
 #: rero_ils/theme/templates/rero_ils/search.html:21
 msgid "Documents"
-msgstr ""
+msgstr "Documenti"
 
 #: rero_ils/theme/templates/rero_ils/tombstone.html:30
 msgid "The document"
