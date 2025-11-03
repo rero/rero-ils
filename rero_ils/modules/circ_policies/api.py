@@ -23,6 +23,7 @@ import sys
 from functools import partial
 
 from elasticsearch_dsl import Q
+from flask_babel import gettext as _
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -407,7 +408,7 @@ class CircPolicy(IlsRecord):
         if "patron" not in patron.get("roles", []):
             # without 'patron' role, we can't find any patron_type and so we
             # can't find any corresponding cipo --> return False
-            return False, ["Patron doesn't have the correct role"]
+            return False, [_("Patron doesn't have the correct role")]
         library_pid = kwargs["library"].pid if kwargs.get("library") else record.library_pid
 
         if isinstance(record, Item):
@@ -427,7 +428,7 @@ class CircPolicy(IlsRecord):
             record_circulation_category_pid,
         )
         if not cipo.get("allow_requests", False):
-            return False, ["Circulation policy disallows the operation."]
+            return False, [_("Circulation policy disallows the operation.")]
         return True, []
 
     @classmethod
@@ -447,7 +448,7 @@ class CircPolicy(IlsRecord):
         if "patron" not in patron.get("roles", []):
             # without 'patron' role, we can't find any patron_type and so we
             # can't find any corresponding cipo --> return False
-            return False, ["Patron doesn't have the correct role"]
+            return False, [_("Patron doesn't have the correct role")]
         library_pid = kwargs["library"].pid if kwargs.get("library") else item.library_pid
         cipo = cls.provide_circ_policy(
             item.organisation_pid,
@@ -456,7 +457,7 @@ class CircPolicy(IlsRecord):
             item.item_type_circulation_category_pid,
         )
         if not cipo.can_checkout:
-            return False, ["Circulation policy disallows the operation."]
+            return False, [_("Circulation policy disallows the operation.")]
         return True, []
 
 

@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.9.2, <3.13"
 resolution-markers = [
     "python_full_version >= '3.11'",
@@ -2214,11 +2214,12 @@ wheels = [
 
 [[package]]
 name = "invenio-sip2"
-version = "0.6.25"
+version = "0.6.26"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "flask" },
     { name = "invenio-access" },
+    { name = "invenio-admin" },
     { name = "invenio-base" },
     { name = "invenio-i18n" },
     { name = "jsonpickle" },
@@ -2228,9 +2229,9 @@ dependencies = [
     { name = "sqlalchemy" },
     { name = "sqlalchemy-utils" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/90/50/59cc42b4f062514c7e3591394675c19fdb19bca39b4777c9bba47342bce1/invenio_sip2-0.6.25.tar.gz", hash = "sha256:f6c491c700cb5801267608e49ad83b404842ed285b7cd7fa1435fda2570a79ce", size = 46646, upload-time = "2025-06-02T13:10:53.395Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/57/11/a9030d3696b6158b02a42d7bc5e0548adb702d057670efc994936736500f/invenio_sip2-0.6.26.tar.gz", hash = "sha256:89c1485881c782254e5728a28255822048976d8bc14b89e3ffda29bc62d3fd62", size = 47050, upload-time = "2025-10-31T11:03:46.748Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/db/a4/36b74204d0128710b8a5936108bcd3ff96709f5d01557590e10b3a235bdf/invenio_sip2-0.6.25-py3-none-any.whl", hash = "sha256:65ef109e464e382607a7b61b8437bb72686c2ccd1b35956d62ac4a253e6379c0", size = 76475, upload-time = "2025-06-02T13:10:51.85Z" },
+    { url = "https://files.pythonhosted.org/packages/5e/a7/a1d7c71cad6aceb8c8ed823b3f06deee01fe1d46506e8180e7172aa502c5/invenio_sip2-0.6.26-py3-none-any.whl", hash = "sha256:418cb62e164e37a70861527efa5c299f6cc3497b402c5943df241a726afc5031", size = 76913, upload-time = "2025-10-31T11:03:45.549Z" },
 ]
 
 [[package]]
@@ -4285,6 +4286,7 @@ dependencies = [
     { name = "invenio-rest" },
     { name = "invenio-search", extra = ["elasticsearch7"] },
     { name = "invenio-search-ui" },
+    { name = "invenio-sip2" },
     { name = "invenio-theme" },
     { name = "isbnlib" },
     { name = "iso639" },
@@ -4379,6 +4381,7 @@ requires-dist = [
     { name = "invenio-search", extras = ["elasticsearch7"], specifier = ">=3.0.0,<4.0.0" },
     { name = "invenio-search-ui", specifier = ">=4.0.0,<5.0.0" },
     { name = "invenio-sip2", marker = "extra == 'sip2'" },
+    { name = "invenio-sip2", extras = ["sip2"], specifier = ">0.6.25" },
     { name = "invenio-theme", specifier = ">4.0.0,<5.0.0" },
     { name = "isbnlib", specifier = ">=3.9.1" },
     { name = "iso639", specifier = ">=0.1.4" },
