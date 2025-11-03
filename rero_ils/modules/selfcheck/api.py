@@ -93,8 +93,12 @@ def validate_patron_account(barcode=None, **kwargs):
     :param barcode: patron barcode.
     :return: ``True`` if patron exists or ``False``.
     """
-    patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=kwargs.get("institution_id"))
-    return patron and patron.is_patron
+    language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
+    # Temporarily overrides the currently selected locale.
+    # force_locale is allowed to work outside of application context
+    with force_locale(language):
+        patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=kwargs.get("institution_id"))
+        return patron and patron.is_patron
 
 
 def authorize_patron(barcode, password, **kwargs):
@@ -105,12 +109,16 @@ def authorize_patron(barcode, password, **kwargs):
     :param password: patron password.
     :return: ``True`` if patron is authorized or ``False``.
     """
-    patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=kwargs.get("institution_id"))
-    if patron and patron.is_patron:
-        # User email is an optional field. When User hasn't email address,
-        # we take his username as login.
-        user_login = patron.user.email or patron.user.username
-        return authorize_selfckeck_user(user_login, password)
+    language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
+    # Temporarily overrides the currently selected locale.
+    # force_locale is allowed to work outside of application context
+    with force_locale(language):
+        patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=kwargs.get("institution_id"))
+        if patron and patron.is_patron:
+            # User email is an optional field. When User hasn't email address,
+            # we take his username as login.
+            user_login = patron.user.email or patron.user.username
+            return authorize_selfckeck_user(user_login, password)
     return False
 
 
@@ -121,12 +129,16 @@ def system_status(terminal, **kwargs):
     :param terminal: selfcheck terminal.
     :return: The status object.
     """
-    terminal = SelfcheckTerminal().find_terminal(name=terminal)
-    return {
-        "authenticated": terminal.active,
-        "terminal": terminal.name,
-        "institution_id": terminal.library_pid,
-    }
+    language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
+    # Temporarily overrides the currently selected locale.
+    # force_locale is allowed to work outside of application context
+    with force_locale(language):
+        terminal = SelfcheckTerminal().find_terminal(name=terminal)
+        return {
+            "authenticated": terminal.active,
+            "terminal": terminal.name,
+            "institution_id": terminal.library_pid,
+        }
 
 
 def enable_patron(barcode, **kwargs):
@@ -140,21 +152,25 @@ def enable_patron(barcode, **kwargs):
     if check_sip2_module():
         from invenio_sip2.models import SelfcheckEnablePatron
 
-        institution_id = kwargs.get("institution_id")
-        patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=institution_id)
-        if patron:
+        language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
+        # Temporarily overrides the currently selected locale.
+        # force_locale is allowed to work outside of application context
+        with force_locale(language):
+            institution_id = kwargs.get("institution_id")
+            patron = Patron.get_patron_by_barcode(barcode=barcode, org_pid=institution_id)
+            if patron:
+                return SelfcheckEnablePatron(
+                    patron_status=get_patron_status(patron),
+                    language=patron.patron.get("communication_language", "und"),
+                    institution_id=patron.organisation_pid,
+                    patron_id=patron.patron.get("barcode"),
+                    patron_name=patron.formatted_name,
+                )
             return SelfcheckEnablePatron(
-                patron_status=get_patron_status(patron),
-                language=patron.patron.get("communication_language", "und"),
-                institution_id=patron.organisation_pid,
-                patron_id=patron.patron.get("barcode"),
-                patron_name=patron.formatted_name,
+                patron_id=barcode,
+                institution_id=institution_id,
+                screen_messages=[_("Error encountered: patron not found")],
             )
-        return SelfcheckEnablePatron(
-            patron_id=barcode,
-            institution_id=institution_id,
-            screen_messages=[_("Error encountered: patron not found")],
-        )
     return None
 
 
@@ -287,12 +303,11 @@ def item_information(item_barcode, **kwargs):
         )
 
         org_pid = kwargs.get("institution_id")
-        item = Item.get_item_by_barcode(item_barcode, org_pid)
         language = kwargs.get("language", current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
         # Temporarily overrides the currently selected locale.
         # force_locale is allowed to work outside of application context
         with force_locale(language):
-            if item:
+            if item := Item.get_item_by_barcode(item_barcode, org_pid):
                 document = Document.get_record_by_pid(item.document_pid)
                 location = item.get_location()
 

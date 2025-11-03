@@ -13,7 +13,6 @@ dependencies = [
     ## Third party invenio modules used by RERO ILS
     "invenio-oaiharvester @ git+https://github.com/inveniosoftware/invenio-oaiharvester.git@v1.0.0a4",
     "invenio-circulation (==3.0.0a1)",
-
     "invenio-search [elasticsearch7] (>=3.0.0,<4.0.0)",
     # Invenio core modules
     "invenio-app (>=2.0.0,<3.0.0)",
@@ -46,17 +45,14 @@ dependencies = [
     "invenio-records-ui (>=2.0.0,<3.0.0)",
     "invenio-records (>=3.0.0,<4.0.0)",
     "invenio-search-ui (>=4.0.0,<5.0.0)",
-
     "invenio-records-permissions (>=0.13.0)",
     "python-dotenv (>=0.13.0)",
     "sentry-sdk (<2.0.0)",
     "dojson (>=1.4.0)",
-
     ## RERO specific python modules
     "rero-invenio-base (>=0.3.0)",
     "rero-invenio-files (>=1.0.0,<2.0.0)",
     "flask-wiki (>=1.0.0)",
-
     ## RERO ILS specific python modules
     "PyYAML (>=5.3.1)",
     "dateparser (>=1.1.1)",
@@ -65,7 +61,6 @@ dependencies = [
     "polib",
     "xmltodict",
     "ciso8601",
-
     ## Third party optional modules used by RERO ILS
     "markdown-captions",
     "zipp",
@@ -96,6 +91,7 @@ dependencies = [
     "flask-admin (>=1.6.1,<2.0.0)",
     # needed for name unique in invenio-accounts
     "wtforms (<3.2.0)",
+    "invenio-sip2[sip2]>0.6.25",
 ]
 
 [project.optional-dependencies]
