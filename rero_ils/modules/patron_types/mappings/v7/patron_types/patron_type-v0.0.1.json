@@ -80,6 +80,33 @@
                 }
               }
             }
+          },
+          "request_limits": {
+            "properties": {
+              "global_limit": {
+                "type": "integer"
+              },
+              "library_limit": {
+                "type": "integer"
+              },
+              "library_exceptions": {
+                "properties": {
+                  "library": {
+                    "properties": {
+                      "pid": {
+                        "type": "keyword"
+                      },
+                      "type": {
+                        "type": "keyword"
+                      }
+                    }
+                  },
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
           }
         }
       },
