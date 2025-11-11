@@ -3496,6 +3496,12 @@
             "value": "A001234567"
           }
         }
+      },
+      {
+        "entity": {
+          "$ref": "https://mef.rero.ch/api/concepts/idref/050394460",
+          "pid": "14650374"
+        }
       }
     ]
   },

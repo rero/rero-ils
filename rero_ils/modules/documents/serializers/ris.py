@@ -29,6 +29,7 @@ from rero_ils.utils import get_i18n_supported_languages
 
 from ..dumpers import document_replace_refs_dumper
 from ..utils import process_i18n_literal_fields
+from ..views import doc_entity_label
 from .base import BaseDocumentFormatterMixin
 
 
@@ -110,23 +111,23 @@ class RISFormatter(BaseDocumentFormatterMixin):
         if "type" not in self.record:
             return ["GEN"]
 
+        # Only take the first document type
+        doc_type = self.record["type"][0]
+        return self._doctype_mapper(doc_type.get("main_type"), doc_type.get("subtype"))
+
+    def _get_subjects_text(self):
+        """Return document subjects as a list of strings."""
         return [
-            self._doctype_mapper(doc_type.get("main_type"), doc_type.get("subtype")) for doc_type in self.record["type"]
+            doc_entity_label(subject.get("entity", {}), language=self._language)[2] for subject in self._get_subjects()
         ]
-
-    def _get_city(self):
-        """Return publication place."""
-        return self._get_publication_places()
-
-    def _get_date(self):
-        return self._get_publication_year()
-
-    def _get_primary_year(self):
-        """Return primary year."""
-        return self._get_publication_year()
 
     def _fetch_fields(self):
         """Return formatted output based on export fields."""
+
+        def get_first_value(values):
+            """Return only the first value of a list for RIS tags that are not repeatable."""
+            return next(iter(values), None)
+
         available_fields = {
             "TY": self._get_document_types(),
             "ID": self._get_pid(),
@@ -136,18 +137,20 @@ class RISFormatter(BaseDocumentFormatterMixin):
             "A2": self._get_secondary_authors(),
             "DA": self._get_publication_year(),
             "ET": self._get_editions(),
-            "SP": self._get_start_pages(),
-            "EP": self._get_end_pages(),
-            "CY": self._get_publication_places(),
-            "LA": self._get_languages(),
-            "PB": self._get_publisher(),
-            "SN": self._get_identifiers([IdentifierType.ISBN, IdentifierType.ISSN, IdentifierType.L_ISSN]),
+            "SP": get_first_value(self._get_start_pages()),
+            "EP": get_first_value(self._get_end_pages()),
+            "CY": get_first_value(self._get_publication_places()),
+            "LA": get_first_value(self._get_languages()),
+            "PB": get_first_value(self._get_publisher()),
+            "SN": get_first_value(
+                self._get_identifiers([IdentifierType.ISBN, IdentifierType.ISSN, IdentifierType.L_ISSN])
+            ),
             "UR": [*self._get_electronic_locators(), self._get_permalink()],
-            "KW": self._get_subjects(),
-            "DO": self._get_identifiers([IdentifierType.DOI]),
-            "VL": self._get_volume_numbers(),
-            "IS": self._get_issue_numbers(),
-            "PP": self._get_publication_places(),
+            "KW": self._get_subjects_text(),
+            "DO": get_first_value(self._get_identifiers([IdentifierType.DOI])),
+            "VL": get_first_value(self._get_volume_numbers()),
+            "IS": get_first_value(self._get_issue_numbers()),
+            "PP": get_first_value(self._get_publication_places()),
             "Y1": self._get_publication_year(),
             "PY": self._get_publication_year(),
         }

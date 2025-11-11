@@ -84,3 +84,8 @@ def test_ris_serializer(client, ris_header, document, export_document):
     assert response.status_code == 200
     ris_data = response.get_data(as_text=True)
     assert all(tag in ris_data for tag in ris_tag)
+    ris_list_tags = ["A1  -", "A2  -", "A3  -", "A4  -", "AU  -", "KW  -", "N1  -", "UR  -"]
+    # check that there is only one of each RIS tag that is not repeatable
+    for tag in ris_tag:
+        if tag not in ris_list_tags:
+            assert ris_data.count(tag) == 1
