@@ -45,7 +45,6 @@ def get_late_serial_holdings():
         .filter("term", holdings_type="serial")
         .filter("term", acquisition_status="currently_received")
         .filter("range", patterns__next_expected_date={"lte": yesterday})
-        .exclude("term", patterns__frequency="rdafr:1016")
         .source(False)
     )
     for id_ in [hit.meta.id for hit in query.scan()]:

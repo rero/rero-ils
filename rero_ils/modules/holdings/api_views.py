@@ -109,8 +109,6 @@ def pattern_preview():
     patterns_data = flask_request.get_json()
     pattern = patterns_data.get("data", {})
     size = patterns_data.get("size", 10)
-    if pattern and pattern.get("frequency") == "rdafr:1016":
-        return jsonify({"status": "error: irregular frequency"}), 400
     issues = Holding.prediction_issues_preview_for_pattern(pattern, number_of_predictions=size)
     return jsonify({"issues": issues})
 

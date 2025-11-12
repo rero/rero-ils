@@ -202,7 +202,6 @@ class ItemRecord(IlsRecord):
             and item.get("issue", {}).get("regular")
             and holding.holdings_type == "serial"
             and holding.get("patterns")
-            and holding.get("patterns", {}).get("frequency") != "rdafr:1016"
         ):
             updated_holding = holding.increment_next_prediction()
             return holding.update(data=updated_holding, dbcommit=dbcommit, reindex=reindex)

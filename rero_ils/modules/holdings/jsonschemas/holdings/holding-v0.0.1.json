@@ -211,7 +211,8 @@
       "required": [
         "values",
         "template",
-        "frequency"
+        "frequency",
+        "next_expected_date"
       ],
       "propertiesOrder": [
         "language",
@@ -259,8 +260,7 @@
             "rdafr:1012",
             "rdafr:1013",
             "rdafr:1014",
-            "rdafr:1015",
-            "rdafr:1016"
+            "rdafr:1015"
           ],
           "widget": {
             "formlyConfig": {
@@ -287,10 +287,6 @@
                   {
                     "label": "rdafr:1001",
                     "value": "rdafr:1001"
-                  },
-                  {
-                    "label": "rdafr:1016",
-                    "value": "rdafr:1016"
                   },
                   {
                     "label": "rdafr:1008",

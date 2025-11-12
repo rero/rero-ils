@@ -161,10 +161,6 @@ class Holding(IlsRecord):
         if not document:
             return f"Document {document_pid} does not exist."
 
-        if self.is_serial:
-            patterns = self.get("patterns", {})
-            if patterns and patterns.get("frequency") != "rdafr:1016" and not patterns.get("next_expected_date"):
-                return _("Must have next expected date for regular frequencies.")
         # the enumeration and chronology optional fields are only allowed for
         # serial or electronic holdings
         if not self.is_serial ^ self.is_electronic:
@@ -673,7 +669,7 @@ class Holding(IlsRecord):
         """Receive the next expected regular issue for the holdings record."""
         # receive is allowed only on holdings of type serials with a regular
         # frequency
-        if self.holdings_type != HoldingTypes.SERIAL or self.get("patterns", {}).get("frequency") == "rdafr:1016":
+        if self.holdings_type != HoldingTypes.SERIAL:
             raise RegularReceiveNotAllowed()
 
         issue_display, expected_date = self._get_next_issue_display_text(self.get("patterns"))
