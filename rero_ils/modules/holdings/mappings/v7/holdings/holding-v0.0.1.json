@@ -167,7 +167,12 @@
         }
       },
       "enumerationAndChronology": {
-        "type": "keyword"
+        "type": "keyword",
+        "fields": {
+          "analyzed": {
+            "type": "text"
+          }
+        }
       },
       "supplementaryContent": {
         "type": "keyword"

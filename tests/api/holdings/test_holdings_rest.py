@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2025 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,12 +18,13 @@
 """Tests REST API holdings."""
 
 import json
+from copy import deepcopy
 from unittest import mock
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
-from rero_ils.modules.holdings.api import Holding
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
@@ -249,3 +250,24 @@ def test_holding_request(
     )
     response = json.loads(res.data)
     assert not response["can"]
+
+
+def test_holding_field_mapping(client, librarian_martigny, holding_lib_martigny_w_patterns, rero_json_header):
+    """Test for fields definition."""
+    login_user_via_session(client, librarian_martigny.user)
+
+    holding = deepcopy(dict(holding_lib_martigny_w_patterns))
+
+    holding_lib_martigny_w_patterns["enumerationAndChronology"] = "no 69 mars 2022"
+    holding_lib_martigny_w_patterns.update(holding_lib_martigny_w_patterns, dbcommit=True, reindex=True)
+    HoldingsSearch.flush_and_refresh()
+
+    # Field enumerationAndChronology
+    url = url_for("invenio_records_rest.hold_list", q="enumerationAndChronology.analyzed:*20*")
+    response = client.get(url, headers=rero_json_header)
+    assert response.status_code == 200
+    assert response.json["hits"]["total"]["value"] == 1
+
+    # Reset fixtures
+    holding_lib_martigny_w_patterns.replace(holding, dbcommit=True, reindex=True)
+    HoldingsSearch.flush_and_refresh()
