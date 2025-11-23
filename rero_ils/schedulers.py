@@ -108,7 +108,7 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         if engine_options := kwargs.get("engine_options") or app.conf.get("CELERY_BEAT_ENGINE_OPTIONS"):
             app.conf["beat_engine_options"] = engine_options
             logger.info(f"Scheduler engine options: {engine_options}")
-        if schedules := kwargs.get("chedule") or app.conf.get("CELERY_BEAT_SCHEDULE"):
+        if schedules := kwargs.get("schedule") or app.conf.get("CELERY_BEAT_SCHEDULE"):
             app.conf["beat_schedule"] = schedules
             logger.info(f"Schedules: {schedules}")
         app.conf["result_expires"] = False
@@ -120,8 +120,9 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         :param name: name of entry in task scheduler
         :return: scheduled task
         """
+        schedules = self.all_as_schedule(all_models=True)
         with contextlib.suppress(KeyError):
-            return self.schedule[name]
+            return schedules[name]
 
     def remove(self, name):
         """Remove a scheduled task.
@@ -129,8 +130,9 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         :param name: name of entry in task scheduler
         :return: True if successful
         """
+        schedules = self.all_as_schedule(all_models=True)
         with contextlib.suppress(KeyError):
-            entry = self.schedule[name]
+            entry = schedules[name]
             session = self.Session()
             with session_cleanup(session):
                 session.delete(entry.model)
@@ -146,12 +148,15 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
                 session.delete(entry.model)
             session.commit()
 
-    def all_as_schedule(self):
+    def all_as_schedule(self, all_models=False):
         """Get all schedules."""
         session = self.Session()
         with session_cleanup(session):
             # get all enabled PeriodicTask
-            models = session.query(self.Model).all()
+            if all_models:
+                models = session.query(self.Model).all()
+            else:
+                models = session.query(self.Model).filter_by(enabled=True).all()
             schedules = {}
             for model in models:
                 with contextlib.suppress(ValueError):
@@ -180,7 +185,8 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         """
         entries_as_text_list = []
         entries_as_text_list.extend(
-            self.display_entry(entry=entry, prefix=prefix) for _, entry in sorted(self.all_as_schedule().items())
+            self.display_entry(entry=entry, prefix=prefix)
+            for _, entry in sorted(self.all_as_schedule(all_models=True).items())
         )
         return entries_as_text_list
 
@@ -196,8 +202,9 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         :param name: name of entry in task scheduler
         :param enable: enable or disable scheduling
         """
+        schedules = self.all_as_schedule(all_models=True)
         with contextlib.suppress(KeyError):
-            entry = self.schedule[name]
+            entry = schedules[name]
             entry.model.enabled = entry.enabled = enable
             session = self.Session()
             with session_cleanup(session):
@@ -207,13 +214,8 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
 
     def set_enable_all(self, enable=True):
         """Set enabled for entries."""
-        session = self.Session()
-        with session_cleanup(session):
-            for entry in self.all_as_schedule().values():
-                entry.model.enabled = entry.enabled = enable
-                session.add(entry.model)
-                session.commit()
-                session.refresh(entry.model)
+        for name in self.all_as_schedule(all_models=True):
+            self.set_entry_enabled(name=name, enable=enable)
 
 
 # cli: command line code for scheduler ---------------------------------------
