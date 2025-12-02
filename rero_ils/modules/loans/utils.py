@@ -23,16 +23,17 @@ from datetime import datetime, timedelta, timezone
 
 import ciso8601
 from flask import current_app
+from invenio_base.utils import obj_or_import_string
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.libraries.exceptions import LibraryNeverOpen
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_ref_for_pid
 
-from .api import get_any_loans_by_item_pid_by_patron_pid
 from .models import LoanAction
 
 
@@ -170,12 +171,6 @@ def validate_loan_duration(loan):
     return loan["end_date"] > loan["start_date"]
 
 
-def is_item_available_for_checkout(item_pid):
-    """Item is available for action CHECKOUT."""
-    # TODO: implement item level restrictions not related to cipo here
-    return True
-
-
 def can_be_requested(loan):
     """Check if record can be requested."""
     # TODO : Should use
@@ -187,26 +182,13 @@ def can_be_requested(loan):
     #  it seems this function only answer the question "Is the item potentially
     #  requestable" and not "Is the item is really requestable".
 
-    if not loan.item_pid:
-        raise Exception("Transaction on document is not implemented.")
+    config = current_app.config.get("ITEM_CIRCULATION_ACTIONS_VALIDATION", {})
+    can = True
+    for func_name in config.get(ItemCirculationAction.REQUEST, []):
+        func_callback = obj_or_import_string(func_name)
+        can = can and func_callback(loan.item, loan=loan)[0]
 
-    # 1) Check patron is not blocked
-    patron = Patron.get_record_by_pid(loan.patron_pid)
-    if patron.patron.get("blocked", False):
-        return False
-
-    # 2) Check if owning location allows request
-    location = Item.get_record_by_pid(loan.item_pid).get_circulation_location()
-    if not location or not location.get("allow_request"):
-        return False
-
-    # 3) Check if there is already a loan for same patron+item
-    if get_any_loans_by_item_pid_by_patron_pid(loan.get("item_pid", {}).get("value"), loan.get("patron_pid")):
-        return False
-
-    # 4) Check if circulation_policy allows request
-    policy = get_circ_policy(loan)
-    return bool(policy.get("allow_requests"))
+    return can
 
 
 def loan_build_item_ref(loan_pid, loan):

@@ -162,23 +162,16 @@ class PatronType(IlsRecord):
         if not patron:
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
-            return True, []
+            return True, {}
 
         # check overdue items limits
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
-        if not patron_type.check_overdue_items_limit(patron):
-            return False, [_("Checkout denied: maximum number of late items reached")]
+        reasons = cls.can_extend(item, **kwargs)[1]
         # check checkout count limit
         valid, message = patron_type.check_checkout_count_limit(patron, item)
         if not valid:
-            return False, [message]
-        # check fee amount limit
-        if not patron_type.check_fee_amount_limit(patron):
-            return False, [_("Checkout denied: maximum amount of overdue fees reached")]
-        # check unpaid subscription
-        if not patron_type.check_unpaid_subscription(patron):
-            return False, [_("Checkout denied: patron has unpaid subscription")]
-        return True, []
+            reasons.update({"patron_type_checkout_count_limit": message})
+        return not reasons, reasons
 
     @classmethod
     def can_request(cls, item, **kwargs):
@@ -193,23 +186,15 @@ class PatronType(IlsRecord):
         if not patron:
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
-            return True, []
-        # check overdue items limits
+            return True, {}
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
-        if not patron_type.check_overdue_items_limit(patron):
-            return False, [_("Maximum number of late items is reached")]
-        # check checkout count limit
+        reasons = cls.can_extend(item, **kwargs)[1]
+        # check request limits
         valid, message = patron_type.check_request_limits(patron, item)
         if not valid:
-            return False, [message]
-        # check fee amount limit
-        if not patron_type.check_fee_amount_limit(patron):
-            return False, [_("Maximum amount of overdue fees reached")]
-        # check unpaid subscription
-        if not patron_type.check_unpaid_subscription(patron):
-            return False, [_("Patron has unpaid subscription")]
+            reasons.update({"patron_type_request_limits": message})
 
-        return True, []
+        return not reasons, reasons
 
     @classmethod
     def can_extend(cls, item, **kwargs):
@@ -224,18 +209,19 @@ class PatronType(IlsRecord):
         if not patron:
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
-            return True, []
+            return True, {}
         # check overdue items limit
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
+        reasons = {}
         if not patron_type.check_overdue_items_limit(patron):
-            return False, [_("Renewal denied: maximum number of overdue items reached")]
+            reasons.update({"patron_type_overdue_items_limit": _("Maximum number of overdue items reached")})
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
-            return False, [_("Renewal denied: maximum amount of overdue fees reached")]
+            reasons.update({"patron_type_fee_amount_limit": _("Maximum amount of overdue fees reached")})
         # check unpaid subscription
         if not patron_type.check_unpaid_subscription(patron):
-            return False, [_("Renewal denied: patron has unpaid subscription")]
-        return True, []
+            reasons.update({"patron_type_unpaid_subscription": _("Patron has unpaid subscription")})
+        return not reasons, reasons
 
     def get_linked_patron(self):
         """Get patron linked to this patron type."""

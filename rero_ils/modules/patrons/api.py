@@ -585,17 +585,17 @@ class Patron(IlsRecord):
         if not patron:
             # 'patron' argument are present into kwargs. This check can't
             # be relevant --> return True by default
-            return True, []
+            return True, {}
 
-        messages = []
+        reasons = {}
         # 1) a blocked patron can't request any item
         # 2) a patron with obsolete expiration_date can't request any item
         if patron.is_blocked:
-            messages.append(patron.get_blocked_message())
+            reasons.update({"patron_blocked": patron.get_blocked_message()})
         if patron.is_expired:
-            messages.append(_("Patron account expired."))
+            reasons.update({"patron_expired": _("Patron account expired.")})
 
-        return not messages, messages
+        return not reasons, reasons
 
     @classmethod
     def can_checkout(cls, item, **kwargs):

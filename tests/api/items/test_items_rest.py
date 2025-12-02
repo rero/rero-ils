@@ -897,7 +897,7 @@ def test_requested_loans_to_validate(
     item2_lib_martigny,
     json_header,
     item_type_missing_martigny,
-    patron_sion,
+    patron_martigny,
     circulation_policies,
 ):
     """Test requested loans to validate."""
@@ -928,13 +928,13 @@ def test_requested_loans_to_validate(
         "api_item.librarian_request",
         {
             "item_pid": item2_lib_martigny.pid,
-            "patron_pid": patron_sion.pid,
+            "patron_pid": patron_martigny.pid,
             "pickup_location_pid": loc_public_martigny.pid,
             "transaction_user_pid": librarian_martigny.pid,
             "transaction_location_pid": loc_public_martigny.pid,
         },
     )
-
+    assert res.status_code == 200
     res = client.get(url_for("api_item.requested_loans", library_pid=library_pid))
     assert res.status_code == 200
     data = get_json(res)
@@ -943,7 +943,7 @@ def test_requested_loans_to_validate(
     assert item2_lib_martigny.pid == requested_loan["item"]["pid"]
     assert item2_lib_martigny.pid == requested_loan["loan"]["item_pid"]["value"]
     assert requested_loan["loan"]["state"] == LoanState.PENDING
-    assert patron_sion.pid == requested_loan["loan"]["patron_pid"]
+    assert patron_martigny.pid == requested_loan["loan"]["patron_pid"]
 
     assert requested_loan["item"]["temporary_location"]["name"]
 

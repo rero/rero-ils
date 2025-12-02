@@ -353,7 +353,7 @@ def test_overdue_limit(
         },
     )
     assert res.status_code == 403
-    assert "Checkout denied" in data["message"]
+    assert "Maximum number of overdue items reached" in data["message"]
     # Try a request - limit should be reached
     res, data = postdata(
         client,
@@ -367,7 +367,7 @@ def test_overdue_limit(
         },
     )
     assert res.status_code == 403
-    assert "Maximum number of late items is reached" in data["message"]
+    assert "Maximum number of overdue items reached" in data["message"]
     # Try to extend - limit should be reached
     res, _ = postdata(
         client,
@@ -379,7 +379,7 @@ def test_overdue_limit(
         },
     )
     assert res.status_code == 403
-    assert "Maximum number of late items is reached" in data["message"]
+    assert "Maximum number of overdue items reached" in data["message"]
 
     # reset the patron_type with default value
     del patron_type["limits"]
@@ -404,7 +404,7 @@ def test_overdue_limit(
         },
     )
     assert res.status_code == 403
-    assert "Checkout denied" in data["message"]
+    assert "Maximum amount of overdue fees reached" in data["message"]
 
     # [2.2] test fee amount limit when we try to request another item
     res, data = postdata(
@@ -505,7 +505,7 @@ def test_unpaid_subscription(
         },
     )
     assert res.status_code == 403
-    assert "Checkout denied" in data["message"] and "unpaid" in data["message"]
+    assert "Patron has unpaid subscription" in data["message"]
     # STEP#3 :: Pay the subscription and retry a circulation operation
     #   As the subscription will be paid the checkout operation must be granted
     data = {

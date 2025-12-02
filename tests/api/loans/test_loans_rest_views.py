@@ -55,7 +55,7 @@ def test_loan_can_extend(
     assert response.status_code == 200
     assert get_json(response) == {
         "can": False,
-        "reasons": ["Circulation policies disallows the operation."],
+        "reasons": {"loan_policy_disallows": "Circulation policies disallows the operation."},
     }
 
 

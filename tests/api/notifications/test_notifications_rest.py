@@ -291,10 +291,8 @@ def test_notifications_post_put_delete(client, dummy_notification, loan_validate
 def test_recall_notification(
     client,
     patron_sion,
+    patron_sion_without_email1,
     lib_sion,
-    json_header,
-    patron2_martigny,
-    patron_martigny,
     item_lib_sion,
     librarian_sion,
     circulation_policies,
@@ -326,11 +324,12 @@ def test_recall_notification(
         {
             "item_pid": item_lib_sion.pid,
             "pickup_location_pid": loc_public_sion.pid,
-            "patron_pid": patron2_martigny.pid,
+            "patron_pid": patron_sion_without_email1.pid,
             "transaction_library_pid": lib_sion.pid,
             "transaction_user_pid": librarian_sion.pid,
         },
     )
+    print(res.json)
     assert res.status_code == 200
 
     request_loan_pid = data.get("action_applied")[LoanAction.REQUEST].get("pid")
@@ -370,7 +369,7 @@ def test_recall_notification(
         {
             "item_pid": item_lib_sion.pid,
             "pickup_location_pid": loc_public_sion.pid,
-            "patron_pid": patron2_martigny.pid,
+            "patron_pid": patron_sion_without_email1.pid,
             "transaction_library_pid": lib_sion.pid,
             "transaction_user_pid": librarian_sion.pid,
         },

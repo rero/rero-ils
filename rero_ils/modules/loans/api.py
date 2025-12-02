@@ -126,9 +126,9 @@ class Loan(IlsRecord):
         if loan is None:  # try to load the loan from kwargs
             loan, _unused_data = item.prior_extend_loan_actions(**kwargs)
         if loan is None:  # not relevant method :: return True
-            return True, []
+            return True, {}
         if loan.get("state") != LoanState.ITEM_ON_LOAN:
-            return False, [_("The loan cannot be extended")]
+            return False, {"loan_bad_state": _("The loan cannot be extended")}
         # The parameters for the renewal is calculated based on the transaction
         # library and not the owning library.
         transaction_library_pid = Location.get_record_by_pid(loan["transaction_location_pid"]).get_library().get("pid")
@@ -148,10 +148,10 @@ class Loan(IlsRecord):
             library_pid=transaction_library_pid,
         )
         if not (extension_count < number_renewals > 0 and loan_data_is_valid):
-            return False, [_("Circulation policies disallows the operation.")]
+            return False, {"loan_policy_disallows": _("Circulation policies disallows the operation.")}
         if item.number_of_requests():
-            return False, [_("A pending request exists on this item.")]
-        return True, []
+            return False, {"loan_pending_request": _("A pending request exists on this item.")}
+        return True, {}
 
     @staticmethod
     def check_required_params(action, **kwargs):
@@ -1033,22 +1033,6 @@ def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
         LoanState.ITEM_AT_DESK,
         LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
         LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
-    ]
-    return get_loans_by_item_pid_by_patron_pid(item_pid, patron_pid, filter_states)
-
-
-def get_any_loans_by_item_pid_by_patron_pid(item_pid, patron_pid):
-    """Get loans not ITEM_IN_TRANSIT_TO_HOUSE, CREATED for item, patron.
-
-    :param item_pid: The item pid.
-    :param patron_pid: The patron pid.
-    :return: loans for given item and patron.
-    """
-    filter_states = [
-        LoanState.PENDING,
-        LoanState.ITEM_AT_DESK,
-        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
-        LoanState.ITEM_ON_LOAN,
     ]
     return get_loans_by_item_pid_by_patron_pid(item_pid, patron_pid, filter_states)
 

@@ -494,13 +494,12 @@ class Holding(IlsRecord):
         :return a tuple with True|False to know if the action is possible and
                 a list of reasons to disallow if False.
         """
-        can, reasons = True, []
+        can, reasons = True, {}
         actions = current_app.config.get("HOLDING_CIRCULATION_ACTIONS_VALIDATION", {})
         for func_name in actions["request"]:
-            class_name = func_name.__self__.__name__
             func_callback = obj_or_import_string(func_name)
             func_can, func_reasons = func_callback(self, **kwargs)
-            reasons += func_reasons
+            reasons.update(func_reasons)
             can = can and func_can
         return can, reasons
 
@@ -513,8 +512,8 @@ class Holding(IlsRecord):
         :return a tuple with True|False and reasons to disallow if False.
         """
         if holding and not holding.is_serial:
-            return False, [_("Only serial holdings can be requested.")]
-        return True, []
+            return False, {"holding_not_serial": _("Only serial holdings can be requested.")}
+        return True, {}
 
     @classmethod
     def _get_next_issue_display_text(cls, patterns):

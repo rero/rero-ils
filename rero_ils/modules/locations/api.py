@@ -216,21 +216,21 @@ class Location(IlsRecord):
         return self["pickup_name"] if "pickup_name" in self else f"{self.library['code']}: {self['name']}"
 
     @classmethod
-    def can_request(cls, record, **kwargs):
+    def can_request(cls, item, **kwargs):
         """Check if a record can be requested regarding its location.
 
         :param record : the `Item` record to check
         :param kwargs : addition arguments
         :return a tuple with True|False and reasons to disallow if False.
         """
-        if record:
+        if item:
             location_method = "get_location"
-            if hasattr(record, "get_circulation_location"):
+            if hasattr(item, "get_circulation_location"):
                 location_method = "get_circulation_location"
-            location = getattr(record, location_method)()
+            location = getattr(item, location_method)()
             if not location.get("allow_request", False):
-                return False, [_("Record location disallows request.")]
-        return True, []
+                return False, {"location_disallows": _("Record location disallows request.")}
+        return True, {}
 
     def transaction_location_validator(self, location_pid):
         """Validate that the given transaction location PID is valid.

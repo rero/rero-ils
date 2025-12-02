@@ -18,7 +18,7 @@
 """Test item circulation request actions."""
 
 import pytest
-from invenio_circulation.errors import RecordCannotBeRequestedError
+from invenio_circulation.errors import CirculationException
 
 from rero_ils.modules.loans.models import LoanState
 from tests.utils import item_record_to_a_specific_loan_state
@@ -46,7 +46,7 @@ def test_add_request_on_item_on_shelf(
         "transaction_user_pid": librarian_martigny.pid,
         "pickup_location_pid": loc_public_martigny.pid,
     }
-    with pytest.raises(RecordCannotBeRequestedError):
+    with pytest.raises(CirculationException):
         item, loan = item_record_to_a_specific_loan_state(
             item=item, loan_state=LoanState.PENDING, params=params, copy_item=False
         )
@@ -79,7 +79,7 @@ def test_add_request_on_item_at_desk(
         "transaction_user_pid": librarian_martigny.pid,
         "pickup_location_pid": loc_public_martigny.pid,
     }
-    with pytest.raises(RecordCannotBeRequestedError):
+    with pytest.raises(CirculationException):
         item, loan = item_record_to_a_specific_loan_state(
             item=item, loan_state=LoanState.PENDING, params=params, copy_item=False
         )
@@ -113,7 +113,7 @@ def test_add_request_on_item_on_loan(
         "transaction_user_pid": librarian_martigny.pid,
         "pickup_location_pid": loc_public_martigny.pid,
     }
-    with pytest.raises(RecordCannotBeRequestedError):
+    with pytest.raises(CirculationException):
         item, loan = item_record_to_a_specific_loan_state(
             item=item, loan_state=LoanState.PENDING, params=params, copy_item=False
         )
@@ -132,7 +132,7 @@ def test_add_request_on_item_on_loan(
     # when an item on_loan has pending requests, the patron who owns the
     # pending loan may not add a new pending loan
     params["patron_pid"] = patron2_martigny.pid
-    with pytest.raises(RecordCannotBeRequestedError):
+    with pytest.raises(CirculationException):
         item, requested_loan = item_record_to_a_specific_loan_state(
             item=item, loan_state=LoanState.PENDING, params=params, copy_item=False
         )
@@ -166,7 +166,7 @@ def test_add_request_on_item_in_transit_for_pickup(
         "transaction_user_pid": librarian_martigny.pid,
         "pickup_location_pid": loc_public_fully.pid,
     }
-    with pytest.raises(RecordCannotBeRequestedError):
+    with pytest.raises(CirculationException):
         item, loan = item_record_to_a_specific_loan_state(
             item=item, loan_state=LoanState.PENDING, params=params, copy_item=False
         )
@@ -212,7 +212,7 @@ def test_add_request_on_item_in_transit_to_house(
     # the following tests the circulation action ADD_REQUEST_5_2_1
     # when a pending loan exist on an item with loan ITEM_IN_TRANSIT_TO_HOUSE
     # the patron who owns the pending loan cannot add a new pending loan
-    with pytest.raises(RecordCannotBeRequestedError):
+    with pytest.raises(CirculationException):
         item, requested_loan = item_record_to_a_specific_loan_state(
             item=item, loan_state=LoanState.PENDING, params=params, copy_item=False
         )

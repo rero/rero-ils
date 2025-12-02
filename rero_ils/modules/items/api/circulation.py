@@ -979,12 +979,12 @@ class ItemCirculation(ItemRecord):
         :return a tuple with True|False to know if the action is possible and
                 a list of reasons to disallow if False.
         """
-        can, reasons = True, []
-        actions = current_app.config.get("CIRCULATION_ACTIONS_VALIDATION", {})
+        can, reasons = True, {}
+        actions = current_app.config.get("ITEM_CIRCULATION_ACTIONS_VALIDATION", {})
         for func_name in actions.get(action, []):
             func_callback = obj_or_import_string(func_name)
             func_can, func_reasons = func_callback(self, **kwargs)
-            reasons += func_reasons
+            reasons.update(func_reasons)
             can = can and func_can
         return can, reasons
 
@@ -996,15 +996,19 @@ class ItemCirculation(ItemRecord):
         :param kwargs : other arguments.
         :return a tuple with True|False and reasons to disallow if False.
         """
-        reasons = []
+        reasons = {}
         if item.status in [ItemStatus.MISSING, ItemStatus.EXCLUDED]:
-            reasons.append(_("Item status disallows the operation."))
-        if "patron" in kwargs:
-            patron = kwargs["patron"]
+            reasons["item_status"] = _("Item status disallows the operation.")
+        patron = kwargs.get("patron")
+        if not patron and "patron_pid" in kwargs:
+            patron = Patron.get_record_by_pid(kwargs["patron_pid"])
+        if patron:
             if patron.organisation_pid != item.organisation_pid:
-                reasons.append(_("Item and patron are not in the same organisation."))
+                reasons["item_patron_organisation"] = _("Item and patron are not in the same organisation.")
             if patron.patron.get("barcode") and item.patron_has_an_active_loan_on_item(patron):
-                reasons.append(_("Item is already checked-out or requested by patron."))
+                reasons["item_already_checked_out_or_requested"] = _(
+                    "Item is already checked-out or requested by patron."
+                )
         return not reasons, reasons
 
     def action_filter(self, action, organisation_pid, library_pid, loan, patron_pid, patron_type_pid):

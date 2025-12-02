@@ -113,7 +113,6 @@ from .modules.loans.utils import (
     can_be_requested,
     get_default_loan_duration,
     get_extension_params,
-    is_item_available_for_checkout,
     loan_build_document_ref,
     loan_build_item_ref,
     loan_build_patron_ref,
@@ -3773,7 +3772,8 @@ CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=get_default_loan_duration,
         duration_validate=validate_loan_duration,
-        item_can_circulate=is_item_available_for_checkout,
+        # managed by *_CIRCULATION_ACTIONS_VALIDATION
+        item_can_circulate=lambda _: True,
     ),
     extension=dict(
         from_end_date=False,
@@ -3785,7 +3785,7 @@ CIRCULATION_POLICIES = dict(
     request=dict(can_be_requested=can_be_requested),
 )
 
-CIRCULATION_ACTIONS_VALIDATION = {
+ITEM_CIRCULATION_ACTIONS_VALIDATION = {
     ItemCirculationAction.REQUEST: [
         Location.can_request,
         Item.can_request,

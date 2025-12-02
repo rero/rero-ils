@@ -17,8 +17,6 @@
 
 """Tests loan utils methods."""
 
-from copy import deepcopy
-
 import pytest
 from invenio_circulation.errors import CirculationException
 
@@ -85,13 +83,6 @@ def test_loan_utils(
     # test required parameters for get_last_transaction_loc_for_item
     with pytest.raises(TypeError):
         assert get_last_transaction_loc_for_item()
-
-    # test the organisation of the loan is based on the item
-    new_loan = deepcopy(loan_pending_martigny)
-    assert new_loan.organisation_pid == "org1"
-    del new_loan["item_pid"]
-    assert new_loan.organisation_pid == "org1"
-    assert not can_be_requested(loan_pending_martigny)
 
     # test the allow request at the location level
     loc_public_martigny["allow_request"] = False

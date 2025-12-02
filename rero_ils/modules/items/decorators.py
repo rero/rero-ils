@@ -71,10 +71,10 @@ def check_operation_allowed(action):
 
     Check if an 'override_blocking' parameter is present. If this param is
     present and set to True (or corresponding True values [1, 'true', ...])
-    then no CIRCULATION_ACTIONS_VALIDATION should be tested.
+    then no ITEM_CIRCULATION_ACTIONS_VALIDATION should be tested.
     Remove this parameter from the data arguments.
 
-    Check the CIRCULATION_ACTIONS_VALIDATION configuration file and execute
+    Check the ITEM_CIRCULATION_ACTIONS_VALIDATION configuration file and execute
     function corresponding to the action specified. All function are execute
     until one return False (action denied) or all actions are successful.
 
@@ -88,12 +88,12 @@ def check_operation_allowed(action):
             override_blocking = kwargs.pop("override_blocking", False)
             override_blocking = bool(override_blocking)
             if not override_blocking:
-                actions = current_app.config.get("CIRCULATION_ACTIONS_VALIDATION", {})
+                actions = current_app.config.get("ITEM_CIRCULATION_ACTIONS_VALIDATION", {})
                 for func_name in actions.get(action, []):
                     func_callback = obj_or_import_string(func_name)
                     can, reasons = func_callback(args[0], **kwargs)
                     if not can:
-                        raise CirculationException(description=reasons[0])
+                        raise CirculationException(description="; ".join(reasons.values()))
             return func(*args, **kwargs)
 
         return decorated_view
