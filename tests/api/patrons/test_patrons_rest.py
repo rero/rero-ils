@@ -377,6 +377,7 @@ def test_patrons_dirty_barcode(client, patron_martigny, librarian_martigny):
 def test_patrons_circulation_informations(
     client,
     patron_sion,
+    patron_martigny,
     librarian_martigny,
     patron3_martigny_blocked,
     yesterday,
@@ -387,6 +388,15 @@ def test_patrons_circulation_informations(
     url = url_for("api_patrons.patron_circulation_informations", patron_pid=patron_sion.pid)
     res = client.get(url)
     assert res.status_code == 401
+
+    login_user_via_session(client, patron_sion.user)
+    url = url_for("api_patrons.patron_circulation_informations", patron_pid=patron_martigny.pid)
+    res = client.get(url)
+    assert res.status_code == 403
+
+    url = url_for("api_patrons.patron_circulation_informations", patron_pid=patron_sion.pid)
+    res = client.get(url)
+    assert res.status_code == 200
 
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(url)

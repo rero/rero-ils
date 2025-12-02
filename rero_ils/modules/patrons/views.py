@@ -67,9 +67,14 @@ _USERNAME_REGEX = re.compile(r'username:"\s*(.*?)\s*"')
 
 
 @api_blueprint.route("/<patron_pid>/circulation_informations", methods=["GET"])
-@check_logged_as_librarian
+@login_required
 def patron_circulation_informations(patron_pid):
     """Get the circulation statistics and info messages about a patron."""
+    current_patrons_pids = [patron.pid for patron in current_patrons]
+    # if the logged user is a patron the pid should be his own
+    # otherwise the user should be a librarian
+    if patron_pid not in current_patrons_pids and not current_librarian:
+        abort(403)
     patron = Patron.get_record_by_pid(patron_pid)
     if not patron:
         abort(404, "Patron not found")

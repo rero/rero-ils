@@ -43,17 +43,16 @@ from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.dumpers import CirculationDumper as LoanCirculationDumper
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.operation_logs.permissions import (
-    search_action as op_log_search_action,
-)
+    search_action as op_log_search_action,)
 from rero_ils.modules.patrons.api import Patron, current_librarian
 from rero_ils.permissions import request_item_permission
 
-from ...commons.exceptions import MissingDataException
 from ..api import Item
 from ..dumpers import CirculationActionDumper, ClaimIssueNotificationDumper
 from ..models import ItemCirculationAction, ItemStatus
 from ..permissions import late_issue_management as late_issue_management_action
 from ..utils import get_recipient_suggestions, item_pid_to_object
+from ...commons.exceptions import MissingDataException
 
 api_blueprint = Blueprint("api_item", __name__, url_prefix="/item")
 
@@ -170,7 +169,7 @@ def do_item_jsonify_action(func):
             return jsonify({"status": f"error: {error}"}), 400
         except Exception as error:
             # TODO: need to know what type of exception and document there.
-            # raise error
+            raise error
             current_app.logger.error(f"{func.__name__}: {error!s}")
             return jsonify({"status": f"error: {error}"}), 400
 
@@ -368,6 +367,8 @@ def extend_loan(item, data):
     :param item: the item resource on which extend operation will be done.
     :param data: additional data used for the circ operation (as a dict).
     """
+    # abort(403) #jsonify({"status": f"error: test"}), 403
+
     return item.extend_loan(**data)
 
 
