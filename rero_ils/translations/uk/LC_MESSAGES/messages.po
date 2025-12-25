@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: RERO_ILS VERSION\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-10-22 08:58+0200\n"
-"PO-Revision-Date: 2025-10-14 20:42+0000\n"
+"PO-Revision-Date: 2025-12-25 11:00+0000\n"
 "Last-Translator: Галина Нежурбіда <nezhga29@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/rero_plus/rero-"
+"ils/uk/>\n"
 "Language: uk\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/uk/>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15.1\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -272,8 +273,9 @@ msgid "end_date"
 msgstr "кінцева_дата"
 
 #: rero_ils/config.py:2368
+#, fuzzy
 msgid "exclude_status"
-msgstr ""
+msgstr "статус_виключення"
 
 #: rero_ils/config.py:2405
 msgid "roles"
@@ -289,8 +291,9 @@ msgid "blocked"
 msgstr "заблоковано"
 
 #: rero_ils/config.py:2409
+#, fuzzy
 msgid "expired"
-msgstr ""
+msgstr "закінчився"
 
 #: rero_ils/config.py:2433 rero_ils/config.py:2472
 msgid "budget"
@@ -321,7 +324,7 @@ msgstr "тип"
 
 #: rero_ils/config.py:2499
 msgid "source_catalog"
-msgstr ""
+msgstr "source_каталог"
 
 #: rero_ils/config.py:2508 rero_ils/config.py:2520
 #, fuzzy
@@ -367,8 +370,9 @@ msgid "frequency"
 msgstr "періодичність"
 
 #: rero_ils/config.py:2748
+#, fuzzy
 msgid "active"
-msgstr ""
+msgstr "дійсний"
 
 #: rero_ils/config.py:3483 rero_ils/manual_translations.txt:69
 #: rero_ils/theme/templates/rero_ils/header.html:104
@@ -383,7 +387,7 @@ msgstr ""
 
 #: rero_ils/config.py:4167
 msgid "contains"
-msgstr ""
+msgstr "містить"
 
 #: rero_ils/config.py:4169
 #, fuzzy
@@ -483,15 +487,15 @@ msgstr "Телефон"
 
 #: rero_ils/config.py:4253
 msgid "Local fields (document)"
-msgstr ""
+msgstr "Локальні поля (документ)"
 
 #: rero_ils/config.py:4259
 msgid "Local fields (holdings)"
-msgstr ""
+msgstr "Локальні поля (фонди)"
 
 #: rero_ils/config.py:4265
 msgid "Local fields (items)"
-msgstr ""
+msgstr "Локальні поля (примірники)"
 
 #: rero_ils/config.py:4271
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
@@ -2506,7 +2510,7 @@ msgstr ""
 
 #: rero_ils/jsonschemas/common/currency-v0.0.1.json:3
 msgid "Currency"
-msgstr ""
+msgstr "Валюта"
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:38
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:105
@@ -2579,23 +2583,24 @@ msgstr ""
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:820
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:98
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:53
+#, fuzzy
 msgid "bf:local"
-msgstr ""
+msgstr "bf:local(Локальний_ідентифікатор/контрольний номер)"
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:57
 msgid "IdRef"
-msgstr ""
+msgstr "IdRef"
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:61
 msgid "GND"
-msgstr ""
+msgstr "GND"
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:65
 msgid "RERO"
-msgstr ""
+msgstr "RERO"
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:73
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2571
@@ -2607,7 +2612,7 @@ msgstr ""
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:200
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:221
 msgid "Value"
-msgstr ""
+msgstr "Значення"
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:85
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:105
@@ -2621,19 +2626,19 @@ msgstr ""
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:510
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:35
 msgid "Source"
-msgstr ""
+msgstr "Джерело"
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:86
 msgid "Source in case of a local identifier."
-msgstr ""
+msgstr "Джерело у випадку локального ідентифікатора/контрольного номера."
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:3
 msgid "Language value"
-msgstr ""
+msgstr "Код мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:500
 msgid "lang_aar"
-msgstr ""
+msgstr "афарська_мова"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:504
 msgid "lang_abk"
@@ -4595,7 +4600,7 @@ msgstr ""
 #: rero_ils/modules/entities/templates/rero_ils/_remote_person.html:31
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:528
 msgid "Language"
-msgstr ""
+msgstr "Мова"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2560
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2595
@@ -4605,45 +4610,48 @@ msgid "Values"
 msgstr ""
 
 #: rero_ils/modules/utils.py:1165
-#, python-format
+#, fuzzy, python-format
 msgid "Field must be at least %(num)d character long."
 msgid_plural "Field must be at least %(num)d characters long."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Поле має містити щонайменше %(num)d символ."
+msgstr[1] "Поле має містити щонайменше %(num)d символи."
+msgstr[2] "Поле має містити щонайменше %(num)d символів."
 
 #: rero_ils/modules/utils.py:1171
 msgid "The password must contain a lower case character."
-msgstr ""
+msgstr "Пароль повинен містити символ нижнього регістру."
 
 #: rero_ils/modules/utils.py:1173
 msgid "The password must contain a upper case character."
-msgstr ""
+msgstr "Пароль повинен містити символ верхнього регістру."
 
 #: rero_ils/modules/utils.py:1175
 msgid "The password must contain a number."
-msgstr ""
+msgstr "Пароль повинен містити цифри."
 
 #: rero_ils/modules/utils.py:1177
 msgid "The password must contain a special character."
-msgstr ""
+msgstr "Пароль повинен містити спеціальний символ."
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:296
 msgid "Cannot transfer fund to myself."
 msgstr ""
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:298
+#, fuzzy
 msgid "Not enough available money from source account."
-msgstr ""
+msgstr "Недостатньо коштів на рахунку."
 
 #: rero_ils/modules/acquisition/acq_accounts/extensions.py:42
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:62
+#, fuzzy
 msgid "Parent account available amount too low"
-msgstr ""
+msgstr "Доступна сума на рахунку занадто мала"
 
 #: rero_ils/modules/acquisition/acq_accounts/extensions.py:54
+#, fuzzy
 msgid "Remaining balance too low"
-msgstr ""
+msgstr "Залишок на балансі занадто низький"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:176
@@ -4692,8 +4700,9 @@ msgstr ""
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:25
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:33
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:27
+#, fuzzy
 msgid "Schema"
-msgstr ""
+msgstr "Schema/Схема"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:31
 msgid "Account ID"
@@ -4729,69 +4738,85 @@ msgstr ""
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:37
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:36
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:37
+#, fuzzy
 msgid "Name"
-msgstr ""
+msgstr "Назва"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:36
+#, fuzzy
 msgid "Common name of the acquisition account."
-msgstr ""
+msgstr "Загальна назва рахунку придбання."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:46
+#, fuzzy
 msgid "Account number"
-msgstr ""
+msgstr "Номер рахунку"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:47
+#, fuzzy
 msgid "Reference account number in accounting system."
-msgstr ""
+msgstr "Номер довідкового рахунку в бухгалтерській системі."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:52
+#, fuzzy
 msgid "Allocated amount"
-msgstr ""
+msgstr "Виділена сума"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:53
+#, fuzzy
 msgid "The amount allocated for the acquisition account."
-msgstr ""
+msgstr "Сума, виділена на рахунок придбання."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:67
+#, fuzzy
 msgid "Encumbrance exceedance"
-msgstr ""
+msgstr "Перевищення обтяження"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:68
+#, fuzzy
 msgid ""
 "The exceedance percentage of account amount that linked pending orders "
 "can reach."
 msgstr ""
+"Відсоток перевищення суми рахунку, на який дозволено перевищувати "
+"(для невиконаних замовлень)."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:85
 msgid "Expenditure exceedance"
-msgstr ""
+msgstr "Перевищення витрат"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:86
+#, fuzzy
 msgid ""
 "The exceedance percentage of account amount than linked paid invoices can"
 " reach."
 msgstr ""
+"Відсоток перевищення суми рахунку, яку може досягти кількість пов'язаних "
+"оплачених рахунків-фактур."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:103
+#, fuzzy
 msgid "Parent account"
-msgstr ""
+msgstr "Батьківський обліковий запис"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:107
+#, fuzzy
 msgid "Account URI"
-msgstr ""
+msgstr "URI облікового запису"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:123
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:4
 msgid "Budget"
-msgstr ""
+msgstr "Бюджет"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:125
+#, fuzzy
 msgid "The acquisition account belongs to which budget."
-msgstr ""
+msgstr "До якого бюджету належить рахунок придбання?"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:128
 msgid "Budget URI"
-msgstr ""
+msgstr "URI бюджету"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:138
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:275
@@ -4813,7 +4838,7 @@ msgstr ""
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:100
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:129
 msgid "Library"
-msgstr ""
+msgstr "Бібліотека"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:142
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:283
@@ -4831,7 +4856,7 @@ msgstr ""
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:449
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:137
 msgid "Library URI"
-msgstr ""
+msgstr "URI бібліотеки"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:149
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:260
@@ -4854,7 +4879,7 @@ msgstr ""
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:54
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:442
 msgid "Organisation"
-msgstr ""
+msgstr "Організація"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:157
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:268
@@ -4874,13 +4899,13 @@ msgstr ""
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:62
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:450
 msgid "Organisation URI"
-msgstr ""
+msgstr "URI організації"
 
 #. Line unknown
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:1
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:1
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:89
 #: rero_ils/modules/acquisition/acq_orders/api.py:102
@@ -4888,40 +4913,47 @@ msgstr ""
 #: rero_ils/modules/ill_requests/api.py:103
 #: rero_ils/modules/items/api/record.py:107
 msgid "Cannot have multiple notes of the same type."
-msgstr ""
+msgstr "Не можна мати кілька нотаток одного типу."
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:104
+#, fuzzy
 msgid "Cannot create an order line with an order with a wrong status."
 msgstr ""
+"Неможливо створити рядок замовлення якщо замовлення із неправильним статусом."
 
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:70
+#, fuzzy
 msgid "Cannot link to an harvested document"
-msgstr ""
+msgstr "Не вдається створити посилання на запозичений документ"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:4
+#, fuzzy
 msgid "Acquisition order line"
-msgstr ""
+msgstr "Рядок замовлення на придбання"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:5
+#, fuzzy
 msgid "Data linking a document to an order."
-msgstr ""
+msgstr "Дані, що пов'язують документ із замовленням."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:33
+#, fuzzy
 msgid "Acquisition order line ID"
-msgstr ""
+msgstr "Ідентифікатор рядка замовлення на придбання"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:38
 msgid "Priority (0-5)"
-msgstr ""
+msgstr "Пріоритет (0-5)"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:39
 msgid "The higher the number, the higher the priority."
-msgstr ""
+msgstr "Чим вище число, тим вищий пріоритет."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:52
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:64
+#, fuzzy
 msgid "Quantity"
-msgstr ""
+msgstr "Кількість"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:65
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:79
@@ -4930,15 +4962,16 @@ msgstr ""
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:303
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:43
 msgid "Amount"
-msgstr ""
+msgstr "Сума"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:66
 msgid "Expected price per item."
-msgstr ""
+msgstr "Очікувана ціна за одиницю товару."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:80
+#, fuzzy
 msgid "Total amount"
-msgstr ""
+msgstr "Загальна сума"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:86
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:53
@@ -4951,8 +4984,9 @@ msgstr ""
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:564
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:548
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:80
+#, fuzzy
 msgid "Notes"
-msgstr ""
+msgstr "Примітки"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:93
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:60
@@ -4999,8 +5033,9 @@ msgstr ""
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:643
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:595
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:161
+#, fuzzy
 msgid "Content"
-msgstr ""
+msgstr "Зміст"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:168
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:134
@@ -5010,23 +5045,25 @@ msgstr ""
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:450
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:677
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:629
+#, fuzzy
 msgid "Only one note per type is allowed"
-msgstr ""
+msgstr "Дозволено лише одну нотатку кожного типу"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:183
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:85
+#, fuzzy
 msgid "Acquisition account URI"
-msgstr ""
+msgstr "URI облікового запису"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:204
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:4
 msgid "Acquisition order"
-msgstr ""
+msgstr "Замовлення"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:208
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:206
 msgid "Acquisition order URI"
-msgstr ""
+msgstr "URI замовлення"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:222
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:3
@@ -5036,13 +5073,13 @@ msgstr ""
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:234
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:507
 msgid "Document"
-msgstr ""
+msgstr "Документ"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:229
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:157
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:46
 msgid "Document URI"
-msgstr ""
+msgstr "URI документа"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:239
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:274
@@ -5050,64 +5087,71 @@ msgstr ""
 msgid ""
 "Should be in the following format: "
 "https://bib.rero.ch/api/documents/<PID>."
-msgstr ""
+msgstr "Має бути у такому форматі: https://bib.rero.ch/api/documents/<PID>."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:290
 msgid "Cancelled"
-msgstr ""
+msgstr "Скасовано"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:291
+#, fuzzy
 msgid "If checked this order line should be considered as cancelled."
-msgstr ""
+msgstr "Якщо цей рядок замовлення позначено, його слід вважати скасованим."
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
+#, fuzzy
 msgid "Enquiry sent to a vendor, consisting of lines referring to documents."
 msgstr ""
+"Запит, надісланий постачальнику, що складається з рядків, що посилаються на "
+"документи."
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:27
 msgid "AcqOrder ID"
-msgstr ""
+msgstr "Ідентифікатор замовлення"
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:32
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:45
 msgid "Reference"
-msgstr ""
+msgstr "Посилання/Довідка"
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:40
 msgid "Order date"
-msgstr ""
+msgstr "Дата замовлення"
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:142
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:545
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:4
 msgid "Vendor"
-msgstr ""
+msgstr "Постачальник"
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:150
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:552
 msgid "Vendor URI"
-msgstr ""
+msgstr "URI постачальника"
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:198
 msgid "Previous version"
-msgstr ""
+msgstr "Попередня версія"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/api.py:102
 #: rero_ils/modules/acquisition/acq_receipts/api.py:154
+#, fuzzy
 msgid "Cannot create a receipt with an order with a wrong status."
-msgstr ""
+msgstr "Неможливо створити квитанцію: статус замовлення неправильний."
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/extensions.py:64
+#, fuzzy
 msgid "Received quantity is grower than ordered quantity"
-msgstr ""
+msgstr "Отримана кількість перевищує замовлену кількість"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:4
 msgid "Acquisition receipt line"
 msgstr ""
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:5
+#, fuzzy
 msgid "Data linking a rceipt to one or multiple order lines"
-msgstr ""
+msgstr "Дані, що пов'язують квитанцію з одним або кількома рядками замовлення"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:29
 msgid "Acquisition receipt line ID"
@@ -5116,25 +5160,29 @@ msgstr ""
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:34
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:42
 msgid "Receipt"
-msgstr ""
+msgstr "Квитанція/чек"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:49
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:57
+#, fuzzy
 msgid "Order line"
-msgstr ""
+msgstr "Рядок замовлення"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:95
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:429
+#, fuzzy
 msgid "VAT rate"
-msgstr ""
+msgstr "Ставка ПДВ"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:97
+#, fuzzy
 msgid "percentage of VAT rate to apply on this receipt line"
-msgstr ""
+msgstr "відсоток ставки ПДВ, що застосовується до цього рядка чека"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:115
+#, fuzzy
 msgid "Receipt line date"
-msgstr ""
+msgstr "Дата рядка квитанції"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:125
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:66
@@ -5148,8 +5196,9 @@ msgstr ""
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:438
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:693
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:265
+#, fuzzy
 msgid "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
-msgstr ""
+msgstr "Має бути в такому форматі: 2022-12-31 (РРРР-ММ-ДД)."
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:172
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:139
@@ -5157,29 +5206,32 @@ msgid "receipt_note"
 msgstr ""
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:4
+#, fuzzy
 msgid "Acquisition receipt"
-msgstr ""
+msgstr "Квитанція про придбання"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:5
 msgid "Data describing the reception of an order."
-msgstr ""
+msgstr "Дані, що описують отримання замовлення."
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:25
+#, fuzzy
 msgid "Acquisition receipt ID"
-msgstr ""
+msgstr "Ідентифікатор квитанції про придбання"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:30
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:38
 msgid "Order"
-msgstr ""
+msgstr "Замовлення"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:50
+#, fuzzy
 msgid "Additional fees, discount and credit"
-msgstr ""
+msgstr "Додаткові збори, знижки та кредит"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:56
 msgid "Fee"
-msgstr ""
+msgstr "Плата"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:69
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:8
@@ -5194,24 +5246,27 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:34
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:133
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:199
+#, fuzzy
 msgid "Label"
-msgstr ""
+msgstr "Мітка"
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:5
 msgid "Financial year."
-msgstr ""
+msgstr "Фінансовий рік."
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:28
+#, fuzzy
 msgid "Budget ID"
-msgstr ""
+msgstr "Ідентифікатор бюджету"
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:33
 msgid "Budget name"
-msgstr ""
+msgstr "Назва бюджету"
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:34
+#, fuzzy
 msgid "Name of the budget."
-msgstr ""
+msgstr "Назва бюджету."
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:48
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:51
@@ -5220,7 +5275,7 @@ msgstr ""
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:48
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:51
 msgid "This name is already taken."
-msgstr ""
+msgstr "Це ім'я вже використовується."
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:58
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:179
@@ -5228,7 +5283,7 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:101
 #: rero_ils/modules/entities/templates/rero_ils/_local_organisation.html:26
 msgid "Start date"
-msgstr ""
+msgstr "Дата початку"
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:76
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:206
@@ -5236,25 +5291,31 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:113
 #: rero_ils/modules/entities/templates/rero_ils/_local_organisation.html:27
 msgid "End date"
-msgstr ""
+msgstr "Дата завершення"
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:93
+#, fuzzy
 msgid "True if not rolled over yet"
-msgstr ""
+msgstr "Правильно, якщо ще не завершено"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
+#, fuzzy
 msgid "Circulation policy"
-msgstr ""
+msgstr "Політика книговидачі"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:5
+#, fuzzy
 msgid ""
 "Set of circulation rules applying to a loan resource and depending on a "
 "patron type and an item type."
 msgstr ""
+"Правила книговидачі, що застосовуються до позиченого ресурсу та залежать від "
+"типу читача та типу документа."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:40
+#, fuzzy
 msgid "Circulation policy ID"
-msgstr ""
+msgstr "Ідентифікатор політики видачі"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:55
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:163
@@ -5264,357 +5325,435 @@ msgstr ""
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:48
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:41
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:81
 msgid "Checkout duration"
-msgstr ""
+msgstr "Тривалість оформлення замовлення"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:82
+#, fuzzy
 msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
+"Очистіть це поле, щоб заборонити позичання. Введіть 0, щоб дозволити "
+"позичання до кінця дня."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:99
+#, fuzzy
 msgid "Allow patron requests"
-msgstr ""
+msgstr "Дозволити бронювання/запити"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:104
+#, fuzzy
 msgid "Pickup hold duration in days"
-msgstr ""
+msgstr "Тривалість затримки самовивозу в днях"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:105
+#, fuzzy
 msgid ""
 "Number of day(s) after which a not-picked up validated request will be "
 "cancelled. Keep empty to specify infinite duration."
 msgstr ""
+"Кількість днів, після яких необроблений підтверджений запит буде скасовано. "
+"Залиште поле порожнім, щоб вказати необмежену тривалість."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:123
+#, fuzzy
 msgid ""
 "They include the loan expiry notices, sent before the due date, and the "
 "reminders, sent after the due date."
 msgstr ""
+"До них належать нагадування про закінчення терміну позики "
+"(надсилаються до дати повернення) та повідомлення про прострочення "
+"(надсилаються після дати повернення)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:124
 msgid "Reminders"
-msgstr ""
+msgstr "Нагадування"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:129
+#, fuzzy
 msgid "Reminder"
-msgstr ""
+msgstr "Нагадування"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:157
+#, fuzzy
 msgid "due_soon"
-msgstr ""
+msgstr "Закінчення терміну позики/повідомлення про дату повернення"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:161
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:152
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:74
 #: rero_ils/modules/selfcheck/api.py:323
+#, fuzzy
 msgid "overdue"
-msgstr ""
+msgstr "прострочений"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:171
+#, fuzzy
 msgid ""
 "Number of days before the due date (for loan expiry notices) or after the"
 " due date (for reminders). This number defines when the notification is "
 "sent."
 msgstr ""
+"Кількість днів до дати повернення (для нагадувань про позику) або після дати "
+"повернення (для прострочених повідомлень). Це число визначає, коли "
+"надсилається сповіщення."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:172
 msgid "Delay"
-msgstr ""
+msgstr "Затримка"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:200
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:273
+#, fuzzy
 msgid "Communication channel"
-msgstr ""
+msgstr "Канал зв'язку"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:210
+#, fuzzy
 msgid "patron_setting"
-msgstr ""
+msgstr "налаштування_замовника/відповідно до налаштувань замовника"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:214
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:291
 msgid "mail"
-msgstr ""
+msgstr "пошта"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:224
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:226
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:4
 msgid "Template"
-msgstr ""
+msgstr "Шаблон"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:249
+#, fuzzy
 msgid "Overdue fees"
-msgstr ""
+msgstr "Прострочені платежі/Штрафи за прострочення"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:264
+#, fuzzy
 msgid "Days intervals"
-msgstr ""
+msgstr "Інтервал між днями"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:265
 msgid ""
 "During an interval, the specified amount will be incremented for each "
 "overdue open day."
 msgstr ""
+"Протягом інтервалу зазначена сума буде збільшуватися за кожен прострочений "
+"день."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:279
+#, fuzzy
 msgid "From"
-msgstr ""
+msgstr "Від"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:291
+#, fuzzy
 msgid "To"
-msgstr ""
+msgstr "До"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:327
+#, fuzzy
 msgid ""
 "This defines the maximum fee amount per document, without considering the"
 " reminder fees."
 msgstr ""
+"Це визначає максимальну суму плати за документ, без урахування комісії за "
+"нагадування."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:328
 msgid "Maximum total amount"
-msgstr ""
+msgstr "Максимальна загальна сума"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:352
 msgid "Maximum number of renewals"
-msgstr ""
+msgstr "Максимальна кількість продовжень"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:353
+#, fuzzy
 msgid "Enter 0 if renewal is not allowed."
-msgstr ""
+msgstr "Введіть 0, якщо продовження не дозволено."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:366
+#, fuzzy
 msgid "Renewal duration in days"
-msgstr ""
+msgstr "Тривалість продовження в днях"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:384
+#, fuzzy
 msgid "Automatic renewal"
-msgstr ""
+msgstr "Автоматичне продовження"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:385
+#, fuzzy
 msgid ""
 "Defines whether loans are automatically renewed by the system when they "
 "reach their due date. Automatic renewal only renews loans that are also "
 "renewable manually (taking into account existing limits and blocks)."
 msgstr ""
+"Визначає, чи система автоматично продовжує позики після досягнення терміну "
+"їх погашення. Автоматичне продовження поновлює лише ті позики, які також "
+"можна продовжувати вручну (з урахуванням існуючих лімітів та блокувань)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:396
+#, fuzzy
 msgid "Mark as default policy"
-msgstr ""
+msgstr "Позначити як політику за замовчуванням"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:408
 msgid "Library level policy"
-msgstr ""
+msgstr "Політика на рівні бібліотеки"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:413
 msgid "List of libraries"
-msgstr ""
+msgstr "Список бібліотек"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:447
+#, fuzzy
 msgid "Patron + Item types links"
-msgstr ""
+msgstr "Посилання на типи читачів +"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:448
+#, fuzzy
 msgid ""
 "This defines which item categories and patron types this circulation "
 "policy applies to."
 msgstr ""
+"Це визначає, до яких типів ресурсів та типів читачів застосовується ця "
+"політика видачі."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:459
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:376
+#, fuzzy
 msgid "Patron type"
-msgstr ""
+msgstr "Тип читача"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:467
+#, fuzzy
 msgid "Patron type URI"
-msgstr ""
+msgstr "URI типу читача"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:474
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:4
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:165
+#, fuzzy
 msgid "Item type"
-msgstr ""
+msgstr "Тип ресурсу/примірника"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:482
+#, fuzzy
 msgid "Item type URI"
-msgstr ""
+msgstr "URI типу примірника"
 
 #. Line unknown
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:1
+#, fuzzy
 msgid "day(s)"
-msgstr ""
+msgstr "день (дні)"
 
 #: rero_ils/modules/collections/api.py:102
+#, fuzzy
 msgid "All items should belong to one of the selected libraries."
-msgstr ""
+msgstr "Усі примірники повинні належати до однієї з вибраних бібліотек."
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:4
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:21
 msgid "Exhibition/course"
-msgstr ""
+msgstr "Виставка/курс"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:5
+#, fuzzy
 msgid "Grouping of items within a library."
-msgstr ""
+msgstr "Групування примірників у межах бібліотеки."
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:47
+#, fuzzy
 msgid "Internal collection PID"
-msgstr ""
+msgstr "Внутрішній PID фонду/колекції"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:53
 msgid "Identifier or code used locally for this collection"
 msgstr ""
+"Ідентифікатор або код, що використовується локально для цього фонду/колекції"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:91
 msgid "course"
-msgstr ""
+msgstr "курс"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:95
 msgid "exhibition"
-msgstr ""
+msgstr "виставка"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:104
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:35
+#, fuzzy
 msgid "Teachers"
-msgstr ""
+msgstr "Вчителі"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:108
+#, fuzzy
 msgid "Teacher"
-msgstr ""
+msgstr "Вчитель"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:137
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:3
+#, fuzzy
 msgid "Subjects"
-msgstr ""
+msgstr "Предмет/Тематика"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:231
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:41
 msgid "Libraries"
-msgstr ""
+msgstr "Бібліотеки"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:265
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:48
+#, fuzzy
 msgid "Items"
-msgstr ""
+msgstr "Примірники"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:266
+#, fuzzy
 msgid "Items must belong to one of the libraries defined above."
-msgstr ""
+msgstr "Примірники повинні належати до однієї з бібліотек, визначених вище."
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:269
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:277
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:4
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:18
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:455
+#, fuzzy
 msgid "Item"
-msgstr ""
+msgstr "Примірник"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:319
 msgid "Published"
-msgstr ""
+msgstr "Опубліковано"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:320
+#, fuzzy
 msgid "'Published' indicates that the collection appears in the public interface."
 msgstr ""
+"«Опубліковано» означає, що фонд/колекція/виставка/курс відображається у "
+"публічному інтерфейсі."
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:32
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:192
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:40
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:90
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:49
+#, fuzzy
 msgid "Barcode"
-msgstr ""
+msgstr "Штрих-код"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:97
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:58
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:88
+#, fuzzy
 msgid "Second call number"
-msgstr ""
+msgstr "Інший шифр зберігання"
 
 #: rero_ils/modules/documents/views.py:242
 msgid "Journal"
-msgstr ""
+msgstr "Журнал"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:9
 #: rero_ils/modules/documents/views.py:244
 msgid "Series"
-msgstr ""
+msgstr "Серія"
 
 #: rero_ils/modules/documents/views.py:246
 #: rero_ils/modules/ill_requests/forms.py:85
 msgid "Published in"
-msgstr ""
+msgstr "Опубліковано в"
 
 #: rero_ils/modules/documents/views.py:258
+#, fuzzy
 msgid "vol"
-msgstr ""
+msgstr "том"
 
 #: rero_ils/modules/documents/views.py:261
+#, fuzzy
 msgid "nr"
-msgstr ""
+msgstr "№"
 
 #: rero_ils/modules/documents/views.py:264
 msgid "p"
-msgstr ""
+msgstr "с"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:4
 msgid "Bibliographic record"
-msgstr ""
+msgstr "Бібліографічний запис"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:83
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:76
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:244
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:517
 msgid "Document PID"
-msgstr ""
+msgstr "PID документа"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:238
+#, fuzzy
 msgid "Subjects (imported)"
-msgstr ""
+msgstr "Теми/предметні рубрики (імпортовані)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:239
+#, fuzzy
 msgid "Subject imported from external data"
-msgstr ""
+msgstr "Тема/предметна рубрика імпортована із зовнішніх даних"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:244
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:274
 msgid "Entities"
-msgstr ""
+msgstr "Сутності"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:245
+#, fuzzy
 msgid ""
 "Imported topic, place, temporal, person, family or corporate body "
 "(including conferences), used for information. Do not enter data "
 "manually."
 msgstr ""
+"Імпортовані теми, місце, часові рамки, особи (персоналії), родини або "
+"колективний автор (включно з конференціями), що використовуються для "
+"інформації. Не вводьте дані вручну."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:268
 msgid "Genres, forms (imported)"
-msgstr ""
+msgstr "Жанри, форми (імпортовані)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:269
+#, fuzzy
 msgid "Genre or form imported from external data"
-msgstr ""
+msgstr "Жанри, форми (імпортовані)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:275
+#, fuzzy
 msgid "Imported genre or form, used for information. Do not enter data manually."
 msgstr ""
+"Імпортований жанр або форма, що використовується для інформації. Не вводьте "
+"дані вручну."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:304
+#, fuzzy
 msgid "Harvested"
-msgstr ""
+msgstr "Зібрано/Зібраний/Агрегований"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:305
+#, fuzzy
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
+"Незалежно від того, чи зібрано документ, редагування запису або подібне буде "
+"скасовано."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:309
 msgid "Fiction statement"
@@ -6315,10 +6454,13 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:5
+#, fuzzy
 msgid ""
 "Link to a remote or local entity of type person, family or corporate body"
 " (including conferences)."
 msgstr ""
+"Посилання на віддалену або локальну організацію типу особа, сім'я або "
+"юридична особа (включно з конференціями)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:43
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:3
@@ -6525,19 +6667,20 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:2
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:473
 msgid "Role"
-msgstr ""
+msgstr "Роль"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:172
 msgid "aut"
-msgstr ""
+msgstr "Автор"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:177
 msgid "cmp"
-msgstr ""
+msgstr "Композитор"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:182
+#, fuzzy
 msgid "ctb"
-msgstr ""
+msgstr "інший вид авторства"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:187
 msgid "edt"
@@ -6565,7 +6708,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:217
 msgid "abr"
-msgstr ""
+msgstr "Автор скорочення"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:221
 msgid "act"
@@ -6612,40 +6755,44 @@ msgid "arr"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:265
+#, fuzzy
 msgid "art"
-msgstr ""
+msgstr "художник (не ілюстратор)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:269
 msgid "ato"
-msgstr ""
+msgstr "автор автографа/дописувач (для рукописів)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:273
 msgid "auc"
-msgstr ""
+msgstr "аукціоніст"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:277
 msgid "aui"
-msgstr ""
+msgstr "автор передмови (відсутнє у MARC Code List for Relators. Сучасне - win)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:281
 msgid "aus"
-msgstr ""
+msgstr "автор сценарію"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:285
+#, fuzzy
 msgid "bkd"
-msgstr ""
+msgstr "дизайнер книги / художник-оформлювач (у т.ч. електронної)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:289
 msgid "bnd"
-msgstr ""
+msgstr "палітурник"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:293
+#, fuzzy
 msgid "brd"
-msgstr ""
+msgstr "диктор/ведучий/стример"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:297
+#, fuzzy
 msgid "brl"
-msgstr ""
+msgstr "тиснильник Брайля"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:301
 msgid "bsl"
@@ -6672,156 +6819,185 @@ msgid "clt"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:325
+#, fuzzy
 msgid "cwt"
-msgstr ""
+msgstr "автор коментарів"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:329
+#, fuzzy
 msgid "cmm"
-msgstr ""
+msgstr "критик/commentator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:333
 msgid "cnd"
-msgstr ""
+msgstr "диригент"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:337
+#, fuzzy
 msgid "cng"
-msgstr ""
+msgstr "оператор-постановник/cinematographer"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:341
 msgid "cns"
-msgstr ""
+msgstr "цензор"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:345
 msgid "col"
-msgstr ""
+msgstr "колекціонер"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:349
 msgid "com"
-msgstr ""
+msgstr "упорядник"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:353
+#, fuzzy
 msgid "cor"
-msgstr ""
+msgstr "реєстратор колекції"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:357
+#, fuzzy
 msgid "cou"
-msgstr ""
+msgstr "суд"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:361
 msgid "cre"
-msgstr ""
+msgstr "творець/creator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:365
+#, fuzzy
 msgid "crt"
-msgstr ""
+msgstr "court reporter/секретар судового засідання"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:369
 msgid "csl"
-msgstr ""
+msgstr "консультант"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:373
 msgid "cst"
-msgstr ""
+msgstr "художник-костюмер"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:377
 msgid "ctg"
-msgstr ""
+msgstr "картограф"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:381
+#, fuzzy
 msgid "ctr"
-msgstr ""
+msgstr "підрядник/contractor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:385
+#, fuzzy
 msgid "cur"
-msgstr ""
+msgstr "куратор (виставки)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:389
+#, fuzzy
 msgid "dfd"
-msgstr ""
+msgstr "відповідач"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:393
+#, fuzzy
 msgid "dgg"
-msgstr ""
+msgstr "установа, яка видає/присуджує диплом"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:397
+#, fuzzy
 msgid "dgs"
-msgstr ""
+msgstr "науковий керівник"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:401
+#, fuzzy
 msgid "dnc"
-msgstr ""
+msgstr "танцюрист"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:405
+#, fuzzy
 msgid "dnr"
-msgstr ""
+msgstr "колишній власник ресурсу"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:409
+#, fuzzy
 msgid "dpt"
-msgstr ""
+msgstr "поточний власник ресурсу"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:413
+#, fuzzy
 msgid "drm"
-msgstr ""
+msgstr "технічний кресляр/промисловий дизайнер"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:417
+#, fuzzy
 msgid "drt"
-msgstr ""
+msgstr "директор (напр.: фільму)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:421
+#, fuzzy
 msgid "dsr"
-msgstr ""
+msgstr "дизайнер (палітурки, книги, обкладинки, шрифту)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:425
+#, fuzzy
 msgid "dst"
-msgstr ""
+msgstr "дистриб'ютор (має права на ресурс)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:429
+#, fuzzy
 msgid "dte"
-msgstr ""
+msgstr "присвячено (отримувач честі)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:433
+#, fuzzy
 msgid "dto"
-msgstr ""
+msgstr "автор присвяти"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:437
+#, fuzzy
 msgid "dub"
-msgstr ""
+msgstr "сумнівний автор (помилково визначений)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:441
 msgid "edm"
-msgstr ""
+msgstr "редактор відео (у т.ч. монтажер)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:445
 msgid "egr"
-msgstr ""
+msgstr "гравер"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:449
+#, fuzzy
 msgid "enj"
 msgstr ""
+"Особа, яка здійснює правосуддя/судочинство / Суб'єкт владних повноважень"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:453
+#, fuzzy
 msgid "etr"
-msgstr ""
+msgstr "офортник/художник-офортист"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:457
+#, fuzzy
 msgid "exp"
-msgstr ""
+msgstr "експерт (відповідальний за оцінку вартості)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:461
+#, fuzzy
 msgid "fac"
-msgstr ""
+msgstr "факсиміліст"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:465
+#, fuzzy
 msgid "fds"
-msgstr ""
+msgstr "дистриб'ютор фільму"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:469
+#, fuzzy
 msgid "fmd"
-msgstr ""
+msgstr "кінорежисер/film director"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:473
+#, fuzzy
 msgid "fmk"
-msgstr ""
+msgstr "filmmaker (режисер, продюсер, сценарист, оператор)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:477
 msgid "fmo"
@@ -7493,11 +7669,12 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:207
 msgid "photography"
-msgstr ""
+msgstr "фотография"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:211
+#, fuzzy
 msgid "summarization"
-msgstr ""
+msgstr "резюме/Короткий зміст"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:215
 msgid "onlineResourceViaRERODOC"
@@ -7509,35 +7686,36 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:223
 msgid "webSite"
-msgstr ""
+msgstr "вебсайт"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:227
 msgid "tableOfContents"
-msgstr ""
+msgstr "Зміст"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:231
 msgid "fullText"
-msgstr ""
+msgstr "повнийТекст"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:235
 msgid "video"
-msgstr ""
+msgstr "відео"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:244
+#, fuzzy
 msgid "Public notes"
-msgstr ""
+msgstr "Публічні коментарі"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:245
 msgid "Is displayed next to the link, as additional information."
-msgstr ""
+msgstr "Відображається поруч із посиланням як додаткова інформація."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:249
 msgid "Public note"
-msgstr ""
+msgstr "Публічна нотатка/примітка"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:255
 msgid "Example: Access only from the library"
-msgstr ""
+msgstr "Приклад: Доступ лише з бібліотеки"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:5
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:39
@@ -7546,52 +7724,63 @@ msgid ""
 "conferences), place, temporal or work. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
+"Текстовий опис теми, особи, організації (включно з конференціями), місця, "
+"часу або роботи. Зазвичай використовується тимчасово, доки не буде "
+"встановлено зв'язок з об'єктом."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:47
 msgid "bf:Work"
-msgstr ""
+msgstr "bf:Твір(Work)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:51
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:187
 msgid "bf:Topic"
-msgstr ""
+msgstr "bf:Topic"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:195
 msgid "bf:Temporal"
-msgstr ""
+msgstr "bf:Temporal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:84
+#, fuzzy
 msgid "Source catalog where the subject was imported from."
-msgstr ""
+msgstr "Каталог, з якого було імпортовано об'єкт."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:102
 msgid ""
 "Textual description of a topic (including genre and forms), person, "
 "organisation (including conferences), place, temporal or work."
 msgstr ""
+"Текстовий опис теми (включаючи жанр та форми), особи, організації "
+"(включаючи конференції), місця, час/період або твір."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:131
 msgid "Is this entity a genre, form ?"
-msgstr ""
+msgstr "Чи є ця сутність жанром, формою?"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:3
+#, fuzzy
 msgid "Extent"
-msgstr ""
+msgstr "Extent/Ступінь"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:4
 msgid ""
 "Record the number of units and the type of unit. For the type of unit, "
 "use RDA recommended terms."
 msgstr ""
+"Запишіть кількість одиниць та тип одиниці. Для типу одиниці використовуйте "
+"терміни, рекомендовані RDA."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:15
+#, fuzzy
 msgid "Example: 355 pages"
-msgstr ""
+msgstr "Приклад: 355 сторінок"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:3
+#, fuzzy
 msgid "Frequencies"
-msgstr ""
+msgstr "Частота/Частоти"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:4
 msgid ""
@@ -7599,57 +7788,70 @@ msgid ""
 "integrating resource is issued. For former frequencies, repeat the field "
 "and specify dates (MARC 310, 321)."
 msgstr ""
+"Інтервал, через який виходить випуск або частина серіального видання, або "
+"оновлення інтегруючого(?) ресурсу. Для попередніх періодичностей повторіть "
+"поле та вкажіть дати (MARC 310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:98
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:245
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:62
+#, fuzzy
 msgid "Frequency"
-msgstr ""
+msgstr "Частота/періодичність"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:26
 msgid "RDA recommended terms: monthly, weekly, daily, ..."
 msgstr ""
+"Рекомендовані терміни RDA: monthly (щомісяця), weekly (щотижня), daily "
+"(щодня), ..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:33
+#, fuzzy
 msgid "Required if a former frequency is indicated"
-msgstr ""
+msgstr "Обов'язково, якщо вказана попередня частота"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:39
 msgid "Example: 1953-1988"
-msgstr ""
+msgstr "Приклад: 1953-1988"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:3
 msgid "Genres, forms"
-msgstr ""
+msgstr "Жанри, форми"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:4
 msgid "(MARC 655)"
-msgstr ""
+msgstr "(MARC 655)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:10
 msgid "Genre or form of the document."
-msgstr ""
+msgstr "Жанр або форма документа."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:15
 msgid ""
 "Link to a remote or local entity of type topic accepted as a 'genre, "
 "form'."
 msgstr ""
+"Посилання на віддалену або локальну сутність типу topic, прийняту як «жанр, "
+"форма»."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:31
+#, fuzzy
 msgid ""
 "Textual description of a genre or form. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
+"Текстовий опис жанру або форми. Зазвичай використовується тимчасово, доки не "
+"буде встановлено зв'язок з сутністю."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:3
 msgid "Link to a genre, form"
-msgstr ""
+msgstr "Посилання на жанр, форму"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:3
+#, fuzzy
 msgid "Genre, form (textual)"
-msgstr ""
+msgstr "Жанр, форма (текст)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:38
 msgid "Example: Electronic serials"
@@ -7661,105 +7863,120 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:3
 msgid "Identifiers"
-msgstr ""
+msgstr "Ідентифікатори"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:25
+#, fuzzy
 msgid ""
 "Other identifier types are entered as local identifiers with indication "
 "of the source."
 msgstr ""
+"Інші типи ідентифікаторів вводяться як локальні ідентифікатори/контрольні "
+"номери із зазначенням джерела."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:59
+#, fuzzy
 msgid "bf:AudioIssueNumber"
 msgstr ""
+"bf:AudioIssueNumber (Номер, що присвоюється видавцями звукозаписів для "
+"ідентифікації позначення випуску або серійного номера ресурсу)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:63
 msgid "bf:Doi"
-msgstr ""
+msgstr "bf:Doi"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:67
+#, fuzzy
 msgid "bf:Ean"
-msgstr ""
+msgstr "bf:Ean (Міжнародний ідентифікатор статті)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:71
 msgid "bf:Gtin14Number"
 msgstr ""
+"bf:Gtin14Number (14-значний номер, що присвоюється для ідентифікації "
+"торгових товарів на різних рівнях упаковки.)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:75
 msgid "bf:Identifier"
 msgstr ""
+"bf:Identifier (Рядок символів, пов'язаний з ресурсом, який відрізняє його "
+"від інших ресурсів, тобто який однозначно ідентифікує сутність)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:79
 msgid "bf:Isan"
-msgstr ""
+msgstr "bf:Isan (Міжнародний стандартний аудіовізуальний номер)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:83
 msgid "bf:Isbn"
-msgstr ""
+msgstr "bf:Isbn"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:87
 msgid "bf:Ismn"
-msgstr ""
+msgstr "bf:Ismn (Міжнародний стандартний музичний номер.)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:91
 msgid "bf:Isrc"
-msgstr ""
+msgstr "bf:Isrc (Міжнародний стандартний код запису)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:95
 msgid "bf:Issn"
-msgstr ""
+msgstr "bf:Issn"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:99
 msgid "bf:IssnL"
-msgstr ""
+msgstr "bf:IssnL (ISSN, який пов'язує між собою різні медіаверсії ресурсу)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:103
 msgid "bf:Lccn"
-msgstr ""
+msgstr "bf:Lccn"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:107
 msgid "bf:Local"
-msgstr ""
+msgstr "bf:Local"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:111
 msgid "bf:MatrixNumber"
-msgstr ""
+msgstr "bf:MatrixNumber"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:115
 msgid "bf:MusicDistributorNumber"
-msgstr ""
+msgstr "bf:MusicDistributorNumber"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:119
 msgid "bf:MusicPlate"
-msgstr ""
+msgstr "bf:MusicPlate"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:123
 msgid "bf:MusicPublisherNumber"
-msgstr ""
+msgstr "bf:MusicPublisherNumber"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:127
+#, fuzzy
 msgid "bf:PublisherNumber"
 msgstr ""
+"bf:PublisherNumber (Номер, призначений видавцем, який не належить до одного "
+"з визначених типів)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:131
 msgid "bf:Upc"
-msgstr ""
+msgstr "bf:Upc (Універсальний товарний код)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:135
 msgid "bf:Urn"
-msgstr ""
+msgstr "bf:Urn (Уніфікована назва ресурсу)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:139
 msgid "bf:VideoRecordingNumber"
-msgstr ""
+msgstr "bf:VideoRecordingNumber (Номер, присвоєний видавцем відеозапису)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:143
 msgid "uri"
-msgstr ""
+msgstr "uri"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:152
+#, fuzzy
 msgid "Identifier value"
-msgstr ""
+msgstr "Значення ідентифікатора"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:182
 #, fuzzy
@@ -7945,8 +8162,9 @@ msgid "target_understanding_adults"
 msgstr "Дорослі"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:154
+#, fuzzy
 msgid "target_understanding_allophone_adults"
-msgstr ""
+msgstr "Дорослі, які вивчають іноземні мови"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:158
 msgid "target_understanding_all_audience"
@@ -8121,8 +8339,9 @@ msgid "Mode of issuance"
 msgstr "Спосіб видачі?періодичність"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:7
+#, fuzzy
 msgid "rdami:1001"
-msgstr ""
+msgstr "rdami:1001 (окремий блок)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:20
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:85
@@ -8148,17 +8367,19 @@ msgid "article"
 msgstr "стаття"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:39
+#, fuzzy
 msgid "materialUnit"
-msgstr ""
+msgstr "ОдиницяМатеріалу"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:43
 #, fuzzy
 msgid "privateFile"
-msgstr "приватна зйомка"
+msgstr "приватнийФайл/Запис"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:47
+#, fuzzy
 msgid "privateSubfile"
-msgstr ""
+msgstr "Приватний підфайл (Приватний запис, піделемент)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:56
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:116
@@ -8191,24 +8412,29 @@ msgid "rdami:1002"
 msgstr "багаточастинна монографія (rdami:1002)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:99
+#, fuzzy
 msgid "Set"
-msgstr ""
+msgstr "Набір"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:103
+#, fuzzy
 msgid "partIndependentTitle"
-msgstr ""
+msgstr "Частина з незалежною назвою"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:107
+#, fuzzy
 msgid "partDependantTitle"
-msgstr ""
+msgstr "Частина із залежною назвою"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:132
+#, fuzzy
 msgid "rdami:1003"
-msgstr ""
+msgstr "rdami:1003 (серійне видання)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:159
+#, fuzzy
 msgid "serialInSerial"
-msgstr ""
+msgstr "серіальне видання в серіальному виданні"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:163
 msgid "monographicSeries"
@@ -8817,45 +9043,57 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:40
 msgid "bf:Title"
-msgstr ""
+msgstr "bf:Title"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:44
+#, fuzzy
 msgid "bf:ParallelTitle"
-msgstr ""
+msgstr "bf:ParallelTitle (Назва іншою мовою та/або письменністю)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:48
+#, fuzzy
 msgid "bf:VariantTitle"
 msgstr ""
+"bf:VariantTitle (Назва, пов’язана з ресурсом, яка відрізняється від назви "
+"твору або Instance)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:52
+#, fuzzy
 msgid "bf:AbbreviatedTitle"
 msgstr ""
+"bf:AbbreviatedTitle "
+"(Назва, скорочена для цитування, індексації та/або ідентифікації.)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:56
+#, fuzzy
 msgid "bf:KeyTitle"
 msgstr ""
+"bf:KeyTitle (Унікальна назва для продовжуваного ресурсу, яка присвоюється "
+"Міжнародним центром ISSN разом з ISSN)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:65
 msgid "Main titles"
-msgstr ""
+msgstr "Основні назви"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:69
 msgid "Main title"
-msgstr ""
+msgstr "Основна назва"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:74
+#, fuzzy
 msgid "Subtitle"
-msgstr ""
+msgstr "Підзаголовок"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:89
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:59
+#, fuzzy
 msgid "Parts"
-msgstr ""
+msgstr "Частини"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:93
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:64
 msgid "Part"
-msgstr ""
+msgstr "Частина"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:101
 msgid "Part numbers"
@@ -8863,7 +9101,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:105
 msgid "Part number"
-msgstr ""
+msgstr "Номер частини"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:110
 msgid "Part names"
@@ -8871,63 +9109,67 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:114
 msgid "Part name"
-msgstr ""
+msgstr "Назва частини"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_original-v0.0.1.json:3
 msgid "Original titles"
-msgstr ""
+msgstr "Оригінальні назви"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_original-v0.0.1.json:4
+#, fuzzy
 msgid "Title of the work embodied."
-msgstr ""
+msgstr "Назва втіленого твору."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_original-v0.0.1.json:8
 msgid "Original title"
-msgstr ""
+msgstr "Оригінальна назва"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:3
 msgid "Types"
-msgstr ""
+msgstr "Типи"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:17
+#, fuzzy
 msgid "docmaintype_archives"
-msgstr ""
+msgstr "docmaintype_Архіви"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:44
 msgid "docmaintype_article"
-msgstr ""
+msgstr "docmaintype_Стаття"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:71
 msgid "docmaintype_audio"
-msgstr ""
+msgstr "docmaintype_Аудіо"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:113
 msgid "docsubtype_music"
-msgstr ""
+msgstr "docsubtype_Музика"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:117
 msgid "docsubtype_sound"
-msgstr ""
+msgstr "docsubtype_Звук"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:121
 msgid "docsubtype_audio_book"
-msgstr ""
+msgstr "docsubtype_Аудіокнига"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:125
 msgid "docsubtype_recorded_words"
-msgstr ""
+msgstr "docsubtype_Голосовий_запис"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:136
+#, fuzzy
 msgid "docmaintype_book"
-msgstr ""
+msgstr "docmaintype_Книга"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:182
+#, fuzzy
 msgid "docsubtype_other_book"
-msgstr ""
+msgstr "docsubtype_Книга, текст (інший тип)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:186
 msgid "docsubtype_large_print_book"
-msgstr ""
+msgstr "docsubtype_Книга з великим шрифтом"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:190
 msgid "docsubtype_braille_book"
@@ -8935,63 +9177,72 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:194
 msgid "docsubtype_manuscript"
-msgstr ""
+msgstr "docsubtype_рукопис"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:198
 msgid "docsubtype_thesis"
-msgstr ""
+msgstr "docsubtype_Дисертація"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:202
 msgid "docsubtype_e-book"
-msgstr ""
+msgstr "docsubtype_Електронна книга"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:206
+#, fuzzy
 msgid "docsubtype_microform"
-msgstr ""
+msgstr "docsubtype_мікроформа (мікрофільм, мікрокарта, мікрофіша, тощо)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:210
+#, fuzzy
 msgid "docsubtype_pictorial_book"
-msgstr ""
+msgstr "docsubtype_ілюстрована_книга"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:221
+#, fuzzy
 msgid "docmaintype_children"
-msgstr ""
+msgstr "docmaintype_Дитяча"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:248
+#, fuzzy
 msgid "docmaintype_comic"
-msgstr ""
+msgstr "docmaintype_Комікси"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:288
+#, fuzzy
 msgid "docsubtype_comic"
-msgstr ""
+msgstr "docsubtype_Комікс"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:292
+#, fuzzy
 msgid "docsubtype_manga"
-msgstr ""
+msgstr "docsubtype_Манга"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:303
 msgid "docmaintype_electronic"
-msgstr ""
+msgstr "docmaintype_електронна"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:342
 msgid "docsubtype_cdrom_dvdrom"
-msgstr ""
+msgstr "docsubtype_cdrom_dvdrom"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:346
+#, fuzzy
 msgid "docsubtype_other_electronic_carrier"
-msgstr ""
+msgstr "docsubtype_електронний носій даних (інший тип)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:357
 msgid "docmaintype_game"
-msgstr ""
+msgstr "docmaintype_Ігри"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:399
+#, fuzzy
 msgid "docsubtype_other_game"
-msgstr ""
+msgstr "docsubtype_Ігри (інше)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:403
+#, fuzzy
 msgid "docsubtype_video_game"
-msgstr ""
+msgstr "docsubtype_Відеогра"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:407
 msgid "docsubtype_role-playing_game"
@@ -9139,112 +9390,132 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:3
 msgid "Usage and access policies"
-msgstr ""
+msgstr "Умови використання та доступу"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:4
+#, fuzzy
 msgid ""
 "description: Information about restrictions imposed on access to the "
 "described materials, including retention, reproduction, access, and "
 "lending (MARC 506, 540)."
 msgstr ""
+"опис: Інформація про обмеження, що накладаються на доступ до описаних "
+"матеріалів, включаючи зберігання, відтворення, доступ та позичання "
+"(MARC 506, 540)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:9
 msgid "Usage and access policy"
-msgstr ""
+msgstr "Умови доступу та використання"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:41
 msgid "Example: Copy not allowed"
-msgstr ""
+msgstr "Приклад: Копіювання заборонено"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:3
+#, fuzzy
 msgid "Work access point"
-msgstr ""
+msgstr "Точка доступу до твору"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:4
 msgid "(MARC 130, 700, 710, 730)"
-msgstr ""
+msgstr "(MARC 130, 700, 710, 730)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:46
+#, fuzzy
 msgid "Date of work"
-msgstr ""
+msgstr "Дата твору"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:51
 msgid "Miscellaneous information"
-msgstr ""
+msgstr "Різна інформація"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:60
+#, fuzzy
 msgid "Part, Section, or Supplement"
-msgstr ""
+msgstr "Частина, розділ або доповнення (додатки)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:72
 msgid "Designation"
-msgstr ""
+msgstr "Позначення"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:73
+#, fuzzy
 msgid "Numeric designation of the part, section or supplement"
-msgstr ""
+msgstr "Числове позначення частини, розділу, або додатку"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:79
+#, fuzzy
 msgid "Title of the part, section, or supplement"
-msgstr ""
+msgstr "Назва частини, розділу або додатку"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:87
+#, fuzzy
 msgid "Form subdivisions"
-msgstr ""
+msgstr "Підрозділи за формою"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:91
 msgid "Form subdivision"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:97
+#, fuzzy
 msgid "Mediums of performance (music)"
-msgstr ""
+msgstr "Засоби виконання (музика)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:101
+#, fuzzy
 msgid "Medium of performance (music)"
-msgstr ""
+msgstr "Засіб виконання (музика)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:107
+#, fuzzy
 msgid "Arranged statement (music)"
-msgstr ""
+msgstr "Аранжування (музика)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:112
 msgid "Key (music)"
-msgstr ""
+msgstr "Тональність (музика)"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:35
+#, fuzzy
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:191
 msgid "Show more"
-msgstr ""
+msgstr "Показати більше"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:258
 msgid "article/volume"
-msgstr ""
+msgstr "стаття/том"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:260
+#, fuzzy
 msgid "articles/volumes"
-msgstr ""
+msgstr "статті/томи"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:293
 msgid "No additional information yet."
-msgstr ""
+msgstr "Поки що додаткової інформації немає."
 
 #: rero_ils/modules/entities/views.py:52
+#, fuzzy
 msgid "Entity not found."
-msgstr ""
+msgstr "Сутність не знайдено."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity-v0.0.1.json:3
+#, fuzzy
 msgid "Local entity"
-msgstr ""
+msgstr "Локальна сутність"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity-v0.0.1.json:4
+#, fuzzy
 msgid ""
 "Entity (person, corporate body, topic, place, temporal, etc.) catalogued "
 "directly in RERO ILS."
 msgstr ""
+"Сутність (особа, колективний автор, тема, місце, час тощо), каталогізована "
+"безпосередньо в RERO ILS."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:49
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:47
@@ -9252,8 +9523,9 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:41
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:43
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:40
+#, fuzzy
 msgid "Local entity PID"
-msgstr ""
+msgstr "PID локальної сутності"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:54
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:52
@@ -9265,11 +9537,12 @@ msgstr ""
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:224
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:280
 msgid "Deletion date"
-msgstr ""
+msgstr "Дата видалення"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:65
+#, fuzzy
 msgid "Example: University of Cambridge"
-msgstr ""
+msgstr "Приклад: Кембриджський університет/University of Cambridge"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:71
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:69
@@ -9279,32 +9552,36 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:74
 #: rero_ils/modules/entities/templates/rero_ils/_remote_organisation.html:34
 #: rero_ils/modules/entities/templates/rero_ils/_remote_person.html:44
+#, fuzzy
 msgid "Authorized access point"
-msgstr ""
+msgstr "Авторизована точка доступу"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:94
+#, fuzzy
 msgid "Example: Faculty of Philosophy"
-msgstr ""
+msgstr "Приклад: Філософський факультет/Faculty of Philosophy"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:107
 msgid "Example: 1848"
-msgstr ""
+msgstr "Приклад: 1848"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:119
 msgid "Example: 2015"
-msgstr ""
+msgstr "Приклад: 2015"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:137
+#, fuzzy
 msgid "Example: Paris"
-msgstr ""
+msgstr "Приклад: Париж"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:149
+#, fuzzy
 msgid "Example: 23e"
-msgstr ""
+msgstr "Приклад: 23e"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:162
 msgid "Example: 2022"
-msgstr ""
+msgstr "Приклад: 2022"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:168
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:139
@@ -9316,8 +9593,9 @@ msgstr ""
 #: rero_ils/modules/entities/templates/rero_ils/_local_place.html:21
 #: rero_ils/modules/entities/templates/rero_ils/_local_temporal.html:21
 #: rero_ils/modules/entities/templates/rero_ils/_local_topic.html:22
+#, fuzzy
 msgid "Alternative names"
-msgstr ""
+msgstr "Альтернативні назви"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:172
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:143
@@ -9325,7 +9603,7 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:80
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:87
 msgid "Alternative name"
-msgstr ""
+msgstr "Альтернативна назва"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:178
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:188
@@ -9334,8 +9612,11 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:100
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:87
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:56
+#, fuzzy
 msgid "Source catalog"
 msgstr ""
+"Каталог-джерело (основне джерело для копіювання бібліографічних записів в "
+"інший каталог чи систему?)"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:184
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:194
@@ -9344,204 +9625,245 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:106
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:93
 msgid "Example: lcsh, mesh, rameau"
-msgstr ""
+msgstr "Приклад: lcsh, mesh, rameau"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:149
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:86
+#, fuzzy
 msgid "Example: Beyer, Adam"
-msgstr ""
+msgstr "Приклад: Байєр, Адам/Beyer, Adam"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:156
 #: rero_ils/modules/entities/templates/rero_ils/_remote_person.html:34
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:432
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:81
+#, fuzzy
 msgid "Gender"
-msgstr ""
+msgstr "Стать"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:172
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:98
+#, fuzzy
 msgid "male"
-msgstr ""
+msgstr "чоловік"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:176
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:94
+#, fuzzy
 msgid "female"
-msgstr ""
+msgstr "жінка"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_place-v0.0.1.json:57
+#, fuzzy
 msgid "Example: Parc Natural de l'Albufera (Spain)"
-msgstr ""
+msgstr "Приклад: Parc Natural de l'Albufera (Іспанія)"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_place-v0.0.1.json:86
+#, fuzzy
 msgid "Example: Albufera, Parc Natural de l' (Spain)"
-msgstr ""
+msgstr "Приклад: Albufera, Parc Natural de l' (Іспанія)"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:57
+#, fuzzy
 msgid "Example: 21st century"
-msgstr ""
+msgstr "Приклад: 21 століття"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:59
+#, fuzzy
 msgid "Example: Industrial archaeology"
-msgstr ""
+msgstr "Приклад: Промислова археологія"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:78
 #: rero_ils/modules/entities/templates/rero_ils/_local_topic.html:21
+#, fuzzy
 msgid "Genre form"
-msgstr ""
+msgstr "Жанрова форма/Жанр"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:93
+#, fuzzy
 msgid "Example: Antiquities, Industrial"
-msgstr ""
+msgstr "Приклад: Антикваріат, промисловий"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:56
+#, fuzzy
 msgid "Example: The Lord of the Rings"
-msgstr ""
+msgstr "Приклад: Володар перснів/The Lord of the Rings"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:62
 #: rero_ils/modules/entities/templates/rero_ils/_local_work.html:21
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:69
+#, fuzzy
 msgid "Creator"
-msgstr ""
+msgstr "Творець (автор)/Creator"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:68
+#, fuzzy
 msgid "Example: Tolkien, John Ronald Reuel, 1892-1973"
-msgstr ""
+msgstr "Приклад: Толкін, Джон Рональд Руел, 1892-1973"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:4
 msgid "Mef entity"
-msgstr ""
+msgstr "Mef сутність"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:5
+#, fuzzy
 msgid ""
 "Entity (person, corporate body, topic, place, temporal, etc.) from MEF "
 "and indexed in RERO ILS."
 msgstr ""
+"Сутність (особа, колективний автор, тема, місце, час тощо) з MEF та "
+"проіндексована в RERO ILS."
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:20
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:24
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:195
+#, fuzzy
 msgid "Library ID"
-msgstr ""
+msgstr "Ідентифікатор бібліотеки"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:28
+#, fuzzy
 msgid "Agent type"
-msgstr ""
+msgstr "Тип агента"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:39
 msgid "VIAF ID"
-msgstr ""
+msgstr "VIAF ID"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:43
+#, fuzzy
 msgid "Source authorities list"
-msgstr ""
+msgstr "Список авторитетних джерел"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:80
+#, fuzzy
 msgid "RERO authorities"
-msgstr ""
+msgstr "Авторитетні дані RERO"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:84
+#, fuzzy
 msgid "GND authorities"
-msgstr ""
+msgstr "Авторитетні дані GND"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:88
+#, fuzzy
 msgid "IdRef authorities"
-msgstr ""
+msgstr "Авторитетні дані IdRef"
 
 #: rero_ils/modules/entities/templates/rero_ils/_local_organisation.html:22
+#, fuzzy
 msgid "Conference place"
-msgstr ""
+msgstr "Місце проведення конференції"
 
 #: rero_ils/modules/entities/templates/rero_ils/_local_organisation.html:23
 msgid "Conference numbering"
-msgstr ""
+msgstr "Номер конференції"
 
 #: rero_ils/modules/entities/templates/rero_ils/_local_organisation.html:24
 msgid "Conference date"
-msgstr ""
+msgstr "Дата конференції"
 
 #: rero_ils/modules/entities/templates/rero_ils/_local_person.html:25
+#, fuzzy
 msgid "Fuller form of name"
-msgstr ""
+msgstr "Форма повного імені"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_organisation.html:22
+#, fuzzy
 msgid "Date establishment"
-msgstr ""
+msgstr "Дата встановлення/Дата заснування"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_organisation.html:24
+#, fuzzy
 msgid "Death termination"
-msgstr ""
+msgstr "Дата припинення(?)"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_organisation.html:31
+#, fuzzy
 msgid "Associated country"
-msgstr ""
+msgstr "Асоційована країна"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_organisation.html:36
 #: rero_ils/modules/entities/templates/rero_ils/_remote_person.html:42
+#, fuzzy
 msgid "Variant access point"
-msgstr ""
+msgstr "Додаткова (Інша) точка доступу"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_person.html:37
 msgid "Biographical information"
-msgstr ""
+msgstr "Біографічна інформація"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_topic.html:27
+#, fuzzy
 msgid "Variant access point(s)"
-msgstr ""
+msgstr "Варіант(и) точка(и) доступу"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_topic.html:31
 msgid "Broader"
 msgstr ""
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_topic.html:42
+#, fuzzy
 msgid "Related"
-msgstr ""
+msgstr "Пов'язані сутності/Схожі"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_topic.html:53
+#, fuzzy
 msgid "Classification(s)"
-msgstr ""
+msgstr "Класифікація(ї)"
 
 #: rero_ils/modules/entities/templates/rero_ils/_search_link.html:23
+#, fuzzy
 msgid "Search documents"
-msgstr ""
+msgstr "Пошук документів"
 
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:23
 #: rero_ils/modules/entities/templates/rero_ils/entity_remote.html:23
+#, fuzzy
 msgid "Author/Subject"
-msgstr ""
+msgstr "Автор/Тема"
 
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:34
+#, fuzzy
 msgid "LOCAL ID"
-msgstr ""
+msgstr "ЛОКАЛЬНИЙ ІДЕНТИФІКАТОР"
 
 #: rero_ils/modules/entities/templates/rero_ils/entity_remote.html:52
 msgid "Source(s)"
-msgstr ""
+msgstr "Джерело(а)"
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:3
+#, fuzzy
 msgid "Container linking one or more files to a document and a library."
 msgstr ""
+"Контейнер, що пов'язує один або декілька файлів з документом та бібліотекою."
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:21
+#, fuzzy
 msgid "Collections"
-msgstr ""
+msgstr "Збірники/Зібрання/Колекції/Фонди"
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:25
+#, fuzzy
 msgid "Collection Name"
-msgstr ""
+msgstr "Назва колекції/фонду/зібрання"
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:31
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:144
+#, fuzzy
 msgid "Parent document"
-msgstr ""
+msgstr "Джерело (Батьківський документ)"
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:35
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:148
+#, fuzzy
 msgid "Parent document URI"
-msgstr ""
+msgstr "URI батьківського документа/джерела"
 
 #: rero_ils/modules/holdings/api.py:167
+#, fuzzy
 msgid "Must have next expected date for regular frequencies."
-msgstr ""
+msgstr "Обов'язково вкажіть наступну очікувану дату регулярної публікації."
 
 #: rero_ils/modules/holdings/api.py:520
 msgid "Only serial holdings can be requested."
@@ -9549,7 +9871,7 @@ msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 msgid "Holdings"
-msgstr ""
+msgstr "Фонди/номери, випуски, томи серіального видання"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:5
 msgid "Describes a set of items linked to a document and belonging to a library."
@@ -9557,7 +9879,7 @@ msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:49
 msgid "Persistant identifier"
-msgstr ""
+msgstr "Постійний ідентифікатор"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:72
 msgid "Circulation type"
@@ -12872,7 +13194,7 @@ msgstr "Вже маєте обліковий запис?"
 
 #: rero_ils/theme/templates/rero_ils/reset_password.html:21
 msgid "Reset password"
-msgstr ""
+msgstr "Скинути пароль"
 
 #: rero_ils/theme/templates/rero_ils/search.html:21
 msgid "Documents"
@@ -13041,4 +13363,3 @@ msgstr "Ваш пароль успішно скинуто."
 
 #~ msgid "Invenio assets"
 #~ msgstr ""
-
