@@ -415,6 +415,7 @@ class AcqRollover:
         log = self.logger
         log.info("  Migrating order lines ...")
         self._mapping_table["order_lines"] = {}
+        new_order_lines = []
         for idx, line in enumerate(order_lines, 1):
             data = deepcopy(line)
             # Try to find the new parent pids (checking the temporary
@@ -437,7 +438,8 @@ class AcqRollover:
             #   If create failed :: raise an error.
             #   If success :: fill the mapping table AND the stack of new obj.
             try:
-                new_line = AcqOrderLine.create(data, dbcommit=True, reindex=True, delete_pid=True)
+                new_line = AcqOrderLine.create(data, dbcommit=True, reindex=False, delete_pid=True)
+                new_order_lines.append(new_line)
                 self._stack.append(new_line)
                 self._mapping_table["order_lines"][line.pid] = new_line.pid
                 old_label = truncate(str(line), 55).ljust(57)
@@ -445,6 +447,8 @@ class AcqRollover:
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
                 raise RolloverError(f"Order line creation failed on [acol#{line.pid}] :: {e!s}") from e
+        for new_line in new_order_lines:
+            new_line.reindex()
 
     def _update_budgets(self, orig_state=False, dest_state=False):
         """Update rollover budgets to activate/deactivate them.

@@ -171,8 +171,8 @@ class AcqAccount(AcquisitionIlsRecord):
           * APPROVED or ORDERED acqz order lines related to this account.
           * Encumbrance of all children account
 
-        :return A tuple of encumbrance amount : First element if encumbrance
-                 for this account, second element is the children encumbrance.
+        :return A tuple of encumbrance amount : First element if encumbrance for this account, second element is
+            the children encumbrance.
         """
         # Encumbrance of this account
         status_list = [
@@ -199,9 +199,8 @@ class AcqAccount(AcquisitionIlsRecord):
 
         The expenditure amount is the sum of the amounts of receipt lines
         plus the sum of all receipt amount_adjustments related to this account.
-        :return A tuple of expenditure amount : First element for self
-                 expenditure amount, second element is the children
-                 expenditure amount.
+        :return A tuple of expenditure amount : First element for self expenditure amount, second element is
+            the children expenditure amount.
         """
         # Expenditure of this account
         search = AcqReceiptLinesSearch().filter("term", acq_account__pid=self.pid)
@@ -232,8 +231,7 @@ class AcqAccount(AcquisitionIlsRecord):
         """Get the remaining balances for this account.
 
         The balance is computed from the initial account amount minus
-        encumbrance and expenditure of myself, and distribution to children
-        accounts.
+        encumbrance and expenditure of myself, and distribution to children accounts.
         The total balance for this account is computed from the initial account
         minus the sum of (self encumbrance + children encumbrance) and the sum
         of (self expenditure + children expenditure).
@@ -267,8 +265,7 @@ class AcqAccount(AcquisitionIlsRecord):
     def get_exceedance(self, exceed_type):
         """Compute the exceedance allowed for this account by type.
 
-        :param exceed_type: the exceedance type to compute. Check
-               `AcqAccountExceedanceType` class for values.
+        :param exceed_type: the exceedance type to compute. Check `AcqAccountExceedanceType` class for values.
         :return the exceedance amount allowed rounded to the nearest centime.
         """
         rate = 0
@@ -282,12 +279,10 @@ class AcqAccount(AcquisitionIlsRecord):
         """Transfer funds between two accounts.
 
         To transfer funds between this account and the specified target
-        account. To do that, the source account must have enough available
-        money.
+        account. To do that, the source account must have enough available money.
         :param target_account: the target account as AcqAccount instance.
         :param amount: the amount to transfer to target account.
-        :raise ValueError: if transfer amount is greater than source availabe
-               balance.
+        :raise ValueError: if transfer amount is greater than source availabe balance.
         """
         # First check if :
         #   * target account == source account
@@ -306,7 +301,7 @@ class AcqAccount(AcquisitionIlsRecord):
             for acc in [self, *source_ancestors]:
                 if acc == target_account:
                     break
-                acc["allocated_amount"] -= amount
+                acc["allocated_amount"] = round(acc["allocated_amount"] - amount, 2)
                 acc.update(acc, dbcommit=True, reindex=False)
             self.reindex()  # index myself and all my ancestors
             return
@@ -319,16 +314,16 @@ class AcqAccount(AcquisitionIlsRecord):
         #     * from common ancestor (not included) to target account, we need
         #       to increase the allocated amount.
         target_ancestors = list(target_account.get_ancestors())
-        common_ancestors = list({self, *source_ancestors} & {target_account, *target_ancestors})
-        common_ancestor = None
-        if common_ancestors:
+        if common_ancestors := list({self, *source_ancestors} & {target_account, *target_ancestors}):
             common_ancestor = max(common_ancestors, key=lambda a: a.depth)
+        else:
+            common_ancestor = None
         # If we found a common ancestor, we are in the same tree
         if common_ancestor:
             for acc in [self, *source_ancestors]:
                 if acc == common_ancestor:
                     break
-                acc["allocated_amount"] -= amount
+                acc["allocated_amount"] = round(acc["allocated_amount"] - amount, 2)
                 # Note : We need to reindex during update, to update parent
                 # account balances. Without this reindex, the pre_commit hook
                 # will detect a problem
@@ -340,7 +335,7 @@ class AcqAccount(AcquisitionIlsRecord):
                     break
                 ancestors_to_apply.append(acc)
             for acc in reversed([target_account, *ancestors_to_apply]):
-                acc["allocated_amount"] += amount
+                acc["allocated_amount"] = round(acc["allocated_amount"] + amount, 2)
                 acc.update(acc, dbcommit=True, reindex=False)
             target_account.reindex()
             return
@@ -351,10 +346,10 @@ class AcqAccount(AcquisitionIlsRecord):
         #   * from target root account to target account, increase the
         #     allocated amount.
         for acc in [self, *source_ancestors]:
-            acc["allocated_amount"] -= amount
+            acc["allocated_amount"] = round(acc["allocated_amount"] - amount, 2)
             acc.update(acc, dbcommit=True, reindex=True)
         for acc in reversed([target_account, *target_ancestors]):
-            acc["allocated_amount"] += amount
+            acc["allocated_amount"] = round(acc["allocated_amount"] + amount, 2)
             acc.update(acc, dbcommit=True, reindex=False)
         target_account.reindex()
 
@@ -374,15 +369,12 @@ class AcqAccount(AcquisitionIlsRecord):
         :return a generator of children accounts (or length).
         """
         query = AcqAccountsSearch().filter("term", parent__pid=self.pid)
-        if output == "count":
-            return query.count()
-        return get_objects(AcqAccount, query)
+        return query.count() if output == "count" else get_objects(AcqAccount, query)
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
 
-        :param get_pids: if True list of linked pids
-                         if False count of linked records
+        :param get_pids: if True list of linked pids if False count of linked records
         """
         links = {}
         order_lines_query = AcqOrderLinesSearch().filter("term", acq_account__pid=self.pid)
