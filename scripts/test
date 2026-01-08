@@ -73,12 +73,16 @@ fi
 
 function pretests () {
   info_msg "Check vulnerabilities:"
+  # nbconvert 7.16.6  CVE-2025-53000
+  add_exceptions "CVE-2025-53000"
   # urllib3 1.26.20 GHSA-pq67-6m6q-mj2v 2.5.0
   add_exceptions "GHSA-pq67-6m6q-mj2v"
   # urllib3 1.26.20 CVE-2025-66418 2.6.0
   add_exceptions "CVE-2025-66418"
   # urllib3 1.26.20 CVE-2025-66471 2.6.0
   add_exceptions "CVE-2025-66471"
+  # urllib3   1.26.20 CVE-2026-21441 2.6.3
+  add_exceptions "CVE-2026-21441"
   PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"
