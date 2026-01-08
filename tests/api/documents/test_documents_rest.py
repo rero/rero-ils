@@ -265,15 +265,16 @@ def test_documents_facets(
     data = get_json(res)
     facet_keys = [
         "document_type",
-        "author",
-        "language",
-        "subject",
         "fiction_statement",
+        "organisation",
+        "language",
+        "year",
+        "author",
+        "subject",
         "genreForm",
         "intendedAudience",
-        "year",
-        "status",
         "acquisition",
+        "status",
     ]
     assert all(key in data["aggregations"] for key in facet_keys)
 
@@ -325,6 +326,7 @@ def test_documents_facets(
         ),
         ({"view": "global", "author": "Nebehay, Christian Michael", "lang": "thl"}, 1),
         ({"view": "global", "online": "true"}, 1),
+        ({"view": "global", "organisation": "org1"}, 1),
     ]
     for params, value in checks:
         url = url_for("invenio_records_rest.doc_list", **params)
@@ -376,6 +378,100 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
                 "sum_other_doc_count": 0,
             },
             "name": "The district of Martigny Libraries",
+        }
+    ]
+
+    # Test with filter for fiction_statement = unspecified
+    list_url = url_for("invenio_records_rest.doc_list", view="global", fiction_statement="unspecified")
+
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data["aggregations"]
+
+    assert aggs["organisation"]["buckets"] == [
+        {
+            "doc_count": 2,
+            "key": "org1",
+            "library": {
+                "buckets": [
+                    {
+                        "doc_count": 1,
+                        "key": "lib1",
+                        "location": {
+                            "buckets": [{"doc_count": 1, "key": "loc1", "name": "Martigny Library Public Space"}],
+                            "doc_count_error_upper_bound": 0,
+                            "sum_other_doc_count": 0,
+                        },
+                        "name": "Library of Martigny-ville",
+                    },
+                    {
+                        "doc_count": 1,
+                        "key": "lib2",
+                        "location": {
+                            "buckets": [{"doc_count": 1, "key": "loc3", "name": "Saxon Library Public Space"}],
+                            "doc_count_error_upper_bound": 0,
+                            "sum_other_doc_count": 0,
+                        },
+                        "name": "Library of Saxon",
+                    },
+                ],
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+            },
+            "name": "The district of Martigny Libraries",
+        }
+    ]
+
+    # Test with filter for fiction_statement = fiction
+    list_url = url_for("invenio_records_rest.doc_list", view="global", fiction_statement="fiction")
+
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data["aggregations"]
+
+    assert aggs["organisation"]["buckets"] == [
+        {
+            "doc_count": 0,
+            "key": "org1",
+            "library": {
+                "buckets": [
+                    {
+                        "doc_count": 0,
+                        "key": "lib1",
+                        "location": {
+                            "buckets": [
+                                {"doc_count": 0, "key": "loc1"},
+                                {
+                                    "doc_count": 0,
+                                    "key": "loc3",
+                                },
+                            ],
+                            "doc_count_error_upper_bound": 0,
+                            "sum_other_doc_count": 0,
+                        },
+                    },
+                    {
+                        "doc_count": 0,
+                        "key": "lib2",
+                        "location": {
+                            "buckets": [
+                                {
+                                    "doc_count": 0,
+                                    "key": "loc1",
+                                },
+                                {
+                                    "doc_count": 0,
+                                    "key": "loc3",
+                                },
+                            ],
+                            "doc_count_error_upper_bound": 0,
+                            "sum_other_doc_count": 0,
+                        },
+                    },
+                ],
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+            },
         }
     ]
 

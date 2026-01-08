@@ -159,6 +159,7 @@ def bool_filter(field, **kwargs):
 
 def documents_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
+
     view = request.args.get("view")
     facets = request.args.get("facets", [])
     if facets:

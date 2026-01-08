@@ -2099,36 +2099,43 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="language.value", size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             organisation=dict(
-                nested=dict(
-                    path="nested_holdings"
+                filter=dict(
+                    bool=dict()
                 ),
                 aggs=dict(
-                    organisation=dict(
-                        terms=dict(
-                            field="nested_holdings.organisation.organisation_pid",
-                            size=DOCUMENTS_AGGREGATION_SIZE,
-                            min_doc_count=0,
+                    nested_holdings=dict(
+                        nested=dict(
+                            path="nested_holdings"
                         ),
                         aggs=dict(
-                            library=dict(
+                            organisation=dict(
                                 terms=dict(
-                                    field="nested_holdings.organisation.library_pid",
-                                    size=50,
+                                    field="nested_holdings.organisation.organisation_pid",
+                                    size=DOCUMENTS_AGGREGATION_SIZE,
                                     min_doc_count=0,
                                 ),
                                 aggs=dict(
-                                    location=dict(
+                                    library=dict(
                                         terms=dict(
-                                            field="nested_holdings.location.pid",
-                                            size=100,
+                                            field="nested_holdings.organisation.library_pid",
+                                            size=50,
                                             min_doc_count=0,
+                                        ),
+                                        aggs=dict(
+                                            location=dict(
+                                                terms=dict(
+                                                    field="nested_holdings.location.pid",
+                                                    size=100,
+                                                    min_doc_count=0,
+                                                )
+                                            )
                                         )
                                     )
-                                ),
+                                )
                             )
-                        ),
-                    ),
-                ),
+                        )
+                    )
+                )
             ),
             status=dict(
                 terms=dict(

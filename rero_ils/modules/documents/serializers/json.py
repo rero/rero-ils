@@ -161,7 +161,10 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         # organisation aggregation is a nested aggregation, we need to
         # remove this useless level.
         if aggr_by_org := aggregations.pop("organisation", None):
-            aggregations["organisation"] = aggr_by_org["organisation"]
+            if aggr_by_org.get("nested_holdings"):
+                aggregations["organisation"] = aggr_by_org["nested_holdings"]["organisation"]
+            else:
+                aggregations["organisation"] = aggr_by_org
 
         if aggr_org := aggregations.get("organisation", {}).get("buckets", []):
             # nested aggregation, we need to filter empty buckets
@@ -198,7 +201,7 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             # For a "local view", we replace the organisation aggregation by
             # a library aggregation containing only for the local organisation
             if view_code != GLOBAL_VIEW_CODE:
-                aggregations["library"] = aggr_org[0].get("library", {})
+                aggregations["library"] = aggr_org[0].get("library", {}) if aggr_org else {}
                 del aggregations["organisation"]
 
         super()._postprocess_search_aggregations(aggregations)

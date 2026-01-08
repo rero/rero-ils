@@ -109,8 +109,17 @@ def default_facets_factory(search, index):
                 facet_body = {"aggs": {"aggs_facet": facet_body}}
             facet_body["filter"] = facet_filter.to_dict()
 
-        aggs[facet_name] = facet_body
+        # Replace the filter from config with the _facet_filter if exist for nested aggregation.
+        nested = False
+        for values in facet_body.get("aggs", {}).values():
+            if nested := "nested" in values:
+                break
+        if nested:
+            filters, filters_group, urlkwargs = _create_filter_dsl(urlkwargs, facets.get("post_filters", {}))
+            if facet_filter := _facet_filter(index, filters, filters_group, facet_name, facet_field):
+                facet_body["filter"] = facet_filter.to_dict()
 
+        aggs[facet_name] = facet_body
     search = _aggregations(search, aggs)
     # Query filter
     search, urlkwargs = _query_filter(search, urlkwargs, facets.get("filters", {}))
