@@ -110,6 +110,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -164,8 +165,7 @@
           "value": "Hrsg.: Sozialistisches B\u00fcro"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "10",
@@ -276,6 +276,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -351,8 +352,7 @@
           "value": "Ilaria Morali"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "100",
@@ -466,6 +466,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -537,8 +538,7 @@
           "value": "ill. de Gavarni"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "101",
@@ -595,6 +595,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -626,8 +627,7 @@
           "value": "Cathie Lyons"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "102",
@@ -670,6 +670,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -716,8 +717,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "103",
@@ -830,6 +830,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -888,8 +889,7 @@
           "value": "hrsg. von Arthur Henkel und Albrecht Sch\u00f6ne"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "104",
@@ -1065,6 +1065,7 @@
     "tableOfContents": [
       "\"Mrs Dalloway\" (Words, In the garde, War anthem, Meeting again) ; \"Orlando\" (Memory is the seamstress, Modular astronomy, Entropy, Transformation, Morphology, The tyranny of symmetry, The explorers, Persistence of images, Genesis of poetry, Possibles, Love songs) ; \"The waves\" (Tuesday)"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -1117,8 +1118,7 @@
           "value": "Max Richter"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "105",
@@ -1192,13 +1192,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -1263,6 +1258,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -1302,8 +1298,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "106",
@@ -1372,6 +1367,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -1403,8 +1399,7 @@
           "value": "Stanley J. Samartha"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "107",
@@ -1542,6 +1537,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -1629,8 +1625,7 @@
           "language": "gre-grek"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "108",
@@ -1680,13 +1675,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027218546"
-          },
-          "authorized_access_point": "Afrique"
+          "pid": "16798361",
+          "$ref": "https://mef.rero.ch/api/places/idref/027218546"
         }
       }
     ],
@@ -1740,6 +1730,7 @@
       "source": "RERO gevmhn",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -1778,8 +1769,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "109",
@@ -1895,6 +1885,7 @@
     "copyrightDate": [
       "\u00a9 1974"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -1960,8 +1951,7 @@
           "value": "[Mitarb. Hans W. Albert...et al.]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "11",
@@ -2087,6 +2077,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -2142,8 +2133,7 @@
           "value": "unter Mitwirk. von Fritz Peter Knapp (Mittelalter) hrsg. von Herbert Zeman"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "110",
@@ -2196,6 +2186,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -2220,8 +2211,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "111",
@@ -2332,6 +2322,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -2394,8 +2385,7 @@
           "value": "[d'apr\u00e8s l'oeuvre de Isaac Asimov]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "112",
@@ -2494,6 +2484,7 @@
         "audienceType": "school_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -2554,8 +2545,7 @@
           "value": "Ill. von Susanne Krauss"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "113",
@@ -2625,6 +2615,7 @@
       "source": "RERO tibrb-",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -2663,8 +2654,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "114",
@@ -2794,6 +2784,7 @@
       "Sinfonien in C (Linzer Sinfonie) KV 425, in D (Prager Sinfonie) KV 504. - 1971",
       "Kritischer Bericht / vorgelegt von Henning Bey. - 2003"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -2869,8 +2860,7 @@
           "value": "in Verbindung mit den Mozartst\u00e4dten Augsburg, Salzburg und Wien hrsg. von der Internationalen Stiftung Mozarteum Salzburg"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "115",
@@ -2929,13 +2919,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027225984"
-          },
-          "authorized_access_point": "Finlande"
+          "pid": "16771065",
+          "$ref": "https://mef.rero.ch/api/places/idref/027225984"
         }
       }
     ],
@@ -2995,6 +2980,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3058,8 +3044,7 @@
           "value": "Ildik\u00f3 H\u00e1mos, Ilari Sohlo"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "116",
@@ -3105,6 +3090,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3129,8 +3115,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "117",
@@ -3194,6 +3179,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3225,8 +3211,7 @@
           "value": "Ulrich Scheuner"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "118",
@@ -3322,6 +3307,7 @@
     "tableOfContents": [
       "Des extraits des zarzuelas suivantes : La tabernera del puerto ; La del manojo de rosas / Soroz\u00e1bal. Do\u00f1a Francisquita / Vives. La alegr\u00eda del batall\u00f3n ; La dolorosa ; El trust de los tenorios / Serrano. La p\u00edcara molinera / Luna. Luisa Fer\u0144anda ; Maravilla / Torroba. El \u00faltimo rom\u00e1ntico ; La del soto del Parral ; La del soto del Parral / Soutullo & Vert. Los gavilanes ; El hu\u00e9sped del Sevillano / Guerrero. El guitarrico / Soriano. Luna / Cano"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3362,8 +3348,7 @@
           "rdaco:1011"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "119",
@@ -3427,6 +3412,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3458,8 +3444,7 @@
           "value": "George L. Olson"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "12",
@@ -3569,6 +3554,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3634,8 +3620,7 @@
           "value": "PoiPoi"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "120",
@@ -3745,6 +3730,7 @@
         "RERO vsbcvs"
       ]
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3800,8 +3786,7 @@
           "value": "par J. Salleron"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "121",
@@ -3844,6 +3829,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3896,8 +3882,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "122",
@@ -3972,13 +3957,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -4012,6 +3992,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4088,8 +4069,7 @@
           "value": "R. Ruffieux"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "123",
@@ -4181,6 +4161,7 @@
     "productionMethod": [
       "rdapm:1005"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4245,8 +4226,7 @@
           "value": "herausgegeben von Georg Sigrist"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "124",
@@ -4319,6 +4299,7 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4371,8 +4352,7 @@
           "value": "Gilles Perrault"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "125",
@@ -4441,6 +4421,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4472,8 +4453,7 @@
           "value": "Robert N. Bellah"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "126",
@@ -4584,6 +4564,7 @@
     "originalLanguage": [
       "fre"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4648,8 +4629,7 @@
           "value": "by Karl G\u00f6ran M\u00e4ler and Ronald E. Wyzga"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "127",
@@ -4718,6 +4698,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4749,8 +4730,7 @@
           "value": "J. Francis Watson"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "128",
@@ -4815,6 +4795,7 @@
       "source": "RERO gevbaa",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4863,8 +4844,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "129",
@@ -4920,6 +4900,7 @@
       "source": "RERO vsbcce",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4968,8 +4949,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "13",
@@ -5061,6 +5041,7 @@
     "originalLanguage": [
       "fre"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5131,8 +5112,7 @@
           "value": "mit einem Anhang von Margot Berthold und Thomas W. Gaehtgens"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "130",
@@ -5221,6 +5201,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5309,8 +5290,7 @@
           "value": "Joseph Haydn"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "131",
@@ -5448,6 +5428,7 @@
     "copyrightDate": [
       "\u00a9 2006"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5541,8 +5522,7 @@
           "value": "[Texte: Dolores Denaro... et al.]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "132",
@@ -5677,6 +5657,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5790,8 +5771,7 @@
           "value": "[ill.: Roger Voser]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "133",
@@ -5868,6 +5848,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5920,8 +5901,7 @@
           "value": "Lillian Glass"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "134",
@@ -6006,6 +5986,7 @@
       "source": "RERO gevcjb",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6061,8 +6042,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "135",
@@ -6141,6 +6121,7 @@
       "source": "RERO geudbu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6193,8 +6174,7 @@
           "value": "von Rudolf Brun"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "136",
@@ -6279,6 +6259,7 @@
     "copyrightDate": [
       "\u00a9 1999"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6334,8 +6315,7 @@
           "value": "Brigitte Dekeyzer"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "137",
@@ -6399,6 +6379,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6430,8 +6411,7 @@
           "value": "Gregory Baum"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "138",
@@ -6479,6 +6459,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6525,8 +6506,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "139",
@@ -6623,6 +6603,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6669,8 +6650,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "14",
@@ -6890,6 +6870,7 @@
     "tableOfContents": [
       "Bd. 1: A - Faustus von Byzanz. Bd. 2: Faustus von Mileve - Jeanne d'Arc. Bd. 3: Jedin, Hubert - Kleinschmidt, Beda. Bd. 4: Kleist, Heinrich von - Leyden, Lucas von. Bd. 5: Leyden, Nikolaus - M\u00f6nch, Antonius. Bd. 6: Moenius, Georg - Patijn, Constantijn Leopold. Bd. 7: Patocka, Jan - Remachus. Bd. 8: Rembrandt - Scharbel. Bd. 9: Scharling, Carl Henrik - Sheldon, Charles Monroe. Bd. 10: Shelkov, Vladimir Andreyevich - Stoss, Andreas. Bd. 11: Stoss, Veit - Tieffenthaler, Joseph. Bd. 12: Tibboniden - Volpe, Giovannio Antonio. Bd. 13: Voltaire, Fran\u00e7ois - Wolfram von Eschenbach. Bd. 14: Wolfram von Eschenbach bis Zygomalas, Theodosios ; Erg\u00e4nzungen I. Bd. 15: Erg\u00e4nzungen II. Bd. 16: Erg\u00e4nzungen III. Bd. 17: Erg\u00e4nzungen IV. Bd. 18: Erg\u00e4nzungen V. Bd. 19: Erg\u00e4nzungen VI. Bd. 20: Erg\u00e4nzungen VII. Bd. 21: Erg\u00e4nzungen VIII. Bd. 22: Erg\u00e4nzungen IX. Bd. 23: Erg\u00e4nzungen X. Bd. 24: Erg\u00e4nzungen XI. Bd. 25: Erg\u00e4nzungen XII. Bd. 26: Erg\u00e4nzungen XIII. Bd. 27: Erg\u00e4nzungen XIV. Bd. 28: Erg\u00e4nzungen XV. Bd. 29: Erg\u00e4nzungen XVI. Bd. 30: Erg\u00e4nzungen XVII. Bd. 31: Erg\u00e4nzungen XVIII. Bd. 32: Erg\u00e4nzungen XIX. Bd. 33: Erg\u00e4nzungen XX. Bd. 34: Erg. XXI. Bd. 35: Erg. XXII. Bd. 36: Erg. XXIII. Bd. 37: Erg. XXIV. Bd. 38: Erg. XXV. Bd. 39: Erg. XXVI. Bd. 40: Erg. XXVII. Bd. 41: Erg. XXVIII"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6992,8 +6973,7 @@
           "value": "bearb. und hrsg. von Friedrich Wilhelm Bautz"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "140",
@@ -7090,6 +7070,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7145,8 +7126,7 @@
           "value": "Christine Schilte, Marcel Rufo"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "141",
@@ -7240,6 +7220,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7305,8 +7286,7 @@
           "value": "Christian Binet"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "142",
@@ -7394,6 +7374,7 @@
     "copyrightDate": [
       "\u00a9 1986"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7454,8 +7435,7 @@
           "value": "John Auchard"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "143",
@@ -7512,6 +7492,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7543,8 +7524,7 @@
           "value": "J. Deschner"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "144",
@@ -7626,6 +7606,7 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7678,8 +7659,7 @@
           "value": "V\u00e9ronique Olmi"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "145",
@@ -7812,6 +7792,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7894,8 +7875,7 @@
           "value": "unter der Leitung von Georg Feder"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "146",
@@ -7981,6 +7961,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8033,8 +8014,7 @@
           "value": "Walter Benjamin"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "147",
@@ -8112,6 +8092,7 @@
         "audienceType": "filmage_ch"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8155,8 +8136,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "148",
@@ -8287,6 +8267,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8334,8 +8315,7 @@
           "value": "Claudio Monteverdi"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "149",
@@ -8425,6 +8405,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8480,8 +8461,7 @@
           "value": "Michael Schumann ... [et al.]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "15",
@@ -8625,6 +8605,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8691,8 +8672,7 @@
           "value": "Fotos: Marco Volken ... [et al.]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "150",
@@ -8770,6 +8750,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8813,8 +8794,7 @@
           "value": "Stephenie Meyer"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "151",
@@ -8910,6 +8890,7 @@
       "source": "RERO vsbrod",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8948,8 +8929,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "152",
@@ -9058,6 +9038,7 @@
     "originalLanguage": [
       "chi"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9135,8 +9116,7 @@
           "value": "ausgew., \u00fcbers. und kommentiert von Wolfgang Kubin"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "153",
@@ -9194,6 +9174,7 @@
       "source": "RERO geulsa",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9239,8 +9220,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "154",
@@ -9350,6 +9330,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9411,8 +9392,7 @@
           "value": "Marc Cantin, Jean-Emmanuel Vermot-Desroches"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "155",
@@ -9520,6 +9500,7 @@
         "rda"
       ]
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9579,8 +9560,7 @@
           "value": "digessit et edidit Ioh. Iacobus Gessnerus"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "156",
@@ -9620,6 +9600,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9657,8 +9638,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "157",
@@ -9737,6 +9717,7 @@
       "source": "RERO jubmdj",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9792,8 +9773,7 @@
           "value": "Walt Disney"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "158",
@@ -9847,6 +9827,7 @@
       "source": "RERO gevmhn",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9892,8 +9873,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "159",
@@ -9950,6 +9930,7 @@
       "source": "RERO neueth",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9996,8 +9977,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "16",
@@ -10096,6 +10076,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10192,8 +10173,7 @@
           "value": "By John Cole, Late of Plymouth, but now of Beverley, in Yorkshire"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "160",
@@ -10355,6 +10335,7 @@
     "originalLanguage": [
       "rus"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10437,8 +10418,7 @@
           "value": "A.S. Monin and A.M. Yaglom"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "161",
@@ -10505,6 +10485,7 @@
       "CD: Rhythm of time ; Don't step ; Signs ; Expo ; good oou do (uptempo) - Oizo Diss anymore ; visitor ; Session (feat. Vivek Rajagopalan) ; Create ; Chingari (feat. Shilpa Rao) ; Better day ; Human bees",
       "Bonus DVD: Create (Intro) ; Expo ; Good you do (uptempo) - Oizo ; Session (feat. Vivek Rajagopalan) ; Rhythm of time ; Diss anymore ; Human bees ; Chingari (feat. Shilpa Rao)"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10552,8 +10533,7 @@
           "value": "Bauchklang"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "162",
@@ -10695,6 +10675,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10767,8 +10748,7 @@
           "value": "Robert Boyd and Peter J. Richerson"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "163",
@@ -10847,6 +10827,7 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10902,8 +10883,7 @@
           "value": "Anne Bacus"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "164",
@@ -10985,6 +10965,7 @@
     "originalLanguage": [
       "ger"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11040,8 +11021,7 @@
           "value": "[Marcus Pfister]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "165",
@@ -11134,6 +11114,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11189,8 +11170,7 @@
           "value": "Godeleine de Rosamel"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "166",
@@ -11250,13 +11230,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027235408"
-          },
-          "authorized_access_point": "Italie"
+          "pid": "16798393",
+          "$ref": "https://mef.rero.ch/api/places/idref/027235408"
         }
       }
     ],
@@ -11304,6 +11279,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11370,8 +11346,7 @@
           "value": "Santo Ferrari, Roberto e Giorgio Ferrari"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "167",
@@ -11425,6 +11400,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11457,8 +11433,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "168",
@@ -11506,13 +11481,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027226794"
-          },
-          "authorized_access_point": "France"
+          "pid": "16771067",
+          "$ref": "https://mef.rero.ch/api/places/idref/027226794"
         }
       }
     ],
@@ -11578,6 +11548,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11633,8 +11604,7 @@
           "value": "par Ren\u00e9 Lalou"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "169",
@@ -11732,6 +11702,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11787,8 +11758,7 @@
           "value": "Pierre Dubois, Claudine Sabatier, Roland Sabatier"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "17",
@@ -11865,6 +11835,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11917,8 +11888,7 @@
           "value": "di Michele Borgialli"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "170",
@@ -12015,6 +11985,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12070,8 +12041,7 @@
           "value": "Franck Krebs"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "171",
@@ -12165,6 +12135,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12217,8 +12188,7 @@
           "value": "Allan Ahlberg, Andr\u00e9 Amstutz"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "172",
@@ -12275,6 +12245,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12320,8 +12291,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "173",
@@ -12416,6 +12386,7 @@
       "source": "RERO geusob",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12463,8 +12434,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "174",
@@ -12573,6 +12543,7 @@
     "originalLanguage": [
       "grc"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12641,8 +12612,7 @@
           "value": "trad. in\u00e9dites, introd. et notes par Luc Brisson"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "175",
@@ -12752,6 +12722,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12814,8 +12785,7 @@
           "value": "Stephen King"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "176",
@@ -12881,6 +12851,7 @@
       "source": "RERO geudbu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12936,8 +12907,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "177",
@@ -13037,6 +13007,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -13094,8 +13065,7 @@
           "value": "pr\u00e9f. d'Andrea Zanzotto"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "178",
@@ -13213,6 +13183,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -13276,8 +13247,7 @@
           "value": "Marshall H. Klaus, John H. Kennell"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "179",
@@ -13353,6 +13323,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -13405,8 +13376,7 @@
           "value": "David Mac Kee"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "18",
@@ -13544,6 +13514,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -13605,8 +13576,7 @@
           "value": "Bundesamt f\u00fcr Statistik = Les \u00e9lections au Conseil national. L'\u00e9volution du paysage politique depuis 1971 / Office f\u00e9d\u00e9ral de la statistique"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "180",
@@ -13670,6 +13640,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -13701,8 +13672,7 @@
           "value": "Harold E. Fey"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "181",
@@ -13820,6 +13790,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -13872,8 +13843,7 @@
           "value": "by Franz Rosenthal"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "182",
@@ -13968,6 +13938,7 @@
     "originalLanguage": [
       "ger"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14023,8 +13994,7 @@
           "value": "Manfred Mai, Erhard Dietl"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "183",
@@ -14101,6 +14071,7 @@
     "originalLanguage": [
       "rus"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14156,8 +14127,7 @@
           "value": "[choix des contes: Robert Bablo\u00efan, Mirl\u00e9na Choumska\u00efa]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "184",
@@ -14243,6 +14213,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14296,8 +14267,7 @@
           "value": "Willy O. Wegenstein"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "185",
@@ -14385,6 +14355,7 @@
         "RERO gevbge"
       ]
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "note": "Date(s) uncertain or unknown",
@@ -14445,8 +14416,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "186",
@@ -14510,13 +14480,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -14579,6 +14544,7 @@
     "copyrightDate": [
       "\u00a9 1986"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14661,8 +14627,7 @@
           "value": "[trad. Kay Gillioz, Michel Th\u00e9venaz]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "187",
@@ -14766,6 +14731,7 @@
       "Vol. 2: 19 dicembre 1848 - 19 febbraio 1849. - 1968. - 571 p",
       "Vol. 3: 20 febbraio - 29 novembre 1849. - 1970. - 473 p"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14815,8 +14781,7 @@
           "value": "a cura di Emilio Costa"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "188",
@@ -14927,6 +14892,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14999,8 +14965,7 @@
           "language": "rus-cyrl"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "189",
@@ -15133,6 +15098,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15201,8 +15167,7 @@
           "language": "rus-cyrl"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "19",
@@ -15281,6 +15246,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15319,8 +15285,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "190",
@@ -15432,6 +15397,7 @@
         "type": "noInfo"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15505,8 +15471,7 @@
           "value": "ill. Svetlin Vasilev"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "191",
@@ -15613,6 +15578,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15670,8 +15636,7 @@
           "value": "sotto la dir. di Giuseppe Felloni"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "192",
@@ -15781,6 +15746,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15843,8 +15809,7 @@
           "value": "Stephen King"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "193",
@@ -15899,6 +15864,7 @@
       "source": "a RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15951,8 +15917,7 @@
           "value": "Alain Plas"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "194",
@@ -16095,6 +16060,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -16159,8 +16125,7 @@
           "value": "Charles Max"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "195",
@@ -16237,6 +16202,7 @@
       "source": "RERO lausst",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -16285,8 +16251,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "196",
@@ -16422,6 +16387,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -16484,8 +16450,7 @@
           "value": "compositas a Ph. Eduardo Huschke"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "197",
@@ -16582,6 +16547,7 @@
     "originalLanguage": [
       "chi"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -16634,8 +16600,7 @@
           "value": "Hua Yu"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "198",
@@ -16730,6 +16695,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -16790,8 +16756,7 @@
           "value": "Ruth Scheffbuch"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "199",
@@ -16887,6 +16852,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -16947,8 +16913,7 @@
           "value": "V\u00e9ronique Gautherin"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2",
@@ -17043,6 +17008,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -17110,8 +17076,7 @@
           "value": "Tabea und Simon Schild"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "20",
@@ -17223,6 +17188,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -17284,8 +17250,7 @@
           "value": "Garth Nix"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "200",
@@ -17413,6 +17378,7 @@
       "grc",
       "lat"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -17465,8 +17431,7 @@
           "value": "pr\u00e9sent\u00e9 et trad. par Laura Moscarelli"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000000",
@@ -17559,6 +17524,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -17582,8 +17548,7 @@
           }
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000001",
@@ -17699,6 +17664,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -17739,8 +17705,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000002",
@@ -17819,6 +17784,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -17870,8 +17836,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000003",
@@ -17969,6 +17934,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18007,8 +17973,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000004",
@@ -18071,6 +18036,7 @@
       "source": "RERO gevbpu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18110,8 +18076,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000005",
@@ -18191,6 +18156,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18249,8 +18215,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000006",
@@ -18382,6 +18347,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18428,8 +18394,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000007",
@@ -18618,6 +18583,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18650,8 +18616,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000008",
@@ -18780,6 +18745,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18830,8 +18796,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000009",
@@ -18931,6 +18896,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18963,8 +18929,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000010",
@@ -19018,6 +18983,7 @@
       "source": "RERO nebpup",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -19050,8 +19016,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000011",
@@ -19444,6 +19409,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -19485,8 +19451,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000012",
@@ -19537,6 +19502,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -19569,8 +19535,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000013",
@@ -19648,6 +19613,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -19698,8 +19664,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000014",
@@ -19826,6 +19791,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -19891,8 +19857,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000015",
@@ -19933,13 +19898,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -19996,6 +19956,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -20050,8 +20011,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000016",
@@ -20245,6 +20205,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -20277,8 +20238,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000017",
@@ -20366,6 +20326,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -20418,8 +20379,7 @@
           "value": "Marc Cantin"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000018",
@@ -20474,6 +20434,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -20506,8 +20467,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000019",
@@ -20602,6 +20562,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -20671,8 +20632,7 @@
           "value": "hrsg. vom Reichsinstitut f\u00fcr \u00e4ltere deutsche Geschichtskunde"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000020",
@@ -20735,6 +20695,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -20790,8 +20751,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000021",
@@ -20898,6 +20858,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -20944,8 +20905,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000022",
@@ -21038,6 +20998,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -21098,8 +21059,7 @@
           "value": "publ. par la Soci\u00e9t\u00e9 suisse de physique"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000023",
@@ -21156,6 +21116,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -21194,8 +21155,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000024",
@@ -21843,6 +21803,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -21884,8 +21845,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000025",
@@ -21925,6 +21885,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -21957,8 +21918,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000026",
@@ -22034,6 +21994,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22103,8 +22064,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000027",
@@ -22198,6 +22158,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22259,8 +22220,7 @@
           "value": "comp. by A.C. Leslie"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000028",
@@ -22301,6 +22261,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22333,8 +22294,7 @@
           "rdaco:1011"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000029",
@@ -22379,13 +22339,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027218546"
-          },
-          "authorized_access_point": "Afrique"
+          "pid": "16798361",
+          "$ref": "https://mef.rero.ch/api/places/idref/027218546"
         }
       }
     ],
@@ -22427,6 +22382,7 @@
       "source": "RERO gevmhn",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22466,8 +22422,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000030",
@@ -22533,6 +22488,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22578,8 +22534,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000031",
@@ -22663,6 +22618,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22716,8 +22672,7 @@
           "value": "Universit\u00e4tsbund Erlangen-N\u00fcrnberg, Universit\u00e4tsbibliothek Erlangen-N\u00fcrnberg"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000032",
@@ -22757,6 +22712,7 @@
       "source": "RERO geular",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22789,8 +22745,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000033",
@@ -22849,6 +22804,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22888,8 +22844,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000034",
@@ -23009,6 +22964,7 @@
       "source": "RERO neuthe",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -23048,8 +23004,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000035",
@@ -23113,13 +23068,8 @@
     "subjects": [
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -23169,6 +23119,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -23229,8 +23180,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000036",
@@ -23270,6 +23220,7 @@
       "source": "RERO neubfd",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -23302,8 +23253,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000037",
@@ -23387,6 +23337,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -23443,8 +23394,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000038",
@@ -23539,6 +23489,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -23575,8 +23526,7 @@
           "value": "publ. by the Faculty of St. Vladimir's Orthodox Theological Seminary"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000039",
@@ -23639,6 +23589,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -23679,8 +23630,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000040",
@@ -23737,13 +23687,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "145158586"
-          },
-          "authorized_access_point": "Etroubles (Italie)"
+          "pid": "16751178",
+          "$ref": "https://mef.rero.ch/api/places/idref/145158586"
         }
       }
     ],
@@ -23812,6 +23757,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -23881,8 +23827,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000041",
@@ -23982,6 +23927,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24020,8 +23966,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000042",
@@ -24147,6 +24092,7 @@
         "classificationPortion": "CB/USA 58.5 e"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24208,8 +24154,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000043",
@@ -24315,6 +24260,7 @@
       "source": "RERO necfbv",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24362,8 +24308,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000044",
@@ -24510,6 +24455,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24555,8 +24501,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000045",
@@ -24605,6 +24550,7 @@
       "source": "RERO gevbge",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24642,8 +24588,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000046",
@@ -24723,6 +24668,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24761,8 +24707,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000047",
@@ -24930,13 +24875,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -24990,6 +24930,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25028,8 +24969,7 @@
           "value": "Schweizerische Gesellschaft f\u00fcr Theaterkultur = Annuaire du th\u00e9\u00e2tre suisse / Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre = Annuario del teatro svizzero / Societ\u00e0 svizzera di studi teatrali"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000048",
@@ -25109,6 +25049,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25168,8 +25109,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000049",
@@ -25249,6 +25189,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25305,8 +25246,7 @@
           "value": "PoiPoi"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000050",
@@ -25352,6 +25292,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25393,8 +25334,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000051",
@@ -25448,6 +25388,7 @@
       "source": "RERO geudbu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25487,8 +25428,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000052",
@@ -25557,6 +25497,7 @@
       "source": "RERO geudbu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25612,8 +25553,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000053",
@@ -25682,6 +25622,7 @@
       "source": "RERO geudbu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25737,8 +25678,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000054",
@@ -25806,6 +25746,7 @@
       "source": "RERO gehei-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25843,8 +25784,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000055",
@@ -25939,6 +25879,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26023,8 +25964,7 @@
           "value": "Alfred Bertholet, Jean-Louis Petignat"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000056",
@@ -26134,6 +26074,7 @@
       "source": "RERO geuses",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26215,8 +26156,7 @@
           "value": "[avec la collab. de E. Coornaert, A. Gambasin... et al.]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000057",
@@ -26318,6 +26258,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26366,8 +26307,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000058",
@@ -26407,6 +26347,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26439,8 +26380,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000059",
@@ -26488,6 +26428,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26520,8 +26461,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000060",
@@ -26621,6 +26561,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26660,8 +26601,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000061",
@@ -26738,7 +26678,7 @@
           "ctb"
         ],
         "entity": {
-          "pid": "14534285",
+          "pid": "8140604",
           "$ref": "https://mef.rero.ch/api/agents/idref/118427369"
         }
       }
@@ -26754,6 +26694,7 @@
       "source": "RERO neueth",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26786,8 +26727,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000062",
@@ -26850,6 +26790,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26902,8 +26843,7 @@
           "value": "Garth Nix"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000063",
@@ -27028,6 +26968,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -27085,8 +27026,7 @@
           "value": "sotto la dir. di Giuseppe Felloni"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000064",
@@ -27177,6 +27117,7 @@
       "source": "RERO geusob",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -27224,8 +27165,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000065",
@@ -27308,6 +27248,7 @@
       "source": "RERO geusob",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -27355,8 +27296,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000066",
@@ -27864,6 +27804,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -27896,8 +27837,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000067",
@@ -27938,6 +27878,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -27966,8 +27907,7 @@
           }
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000068",
@@ -28085,6 +28025,7 @@
       "source": "RERO gevcjb",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -28131,8 +28072,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000069",
@@ -28172,6 +28112,7 @@
       "source": "RERO lausst",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -28218,8 +28159,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000070",
@@ -28331,6 +28271,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -28363,8 +28304,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000071",
@@ -28410,6 +28350,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -28450,8 +28391,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000072",
@@ -28522,6 +28462,7 @@
       "source": "RERO gevbpu",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -28560,8 +28501,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000073",
@@ -28659,6 +28599,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -28717,8 +28658,7 @@
           "value": "hrsg. von Herbert Zeman"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000074",
@@ -28887,6 +28827,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -28935,8 +28876,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000075",
@@ -29014,6 +28954,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -29069,8 +29010,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000076",
@@ -29166,6 +29106,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -29208,8 +29149,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000077",
@@ -29309,13 +29249,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -29382,6 +29317,7 @@
         "content": "fullText"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -29443,8 +29379,7 @@
           "value": "organe de la Soci\u00e9t\u00e9 suisse d'h\u00e9raldique = Schweizer Archiv f\u00fcr Heraldik. Jahrbuch / Organ der Schweizerischen heraldischen Gesellschaft = Archivio araldico svizzero. [Annuario] / [ed. dalla Societ\u00e0 svizzera di araldica]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000078",
@@ -29484,6 +29419,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -29526,8 +29462,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000079",
@@ -29723,6 +29658,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -29761,8 +29697,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000080",
@@ -29920,6 +29855,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30000,8 +29936,7 @@
           "value": "con la collab. di Giuliano Castellani e Axel Leuthold"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000081",
@@ -30079,6 +30014,7 @@
       "source": "RERO geusob",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30126,8 +30062,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000082",
@@ -30204,6 +30139,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30235,8 +30171,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000083",
@@ -30317,6 +30252,7 @@
       "source": "RERO nebpun",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30367,8 +30303,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000084",
@@ -30497,6 +30432,7 @@
         "content": "fullText"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30544,8 +30480,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000085",
@@ -30673,6 +30608,7 @@
         "classificationPortion": "D 34 c"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30720,8 +30656,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000086",
@@ -30818,6 +30753,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30865,8 +30801,7 @@
           "value": "Association protection Rh\u00f4ne-L\u00e9man, Chasseurs sans fusil, Action Suisse saine"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000087",
@@ -30950,6 +30885,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30988,8 +30924,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000088",
@@ -31067,6 +31002,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -31125,8 +31061,7 @@
           "value": "publ. par la Cin\u00e9math\u00e8que suisse, Lausanne"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000089",
@@ -31222,6 +31157,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -31285,8 +31221,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000090",
@@ -31340,6 +31275,7 @@
       "source": "RERO gevbge",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -31371,8 +31307,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000091",
@@ -31474,13 +31409,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -31536,6 +31466,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -31613,8 +31544,7 @@
           "value": "\u00e9d. par la Soci\u00e9t\u00e9 suisse d'h\u00e9raldique = Schweizer Archiv f\u00fcr Heraldik / hrsg. von der Schweizerischen Heraldischen Gesellschaft = Archivio araldico svizzero / ed. dalla Societ\u00e0 svizzera di araldica = Archivum heraldicum"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000092",
@@ -31711,13 +31641,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -31796,6 +31721,7 @@
         "content": "fullText"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -31851,8 +31777,7 @@
           "value": "publ. par Maurice Tripet"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000093",
@@ -31899,13 +31824,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027224651"
-          },
-          "authorized_access_point": "Europe"
+          "pid": "16798372",
+          "$ref": "https://mef.rero.ch/api/places/idref/027224651"
         }
       }
     ],
@@ -31946,6 +31866,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32002,8 +31923,7 @@
           "value": "von Serge von Bubnoff"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000094",
@@ -32065,6 +31985,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32141,8 +32062,7 @@
           "value": "hrsg. vom Kirchlichen Aussenamt der Evangelischen Kirche in Deutschland"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000095",
@@ -32222,6 +32142,7 @@
       "source": "RERO geubfd",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32254,8 +32175,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000096",
@@ -32378,6 +32298,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32441,8 +32362,7 @@
           "value": "hrsg. v. Lutherischen Weltbund"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000097",
@@ -32523,6 +32443,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32577,8 +32498,7 @@
           "value": "hrsg. vom Lutherischen Weltbund"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000098",
@@ -32657,6 +32577,7 @@
       "source": "RERO neuthe",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32704,8 +32625,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000099",
@@ -32804,6 +32724,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32867,8 +32788,7 @@
           "value": "publ. of the Lutheran World Federation"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000100",
@@ -32915,13 +32835,8 @@
     "subjects": [
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -32971,6 +32886,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33028,8 +32944,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000101",
@@ -33089,6 +33004,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33128,8 +33044,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000102",
@@ -33191,6 +33106,7 @@
       "source": "RERO vsbasm",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33229,8 +33145,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000103",
@@ -33292,6 +33207,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33324,8 +33240,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000104",
@@ -33408,6 +33323,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33453,8 +33369,7 @@
           "value": "publ. by the Faculty of St. Vladimir's Orthodox Theological Seminary"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000105",
@@ -33545,13 +33460,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -33599,6 +33509,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33630,8 +33541,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000106",
@@ -33704,6 +33614,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33733,8 +33644,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000107",
@@ -33791,6 +33701,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33839,8 +33750,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000108",
@@ -33905,6 +33815,7 @@
       "source": "RERO geudbu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33944,8 +33855,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000109",
@@ -33999,6 +33909,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -34054,8 +33965,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000110",
@@ -34153,6 +34063,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -34232,8 +34143,7 @@
           "value": "Lutheran World Federation"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000111",
@@ -34356,6 +34266,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -34443,8 +34354,7 @@
           "value": "The Lutheran World Federation, Department of Communication, Publication Office"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000112",
@@ -34531,13 +34441,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -34582,6 +34487,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -34622,8 +34528,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000113",
@@ -34706,6 +34611,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -34737,8 +34643,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000114",
@@ -34807,6 +34712,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -34851,8 +34757,7 @@
           "value": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000115",
@@ -34966,13 +34871,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -35015,6 +34915,7 @@
       "source": "RERO gevbpu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35063,8 +34964,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000116",
@@ -35126,13 +35026,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -35211,6 +35106,7 @@
         "type": "resource"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35272,8 +35168,7 @@
           "value": "organe de la Soci\u00e9t\u00e9 suisse d'h\u00e9raldique, de l'Acad\u00e9mie internationale d'h\u00e9raldique, de la Soci\u00e9t\u00e9 fran\u00e7aise d'h\u00e9raldique et de sigillographie"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000117",
@@ -35368,6 +35263,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35423,8 +35319,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000118",
@@ -35510,6 +35405,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35549,8 +35445,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000119",
@@ -35629,6 +35524,7 @@
       "source": "RERO neuthe",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35676,8 +35572,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000120",
@@ -35761,6 +35656,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35806,8 +35702,7 @@
           "value": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale, D\u00e9partement de Mission et de D\u00e9veloppement, Education chr\u00e9tienne"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000121",
@@ -35891,6 +35786,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35936,8 +35832,7 @@
           "value": "Federaci\u00f3n Luterana Mundial, Departamento de Misi\u00f3n y Desarrollo, Educaci\u00f3n Cristiana"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000122",
@@ -36021,6 +35916,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -36063,8 +35959,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000123",
@@ -36147,6 +36042,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -36178,8 +36074,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000124",
@@ -36254,13 +36149,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -36316,6 +36206,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -36372,8 +36263,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000125",
@@ -36465,13 +36355,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -36508,6 +36393,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -36540,8 +36426,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000126",
@@ -36692,13 +36577,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -36738,6 +36618,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -36779,8 +36660,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000127",
@@ -36935,13 +36815,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -37004,6 +36879,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37044,8 +36920,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000128",
@@ -37116,6 +36991,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37190,8 +37066,7 @@
           "value": "The Lutheran World Federation"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000129",
@@ -37245,13 +37120,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -37301,6 +37171,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37358,8 +37229,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000130",
@@ -37433,13 +37303,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -37495,6 +37360,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37548,8 +37414,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000131",
@@ -37610,13 +37475,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -37657,6 +37517,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37705,8 +37566,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000132",
@@ -37783,6 +37643,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37822,8 +37683,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000133",
@@ -37907,6 +37767,7 @@
       "source": "RERO gevmhn",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37963,8 +37824,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000134",
@@ -38025,13 +37885,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -38084,6 +37939,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38124,8 +37980,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000135",
@@ -38192,13 +38047,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -38242,6 +38092,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38290,8 +38141,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000136",
@@ -38364,6 +38214,7 @@
         "classificationPortion": "CA/CH-VD 11 d"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38408,8 +38259,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000137",
@@ -38480,13 +38330,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -38536,6 +38381,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38596,8 +38442,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000138",
@@ -38683,13 +38528,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -38745,6 +38585,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38796,8 +38637,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000139",
@@ -38892,6 +38732,7 @@
       "source": "RERO gevmhn",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38955,8 +38796,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000140",
@@ -39017,13 +38857,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -39076,6 +38911,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -39116,8 +38952,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000141",
@@ -39184,13 +39019,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -39248,6 +39078,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -39309,8 +39140,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000142",
@@ -39388,13 +39218,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -39444,6 +39269,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -39503,8 +39329,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000143",
@@ -39583,13 +39408,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -39647,6 +39467,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -39699,8 +39520,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000144",
@@ -39752,13 +39572,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -39808,6 +39623,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -39848,8 +39664,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000145",
@@ -39899,13 +39714,8 @@
     "subjects": [
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -39955,6 +39765,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -40008,8 +39819,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000146",
@@ -40109,6 +39919,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -40161,8 +39972,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "2000147",
@@ -40249,6 +40059,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -40316,8 +40127,7 @@
           "value": "par plusieurs jurisconsultes"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000148",
@@ -40407,6 +40217,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -40454,8 +40265,7 @@
           "value": "par plusieurs jurisconsultes"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "2000149",
@@ -40539,6 +40349,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -40585,8 +40396,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "201",
@@ -40665,6 +40475,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -40717,8 +40528,7 @@
           "value": "pr\u00e9sent\u00e9s par A.-M. Besnard"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "202",
@@ -40803,6 +40613,7 @@
     "copyrightDate": [
       "\u00a9 1971"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -40867,8 +40678,7 @@
           "value": "Jean Melas Kyriazi"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "203",
@@ -40984,6 +40794,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41039,8 +40850,7 @@
           "value": "par le G\u00e9n\u00e9ral Hellot"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "204",
@@ -41141,6 +40951,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41189,8 +41000,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "205",
@@ -41259,6 +41069,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41307,8 +41118,7 @@
           "value": "Caio Pagano"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "206",
@@ -41429,6 +41239,7 @@
       "Bd. 1: Sailing. Lady in black. Dust in the wind. I still haven't found what I'm looking for. Listen to your heart. Purple rain. Blaze of glory. Still loving you. Holiday. Angie. While my guitar gently weeps. With a little help from my friends. Wonderful tonight. A whiter shade of pale. Right here waiting. Another day in paradise. Brothers in arms. Still got the blues.",
       "Bd. 2: Stand by me. Michelle. Yesterday. Hey Jude. San Francisco. Atlantis. Ruby uesday. My sweet Lord. Nights in white satin. Sylvia's mother. Heart of gold. The needle and the damage done. Walk on the wild side. Love hurts. Boat on the river. I'm on fire. On the beach. Wicked game. Wind of change. To be with you. Tears in Heaven. Don't cry. Cats in ihe cradle. Everything I do. What's up."
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41484,8 +41295,7 @@
           "value": "[arr. von] Peter Bursch, J\u00fcrgen Kumlehn"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "207",
@@ -41593,6 +41403,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41661,8 +41472,7 @@
           "value": "[curador-geral Nelson Aguilar]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "208",
@@ -41739,6 +41549,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41794,8 +41605,7 @@
           "value": "Charlotte Le Van"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "209",
@@ -41890,6 +41700,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41942,8 +41753,7 @@
           "value": "Sylvie Overnoy"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "21",
@@ -42043,6 +41853,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -42128,8 +41939,7 @@
           "value": "F.G.J. Hayhoe, R.J. Flemans"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "210",
@@ -42337,6 +42147,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -42427,8 +42238,7 @@
           "value": "Katja Kessel, Sandra Reimann"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "211",
@@ -42546,6 +42356,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -42618,8 +42429,7 @@
           "value": "M. Abercrombie, C.J. Hickman, and M.L. Johnson"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "212",
@@ -42727,6 +42537,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -42788,8 +42599,7 @@
           "value": "Louis Pilandon"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "213",
@@ -42863,6 +42673,7 @@
       "source": "RERO jubmdj",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -42918,8 +42729,7 @@
           "value": "Yves Crouzet"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "214",
@@ -43029,6 +42839,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -43089,8 +42900,7 @@
           "value": "ill. [de] Katia Texier"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "215",
@@ -43154,6 +42964,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -43185,8 +42996,7 @@
           "value": "G. Tavard"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "216",
@@ -43272,6 +43082,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -43324,8 +43135,7 @@
           "value": "Viviane Koenig, Arnauld Rou\u00e8che"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "217",
@@ -43439,6 +43249,7 @@
         "classificationPortion": "821.134.2.09(063)"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -43491,8 +43302,7 @@
           "value": "edici\u00f3n dirigida por Aurora Egido y C\u00e9sar Antonio Molina"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "218",
@@ -43592,6 +43402,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -43648,8 +43459,7 @@
           "value": "Anita Margulies (Hrsg.) ... [et al.]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "219",
@@ -43766,6 +43576,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -43951,8 +43762,7 @@
           "language": "rus-cyrl"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "22",
@@ -44026,6 +43836,7 @@
       "source": "RERO geuth-",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44080,8 +43891,7 @@
           "value": "publ. by the Council on Christian Unity of the Christian Church (Disciples of Christ)"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "220",
@@ -44145,6 +43955,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44176,8 +43987,7 @@
           "value": "Gunars Anson"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "221",
@@ -44277,6 +44087,7 @@
     "originalLanguage": [
       "ita"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44338,8 +44149,7 @@
           "value": "textes de Jean-Paul II"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "222",
@@ -44434,6 +44244,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44495,8 +44306,7 @@
           "value": "pr\u00e9sentation: \u00c9ric M\u00e9choulan"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "223",
@@ -44552,13 +44362,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -44617,6 +44422,7 @@
     "originalLanguage": [
       "ger"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44682,8 +44488,7 @@
           "value": "trad. Henri Perrin"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "224",
@@ -44774,6 +44579,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44818,8 +44624,7 @@
           "value": "660 restaurants choisis, visit\u00e9s, d\u00e9crits et not\u00e9s par Claude Lebey"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "225",
@@ -44932,6 +44737,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44992,8 +44798,7 @@
           "value": "Marc Eckebrecht"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "226",
@@ -45118,6 +44923,7 @@
     "copyrightDate": [
       "\u00a9 1990"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -45171,8 +44977,7 @@
           "value": "r\u00e9al. [par] Andr\u00e9 Vallana"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "227",
@@ -45276,6 +45081,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -45331,8 +45137,7 @@
           "value": "[textes de] Laurent Genefort... [et al.]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "228",
@@ -45393,7 +45198,6 @@
         }
       }
     ],
-    "fiction_statement": "fiction",
     "genreForm": [
       {
         "entity": {
@@ -45482,6 +45286,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -45641,6 +45446,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -45687,8 +45493,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "23",
@@ -45805,6 +45610,7 @@
       "source": "RERO gevbpu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -45861,8 +45667,7 @@
           "value": "Association romande pour la protection des eaux et de l'air"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "230",
@@ -46003,6 +45808,7 @@
       "Vol. 2 : Reproduction of books III and IV of edition of 1758. - 375 p",
       "Vol. 3 : Translation of the edition of 1758 / by Charles G. Fenwick ; with an introd. by Albert de Lapradelle. - LIX, 398 p"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -46064,8 +45870,7 @@
           "value": "with an introd. by Albert de Lapradelle = The law of nations or the principles of natural law"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "231",
@@ -46179,6 +45984,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -46243,8 +46049,7 @@
           "value": "Marguerite de Navarre"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "232",
@@ -46315,13 +46120,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "02722953X"
-          },
-          "authorized_access_point": "Br\u00e9sil"
+          "pid": "16699928",
+          "$ref": "https://mef.rero.ch/api/places/idref/02722953X"
         }
       }
     ],
@@ -46363,6 +46163,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -46431,8 +46232,7 @@
           "value": "[curador-geral Nelson Aguilar]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "233",
@@ -46506,6 +46306,7 @@
       "source": "RERO jubmdj",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -46561,8 +46362,7 @@
           "value": "Julie Hasler"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "234",
@@ -46693,6 +46493,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -46761,8 +46562,7 @@
           "language": "chi-hani"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "235",
@@ -46826,6 +46626,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -46857,8 +46658,7 @@
           "value": "Schweizerisches \u00d6kumenisches Komitee f\u00fcr Gerechtigkeit, Frieden und die Bewahrung der Sch\u00f6pfung"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "236",
@@ -47001,6 +46801,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -47062,8 +46863,7 @@
           "value": "Mirko Tavosanis"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "237",
@@ -47130,6 +46930,7 @@
       "source": "RERO nebpun",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -47182,8 +46983,7 @@
           "value": "von N. Pringsheim"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "238",
@@ -47248,6 +47048,7 @@
       "source": "RERO geulal",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -47300,8 +47101,7 @@
           "value": "Dieter E. Zimmer"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "239",
@@ -47417,6 +47217,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -47491,8 +47292,7 @@
           "value": "avec la collab. de X. Kohl"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "24",
@@ -47556,6 +47356,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -47587,8 +47388,7 @@
           "value": "Cardinal Augustin Bea"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "240",
@@ -47652,6 +47452,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -47683,8 +47484,7 @@
           "value": "Michael K. Kinnamon"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "241",
@@ -47799,6 +47599,7 @@
       "source": "RERO nebpun",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -47854,8 +47655,7 @@
           "value": "par Olivier Clottu"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "242",
@@ -47934,6 +47734,7 @@
       "source": "RERO vsbasm",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -47981,8 +47782,7 @@
           "value": "Ga\u00ebtan Cassina"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "243",
@@ -48128,6 +47928,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -48213,8 +48014,7 @@
           "value": "Redaktion.: Manfred Kappeler ... [und viele weitere]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "244",
@@ -48319,6 +48119,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -48385,8 +48186,7 @@
           "value": "hrsg. von Christian Starck und Klaus Stern"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "245",
@@ -48447,6 +48247,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -48487,8 +48288,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "246",
@@ -48555,6 +48355,7 @@
     "tableOfContents": [
       "T. 1: Chefs-lieux de cantons"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -48612,8 +48413,7 @@
           "value": "descriptions h\u00e9raldiques et compositions graphiques de Robert Louis"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "247",
@@ -48692,6 +48492,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -48753,8 +48554,7 @@
           "value": "Claude Mauriac"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "248",
@@ -48830,6 +48630,7 @@
       "source": "RERO gemchi",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -48899,8 +48700,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "249",
@@ -49036,6 +48836,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -49110,8 +48911,7 @@
           "value": "[prod.] Jean-Louis Porchet & G\u00e9rard Ruey"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "25",
@@ -49270,6 +49070,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -49336,8 +49137,7 @@
           "value": "hrsg. von Paul Imhof"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "250",
@@ -49449,6 +49249,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -49533,8 +49334,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "251",
@@ -49657,6 +49457,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -49725,8 +49526,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "252",
@@ -49847,6 +49647,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -49936,8 +49737,7 @@
           "value": "Gelesen von Sabine Falkenberg"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "253",
@@ -49982,6 +49782,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -50020,8 +49821,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "254",
@@ -50170,6 +49970,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -50222,8 +50023,7 @@
           "value": "Thorsten Nesch"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "255",
@@ -50322,6 +50122,7 @@
     "copyrightDate": [
       "\u00a9 1982"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -50377,8 +50178,7 @@
           "value": "Rainer Christlein und Otto Braasch"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "256",
@@ -50466,6 +50266,7 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -50528,8 +50329,7 @@
           "value": "musique originale Andr\u00e9 Mergenthaler"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "257",
@@ -50603,13 +50403,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -50662,6 +50457,7 @@
     "acquisitionTerms": [
       "Fr. 280.- f\u00fcr die B\u00e4nde 3/1, 3/2 und 5/1."
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -50716,8 +50512,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "258",
@@ -50832,6 +50627,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -50919,8 +50715,7 @@
           "value": "David Airey and King Chong"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "259",
@@ -51036,6 +50831,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51091,8 +50887,7 @@
           "value": "Elisabeth Dumont-Le Cornec, R\u00e9becca Dautremer, Laurent Sabathi\u00e9"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "26",
@@ -51193,6 +50988,7 @@
     "copyrightDate": [
       "\u00a9 1986"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51256,8 +51052,7 @@
           "value": "Robert E. Hall, John B. Taylor"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "260",
@@ -51339,6 +51134,7 @@
       "source": "RERO nebpup",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51453,8 +51249,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "261",
@@ -51579,15 +51374,6 @@
           "type": "bf:Person",
           "authorized_access_point": "Smirnova, Natal\u02b9i\ufe20a\ufe21 Mikha\u012dlovna"
         }
-      },
-      {
-        "role": [
-          "ctb"
-        ],
-        "entity": {
-          "pid": "13266668",
-          "$ref": "https://mef.rero.ch/api/agents/idref/092877575"
-        }
       }
     ],
     "identifiedBy": [
@@ -51614,6 +51400,7 @@
         "RERO nemahb"
       ]
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51695,8 +51482,7 @@
           "language": "rus-cyrl"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "262",
@@ -51808,6 +51594,7 @@
       "source": "RERO labcur",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51868,8 +51655,7 @@
           "value": "Nathalie Chanine... [et al.]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "263",
@@ -51946,6 +51732,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52001,8 +51788,7 @@
           "value": "Aruna M. Siewert"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "264",
@@ -52164,6 +51950,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52212,8 +51999,7 @@
           "value": "avec la participation d'Agn\u00e8s Chalapoutov"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "265",
@@ -52318,6 +52104,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52373,8 +52160,7 @@
           "value": "Reynald Delaloye"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "266",
@@ -52477,6 +52263,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52529,8 +52316,7 @@
           "value": "Ann Matthews Martin"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "267",
@@ -52581,6 +52367,7 @@
       "source": "RERO neuses",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52613,8 +52400,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "268",
@@ -52671,6 +52457,7 @@
       "source": "RERO jubicj",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52727,8 +52514,7 @@
           "value": "Pierre Henry"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "269",
@@ -52790,6 +52576,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52821,8 +52608,7 @@
           "value": "Philip L. Wickeri"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "27",
@@ -52948,6 +52734,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52993,8 +52780,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "270",
@@ -53076,6 +52862,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -53128,8 +52915,7 @@
           "value": "Arnaud Cathrine"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "271",
@@ -53208,6 +52994,7 @@
         "classificationPortion": "CA/PL 97.3 g"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -53310,8 +53097,7 @@
           "value": "Kazimierz Korzan"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "272",
@@ -53403,6 +53189,7 @@
       "source": "RERO gevcjb",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -53458,8 +53245,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "273",
@@ -53533,6 +53319,7 @@
       "source": "RERO nebpun",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -53580,8 +53367,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "274",
@@ -53691,6 +53477,7 @@
         "classificationPortion": "A 59 h"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -53764,8 +53551,7 @@
           "value": "[Internationales Institut f\u00fcr Umwelt und Gesellschaft]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "275",
@@ -53842,6 +53628,7 @@
         "content": "onlineResourceViaRERODOC"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -53894,8 +53681,7 @@
           "value": "[Pierre Weiss]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "276",
@@ -53962,6 +53748,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -54016,8 +53803,7 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "277",
@@ -54118,6 +53904,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -54173,8 +53960,7 @@
           "value": "Ivan Bulloch, Diane James"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "278",
@@ -54283,6 +54069,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -54335,8 +54122,7 @@
           "value": "Daniel Dabit, Pierre Boidin"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "279",
@@ -54488,7 +54274,7 @@
           "ctb"
         ],
         "entity": {
-          "pid": "14534285",
+          "pid": "8140604",
           "$ref": "https://mef.rero.ch/api/agents/idref/118427369"
         }
       }
@@ -54552,6 +54338,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -54787,8 +54574,7 @@
           "language": "heb-hebr"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "28",
@@ -54889,6 +54675,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -54981,8 +54768,7 @@
           "value": "ed. by Robert A. Prentky and Vernon L. Quinsey"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "280",
@@ -55034,13 +54820,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "034253785"
-          },
-          "authorized_access_point": "Oberwallis (Suisse, VS)"
+          "pid": "16776170",
+          "$ref": "https://mef.rero.ch/api/places/idref/034253785"
         }
       }
     ],
@@ -55083,6 +54864,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -55152,8 +54934,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "281",
@@ -55193,13 +54974,8 @@
     "subjects": [
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027218546"
-          },
-          "authorized_access_point": "Afrique"
+          "pid": "16798361",
+          "$ref": "https://mef.rero.ch/api/places/idref/027218546"
         }
       }
     ],
@@ -55329,6 +55105,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -55433,8 +55210,7 @@
           "value": "Farin Urlaub"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "282",
@@ -55544,6 +55320,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -55602,8 +55379,7 @@
           "value": "Thierry Enel, Fran\u00e7ois-Xavier H\u00e9ry"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "283",
@@ -55748,6 +55524,7 @@
       "source": "RERO iftfla",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -55789,8 +55566,7 @@
           "value": "Hrsg.: Bundesamt f\u00fcr Statistik (BFS) = Statistique de la Suisse. 17, Politique / \u00e9d.: Office f\u00e9d\u00e9ral de la statistique (OFS) = Statistica della Svizzera. 17, Politica / ed.: Ufficio federale di statistica (UST) = Swiss statistics. 17, Politics / ed.: Swiss Federal Statistical Office"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "284",
@@ -55903,6 +55679,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -56108,8 +55885,7 @@
           "language": "jpn-jpan"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "285",
@@ -56241,6 +56017,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -56297,8 +56074,7 @@
           "value": "[r\u00e9d. Jean-Daniel Sallin... et al.]"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "286",
@@ -56363,6 +56139,7 @@
       "source": "RERO nebpun",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -56415,8 +56192,7 @@
           "value": "M. Balka"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "287",
@@ -56482,6 +56258,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -56534,8 +56311,7 @@
           "value": "Philippe Besson"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "288",
@@ -56609,6 +56385,7 @@
         "RERO gevbge"
       ]
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -56635,8 +56412,7 @@
           "value": "by John Abercrombie"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "289",
@@ -56679,6 +56455,7 @@
       "source": "RERO lascl-",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -56733,8 +56510,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "29",
@@ -56808,6 +56584,7 @@
       "source": "RERO gevbaa",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -56863,8 +56640,7 @@
           "value": "Hartmut Kraft"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "290",
@@ -56976,6 +56752,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -57028,8 +56805,7 @@
           "value": "Henriette Bichonnier, Pef"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "291",
@@ -57102,6 +56878,7 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -57154,8 +56931,7 @@
           "value": "Antoni Casas Ros"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "292",
@@ -57273,6 +57049,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -57347,8 +57124,7 @@
           "value": "ed. [...] and with foreword by Arnold Schering"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "3",
@@ -57410,6 +57186,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -57446,8 +57223,7 @@
           "value": "Fritz Christian Schneider"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "30",
@@ -57515,13 +57291,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027243427"
-          },
-          "authorized_access_point": "Portugal"
+          "pid": "16762747",
+          "$ref": "https://mef.rero.ch/api/places/idref/027243427"
         }
       }
     ],
@@ -57566,6 +57337,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -57611,8 +57383,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "31",
@@ -57734,6 +57505,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -57786,8 +57558,7 @@
           "value": "Carsten Dams, Michael Stolle"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "32",
@@ -57913,13 +57684,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027263711"
-          },
-          "authorized_access_point": "Maroc"
+          "pid": "16764780",
+          "$ref": "https://mef.rero.ch/api/places/idref/027263711"
         }
       }
     ],
@@ -57938,7 +57704,7 @@
           "ctb"
         ],
         "entity": {
-          "pid": "14848432",
+          "pid": "17245917",
           "$ref": "https://mef.rero.ch/api/agents/idref/066861322"
         }
       }
@@ -57985,6 +57751,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58184,8 +57951,7 @@
           "language": "ara-arab"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "33",
@@ -58266,6 +58032,7 @@
       "source": "RERO jubmdj",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58318,8 +58085,7 @@
           "value": "Anne Cortey, Janik Coat"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "34",
@@ -58454,6 +58220,7 @@
         "classificationPortion": "A 59 h"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58549,8 +58316,7 @@
           "value": "[Internationales Institut f\u00fcr Umwelt und Gesellschaft]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "35",
@@ -58619,6 +58385,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58650,8 +58417,7 @@
           "value": "von G\u00fcnther Reese"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "36",
@@ -58759,6 +58525,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58804,8 +58571,7 @@
           "value": "Vita et Pax Foundation"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "37",
@@ -58925,6 +58691,7 @@
         "type": "resource"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58993,8 +58760,7 @@
           "value": "European Commission, Environment"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "38",
@@ -59064,13 +58830,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -59115,6 +58876,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59161,8 +58923,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "39",
@@ -59224,13 +58985,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "02722953X"
-          },
-          "authorized_access_point": "Br\u00e9sil"
+          "pid": "16699928",
+          "$ref": "https://mef.rero.ch/api/places/idref/02722953X"
         }
       }
     ],
@@ -59277,6 +59033,7 @@
       "source": "RERO gevcjb",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59340,8 +59097,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "4",
@@ -59455,6 +59211,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59519,8 +59276,7 @@
           "value": "Rudolf Bruhin"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "40",
@@ -59629,6 +59385,7 @@
       "source": "RERO gevcjb",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59675,8 +59432,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "41",
@@ -59720,6 +59476,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59752,8 +59509,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "42",
@@ -59866,6 +59622,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59921,8 +59678,7 @@
           "value": "von Wolfgang B\u00e4r"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "43",
@@ -59969,13 +59725,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "02722953X"
-          },
-          "authorized_access_point": "Br\u00e9sil"
+          "pid": "16699928",
+          "$ref": "https://mef.rero.ch/api/places/idref/02722953X"
         }
       }
     ],
@@ -60010,6 +59761,7 @@
       "source": "RERO lamubo",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -60065,8 +59817,7 @@
           "value": "Jo\u00e3o Ubiratan Moreira dos Santos"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "44",
@@ -60162,6 +59913,7 @@
     "originalLanguage": [
       "ger"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -60219,8 +59971,7 @@
           "value": "trad. de l'allemand par Brigitte D\u00e9chin... [et al.]"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "45",
@@ -60333,6 +60084,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -60397,8 +60149,7 @@
           "value": "Robert Marek"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "46",
@@ -60512,6 +60263,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -60587,8 +60339,7 @@
           "value": "von Robert Schumann"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "47",
@@ -60681,6 +60432,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -60737,8 +60489,7 @@
           "value": "ed. Gerald D. Fasman"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "48",
@@ -60855,6 +60606,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -60907,8 +60659,7 @@
           "value": "par Danielle Le Gall"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "49",
@@ -60982,6 +60733,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61037,8 +60789,7 @@
           "value": "Chantal Van Cutsem"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "5",
@@ -61108,6 +60859,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61161,8 +60913,7 @@
           "value": "(Trad. de l'anglais par Simone Breuzebosc.)"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "50",
@@ -61239,6 +60990,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61296,8 +61048,7 @@
           "value": "aus dem Engl. \u00fcbers. von Astrid Arz"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "51",
@@ -61462,6 +61213,7 @@
       "Teil 2 : Speculum virtutum / Engelbert von Admont ; hrsg. von Karl Ubl. - Hannover : Hahnsche Buchhandlung, 2004. - VIII, 522 p.",
       "Teil 3 : De ortu et fine Romani imperii / Engelbert von Admont ; hrsg. von Herbert Schneider ... . - Wiesbaden : Harrassowitz Verlag, 2016. - XXXVIII, 262 p."
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61508,8 +61260,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "52",
@@ -61562,6 +61313,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61586,8 +61338,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "53",
@@ -61670,6 +61421,7 @@
         "RERO geulal"
       ]
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61757,8 +61509,7 @@
           "value": "Elvira Topalovi\u0107"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "54",
@@ -61904,6 +61655,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61952,8 +61704,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "55",
@@ -62058,6 +61809,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62110,8 +61862,7 @@
           "value": "Christian Jacq"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "56",
@@ -62203,6 +61954,7 @@
       "source": "RERO gecaeg",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62255,8 +62007,7 @@
     ],
     "supplementaryContent": [
       "Bibliogr.: p. 100-101"
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "57",
@@ -62339,6 +62090,7 @@
     "tableOfContents": [
       "Vol. 5: American & British recordings, 1913-1921. - 2004"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62385,8 +62137,7 @@
           "rdaco:1011"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "58",
@@ -62459,6 +62210,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62490,8 +62242,7 @@
           "value": "von Anna Marie Aagaard"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "59",
@@ -62594,6 +62345,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62649,8 +62401,7 @@
           "value": "Fran\u00e7oise Joire, Jihad Darwiche"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "6",
@@ -62693,6 +62444,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62748,8 +62500,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "60",
@@ -62813,6 +62564,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62844,8 +62596,7 @@
           "value": "J. L. Boojamra"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "61",
@@ -62888,6 +62639,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62933,8 +62685,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "62",
@@ -63042,6 +62793,7 @@
         "RERO vsbcvs"
       ]
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63105,8 +62857,7 @@
           "value": "Ralf Gantzhorn, Moritz Attenberger"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "63",
@@ -63152,6 +62903,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63176,8 +62928,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "64",
@@ -63250,6 +63001,7 @@
     "copyrightDate": [
       "\u00a9 1985"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63310,8 +63062,7 @@
           "value": "Walter Vogt"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "65",
@@ -63375,6 +63126,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63406,8 +63158,7 @@
           "value": "Cardinal Augustin Bea"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "66",
@@ -63491,6 +63242,7 @@
       "source": "RERO vsbcvs",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63536,8 +63288,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "67",
@@ -63677,6 +63428,7 @@
     "originalLanguage": [
       "lat"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63746,8 +63498,7 @@
           "value": "trad., introd. et notes par M.-F. Berrouard"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "68",
@@ -63866,6 +63617,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63918,8 +63670,7 @@
           "value": "Jean-Yves Lacoste"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "69",
@@ -64041,6 +63792,7 @@
         "classificationPortion": "voix (3A T B), choeur mixte, orgue"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -64113,8 +63865,7 @@
           "value": "english version by Jean Lunn"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "7",
@@ -64263,6 +64014,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -64341,8 +64093,7 @@
           "value": "a cura di Marina Regni e Piera Giovanna Tordella"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "70",
@@ -64436,6 +64187,7 @@
     "originalLanguage": [
       "ita"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -64488,8 +64240,7 @@
           "value": "Alessandro Baricco"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "71",
@@ -64553,6 +64304,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -64584,8 +64336,7 @@
           "value": "Erich Hoffmann"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "72",
@@ -64636,6 +64387,7 @@
       "source": "RERO laisdc",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "note": "Date(s) uncertain or unknown",
@@ -64689,8 +64441,7 @@
           "value": "Israel/Palestine Center for Research and Information"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "73",
@@ -64784,6 +64535,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -64839,8 +64591,7 @@
           "value": "par Bernard Hedde D'Entremont"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "74",
@@ -64953,6 +64704,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -65025,8 +64777,7 @@
           "value": "G. Mandl"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "75",
@@ -65089,6 +64840,7 @@
       "source": "RERO",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -65135,8 +64887,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "76",
@@ -65249,6 +65000,7 @@
     "copyrightDate": [
       "\u00a9 2019"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -65314,8 +65066,7 @@
           "value": "Silvano Zeiter"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "77",
@@ -65393,6 +65144,7 @@
     "copyrightDate": [
       "\u00a9 1997"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -65454,8 +65206,7 @@
           "value": "Jean-Fran\u00e7ois Michel"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "78",
@@ -65654,6 +65405,7 @@
     "originalLanguage": [
       "jpn"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -65710,8 +65462,7 @@
           "value": "Mizuki Shigeru"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "79",
@@ -65802,6 +65553,7 @@
       "source": "RERO gevbpu",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -65853,8 +65605,7 @@
       {
         "$ref": "https://bib.rero.ch/api/documents/79"
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "8",
@@ -65923,7 +65674,7 @@
           "ctb"
         ],
         "entity": {
-          "pid": "1156829",
+          "pid": "17290138",
           "$ref": "https://mef.rero.ch/api/agents/idref/026784556"
         }
       }
@@ -65963,6 +65714,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66032,8 +65784,7 @@
           "value": "trad. de l'anglais par Paul Chemla"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "80",
@@ -66103,6 +65854,7 @@
       "At least that's what you said ; Hell is chrome ; Spiders (kidsmoke) ; Muzzle of bees ; Hummingbird ; Handshake drugs ; Wishful thinking ; Company in my back ; I'm a wheel ; Theologians ; Less than you think ; The late greats",
       "Bonus: Panthers ; At Least That's What You Said (Live) ; The Late Greats (Live) ; Handshake Drugs (Live) ; Kicking Television"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66150,8 +65902,7 @@
           "value": "Wilco"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "81",
@@ -66219,6 +65970,7 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66271,8 +66023,7 @@
           "value": "Yasmina Khadra"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "82",
@@ -66332,13 +66083,8 @@
       },
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027235408"
-          },
-          "authorized_access_point": "Italie"
+          "pid": "16798393",
+          "$ref": "https://mef.rero.ch/api/places/idref/027235408"
         }
       }
     ],
@@ -66390,6 +66136,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66442,8 +66189,7 @@
           "value": "by M. Young"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "83",
@@ -66551,7 +66297,6 @@
         "value": "eng"
       }
     ],
-    "fiction_statement": "fiction",
     "genreForm": [
       {
         "entity": {
@@ -66635,6 +66380,7 @@
     "originalLanguage": [
       "eng"
     ],
+    "fiction_statement": "fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66791,6 +66537,7 @@
       "source": "RERO gewcc-",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66822,8 +66569,7 @@
           "value": "Philip A. Potter"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "85",
@@ -66906,6 +66652,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66961,8 +66708,7 @@
           "value": "V\u00e9ronique Follet"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "86",
@@ -67080,6 +66826,7 @@
         "audienceType": "understanding_level"
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -67135,8 +66882,7 @@
           "value": "Val\u00e9rie Guidoux, Sylvain Bourri\u00e8res"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "87",
@@ -67262,6 +67008,7 @@
       "source": "RERO",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -67302,8 +67049,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "88",
@@ -67389,6 +67135,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -67441,8 +67188,7 @@
           "value": "Nicole Lambert"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "89",
@@ -67507,6 +67253,7 @@
       "source": "RERO nebpup",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -67559,8 +67306,7 @@
           "value": "Susanne Fr\u00f6hlich"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "9",
@@ -67628,6 +67374,7 @@
       "source": "RERO neubfl",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -67660,8 +67407,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "90",
@@ -67715,6 +67461,7 @@
       "source": "RERO vdgla-",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -67753,8 +67500,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "91",
@@ -67819,13 +67565,8 @@
     "subjects": [
       {
         "entity": {
-          "type": "bf:Place",
-          "source": "rero",
-          "identifiedBy": {
-            "type": "IdRef",
-            "value": "027249654"
-          },
-          "authorized_access_point": "Suisse"
+          "pid": "16788252",
+          "$ref": "https://mef.rero.ch/api/places/idref/027249654"
         }
       }
     ],
@@ -67879,6 +67620,7 @@
         "classificationPortion": "CA/CH 11 d"
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -67940,8 +67682,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "92",
@@ -68042,6 +67783,7 @@
         ]
       }
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -68109,8 +67851,7 @@
           "value": "Frank Bonkowski"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "93",
@@ -68223,6 +67964,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -68290,8 +68032,7 @@
           "value": "Kh\u0101lid Ab\u016b al-R\u016bs"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "94",
@@ -68429,6 +68170,7 @@
     "tableOfContents": [
       "Encore: P\u00e9n\u00e9lope : pr\u00e9lude ; Masques et bergamasques"
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -68477,8 +68219,7 @@
           "value": "Faur\u00e9"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "95",
@@ -68574,6 +68315,7 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Minimal level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -68624,8 +68366,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "96",
@@ -68748,6 +68489,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -68875,8 +68617,7 @@
           "language": "chi-hani"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "97",
@@ -69006,6 +68747,7 @@
     "originalLanguage": [
       "dut"
     ],
+    "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -69079,8 +68821,7 @@
           "value": "trad. du n\u00e9erlandais par J.M. Delanghe"
         }
       ]
-    ],
-    "fiction_statement": "non_fiction"
+    ]
   },
   {
     "pid": "98",
@@ -69132,6 +68873,7 @@
       "source": "RERO labcuc",
       "encodingLevel": "Full level"
     },
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -69170,8 +68912,7 @@
           "rdaco:1020"
         ]
       }
-    ],
-    "fiction_statement": "unspecified"
+    ]
   },
   {
     "pid": "99",
@@ -69260,6 +69001,7 @@
         ]
       }
     ],
+    "fiction_statement": "unspecified",
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -69319,7 +69061,6 @@
           "value": "Ludwig Bergmann"
         }
       ]
-    ],
-    "fiction_statement": "unspecified"
+    ]
   }
 ]
