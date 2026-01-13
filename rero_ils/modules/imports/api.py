@@ -252,8 +252,7 @@ class Import:
 
         :param results: dictionary with the results in hits hits
         :param ids: list with ids to filter
-        :return: dictionary with results filtered by ids and
-                  adapted aggregations
+        :return: dictionary with results filtered by ids and adapted aggregations
         """
         hits = results["hits"]["hits"]
         hits = list(filter(lambda hit: hit["id"] in ids, hits))
@@ -831,3 +830,41 @@ class RenouvaudImport(Import):
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
         return url_for("api_imports.import_renouvaud_record", **args)
+
+
+class CambridgeImport(Import):
+    """Import class for Cambridge."""
+
+    name = "Cambridge"
+    url = "https://idiscover.lib.cam.ac.uk"
+    url_api = (
+        "{url}/view/sru/44CAM_INST?"
+        "version=1.2&operation=searchRetrieve"
+        "&recordSchema=marcxml&maximumRecords={max_results}"
+        '&startRecord=1&query={where} {relation} "{what}"'
+    )
+    # https://developers.exlibrisgroup.com/alma/integrations/sru/
+    search = {
+        "anywhere": "alma.all_for_ui",
+        "author": "alma.author",
+        "title": "alma.title",
+        "recordid": "alma.mms_id",
+        "isbn": "alma.isbn",
+        "issn": "alma.issn",
+        "date": "alma.date",
+    }
+
+    to_json_processor = marc21_slsp.do
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            "id": id,
+            "_external": True,
+            current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
+        }
+        return url_for("api_imports.import_cambridge_record", **args)
