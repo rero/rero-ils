@@ -163,12 +163,15 @@ def test_item_types_name_validate(client):
         assert get_json(res) == {"name": None}
 
 
-def test_item_types_can_delete(client, item_type_standard_martigny, item_lib_martigny, circulation_policies):
+def test_item_types_can_delete(
+    item_type_standard_martigny, holding_lib_martigny_w_patterns, item_lib_martigny, circulation_policies
+):
     """Test can delete an item type."""
     can, reasons = item_type_standard_martigny.can_delete
     assert not can
     assert reasons["links"]["circ_policies"]
     assert reasons["links"]["items"]
+    assert reasons["links"]["holdings"]
 
 
 def test_filtered_item_types_get(

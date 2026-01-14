@@ -122,6 +122,7 @@ class ItemType(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
+        from ..holdings.api import HoldingsSearch
         from ..items.api import ItemsSearch
 
         links = {}
@@ -137,16 +138,26 @@ class ItemType(IlsRecord):
             path="settings",
             query=Q("bool", must=[Q("match", settings__item_type__pid=self.pid)]),
         )
+        holdings_query = (
+            HoldingsSearch()
+            # Standard holdings are entirely dependent on their items, so they don't need to be checked
+            .exclude("term", holdings_type="standard")
+            .filter("term", circulation_category__pid=self.pid)
+        )
         if get_pids:
             items = sorted_pids(items_query)
             circ_policies = sorted_pids(cipo_query)
+            holdings = sorted_pids(holdings_query)
         else:
             items = items_query.count()
             circ_policies = cipo_query.count()
+            holdings = holdings_query.count()
         if items:
             links["items"] = items
         if circ_policies:
             links["circ_policies"] = circ_policies
+        if holdings:
+            links["holdings"] = holdings
         return links
 
     def reasons_not_to_delete(self):
