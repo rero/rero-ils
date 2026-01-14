@@ -38,6 +38,7 @@ from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.decorators import check_authentication, check_permission
 from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.errors import NoCirculationAction, NoCirculationActionIsPermitted
+from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.dumpers import CirculationDumper as LoanCirculationDumper
@@ -46,6 +47,7 @@ from rero_ils.modules.operation_logs.permissions import (
     search_action as op_log_search_action,
 )
 from rero_ils.modules.patrons.api import Patron, current_librarian
+from rero_ils.modules.utils import extracted_data_from_ref
 from rero_ils.permissions import request_item_permission
 
 from ...commons.exceptions import MissingDataException
@@ -70,6 +72,17 @@ def check_logged_user_authentication(func):
         return func(*args, **kwargs)
 
     return decorated_view
+
+
+def should_remove_on_scan(func):
+    """Mark a circulation action as requiring temporary item type removal on scan.
+
+    When applied to a circulation action function, this decorator indicates that
+    the temporary_item_type should be removed before the action if the item type
+    has remove_temporary_item_type_on_scan enabled.
+    """
+    func._should_remove_on_scan = True
+    return func
 
 
 def check_authentication_for_request(func):
@@ -131,10 +144,44 @@ def do_item_jsonify_action(func):
 
     This method for the circulation actions that required access to the item
     object before executing the invenio-circulation logic.
+
+    Important: When remove_temporary_item_type_on_scan is enabled on an item type,
+    the temporary_item_type is removed BEFORE the circulation action for functions
+    decorated with @should_remove_on_scan. This means:
+    - The circulation policy will use the main item type (not temporary)
+    - The temporary_item_type will be removed even if the action fails
+    - The removal info is returned in JSON responses for:
+      * Success responses
+      * NoCirculationAction errors
+      * NoCirculationActionIsPermitted errors
+      * CirculationException errors
+      * MissingRequiredParameterError errors
+      * Generic Exception errors (catch-all)
+    - The removal info is NOT returned for:
+      * NotFound errors (item not found before removal is attempted)
+      * RequestError errors (Elasticsearch errors before removal is attempted)
     """
+
+    def _add_removed_item_type_info(error_response, removed_temp_item_type_name):
+        """Add removed temporary item type info to response if applicable."""
+        if removed_temp_item_type_name:
+            error_response["removed_temporary_item_type"] = {"name": removed_temp_item_type_name}
+        return error_response
+
+    def _reindex_item_if_needed(item, was_temp_item_type_removed):
+        """Reindex item if temporary item type was removed but circulation failed.
+
+        The item is already committed before the circulation action.
+        On success, status_update() handles reindexing.
+        On error, we must reindex explicitly here.
+        """
+        if was_temp_item_type_removed and item:
+            item.reindex()
 
     @wraps(func)
     def decorated_view(*args, **kwargs):
+        item = None
+        removed_temp_item_type_name = None
         try:
             data = deepcopy(flask_request.get_json())
             item = Item.get_item_record_for_ui(**data)
@@ -142,37 +189,74 @@ def do_item_jsonify_action(func):
 
             if not item:
                 abort(404)
+
+            # Check if temporary item type should be removed for circulation actions
+            # We do not remove it for requests or other non-scan actions
+            if getattr(func, "_should_remove_on_scan", False) and (tmp_itty := item.get("temporary_item_type")):
+                tmp_itty_pid = extracted_data_from_ref(tmp_itty.get("$ref"))
+                tmp_itty_record = ItemType.get_record_by_pid(tmp_itty_pid)
+                if tmp_itty_record and tmp_itty_record.get("remove_temporary_item_type_on_scan"):
+                    removed_temp_item_type_name = tmp_itty_record.get("name")
+                    # Remove temporary item type and commit before circulation action.
+                    # The commit is required because get_circ_policy() reloads the item from DB.
+                    # Reindex is not needed here as status_update() will do it after the action.
+                    item.pop("temporary_item_type", None)
+                    item.update(item, dbcommit=True, reindex=False)
+
+            # Execute circulation action
             item_data, action_applied = func(item, data, *args, **kwargs)
             for action, loan in action_applied.items():
                 if loan:
                     action_applied[action] = loan.dumps(LoanCirculationDumper())
 
-            return jsonify(
-                {
-                    "metadata": item_data.dumps(CirculationActionDumper()),
-                    "action_applied": action_applied,
-                }
+            response = {
+                "metadata": item_data.dumps(CirculationActionDumper()),
+                "action_applied": action_applied,
+            }
+            if removed_temp_item_type_name:
+                response["removed_temporary_item_type"] = {"name": removed_temp_item_type_name}
+
+            return jsonify(response)
+        except (NoCirculationAction, NoCirculationActionIsPermitted) as error:
+            _reindex_item_if_needed(item, removed_temp_item_type_name)
+            # Return error with info about removed temporary item type if applicable
+            # NoCirculationActionIsPermitted: The circulation specs do not allow updates on some loan states.
+            status_code = 403 if isinstance(error, NoCirculationActionIsPermitted) else 400
+            error_response = _add_removed_item_type_info(
+                {"status": status_code, "message": str(error)}, removed_temp_item_type_name
             )
-        except NoCirculationAction as error:
-            return jsonify({"status": f"error: {error!s}"}), 400
-        except NoCirculationActionIsPermitted as error:
-            # The circulation specs do not allow updates on some loan states.
-            return jsonify({"status": f"error: {error!s}"}), 403
+            return jsonify(error_response), status_code
         except MissingRequiredParameterError as error:
+            _reindex_item_if_needed(item, removed_temp_item_type_name)
             # Return error 400 when there is a missing required parameter
-            abort(400, str(error))
+            # Return JSON response to allow including additional information like removed_temporary_item_type
+            error_response = _add_removed_item_type_info(
+                {"status": 400, "message": str(error)}, removed_temp_item_type_name
+            )
+            return jsonify(error_response), 400
         except CirculationException as error:
-            abort(403, error.description or str(error))
+            _reindex_item_if_needed(item, removed_temp_item_type_name)
+            # Circulation exceptions (e.g., patron blocked, checkout limit reached)
+            # Return JSON response with status code and message to allow including
+            # additional information like removed_temporary_item_type
+            error_response = _add_removed_item_type_info(
+                {"status": 403, "message": error.description or str(error)}, removed_temp_item_type_name
+            )
+            return jsonify(error_response), 403
         except NotFound as error:
             raise error
         except exceptions.RequestError as error:
             # missing required parameters
-            return jsonify({"status": f"error: {error}"}), 400
+            return jsonify({"status": 400, "message": str(error)}), 400
         except Exception as error:
+            _reindex_item_if_needed(item, removed_temp_item_type_name)
             # TODO: need to know what type of exception and document there.
             # raise error
             current_app.logger.error(f"{func.__name__}: {error!s}")
-            return jsonify({"status": f"error: {error}"}), 400
+            error_response = _add_removed_item_type_info(
+                {"status": 400, "message": str(error)}, removed_temp_item_type_name
+            )
+            return jsonify(error_response), 400
 
     return decorated_view
 
@@ -245,6 +329,7 @@ def cancel_item_request(item, data):
 # @profile(sort_by='cumulative', lines_to_print=100)
 @check_authentication
 @do_item_jsonify_action
+@should_remove_on_scan
 def checkout(item, data):
     """HTTP POST request for Item checkout action.
 
@@ -267,6 +352,7 @@ def checkout(item, data):
 # @profile(sort_by='cumulative', lines_to_print=100)
 @check_authentication
 @do_item_jsonify_action
+@should_remove_on_scan
 def checkin(item, data):
     """HTTP GET request for item return action.
 
@@ -304,6 +390,7 @@ def update_loan_pickup_location(loan, data):
 @api_blueprint.route("/validate_request", methods=["POST"])
 @check_authentication
 @do_item_jsonify_action
+@should_remove_on_scan
 def validate_request(item, data):
     """HTTP GET request for Item request validation action.
 
@@ -323,6 +410,7 @@ def validate_request(item, data):
 @api_blueprint.route("/receive", methods=["POST"])
 @check_authentication
 @do_item_jsonify_action
+@should_remove_on_scan
 def receive(item, data):
     """HTTP POST request for receive item action.
 
@@ -340,6 +428,7 @@ def receive(item, data):
 @api_blueprint.route("/return_missing", methods=["POST"])
 @check_authentication
 @do_item_jsonify_action
+@should_remove_on_scan
 def return_missing(item, data):
     """HTTP POST request for Item return_missing action.
 

@@ -121,7 +121,8 @@ def test_auto_checkin_else(
         },
     )
     assert res.status_code == 400
-    assert get_json(res)["status"] == _("error: No circulation action performed: on shelf")
+    assert get_json(res)["status"] == 400
+    assert get_json(res)["message"] == _("No circulation action performed: on shelf")
     query = OperationLogsSearch().filter("term", record__type="scan_item").filter("exists", field="scan")
     assert query.count() == 1
     log_data = query.execute()[0].to_dict()

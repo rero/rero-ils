@@ -10,7 +10,8 @@
     "type",
     "negative_availability",
     "displayed_status",
-    "circulation_information"
+    "circulation_information",
+    "remove_temporary_item_type_on_scan"
   ],
   "required": [
     "$schema",
@@ -235,6 +236,12 @@
           }
         }
       }
+    },
+    "remove_temporary_item_type_on_scan": {
+      "title": "Remove temporary item type on item scan",
+      "description": "If enabled, scanning an item with this temporary item type will remove the temporary item type from the item.",
+      "type": "boolean",
+      "default": false
     },
     "organisation": {
       "title": "Organisation",

@@ -45,6 +45,9 @@
           }
         }
       },
+      "remove_temporary_item_type_on_scan": {
+        "type": "boolean"
+      },
       "organisation": {
         "properties": {
           "type": {
