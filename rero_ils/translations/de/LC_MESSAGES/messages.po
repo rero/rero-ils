@@ -18,16 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-01-14 08:39+0100\n"
-"PO-Revision-Date: 2025-10-22 09:00+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-"
-"translation-memory@weblate.org>\n"
+"PO-Revision-Date: 2026-01-14 08:07+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
+"ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -5149,12 +5149,12 @@ msgstr "Richtig, wenn noch nicht abgeschlossen"
 #: rero_ils/modules/circ_policies/api.py:411
 #: rero_ils/modules/circ_policies/api.py:451
 msgid "Patron doesn't have the correct role"
-msgstr ""
+msgstr "Der Kunde hat nicht die richtige Rolle"
 
 #: rero_ils/modules/circ_policies/api.py:431
 #: rero_ils/modules/circ_policies/api.py:460
 msgid "Circulation policy disallows the operation."
-msgstr ""
+msgstr "Die Ausleihpolitik verbietet diesen Vorgang."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
 msgid "Circulation policy"
@@ -10465,15 +10465,17 @@ msgstr "Information"
 
 #: rero_ils/modules/items/api/circulation.py:97
 msgid "No circulation action performed: validate impossible"
-msgstr ""
+msgstr "Keine Zirkulationsaktion durchgeführt: Validierung unmöglich"
 
 #: rero_ils/modules/items/api/circulation.py:137
 msgid "No circulation action performed: extension impossible"
-msgstr ""
+msgstr "Keine Zirkulationsaktion durchgeführt: Verlängerung unmöglich"
 
 #: rero_ils/modules/items/api/circulation.py:243
 msgid "No circulation action performed: item returned at owning library"
 msgstr ""
+"Keine Zirkulationsaktion durchgeführt: Exemplar an die Leihbibliothek "
+"zurückgegeben"
 
 #: rero_ils/modules/items/api/circulation.py:247
 msgid "No circulation action performed: on shelf"
@@ -10499,7 +10501,7 @@ msgstr "Keine Zirkulationsaktion durchgeführt: unterwegs"
 
 #: rero_ils/modules/items/api/circulation.py:555
 msgid "No circulation action performed: item on loan"
-msgstr ""
+msgstr "Keine Zirkulationsaktion durchgeführt: Exemplar ausgeliehen"
 
 #: rero_ils/modules/items/api/circulation.py:1001
 msgid "Item status disallows the operation."
@@ -11576,11 +11578,11 @@ msgstr "PID"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:554
 msgid "Item scan"
-msgstr ""
+msgstr "Exemplar-Scan"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:555
 msgid "Item scan specific data"
-msgstr ""
+msgstr "Exemplar-Scan-spezifische Daten"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:699
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:38
@@ -11797,7 +11799,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/api.py:217
 msgid "Maximum number of overdue items reached"
-msgstr ""
+msgstr "Maximale Anzahl überfälliger Exemplare erreicht"
 
 #: rero_ils/modules/patron_types/api.py:220
 msgid "Maximum amount of overdue fees reached"
@@ -13086,4 +13088,3 @@ msgstr "Ihre Bibliothek"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
-
