@@ -25,7 +25,10 @@ import tempfile
 from os.path import dirname, join
 
 import pytest
+import rero_invenio_thumbnails.api as _thumbnails_api
 from dotenv import load_dotenv
+
+from tests.thumbnail_test_provider import TestThumbnailProvider
 
 pytest_plugins = (
     "celery.contrib.pytest",
@@ -37,6 +40,28 @@ pytest_plugins = (
     "tests.fixtures.basics",
     "tests.fixtures.mef",
 )
+
+
+@pytest.fixture(scope="module", autouse=True)
+def test_provider():
+    """Register TestThumbnailProvider in the thumbnails provider registry."""
+    _thumbnails_api.PROVIDERS["test"] = TestThumbnailProvider
+    yield
+    _thumbnails_api.PROVIDERS.pop("test", None)
+
+
+@pytest.fixture(autouse=True)
+def clear_test_thumbnail_covers():
+    """Reset TestThumbnailProvider.covers before each test to ensure isolation."""
+    TestThumbnailProvider.covers = {}
+    yield
+    TestThumbnailProvider.covers = {}
+
+
+@pytest.fixture
+def thumbnail_covers():
+    """Yield the TestThumbnailProvider covers dict for per-test ISBN-to-URL setup."""
+    return TestThumbnailProvider.covers
 
 
 @pytest.fixture(scope="module")
@@ -217,6 +242,7 @@ def app_config(app_config):
     }
     app_config["INDEXER_DEFAULT_INDEX"] = "records-record-v1.0.0"
     app_config["I18N_TRANSLATIONS_PATHS"] = [join(dirname(__file__), "..", "rero_ils", "translations")]
+    app_config["RERO_INVENIO_THUMBNAILS_PROVIDERS"] = ["test"]
     return app_config
 
 

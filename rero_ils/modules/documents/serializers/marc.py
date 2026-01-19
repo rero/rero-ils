@@ -379,7 +379,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                 lxml.etree.Element: SRU record element containing the MARC data.
             """
             rec_element = ElementMaker(namespace=self.MARC21_REC, nsmap={prefix: self.MARC21_REC})
-            data_element = ElementMaker()
+            data_element = ElementMaker(namespace=self.MARC21_REC, nsmap={prefix: self.MARC21_REC})
             rec = element.record()
             rec.append(element.recordPacking("xml"))
             rec.append(element.recordSchema("marcxml"))
@@ -463,7 +463,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             root = element.searchRetrieveResponse()
             root.append(element.version("1.1"))
             root.append(element.numberOfRecords(str(number_of_records)))
-            if next_record > 1 and next_record < number_of_records:
+            if next_record > 1 and next_record <= number_of_records:
                 root.append(element.nextRecordPosition(str(next_record)))
             data = element.records()
             for idx, record in enumerate(records, start_record):
@@ -544,9 +544,9 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         # These filters control which holdings/items are included in the output.
         sru = search_result["hits"].get("sru", {})
         query_es = sru.get("query_es", "")
-        organisation_pids = re.findall(r"organisation_pid:(\d+)", query_es)
-        library_pids = re.findall(r"library_pid:(\d+)", query_es)
-        location_pids = re.findall(r"holdings\.location\.pid:(\d+)", query_es)
+        organisation_pids = re.findall(r"organisation_pid:([A-Za-z0-9_-]+)", query_es)
+        library_pids = re.findall(r"library_pid:([A-Za-z0-9_-]+)", query_es)
+        location_pids = re.findall(r"holdings\.location\.pid:([A-Za-z0-9_-]+)", query_es)
         records = self.transform_records(
             hits=search_result["hits"]["hits"],
             pid_fetcher=pid_fetcher,

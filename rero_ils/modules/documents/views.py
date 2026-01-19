@@ -18,9 +18,6 @@
 
 """Blueprint used for loading templates."""
 
-from typing import Optional
-
-import click
 from elasticsearch_dsl.query import Q
 from flask import Blueprint, current_app, render_template, url_for
 from flask_babel import gettext as _
@@ -42,7 +39,6 @@ from .extensions import (
 )
 from .utils import (
     display_alternate_graphic_first,
-    get_remote_cover,
     title_format_text_alternate_graphic,
     title_variant_format_text,
 )
@@ -283,39 +279,19 @@ def create_publication_statement(provision_activity):
 
 
 @blueprint.app_template_filter()
-def get_cover_art(record, save_cover_url=True, verbose=False):
-    """Get cover art.
+def get_cover_art(record):
+    """Return the cover image URL from the document's electronicLocator list.
 
-    :param isbn: isbn of document
-    :param save_cover_url: save cover url from isbn if no electronicLocator
-                           with coverImage exists
-    :param verbose: verbose
-    :return: url for cover art or None
+    :param record: The document record.
+    :returns: The cover image URL, or ``None`` if no coverImage locator is present.
     """
     # electronicLocator
     for electronic_locator in record.get("electronicLocator", []):
         e_content = electronic_locator.get("content")
         e_type = electronic_locator.get("type")
         if e_content == "coverImage" and e_type == "relatedResource":
-            return electronic_locator.get("url")
-    # ISBN
-    isbns = [
-        identified_by.get("value")
-        for identified_by in record.get("identifiedBy", [])
-        if identified_by.get("type") == "bf:Isbn"
-    ]
-    for isbn in sorted(isbns):
-        isbn_cover = get_remote_cover(isbn)
-        if isbn_cover and isbn_cover.get("success"):
-            url = isbn_cover.get("image")
-            if save_cover_url:
-                pid = record.get("pid")
-                record_db = Document.get_record_by_pid(pid)
-                record_db.add_cover_url(url=url, dbcommit=True, reindex=True)
-                msg = f"Add cover art url: {url} do document: {pid}"
-                if verbose:
-                    click.echo(msg)
-            return url
+            if url := electronic_locator.get("url"):
+                return url
     return None
 
 
@@ -401,7 +377,7 @@ def document_types(record, translate: bool = True) -> list[str]:
 
 
 @blueprint.app_template_filter()
-def document_main_type(record, translate: bool = True) -> Optional[str]:
+def document_main_type(record, translate: bool = True):
     """Get first document main type.
 
     :param record: record

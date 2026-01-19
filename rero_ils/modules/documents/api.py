@@ -43,6 +43,7 @@ from rero_ils.modules.utils import sorted_pids
 
 from .dumpers import document_indexer_dumper, document_replace_refs_dumper
 from .extensions import (
+    AddCoverUrlExtension,
     AddMEFPidExtension,
     EditionStatementExtension,
     ProvisionActivitiesExtension,
@@ -116,13 +117,14 @@ class Document(IlsRecord):
     enable_jsonref = False
 
     _extensions = [
-        OperationLogObserverExtension(),
+        AddCoverUrlExtension(),
         AddMEFPidExtension("subjects", "contribution", "genreForm"),
+        DeleteRelatedLocalFieldExtension(),
+        EditionStatementExtension(),
+        OperationLogObserverExtension(),
         ProvisionActivitiesExtension(),
         SeriesStatementExtension(),
-        EditionStatementExtension(),
         TitleExtension(),
-        DeleteRelatedLocalFieldExtension(),
     ]
 
     def _validate(self, **kwargs):
@@ -500,17 +502,40 @@ class Document(IlsRecord):
             document_types.append(main_type)
         return document_types or ["docmaintype_other"]
 
-    def add_cover_url(self, url, dbcommit=False, reindex=False):
-        """Adds electronicLocator with coverImage to document."""
-        electronic_locators = self.get("electronicLocator", [])
-        for electronic_locator in electronic_locators:
-            e_content = electronic_locator.get("content")
-            e_type = electronic_locator.get("type")
-            if e_content == "coverImage" and e_type == "relatedResource" and electronic_locator.get("url") == url:
+    def add_cover_url(self, url, provider=None, dbcommit=False, reindex=False, force=False):
+        """Add or replace a coverImage electronicLocator on the document.
+
+        - If a ``coverImage``/``relatedResource`` locator already exists and
+          ``force=False``: no-op, returns ``(self, False)``.
+        - If a ``coverImage``/``relatedResource`` locator already exists and
+          ``force=True``: replaces its URL and provider note in place.
+        - If no ``coverImage``/``relatedResource`` locator exists: appends one.
+
+        :param url: str - the cover image URL to store.
+        :param provider: str - optional provider/attribution note.
+        :param dbcommit: bool - commit the change to the database.
+        :param reindex: bool - reindex the document after update.
+        :param force: bool - overwrite an existing coverImage locator.
+        :returns: tuple (updated_record, changed) where changed is True if the
+            document was modified.
+        """
+        locators = self.get("electronicLocator", [])
+        if existing := next(
+            (loc for loc in locators if loc.get("content") == "coverImage" and loc.get("type") == "relatedResource"),
+            None,
+        ):
+            if not force:
                 return self, False
-        electronic_locators.append({"content": "coverImage", "type": "relatedResource", "url": url})
-        self["electronicLocator"] = electronic_locators
-        self = self.update(data=self, commit=True, dbcommit=dbcommit, reindex=reindex)
+            existing["url"] = url
+            if provider:
+                existing["note"] = provider
+        else:
+            locator = {"content": "coverImage", "type": "relatedResource", "url": url}
+            if provider:
+                locator["note"] = provider
+            locators.append(locator)
+        self["electronicLocator"] = locators
+        self.update(data=self, commit=True, dbcommit=dbcommit, reindex=reindex)
         return self, True
 
     def resolve(self):

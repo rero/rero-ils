@@ -17,12 +17,9 @@
 
 """Documents utils."""
 
-import json
 import re
 
-import requests
 from flask import current_app
-from flask import request as flask_request
 from invenio_jsonschemas.proxies import current_jsonschemas
 from werkzeug.local import LocalProxy
 
@@ -298,27 +295,3 @@ def process_i18n_literal_entity(entity):
             if key not in entity:
                 entity[key] = access_point
     return entity
-
-
-def get_remote_cover(isbn):
-    """Document cover service."""
-    if not isbn:
-        return None
-    cover_service = current_app.config.get("RERO_ILS_THUMBNAIL_SERVICE_URL")
-    url = f"{cover_service}?height=244px&width=244px&jsonpCallbackParam=callback&callback=thumb&type=isbn&value={isbn}"
-    try:
-        host_url = flask_request.host_url
-    except Exception:
-        host_url = current_app.config.get("RERO_ILS_URL", "??")
-        if host_url[-1] != "/":
-            host_url = f"{host_url}/"
-    response = requests.get(url, headers={"referer": host_url})
-    if response.status_code != 200:
-        msg = f"Unable to get cover for isbn: {isbn} {response.status_code}"
-        current_app.logger.debug(msg)
-        return None
-    result = json.loads(response.text[len("thumb(") : -1])
-    if result["success"]:
-        return result
-    current_app.logger.debug(f"Unable to get cover for isbn: {isbn}")
-    return None

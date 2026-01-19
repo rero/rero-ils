@@ -31,7 +31,7 @@ from rero_ils.modules.utils import set_timestamp
 def reindex_document(pid):
     """Reindex a document.
 
-    :param pid: str - pid value of the document to reindex.
+    :param pid: str - PID value of the document to reindex.
     """
     from rero_ils.modules.documents.api import Document
 
@@ -42,8 +42,8 @@ def reindex_document(pid):
 def delete_orphan_harvested(delete=False, verbose=False):
     """Delete orphan harvested documents.
 
-    :param delete: if True delete from DB and ES.
-    :param verbose: Verbose print.
+    :param delete: if True, delete from DB and ES.
+    :param verbose: if True, print progress output to the terminal.
     :returns: count of deleted documents.
     """
     from rero_ils.modules.documents.api import Document, DocumentsSearch
@@ -80,9 +80,9 @@ def delete_orphan_harvested(delete=False, verbose=False):
 def delete_drafts(days=1, delete=False, verbose=False):
     """Delete drafts.
 
-    :param days: Delete drafts older then days.
-    :param delete: if True delete from DB and ES.
-    :param verbose: Verbose print.
+    :param days: delete drafts older than this number of days.
+    :param delete: if True, delete from DB and ES.
+    :param verbose: if True, print progress output to the terminal.
     :returns: count of deleted drafts.
     """
     from rero_ils.modules.documents.api import Document, DocumentsSearch
@@ -119,9 +119,9 @@ def delete_drafts(days=1, delete=False, verbose=False):
 
 @shared_task(ignore_result=True)
 def reindex_document_items(record):
-    """Reindex the items of document.
+    """Reindex the items of a document and update their document_type if it changed.
 
-    :param pid: str - pid value of the document to reindex.
+    :param record: dict - the document record containing at least ``pid`` and ``type``.
     """
     from rero_ils.modules.items.api import ItemsSearch
 
@@ -137,3 +137,64 @@ def reindex_document_items(record):
                 version=hit.meta.version,
                 version_type="external_gte",
             )
+
+
+@shared_task(ignore_result=True)
+def add_cover_urls(commit=False, verbose=False, cached=True):
+    """Add cover URLs to all documents with ISBNs.
+
+    :param commit: if True, commit changes to the database.
+    :param verbose: if True, print progress output to the terminal.
+    :param cached: if True, use cached thumbnails from the provider.
+    :returns: count of updated documents.
+    """
+    from rero_invenio_thumbnails import get_thumbnail_url
+
+    from rero_ils.modules.documents.api import Document, DocumentsSearch
+
+    count = 0
+
+    # Get pids from search query
+    search = (
+        DocumentsSearch()
+        .filter("term", identifiedBy__type="bf:Isbn")
+        .exclude("term", electronicLocator__content="coverImage")
+        .params(preserve_order=True, scroll="60m")
+        .source("pid")
+    )
+    pids = [hit.pid for hit in search.scan()]
+    # Sort numeric pids numerically, non-numeric pids alphabetically after the numeric ones
+    pids = sorted(pids, key=lambda x: (0, int(x)) if x.isdigit() else (1, x))
+
+    # Process all pids
+    for idx, pid in enumerate(pids):
+        if document := Document.get_record_by_pid(pid):
+            isbns = [
+                identified_by.get("value")
+                for identified_by in document.get("identifiedBy", [])
+                if identified_by.get("type") == "bf:Isbn" and identified_by.get("value")
+            ]
+            for isbn in sorted(isbns):
+                try:
+                    url, provider = get_thumbnail_url(isbn, cached=cached)
+                except Exception as exc:
+                    msg = f"COULD NOT GET THUMBNAIL URL: {pid} isbn:{isbn} - {exc}"
+                    if verbose:
+                        click.secho(f"ERROR: {msg}", fg="red")
+                    current_app.logger.warning(msg, exc_info=True)
+                    continue
+                if url:
+                    cover_entry = {"type": "relatedResource", "content": "coverImage", "url": url}
+                    if provider:
+                        cover_entry["note"] = provider
+                    if verbose:
+                        click.echo(f"{idx:<10} document: {document.pid:<10} {provider:<15} {url}")
+                    if commit:
+                        _, ok = document.add_cover_url(url=url, provider=provider, dbcommit=commit, reindex=commit)
+                        if ok:
+                            count += 1
+                    break
+
+    if commit:
+        set_timestamp("add_cover_urls", updated=count)
+    return count

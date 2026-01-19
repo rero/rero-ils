@@ -38,7 +38,6 @@ import click
 import yaml
 from celery import current_app as current_celery
 from dojson.contrib.marc21.utils import create_record
-from elasticsearch_dsl.query import Q
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_db import db
@@ -55,9 +54,8 @@ from lxml import etree
 from werkzeug.local import LocalProxy
 from werkzeug.security import gen_salt
 
-from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
-from rero_ils.modules.documents.views import get_cover_art
 from rero_ils.modules.entities.remote_entities.api import RemoteEntity
 from rero_ils.modules.files.cli import load_files
 from rero_ils.modules.items.api import Item
@@ -1577,28 +1575,6 @@ def token_create(name, user, scopes, internal, access_token):
         click.secho(token.access_token, fg="blue")
     else:
         click.secho("No user found", fg="red")
-
-
-@utils.command("add_cover_urls")
-@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
-@with_appcontext
-def add_cover_urls(verbose):
-    """Add cover urls to all documents with isbns."""
-    click.secho("Add cover urls.", fg="green")
-    search = (
-        DocumentsSearch()
-        .filter("term", identifiedBy__type="bf:Isbn")
-        .filter("bool", must_not=[Q("term", electronicLocator__content="coverImage")])
-        .params(preserve_order=True)
-        .sort({"pid": {"order": "asc"}})
-        .source("pid")
-    )
-    for idx, hit in enumerate(search.scan()):
-        pid = hit.pid
-        record = Document.get_record_by_pid(pid)
-        url = get_cover_art(record=record, save_cover_url=True)
-        if verbose:
-            click.echo(f"{idx}:\tdocument: {pid}\t{url}")
 
 
 @utils.command()

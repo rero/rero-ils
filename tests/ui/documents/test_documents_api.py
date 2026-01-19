@@ -177,8 +177,9 @@ def test_document_linked_subject(
 
 def test_document_add_cover_url(db, document):
     """Test add url."""
-    document.add_cover_url(url="http://images.rero.ch/cover.png")
-    assert document.get("electronicLocator") == [
+    rec, changed = document.add_cover_url(url="http://images.rero.ch/cover.png")
+    assert changed is True
+    assert rec.get("electronicLocator") == [
         {
             "content": "coverImage",
             "type": "relatedResource",
@@ -186,8 +187,9 @@ def test_document_add_cover_url(db, document):
         }
     ]
     # don't add the same url
-    document.add_cover_url(url="http://images.rero.ch/cover.png")
-    assert document.get("electronicLocator") == [
+    rec, changed = document.add_cover_url(url="http://images.rero.ch/cover.png")
+    assert changed is False
+    assert rec.get("electronicLocator") == [
         {
             "content": "coverImage",
             "type": "relatedResource",

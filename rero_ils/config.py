@@ -374,9 +374,8 @@ CELERY_BEAT_SCHEDULE = {
         "task": ("rero_ils.modules.tasks.scheduler_timestamp"),
         "schedule": schedules.timedelta(minutes=1),
         "enabled": False,
-        # Save a timestamp so we can externaly test the timestamp changed
-        # every minute. If the timestamp is not changing the scheduller
-        # is not working.
+        # Save a timestamp so we can externally test the timestamp changed every minute. If the timestamp is not
+        # changing the scheduler is not working.
     },
     "celery.bulk-indexer": {
         "task": "rero_ils.modules.tasks.process_bulk_queue",
@@ -488,6 +487,14 @@ CELERY_BEAT_SCHEDULE = {
     "celery.sync-entities": {
         "task": "rero_ils.modules.entities.remote_entities.tasks.sync_entities",
         "schedule": schedules.crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
+        "enabled": False,
+    },
+    "celery.add-cover-urls": {
+        "task": "rero_ils.modules.documents.tasks.add_cover_urls",
+        "schedule": schedules.crontab(
+            minute=0, hour=22, day_of_week=6
+        ),  # Every Sunday at 22:00 UTC,
+        "kwargs": {"commit": True},
         "enabled": False,
     },
     "celery.replace-identified-by": {
@@ -3500,6 +3507,14 @@ RERO_ILS_GIT_HASH = None
 #: page is displayed on RERO-ILS frontpage.
 RERO_ILS_UI_GIT_HASH = None
 
+#: Thumbnails directory configuration
+RERO_INVENIO_THUMBNAILS_FILES_DIR = "./data/thumbnails"
+
+#: Thumbnails URL configuration, used to construct the URL for thumbnails in
+#: the API responses. It should be the URL of the RERO-ILS instance, as
+#: the thumbnails are served by the same instance.
+RERO_INVENIO_THUMBNAILS_URL = os.environ.get("RERO_INVENIO_THUMBNAILS_URL", RERO_ILS_URL)
+
 #: RERO_ILS MEF base url could be changed.
 RERO_ILS_MEF_REF_BASE_URL = os.environ.get("RERO_ILS_MEF_REF_BASE_URL", "mef.rero.ch")
 #: RERO_ILS MEF specific configurations.
@@ -3537,8 +3552,6 @@ RERO_ILS_ENTITY_TYPES = {
 
 RERO_ILS_HELP_PAGE = "https://github.com/rero/rero-ils/wiki/Public-demo-help"
 
-#: Cover service
-RERO_ILS_THUMBNAIL_SERVICE_URL = "https://services.test.rero.ch/cover"
 
 #: Entities
 RERO_ILS_AGENTS_SOURCES = ["idref", "gnd", "rero"]

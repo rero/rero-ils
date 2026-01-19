@@ -23,6 +23,7 @@ from rero_ils.modules.documents.views import (
     babeltheque_enabled_view,
     contribution_format,
     doc_entity_label,
+    get_cover_art,
     get_first_isbn,
     main_title_text,
     part_of_format,
@@ -258,3 +259,123 @@ def test_get_first_isbn():
     assert get_first_isbn(record) == "9782501053006"
     record = {"identifiedBy": []}
     assert None is get_first_isbn(record)
+
+
+def test_get_cover_art_from_electronic_locator():
+    """Test get_cover_art returns URL from electronicLocator."""
+    record = {
+        "electronicLocator": [
+            {
+                "url": "http://example.com/cover.jpg",
+                "type": "relatedResource",
+                "content": "coverImage",
+            }
+        ]
+    }
+    assert get_cover_art(record) == "http://example.com/cover.jpg"
+
+
+def test_get_cover_art_from_electronic_locator_multiple():
+    """Test get_cover_art returns first matching coverImage."""
+    record = {
+        "electronicLocator": [
+            {
+                "url": "http://example.com/other.jpg",
+                "type": "relatedResource",
+                "content": "fullText",
+            },
+            {
+                "url": "http://example.com/cover1.jpg",
+                "type": "relatedResource",
+                "content": "coverImage",
+            },
+            {
+                "url": "http://example.com/cover2.jpg",
+                "type": "relatedResource",
+                "content": "coverImage",
+            },
+        ]
+    }
+    # Should return the first coverImage
+    assert get_cover_art(record) == "http://example.com/cover1.jpg"
+
+
+def test_get_cover_art_from_isbn():
+    """Test get_cover_art returns None when only ISBN is present (no electronicLocator)."""
+    record = {
+        "identifiedBy": [
+            {"type": "bf:Isbn", "value": "9781234567890"},
+            {"type": "bf:Issn", "value": "1234-5678"},
+        ]
+    }
+    assert get_cover_art(record) is None
+
+
+def test_get_cover_art_from_multiple_isbns():
+    """Test get_cover_art returns None when only ISBNs are present (no electronicLocator)."""
+    record = {
+        "identifiedBy": [
+            {"type": "bf:Isbn", "value": "9782222222222"},
+            {"type": "bf:Isbn", "value": "9781111111111"},
+        ]
+    }
+    assert get_cover_art(record) is None
+
+
+def test_get_cover_art_no_isbn_no_electronic_locator():
+    """Test get_cover_art returns None when no ISBN or electronicLocator."""
+    record = {"identifiedBy": [{"type": "bf:Issn", "value": "1234-5678"}]}
+
+    assert get_cover_art(record) is None
+
+
+def test_get_cover_art_isbn_no_thumbnail_found():
+    """Test get_cover_art returns None when no matching electronicLocator exists."""
+    record = {"identifiedBy": [{"type": "bf:Isbn", "value": "9780000000000"}]}
+
+    assert get_cover_art(record) is None
+
+
+def test_get_cover_art_electronic_locator_wrong_type():
+    """Test get_cover_art returns None when electronicLocator has wrong type."""
+    record = {
+        "electronicLocator": [
+            {
+                "url": "http://example.com/cover.jpg",
+                "type": "versionOfResource",
+                "content": "coverImage",
+            }
+        ]
+    }
+    assert get_cover_art(record) is None
+
+
+def test_get_cover_art_electronic_locator_wrong_content():
+    """Test get_cover_art returns None when electronicLocator has wrong content."""
+    record = {
+        "electronicLocator": [
+            {
+                "url": "http://example.com/fulltext.pdf",
+                "type": "relatedResource",
+                "content": "fullText",
+            }
+        ]
+    }
+    assert get_cover_art(record) is None
+
+
+def test_get_cover_art_empty_record():
+    """Test get_cover_art with empty record."""
+    record = {}
+
+    assert get_cover_art(record) is None
+
+
+def test_get_cover_art_thumbnail_url_parameters():
+    """Test get_cover_art returns the URL from a matching electronicLocator."""
+    record = {
+        "electronicLocator": [
+            {"url": "https://covers.example.com/cover.jpg", "type": "relatedResource", "content": "coverImage"}
+        ]
+    }
+    assert get_cover_art(record) == "https://covers.example.com/cover.jpg"

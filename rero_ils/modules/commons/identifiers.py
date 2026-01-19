@@ -47,7 +47,7 @@ use the `QualifierIdentifierRenderer` ; the result will be
 from abc import ABC, abstractmethod
 from copy import deepcopy
 from dataclasses import dataclass, field
-from typing import Optional, TypeVar
+from typing import TypeVar
 
 from isbnlib import (
     NotValidISBNError,
@@ -118,10 +118,10 @@ class Identifier:
     """Generic document identifier representation."""
 
     value: str
-    type: Optional[str] = None
-    note: Optional[str] = None
-    qualifier: Optional[str] = None
-    source: Optional[str] = None
+    type: str | None = None
+    note: str | None = None
+    qualifier: str | None = None
+    source: str | None = None
     status: str = field(default=IdentifierStatus.UNDEFINED)
 
     def __post_init__(self):

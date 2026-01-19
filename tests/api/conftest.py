@@ -160,3 +160,15 @@ def item_lib_martigny_masked(
     ItemsSearch.flush_and_refresh()
     yield item
     item.delete(True, True, True)
+
+
+@pytest.fixture
+def cover_url():
+    """Return a dummy cover image URL for thumbnail tests."""
+    return "https://example.com/cover.jpg"
+
+
+@pytest.fixture
+def provider():
+    """Return a dummy provider for thumbnail tests."""
+    return "TestProvider"

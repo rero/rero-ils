@@ -81,7 +81,7 @@ function pretests () {
   add_exceptions "CVE-2025-66471"
   # urllib3   1.26.20 CVE-2026-21441 2.6.3
   add_exceptions "CVE-2026-21441"
-  PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}
+  pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data

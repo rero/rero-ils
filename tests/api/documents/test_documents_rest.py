@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +27,6 @@ from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.documents.utils import get_remote_cover
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import (
@@ -696,22 +695,6 @@ def test_document_exclude_draft_records(client, document):
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
-
-
-@mock.patch("requests.get")
-def test_get_remote_cover(mock_get_cover, app):
-    """Test get remote cover."""
-    mock_get_cover.return_value = mock_response(status=400)
-    assert get_remote_cover("YYYYYYYYY") is None
-
-    mock_get_cover.return_value = mock_response(
-        content='thumb({    "success": true,    "image": "https://i.test.com/images/P/XXXXXXXXXX_.jpg"})'
-    )
-    cover = get_remote_cover("XXXXXXXXXX")
-    assert cover == {
-        "success": True,
-        "image": "https://i.test.com/images/P/XXXXXXXXXX_.jpg",
-    }
 
 
 def test_document_identifiers_search(client, document):

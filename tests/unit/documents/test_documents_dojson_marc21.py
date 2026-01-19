@@ -759,7 +759,7 @@ def test_holdings_items_to_marc21(app, marc21_record, document, item2_lib_sion, 
             "001": "doc1",
             "949__": (
                 {
-                    "__order__": ("0", "1", "2", "3", "4", "5", "a"),
+                    "__order__": ("0", "1", "2", "3", "4", "5", "a", "b"),
                     "0": "org2",
                     "1": "The district of Sion Libraries",
                     "2": "lib4",
@@ -767,6 +767,7 @@ def test_holdings_items_to_marc21(app, marc21_record, document, item2_lib_sion, 
                     "4": "loc8",
                     "5": "Sion Library Restricted Space",
                     "a": "87121336",
+                    "b": "001316",
                 }
             ),
         }

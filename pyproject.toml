@@ -24,7 +24,7 @@ authors = [{name = "RERO+", email = "software@rero.ch"}]
 keywords = ["rero-ils", "invenio", "integrated library system"]
 license = "AGPL-3.0-or-later"
 urls = {homepage = "https://www.rero.ch/en/products/ils", repository="https://github.com/rero/rero-ils"}
-requires-python = ">= 3.9.2,<3.13"
+requires-python = ">= 3.10.0,<3.13"
 
 dependencies = [
     ## Third party invenio modules used by RERO ILS
@@ -69,6 +69,7 @@ dependencies = [
     ## RERO specific python modules
     "rero-invenio-base (>=0.3.0)",
     "rero-invenio-files (>=1.0.0,<2.0.0)",
+    "rero-invenio-thumbnails (>=1.0.0,<2.0.0)",
     "flask-wiki (>=1.0.0)",
     ## RERO ILS specific python modules
     "PyYAML (>=5.3.1)",

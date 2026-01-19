@@ -547,7 +547,7 @@ def get_holdings_items(document_pid, organisation_pids=None, library_pids=None, 
                     item_result = dict(result)
                     item_result["item"] = {
                         "barcode": item_data.get("barcode"),
-                        "all_number": item_data.get("all_number"),
+                        "call_number": item_data.get("call_number"),
                         "second_call_number": item_data.get("second_call_number"),
                         "enumerationAndChronology": item_data.get("enumerationAndChronology"),
                         "url": item_data.get("url"),

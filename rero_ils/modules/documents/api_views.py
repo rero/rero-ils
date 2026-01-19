@@ -29,16 +29,8 @@ from rero_ils.modules.decorators import check_logged_as_librarian
 
 from ..utils import cached
 from .api import Document
-from .utils import get_remote_cover
 
 api_blueprint = Blueprint("api_documents", __name__, url_prefix="/document")
-
-
-@api_blueprint.route("/cover/<isbn>")
-@cached(timeout=5 * 60, query_string=True)  # 5 minutes timeout
-def cover(isbn):
-    """Document cover service."""
-    return jsonify(get_remote_cover(isbn))
 
 
 @api_blueprint.route("/<pid>/availability", methods=["GET"])
