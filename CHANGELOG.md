@@ -1,5 +1,41 @@
 # Changelog
 
+## [v1.27.0](https://github.com/rero/rero-ils/tree/v1.27.0) (2026-01-20)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.26.0...v1.27.0)
+
+**New features:**
+
+- feat(import): add Cambridge [#4002](https://github.com/rero/rero-ils/pull/4002) (by @rerowep)
+- Circulation: create a `scan_item` operation_log [#3634](https://github.com/rero/rero-ils/issues/3634) (by @rerowep)
+
+**Enhancements:**
+
+- Files: display a link to the collections (search) in the document detailed view [#3994](https://github.com/rero/rero-ils/issues/3994) (by @jma)
+- Request button (public UI): show info if the request limit is reached [#3985](https://github.com/rero/rero-ils/issues/3985)
+- Enhance holdings-items display for perfs and extendability [#3910](https://github.com/rero/rero-ils/issues/3910) (by @Garfield-fr)
+- refact(permissions): add codes to can request api [#3992](https://github.com/rero/rero-ils/pull/3992) (by @jma)
+
+**Fixes:**
+
+- Rollover: order line creation can fail because of validation [#3996](https://github.com/rero/rero-ils/issues/3996) (by @rerowep)
+- Library facet not filtered dynamically [#3995](https://github.com/rero/rero-ils/issues/3995) (by @rerowep)
+- Local fields can be added to items or holdings belonging to other libraries [#1706](https://github.com/rero/rero-ils/issues/1706)
+- SIP2: fix messages translations [#3423](https://github.com/rero/rero-ils/issues/3423) (by @jma)
+- Holdings predictions: irregular frequency error for preview [#3850](https://github.com/rero/rero-ils/issues/3850) (by @PascalRepond)
+- RIS export: wrong file structure when a document has multiple types [#3978](https://github.com/rero/rero-ils/issues/3978) (by @PascalRepond)
+- fix(item_types): prevent deletion when linked to serial/electronic holdings [#4007](https://github.com/rero/rero-ils/pull/4007) (by @PascalRepond)
+- fix(scheduler): corrects enabling disabling of scheduled tasks [#3988](https://github.com/rero/rero-ils/pull/3988) (by @rerowep)
+- chore: update frontpage link to National Library (global and vs) [#3987](https://github.com/rero/rero-ils/pull/3987) (by @PascalRepond)
+- fix(mappings): ensure schema completeness across all modules [#4017](https://github.com/rero/rero-ils/pull/4017) (by @rerowep)
+
+**Other changes:**
+
+- chore(deps): Bump pip from 25.3 to 26.0 [#4023](https://github.com/rero/rero-ils/pull/4023) (by @PascalRepond)
+- fix(fixtures): update entities and documents [#4001](https://github.com/rero/rero-ils/pull/4001) (by @rerowep)
+- chore: update dependencies [#4000](https://github.com/rero/rero-ils/pull/4000) (by @rerowep)
+- chore: update dependencies [#3990](https://github.com/rero/rero-ils/pull/3990) (by @PascalRepond)
+
 ## [v1.26.0](https://github.com/rero/rero-ils/tree/v1.26.0) (2025-10-22)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.25.2...v1.26.0)

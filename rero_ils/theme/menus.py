@@ -160,8 +160,10 @@ def init_menu_tools(app):
             "viewcode": request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")),
             "recordType": "collections",
         },
-        visible_when=lambda: app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-        != request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")),
+        visible_when=lambda: (
+            app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
+            != request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
+        ),
         text=TextWithIcon(icon='<i class="fa fa-graduation-cap"></i>', text="Exhibition/course"),
         order=2,
         id="collections-menu",
@@ -311,8 +313,9 @@ def init_menu_profile(app):
     rero_register(
         item,
         endpoint="security.register",
-        visible_when=lambda: not app.config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY", False)
-        and not current_user.is_authenticated,
+        visible_when=lambda: (
+            not app.config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY", False) and not current_user.is_authenticated
+        ),
         text=TextWithIcon(icon='<i class="fa fa-user-plus"></i>', text="Sign Up"),
         order=2,
         id="signup-menu",
