@@ -227,3 +227,48 @@ def test_issues_claim_notifications(
     data = list(parse_csv(get_csv(response)))
     assert len(data) == 2  # header + 1 row
     assert data[1][-8] == str(2)  # same as `issue_item.claims_count`
+
+
+def test_issue_claims_counter_indexed_without_claims(
+    client,
+    holding_lib_martigny_w_patterns,
+    librarian_martigny,
+):
+    """Test that issues without claims have claims.counter=0 in indexed data."""
+    from rero_ils.modules.items.api import ItemsSearch
+
+    # receive a regular issue
+    holding = holding_lib_martigny_w_patterns
+    holding = Holding.get_record_by_pid(holding.pid)
+    login_user_via_session(client, librarian_martigny.user)
+    issue_item = _receive_regular_issue(client, holding)
+
+    try:
+        # Ensure the item has no claims
+        assert issue_item.claims_count == 0
+
+        # Flush and refresh the index to ensure data is searchable
+        ItemsSearch.flush_and_refresh()
+
+        # Query ES to verify the indexed data includes claims.counter = 0
+        url = url_for("invenio_records_rest.item_list", q=f"pid:{issue_item.pid}")
+        response = client.get(url)
+        assert response.status_code == 200
+        data = response.json["hits"]["hits"][0]["metadata"]
+
+        # Verify claims.counter is indexed as 0 for issues without claims
+        assert "claims" in data["issue"]
+        assert data["issue"]["claims"]["counter"] == 0
+        # dates should not be present when there are no claims
+        assert "dates" not in data["issue"]["claims"]
+
+        # Verify that filtering by claims_count=0 returns this issue
+        url = url_for("invenio_records_rest.item_list", claims_count=0)
+        response = client.get(url)
+        assert response.status_code == 200
+        pids = [hit["metadata"]["pid"] for hit in response.json["hits"]["hits"]]
+        assert issue_item.pid in pids
+    finally:
+        # Clean up: delete the created issue to restore fixtures
+        issue_item.delete(dbcommit=True, delindex=True)
+        ItemsSearch.flush_and_refresh()
