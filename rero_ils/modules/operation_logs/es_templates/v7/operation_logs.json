@@ -81,6 +81,9 @@
           },
           "loan_status": {
             "type": "keyword"
+          },
+          "library_pid": {
+            "type": "keyword"
           }
         }
       },
@@ -135,7 +138,7 @@
                 "type": "keyword"
               },
               "name": {
-                "type": "keyword"
+                "type": "text"
               }
             }
           },
@@ -146,7 +149,7 @@
                 "type": "keyword"
               },
               "name": {
-                "type": "keyword"
+                "type": "text"
               }
             }
           },
@@ -157,29 +160,7 @@
                 "type": "keyword"
               },
               "name": {
-                "type": "keyword"
-              }
-            }
-          },
-          "file": {
-            "type": "object",
-            "properties": {
-              "document": {
-                "type": "object",
-                "properties": {
-                  "pid": {
-                    "type": "keyword"
-                  },
-                  "title": {
-                    "type": "text"
-                  },
-                  "type": {
-                    "type": "keyword"
-                  }
-                }
-              },
-              "recid": {
-                "type": "keyword"
+                "type": "text"
               }
             }
           },
@@ -199,7 +180,7 @@
                 "type": "keyword"
               },
               "age": {
-                "type": "short"
+                "type": "integer"
               },
               "postal_code": {
                 "type": "keyword"
@@ -222,7 +203,12 @@
                 "type": "keyword"
               },
               "call_number": {
-                "type": "text"
+                "type": "text",
+                "fields": {
+                  "raw": {
+                    "type": "keyword"
+                  }
+                }
               },
               "library_pid": {
                 "type": "keyword"
@@ -261,6 +247,116 @@
                 "type": "keyword"
               }
             }
+          },
+          "note": {
+            "type": "text"
+          }
+        }
+      },
+      "file": {
+        "type": "object",
+        "properties": {
+          "recid": {
+            "type": "keyword"
+          },
+          "document": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "scan": {
+        "type": "object",
+        "properties": {
+          "transaction_location": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "text"
+              }
+            }
+          },
+          "pickup_location": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "text"
+              }
+            }
+          },
+          "item": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "category": {
+                "type": "keyword"
+              },
+              "call_number": {
+                "type": "text",
+                "fields": {
+                  "raw": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "library_pid": {
+                "type": "keyword"
+              },
+              "holding": {
+                "type": "object",
+                "properties": {
+                  "pid": {
+                    "type": "keyword"
+                  },
+                  "location_name": {
+                    "type": "text",
+                    "fields": {
+                      "raw": {
+                        "type": "keyword"
+                      }
+                    }
+                  }
+                }
+              },
+              "document": {
+                "type": "object",
+                "properties": {
+                  "pid": {
+                    "type": "keyword"
+                  },
+                  "title": {
+                    "type": "text"
+                  },
+                  "type": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "enumerationAndChronology": {
+                "type": "keyword"
+              }
+            }
+          },
+          "note": {
+            "type": "text"
           }
         }
       },

@@ -220,6 +220,9 @@
       "local_codes": {
         "type": "keyword"
       },
+      "source": {
+        "type": "keyword"
+      },
       "libraries": {
         "properties": {
           "pid": {

@@ -9,6 +9,9 @@
       "pid": {
         "type": "keyword"
       },
+      "reminder_counter": {
+        "type": "integer"
+      },
       "status": {
         "type": "keyword"
       },

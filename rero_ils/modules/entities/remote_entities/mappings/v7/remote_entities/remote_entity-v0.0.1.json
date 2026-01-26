@@ -93,6 +93,9 @@
       "resource_type": {
         "type": "keyword"
       },
+      "id": {
+        "type": "keyword"
+      },
       "type": {
         "type": "keyword"
       },
