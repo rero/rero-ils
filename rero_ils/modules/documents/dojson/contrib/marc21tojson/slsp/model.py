@@ -352,8 +352,8 @@ def marc21_to_subjects_6XX(self, key, value):
 
     - create an object :
         genreForm : for the field 655
-        subjects :  for 6xx with $2 rero
-        subjects_imported : for 6xx having indicator 2 '0' or '2'
+        subjects : for 6xx with $2 gnd
+        subjects_imported : for 6xx with $2 rero or idref, or indicator 2 '0' or '2'
     """
     type_per_tag = {
         "600": EntityType.PERSON,
@@ -376,7 +376,13 @@ def marc21_to_subjects_6XX(self, key, value):
     subfield_2 = subfields_2[0].replace("gnd-content", "gnd") if subfields_2 else None
     subfields_a = utils.force_list(value.get("a", []))
 
-    field_key = "genreForm" if tag_key == "655" else "subjects_imported"
+    if tag_key == "655":
+        field_key = "genreForm"
+    elif subfield_2 == "gnd":
+        field_key = "subjects"
+    else:
+        field_key = "subjects_imported"
+
     if subfield_2 in ["rero", "gnd", "idref"]:
         if tag_key in ["600", "610", "611"] and value.get("t"):
             tag_key += "t"
@@ -429,8 +435,6 @@ def marc21_to_subjects_6XX(self, key, value):
             ids=utils.force_list(value.get("0")),
             key=key,
         ):
-            if field_key == "subjects_imported":
-                field_key = "subjects"
             subject = {"$ref": ref}
         else:
             if field_key == "genreForm":
