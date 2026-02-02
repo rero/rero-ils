@@ -275,9 +275,9 @@ THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
 THEME_SETTINGS_TEMPLATE = SETTINGS_TEMPLATE
 #: Template for error pages.
 THEME_ERROR_TEMPLATE = "rero_ils/page_error.html"
-# External CSS for each organisation customization
-# For production: change "test" with "prod" on url
-RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = "https://resources.rero.ch/bib/test/css/"
+#: Local path for organisation-specific CSS customization files.
+#: CSS files are served from static assets (e.g., aoste.css, global.css).
+RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = "/static/themes/css/"
 #: Template for including a tracking code for web analytics.
 THEME_TRACKINGCODE_TEMPLATE = "rero_ils/trackingcode.html"
 THEME_JAVASCRIPT_TEMPLATE = "rero_ils/javascript.html"

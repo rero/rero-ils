@@ -81,11 +81,21 @@ def test_view_parameter_notfound(client):
 
 
 def test_external_endpoint_on_institution_homepage(client, org_martigny, app):
-    """Test external endpoint on institution homepage."""
+    """Test organisation CSS endpoint configuration.
+
+    Verify that:
+    - The CSS endpoint is configured to use local static files
+    - The endpoint path appears in the rendered organisation homepage
+    """
     result = client.get(url_for("rero_ils.index_with_view_code", viewcode="org1"))
+    assert result.status_code == 200
     endpoint = app.config["RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT"]
-    assert endpoint == "https://resources.rero.ch/bib/test/css/"
-    assert str(result.data).find(endpoint) > 1
+
+    # Verify endpoint is configured for local static files
+    assert endpoint == "/static/themes/css/", f"Expected local static CSS endpoint, got: {endpoint}"
+
+    # Verify endpoint appears in the organisation homepage response
+    assert endpoint in result.text, f"CSS endpoint '{endpoint}' not found in homepage response"
 
 
 def test_help(client):

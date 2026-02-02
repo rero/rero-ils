@@ -37,12 +37,13 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class UpdateThread(threading.Thread):
     """Thread updating records."""
+
     pids = []
     calls = 50
     locks = {}
     token = None
-    index = 'documents'
-    host = 'localhost:5000'
+    index = "documents"
+    host = "localhost:5000"
 
     def __init__(self, thread_number):
         """Init.
@@ -52,13 +53,13 @@ class UpdateThread(threading.Thread):
         threading.Thread.__init__(self)
         self.thread_number = thread_number
         self.headers = {
-            'Authorization': f'Bearer {UpdateThread.token}',
-            'Content-type': 'application/json'
+            "Authorization": f"Bearer {UpdateThread.token}",
+            "Content-type": "application/json"
         }
 
     def run(self):
         """Execute command."""
-        for index in range(0, UpdateThread.calls):
+        for index in range(UpdateThread.calls):
             pid = random.choice(UpdateThread.pids)
 
             # Create lock if not exists
@@ -68,7 +69,7 @@ class UpdateThread(threading.Thread):
             # Lock for PID
             UpdateThread.locks[pid].acquire()
 
-            url = f'https://{UpdateThread.host}/api/{UpdateThread.index}/{pid}'
+            url = f"https://{UpdateThread.host}/api/{UpdateThread.index}/{pid}"
 
             try:
                 response = requests.get(url,
@@ -76,7 +77,7 @@ class UpdateThread(threading.Thread):
                                         headers=self.headers)
 
                 if response.status_code != 200:
-                    raise Exception(f'GET error {response.status_code}')
+                    raise Exception(f"GET error {response.status_code}")
 
                 def remove_calculated_properties(data):
                     """Remove calculated properties to avoid a 400 error.
@@ -84,7 +85,7 @@ class UpdateThread(threading.Thread):
                     :param dict data: Data to process.
                     """
                     for key in list(data):
-                        if key.startswith('_'):
+                        if key.startswith("_"):
                             del data[key]
                         else:
                             if isinstance(data[key], list):
@@ -101,57 +102,57 @@ class UpdateThread(threading.Thread):
                 response = requests.put(url,
                                         verify=False,
                                         headers=self.headers,
-                                        data=json.dumps(data['metadata']))
+                                        data=json.dumps(data["metadata"]))
 
                 if response.status_code != 200:
-                    raise Exception(f'PUT error {response.status_code}')
+                    raise Exception(f"PUT error {response.status_code}")
 
                 print(
-                    f'Updated {url} in execution {index+1} of thread ' \
-                    f'{(self.thread_number+1)}: Status {response.status_code}, ' \
-                    f'Time {response.elapsed.total_seconds()}'
+                    f"Updated {url} in execution {index+1} of thread "
+                    f"{(self.thread_number+1)}: Status {response.status_code}, "
+                    f"Time {response.elapsed.total_seconds()}"
                 )
             except Exception as exception:
                 print(
-                    f'Error during processing of {url} in execution {index} ' \
-                    f'of thread {(self.thread_number+1)}: {str(exception)}'
+                    f"Error during processing of {url} in execution {index} "
+                    f"of thread {(self.thread_number+1)}: {exception!s}"
                 )
 
             # Unlock
             UpdateThread.locks[pid].release()
 
 
-def get_records_pids(index='documents', size=1000):
+def get_records_pids(index="documents", size=1000):
     """Get a list of records PIDs for the given index.
 
     :param str index: Index to search for records.
     :param int size: Number of records to return.
     """
     results = Search(using=Elasticsearch(),
-                     index=index)[0:size].source(includes=['pid']).execute()
+                     index=index)[0:size].source(includes=["pid"]).execute()
 
-    return [item['pid'] for item in results]
+    return [item["pid"] for item in results]
 
 
 if __name__ == "__main__":
-    INDEX = sys.argv[1] if len(sys.argv) > 1 else 'documents'
+    INDEX = sys.argv[1] if len(sys.argv) > 1 else "documents"
     NUMBER_OF_THREADS = int(sys.argv[2]) if len(sys.argv) > 2 else 10
     CALLS_PER_THREAD = int(sys.argv[3]) if len(sys.argv) > 3 else 50
     RECORDS_SIZE = int(sys.argv[4]) if len(sys.argv) > 4 else 1000
     TOKEN = sys.argv[5] if len(sys.argv) > 5 else None
-    HOST = sys.argv[6] if len(sys.argv) > 6 else 'localhost:5000'
+    HOST = sys.argv[6] if len(sys.argv) > 6 else "localhost:5000"
 
     print()
-    print(f'Index: {INDEX}')
-    print(f'Number of threads: {NUMBER_OF_THREADS}')
-    print(f'Calls per thread: {CALLS_PER_THREAD}')
-    print(f'Records size: {RECORDS_SIZE}')
-    print(f'Authentication token: {TOKEN}')
-    print(f'Host: {HOST}')
+    print(f"Index: {INDEX}")
+    print(f"Number of threads: {NUMBER_OF_THREADS}")
+    print(f"Calls per thread: {CALLS_PER_THREAD}")
+    print(f"Records size: {RECORDS_SIZE}")
+    print(f"Authentication token: {TOKEN}")
+    print(f"Host: {HOST}")
 
-    RESPONSE = input('\nIs that correct? [y/N]: ')
+    RESPONSE = input("\nIs that correct? [y/N]: ")
 
-    if RESPONSE.lower() != 'y':
+    if RESPONSE.lower() != "y":
         exit(0)
 
     print()
@@ -162,6 +163,6 @@ if __name__ == "__main__":
     UpdateThread.index = INDEX
     UpdateThread.host = HOST
 
-    for i in range(0, NUMBER_OF_THREADS):
+    for i in range(NUMBER_OF_THREADS):
         thread = UpdateThread(i)
         thread.start()

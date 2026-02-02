@@ -1,0 +1,38 @@
+@layer bootstrap {
+  body#view-global nav.rero-ils-header {
+    background-color: #1b4464 !important;
+  }
+  
+  body#view-global nav.rero-ils-header img.rero-ils-logo {
+    display: none;
+  }
+  
+  div#global-logo {
+    content: url('https://resources.rero.ch/bib/test/images/logo-global.svg');
+    min-height: 44px;
+    max-height: 44px;
+    min-width: 58px;
+  }
+  
+  #view-global .rero-slogan {
+      margin-bottom: 4em;
+  }
+  
+  @media (max-width: 576px) {
+      .h1, h1 {
+          font-size: 1.5rem;
+      }
+  
+      .h2, h2 {
+          font-size: 1.2rem;
+      }
+  
+      #view-global .rero-ils-frontpage {
+          height: 20vh;
+      }
+  
+      #view-global .rero-slogan {
+          margin-bottom: 1em;
+      }
+  }
+}
