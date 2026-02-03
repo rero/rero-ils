@@ -114,7 +114,8 @@
             "webSite",
             "tableOfContents",
             "fullText",
-            "video"
+            "video",
+            "film"
           ],
           "widget": {
             "formlyConfig": {
@@ -234,6 +235,10 @@
                   {
                     "label": "video",
                     "value": "video"
+                  },
+                  {
+                    "label": "film",
+                    "value": "film"
                   }
                 ]
               }

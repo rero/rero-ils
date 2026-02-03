@@ -21,13 +21,14 @@ class ApiCantook(ApiHarvest):
     Class for harvesting ebooks from cantook API resources.
     """
 
-    def __init__(self, name, file_name=None, process=False, harvest_count=-1, verbose=False):
+    def __init__(self, name, file_name=None, process=False, harvest_count=-1, verbose=False, log_file=None):
         """Class init."""
         super().__init__(
             name=name,
             process=process,
             harvest_count=harvest_count,
             verbose=verbose,
+            log_file=log_file,
         )
         if file_name:
             self.file = JsonWriter(file_name)

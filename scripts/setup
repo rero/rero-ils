@@ -157,5 +157,366 @@ run invenio rero batch ${BATCH_TIME} ${BATCH_CONTINUE} <(batch_acq)
 info_msg "Migration data, circulation, notifications, tokens, API config, scheduler, statistics, wiki"
 run invenio rero batch ${BATCH_TIME} ${BATCH_CONTINUE} <(batch_migration; batch_circulation; batch_final)
 
-success_msg "Perfect ${PROGRAM}! Done in $(elapsed). See you soon…"
+# grant roles to users
+info_msg "Grant roles to users"
+eval ${PREFIX} invenio roles add admin@rero.ch admin
+eval ${PREFIX} invenio roles add admin@rero.ch superuser
+eval ${PREFIX} invenio roles add admin@rero.ch monitoring
+eval ${PREFIX} invenio roles add editor@rero.ch editor
+eval ${PREFIX} invenio roles add monitoring@rero.ch monitoring
+eval ${PREFIX} invenio roles add gipi@ngscan.com document_importer
+
+# create token access for monitoring
+info_msg "Create token for: monitoring@rero.ch"
+create_token monitoring monitoring@rero.ch ${INVENIO_RERO_ILS_ACCESS_TOKEN_MONITORING}
+# create token access for ngscan (ezpump)
+info_msg "Create token for: gipi@ngscan.com"
+create_token ezpump gipi@ngscan.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_NGSCAN}
+
+# Generate fixtures
+info_msg "Generate fixtures:"
+
+info_msg "- Organisations ${DATA_PATH}/organisations.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t org --yes-i-know
+
+info_msg "- Libraries: ${DATA_PATH}/libraries.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t lib --yes-i-know
+
+info_msg "- Locations: ${DATA_PATH}/locations.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t loc --yes-i-know
+
+info_msg "- Item types: ${DATA_PATH}/item_types.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t itty --yes-i-know
+
+info_msg "- Patron types: ${DATA_PATH}/patron_types.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t ptty --yes-i-know
+
+info_msg "- Circulation policies: ${DATA_PATH}/circulation_policies.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t cipo --yes-i-know
+
+info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t vndr --yes-i-know
+
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t org -t lib -t loc -t itty -t ptty -t cipo -t vndr -v
+fi
+
+info_msg "- Users: ${DATA_PATH}/users.json"
+eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v --append ${CREATE_LAZY} ${DONT_STOP}
+
+info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
+eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
+eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
+
+info_msg "- Statistics configurations: ${DATA_PATH}/stats_cfg.json"
+eval ${PREFIX} invenio reroils fixtures create --pid_type stacfg ${DATA_PATH}/stats_cfg.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t stacfg --yes-i-know
+
+info_msg "- Local entities ${DATA_PATH}/local_entities.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type locent --schema 'https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json' ${DATA_PATH}/local_entities.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t locent --yes-i-know
+eval ${PREFIX} invenio reroils index run --raise-on-error
+
+#: - xml to json transformation for rero marcxml --------------------------------
+#: don't forget to recreat the documents json schema files:
+# SIZE=big # SIZE=small
+# invenio reroils documents marc21tojson -t rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
+# Save the entities after setup for later use.
+# invenio reroils utils export -t rement -o ${DATA_PATH}/remote_entities_${SIZE}.json -v
+
+if ${DEPLOYMENT}
+then
+    DOCUMENTS=${DATA_PATH}/documents_big.json
+    ITEMS=${DATA_PATH}/items_big.json
+    HOLDINGS=${DATA_PATH}/holdings_big.json
+    REMOTE_ENTITIES=${DATA_PATH}/remote_entities_big.json
+else
+    DOCUMENTS=${DATA_PATH}/documents_small.json
+    ITEMS=${DATA_PATH}/items_small.json
+    HOLDINGS=${DATA_PATH}/holdings_small.json
+    REMOTE_ENTITIES=${DATA_PATH}/remote_entities_small.json
+fi
+
+if ${LOAD_REMOTE_ENTITIES}
+then
+    info_msg "- REMOTE REMOTE_ENTITIES: ${REMOTE_ENTITIES} ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures create --pid_type rement --schema 'https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json' ${REMOTE_ENTITIES} --append ${CREATE_LAZY} ${DONT_STOP}
+    info_msg "Indexing Entities:"
+    eval ${PREFIX} invenio reroils index reindex -t rement --yes-i-know
+    if [ ${INDEX_PARALLEL} -gt 0 ]; then
+        eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+    fi
+    eval ${PREFIX} invenio reroils index run --raise-on-error
+    if [ ${INDEX_PARALLEL} -gt 0 ]; then
+        eval ${PREFIX} invenio reroils index reindex_missing -t rement -v
+    fi
+# else
+#     info_msg "- Contributions from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
+#     eval ${PREFIX} invenio reroils fixtures get_all_mef_records ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE} -v
+fi
+
+info_msg "Pause cover URL queue worker to avoid race conditions"
+eval ${PREFIX} invenio reroils documents cover-url-queue-worker pause
+
+info_msg "- Documents: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type doc --schema 'https://bib.rero.ch/schemas/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${CREATE_LAZY} ${DONT_STOP}
+
+info_msg "- Holdings: ${HOLDINGS} ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type hold --schema 'https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
+
+info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'https://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
+
+info_msg "- Generate files"
+if ${DEPLOYMENT}
+then
+  eval ${PREFIX} invenio reroils fixtures create-files 75
+else
+  info_msg "To create file fixtures, run:"
+  msg "\tinvenio reroils fixtures create-files 50"
+fi
+
+# index items
+eval ${PREFIX} invenio reroils index reindex -t item --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t item -v
+fi
+
+# index holdings
+eval ${PREFIX} invenio reroils index reindex -t hold --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t hold -v
+fi
+
+# index documents
+eval ${PREFIX} invenio reroils index reindex -t doc --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t doc -v
+fi
+
+# index entities
+# We have to reindex entities to get the organisations pids indexed correctly.
+eval ${PREFIX} invenio reroils index reindex -t rement --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t rement -v
+fi
+
+info_msg "- Local fields ${DATA_PATH}/local_fields.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type lofi ${DATA_PATH}/local_fields.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t lofi --yes-i-know
+
+# create serials patterns
+info_msg "Serials patterns: ${DATA_PATH}/patterns.json"
+eval ${PREFIX} invenio reroils fixtures create_patterns ${DATA_PATH}/patterns.json
+
+info_msg "- Collections: ${DATA_PATH}/collections.json"
+eval ${PREFIX} invenio reroils fixtures create_collections -f ${DATA_PATH}/collections.json
+eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know
+eval ${PREFIX} invenio reroils index run --raise-on-error
+
+# # ACQUISITION
+# create library budgets
+info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -d -t budg --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t budg -v
+fi
+# create acquisition accounts
+info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -d -t acac --yes-i-know
+
+# create acquisition orders
+info_msg "Acquisition orders: ${DATA_PATH}/acq_orders.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acor ${DATA_PATH}/acq_orders.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -d -t acor --yes-i-know
+
+# create acquisition order lines
+info_msg "Acquisition order lines: ${DATA_PATH}/acq_order_lines.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acol ${DATA_PATH}/acq_order_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -d -t acol --yes-i-know
+
+# reindex acquisition orders to receive the correct status
+# eval ${PREFIX} invenio reroils index reindex -d -t acor --yes-i-know
+
+# create acquisition receipts
+info_msg "Acquisition receipts: ${DATA_PATH}/acq_receipts.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acre ${DATA_PATH}/acq_receipts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -d -t acre --yes-i-know
+
+# create acquisition receipt lines
+info_msg "Acquisition receipt lines: ${DATA_PATH}/acq_receipt_lines.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acrl ${DATA_PATH}/acq_receipt_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -d -t acrl --yes-i-know
+
+# create resource templates
+info_msg "Resource templates:"
+eval ${PREFIX} invenio reroils fixtures create --pid_type tmpl ${DATA_PATH}/templates.json --append  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t tmpl --yes-i-know
+
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index reindex_missing -t lofi -t coll -t acac -t acol -t tmpl -t acor -v
+fi
+
+info_msg "Migration data"
+eval ${PREFIX} "invenio reroils migrations create cogne 24 'scripts.convert_marc21xml.Marc21XMLConverter' -d 'Cogne Migration Fixture'"
+eval ${PREFIX} invenio reroils migrations data load cogne ${DATA_PATH}/migration.xml
+eval ${PREFIX} invenio reroils migrations data dedup cogne
+eval ${PREFIX} invenio reroils migrations data subsets cogne Simonetta,Astrid,Jean,Elena
+
+if ${LOADEXTRAFILES}
+  then
+      # create acquisition invoices
+      eval ${PREFIX} invenio reroils index reindex -t acin --yes-i-know
+      if [ ${INDEX_PARALLEL} -gt 0 ]; then
+          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+      fi
+      eval ${PREFIX} invenio reroils index run --raise-on-error
+
+      if [ ${INDEX_PARALLEL} -gt 0 ]; then
+          eval ${PREFIX} invenio reroils index reindex_missing -t acre -t acrl -t acin -v
+      fi
+
+      # reindex acquisition order lines
+      eval ${PREFIX} invenio reroils index reindex -t acol --yes-i-know
+      if [ ${INDEX_PARALLEL} -gt 0 ]; then
+          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+      fi
+      eval ${PREFIX} invenio reroils index run --raise-on-error
+
+      # reindex acquisition orders
+      eval ${PREFIX} invenio reroils index reindex -t acor --yes-i-know
+      if [ ${INDEX_PARALLEL} -gt 0 ]; then
+          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+      fi
+      eval ${PREFIX} invenio reroils index run --raise-on-error
+
+      # reindex acquisition accounts
+      eval ${PREFIX} invenio reroils index reindex -t acac --yes-i-know
+      if [ ${INDEX_PARALLEL} -gt 0 ]; then
+          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+      fi
+      eval ${PREFIX} invenio reroils index run --raise-on-error
+
+  fi
+
+
+# create circulation transactions
+info_msg "Circulation transactions: ${DATA_PATH}/loans.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create_loans ${DATA_PATH}/loans.json -v
+
+# process notifications
+eval ${PREFIX} invenio reroils notifications process
+
+# create token access for system librarians
+info_msg "create an access token for all system librarians"
+create_token organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_AOSTA_LIBRARIAN}
+create_token organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_RERO_ILS_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
+create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
+
+# # OAI configuration
+info_msg "API configuration: ${DATA_PATH}/apisources.yml"
+eval ${PREFIX} invenio reroils api-harvester init-config ${DATA_PATH}/apisources.yml
+
+info_msg "Scheduler initialisation"
+eval ${PREFIX} invenio reroils scheduler init --reset
+if ${DEPLOYMENT}
+then
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --all --verbose
+  info_msg disable VS/NJ CANTOOK harvesting
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-vs-cantook --disable
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-nj-cantook --disable
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-vs-memo --disable
+else
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --all --verbose --disable
+fi
+
+if ${ES_MAPPING}
+then
+    info_msg "ES mappings:"
+    invenio reroils utils dump_es_mappings -o tmp/mapping_after_setup.txt
+    error_msg "ES mapping differences:"
+    diff --suppress-common-lines --side-by-side tmp/mapping_before_setup.txt tmp/mapping_after_setup.txt
+fi
+
+if ${LOADEXTRAFILES}
+  then
+    info_msg "- Load Virtua operation logs: ${DATA_PATH}/operation_logs.json"
+    eval ${PREFIX} invenio reroils fixtures create_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
+
+    # load legacy circulation transactions from Virtua
+    info_msg "Checkout transactions: ${DATA_PATH}/checkouts.json ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/checkouts.json -t checkout
+
+    info_msg "Request transactions: ${DATA_PATH}/requests.json ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/requests.json -t request
+
+    info_msg "Fine transactions: ${DATA_PATH}/fines.json ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/fines.json -t fine
+fi
+
+
+info_msg "Resume cover URL queue worker"
+eval ${PREFIX} invenio reroils documents cover-url-queue-worker resume
+
+info_msg "Collect statistics"
+eval ${PREFIX} invenio reroils stats collect billing
+eval ${PREFIX} invenio reroils stats collect librarian
+eval ${PREFIX} invenio reroils stats report collect-all month
+eval ${PREFIX} invenio reroils stats report collect-all year
+
+info_msg "Initialize wiki search"
+eval ${PREFIX} invenio flask_wiki init-index
+eval ${PREFIX} invenio flask_wiki index
+
+info_msg "Api harvesting ...:"
+for NAME in "VS-CANTOOK" "NJ-CANTOOK" "VS-MEMO"
+do
+  eval ${PREFIX} invenio reroils api-harvester set-last-run ${NAME} -d 1900-01-01
+  if ${DEPLOYMENT}
+  then
+      # start api harvesting asynchrone: beats must be running
+      eval ${PREFIX} invenio reroils api-harvester harvest -n ${NAME} -m 100 -k
+  else
+      info_msg "For ${NAME} harvesting run: \"invenio reroils api-harvester harvest -n ${NAME} -m 100 -v\""
+  fi
+done
+
+info_msg "Set footer date"
+eval ${PREFIX} invenio reroils messages set footer info `date +'%d-%m-%Y'`
+
+date
+success_msg "Perfect ${PROGRAM}! See you soon…"audiovisual archives API)
 exit 0
