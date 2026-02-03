@@ -540,6 +540,7 @@ then
   info_msg disable VS/NJ CANTOOK harvesting
   eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-vs-cantook --disable
   eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-nj-cantook --disable
+  eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-vs-memo --disable
 else
   eval ${PREFIX} invenio reroils scheduler enable-tasks --all --verbose --disable
 fi
@@ -583,7 +584,7 @@ eval ${PREFIX} invenio flask_wiki init-index
 eval ${PREFIX} invenio flask_wiki index
 
 info_msg "Api harvesting ...:"
-for NAME in "VS-CANTOOK" "NJ-CANTOOK"
+for NAME in "VS-CANTOOK" "NJ-CANTOOK" "VS-MEMO"
 do
   eval ${PREFIX} invenio reroils api-harvester set-last-run ${NAME} -d 1900-01-01
   if ${DEPLOYMENT}

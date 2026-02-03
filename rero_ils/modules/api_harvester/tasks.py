@@ -14,12 +14,14 @@ from .utils import get_apiharvest_object
 
 
 @shared_task(ignore_result=True, soft_time_limit=3600)
-def harvest_records(name, from_date=None, harvest_count=-1, verbose=False):
+def harvest_records(name, from_date=None, harvest_count=-1, verbose=False, log_file=None):
     """Harvest records.
 
     :param name: name of API config tu harvest
     :param from_date: start date for harvesting
     :param harvest_count: how many records to harvest (-1 harvest all)
+    :param verbose: print verbose messages
+    :param log_file: open file handle for verbose output (line-buffered)
     :returns: count of harvested record and total of exsisting records
     """
     count = -1
@@ -34,7 +36,7 @@ def harvest_records(name, from_date=None, harvest_count=-1, verbose=False):
 
         current_app.logger.info(msg)
         HarvestClass = obj_or_import_string(config.classname)
-        harvest = HarvestClass(name=name, verbose=verbose, harvest_count=harvest_count, process=True)
+        harvest = HarvestClass(name=name, verbose=verbose, harvest_count=harvest_count, process=True, log_file=log_file)
         count, total = harvest.harvest_records(from_date=from_date)
         msg = (
             f"API harvest {name} items={total} |"

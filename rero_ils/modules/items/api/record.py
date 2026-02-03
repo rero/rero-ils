@@ -311,6 +311,11 @@ class ItemRecord(IlsRecord):
         """Shortcut for item document pid."""
         return extracted_data_from_ref(self["document"])
 
+    @property
+    def can_edit(self):
+        """Return False for harvested items (e.g. MEMOVS); absent flag means editable."""
+        return not self.get("harvested", False)
+
     @classmethod
     def get_document_pid_by_item_pid(cls, item_pid):
         """Returns document pid from item pid."""

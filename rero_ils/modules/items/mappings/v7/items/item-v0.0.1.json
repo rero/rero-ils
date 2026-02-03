@@ -321,6 +321,9 @@
       "_masked": {
         "type": "boolean"
       },
+      "harvested": {
+        "type": "boolean"
+      },
       "legacy_checkout_count": {
         "type": "integer"
       },

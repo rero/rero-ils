@@ -533,6 +533,19 @@ CELERY_BEAT_SCHEDULE = {
         "kwargs": {"name": "NJ-CANTOOK"},
         "enabled": False,
     },
+    "celery.harvest-vs-memo": {
+        "task": "rero_ils.modules.api_harvester.tasks.harvest_records",
+        "schedule": schedules.crontab(minute=55, hour=5),  # Every day at 05:55 UTC,
+        "kwargs": {"name": "VS-MEMO"},
+        "enabled": False,
+    },
+    "celery.delete-vs-memo": {
+        "task": "rero_ils.modules.api_harvester.memovs.tasks.delete_memovs",
+        "schedule": schedules.crontab(
+            minute=7, hour=7, day_of_week=6
+        ),  # Every Sunday at 07:07 UTC,
+        "enabled": False,
+    },
 }
 
 INDEXER_BULK_REQUEST_TIMEOUT = 60

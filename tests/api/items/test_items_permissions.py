@@ -143,3 +143,18 @@ def test_items_permissions(
         {"search": True, "read": True, "create": True, "update": True, "delete": True},
         item_lib_saxon,
     )
+
+    # Items attached to a harvested document (e.g. MEMOVS) cannot be
+    # edited or deleted, even by a full-permissions system librarian.
+    with mock.patch("rero_ils.modules.items.api.record.ItemRecord.can_edit", False):
+        check_permission(
+            ItemPermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": False,
+                "delete": False,
+            },
+            item_lib_saxon,
+        )

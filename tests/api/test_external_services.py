@@ -37,9 +37,11 @@ def test_documents_import_bnf_ean_no_permission(
     assert res.status_code == 401
 
 
+@mock.patch("requests.Session.get")
 @mock.patch("requests.get")
 def test_documents_import_bnf_ean(
     mock_get,
+    mock_session_get,
     client,
     librarian_martigny,
     bnf_ean_any_123,
@@ -49,6 +51,7 @@ def test_documents_import_bnf_ean(
     bnf_recordid_all_FRBNF370903960000006,
 ):
     """Test document import from bnf."""
+    mock_session_get.return_value = mock_response(status=404)
     login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=bnf_ean_any_123)
@@ -232,9 +235,11 @@ def test_documents_import_loc_missing_id(mock_get, client, loc_without_010):
     assert len(results["hits"]["hits"]) == 9
 
 
+@mock.patch("requests.Session.get")
 @mock.patch("requests.get")
 def test_documents_import_dnb_isbn(
     mock_get,
+    mock_session_get,
     client,
     librarian_martigny,
     dnb_isbn_123,
@@ -244,6 +249,7 @@ def test_documents_import_dnb_isbn(
     dnb_recordid_1214325203,
 ):
     """Test document import from DNB."""
+    mock_session_get.return_value = mock_response(status=404)
     login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=dnb_isbn_123)

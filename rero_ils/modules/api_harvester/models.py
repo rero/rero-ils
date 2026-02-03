@@ -16,6 +16,8 @@ class HarvestActionType(Enum):
     UPDATED = "UPDATED"
     CREATED = "CREATED"
     NOTSET = "NOTSET"
+    ERROR = "ERROR"
+    UNCHANGED = "UNCHANGED"
 
 
 class ApiHarvestConfig(db.Model):
@@ -29,14 +31,22 @@ class ApiHarvestConfig(db.Model):
     classname = db.Column(db.String(255), nullable=False)
     code = db.Column(db.Text, nullable=True)
     lastrun = db.Column(db.DateTime, default=datetime(year=1900, month=1, day=1, tzinfo=UTC), nullable=True)
+    settings = db.Column(db.JSON, nullable=True)
 
     def save(self):
         """Save object to persistent storage."""
         with db.session.begin_nested():
             db.session.merge(self)
+        db.session.commit()
 
     def update_lastrun(self, new_date=None):
-        """Update the 'lastrun' attribute of object to now."""
+        """Update the 'lastrun' attribute of object to now.
+
+        :param new_date: ISO date string (``YYYY-MM-DD``) or datetime; defaults to now.
+        """
+        if isinstance(new_date, str):
+            new_date = datetime.fromisoformat(new_date)
+            new_date = new_date.replace(tzinfo=UTC) if new_date.tzinfo is None else new_date.astimezone(UTC)
         self.lastrun = new_date or datetime.now(UTC)
         self.save()
         return self.lastrun

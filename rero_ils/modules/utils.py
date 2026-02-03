@@ -923,16 +923,25 @@ def number_records_in_file(json_file, type):
     return count
 
 
-def requests_retry_session(retries=5, backoff_factor=0.5, status_forcelist=(500, 502, 504), session=None):
+def requests_retry_session(retries=5, backoff_factor=0.5, status_forcelist=(500, 502, 504), session=None, timeout=30):
     """Request retry session.
 
     :params retries: The total number of retry attempts to make.
     :params backoff_factor: Sleep between failed requests.
         {backoff factor} * (2 ** ({number of total retries} - 1))
-    :params status_forcelist: The HTTP response codes to retry on..
+    :params status_forcelist: The HTTP response codes to retry on.
     :params session: Session to use.
-
+    :params timeout: Default timeout in seconds applied to every request.
     """
+
+    class _TimeoutHTTPAdapter(HTTPAdapter):
+        """Apply a default timeout to every request, even on a supplied session."""
+
+        def send(self, request, **kwargs):
+            if kwargs.get("timeout") is None:
+                kwargs["timeout"] = timeout
+            return super().send(request, **kwargs)
+
     session = session or requests.Session()
     retry = Retry(
         total=retries,
@@ -941,7 +950,7 @@ def requests_retry_session(retries=5, backoff_factor=0.5, status_forcelist=(500,
         backoff_factor=backoff_factor,
         status_forcelist=status_forcelist,
     )
-    adapter = HTTPAdapter(max_retries=retry)
+    adapter = _TimeoutHTTPAdapter(max_retries=retry)
     session.mount("http://", adapter)
     session.mount("https://", adapter)
     return session
