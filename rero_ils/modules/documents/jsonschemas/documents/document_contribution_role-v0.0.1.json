@@ -87,7 +87,6 @@
       "fmp",
       "his",
       "hst",
-      "ill",
       "ilu",
       "ins",
       "inv",
@@ -135,6 +134,7 @@
       "rdd",
       "res",
       "rpc",
+      "rpt",
       "rsp",
       "rsr",
       "scl",
@@ -675,6 +675,10 @@
           {
             "value": "rpc",
             "label": "rpc"
+          },
+          {
+            "value": "rpt",
+            "label": "rpt"
           },
           {
             "value": "rsp",

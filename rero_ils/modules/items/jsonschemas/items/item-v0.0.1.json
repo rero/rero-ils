@@ -808,6 +808,11 @@
           }
         }
       }
+    },
+    "harvested": {
+      "title": "Harvested",
+      "description": "Item is harvested or not, will disable record edition or similar.",
+      "type": "boolean"
     }
   }
 }

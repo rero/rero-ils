@@ -215,6 +215,7 @@ rero_files = "rero_invenio_files.ext:finalize_app"
 
 [project.entry-points."invenio_celery.tasks"]
 api_harvester = "rero_ils.modules.api_harvester.tasks"
+api_harvester_memovs = "rero_ils.modules.api_harvester.memovs.tasks"
 collections = "rero_ils.modules.collections.tasks"
 documents = "rero_ils.modules.documents.tasks"
 holdings = "rero_ils.modules.holdings.tasks"

@@ -113,7 +113,8 @@
     "default_currency": "GBP",
     "current_budget_pid": "2",
     "online_harvested_source": [
-      "mv-cantook"
+      "mv-cantook",
+      "memovs"
     ],
     "homepage": {
       "slogan": [
