@@ -73,12 +73,10 @@ dependencies = [
     "dcxml (>=0.1.2)",
     "DeepDiff (>=5.5.0)",
     "docutils (<0.18.0)",
-    # to avoid conflict for urllib3
     "dparse (>=0.5.2)",
     "Mako (>=1.2.2)",
     "jsonresolver",
-    # needed for elasticsearch 7.13.4
-    "urllib3 (<2.0.0)",
+    "urllib3 (>=2.6.0,<3.0.0)",
     "pyparsing (>=3.1.1)",
     "dnspython (>2.4.2)",
     "cryptography (>41.0.7)",
