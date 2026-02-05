@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Mock Modules."""
+"""Convert MARC21 XML records to RERO ILS JSON format with deduplication support."""
 
 from dojson.contrib.marc21.utils import create_record
 from lxml import etree
@@ -53,16 +53,12 @@ class Marc21XMLConverter:
     def loads(cls, file):
         """Read a marc xml file and iterate over all records."""
         for record in read_xml_record(file):
-            yield etree.tostring(
-                record, encoding="utf-8", method="xml", pretty_print=True
-            )
+            yield etree.tostring(record, encoding="utf-8", method="xml", pretty_print=True)
 
     @classmethod
     def markdown(cls, data):
         """Convert an marc21 xml record into a markdown table."""
-        record = ImportsMarcSearchSerializer.convert_marc_to_marc_text_dict(
-            create_record(data)
-        )
+        record = ImportsMarcSearchSerializer.convert_marc_to_marc_text_dict(create_record(data))
         formatted_record = ["| Marc&nbsp;Field | Marc&nbsp;Value |", "| --- | --- |"]
         for leader, fields in record:
             leader = leader.replace(" ", "&nbsp;")
@@ -87,25 +83,18 @@ class Marc21XMLConverter:
         if data.conversion.status == "error":
             return (
                 ils_pid,
-                {
-                    "warning": [
-                        "Merci de résoudre les erreurs de conversion avant de dédoublonner."
-                    ]
-                },
+                {"warning": ["Please resolve conversion errors before deduplication."]},
                 "pending",
                 [],
             )
         candidates = [
-            (c.pid, c.json.to_dict(), c.score, c.detailed_score.to_dict())
-            for c in data.deduplication.candidates
+            (c.pid, c.json.to_dict(), c.score, c.detailed_score.to_dict()) for c in data.deduplication.candidates
         ]
         logs = {}
         status = "no match"
         if data.deduplication.status == "pending" or force:
             try:
-                candidates = Deduplication().get_candidates(
-                    data.conversion.json.to_dict()
-                )
+                candidates = Deduplication().get_candidates(data.conversion.json.to_dict())
             except Exception as err:
                 logs["error"] = [f"{err}"]
                 status = "error"
@@ -128,8 +117,6 @@ class Marc21XMLConverter:
                         and best_detailed_score["publication_date"]["value"] < 1
                     ):
                         status = "check"
-                        logs["warning"] = [
-                            "Date de publication inexacte: le statut 'check' a été forcé."
-                        ]
+                        logs["warning"] = ["Publication date inaccurate: status forced to 'check'."]
                     ils_pid = best[0]
         return ils_pid, logs, status, candidates

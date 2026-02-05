@@ -20,6 +20,7 @@
 import pytest
 
 from rero_ils.modules.sru.cql_parser import (
+    ES_SORT_INDEX_MAPPINGS,
     RESERVED_PREFIXES,
     Boolean,
     Diagnostic,
@@ -148,9 +149,15 @@ def test_get_query_clause_with_relation_modifier():
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"spam"'
+    # /relevant is now a supported modifier (default ES relevance scoring)
+    es_string = query.to_es()
+    assert es_string == "(anywhere:spam)"
+
+    # Unsupported modifiers should still raise Diagnostic
+    query = parse('anywhere all/stem "spam"')
     with pytest.raises(Diagnostic) as err:
         query.to_es()
-    assert str(err.value).startswith("info:srw/diagnostic/1/21 [Unsupported combination of relation modifers]")
+    assert "Unsupported relation modifier" in str(err.value)
 
 
 def test_get_query_clause_with_sorting(app):
@@ -167,9 +174,23 @@ def test_get_query_clause_with_sorting(app):
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"cat"'
-    with pytest.raises(Diagnostic) as err:
-        query.to_es()
-    assert str(err.value) == "info:srw/diagnostic/1/80 [Sort not supported]: "
+    # Sort is now supported - to_es() should work
+    es_string = query.to_es()
+    assert es_string == '"cat"'
+    # Check sort keys are extracted correctly
+    sort_keys = query.get_es_sort()
+    assert len(sort_keys) == 1
+    # "title" resolves via dc.title prefix fallback to ES_SORT_INDEX_MAPPINGS["dc.title"]
+    assert ES_SORT_INDEX_MAPPINGS["dc.title"] in sort_keys[0]
+
+    # Test with sort modifiers
+    query = parse('"dog" sortBy dc.date/descending')
+    es_string = query.to_es()
+    assert es_string == '"dog"'
+    sort_keys = query.get_es_sort()
+    assert len(sort_keys) == 1
+    # dc.date should be mapped to provisionActivity.startDate
+    assert sort_keys[0].get("provisionActivity.startDate", {}).get("order") == "desc"
 
 
 def test_get_query_clause_with_relation(app):
@@ -216,18 +237,28 @@ def test_get_query_triple(app):
 
 
 def test_get_query_triple_with_sort(app):
-    """Check that query with boolean is parsed correctly."""
+    """Check that query with boolean and sort is parsed correctly."""
     query = parse("dc.anywhere all spam and dc.anywhere all eggs sortBy subtitle")
     # Check query instance
     assert isinstance(query, Triple)
-    with pytest.raises(Diagnostic) as err:
-        query.to_es()
-    assert str(err.value) == "info:srw/diagnostic/1/80 [Sort not supported]: "
+    # Sort is now supported
+    es_string = query.to_es()
+    assert es_string == "((spam) AND (eggs))"
+    # Check sort keys are extracted correctly
+    sort_keys = query.get_es_sort()
+    assert len(sort_keys) == 1
+    assert "subtitle" in sort_keys[0]
+
+    # Test with multiple sort keys
+    query = parse("title = book sortBy dc.title/ascending dc.date/descending")
+    es_string = query.to_es()
+    sort_keys = query.get_es_sort()
+    assert len(sort_keys) == 2
 
 
 def test_get_query_with_modifiers():
     """Check that query with modifiers is parsed correctly."""
-    # Relation Modifiers
+    # Supported relation modifiers (/relevant is supported)
     q_string = "dc.anywhere any/relevant spam"
     query = parse(q_string)
     assert len(query.relation.modifiers) > 0
@@ -236,10 +267,18 @@ def test_get_query_with_modifiers():
     assert str(query.relation.modifiers[0].type) == "cql.relevant"
     assert not str(query.relation.modifiers[0].comparison)
     assert not str(query.relation.modifiers[0].value)
-    with pytest.raises(Diagnostic):
-        query.to_es()
+    # /relevant is now supported - should not raise
+    es_string = query.to_es()
+    assert es_string == "(spam)"
 
-    # Boolean modifiers
+    # Unsupported relation modifiers should still raise
+    q_string = "dc.anywhere any/phonetic spam"
+    query = parse(q_string)
+    with pytest.raises(Diagnostic) as err:
+        query.to_es()
+    assert "Unsupported relation modifier" in str(err.value)
+
+    # Boolean modifiers - unsupported ones should raise
     q_string = "dc.anywhere all spam and/rel.combine=sum dc.anywhere all eggs"
     query = parse(q_string)
     assert len(query.boolean.modifiers) > 0
@@ -248,8 +287,9 @@ def test_get_query_with_modifiers():
     assert str(query.boolean.modifiers[0].type) == "rel.combine"
     assert str(query.boolean.modifiers[0].comparison) == "="
     assert str(query.boolean.modifiers[0].value) == "sum"
-    with pytest.raises(Diagnostic):
+    with pytest.raises(Diagnostic) as err:
         query.to_es()
+    assert "Unsupported boolean modifier" in str(err.value)
 
 
 def test_errors():

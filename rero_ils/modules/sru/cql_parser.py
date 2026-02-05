@@ -17,12 +17,37 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""CQL Parser Implementation adaptation from cheshire3.
+"""CQL (Contextual Query Language) Parser for SRU.
 
-https://github.com/cheshire3/cheshire3
-Author:  Rob Sanderson (azaroth@liv.ac.uk)
-Version: 2.0    (CQL 1.2)
-With thanks to Adam Dickmeiss and Mike Taylor for their valuable input.
+This module provides a CQL 1.2 parser that translates CQL queries into
+Elasticsearch query strings. It supports the standard CQL features including
+boolean operators, relation modifiers, sort specifications, and prefix
+declarations.
+
+The parser is adapted from the cheshire3 project:
+    https://github.com/cheshire3/cheshire3
+    Original Author: Rob Sanderson (azaroth@liv.ac.uk)
+    Version: 2.0 (CQL 1.2)
+
+Features:
+    - Full CQL 1.2 syntax support
+    - Boolean operators: AND, OR, NOT (PROX not supported)
+    - Relations: =, <, >, <=, >=, <>, all, any
+    - Sort specifications with ascending/descending modifiers
+    - Relation modifiers: /relevant, /exact, /word, /ignoreCase
+    - Dublin Core index mappings to Elasticsearch fields
+    - Prefix declarations for custom context sets
+
+Example::
+
+    from rero_ils.modules.sru.cql_parser import parse
+    query = parse('dc.title all "python programming" sortBy dc.date/descending')
+    es_query = query.to_es()
+    sort_keys = query.get_es_sort()
+
+See Also:
+    - CQL Specification: http://www.loc.gov/standards/sru/cql/
+    - SRU Standard: http://www.loc.gov/standards/sru/
 """
 
 from copy import deepcopy
@@ -34,8 +59,8 @@ from lxml.builder import ElementMaker
 
 from ..utils import strip_chars
 
-SERVER_CHOISE_RELATION = "="
-SERVER_CHOISE_INDEX = "cql.serverchoice"
+SERVER_CHOICE_RELATION = "="
+SERVER_CHOICE_INDEX = "cql.serverchoice"
 
 ORDER = ["=", ">", ">=", "<", "<=", "<>"]
 MODIFIER_SEPERATOR = "/"
@@ -56,9 +81,81 @@ ERROR_ON_DUPLICATE_PREFIX = False  # >a=b >a=c ''
 FULL_RESULT_SET_NAME_CHECK = True  # cql.rsn=a and cql.rsn=a    (mutant!)
 
 
+#: CQL sort modifier to Elasticsearch sort order mapping.
+#: Maps CQL sort modifiers (e.g., /ascending, /descending) to ES sort orders.
+#: Supports both short form (/ascending) and prefixed form (/sort.ascending).
+ES_SORT_MODIFIERS = {
+    "ascending": "asc",
+    "descending": "desc",
+    "sort.ascending": "asc",
+    "sort.descending": "desc",
+    "missinglow": "missinglow",
+    "missinghigh": "missinghigh",
+    "missingomit": "missingomit",
+    "sort.missinglow": "missinglow",
+    "sort.missinghigh": "missinghigh",
+    "sort.missingomit": "missingomit",
+}
+
+#: CQL sort index to Elasticsearch sortable field mapping.
+#: Maps Dublin Core and custom indexes to ES fields suitable for sorting.
+#: These fields should be keyword type or have doc_values enabled for
+#: efficient sorting. Use '_relevance' to sort by search score.
+ES_SORT_INDEX_MAPPINGS = {
+    "dc.title": "sort_title",
+    "dc.date": "provisionActivity.startDate",
+    "dc.creator": "facet_contribution_en",
+    "dc.contributor": "facet_contribution_en",
+    "dc.publisher": "provisionActivity.statement.label.value.raw",
+    "dc.identifier": "identified_by.value.raw",
+    "dc.subject": "subject.entity.authorized_access_point.raw",
+    "dc.type": "type.main_type",
+    "dc.language": "language.value",
+    "_relevance": "_score",
+}
+
+#: Supported CQL relation modifiers that are processed without error.
+#: These modifiers are acknowledged by the parser. Most map to default
+#: Elasticsearch behavior (relevance scoring, word matching, case insensitivity).
+#:
+#: - ``relevant``: Use relevance scoring (default ES behavior)
+#: - ``exact``: Exact match semantics
+#: - ``word``: Word-based matching (default ES behavior)
+#: - ``ignorecase``: Case-insensitive matching (default ES behavior)
+#: - ``string``: Treat search term as a string literal
+SUPPORTED_RELATION_MODIFIERS = {
+    "relevant": "relevant",
+    "exact": "exact",
+    "word": "word",
+    "ignorecase": "ignorecase",
+    "string": "string",
+}
+
+#: Unsupported CQL relation modifiers with explanatory messages.
+#: When these modifiers are used, the parser raises Diagnostic 21 with
+#: the corresponding explanation message.
+UNSUPPORTED_RELATION_MODIFIERS = {
+    "stem": "Stemming not configurable per-query",
+    "phonetic": "Phonetic matching not available",
+    "fuzzy": "Fuzzy matching not supported",
+    "regexp": "Regular expressions not supported in CQL",
+    "respectcase": "Case-sensitive search not supported",
+    "isodate": "ISO date parsing not supported",
+}
+
+#: Dublin Core index to Elasticsearch query mapping.
+#: Maps standard Dublin Core elements and CQL indexes to Elasticsearch
+#: query expressions. Complex mappings may include boolean operators
+#: and field constraints (e.g., filtering by contribution role).
+#:
+#: Standard DC elements: title, creator, contributor, date, description,
+#: language, publisher, type, identifier, relation, coverage, format,
+#: rights, source, subject.
+#:
+#: Custom extensions: organisation, library, location, subtype.
 ES_INDEX_MAPPINGS = {
-    "cql.anywhere": SERVER_CHOISE_INDEX,
-    "dc.anywhere": SERVER_CHOISE_INDEX,
+    "cql.anywhere": SERVER_CHOICE_INDEX,
+    "dc.anywhere": SERVER_CHOICE_INDEX,
     "dc.contributor": "contribution.role:("
     "ape OR aqt OR arc OR art OR aus OR aut OR chr OR cll OR cmp OR com OR "
     "drt OR dsr OR enj OR fmk OR inv OR ive OR ivr OR lbt OR lsa OR lyr OR "
@@ -81,8 +178,8 @@ ES_INDEX_MAPPINGS = {
     "authorized_access_point",
     "dc.date": 'provisionActivity.type:"bf:Publication" AND provisionActivity.startDate',
     "dc.title": "title.\\*",
-    # TOTO: description search also in: note.label, dissertation.label and
-    # supplementaryContent.discription
+    # TODO: description search also in: note.label, dissertation.label and
+    # supplementaryContent.description
     "dc.description": "summary.label",
     "dc.language": "language.value",
     "dc.publisher": 'provisionActivity.type:"bf:Publication" AND '
@@ -91,24 +188,149 @@ ES_INDEX_MAPPINGS = {
     "dc.type": "type.main_type",
     "dc.subtype": "type.subtype",
     "dc.identifier": "identified_by.value",
-    # TODO: relation search in: issuedWith, otherEdition, otherPhysicalFormat,
-    # precededBy, relatedTo, succeededBy, supplement and supplementTo
-    # 'dc.relation': '',
-    # 'dc.coverage': '',
-    # 'dc.format': '',
-    # 'dc.rights': '',
-    # 'dc.source': '',
+    "dc.relation": "(issuedWith.label OR otherEdition.label OR "
+    "otherPhysicalFormat.label OR precededBy.label OR relatedTo.label OR "
+    "succeededBy.label OR supplement.label OR supplementTo.label)",
+    "dc.coverage": "(temporalCoverage.date OR temporalCoverage.start_date OR "
+    "temporalCoverage.end_date OR subjects.entity.authorized_access_point)",
+    "dc.format": "(extent OR dimensions OR bookFormat OR duration OR "
+    "contentMediaCarrier.contentType OR contentMediaCarrier.mediaType OR "
+    "contentMediaCarrier.carrierType)",
+    "dc.rights": "(usageAndAccessPolicy.label OR copyrightDate)",
+    "dc.source": "adminMetadata.source",
     "dc.subject": "subject.entity.authorized_access_point",
     "dc.organisation": "organisation_pid",
     "dc.library": "library_pid",
     "dc.location": "holdings.location.pid",
+    "dc.note": "note.label",
+    "dc.tableofcontents": "tableOfContents",
+    "dc.abstract": "summary.label",
+    "dc.dissertation": "dissertation.label",
 }
 
 # End of 'configurable' stuff
 
 
+def _convert_sort_keys_to_es(sort_keys, query=""):
+    """Convert CQL sort keys to Elasticsearch sort format.
+
+    Transforms a list of CQL sort key Index objects into Elasticsearch
+    sort specifications. Handles sort direction modifiers (/ascending,
+    /descending) and missing value handling (/missingLow, /missingHigh).
+
+    Args:
+        sort_keys: List of :class:`Index` objects representing sort fields.
+            Each Index may have modifiers specifying sort direction.
+        query: The original CQL query string, included in any Diagnostic
+            raised for unsupported modifiers.
+
+    Returns:
+        list: Elasticsearch sort specifications. Each item is a dict like::
+
+            {"field_name": {"order": "asc", "missing": "_last"}}
+
+        For relevance sorting, returns::
+
+            {"_score": {"order": "desc"}}
+
+    Example::
+
+        # For query: sortBy dc.title/descending dc.date/ascending
+        sort_specs = _convert_sort_keys_to_es(query.sort_keys)
+        # Returns: [{"title._text.raw": {"order": "desc", ...}}, ...]
+    """
+    valid_sort_modifiers = {"ascending", "descending", "missinglow", "missinghigh", "missingomit"}
+    es_sort = []
+    for sort_key in sort_keys:
+        # Get the index name
+        index_name = str(sort_key).lower()
+
+        # Map to ES sortable field
+        es_field = ES_SORT_INDEX_MAPPINGS.get(index_name)
+        if not es_field:
+            # Try without prefix
+            es_field = ES_SORT_INDEX_MAPPINGS.get(f"dc.{sort_key.value}")
+        if not es_field:
+            # Use the field as-is (might be a direct ES field name)
+            es_field = index_name
+
+        # Default sort order is ascending
+        order = "asc"
+        missing = "_last"
+        missing_pref = None
+
+        # Check modifiers for sort direction and missing value handling
+        if hasattr(sort_key, "modifiers") and sort_key.modifiers:
+            for modifier in sort_key.modifiers:
+                mod_type = str(modifier.type).lower()
+                # Remove prefix if present (e.g., cql.descending -> descending)
+                if "." in mod_type:
+                    mod_type = mod_type.split(".")[-1]
+                if mod_type not in valid_sort_modifiers:
+                    diag = Diagnostic()
+                    diag.code = 21
+                    diag.message = "Unsupported sort modifier"
+                    diag.details = mod_type
+                    diag.query = query
+                    raise diag
+                if mod_type == "descending":
+                    order = "desc"
+                elif mod_type == "ascending":
+                    order = "asc"
+                elif mod_type in ("missinglow", "missinghigh", "missingomit"):
+                    missing_pref = mod_type
+
+        if missing_pref == "missinglow":
+            missing = "_first" if order == "asc" else "_last"
+        elif missing_pref == "missinghigh":
+            missing = "_last" if order == "asc" else "_first"
+        elif missing_pref == "missingomit":
+            # NOTE: ES doesn't support omitting docs with missing values in sort.
+            # Documents with missing values will be placed last instead.
+            missing = "_last"
+
+        # Build the sort specification
+        if es_field == "_score":
+            # Relevance sorting
+            es_sort.append({"_score": {"order": order}})
+        else:
+            es_sort.append({es_field: {"order": order, "missing": missing}})
+
+    return es_sort
+
+
 class Diagnostic(Exception):
-    """Diagnostic Exceptions."""
+    """SRU Diagnostic exception for CQL parsing errors.
+
+    Represents an SRU diagnostic message as defined in the SRU standard.
+    Can be raised during CQL parsing or query execution to indicate
+    errors to the client.
+
+    Common diagnostic codes:
+        - 10: Malformed Query (generic)
+        - 14: Quoted identifier not allowed
+        - 15: Null indexset / Multiple dots in identifier
+        - 19: Unsupported relation
+        - 21: Unsupported relation/boolean modifiers
+        - 25: Reserved operator in unquoted term
+        - 26: Badly placed backslash
+        - 27: Empty term
+        - 32: Only anchoring characters in term
+        - 37: Unsupported boolean operator (PROX)
+        - 45: Duplicate prefix declaration
+        - 80: Sort not supported (deprecated - now supported)
+
+    Attributes:
+        code: Numeric diagnostic code from the SRU diagnostic list.
+        uri: Base URI for SRU diagnostics.
+        message: Human-readable error message.
+        details: Additional context about the error.
+        query: The original CQL query string that caused the error.
+        xml_root: The XML representation of the diagnostic (lazy-initialized).
+
+    See Also:
+        SRU Diagnostics: http://www.loc.gov/standards/sru/diagnostics/
+    """
 
     code = 10  # default to generic broken query diagnostic
     uri = "info:srw/diagnostic/1/"
@@ -117,11 +339,22 @@ class Diagnostic(Exception):
     xml_root = None
 
     def __str__(self):
-        """String representation of the object."""
+        """Return a string representation of the diagnostic.
+
+        Returns:
+            A formatted string: "uri/code [message]: details"
+        """
         return f"{self.uri}{self.code} [{self.message}]: {self.details}"
 
     def __init__(self, code=10, message="Malformed Query", details="", query="???"):
-        """Constructor."""
+        """Initialize a new Diagnostic exception.
+
+        Args:
+            code: SRU diagnostic code. Defaults to 10 (Malformed Query).
+            message: Human-readable error message.
+            details: Additional context or the problematic query fragment.
+            query: The original CQL query string.
+        """
         self.code = code
         self.message = message
         self.details = details
@@ -254,8 +487,9 @@ class PrefixedObject:
 class ModifiableObject:
     """Mofifiable object."""
 
-    # Treat modifiers as keys on boolean/relation?
-    modifiers = []
+    def __init__(self):
+        """Constructor."""
+        self.modifiers = []
 
     def __getitem__(self, key):
         """Get item."""
@@ -294,18 +528,19 @@ class Triple(PrefixableObject):
         else:
             txt.append(boolean.upper())
         txt.append(self.right_operand.to_es())
-        # Add sort_keys
-        if self.sort_keys:
-            diag = Diagnostic()
-            diag.code = 80
-            diag.message = "Sort not supported"
-            diag.query = self.query
-            raise diag
-            # txt.append('sortBy')
-            # for sort_key in self.sort_keys:
-            #     txt.append(sort_key.to_es())
+        # Sort keys are handled separately via get_es_sort()
         pre = "NOT" if boolean == "not" else ""
         return f"{pre}({' '.join(txt)})"
+
+    def get_es_sort(self):
+        """Extract sort keys in Elasticsearch format.
+
+        Returns a list of sort specifications for Elasticsearch.
+        Each item is either a string (field name) or a dict with options.
+        """
+        if not self.sort_keys:
+            return []
+        return _convert_sort_keys_to_es(self.sort_keys, query=self.query)
 
     def get_result_set_id(self, top=None):
         """Get result set id."""
@@ -363,18 +598,24 @@ class SearchClause(PrefixableObject):
             index = ES_INDEX_MAPPINGS.get(index.lower(), index)
             # try to map es mappings
             index = Explain("tmp").es_mappings.get(index, index)
-            # if relation in ORDER:
-            #     term = f'"{term}"'
             if relation in ["=", "all", "any"]:
                 relation = ""
-            if str(index) == SERVER_CHOISE_INDEX:
+            if str(index) == SERVER_CHOICE_INDEX:
                 return f"{relation}{term}"
+            # Handle multi-field OR expression: "(field1 OR field2)" + term
+            # ES query string does not support "(f1 OR f2):value"; expand each field.
+            if index.startswith("(") and index.endswith(")"):
+                fields = [f.strip() for f in index[1:-1].split(" OR ")]
+                return f"({' OR '.join(f'{f}:{relation}{term}' for f in fields)})"
             return f"{index}:{relation}{term}"
 
         index = self.index.to_es()
         relation = self.relation.to_es()
         if relation == "<>":
-            text = index_term(index, "-", f'"{self.term.to_es()}"')
+            es_term = self.term.to_es()
+            if not (es_term.startswith('"') and es_term.endswith('"')):
+                es_term = f'"{es_term}"'
+            text = index_term(index, "-", es_term)
         elif relation in ORDER:
             text = index_term(index, relation, self.term.to_es())
         else:
@@ -395,17 +636,18 @@ class SearchClause(PrefixableObject):
                 diag.details = relation
                 diag.query = self.query
                 raise diag
-        # Add sort_keys
-        if self.sort_keys:
-            diag = Diagnostic()
-            diag.code = 80
-            diag.message = "Sort not supported"
-            diag.query = self.query
-            raise diag
-            # text.append('sortBy')
-            # for sort_key in self.sort_keys:
-            #     text.append(sort_key.to_es())
+        # Sort keys are handled separately via get_es_sort()
         return text
+
+    def get_es_sort(self):
+        """Extract sort keys in Elasticsearch format.
+
+        Returns a list of sort specifications for Elasticsearch.
+        Each item is either a string (field name) or a dict with options.
+        """
+        if not self.sort_keys:
+            return []
+        return _convert_sort_keys_to_es(self.sort_keys, query=self.query)
 
     def get_result_set_id(self, top=None):
         """Get result set id."""
@@ -421,6 +663,7 @@ class Index(PrefixedObject, ModifiableObject):
 
     def __init__(self, val, query):
         """Constructor."""
+        ModifiableObject.__init__(self)
         PrefixedObject.__init__(self, val, query)
         if self.value in ["(", ")", *ORDER]:
             diag = Diagnostic()
@@ -432,12 +675,26 @@ class Index(PrefixedObject, ModifiableObject):
     def to_es(self):
         """Create the ES representation of the object."""
         if self.modifiers:
-            diag = Diagnostic()
-            diag.code = 21
-            diag.message = "Unsupported combination of relation modifers"
-            diag.details = self.modifiers
-            diag.query = self.query
-            raise diag
+            # Index modifiers are typically used for sorting (handled separately)
+            # Check for any unsupported modifiers
+            unsupported = []
+            for modifier in self.modifiers:
+                mod_type = str(modifier.type).lower()
+                if "." in mod_type:
+                    mod_type = mod_type.split(".")[-1]
+                # Sort modifiers are handled by get_es_sort()
+                if mod_type not in ES_SORT_MODIFIERS and mod_type not in SUPPORTED_RELATION_MODIFIERS:
+                    if mod_type in UNSUPPORTED_RELATION_MODIFIERS:
+                        unsupported.append(f"{mod_type} ({UNSUPPORTED_RELATION_MODIFIERS[mod_type]})")
+                    else:
+                        unsupported.append(mod_type)
+            if unsupported:
+                diag = Diagnostic()
+                diag.code = 21
+                diag.message = "Unsupported index modifier(s)"
+                diag.details = ", ".join(unsupported)
+                diag.query = self.query
+                raise diag
         return str(self)
 
 
@@ -455,12 +712,27 @@ class Relation(PrefixedObject, ModifiableObject):
     def to_es(self):
         """Create the ES representation of the object."""
         if self.modifiers:
-            diag = Diagnostic()
-            diag.code = 21
-            diag.message = "Unsupported combination of relation modifers"
-            diag.details = self.modifiers
-            diag.query = self.query
-            raise diag
+            # Check if all modifiers are supported
+            unsupported = []
+            for modifier in self.modifiers:
+                mod_type = str(modifier.type).lower()
+                # Remove prefix if present (e.g., cql.relevant -> relevant)
+                if "." in mod_type:
+                    mod_type = mod_type.split(".")[-1]
+                if mod_type not in SUPPORTED_RELATION_MODIFIERS:
+                    if mod_type in UNSUPPORTED_RELATION_MODIFIERS:
+                        unsupported.append(f"{mod_type} ({UNSUPPORTED_RELATION_MODIFIERS[mod_type]})")
+                    else:
+                        unsupported.append(mod_type)
+            if unsupported:
+                diag = Diagnostic()
+                diag.code = 21
+                diag.message = "Unsupported relation modifier(s)"
+                diag.details = ", ".join(unsupported)
+                diag.query = self.query
+                raise diag
+            # Supported modifiers are acknowledged but don't change ES query
+            # (ES handles relevance, word matching, case insensitivity by default)
         return self.value
 
 
@@ -544,8 +816,8 @@ class Boolean(ModifiableObject):
         if self.modifiers:
             diag = Diagnostic()
             diag.code = 21
-            diag.message = "Unsupported combination of relation modifers"
-            diag.details = self.modifiers
+            diag.message = "Unsupported boolean modifier(s)"
+            diag.details = ", ".join(str(m.type) for m in self.modifiers)
             diag.query = self.query
             raise diag
         return f"{self.value}"
@@ -846,11 +1118,11 @@ class CQLParser:
         is_boolean = self.is_boolean(self.next_token)
         sort = self.is_sort(self.next_token)
         if not sort and not is_boolean and self.next_token not in [")", "(", ""]:
-            irt = self._extracted_from_clause_6()
+            irt = self._parse_index_clause()
         elif self.current_token and (is_boolean or sort or self.next_token in [")", ""]):
             irt = RelatioSearchClauseType(
-                IndexerType(SERVER_CHOISE_INDEX, self.parser.query),
-                RelationType(SERVER_CHOISE_RELATION, self.parser.query),
+                IndexerType(SERVER_CHOICE_INDEX, self.parser.query),
+                RelationType(SERVER_CHOICE_RELATION, self.parser.query),
                 TermType(self.current_token, self.parser.query),
                 self.parser.query,
             )
@@ -871,8 +1143,7 @@ class CQLParser:
             raise diag
         return irt
 
-    # TODO Rename this here and in `clause`
-    def _extracted_from_clause_6(self):
+    def _parse_index_clause(self):
         index = IndexerType(self.current_token, self.parser.query)
         self.fetch_token()  # Skip Index
         relation = self.relation()

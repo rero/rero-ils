@@ -37,10 +37,26 @@ DEFAULT_LANGUAGE = LocalProxy(lambda: current_app.config.get("BABEL_DEFAULT_LANG
 
 
 class DublinCoreSerializer(_DublinCoreSerializer):
-    """Dublin Core serializer for records.
+    """Dublin Core serializer for document records.
 
-    Note: This serializer is not suitable for serializing large number of
-    records.
+    This serializer transforms RERO ILS document records into Dublin Core XML format,
+    following the Dublin Core Metadata Element Set specifications. It handles both
+    individual record serialization and search result serialization with SRU support.
+
+    The serializer performs the following transformations:
+        - Converts RERO ILS JSON documents to Dublin Core XML
+        - Resolves record references and processes internationalized fields
+        - Handles contribution data with i18n support
+        - Generates SRU-compliant search responses
+
+    Note:
+        This serializer loads complete records into memory and is not suitable
+        for serializing large numbers of records (>1000). For bulk exports,
+        consider using streaming serialization.
+
+    See Also:
+        - Dublin Core Metadata Initiative: https://dublincore.org/
+        - SRU Protocol: https://www.loc.gov/standards/sru/
     """
 
     # Default namespace mapping.
@@ -58,14 +74,50 @@ class DublinCoreSerializer(_DublinCoreSerializer):
     container_element = "record"
 
     def transform_record(self, pid, record, links_factory=None, language=DEFAULT_LANGUAGE, **kwargs):
-        """Transform record into an intermediate representation."""
+        """Transform a document record into Dublin Core intermediate representation.
+
+        This method converts a RERO ILS document record into a Dublin Core
+        compatible dictionary format by:
+            1. Dumping the record with resolved references
+            2. Processing contribution fields with i18n support
+            3. Applying Dublin Core transformation rules
+
+        Args:
+            pid (str): Persistent identifier of the record.
+            record (Document): The document record instance to transform.
+            links_factory (callable, optional): Factory function for generating
+                record links. Defaults to None.
+            language (str, optional): Target language for i18n fields.
+                Defaults to application's BABEL_DEFAULT_LANGUAGE.
+            **kwargs: Additional keyword arguments passed to the transformation.
+
+        Returns:
+            dict: Dublin Core representation of the record with standard DC elements
+                (dc:title, dc:creator, dc:date, dc:identifier, etc.).
+        """
         record = record.dumps(document_replace_refs_dumper)
         if contributions := record.pop("contribution", []):
             record["contribution"] = process_i18n_literal_fields(contributions)
         return dublincore.do(record, language=language)
 
     def transform_search_hit(self, pid, record, links_factory=None, language=DEFAULT_LANGUAGE, **kwargs):
-        """Transform search result hit into an intermediate representation."""
+        """Transform a search hit into Dublin Core intermediate representation.
+
+        Retrieves the complete document record by PID and delegates to
+        :meth:`transform_record` for the actual transformation.
+
+        Args:
+            pid (str): Persistent identifier of the document.
+            record (dict): Elasticsearch hit source (minimal record data).
+            links_factory (callable, optional): Factory function for generating
+                record links. Defaults to None.
+            language (str, optional): Target language for i18n fields.
+                Defaults to application's BABEL_DEFAULT_LANGUAGE.
+            **kwargs: Additional keyword arguments passed to transform_record.
+
+        Returns:
+            dict: Dublin Core representation of the record.
+        """
         record = Document.get_record_by_pid(pid)
         return self.transform_record(
             pid=pid,
@@ -76,12 +128,41 @@ class DublinCoreSerializer(_DublinCoreSerializer):
         )
 
     def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs):
-        """Serialize a search result.
+        """Serialize Elasticsearch search results into Dublin Core XML.
 
-        :param pid_fetcher: Persistent identifier fetcher.
-        :param search_result: Elasticsearch search result.
-        :param links: Dictionary of links to add to response.
-        :param item_links_factory: Factory function for record links.
+        Generates an SRU-compliant searchRetrieveResponse containing Dublin Core
+        records for all search hits. The response includes:
+            - Total number of matching records
+            - Dublin Core XML records for each hit
+            - SRU metadata (query echo, pagination info)
+            - Next record position for pagination
+
+        The method processes search results in the following order:
+            1. Extract SRU metadata and pagination info from search results
+            2. Transform each search hit to Dublin Core format
+            3. Build XML structure with SRU envelope
+            4. Add echoed search parameters for SRU compliance
+
+        Args:
+            pid_fetcher (callable): Function to extract persistent identifier from hits.
+                Currently unused; PIDs are extracted directly from record source.
+            search_result (dict): Elasticsearch search response containing:
+                - hits.total.value: Total number of matching documents
+                - hits.hits: List of search result hits
+                - hits.sru: SRU-specific metadata (optional)
+            links (dict, optional): Additional links to include in response.
+                Currently unused. Defaults to None.
+            item_links_factory (callable, optional): Factory function for generating
+                per-record links. Defaults to None.
+            **kwargs: Additional keyword arguments passed to transformation methods.
+
+        Returns:
+            bytes: UTF-8 encoded XML string containing the complete SRU response
+                with Dublin Core records.
+
+        Note:
+            The 'ln' query parameter from the request controls the output language
+            for internationalized fields.
         """
         total = search_result["hits"]["total"]["value"]
         sru = search_result["hits"].get("sru", {})

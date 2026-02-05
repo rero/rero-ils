@@ -19,7 +19,6 @@
 
 from flask import url_for
 
-from rero_ils.modules.documents.api import Document
 from tests.utils import get_xml_dict
 
 
@@ -41,6 +40,7 @@ def test_sru_documents(client, document_ref, entity_person_data):
     assert "zs:searchRetrieveResponse" in xml_dict
     search_rr = xml_dict["zs:searchRetrieveResponse"]
     assert search_rr.get("zs:echoedSearchRetrieveRequest") == {
+        "zs:version": "1.1",
         "zs:maximumRecords": "100",
         "zs:query": "al-Wajīz",
         "zs:query_es": "al-Wajīz",
@@ -49,7 +49,8 @@ def test_sru_documents(client, document_ref, entity_person_data):
         "zs:resultSetTTL": "0",
         "zs:startRecord": "1",
     }
-    assert search_rr.get("zs:numberOfRecords") == str(Document.count())
+    # Search should return only documents matching the query, not all documents
+    assert search_rr.get("zs:numberOfRecords") == "1"
 
 
 def test_sru_documents_items(client, document_sion_items):
@@ -107,3 +108,73 @@ def test_sru_documents_diagnostics(client):
     xml_dict = get_xml_dict(res)
     assert "srw:searchRetrieveResponse" in xml_dict
     assert xml_dict["srw:searchRetrieveResponse"]["diag:diagnostics"]["diag:message"] == "Malformed Query"
+
+
+def test_sru_explain_conditional_get(client):
+    """Test SRU explain returns 304 Not Modified when ETag matches."""
+    api_url = url_for("api_sru.documents")
+    res = client.get(api_url)
+    assert res.status_code == 200
+    etag = res.headers.get("ETag")
+    assert etag
+    # Conditional GET with matching ETag should return 304
+    res = client.get(api_url, headers={"If-None-Match": etag})
+    assert res.status_code == 304
+    assert res.headers.get("ETag") == etag
+
+
+def test_sru_es_backend_error(client):
+    """Test SRU returns a diagnostic on non-recoverable ES backend error."""
+    from unittest.mock import patch
+
+    from elasticsearch.exceptions import RequestError as ESRequestError
+
+    from rero_ils.modules.documents.api import DocumentsSearch
+
+    api_url = url_for("api_sru.documents", version="1.1", operation="searchRetrieve", query="test")
+    err = ESRequestError(500, "internal_error", "cluster is unavailable")
+    with patch.object(DocumentsSearch, "execute", side_effect=err):
+        res = client.get(api_url)
+    assert res.status_code == 200
+    xml_dict = get_xml_dict(res)
+    assert "srw:searchRetrieveResponse" in xml_dict
+    diag = xml_dict["srw:searchRetrieveResponse"]["diag:diagnostics"]
+    assert diag["diag:message"] == "System temporarily unavailable"
+
+
+def test_sru_es_window_overflow(client):
+    """Test SRU returns zero results when ES result window is exceeded."""
+    from unittest.mock import patch
+
+    from elasticsearch.exceptions import RequestError as ESRequestError
+
+    from rero_ils.modules.documents.api import DocumentsSearch
+
+    api_url = url_for(
+        "api_sru.documents",
+        version="1.1",
+        operation="searchRetrieve",
+        query="test",
+        startRecord="100000",
+    )
+    err = ESRequestError(400, "search_phase_execution_exception", "Result window is too large")
+    with patch.object(DocumentsSearch, "execute", side_effect=err):
+        res = client.get(api_url)
+    assert res.status_code == 200
+    xml_dict = get_xml_dict(res)
+    assert "zs:searchRetrieveResponse" in xml_dict
+    assert xml_dict["zs:searchRetrieveResponse"]["zs:numberOfRecords"] == "0"
+
+
+def test_sru_sort(client, document_sion_items):
+    """Test SRU search with sortBy CQL clause."""
+    api_url = url_for(
+        "api_sru.documents",
+        version="1.1",
+        operation="searchRetrieve",
+        query='"La reine Berthe et son fils" sortBy dc.title/ascending',
+    )
+    res = client.get(api_url)
+    assert res.status_code == 200
+    xml_dict = get_xml_dict(res)
+    assert "zs:searchRetrieveResponse" in xml_dict

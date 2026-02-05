@@ -492,7 +492,11 @@ def test_subjects_to_marc21(
             ),
             "650__": (
                 GroupableOrderedDict({"a": "Roman pour la jeunesse"}),
-                GroupableOrderedDict({"a": "Antienzymes"}),
+                {
+                    "__order__": ("a", "0"),
+                    "a": "Antienzymes",
+                    "0": ("(idref)ent_concept_idref",),
+                },
             ),
             "6001_": (GroupableOrderedDict({"a": "Fujimoto, Satoko", "d": "1923 - 1999"})),
             "600__": (
@@ -555,7 +559,11 @@ def test_genre_form_to_marc21(app, mef_concepts_url, marc21_record, mef_concept1
             "__order__": ("leader", "005", "008", "655__", "655__"),
             "655__": (
                 GroupableOrderedDict({"a": "Roman pour la jeunesse"}),
-                GroupableOrderedDict({"a": "Antienzymes"}),
+                {
+                    "__order__": ("a", "0"),
+                    "a": "Antienzymes",
+                    "0": ("(idref)ent_concept_idref",),
+                },
             ),
         }
     )

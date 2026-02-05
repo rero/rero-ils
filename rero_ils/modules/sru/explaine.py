@@ -17,12 +17,20 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""SRU explaine.
+"""SRU Explain response generator.
 
-http://www.loc.gov/standards/sru/explain/
+This module implements the SRU Explain operation as defined in the
+SRU (Search/Retrieve via URL) standard.
+
+The Explain operation provides information about the server's capabilities,
+supported indexes, schemas, and configuration settings.
+
+See Also:
+    - SRU Explain specification: http://www.loc.gov/standards/sru/explain/
+    - Z39.50 Explain DTD 2.1: http://explain.z3950.org/dtd/2.1/
 """
 
-import contextlib
+from functools import cache
 
 import jsonref
 from flask import current_app
@@ -34,51 +42,105 @@ from ..utils import get_schema_for_resource
 from .cql_parser import ES_INDEX_MAPPINGS
 
 
+def _get_properties(data):
+    """Recursively extract searchable field paths from ES mapping properties."""
+    keys = []
+    for key, value in data.items():
+        if isinstance(value, dict):
+            if properties := value.get("properties"):
+                sub_keys = _get_properties(properties)
+                for sub_key in sub_keys:
+                    first_segment = sub_key.split(".")[0]
+                    if ("." in sub_key and sub_key[0] != "$") or properties.get(first_segment, {}).get("index", True):
+                        keys.append(".".join([key, sub_key]))
+            elif key[0] != "$" and value.get("index", True):
+                keys.append(key)
+    return keys
+
+
+@cache
+def _get_es_mappings(index):
+    """Load and cache field mappings from the Elasticsearch index definition.
+
+    :param index: The Elasticsearch index alias name.
+    :type index: str
+    :returns: Mapping of normalized index names to ES field paths.
+    :rtype: dict
+    """
+    try:
+        index_alias = current_search.aliases.get(index)
+        index_file_name = next(iter(index_alias.values()))
+        with open(index_file_name, encoding="utf-8") as f:
+            data = jsonref.load(f)
+        if properties := data.get("mappings", {}).get("properties", {}):
+            return {field.lower().replace(".", "__"): field for field in _get_properties(properties)}
+    except Exception:
+        current_app.logger.debug("Failed to load ES mappings for index: %s", index, exc_info=True)
+    return {}
+
+
 class Explain:
-    """SRU explain class."""
+    """SRU Explain response generator.
+
+    Generates an XML Explain response conforming to the Z39.50 Explain DTD 2.1.
+    The response includes server information, supported indexes (both Dublin Core
+    and RERO-ILS specific), schema information, and configuration settings.
+
+    Attributes:
+        database: The SRU database path (e.g., 'api/sru/documents').
+        number_of_records: Default number of records returned per request.
+        maximum_records: Maximum allowed records per request.
+        doc_type: The document type for Elasticsearch index lookup.
+        index: The Elasticsearch index name.
+        es_mappings: Dictionary mapping normalized index names to ES field paths.
+        xml_root: The root XML element of the Explain response.
+
+    Example::
+
+        explain = Explain('api/sru/documents')
+        print(str(explain))  # Returns XML string
+    """
 
     def __init__(self, database, doc_type="doc"):
-        """Constructor."""
+        """Initialize the Explain response generator.
+
+        Args:
+            database: The SRU database path used in the serverInfo element.
+            doc_type: Document type key for looking up the Elasticsearch index
+                in RECORDS_REST_ENDPOINTS configuration. Defaults to 'doc'.
+        """
         self.database = database
         self.number_of_records = current_app.config.get("RERO_ILS_SRU_NUMBER_OF_RECORDS", 100)
         self.maximum_records = current_app.config.get("RERO_ILS_SRU_MAXIMUM_RECORDS", 1000)
         self.doc_type = doc_type
         self.index = current_app.config.get("RECORDS_REST_ENDPOINTS", {}).get(doc_type, {}).get("search_index")
-        self.es_mappings = {}
-        for index in self.get_es_mappings(self.index):
-            self.es_mappings[index.lower().replace(".", "__")] = index
+        self.es_mappings = _get_es_mappings(self.index) if self.index else {}
         self.init_xml()
 
     def __str__(self):
-        """String representation of the object."""
+        """Return the Explain response as a formatted XML string.
+
+        Returns:
+            A pretty-printed XML string representation of the Explain response.
+        """
         return etree.tostring(self.xml_root, pretty_print=True).decode()
 
-    def get_properties(self, data):
-        """Get properties."""
-        keys = []
-        for key, value in data.items():
-            if isinstance(value, dict):
-                if properties := value.get("properties"):
-                    sub_keys = self.get_properties(properties)
-                    for sub_key in sub_keys:
-                        if ("." in sub_key and sub_key[0] != "$") or properties[sub_key].get("index", True):
-                            keys.append(".".join([key, sub_key]))
-                elif key[0] != "$":
-                    keys.append(key)
-        return keys
-
-    def get_es_mappings(self, index):
-        """Get mappings from ES."""
-        mappings = {}
-        with contextlib.suppress(Exception):
-            index_alias = current_search.aliases.get(index)
-            index_file_name = next(iter(index_alias.values()))
-            data = jsonref.load(open(index_file_name))
-            mappings = self.get_properties(data.get("mappings").get("properties"))
-        return mappings
-
     def init_xml(self):
-        """Init XML."""
+        """Initialize the XML structure for the Explain response.
+
+        Builds the complete XML document with the following structure:
+        - explainResponse (root)
+          - version
+          - record
+            - recordPacking
+            - recordSchema
+            - recordData
+              - explain
+                - serverInfo (protocol, host, database)
+                - indexInfo (DC indexes + ES field indexes)
+                - schemaInfo (JSON schema reference)
+                - configInfo (default/maximum records settings)
+        """
         sru_ns = "http://www.loc.gov/standards/sru/"
         element_sru = ElementMaker(namespace=sru_ns, nsmap={"sru": sru_ns})
         zr_ns = "http://explain.z3950.org/dtd/2.1/"
@@ -110,20 +172,23 @@ class Explain:
         index_info.append(self.init_index_info())
         explain.append(index_info)
 
-        schema_info = element_zr.schemaInfo()
-        schema_info.append(self.init_schema_info(element_zr))
-        explain.append(schema_info)
-
-        config_info = element_zr.schemaInfo()
-        config_info.append(self.init_config_info(element_zr))
-        explain.append(config_info)
+        explain.append(self.init_schema_info(element_zr))
+        explain.append(self.init_config_info(element_zr))
 
         record_data.append(explain)
         record.append(record_data)
         self.xml_root.append(record)
 
     def init_index_info_dc(self):
-        """Init index info for DC."""
+        """Create the Dublin Core index information element.
+
+        Generates an XML element listing all supported Dublin Core indexes
+        from the ES_INDEX_MAPPINGS configuration.
+
+        Returns:
+            An lxml Element containing the DC index map with all supported
+            Dublin Core search indexes (title, creator, subject, etc.).
+        """
         dc_ns = "info:srw/cql-context-set/1/dc-v1.1"
         element_dc = ElementMaker(namespace=dc_ns, nsmap={"dc": dc_ns})
         index = element_dc.index()
@@ -134,7 +199,15 @@ class Explain:
         return index
 
     def init_index_info(self):
-        """Init index info."""
+        """Create the RERO-ILS specific index information element.
+
+        Generates an XML element listing all Elasticsearch field indexes
+        available for searching, using the RERO-ILS namespace.
+
+        Returns:
+            An lxml Element containing the index map with all ES field paths
+            that can be used directly in CQL queries.
+        """
         rero_ils_ns = get_schema_for_resource("doc")
         element_rero_ils = ElementMaker(namespace=rero_ils_ns, nsmap={"rero-ils": rero_ils_ns})
         index = element_rero_ils.index()
@@ -145,14 +218,33 @@ class Explain:
         return index
 
     def init_schema_info(self, element):
-        """Init schema info."""
+        """Create the schema information element.
+
+        Args:
+            element: The ElementMaker instance for creating XML elements.
+
+        Returns:
+            An lxml Element containing schema information with the JSON
+            schema identifier for the document resource.
+        """
         schema = element.schemaInfo()
-        # Todo: documents -> doc
         schema.append(element.set({"name": "json", "identifier": get_schema_for_resource("doc")}))
         return schema
 
     def init_config_info(self, element):
-        """Init config info."""
+        """Create the configuration information element.
+
+        Includes the default and maximum number of records settings
+        that control pagination behavior for search results.
+
+        Args:
+            element: The ElementMaker instance for creating XML elements.
+
+        Returns:
+            An lxml Element containing:
+            - default numberOfRecords setting
+            - maximum numberOfRecords setting
+        """
         config = element.configInfo()
         config.append(element.default(str(self.number_of_records), {"type": "numberOfRecords"}))
         config.append(element.setting(str(self.maximum_records), {"type": "maximumRecords"}))

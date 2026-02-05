@@ -21,6 +21,7 @@
 import pickle
 import traceback
 from datetime import datetime, timedelta
+from io import BytesIO
 
 import requests
 from dojson.contrib.marc21.utils import create_record
@@ -28,7 +29,6 @@ from dojson.utils import GroupableOrderedDict
 from flask import current_app, jsonify, url_for
 from lxml import etree
 from redis import Redis
-from six import BytesIO
 
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import (
     marc21_dnb,

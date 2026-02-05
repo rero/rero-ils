@@ -15,7 +15,38 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""RERO-ILS to MARC21 model definition."""
+"""RERO-ILS to MARC 21 conversion model definition.
+
+This module implements DoJSON transformation rules for converting RERO ILS
+internal JSON document format to MARC 21 XML format. It provides:
+
+    - Complete field-by-field mapping from RERO ILS JSON to MARC 21
+    - Dynamic leader generation based on document type
+    - Entity resolution for contributions (authors, contributors)
+    - Holdings and items serialization (field 949)
+    - Language-aware source ordering for authorized access points
+    - Support for filtering by organisation, library, and location
+
+The transformation process:
+    1. Generates MARC leader based on document type (position 06-07)
+    2. Creates fixed-length data elements (field 008)
+    3. Maps bibliographic fields (020-9XX)
+    4. Resolves entity references for contributions and subjects
+    5. Optionally includes holdings/items data
+
+Key Classes:
+    ToMarc21Overdo: Specialized DoJSON Overdo class for MARC 21 conversion
+
+Key Functions:
+    do_contribution: Processes contribution entities with language preferences
+    do_concept: Processes subject/concept entities
+    get_holdings_items: Retrieves holdings and items for a document
+    generate_leader: Creates MARC leader based on document characteristics
+
+See Also:
+    - MARC 21 Format: https://www.loc.gov/marc/bibliographic/
+    - DoJSON: https://dojson.readthedocs.io/
+"""
 
 from dojson import utils
 from dojson.contrib.to_marc21.model import Underdo
@@ -40,14 +71,30 @@ from rero_ils.modules.utils import date_string_to_utc
 
 
 def set_value(data, old_data, key):
-    """Set new data value.
+    """Merge a single key from new data into old data if not already present.
 
-    Adds key not present in old data from data to old data.
+    This function implements a non-destructive merge strategy, preserving
+    existing values in old_data while adding missing keys from new data.
+    Used primarily during entity source resolution to combine data from
+    multiple authority sources (e.g., idref, gnd, rero).
 
-    :param data: data with new values.
-    :param old_data: old data.
-    :param key: key to replace in old data from data.
-    :returns: modified old data
+    :param data: Source dictionary containing new values to merge.
+    :type data: dict
+    :param old_data: Target dictionary to be updated.
+    :type old_data: dict
+    :param key: The key to transfer from data to old_data.
+    :type key: str
+    :returns: The updated old_data dictionary. Modified in place and returned.
+    :rtype: dict
+
+    Example::
+
+        old = {'name': 'John', 'age': 30}
+        new = {'age': 25, 'city': 'Paris'}
+        set_value(new, old, 'city')
+        # Returns: {'name': 'John', 'age': 30, 'city': 'Paris'}
+        set_value(new, old, 'age')  # Doesn't override existing
+        # Returns: {'name': 'John', 'age': 30, 'city': 'Paris'}
     """
     value = data.get(key)
     if not old_data.get(key) and value:
@@ -56,11 +103,49 @@ def set_value(data, old_data, key):
 
 
 def replace_contribution_sources(contribution, source_order):
-    """Prepare contributions data from sources.
+    """Merge contribution entity data from multiple authority sources.
 
-    :param contribution: contribution to use.
-    :source_order: Source order to use to get the information.
-    :returns: contribution entity with localized values.
+    This function resolves contribution entities by merging data from multiple
+    authority control sources (e.g., idref, gnd, rero) according to language
+    preferences. It implements a priority-based merge where the first source
+    in source_order takes precedence.
+
+    The merge process:
+
+    1. Iterates through sources in the specified order (language-dependent)
+    2. For each source found, extracts authority control data
+    3. Creates a reference list with source and PID information
+    4. Merges entity fields (name, dates, qualifiers) using set_value
+    5. Removes raw source data and attaches resolved refs
+
+    Entity fields processed:
+
+    - Basic: type, preferred_name, numeration, qualifier
+    - Dates: date_of_birth, date_of_death
+    - Organisation: subordinate_unit
+    - Conference: conference, conference_number, conference_date, conference_place
+
+    :param contribution: Contribution dictionary containing an 'entity' key
+        with source-specific data (idref, gnd, rero, etc.).
+    :type contribution: dict
+    :param source_order: Ordered list of source identifiers (e.g., ['idref', 'gnd'])
+        defining merge priority. Sources earlier in the list have higher priority.
+    :type source_order: list
+    :returns: The contribution dictionary with entity data merged and refs added.
+        The 'entity' now contains merged fields from all sources and
+        refs (list of {'source': str, 'pid': str} dictionaries).
+    :rtype: dict
+
+    Example::
+
+        contribution = {
+            'entity': {
+                'idref': {'pid': '12345', 'preferred_name': 'Doe, John'},
+                'gnd': {'pid': '67890', 'date_of_birth': '1980'}
+            }
+        }
+        replace_contribution_sources(contribution, ['idref', 'gnd'])
+        # Returns merged entity with preferred_name from idref and date_of_birth from gnd
     """
     refs = []
     entity = contribution.get("entity")
@@ -88,11 +173,34 @@ def replace_contribution_sources(contribution, source_order):
 
 
 def replace_concept_sources(concept, source_order):
-    """Prepare concept data from sources.
+    """Merge concept/subject entity data from multiple thesaurus sources.
 
-    :param concept: concept to use.
-    :source_order: Source order to use to get the information.
-    :returns: concept entity with localized values.
+    Similar to replace_contribution_sources but for subject/concept entities
+    from thesauri (e.g., rameau, lcsh, mesh). Merges data according to
+    language-specific source preferences.
+
+    Concept fields processed:
+
+    - type: Entity type (Topic, Place, Temporal, etc.)
+    - authorized_access_point: Preferred subject heading term
+
+    :param concept: Concept entity dictionary with source-specific data.
+    :type concept: dict
+    :param source_order: Ordered list of thesaurus sources (e.g., ['rameau', 'lcsh'])
+        defining merge priority.
+    :type source_order: list
+    :returns: The concept entity with merged data and refs list containing
+        source/PID information for each thesaurus.
+    :rtype: dict
+
+    Example::
+
+        concept = {
+            'rameau': {'pid': 'sh85001', 'authorized_access_point': 'Art'},
+            'lcsh': {'pid': '123456'}
+        }
+        replace_concept_sources(concept, ['rameau', 'lcsh'])
+        # Returns merged concept with authorized_access_point from rameau
     """
     refs = []
     for source in source_order:
@@ -106,16 +214,67 @@ def replace_concept_sources(concept, source_order):
 
 
 def do_contribution(contribution, source_order):
-    """Create contribution.
+    """Transform contribution entity to MARC 21 subfield structure.
 
-    :param contribution: contribution to transform (replaces $ref with real
-        information dependent on language given in source_order).
-    :param source_order: list of sources to use dependent on language.
-    :returns: result marc dictionary,
-              entity type,
-              is it a surname,
-              is it a conference
-    :rtype: tuple(dict, str, bool, bool)
+    Converts a RERO ILS contribution (author, contributor, etc.) into MARC 21
+    subfield notation ready for fields 100, 110, 111, 700, 710, 711, 600, 610, 611.
+
+    This function:
+
+    1. Resolves entity references ($ref) by fetching from database
+    2. Merges multi-source entity data based on language preferences
+    3. Determines appropriate MARC field format (personal vs corporate)
+    4. Creates subfield dictionary with proper MARC codes
+    5. Adds authority control references ($0)
+
+    MARC subfields generated:
+
+    Person (X00):
+        - $a: Preferred name (surname, forename)
+        - $b: Numeration (e.g., "II", "III")
+        - $c: Qualifier/title (e.g., "Jr.", "Sir")
+        - $d: Dates (birth-death years)
+        - $4: Relator codes (roles)
+        - $0: Authority control numbers
+
+    Organisation (X10/X11):
+        - $a: Corporate/conference name
+        - $b: Subordinate units
+        - $n: Conference number
+        - $d: Conference date
+        - $c: Conference place
+        - $4: Relator codes
+        - $0: Authority control numbers
+
+    :param contribution: Contribution object containing entity data or $ref
+        to resolve, and role (list of relator codes, optional).
+    :type contribution: dict
+    :param source_order: Ordered source list for language-specific resolution
+        (e.g., ['idref', 'gnd', 'rero']).
+    :type source_order: list
+    :returns: A 4-element tuple (result, entity_type, surname, conference) where
+        result is MARC subfield dict or None, entity_type is EntityType constant,
+        surname is True if personal name in surname-first format, conference is
+        True if organisation is a conference.
+    :rtype: tuple
+
+    .. note::
+
+        Returns (None, None, False, False) if entity cannot be found in database
+        or if preferred_name/authorized_access_point is missing.
+
+    Example::
+
+        contribution = {
+            'entity': {'pid': '12345', '$ref': '...'},
+            'role': ['aut', 'edt']
+        }
+        result, entity_type, surname, conference = do_contribution(
+            contribution, ['idref', 'gnd']
+        )
+        result
+        # => {'__order__': ['a', 'd', '4', '4'], 'a': 'Doe, John',
+        #     'd': '1980 - 2020', '4': ['aut', 'edt']}
     """
     roles = contribution.get("role", [])
     entity = contribution.get("entity")
@@ -168,52 +327,167 @@ def do_contribution(contribution, source_order):
     return result, entity_type, surname, conference
 
 
-def do_concept(entity, source_order):
-    """Create concept.
+def resolve_entity(entity, source_order):
+    """Resolve entity $ref and merge multi-source data.
 
-    :param entity: entity to transform.
-    :param source_order: source_order to use.
-    :returns: result marc dictionary
+    Fetches entity data from the database if a $ref is present, then merges
+    data from multiple authority sources according to language preferences.
+    This is the base resolution step used by do_concept and other entity
+    processing functions.
+
+    :param entity: Entity dictionary that may contain pid (indicates a $ref),
+        $ref (reference URL), source-specific data (idref, gnd, rameau, etc.),
+        or authorized_access_point (direct access point if no $ref).
+    :type entity: dict
+    :param source_order: Ordered list of authority sources defining merge
+        priority (e.g., ['idref', 'gnd'] or ['rameau', 'lcsh']).
+    :type source_order: list
+    :returns: A 2-element tuple (resolved_entity, from_db) where resolved_entity
+        is the merged entity dict or None if $ref cannot be resolved, and
+        from_db is True if entity was fetched from database.
+    :rtype: tuple
+
+    Example::
+
+        entity = {'pid': '12345', '$ref': '...'}
+        resolved, from_db = resolve_entity(entity, ['rameau', 'lcsh'])
+        resolved['authorized_access_point']
+        # => 'Art -- France'
+        resolved['refs']
+        # => [{'source': 'rameau', 'pid': '12345'}]
     """
-    authorized_access_point = None
     if pid := entity.get("pid"):
         ref = entity.get("$ref")
         # we have a $ref, get the real entity
-        if entity := RemoteEntity.get_record_by_pid(pid):
-            entity = replace_concept_sources(concept=entity, source_order=source_order)
-            authorized_access_point = entity.get("authorized_access_point")
-        else:
-            error_print(f"No entity found for pid:{pid} {ref}")
-            return None
+        if resolved := RemoteEntity.get_record_by_pid(pid):
+            resolved = replace_concept_sources(concept=resolved, source_order=source_order)
+            return resolved, True
+        error_print(f"No entity found for pid:{pid} {ref}")
+        return None, False
+    return entity, False
+
+
+def do_concept(entity, source_order):
+    """Transform subject/concept entity to MARC 21 subfield structure.
+
+    Converts a RERO ILS subject/concept entity into MARC 21 subfield notation
+    for fields 6XX and 655 (subject access points).
+
+    Process:
+
+    1. Resolves entity $ref if present
+    2. Merges multi-source thesaurus data
+    3. Extracts authorized access point
+    4. Creates MARC subfield dictionary
+    5. Adds authority control references ($0) if available
+
+    :param entity: Subject/concept entity containing pid (if $ref), $ref
+        (reference URL), authorized_access_point (subject heading term),
+        or authorized_access_point_{lang} (language-specific variant).
+    :type entity: dict
+    :param source_order: Ordered thesaurus source list for language-specific
+        resolution (e.g., ['rameau', 'lcsh', 'mesh']).
+    :type source_order: list
+    :returns: MARC subfield dictionary with __order__ (list of subfield codes),
+        a (authorized access point), and 0 (authority control numbers if refs
+        available). Returns None if entity cannot be resolved or has no access point.
+    :rtype: dict or None
+
+    Example::
+
+        entity = {'pid': '67890', '$ref': '...'}
+        do_concept(entity, ['rameau', 'lcsh'])
+        # Returns: {'__order__': ['a', '0'], 'a': 'Architecture -- France', '0': ['(rameau)67890']}
+    """
+    resolved_entity, from_db = resolve_entity(entity, source_order)
+    if resolved_entity is None:
+        return None
+
+    if from_db:
+        authorized_access_point = resolved_entity.get("authorized_access_point")
     else:
-        authorized_access_point = entity.get(f"authorized_access_point_{to_marc21.language}") or entity.get(
-            "authorized_access_point"
-        )
+        authorized_access_point = resolved_entity.get(
+            f"authorized_access_point_{to_marc21.language}"
+        ) or resolved_entity.get("authorized_access_point")
     result = {}
-    if authorized_access_point:
-        result = add_value(result, "a", authorized_access_point)
+    if not authorized_access_point:
+        return None
+    result = add_value(result, "a", authorized_access_point)
+    if refs := resolved_entity.get("refs", []):
+        result["0"] = []
+        for ref in refs:
+            result["__order__"].append("0")
+            result["0"].append(f"({ref['source']}){ref['pid']}")
     return result
 
 
 def get_holdings_items(document_pid, organisation_pids=None, library_pids=None, location_pids=None):
-    """Create Holding and Item informations.
+    """Retrieve holdings and items data for a document with institutional context.
 
-    :param document_pid: document pid to use for holdings search
-    :param organisation_pids: Which organisations items to add.
-    :param library_pids: Which from libraries items to add.
-    :param location_pids: Which from locations items to add.
+    Fetches all holdings and items associated with a document, enriched with
+    organisation, library, and location information. Supports filtering to
+    include only holdings/items from specific institutions.
 
-    :returns: list of holding informations with associated organisation,
-              library and location pid, name informations.
+    This function:
+
+    1. Finds all holdings for the document (excluding masked)
+    2. Applies optional filters (organisation/library/location)
+    3. Batch-fetches institutional metadata (caching names)
+    4. For standard holdings, retrieves associated items
+    5. Structures data for MARC 949 field serialization
+
+    Holdings types:
+
+    - standard: Physical holdings with items (books, etc.)
+    - electronic: Electronic holdings without items
+    - serial: Serial holdings with patterns
+
+    :param document_pid: PID of the document to retrieve holdings for.
+    :type document_pid: str
+    :param organisation_pids: Filter by organisation PIDs. Only holdings from
+        these organisations will be included. Defaults to None (no filtering).
+    :type organisation_pids: list, optional
+    :param library_pids: Filter by library PIDs. Only holdings from these
+        libraries will be included. Defaults to None (no filtering).
+    :type library_pids: list, optional
+    :param location_pids: Filter by location PIDs. Only holdings from these
+        locations will be included. Defaults to None (no filtering).
+    :type location_pids: list, optional
+    :returns: List of dictionaries containing organisation, library, location,
+        holdings data, and item data (for standard holdings only).
+    :rtype: list
+
+    .. note::
+
+        - Institutional names are cached during processing to minimize database queries
+        - Each item gets its own result entry (holdings replicated per item)
+        - Electronic/serial holdings appear once without item data
+        - Only unmasked holdings and items are included
+
+    Example::
+
+        holdings = get_holdings_items(
+            document_pid='doc123',
+            organisation_pids=['org1'],
+            library_pids=['lib2']
+        )
+        len(holdings)
+        # => 3  # Holdings from org1/lib2 with their items
     """
 
     def get_name(resource, pid):
-        """Get name from resource.
+        """Fetch resource name by PID.
 
-        The name will be cached.
-        :param resource: Resource class to use.
-        :param pid: Pid for the resource to get the name from.
-        :returns: name from the resource
+        Helper function to retrieve the name field from a resource.
+        Called within get_holdings_items where names are cached in
+        dictionaries to avoid redundant database queries.
+
+        :param resource: Resource API class (Organisation, Library, or Location).
+        :type resource: class
+        :param pid: Persistent identifier of the resource.
+        :type pid: str
+        :returns: The resource's name field, or None if not found.
+        :rtype: str or None
         """
         data = resource.get_record_by_pid(pid)
         if data:
@@ -270,7 +544,7 @@ def get_holdings_items(document_pid, organisation_pids=None, library_pids=None, 
                 item_hits = ItemsSearch().filter("terms", pid=list(item_pids)).scan()
                 for item_hit in item_hits:
                     item_data = item_hit.to_dict()
-                    item_result = result
+                    item_result = dict(result)
                     item_result["item"] = {
                         "barcode": item_data.get("barcode"),
                         "all_number": item_data.get("all_number"),
@@ -295,17 +569,173 @@ ORDER = [
     "provisionActivity",
     "copyrightDate",
     "physical_description",
+    "general_notes",
+    "table_of_contents",
+    "summary",
+    "dissertation",
     "subjects",
     "genreForm",
     "contribution",
     "type",
     "holdings_items",
 ]
-LEADER = "00000cam a2200000zu 4500"
+
+#: MARC21 Leader positions and their meanings:
+#: - 00-04: Record length (system-generated)
+#: - 05: Record status (n=new, c=corrected, d=deleted, a=increase encoding level)
+#: - 06: Type of record (a=language material, c=notated music, e=cartographic, etc.)
+#: - 07: Bibliographic level (m=monograph, s=serial, a=article, c=collection)
+#: - 08-09: Type of control and character encoding scheme
+#: - 10: Indicator count (always 2)
+#: - 11: Subfield code count (always 2)
+#: - 12-16: Base address of data (system-generated)
+#: - 17: Encoding level (blank=full, 1=full not examined, etc.)
+#: - 18: Descriptive cataloging form (a=AACR2, i=ISBD, c=ISBD w/o punctuation)
+#: - 19: Multipart resource record level
+#: - 20-23: Entry map (always "4500")
+LEADER_DEFAULT = "00000cam a2200000zu 4500"
+
+#: Mapping of document main_type to MARC leader position 06 (Type of record)
+TYPE_OF_RECORD_MAP = {
+    "docmaintype_book": "a",  # Language material
+    "docmaintype_article": "a",  # Language material
+    "docmaintype_serial": "a",  # Language material (serials handled via pos 07)
+    "docmaintype_audio": "i",  # Nonmusical sound recording
+    "docmaintype_music": "j",  # Musical sound recording
+    "docmaintype_score": "c",  # Notated music
+    "docmaintype_video": "g",  # Projected medium (video)
+    "docmaintype_movie": "g",  # Projected medium (film)
+    "docmaintype_image": "k",  # Two-dimensional nonprojectable graphic
+    "docmaintype_map": "e",  # Cartographic material
+    "docmaintype_game": "r",  # Three-dimensional artifact
+    "docmaintype_kit": "o",  # Kit
+    "docmaintype_software": "m",  # Computer file
+    "docmaintype_file": "m",  # Computer file
+    "docmaintype_other": "a",  # Default to language material
+}
+
+#: Mapping of document main_type to MARC leader position 07 (Bibliographic level)
+BIBLIOGRAPHIC_LEVEL_MAP = {
+    "docmaintype_serial": "s",  # Serial
+    "docmaintype_article": "a",  # Monographic component part
+    "docmaintype_book": "m",  # Monograph
+    # Default to monograph for others
+}
+
+
+def generate_leader(document):
+    """Generate dynamic MARC 21 leader string based on document characteristics.
+
+    Creates a properly formatted 24-character MARC 21 leader with document-specific
+    values for type of record (position 06) and bibliographic level (position 07).
+    This replaces static leader generation with intelligent type detection.
+
+    Leader positions modified:
+
+    - Position 06 (Type of record): Set based on document main_type
+      (a=language material, c=notated music, e=cartographic, g=video, etc.)
+    - Position 07 (Bibliographic level): Set based on document main_type
+      (m=monograph, s=serial, a=article component)
+
+    Special handling:
+
+    - Electronic resources: If contentMediaCarrier indicates computer media
+      (rdamedia:c) and the document is language material, position 06 changes
+      to 'm' (computer file)
+
+    :param document: RERO ILS document dictionary containing type (list of type
+        objects with main_type field) and contentMediaCarrier (list with mediaType
+        information, optional).
+    :type document: dict
+    :returns: A 24-character MARC 21 leader string. Defaults to monograph/language
+        material ("00000cam a2200000zu 4500") if type information is missing.
+    :rtype: str
+
+    .. note::
+
+        System-generated positions (00-04: record length, 12-16: base address)
+        remain as zeros and will be filled by the MARC serialization system.
+
+    Example::
+
+        doc = {'type': [{'main_type': 'docmaintype_serial'}]}
+        generate_leader(doc)
+        # Returns: '00000cas a2200000zu 4500'  # Position 07 = 's' for serial
+
+        doc = {
+            'type': [{'main_type': 'docmaintype_video'}],
+        }
+        generate_leader(doc)
+        # Returns: '00000cgm a2200000zu 4500'  # Position 06 = 'g' for video
+    """
+    # Start with default leader template
+    leader = list(LEADER_DEFAULT)
+
+    # Get document type information
+    doc_types = document.get("type", [])
+    main_type = None
+    for doc_type in doc_types:
+        if mt := doc_type.get("main_type"):
+            main_type = mt
+            break
+
+    if main_type:
+        # Position 06: Type of record
+        type_of_record = TYPE_OF_RECORD_MAP.get(main_type, "a")
+        leader[6] = type_of_record
+
+        # Position 07: Bibliographic level
+        bib_level = BIBLIOGRAPHIC_LEVEL_MAP.get(main_type, "m")
+        leader[7] = bib_level
+
+    # Check for electronic resources
+    content_media = document.get("contentMediaCarrier", [])
+    for cmc in content_media:
+        if cmc.get("mediaType") == "rdamedia:c":  # computer
+            # If it's computer media and language material, mark as computer file
+            if leader[6] == "a":
+                leader[6] = "m"
+            break
+
+    return "".join(leader)
 
 
 class ToMarc21Overdo(Underdo):
-    """Specialized Overdo."""
+    """DoJSON Overdo extension for RERO ILS to MARC 21 transformation.
+
+    This class extends DoJSON's Underdo (reverse transformation) to convert
+    RERO ILS internal JSON documents to MARC 21 format. It provides:
+
+    - Pre-processing hooks for leader and 008 field generation
+    - Entity resolution with language-aware source ordering
+    - Holdings/items inclusion (field 949)
+    - Physical description normalization
+    - Note type segregation
+    - Custom field ordering
+
+    The do() method orchestrates the complete transformation pipeline:
+
+    1. Generate dynamic leader based on document type
+    2. Create fixed-length data elements (008 field)
+    3. Add timestamp (005 field)
+    4. Normalize title with responsibility statement
+    5. Resolve contribution entities with source preferences
+    6. Process physical description and notes
+    7. Optionally fetch holdings/items
+    8. Apply field ordering
+    9. Execute DoJSON transformation rules
+
+    :ivar responsibility_statement: Cache for responsibility statements.
+    :vartype responsibility_statement: dict
+    :ivar language: Target language for entity resolution.
+    :vartype language: str
+    :ivar source_order: Ordered list of authority sources for entity resolution.
+    :vartype source_order: list
+
+    .. seealso::
+
+        DoJSON Underdo: https://dojson.readthedocs.io/en/latest/api.html#underdo
+    """
 
     responsibility_statement = {}
 
@@ -320,37 +750,98 @@ class ToMarc21Overdo(Underdo):
         library_pids=None,
         location_pids=None,
     ):
-        """Translate blob values and instantiate new model instance.
+        """Transform RERO ILS JSON document to MARC 21 format.
 
-        Raises ``MissingRule`` when no rule matched and ``ignore_missing``
-        is ``False``.
+        This is the main entry point for the transformation. It pre-processes
+        the document, applies DoJSON transformation rules, and returns a
+        MARC 21 representation.
 
-        :param blob: ``dict``-like object on which the matching rules are
-                     going to be applied.
-        :param ignore_missing: Set to ``False`` if you prefer to raise
-                               an exception ``MissingRule`` for the first
-                               key that it is not matching any rule.
-        :param exception_handlers: Give custom exception handlers to take care
-                                   of non-standard codes that are installation
-                                   specific.
-        :param with_holdings_items: Add holding, item information in field 949
-                                    to the result (attention time consuming).
-        :param organisation_pids: Which organisations items to add.
-        :param library_pids: Which libraries items to add.
-        :param location_pids: Which locations items to add.):
-        :param language: Language to use.
+        Pre-processing steps:
+
+        1. **Leader generation**: Creates dynamic leader based on document type
+        2. **Fixed field creation**: Builds 008 field with creation date (positions
+           00-05), publication dates (positions 07-14), fiction indicator (position
+           33), and language code (positions 35-37)
+        3. **Timestamp addition**: Adds 005 field with last modification time
+        4. **Title normalization**: Combines title and responsibility statement
+        5. **Entity source ordering**: Sets language-specific authority preferences
+        6. **Holdings inclusion**: Optionally fetches holdings/items (field 949)
+        7. **Physical description**: Merges extent, duration, dimensions, formats
+        8. **Note segregation**: Separates general notes from special note types
+        9. **Field ordering**: Applies MARC logical order (leader → 00X → 9XX)
+
+        :param blob: RERO ILS document dictionary to transform containing pid,
+            _created, _updated, type, title, contribution, subjects, etc.
+        :type blob: dict
+        :param language: Target language for entity resolution. Affects which
+            authority sources are preferred (e.g., 'fr' prefers idref, 'de'
+            prefers gnd). Defaults to 'en'.
+        :type language: str, optional
+        :param ignore_missing: If False, raises MissingRule exception when a JSON
+            key has no matching transformation rule. Defaults to True.
+        :type ignore_missing: bool, optional
+        :param exception_handlers: Custom exception handlers for non-standard
+            field processing. Defaults to None.
+        :type exception_handlers: dict, optional
+        :param with_holdings_items: Whether to include holdings and items in
+            field 949. Warning: time-consuming for documents with many holdings.
+            Defaults to False.
+        :type with_holdings_items: bool, optional
+        :param organisation_pids: Filter holdings by organisation PIDs. Only
+            applicable if with_holdings_items=True. Defaults to None.
+        :type organisation_pids: list, optional
+        :param library_pids: Filter holdings by library PIDs. Only applicable
+            if with_holdings_items=True. Defaults to None.
+        :type library_pids: list, optional
+        :param location_pids: Filter holdings by location PIDs. Only applicable
+            if with_holdings_items=True. Defaults to None.
+        :type location_pids: list, optional
+        :returns: MARC 21 record with fields as keys (e.g., 'leader', '001',
+            '245__', '700__'). Includes __order__ key for field sequence.
+        :rtype: GroupableOrderedDict
+        :raises MissingRule: If ignore_missing=False and a field has no
+            transformation rule.
+
+        .. note::
+
+            - The 008 field uses '|' for undefined positions and 'x' for unknown values
+            - Holdings/items inclusion can significantly increase processing time
+            - Entity resolution requires network calls to authority databases
+
+        Example::
+
+            converter = ToMarc21Overdo()
+            rero_doc = {'pid': '123', 'title': [...], ...}
+            marc_record = converter.do(
+                rero_doc,
+                language='fr',
+                with_holdings_items=True,
+                organisation_pids=['org1']
+            )
+            marc_record['245__']
+            # => {'a': 'Title', 'b': 'Subtitle', 'c': 'Author', ...}
         """
-        # TODO: real leader
+        # Generate dynamic MARC leader (24 chars) based on document type.
+        # Sets position 06 (type of record) and 07 (bibliographic level) intelligently.
         self.language = language
-        blob["leader"] = LEADER
-        # create fixed_length_data_elements for 008
+        blob["leader"] = generate_leader(blob)
+
+        # Build 008 fixed-length data elements (40 characters):
+        # Positions 00-05: Date entered (yymmdd format)
+        # Position 06: Type of date/publication status (filled below)
+        # Positions 07-14: Date 1 and Date 2 (publication dates)
+        # Position 33: Literary form (fiction indicator)
+        # Positions 35-37: Language code
         created = date_string_to_utc(blob["_created"]).strftime("%y%m%d")
         fixed_data = f"{created}|||||||||xx#|||||||||||||||||||||c"
+        # Set position 33 (Literary form): 0=non-fiction, 1=fiction
         fiction = blob.get("fiction_statement")
         if fiction == DocumentFictionType.Fiction.value:
             fixed_data = f"{fixed_data[:33]}1{fixed_data[34:]}"
         elif fiction == DocumentFictionType.NonFiction.value:
             fixed_data = f"{fixed_data[:33]}0{fixed_data[34:]}"
+        # Extract publication dates from provisionActivity for positions 07-14.
+        # Position 06 (type of date): s=single, m=multiple (range)
         provision_activity = blob.get("provisionActivity", [])
         for p_activity in provision_activity:
             if p_activity.get("type") == "bf:Publication":
@@ -363,12 +854,14 @@ class ToMarc21Overdo(Underdo):
                         type_of_date = "m"
                     fixed_data = f"{fixed_data[:6]}{type_of_date}{start_date}{fixed_data[11:]}"
                     break
-        if language := utils.force_list(blob.get("language")):
-            language = language[0].get("value")
-            fixed_data = f"{fixed_data[:35]}{language}{fixed_data[38:]}"
+        # Set positions 35-37: Language code (ISO 639-2/B)
+        if doc_languages := utils.force_list(blob.get("language")):
+            lang_code = doc_languages[0].get("value")
+            if lang_code and len(lang_code) == 3:
+                fixed_data = f"{fixed_data[:35]}{lang_code}{fixed_data[38:]}"
         blob["fixed_length_data_elements"] = fixed_data
 
-        # Add date and time of latest transaction
+        # Add 005 field: date and time of latest transaction (YYYYMMDDHHmmss.f)
         updated = date_string_to_utc(blob["_updated"])
         blob["date_and_time_of_latest_transaction"] = updated.strftime("%Y%m%d%H%M%S.0")
 
@@ -378,19 +871,21 @@ class ToMarc21Overdo(Underdo):
                 "titles": blob.get("title", {}),
                 "responsibility": " ; ".join(create_title_responsibilites(blob.get("responsibilityStatement", []))),
             }
-        # Fix ContributionsSearch
-        # Try to get RERO_ILS_AGENTS_LABEL_ORDER from current app
-        # In the dojson cli is no current app and we have to get the value
-        # directly from config.py
+        # Configure language-specific authority source ordering.
+        # RERO_ILS_AGENTS_LABEL_ORDER defines which authority sources to prefer
+        # for each language (e.g., French prefers idref, German prefers gnd).
+        # Try to get from Flask app context first, fall back to direct import
+        # for CLI usage (where no app context exists).
         try:
-            order = current_app.config.get("RERO_ILS_AGENTS_LABEL_ORDER", [])
-        except Exception:
+            order = current_app.config.get("RERO_ILS_AGENTS_LABEL_ORDER", {})
+        except RuntimeError:
             from rero_ils.config import RERO_ILS_AGENTS_LABEL_ORDER as order
-        self.source_order = order.get(self.language, order.get(order["fallback"], []))
+        self.source_order = order.get(self.language, order.get(order.get("fallback", "en"), []))
 
         if with_holdings_items:
-            # add holdings items informations
-            get_holdings_items
+            # Fetch holdings and items for field 949 (local holdings data).
+            # Warning: This can be time-consuming for documents with many holdings.
+            # Results are filtered by organisation/library/location if specified.
             blob["holdings_items"] = get_holdings_items(
                 document_pid=blob.get("pid"),
                 organisation_pids=organisation_pids,
@@ -398,7 +893,11 @@ class ToMarc21Overdo(Underdo):
                 location_pids=location_pids,
             )
 
-        # Physical Description
+        # Build 300 field (Physical Description) by combining multiple sources:
+        # - $a: extent (with duration if not already included)
+        # - $b: other physical details (production method, color, illustrations)
+        # - $c: dimensions (including book formats)
+        # - $e: accompanying material
         physical_description = {}
         extent = blob.get("extent")
         durations = ", ".join(blob.get("duration", []))
@@ -438,7 +937,26 @@ class ToMarc21Overdo(Underdo):
         if physical_description:
             blob["physical_description"] = physical_description
 
-        # Add order
+        # Extract general notes for field 500 (excluding specialized note types).
+        # Note types handled elsewhere:
+        # - otherPhysicalDetails, accompanyingMaterial → 300$b, 300$e
+        # - dissertation → 502
+        # - summary → 520
+        # - tableOfContents → 505
+        general_notes = []
+        for n in note:
+            if n["noteType"] == "general":
+                general_notes.append(n["label"])
+        if general_notes:
+            blob["general_notes"] = general_notes
+
+        # Table of contents is already in the correct format (array of strings)
+        if table_of_contents := blob.get("tableOfContents"):
+            blob["table_of_contents"] = table_of_contents
+
+        # Apply MARC field ordering defined in ORDER constant.
+        # This ensures fields appear in standard MARC order:
+        # leader → 001-008 → 020-245 → 264-300 → 500-655 → 700-949
         keys = {}
         for key, value in blob.items():
             count = 1
@@ -454,7 +972,20 @@ class ToMarc21Overdo(Underdo):
 
 
 def add_value(result, sub_tag, value):
-    """Add value with tag to result."""
+    """Add a single subfield to MARC field result dictionary.
+
+    Appends subfield code to __order__ list and stores value.
+    Used for non-repeatable subfields.
+
+    :param result: MARC field dictionary being built.
+    :type result: dict
+    :param sub_tag: MARC subfield code (single character).
+    :type sub_tag: str
+    :param value: Subfield value to add.
+    :type value: str
+    :returns: The modified result dictionary.
+    :rtype: dict
+    """
     if value:
         result.setdefault("__order__", []).append(sub_tag)
         result[sub_tag] = value
@@ -462,7 +993,20 @@ def add_value(result, sub_tag, value):
 
 
 def add_values(result, sub_tag, values):
-    """Add values with tag to result."""
+    """Add multiple values for a repeatable subfield to MARC field result.
+
+    Appends subfield code multiple times to __order__ list and stores
+    values as a list. Used for repeatable subfields.
+
+    :param result: MARC field dictionary being built.
+    :type result: dict
+    :param sub_tag: MARC subfield code (single character).
+    :type sub_tag: str
+    :param values: List of subfield values to add.
+    :type values: list
+    :returns: The modified result dictionary.
+    :rtype: dict
+    """
     if values:
         for _ in range(len(values)):
             result.setdefault("__order__", []).append(sub_tag)
@@ -683,6 +1227,85 @@ def reverse_physical_description(self, key, value):
     return result or None
 
 
+@to_marc21.over("500", "^general_notes")
+@utils.reverse_for_each_value
+@utils.ignore_value
+def reverse_general_notes(self, key, value):
+    """Reverse - general notes to MARC 500.
+
+    MARC 500 - General Note (Repeatable)
+    $a - General note (Not repeatable)
+
+    Maps document general notes to MARC 500 fields.
+    """
+    if value:
+        return {"__order__": ["a"], "a": value}
+    return None
+
+
+@to_marc21.over("502", "^dissertation")
+@utils.reverse_for_each_value
+@utils.ignore_value
+def reverse_dissertation(self, key, value):
+    """Reverse - dissertation note to MARC 502.
+
+    MARC 502 - Dissertation Note (Repeatable)
+    $a - Dissertation note (Not repeatable)
+
+    Maps dissertation information to MARC 502 fields.
+    Each dissertation entry may have multiple language labels.
+    """
+    if labels := value.get("label"):
+        # Take the first label value (primary language)
+        for label in labels:
+            if label_value := label.get("value"):
+                return {"__order__": ["a"], "a": label_value}
+    return None
+
+
+@to_marc21.over("505", "^table_of_contents")
+@utils.reverse_for_each_value
+@utils.ignore_value
+def reverse_table_of_contents(self, key, value):
+    """Reverse - table of contents to MARC 505.
+
+    MARC 505 - Formatted Contents Note (Repeatable)
+    $a - Formatted contents note (Not repeatable)
+    Indicator 1: 0 = Contents, 1 = Incomplete contents, 2 = Partial contents
+    Indicator 2: blank = Basic, 0 = Enhanced
+
+    Maps tableOfContents entries to MARC 505 fields.
+    """
+    if value:
+        return {"__order__": ["a"], "$ind1": "0", "a": value}
+    return None
+
+
+@to_marc21.over("520", "^summary")
+@utils.reverse_for_each_value
+@utils.ignore_value
+def reverse_summary(self, key, value):
+    """Reverse - summary/abstract to MARC 520.
+
+    MARC 520 - Summary, Etc. (Repeatable)
+    $a - Summary, etc. (Not repeatable)
+    $c - Assigning source (Not repeatable)
+    Indicator 1: blank = Summary, 0 = Subject, 1 = Review, 2 = Scope, 3 = Abstract
+
+    Maps document summaries to MARC 520 fields.
+    """
+    result = {}
+    if labels := value.get("label"):
+        # Concatenate all language variants, taking the first value
+        for label in labels:
+            if label_value := label.get("value"):
+                result = add_value(result, "a", label_value)
+                break
+    if source := value.get("source"):
+        result = add_value(result, "c", source)
+    return result or None
+
+
 @to_marc21.over("6XX", "^subjects")
 @utils.reverse_for_each_value
 @utils.ignore_value
@@ -718,36 +1341,78 @@ def reverse_subjects(self, key, value):
             result = do_concept(entity=entity, source_order=to_marc21.source_order)
             tag = "650__"
         elif entity_type == EntityType.WORK:
-            # TODO: to change in the future if $ref's are used.
-            if authorized_access_point := entity.get(f"authorized_access_point_{to_marc21.language}") or entity.get(
-                "authorized_access_point"
-            ):
+            # Resolve $ref if present to get full entity data with refs
+            resolved_entity, from_db = resolve_entity(entity, to_marc21.source_order)
+            if resolved_entity is None:
+                return
+            if from_db:
+                authorized_access_point = resolved_entity.get("authorized_access_point")
+            else:
+                authorized_access_point = resolved_entity.get(
+                    f"authorized_access_point_{to_marc21.language}"
+                ) or resolved_entity.get("authorized_access_point")
+            if authorized_access_point:
                 result = {}
                 result = add_value(result, "t", authorized_access_point)
-                if identified_by := entity.get("identifiedBy"):
+                # Add identifiedBy if present (for non-$ref entities)
+                if identified_by := resolved_entity.get("identifiedBy"):
                     result = add_identified_by(result, identified_by)
+                # Add authority control numbers from refs (for $ref entities)
+                if refs := resolved_entity.get("refs"):
+                    result["0"] = []
+                    for ref in refs:
+                        result["__order__"].append("0")
+                        result["0"].append(f"({ref['source']}){ref['pid']}")
                 self.append(("600__", utils.GroupableOrderedDict(result)))
             return
         elif entity_type == EntityType.PLACE:
-            # TODO: to change in the future if $ref's are used.
-            if authorized_access_point := entity.get(f"authorized_access_point_{to_marc21.language}") or entity.get(
-                "authorized_access_point"
-            ):
+            # Resolve $ref if present to get full entity data with refs
+            resolved_entity, from_db = resolve_entity(entity, to_marc21.source_order)
+            if resolved_entity is None:
+                return
+            if from_db:
+                authorized_access_point = resolved_entity.get("authorized_access_point")
+            else:
+                authorized_access_point = resolved_entity.get(
+                    f"authorized_access_point_{to_marc21.language}"
+                ) or resolved_entity.get("authorized_access_point")
+            if authorized_access_point:
                 result = {}
                 result = add_value(result, "a", authorized_access_point)
-                if identified_by := entity.get("identifiedBy"):
+                # Add identifiedBy if present (for non-$ref entities)
+                if identified_by := resolved_entity.get("identifiedBy"):
                     result = add_identified_by(result, identified_by)
+                # Add authority control numbers from refs (for $ref entities)
+                if refs := resolved_entity.get("refs"):
+                    result["0"] = []
+                    for ref in refs:
+                        result["__order__"].append("0")
+                        result["0"].append(f"({ref['source']}){ref['pid']}")
                 self.append(("651__", utils.GroupableOrderedDict(result)))
             return
         elif entity_type == EntityType.TEMPORAL:
-            # TODO: to change in the future if $ref's are used.
-            if authorized_access_point := entity.get(f"authorized_access_point_{to_marc21.language}") or entity.get(
-                "authorized_access_point"
-            ):
+            # Resolve $ref if present to get full entity data with refs
+            resolved_entity, from_db = resolve_entity(entity, to_marc21.source_order)
+            if resolved_entity is None:
+                return
+            if from_db:
+                authorized_access_point = resolved_entity.get("authorized_access_point")
+            else:
+                authorized_access_point = resolved_entity.get(
+                    f"authorized_access_point_{to_marc21.language}"
+                ) or resolved_entity.get("authorized_access_point")
+            if authorized_access_point:
                 result = {}
                 result = add_value(result, "a", authorized_access_point)
-                if identified_by := entity.get("identifiedBy"):
+                # Add identifiedBy if present (for non-$ref entities)
+                if identified_by := resolved_entity.get("identifiedBy"):
                     result = add_identified_by(result, identified_by)
+                # Add authority control numbers from refs (for $ref entities)
+                if refs := resolved_entity.get("refs"):
+                    result["0"] = []
+                    for ref in refs:
+                        result["__order__"].append("0")
+                        result["0"].append(f"({ref['source']}){ref['pid']}")
                 self.append(("648_7", utils.GroupableOrderedDict(result)))
             return
         else:
