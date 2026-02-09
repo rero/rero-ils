@@ -92,6 +92,8 @@ dependencies = [
     # needed for name unique in invenio-accounts
     "wtforms (<3.2.0)",
     "invenio-sip2[sip2]>0.6.25",
+    # problems pkg_resources, removed in setuptools 82
+    "setuptools (<82)",
 ]
 
 [project.optional-dependencies]

@@ -68,4 +68,5 @@ def test_selfcheckuser(app):
         comments="a third comment",
     )
     db.session.add(selfcheck_terminal)
-    pytest.raises(IntegrityError, db.session.commit)
+    with pytest.raises(IntegrityError):
+        db.session.commit()
