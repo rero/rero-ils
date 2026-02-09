@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.27.1](https://github.com/rero/rero-ils/tree/v1.27.1) (2026-02-09)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.27.0...v1.27.1)
+
+**Fixes:**
+
+- chore: update rero-ils-ui to fix error in acquisition editors (by @PascalRepond)
+- chore(deps): pin setuptools<82 and fix ruff errors [#4028](https://github.com/rero/rero-ils/issues/4028) (by @rerowep)
+
 ## [v1.27.0](https://github.com/rero/rero-ils/tree/v1.27.0) (2026-01-20)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.26.0...v1.27.0)
