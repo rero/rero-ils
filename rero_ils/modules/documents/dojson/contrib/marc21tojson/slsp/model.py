@@ -428,12 +428,14 @@ def marc21_to_subjects_6XX(self, key, value):
                 ".",
             ):
                 subject["authorized_access_point"] = f"{creator}. {subject['authorized_access_point']}"
-        if ref := get_mef_link(
-            bibid=marc21.bib_id,
-            reroid=marc21.rero_id,
-            entity_type=data_type,
-            ids=utils.force_list(value.get("0")),
-            key=key,
+        if field_key != "subjects_imported" and (
+            ref := get_mef_link(
+                bibid=marc21.bib_id,
+                reroid=marc21.rero_id,
+                entity_type=data_type,
+                ids=utils.force_list(value.get("0")),
+                key=key,
+            )
         ):
             subject = {"$ref": ref}
         else:

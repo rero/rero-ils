@@ -603,3 +603,53 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     data = marc21.do(marc21json)
     assert data.get("subjects") == [{"entity": {"$ref": "https://test.rero.ch/api/places/gnd/4005728-8"}}]
     assert data.get("subjects_imported") is None
+
+    # Test 11: RERO subject with $0 should NOT use $ref, should use
+    # authorized_access_point + identifiedBy
+    marc21xml = """
+    <record>
+      <datafield tag="650" ind1=" " ind2="7">
+        <subfield code="a">Physics</subfield>
+        <subfield code="0">(RERO)A012345678</subfield>
+        <subfield code="2">rero</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    mock_get_mef_link.return_value = "https://mef.rero.ch/api/concepts/rero/A012345678"
+    data = marc21.do(marc21json)
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Physics",
+                "identifiedBy": {"type": "RERO", "value": "A012345678"},
+            }
+        }
+    ]
+    assert data.get("subjects") is None
+
+    # Test 12: IDREF subject with $0 should NOT use $ref, should use
+    # authorized_access_point + identifiedBy
+    marc21xml = """
+    <record>
+      <datafield tag="650" ind1=" " ind2="7">
+        <subfield code="a">Chemistry</subfield>
+        <subfield code="0">(IDREF)027390548</subfield>
+        <subfield code="2">idref</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    mock_get_mef_link.return_value = "https://mef.rero.ch/api/concepts/idref/027390548"
+    data = marc21.do(marc21json)
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Chemistry",
+                "identifiedBy": {"type": "IdRef", "value": "027390548"},
+            }
+        }
+    ]
+    assert data.get("subjects") is None
