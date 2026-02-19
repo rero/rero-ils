@@ -54,6 +54,7 @@ services:
     image: redis
     restart: "unless-stopped"
     read_only: true
+    command: redis-server --save ""
     ports:
       - "6379:6379"
   db:
