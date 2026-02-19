@@ -217,6 +217,9 @@
           "sort_date": {
             "type": "date"
           },
+          "sort_key": {
+            "type": "date"
+          },
           "regular": {
             "type": "boolean"
           },

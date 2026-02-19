@@ -272,3 +272,42 @@ def test_issue_claims_counter_indexed_without_claims(
         # Clean up: delete the created issue to restore fixtures
         issue_item.delete(dbcommit=True, delindex=True)
         ItemsSearch.flush_and_refresh()
+
+
+def test_issue_sort_key_indexed(
+    client,
+    holding_lib_martigny_w_patterns,
+    librarian_martigny,
+):
+    """Test that ES sort_key reflects expected_date or sort_date correctly.
+
+    The listener computes `sort_key` as `sort_date or expected_date`:
+    - when the record has no sort_date, sort_key must equal expected_date
+    - when sort_date is set on the record, sort_key must equal sort_date
+    """
+    from rero_ils.modules.items.api import ItemsSearch
+
+    holding = Holding.get_record_by_pid(holding_lib_martigny_w_patterns.pid)
+    login_user_via_session(client, librarian_martigny.user)
+    issue_item = _receive_regular_issue(client, holding)
+
+    try:
+        ItemsSearch.flush_and_refresh()
+        es_issue = ItemsSearch().get_record_by_pid(issue_item.pid)
+
+        # no sort_date on the record → sort_key falls back to expected_date
+        assert not issue_item.sort_date
+        assert es_issue["issue"]["sort_key"] == issue_item.expected_date
+
+        # set sort_date explicitly and reindex
+        issue_item.sort_date = issue_item.expected_date
+        issue_item = issue_item.update(issue_item, dbcommit=True, reindex=True)
+        ItemsSearch.flush_and_refresh()
+        es_issue = ItemsSearch().get_record_by_pid(issue_item.pid)
+
+        # sort_date is now set → sort_key must use sort_date
+        assert es_issue["issue"]["sort_key"] == issue_item.sort_date
+        assert es_issue["issue"]["sort_date"] == issue_item.sort_date
+    finally:
+        issue_item.delete(dbcommit=True, delindex=True)
+        ItemsSearch.flush_and_refresh()
