@@ -107,7 +107,6 @@ dev = [
     ## Default from Invenio
     "pytest-invenio (>=3.0.0,<4.0.0)",
     "coveralls (>=4.0.1,<5.0.0)",
-    "Sphinx (>=4.5.0)",
     "Flask-Debugtoolbar (>=0.10.1)",
     ## RERO ILS specific python packages
     "pip-audit (>=2.8.0,<3.0.0)",
@@ -456,15 +455,15 @@ init_catalog = {cmd = "pybabel init -i rero_ils/translations/messages.pot -d rer
 update_catalog = {cmd = "pybabel update -i rero_ils/translations/messages.pot -d rero_ils/translations", help = "update existing message catalogs from a POT file"}
 
 [tool.pytest.ini_options]
-addopts = "--color=yes --ruff --exclude-warning-annotations --doctest-glob=\"*.rst\" --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=docs/conf.py --ignore=rero_ils/config.py -m \"not external\""
-testpaths = ["docs", "tests", "rero_ils"]
+addopts = "--color=yes --ruff --exclude-warning-annotations --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=rero_ils/config.py -m \"not external\""
+testpaths = ["tests", "rero_ils"]
 # custom markers
 markers = ["external: mark a test as dealing with external services."]
 # not displaying all the PendingDeprecationWarnings from invenio
 filterwarnings = "ignore::PendingDeprecationWarning"
 
 [tool.ruff]
-extend-exclude = ["config.py", "conf.py"]
+extend-exclude = ["config.py"]
 line-length = 120
 
 [tool.ruff.lint]

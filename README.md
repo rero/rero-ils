@@ -2,7 +2,7 @@
 
 <!-- PROJECT SHIELDS -->
 [![Github actions
-status](https://github.com/rero/rero-ils/workflows/build/badge.svg)](https://github.com/rero/rero-ils/actions?query=workflow%3Abuild)
+status](https://github.com/rero/rero-ils/workflows/CI/badge.svg)](https://github.com/rero/rero-ils/actions?query=workflow%3ACI)
 [![image](https://img.shields.io/coveralls/rero/rero-ils.svg)](https://coveralls.io/r/rero/rero-ils)
 [![Release
 Number](https://img.shields.io/github/tag/rero/rero-ils.svg)](https://github.com/rero/rero-ils/releases/latest)
@@ -27,7 +27,7 @@ status](https://hosted.weblate.org/widgets/rero_plus/-/rero-ils/svg-badge.svg)](
     <br />
     <a href="https://ils.test.rero.ch/"><strong>Live Demo »</strong></a>
     ·
-    <a href="https://ils.test.rero.ch/help/home"><strong>User docs »</strong></a>
+    <a href="https://bib.rero.ch/help/home/"><strong>User docs »</strong></a>
     ·
     <a href="https://github.com/rero/developer-resources"><strong>Developer docs »</strong></a>
     <br />
@@ -64,8 +64,6 @@ status](https://hosted.weblate.org/widgets/rero_plus/-/rero-ils/svg-badge.svg)](
         <li><a href="#install">Install</a></li>
         <li><a href="#the-ecosystem">The ecosystem</a></li>
       </ul>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -84,15 +82,15 @@ status](https://hosted.weblate.org/widgets/rero_plus/-/rero-ils/svg-badge.svg)](
 
 RERO ILS is a new generation open source [integrated library system](https://en.wikipedia.org/wiki/Integrated_library_system) developed in Switzerland by [RERO+](https://rero.ch/) in collaboration with the Catholic University of Louvain ([UCLouvain](https://uclouvain.be/)). It allows the management of library networks or independent libraries (document acquisition, circulation, cataloguing, search) and offers a public interface for users.
 
-RERO ILS has been under heavy development since 2017 as a replacement for RERO network's legacy software. Its first major release (`v1.0.0`) was published at the end of 2020. The first real-life production instance has been live since June 2021. Since then, it is being actively maintained and developed by a committed team from Switzerland and Belgium, in order to improve upon its current features and satisfy its users' needs.
+RERO ILS has been under heavy development since 2017 as a replacement for RERO network's legacy software. Its first major release (`v1.0.0`) was published at the end of 2020. The first real-life production instance has been live since June 2021. Since then, it is being actively maintained and developed by a committed team of professionals from Switzerland, in order to improve upon its current features and satisfy its users' needs.
 
 ## Built with
 
-* [Invenio](https://github.com/inveniosoftware/invenio)
-* [Flask](https://github.com/pallets/flask)
-* [Angular](https://github.com/angular/angular)
-* [ElasticSearch](https://github.com/elastic/elasticsearch)
-* [Ngx-Formly](https://github.com/ngx-formly/ngx-formly)
+[![Invenio](https://img.shields.io/badge/Invenio-00b0f0?style=for-the-badge&logo=academia&logoColor=white)](https://github.com/inveniosoftware/invenio)
+[![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)](https://github.com/pallets/flask)
+[![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://github.com/angular/angular)
+[![ElasticSearch](https://img.shields.io/badge/Elasticsearch-005571?style=for-the-badge&logo=elasticsearch&logoColor=white)](https://github.com/elastic/elasticsearch)
+[![Ngx-Formly](https://img.shields.io/badge/Ngx--Formly-1976d2?style=for-the-badge&logo=angular&logoColor=white)](https://github.com/ngx-formly/ngx-formly)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -114,7 +112,7 @@ To explore the system, you can try the [test instance](https://ils.test.rero.ch/
 
 RERO ILS is open source and can be can be deployed and hosted by anyone, provided they can afford the required configuration or development effort. It can also be hosted [*as a service*](https://www.rero.ch/en/products/ils#discover) by RERO+ for any interested library or organisation.
 
-The [user documentation](https://ils.test.rero.ch/help/home/) for RERO ILS is hosted on [flask-wiki](https://github.com/rero/flask-wiki/).
+The [user documentation](https://bib.rero.ch/help/home/) for RERO ILS is hosted on [flask-wiki](https://github.com/rero/flask-wiki/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -122,7 +120,7 @@ The [user documentation](https://ils.test.rero.ch/help/home/) for RERO ILS is ho
 
 ## Install
 
-* The installation process is described in a [specific file](INSTALL.rst).
+* The installation process is described in a [specific file](INSTALL.md).
 * To run a development environment you can check this [documentation](https://github.com/rero/developer-resources/blob/master/rero-instances/rero-ils/dev_installation.md).
 
 ## The ecosystem
@@ -137,43 +135,11 @@ The [MEF](https://github.com/rero/rero-mef) (*Multilingual Entity File*), provid
 
 As a result, in order to run RERO ILS, you need to either use our [public MEF server](https://mef.test.rero.ch), or run your own.
 
-### RERO EBOOKS
-
-RERO ILS customers make use of 3rd-party ebook commercial platforms. A
-dedicated server has been set up for harvesting ebook metadata from
-those platforms, convert them to RERO ILS's own data model. RERO ILS
-harvests our ebooks server, importing the metadata into the union
-catalog, assigning each ebook to the corresponding subscribing
-libraries.
-
-This server is not publicly accessible but the source code is available on
-GitHub: [rero-ebooks](https://github.com/rero/rero-ebooks).
-
-You need to prevent your RERO ILS instance to harvest RERO's ebooks
-server, but you can run your own ebooks server.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-# Contributing
-
-Any contribution is **greatly appreciated**!
-
-* To contribute to the code itself, please check the [contributing recommandations](https://github.com/rero/rero-ils/blob/dev/CONTRIBUTING.rst).
-* The [developer-resources Github project](https://github.com/rero/developer-resources/) provides all kinds of references related to Invenio applications, more specifically RERO ILS.
-* Found a bug or want to suggest a feature or an enhancement? [Open an issue](https://github.com/rero/rero-ils/issues/new).
-* Want to help with the translation of the project? Visit our [Weblate project](https://hosted.weblate.org/projects/rero_plus/#information).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-# License
-
-Distributed under the GNU Affero General Public License. See [`LICENSE`](LICENSE) for more information.
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 # Contact
 
 * If you have questions, you can ask the development team on [Gitter](https://gitter.im/rero/reroils).
-* In case of a security issue, please contact the e-mail address provided in the [security policy](https://github.com/rero/rero-ils/blob/dev/SECURITY.rst).
+* In case of a security issue, please contact <security@rero.ch>.
 
 <p align="right">(<a href="#top">back to top</a>)</p>

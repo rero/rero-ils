@@ -42,10 +42,6 @@ skip = .eggs
 # Needed for isort since version 4.3.10
 reverse_relative = true
 
-# RST files (used by sphinx)
-[*.rst]
-indent_size = 4
-
 # CSS, HTML, JS, JSON, YML, Typescript
 [*.{scss,css,html,js,json,yml,ts}]
 indent_size = 2

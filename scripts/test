@@ -91,8 +91,6 @@ function pretests () {
   ruff format --check rero_ils tests
   info_msg "Test linting:"
   ruff check rero_ils tests
-  info_msg "Sphinx-build:"
-  sphinx-build -qnNW docs docs/_build/html
 }
 
 function tests () {
