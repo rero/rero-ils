@@ -223,9 +223,14 @@ class Library(IlsRecord):
             # date_to_check) and get only the last one.
             if exception.get("repeat"):
                 period = exception["repeat"]["period"].upper()
+                # Use end-of-day as the rrule upper bound. date_to_check may
+                # be in a local timezone (e.g. CEST) whose midnight is earlier
+                # than midnight UTC, which would cause the rrule to miss a
+                # recurrence that falls on the same calendar day in UTC.
+                until = date_to_check.replace(hour=23, minute=59, second=59, microsecond=999999)
                 exception_dates = rrule(
                     freq=FREQNAMES.index(period),
-                    until=date_to_check,
+                    until=until,
                     interval=exception["repeat"]["interval"],
                     dtstart=start_date,
                 )
@@ -245,8 +250,15 @@ class Library(IlsRecord):
                 else:
                     yield exception
 
-    def is_open(self, date=None, day_only=False):
-        """Test library is open."""
+    def is_open(self, date=None, day_only=False, date_only=False):
+        """Test library is open.
+
+        :param date_only: When True the time component of *date* is ignored;
+            the check covers the whole calendar day in the library's local
+            timezone.  The midnight-sentinel fallback (h==m==s==0) is kept for
+            callers that have not yet been updated.
+        :type date_only: bool
+        """
         date = date or datetime.now(pytz.utc)
         is_open = False
         rule_hours = []
@@ -256,6 +268,18 @@ class Library(IlsRecord):
             date = date_string_to_utc(date)
         if isinstance(date, datetime) and date.tzinfo is None:
             date = date.replace(tzinfo=pytz.utc)
+        # Prefer the explicit date_only flag; fall back to the midnight sentinel
+        # (h==m==s==0) for callers that have not been updated yet.  When true,
+        # the time component is reset to midnight *after* converting to the
+        # library's local timezone so that _is_betweentimes() performs a
+        # whole-day open check using the correct calendar day.
+        date_only_query = date_only or date.hour == date.minute == date.second == 0
+        # Always evaluate in library local time so day names and opening hours
+        # are compared in the correct timezone regardless of what tz the caller
+        # passed in (UTC, local, etc.).
+        date = date.astimezone(self.get_timezone())
+        if date_only_query:
+            date = date.replace(hour=0, minute=0, second=0, microsecond=0)
 
         # STEP 1 :: check about regular rules
         #   Each library could define if a specific weekday is open or closed.
@@ -306,7 +330,7 @@ class Library(IlsRecord):
             date = parser.parse(date)
         add_day = -1 if previous else 1
         date += timedelta(days=add_day)
-        while not self.is_open(date=date, day_only=True):
+        while not self.is_open(date=date, day_only=True, date_only=True):
             date += timedelta(days=add_day)
         if not ensure:
             return date
@@ -326,7 +350,7 @@ class Library(IlsRecord):
         dates = []
         end_date += timedelta(days=1)
         while end_date > start_date:
-            if self.is_open(date=start_date, day_only=True):
+            if self.is_open(date=start_date, day_only=True, date_only=True):
                 dates.append(start_date)
             start_date += timedelta(days=1)
         return dates

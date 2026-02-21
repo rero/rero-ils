@@ -63,7 +63,7 @@ def list_closed_dates(library_pid):
     closed_date = []
     for i in range(delta.days + 1):
         tmp_date = start_date + timedelta(days=i)
-        if not library.is_open(date=tmp_date, day_only=True):
+        if not library.is_open(date=tmp_date, day_only=True, date_only=True):
             closed_date.append(tmp_date.strftime("%Y-%m-%d"))
 
     return jsonify(

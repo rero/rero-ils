@@ -74,9 +74,12 @@ def test_item_loans_extend_duration(
                 utc_end_date = now + duration
                 # computed end date at the library timezone
                 end_date = utc_end_date.astimezone(tz=lib_martigny.get_timezone())
-                expected_utc_end_date = now + timedelta(days=policy["renewal_duration"])
-                # expected end date at the library timezone
-                expected_end_date = expected_utc_end_date.astimezone(lib_martigny.get_timezone())
+                # Mirror the next_open logic used by get_extension_params so
+                # the comparison is consistent across timezone/day boundaries.
+                now_lib_tz = now.astimezone(lib_martigny.get_timezone())
+                renewal_duration = policy["renewal_duration"]
+                expected_due_eve = now_lib_tz + timedelta(days=renewal_duration - 1)
+                expected_end_date = lib_martigny.next_open(expected_due_eve)
                 assert end_date.strftime("%Y-%m-%d") == expected_end_date.strftime("%Y-%m-%d")
                 assert end_date.hour == 23
                 assert end_date.minute == 59

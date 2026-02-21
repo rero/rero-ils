@@ -22,6 +22,7 @@ from datetime import datetime, timedelta, timezone
 
 import ciso8601
 import pytest
+from freezegun import freeze_time
 from invenio_circulation.errors import CirculationException
 
 from rero_ils.modules.circ_policies.api import CircPolicy
@@ -231,21 +232,27 @@ def test_extend_on_item_on_loan_with_no_requests(
 
     app.config["CIRCULATION_POLICIES"]["extension"]["from_end_date"] = False
     initial_loan = loan.update(initial_loan_data, dbcommit=True, reindex=True)
-    # Extend the loan
+    # Freeze time so extend_loan() and the assertion both observe the same
+    # instant. Without this, the two datetime.now() calls could straddle
+    # midnight CET (UTC+1) when tests run after 23:00 UTC and produce
+    # different library-local calendar days.
     params = {
         "transaction_location_pid": loc_public_martigny.pid,
         "transaction_user_pid": librarian_martigny.pid,
     }
-    item, actions = item.extend_loan(**params)
-    assert item.status == ItemStatus.ON_LOAN
-    extended_loan = Loan.get_record_by_pid(initial_loan.pid)
+    frozen_now = datetime.now(timezone.utc)
+    with freeze_time(frozen_now):
+        item, _actions = item.extend_loan(**params)
+        assert item.status == ItemStatus.ON_LOAN
+        extended_loan = Loan.get_record_by_pid(initial_loan.pid)
 
-    expected_date = datetime.now() + timedelta(days=cipo["renewal_duration"])
-    expected_date_eve = expected_date - timedelta(days=1)
-    expected_date = lib_martigny.next_open(expected_date_eve)
+        now_lib_tz = datetime.now(timezone.utc).astimezone(lib_martigny.get_timezone())
+        expected_date = now_lib_tz + timedelta(days=cipo["renewal_duration"])
+        expected_date_eve = expected_date - timedelta(days=1)
+        expected_date = lib_martigny.next_open(expected_date_eve)
 
-    ext_end_date = ciso8601.parse_datetime(str(extended_loan.end_date))
-    assert expected_date.strftime("%Y%m%d") == ext_end_date.strftime("%Y%m%d")
+        ext_end_date = ciso8601.parse_datetime(str(extended_loan.end_date))
+        assert expected_date.strftime("%Y%m%d") == ext_end_date.strftime("%Y%m%d")
 
     # Reset the application configuration
     app.config["CIRCULATION_POLICIES"]["extension"] = settings

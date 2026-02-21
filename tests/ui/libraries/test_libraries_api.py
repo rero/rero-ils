@@ -68,19 +68,20 @@ def test_libraries_is_open(lib_martigny):
 
     # CASE 1 :: basic tests. According to library settings:
     #   * monday --> friday  :: 6 AM  --> closed
-    #   * monday --> friday  :: 12 AM --> open
+    #   * monday --> friday  :: 12 PM --> open
     #   * saturday & sunday  :: closed all day
+    # Datetimes are localized to the library timezone so opening-hour
+    # comparisons are not skewed by a UTC offset.
+    tz = library.get_timezone()
     orginal_date = datetime.strptime("2020/08/17", "%Y/%m/%d")  # random date
     for day_idx in range(5):
         test_date = next_weekday(orginal_date, day_idx)
-        test_date = test_date.replace(hour=6, minute=0)
-        assert not library.is_open(test_date)
-        test_date = test_date.replace(hour=12)
-        assert library.is_open(test_date)
+        assert not library.is_open(tz.localize(test_date.replace(hour=6, minute=0)))
+        assert library.is_open(tz.localize(test_date.replace(hour=12, minute=0)))
     test_date = next_weekday(orginal_date, 5)
-    assert not library.is_open(test_date)
+    assert not library.is_open(tz.localize(test_date))
     test_date = next_weekday(orginal_date, 6)
-    assert not library.is_open(test_date)
+    assert not library.is_open(tz.localize(test_date))
 
     # CASE 2 :: Check single exception dates
     #   * According to library setting, the '2018-12-15' day is an exception
@@ -108,35 +109,35 @@ def test_libraries_is_open(lib_martigny):
     #   * According to library setting, each '1st augustus' is closed
     #     (from 2019); despite if '2019-08-01' is a thursday (normally open)
     exception_date = date_string_to_utc("2019-08-01")  # Thursday
-    assert not library.is_open(exception_date)
+    assert not library.is_open(exception_date, day_only=True, date_only=True)
     exception_date = date_string_to_utc("2022-08-01")  # Monday
-    assert not library.is_open(exception_date)
+    assert not library.is_open(exception_date, day_only=True, date_only=True)
     exception_date = date_string_to_utc("2018-08-01")  # Wednesday
-    assert library.is_open(exception_date)
+    assert library.is_open(exception_date, day_only=True, date_only=True)
     exception_date = date_string_to_utc("2222-8-1")  # Thursday
-    assert not library.is_open(exception_date)
+    assert not library.is_open(exception_date, day_only=True, date_only=True)
 
     # CASE 4 :: Check repeatable exception range date
     #   * According to library setting, the library is closed for christmas
     #     break each year (22/12 --> 06/01)
     exception_date = date_string_to_utc("2018-12-24")  # Monday
-    assert not library.is_open(exception_date)
+    assert not library.is_open(exception_date, day_only=True, date_only=True)
     exception_date = date_string_to_utc("2019-01-07")  # Monday
-    assert library.is_open(exception_date)
+    assert library.is_open(exception_date, day_only=True, date_only=True)
     exception_date = date_string_to_utc("2020-12-29")  # Tuesday
-    assert not library.is_open(exception_date)
+    assert not library.is_open(exception_date, day_only=True, date_only=True)
     exception_date = date_string_to_utc("2101-01-4")  # Tuesday
-    assert not library.is_open(exception_date)
+    assert not library.is_open(exception_date, day_only=True, date_only=True)
 
     # CASE 5 :: Check repeatable date with interval
     #   * According to library setting, each first day of the odd months is
     #     a closed day.
     exception_date = date_string_to_utc("2019-03-01")  # Friday
-    assert not library.is_open(exception_date)
+    assert not library.is_open(exception_date, day_only=True, date_only=True)
     exception_date = date_string_to_utc("2019-04-01")  # Monday
-    assert library.is_open(exception_date)
+    assert library.is_open(exception_date, day_only=True, date_only=True)
     exception_date = date_string_to_utc("2019-05-01")  # Wednesday
-    assert not library.is_open(exception_date)
+    assert not library.is_open(exception_date, day_only=True, date_only=True)
 
     # Other tests on opening day/hour
     assert library.next_open(date=saturday).date() == parser.parse("2018-12-17").date()

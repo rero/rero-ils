@@ -23,6 +23,7 @@ from datetime import datetime, timedelta, timezone
 import ciso8601
 import pytz
 from flask import url_for
+from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
 
@@ -583,41 +584,50 @@ def test_timezone_due_date(
     # Login to perform action
     login_user_via_session(client, librarian_martigny.user)
 
-    # Checkout the item
-    res, data = postdata(
-        client,
-        "api_item.checkout",
-        {
-            "item_pid": item_pid,
-            "patron_pid": patron_pid,
-            "transaction_location_pid": loc_public_martigny.pid,
-            "transaction_user_pid": librarian_martigny.pid,
-        },
-    )
-    assert res.status_code == 200
+    # Freeze time around the checkout and the subsequent assertion so both see
+    # the same instant. Without this, datetime.now() inside the loan creation
+    # and datetime.now() in the assertion could straddle midnight (CET = UTC+1)
+    # and produce different library-local calendar days, causing a spurious
+    # failure when tests run after 23:00 UTC.
+    frozen_now = datetime.now(timezone.utc)
+    with freeze_time(frozen_now):
+        # Checkout the item
+        res, data = postdata(
+            client,
+            "api_item.checkout",
+            {
+                "item_pid": item_pid,
+                "patron_pid": patron_pid,
+                "transaction_location_pid": loc_public_martigny.pid,
+                "transaction_user_pid": librarian_martigny.pid,
+            },
+        )
+        assert res.status_code == 200
 
-    # Get Loan date (should be in UTC)
-    loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
-    loan = Loan.get_record_by_pid(loan_pid)
-    loan_end_date = loan.get("end_date")
+        # Get Loan date (should be in UTC)
+        loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
+        loan = Loan.get_record_by_pid(loan_pid)
+        loan_end_date = loan.get("end_date")
 
-    # Get next library open date (should be next monday after X-1 days) where
-    # X is checkout_duration
-    soon = datetime.now(pytz.utc) + timedelta(days=(checkout_duration - 1))
-    lib = Library.get_record_by_pid(item.library_pid)
-    lib_datetime = lib.next_open(soon)
+        # Get next library open date (should be next monday after X-1 days) where
+        # X is checkout_duration. Use library local time, same as the loan
+        # computation, so results match across UTC/local day boundaries.
+        lib = Library.get_record_by_pid(item.library_pid)
+        lib_tz = lib.get_timezone()
+        soon = datetime.now(pytz.utc).astimezone(lib_tz) + timedelta(days=checkout_duration - 1)
+        lib_datetime = lib.next_open(soon)
 
-    # Loan date should be in UTC (as lib_datetime).
-    loan_datetime = ciso8601.parse_datetime(loan_end_date)
+        # Loan date should be in UTC (as lib_datetime).
+        loan_datetime = ciso8601.parse_datetime(loan_end_date)
 
-    # Compare year, month and date for Loan due date: should be the same!
-    fail_msg = "Check timezone for Loan and Library. \
+        # Compare year, month and date for Loan due date: should be the same!
+        fail_msg = "Check timezone for Loan and Library. \
 It should be the same date, even if timezone changed."
-    assert loan_datetime.year == lib_datetime.year, fail_msg
-    assert loan_datetime.month == lib_datetime.month, fail_msg
-    assert loan_datetime.day == lib_datetime.day, fail_msg
-    # Loan date differs regarding timezone, and day of the year (GMT+1/2).
-    check_timezone_date(pytz.utc, loan_datetime, [21, 22])
+        assert loan_datetime.year == lib_datetime.year, fail_msg
+        assert loan_datetime.month == lib_datetime.month, fail_msg
+        assert loan_datetime.day == lib_datetime.day, fail_msg
+        # Loan date differs regarding timezone, and day of the year (GMT+1/2).
+        check_timezone_date(pytz.utc, loan_datetime, [21, 22])
 
 
 def test_librarian_request_on_blocked_user(

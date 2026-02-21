@@ -462,7 +462,7 @@ class ItemCirculation(ItemRecord):
                 LocationsSearch().get_record_by_pid(kwargs.get("transaction_location_pid")).library.pid
             ) or self.library_pid
             library = Library.get_record_by_pid(transaction_library_pid)
-            if not library.is_open(action_params["end_date"], True):
+            if not library.is_open(action_params["end_date"], True, date_only=True):
                 # If library has no open dates, keep the default due date
                 # to avoid circulation errors
                 with suppress(LibraryNeverOpen):
