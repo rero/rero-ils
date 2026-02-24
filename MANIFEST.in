@@ -49,7 +49,6 @@ include *.txt
 include *.yml
 include LICENSE
 include Pipfile
-include babel.ini
 include pytest.ini
 recursive-include data *.json
 recursive-include tests *.js
@@ -92,9 +91,9 @@ recursive-include rero_ils *.eslintignore
 recursive-include tests *.md
 recursive-include tests *.png
 
-# flask-wiki to be removed
-recursive-include wiki *.md
-recursive-include wiki *.png
+# flask-wiki content
+recursive-include data/wiki *.md
+recursive-include data/wiki *.png
 
 # error files from documents creation
 data/*_errors.xml

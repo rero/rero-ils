@@ -3823,8 +3823,8 @@ HOLDING_CIRCULATION_ACTIONS_VALIDATION = {
 }
 # WIKI
 # ====
-WIKI_CONTENT_DIR = "./wiki"
-WIKI_INDEX_DIR = "./wiki/_index"
+WIKI_CONTENT_DIR = "./data/wiki"
+WIKI_INDEX_DIR = "./data/wiki/_index"
 WIKI_URL_PREFIX = "/help"
 WIKI_LANGUAGES = {"en": "English", "fr": "French", "de": "German", "it": "Italian"}
 WIKI_CURRENT_LANGUAGE = get_current_language

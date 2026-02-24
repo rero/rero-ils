@@ -85,8 +85,8 @@ cov.xml
 # ES mapping files
 tmp/
 
-# Wiki files
-wiki/
+# Wiki search index (generated at runtime by `invenio flask_wiki init-index`)
+data/wiki/_index/
 
 # error files from documents creation
 data/*_errors.xml

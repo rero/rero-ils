@@ -1,3 +1,21 @@
+# ---------------------------------------------------------------------------
+# Build system
+# ---------------------------------------------------------------------------
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = "."
+
+[tool.uv]
+package = true
+
+# ---------------------------------------------------------------------------
+# Project metadata
+# ---------------------------------------------------------------------------
+
 [project]
 name = "rero-ils"
 version = "1.27.1"
@@ -6,7 +24,6 @@ authors = [{name = "RERO+", email = "software@rero.ch"}]
 keywords = ["rero-ils", "invenio", "integrated library system"]
 license = "AGPL-3.0-or-later"
 urls = {homepage = "https://www.rero.ch/en/products/ils", repository="https://github.com/rero/rero-ils"}
-# dynamic = ["classifiers"]
 requires-python = ">= 3.9.2,<3.13"
 
 dependencies = [
@@ -97,13 +114,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-## Python extra packages dependencies
-#------------------------------------
 sip2 = ["invenio-sip2"]
 
 [dependency-groups]
 dev = [
-    ## Python packages development dependencies (order matters)
     ## Default from Invenio
     "pytest-invenio (>=3.0.0,<4.0.0)",
     "coveralls (>=4.0.1,<5.0.0)",
@@ -117,6 +131,10 @@ prod = [
     "uwsgi>=2.0.30",
     "uwsgitop (>=0.11)",
 ]
+
+# ---------------------------------------------------------------------------
+# Entry points
+# ---------------------------------------------------------------------------
 
 [project.entry-points."app.console_scripts"]
 rero-ils = "invenio_app.cli:cli"
@@ -157,25 +175,28 @@ rero-ils = "rero_ils.modules.ext:REROILSAPP"
 acq_accounts = "rero_ils.modules.acquisition.acq_accounts.views:api_blueprint"
 acq_orders = "rero_ils.modules.acquisition.acq_orders.views:api_blueprint"
 acq_receipts = "rero_ils.modules.acquisition.acq_receipts.views:api_blueprint"
-documents = "rero_ils.modules.documents.api_views:api_blueprint"
 circ_policies = "rero_ils.modules.circ_policies.views:blueprint"
-local_entities = "rero_ils.modules.entities.local_entities.views:api_blueprint"
-remote_entities = "rero_ils.modules.entities.remote_entities.views:api_blueprint"
+documents = "rero_ils.modules.documents.api_views:api_blueprint"
 holdings = "rero_ils.modules.holdings.api_views:api_blueprint"
 imports = "rero_ils.modules.imports.views:api_blueprint"
 item_types = "rero_ils.modules.item_types.views:blueprint"
 items = "rero_ils.modules.items.views:api_blueprint"
 libraries = "rero_ils.modules.libraries.api_views:api_blueprint"
 loans = "rero_ils.modules.loans.api_views:api_blueprint"
+local_entities = "rero_ils.modules.entities.local_entities.views:api_blueprint"
+migration_data = "rero_ils.modules.migrations.data.views:api_blueprint"
+migrations = "rero_ils.modules.migrations.views:api_blueprint"
 monitoring = "rero_ils.modules.monitoring.views:api_blueprint"
 notifications = "rero_ils.modules.notifications.views:blueprint"
 patron_types = "rero_ils.modules.patron_types.views:blueprint"
 patrons = "rero_ils.modules.patrons.views:api_blueprint"
-permissions ="rero_ils.modules.views:api_blueprint"
-users = "rero_ils.modules.users.api_views:api_blueprint"
+permissions = "rero_ils.modules.views:api_blueprint"
+remote_entities = "rero_ils.modules.entities.remote_entities.views:api_blueprint"
 stats_cfg = "rero_ils.modules.stats_cfg.views:api_blueprint"
-migrations = "rero_ils.modules.migrations.views:api_blueprint"
-migration_data = "rero_ils.modules.migrations.data.views:api_blueprint"
+users = "rero_ils.modules.users.api_views:api_blueprint"
+
+[project.entry-points."invenio_base.api_converters"]
+nooppid = "rero_ils.converters:NoopPIDConverter"
 
 [project.entry-points."invenio_base.apps"]
 rero-ils = "rero_ils.modules.ext:REROILSAPP"
@@ -183,8 +204,8 @@ rero-ils = "rero_ils.modules.ext:REROILSAPP"
 [project.entry-points."invenio_base.blueprints"]
 circ_policies = "rero_ils.modules.circ_policies.views:blueprint"
 collections = "rero_ils.modules.collections.views:blueprint"
-entities = "rero_ils.modules.entities.views:blueprint"
 documents = "rero_ils.modules.documents.views:blueprint"
+entities = "rero_ils.modules.entities.views:blueprint"
 holdings = "rero_ils.modules.holdings.views:blueprint"
 ill_requests = "rero_ils.modules.ill_requests.views:blueprint"
 item_types = "rero_ils.modules.item_types.views:blueprint"
@@ -196,23 +217,24 @@ templates = "rero_ils.modules.templates.views:blueprint"
 theme = "rero_ils.theme.views:blueprint"
 users = "rero_ils.modules.users.views:blueprint"
 
-[project.entry-points."invenio_base.api_converters"]
-nooppid = "rero_ils.converters:NoopPIDConverter"
+[project.entry-points."invenio_base.finalize_app"]
+rero_ils = "rero_ils.modules.ext:finalize_app"
+rero_files = "rero_invenio_files.ext:finalize_app"
 
 [project.entry-points."invenio_celery.tasks"]
 api_harvester = "rero_ils.modules.api_harvester.tasks"
 collections = "rero_ils.modules.collections.tasks"
 documents = "rero_ils.modules.documents.tasks"
-remote_entities = "rero_ils.modules.entities.remote_entities.tasks"
 holdings = "rero_ils.modules.holdings.tasks"
-items = "rero_ils.modules.items.tasks"
-loans = "rero_ils.modules.loans.tasks"
-libraries = "rero_ils.modules.libraries.tasks"
-locations = "rero_ils.modules.locations.tasks"
 indexer_locent = "rero_ils.modules.entities.local_entities.indexer"
+items = "rero_ils.modules.items.tasks"
+libraries = "rero_ils.modules.libraries.tasks"
+loans = "rero_ils.modules.loans.tasks"
+locations = "rero_ils.modules.locations.tasks"
 modules = "rero_ils.modules.tasks"
 notifications = "rero_ils.modules.notifications.tasks"
 patrons = "rero_ils.modules.patrons.tasks"
+remote_entities = "rero_ils.modules.entities.remote_entities.tasks"
 stats = "rero_ils.modules.stats.tasks"
 
 [project.entry-points."invenio_config.module"]
@@ -237,16 +259,16 @@ ill_requests = "rero_ils.modules.ill_requests.models"
 item_types = "rero_ils.modules.item_types.models"
 items = "rero_ils.modules.items.models"
 libraries = "rero_ils.modules.libraries.models"
+local_entities = "rero_ils.modules.entities.local_entities.models"
 local_fields = "rero_ils.modules.local_fields.models"
 locations = "rero_ils.modules.locations.models"
-remote_entities = "rero_ils.modules.entities.remote_entities.models"
-local_entities = "rero_ils.modules.entities.local_entities.models"
 notifications = "rero_ils.modules.notifications.models"
 organisations = "rero_ils.modules.organisations.models"
 patron_transaction_events = "rero_ils.modules.patron_transaction_events.models"
 patron_transactions = "rero_ils.modules.patron_transactions.models"
 patron_types = "rero_ils.modules.patron_types.models"
 patrons = "rero_ils.modules.patrons.models"
+remote_entities = "rero_ils.modules.entities.remote_entities.models"
 selfcheck = "rero_ils.modules.selfcheck.models"
 stats = "rero_ils.modules.stats.models"
 stats_cfg = "rero_ils.modules.stats_cfg.models"
@@ -267,8 +289,8 @@ budgets = "rero_ils.modules.acquisition.budgets.jsonschemas"
 circ_policies = "rero_ils.modules.circ_policies.jsonschemas"
 collections = "rero_ils.modules.collections.jsonschemas"
 common = "rero_ils.jsonschemas"
-remote_entities = "rero_ils.modules.entities.remote_entities.jsonschemas"
 documents = "rero_ils.modules.documents.jsonschemas"
+files = "rero_ils.modules.files.jsonschemas"
 holdings = "rero_ils.modules.holdings.jsonschemas"
 ill_requests = "rero_ils.modules.ill_requests.jsonschemas"
 item_types = "rero_ils.modules.item_types.jsonschemas"
@@ -285,12 +307,12 @@ patron_transaction_events = "rero_ils.modules.patron_transaction_events.jsonsche
 patron_transactions = "rero_ils.modules.patron_transactions.jsonschemas"
 patron_types = "rero_ils.modules.patron_types.jsonschemas"
 patrons = "rero_ils.modules.patrons.jsonschemas"
+remote_entities = "rero_ils.modules.entities.remote_entities.jsonschemas"
 stats = "rero_ils.modules.stats.jsonschemas"
 stats_cfg = "rero_ils.modules.stats_cfg.jsonschemas"
 templates = "rero_ils.modules.templates.jsonschemas"
 users = "rero_ils.modules.users.jsonschemas"
 vendors = "rero_ils.modules.vendors.jsonschemas"
-files = "rero_ils.modules.files.jsonschemas"
 
 [project.entry-points."invenio_oauth2server.scopes"]
 fullname = "rero_ils.oauth.scopes:fullname"
@@ -311,7 +333,7 @@ budget_id = "rero_ils.modules.acquisition.budgets.api:budget_id_fetcher"
 circ_policy_id = "rero_ils.modules.circ_policies.api:circ_policy_id_fetcher"
 collection_id = "rero_ils.modules.collections.api:collection_id_fetcher"
 document_id = "rero_ils.modules.documents.api:document_id_fetcher"
-remote_entity_id = "rero_ils.modules.entities.remote_entities.api:remote_entity_id_fetcher"
+entity_id = "rero_ils.modules.entities.fetchers:id_fetcher"
 holding_id = "rero_ils.modules.holdings.api:holding_id_fetcher"
 ill_request_id = "rero_ils.modules.ill_requests.api:ill_request_id_fetcher"
 item_id = "rero_ils.modules.items.api:item_id_fetcher"
@@ -327,10 +349,10 @@ patron_id = "rero_ils.modules.patrons.api:patron_id_fetcher"
 patron_transaction_event_id = "rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_fetcher"
 patron_transaction_id = "rero_ils.modules.patron_transactions.api:patron_transaction_id_fetcher"
 patron_type_id = "rero_ils.modules.patron_types.api:patron_type_id_fetcher"
-stat_id = "rero_ils.modules.stats.api.api:stat_id_fetcher"
+remote_entity_id = "rero_ils.modules.entities.remote_entities.api:remote_entity_id_fetcher"
 stat_cfg_id = "rero_ils.modules.stats_cfg.api:stat_cfg_id_fetcher"
+stat_id = "rero_ils.modules.stats.api.api:stat_id_fetcher"
 template_id = "rero_ils.modules.templates.api:template_id_fetcher"
-entity_id = "rero_ils.modules.entities.fetchers:id_fetcher"
 vendor_id = "rero_ils.modules.vendors.api:vendor_id_fetcher"
 
 [project.entry-points."invenio_pidstore.minters"]
@@ -343,7 +365,7 @@ budget_id = "rero_ils.modules.acquisition.budgets.api:budget_id_minter"
 circ_policy_id = "rero_ils.modules.circ_policies.api:circ_policy_id_minter"
 collection_id = "rero_ils.modules.collections.api:collection_id_minter"
 document_id = "rero_ils.modules.documents.api:document_id_minter"
-remote_entity_id = "rero_ils.modules.entities.remote_entities.api:remote_entity_id_minter"
+entity_id = "rero_ils.modules.entities.minters:id_minter"
 holding_id = "rero_ils.modules.holdings.api:holding_id_minter"
 ill_request_id = "rero_ils.modules.ill_requests.api:ill_request_id_minter"
 item_id = "rero_ils.modules.items.api:item_id_minter"
@@ -358,10 +380,10 @@ patron_id = "rero_ils.modules.patrons.api:patron_id_minter"
 patron_transaction_event_id = "rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_minter"
 patron_transaction_id = "rero_ils.modules.patron_transactions.api:patron_transaction_id_minter"
 patron_type_id = "rero_ils.modules.patron_types.api:patron_type_id_minter"
-stat_id = "rero_ils.modules.stats.api.api:stat_id_minter"
+remote_entity_id = "rero_ils.modules.entities.remote_entities.api:remote_entity_id_minter"
 stat_cfg_id = "rero_ils.modules.stats_cfg.api:stat_cfg_id_minter"
+stat_id = "rero_ils.modules.stats.api.api:stat_id_minter"
 template_id = "rero_ils.modules.templates.api:template_id_minter"
-entity_id = "rero_ils.modules.entities.minters:id_minter"
 vendor_id = "rero_ils.modules.vendors.api:vendor_id_minter"
 
 [project.entry-points."invenio_records.jsonresolver"]
@@ -379,8 +401,8 @@ item_types = "rero_ils.modules.item_types.jsonresolver"
 items = "rero_ils.modules.items.jsonresolver"
 libraries = "rero_ils.modules.libraries.jsonresolver"
 loans = "rero_ils.modules.loans.jsonresolver"
-local_fields = "rero_ils.modules.local_fields.jsonresolver"
 local_entities = "rero_ils.modules.entities.local_entities.jsonresolver"
+local_fields = "rero_ils.modules.local_fields.jsonresolver"
 locations = "rero_ils.modules.locations.jsonresolver"
 notifications = "rero_ils.modules.notifications.jsonresolver"
 organisations = "rero_ils.modules.organisations.jsonresolver"
@@ -401,8 +423,8 @@ acq_receipts = "rero_ils.modules.acquisition.acq_receipts.mappings"
 budgets = "rero_ils.modules.acquisition.budgets.mappings"
 circ_policies = "rero_ils.modules.circ_policies.mappings"
 collections = "rero_ils.modules.collections.mappings"
-remote_entities = "rero_ils.modules.entities.remote_entities.mappings"
 documents = "rero_ils.modules.documents.mappings"
+files = "rero_ils.modules.files.mappings"
 holdings = "rero_ils.modules.holdings.mappings"
 ill_requests = "rero_ils.modules.ill_requests.mappings"
 item_types = "rero_ils.modules.item_types.mappings"
@@ -418,48 +440,45 @@ patron_transaction_events = "rero_ils.modules.patron_transaction_events.mappings
 patron_transactions = "rero_ils.modules.patron_transactions.mappings"
 patron_types = "rero_ils.modules.patron_types.mappings"
 patrons = "rero_ils.modules.patrons.mappings"
+remote_entities = "rero_ils.modules.entities.remote_entities.mappings"
 stats = "rero_ils.modules.stats.mappings"
 stats_cfg = "rero_ils.modules.stats_cfg.mappings"
 templates = "rero_ils.modules.templates.mappings"
 vendors = "rero_ils.modules.vendors.mappings"
-files = "rero_ils.modules.files.mappings"
 
 [project.entry-points."invenio_search.templates"]
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
 rero_ils = "rero_ils.es_templates:list_es_templates"
 
-[project.entry-points."invenio_base.finalize_app"]
-rero_ils = "rero_ils.modules.ext:finalize_app"
-rero_files = "rero_invenio_files.ext:finalize_app"
-
-# [project.entry-points."invenio_base.api_finalize_app"]
-# rero_ils = "rero_ils.modules.ext:api_finalize_app"
+# ---------------------------------------------------------------------------
+# Tool configurations
+# ---------------------------------------------------------------------------
 
 [tool.poe.tasks]
+# Scripts
 bootstrap = {cmd = "./scripts/bootstrap", help = "Runs bootstrap"}
 console = {cmd = "./scripts/console", help = "Opens invenio shell"}
-cypress = {cmd = "./scripts/cypress", help = "Runs Cypress tests"}
-format =  {cmd = "ruff format rero_ils tests", help = "Formats all files"}
+server = {cmd = "./scripts/server", help = "Starts the server"}
+setup = {cmd = "./scripts/setup", help = "Runs setup"}
+update = {cmd = "./scripts/update", help = "Runs update"}
+# Code quality
+format = {cmd = "ruff format rero_ils tests", help = "Formats all files"}
 lint = {cmd = "ruff check rero_ils tests", help = "Checks linting"}
+# Tests
+cypress = {cmd = "./scripts/cypress", help = "Runs Cypress tests"}
 run_tests = {cmd = "./scripts/test", help = "Runs all tests"}
 tests = {cmd = "pytest", help = "pytest"}
 tests_debug = {cmd = "pytest -s -vv --no-cov", help = "pytest -s -vv --no-cov"}
-setup = {cmd = "./scripts/setup", help = "Runs setup"}
-update = {cmd = "./scripts/update", help = "Runs update"}
-server = {cmd  = "./scripts/server", help = "Starts the server"}
-
 # Translations
 compile_catalog = {cmd = "pybabel compile -d rero_ils/translations/", help = "compile message catalogs to MO files"}
-extract_messages = {cmd = "pybabel extract rero_ils/ --project --copyright-holder=RERO --project=RERO_ILS --msgid-bugs-address=software@rero.ch -F babel.ini -o rero_ils/translations/messages.pot -c NOTE", help = "extract messages from source files and generate a POT file"}
+extract_messages = {cmd = "pybabel extract rero_ils/ -F babel.ini --project --copyright-holder=RERO --project=RERO_ILS --msgid-bugs-address=software@rero.ch -o rero_ils/translations/messages.pot -c NOTE", help = "extract messages from source files and generate a POT file"}
 init_catalog = {cmd = "pybabel init -i rero_ils/translations/messages.pot -d rero_ils/translations/", help = "create new message catalogs from a POT file"}
 update_catalog = {cmd = "pybabel update -i rero_ils/translations/messages.pot -d rero_ils/translations", help = "update existing message catalogs from a POT file"}
 
 [tool.pytest.ini_options]
 addopts = "--color=yes --ruff --exclude-warning-annotations --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=rero_ils/config.py -m \"not external\""
 testpaths = ["tests", "rero_ils"]
-# custom markers
 markers = ["external: mark a test as dealing with external services."]
-# not displaying all the PendingDeprecationWarnings from invenio
 filterwarnings = "ignore::PendingDeprecationWarning"
 
 [tool.ruff]
@@ -472,13 +491,3 @@ ignore = ["A001", "A002", "D100", "D101", "D103", "D200", "D202", "D205", "D400"
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257"
-
-[build-system]
-requires = ["uv_build"]
-build-backend = "uv_build"
-
-[tool.uv.build-backend]
-module-root = "."
-
-[tool.uv]
-package = true
