@@ -114,9 +114,10 @@ def test_document_and_holdings_serializers(
     assert response.status_code == 200
     data = get_json(response)
     record = data["hits"]["hits"][0]["metadata"]
-    assert record.get("location", {}).get("name")
-    assert record.get("library", {}).get("name")
-    assert record.get("circulation_category", {}).get("name")
+    assert "name" in record.get("location", {})
+    assert "public_note" in record.get("location", {})
+    assert "name" in record.get("library", {})
+    assert "name" in record.get("circulation_category", {})
 
 
 def test_loans_serializers(

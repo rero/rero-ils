@@ -1020,7 +1020,13 @@
     "pickup_name": "MARTIGNY-PUBLIC: Public Space",
     "is_ill_pickup": true,
     "ill_pickup_name": "MARTIGNY-PUBLIC: ILL Public Space",
-    "allow_request": true
+    "allow_request": true,
+    "public_note": [
+      {
+        "language": "en",
+        "label": "Consultation by appointment only"
+      }
+    ]
   },
   "loc2": {
     "$schema": "https://bib.rero.ch/schemas/locations/location-v0.0.1.json",

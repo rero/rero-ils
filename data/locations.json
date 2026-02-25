@@ -16,6 +16,12 @@
     "pid": "2",
     "code": "AOSTE-CANT1-BIBLIOGR",
     "name": "Bibliographie vald\u00f4taine",
+    "public_note": [
+      {
+        "language": "fr",
+        "label": "Accessible seulement les jours de semaine"
+      }
+    ],
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/1"
     },
@@ -25,6 +31,12 @@
     "pid": "3",
     "code": "AOSTE-CANT1-MAGA",
     "name": "Magasin A",
+    "public_note": [
+      {
+        "language": "fr",
+        "label": "D\u00e9lai de traitement 24h"
+      }
+    ],
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/1"
     },
@@ -76,6 +88,12 @@
     "pid": "9",
     "code": "AOSTE-AVISE-ENF",
     "name": "Section enfants",
+    "public_note": [
+      {
+        "language": "fr",
+        "label": "Accessible seulement le mercredi."
+      }
+    ],
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/3"
     },
@@ -140,6 +158,12 @@
     "pid": "16",
     "code": "HOG-RESTR",
     "name": "Restricted Section",
+    "public_note": [
+      {
+        "language": "en",
+        "label": "Only open to professors or with an authorization"
+      }
+    ],
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/5"
     },

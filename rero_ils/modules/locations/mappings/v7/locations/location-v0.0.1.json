@@ -70,6 +70,16 @@
       "allow_request": {
         "type": "boolean"
       },
+      "public_note": {
+        "properties": {
+          "language": {
+            "type": "keyword"
+          },
+          "label": {
+            "type": "text"
+          }
+        }
+      },
       "restrict_pickup_to": {
         "properties": {
           "type": {

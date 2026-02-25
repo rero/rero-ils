@@ -50,8 +50,10 @@ class HoldingsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         metadata["circulation_category"] = circ_category.dumps()
         # Library & location
         if pid := metadata.get("location", {}).get("pid"):
-            loc_name = self.get_resource(LocationsSearch(), pid)["name"]
-            metadata["location"]["name"] = loc_name
+            if loc := self.get_resource(LocationsSearch(), pid):
+                metadata["location"]["name"] = loc["name"]
+                if public_note := loc.get("public_note"):
+                    metadata["location"]["public_note"] = public_note
         if pid := metadata.get("library", {}).get("pid"):
             lib_name = self.get_resource(LibrariesSearch(), pid)["name"]
             metadata["library"]["name"] = lib_name

@@ -15,6 +15,7 @@
   "propertiesOrder": [
     "name",
     "code",
+    "public_note",
     "is_online",
     "is_pickup",
     "pickup_name",
@@ -63,6 +64,69 @@
       "widget": {
         "formlyConfig": {
           "focus": true
+        }
+      }
+    },
+    "public_note": {
+      "title": "Public note",
+      "description": "A short note displayed to the public about this location.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Note",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "language",
+          "label"
+        ],
+        "propertiesOrder": [
+          "language",
+          "label"
+        ],
+        "properties": {
+          "language": {
+            "$ref": "https://bib.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string",
+            "maxLength": 140,
+            "minLength": 3,
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "placeholder": "Example: Request delay 24h",
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-9"
+                }
+              }
+            }
+          }
+        },
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
+            }
+          }
+        }
+      },
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "language"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per language is allowed."
+              }
+            }
+          }
         }
       }
     },
