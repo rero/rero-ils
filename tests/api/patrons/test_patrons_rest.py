@@ -591,8 +591,8 @@ def test_patrons_expired(client, librarian_martigny, patron_martigny):
     login_user_via_session(client, librarian_martigny.user)
     list_url = url_for("invenio_records_rest.ptrn_list", simple="1")
     res = client.get(list_url)
-    hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 6
+    total_patrons = get_json(res)["hits"]["total"]["value"]
+    assert total_patrons == 6
 
     original_expiration_date = patron_martigny["patron"]["expiration_date"]
     patron_martigny["patron"]["barcode"] = ["4098124352"]
@@ -603,8 +603,14 @@ def test_patrons_expired(client, librarian_martigny, patron_martigny):
 
     list_url = url_for("invenio_records_rest.ptrn_list", expired="true", simple="1")
     res = client.get(list_url)
-    hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    expired_patrons = get_json(res)["hits"]["total"]["value"]
+    assert expired_patrons == 1
+
+    expected_not_expired = total_patrons - expired_patrons
+    not_expired_url = url_for("invenio_records_rest.ptrn_list", not_expired="true", simple="1")
+    res = client.get(not_expired_url)
+    not_expired_patrons = get_json(res)["hits"]["total"]["value"]
+    assert not_expired_patrons == expected_not_expired
 
     patron_martigny["patron"]["expiration_date"] = original_expiration_date
     patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
