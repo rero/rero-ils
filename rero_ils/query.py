@@ -30,6 +30,7 @@ from invenio_records_rest.errors import InvalidQueryRESTError
 from werkzeug.datastructures import ImmutableMultiDict, MultiDict
 
 from rero_ils.modules.ill_requests.models import ILLRequestStatus
+from rero_ils.modules.loans.models import LoanState
 
 from .facets import default_facets_factory
 from .modules.items.models import TypeOfItem
@@ -320,6 +321,7 @@ def circulation_search_factory(self, search, query_parser=None):
     Restricts results to organisation level for librarian and sys_lib.
     Restricts results to its loans for users with role patron.
     Exclude to_anonymize loans from results.
+    For patrons with keep_history=False, only non-concluded loans are shown.
     """
     search, urlkwargs = search_factory(self, search)
     # a user can be patron and librarian, it should search in his own loan and
@@ -330,7 +332,13 @@ def circulation_search_factory(self, search, query_parser=None):
     if current_librarian:
         filters |= Q("term", organisation__pid=current_librarian.organisation_pid)
     if current_patrons:
-        filters |= Q("terms", patron_pid=[ptrn.pid for ptrn in current_patrons])
+        for ptrn in current_patrons:
+            if ptrn.user.user_profile.get("keep_history", True):
+                # patron wants to keep history: show all their loans
+                filters |= Q("term", patron_pid=ptrn.pid)
+            else:
+                # patron opted out of history: only show active (non-concluded) loans
+                filters |= Q("term", patron_pid=ptrn.pid) & ~Q("terms", state=LoanState.CONCLUDED)
     if filters is not Q("match_none"):
         search = search.filter("bool", must=[filters])
 

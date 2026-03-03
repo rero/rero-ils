@@ -79,8 +79,3 @@ def update_from_profile(sender, user, **kwargs):
     """
     for patron in Patron.get_patrons_by_user(user):
         patron.reindex()
-        if patron.is_patron:
-            from ..loans.api import anonymize_loans
-
-            if not user.user_profile.get("keep_history", True):
-                anonymize_loans(patron=patron, dbcommit=True, reindex=True)

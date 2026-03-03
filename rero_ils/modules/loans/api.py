@@ -23,8 +23,7 @@ from bisect import bisect_right
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
-from dateutil.relativedelta import relativedelta
-from elasticsearch_dsl import A, Q
+from elasticsearch_dsl import A
 from flask import current_app
 from flask_babel import gettext as _
 from invenio_circulation.errors import MissingRequiredParameterError
@@ -888,38 +887,20 @@ class Loan(IlsRecord):
     def get_anonymized_candidates(cls):
         """Search for loans to anonymize.
 
-        Depending on the related patron `keep_history` setting, there is two
-        ways for searching loan candidates to:
-        1) If the patron specifies to keep transaction history : we keep
-           history for the 6 last months. After this delay, all loans will be
-           anonymized anyway.
-        2) If the patron doesn't specify to keep history : we can anonymize
-           related loans except if they are not concluded than 3 months ago
-           (we need to keep transactions for the last 3 months for circulation
-           management).
+        Returns all concluded loans older than the configured time limit
+        (default: 12 months) that have not yet been anonymized, regardless of
+        patron history preferences.
 
-        :return: a generator of `Loan` candidate to anonymize.
+        :return: a generator of `Loan` candidates to anonymize.
         """
-        three_month_ago = datetime.now() - relativedelta(months=3)
-        six_month_ago = datetime.now() - relativedelta(months=6)
-
-        patron_query = PatronsSearch().filter(
-            "bool",
-            must_not=[Q("exists", field="keep_history"), Q("term", keep_history=True)],
-        )
-        anonym_patron_pids = [h.pid for h in patron_query.source("pid").scan()]
+        limit = current_app.config.get("RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT", math.inf)
+        time_limit = datetime.now() - timedelta(days=limit)
 
         query = (
             LoansSearch()
             .filter("terms", state=LoanState.CONCLUDED)
             .filter("term", to_anonymize=False)
-            .filter(
-                "bool",
-                should=[
-                    Q("range", transaction_date={"lt": six_month_ago}),
-                    (Q("terms", patron_pid=anonym_patron_pids) & Q("range", transaction_date={"lt": three_month_ago})),
-                ],
-            )
+            .filter("range", transaction_date={"lt": time_limit})
             .source(False)
         )
         for hit in list(query.scan()):
@@ -944,57 +925,22 @@ class Loan(IlsRecord):
         return 0
 
     @classmethod
-    def can_anonymize(cls, loan_data=None, patron=None):
-        """Check if a loan can be anonymized and excluded from loan searches.
+    def can_anonymize(cls, loan_data=None):
+        """Check if a loan can be anonymized.
 
-        Loan can be anonymized if:
-        1. it is concluded and 6 months old
-        2. patron has the keep_history set to False and the loan is concluded.
-
-        This method is class method because it needs to check the loan record
-        during the loan.update process. this way, you can have access to the
-        old and new version of the loan.
+        A loan can be anonymized when it is concluded and older than the
+        configured time limit (default: 12 months). The patron's keep_history
+        preference does not affect when a loan gets anonymized; it only
+        controls visibility in the patron profile.
 
         :param loan_data: the loan data to check (could be a `Loan` or a dict).
-        :param patron: the patron to check.
         :return: True if the loan can be anonymized, False otherwise.
         """
-        # force `loan_data` as a `Loan` object instance if it's not yet.
         loan = loan_data if isinstance(loan_data, cls) else cls(loan_data)
-
-        # CHECK #1 : Is the loan is concluded ?
-        #   If the loan is still alive (item in loan, item requested), we can't
-        #   anonymize it
         if not loan.is_concluded():
             return False
-
-        # CHECK #2 : is the loan is an old loan ?
-        #   A concluded loan, older than a limit, could always be anonymized.
-        #   Limit could be configured by 'RERO_ILS_ANONYMISATION_TIME_LIMIT'
-        #   key into `config.py`.
-        max_limit = current_app.config.get("RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT", math.inf)
-        loan_age = loan.age()
-        if loan_age > max_limit:
-            return True
-
-        # CHECK #3 : is the loan is just concluded ?
-        #   Circulation management and/or library manager needs to keep loan
-        #   information for a delay (in days) after the concluded date anyway.
-        min_limit = current_app.config.get("RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT", -math.inf)
-        if loan_age < (min_limit + 1):
-            return False
-
-        # CHECK #5 : Check about patron preferences
-        #   Patron could specify if it wants to keep transaction history or not
-        patron_pid = loan_data.get("patron_pid")
-        patron = patron or Patron.get_record_by_pid(patron_pid)
-        keep_history = True
-        if patron:
-            keep_history = patron.user.user_profile.get("keep_history", True)
-        else:
-            msg = f"Cannot anonymize loan: {loan_data.get('pid')} no patron: {loan_data.get('patron_pid')}"
-            current_app.logger.warning(msg)
-        return not keep_history
+        limit = current_app.config.get("RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT", math.inf)
+        return loan.age() >= limit
 
 
 def action_required_params(action=None):
@@ -1243,7 +1189,7 @@ def anonymize_loans(patron=None, org_pid=None, dbcommit=False, reindex=False):
     """
     counter = 0
     for loan in get_non_anonymized_loans(patron=patron, org_pid=org_pid):
-        if Loan.can_anonymize(loan_data=loan, patron=patron):
+        if Loan.can_anonymize(loan_data=loan):
             loan.anonymize(loan, dbcommit=dbcommit, reindex=reindex)
             counter += 1
     return counter

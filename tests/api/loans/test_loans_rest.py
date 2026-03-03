@@ -658,3 +658,96 @@ def test_librarian_request_on_blocked_user(
     assert res.status_code == 403
     data = get_json(res)
     assert "blocked" in data.get("message")
+
+
+def test_keep_history_loan_visibility(
+    client,
+    librarian_martigny,
+    loc_public_martigny,
+    item_on_loan_martigny_patron_and_loan_on_loan,
+):
+    """Test that keep_history controls patron visibility of concluded loans.
+
+    A patron with keep_history=False must not see their concluded loans in the
+    search API, but must still see their active loans. A librarian must see all
+    loans regardless of the patron's keep_history preference.
+    """
+    item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
+    active_loan_pid = loan.pid
+    loan_search_url = url_for("invenio_records_rest.loanid_list")
+
+    # -------------------------------------------------------------------------
+    # CHECK #1: patron with keep_history=False DOES see their active loan
+    # -------------------------------------------------------------------------
+    patron.set_keep_history(False)
+    login_user_via_session(client, patron.user)
+    res = client.get(loan_search_url)
+    assert res.status_code == 200
+    pids = [h["id"] for h in get_json(res)["hits"]["hits"]]
+    assert active_loan_pid in pids
+
+    # -------------------------------------------------------------------------
+    # SETUP: checkin to produce a concluded loan
+    # -------------------------------------------------------------------------
+    login_user_via_session(client, librarian_martigny.user)
+    res, _ = postdata(
+        client,
+        "api_item.checkin",
+        {
+            "item_pid": item.pid,
+            "pid": active_loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
+    )
+    assert res.status_code == 200
+    LoansSearch.flush_and_refresh()
+
+    concluded_loan = Loan.get_record_by_pid(active_loan_pid)
+    assert concluded_loan["state"] in LoanState.CONCLUDED
+
+    # -------------------------------------------------------------------------
+    # CHECK #2: patron with keep_history=False does NOT see concluded loans
+    # -------------------------------------------------------------------------
+    login_user_via_session(client, patron.user)
+    res = client.get(loan_search_url)
+    assert res.status_code == 200
+    pids = [h["id"] for h in get_json(res)["hits"]["hits"]]
+    assert active_loan_pid not in pids
+
+    # -------------------------------------------------------------------------
+    # CHECK #3: patron with keep_history=True DOES see their concluded loan
+    # -------------------------------------------------------------------------
+    patron.set_keep_history(True)
+    res = client.get(loan_search_url)
+    assert res.status_code == 200
+    pids = [h["id"] for h in get_json(res)["hits"]["hits"]]
+    assert active_loan_pid in pids
+
+    # -------------------------------------------------------------------------
+    # CHECK #4: librarian sees all loans regardless of patron's keep_history
+    # -------------------------------------------------------------------------
+    patron.set_keep_history(False)
+    login_user_via_session(client, librarian_martigny.user)
+    res = client.get(loan_search_url)
+    assert res.status_code == 200
+    pids = [h["id"] for h in get_json(res)["hits"]["hits"]]
+    assert active_loan_pid in pids
+
+    # -------------------------------------------------------------------------
+    # CHECK #5: once anonymized, nobody sees the loan — not even the librarian
+    # -------------------------------------------------------------------------
+    concluded_loan.anonymize(dbcommit=True, reindex=True)
+    LoansSearch.flush_and_refresh()
+
+    res = client.get(loan_search_url)
+    assert res.status_code == 200
+    pids = [h["id"] for h in get_json(res)["hits"]["hits"]]
+    assert active_loan_pid not in pids
+
+    patron.set_keep_history(True)
+    login_user_via_session(client, patron.user)
+    res = client.get(loan_search_url)
+    assert res.status_code == 200
+    pids = [h["id"] for h in get_json(res)["hits"]["hits"]]
+    assert active_loan_pid not in pids

@@ -3619,10 +3619,10 @@ RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION = 10
 # =============================================================================
 # ANONYMIZATION PROCESS CONFIGURATION
 # =============================================================================
-# Specify the delay (in days) under which no loan can"t be anonymized anyway (for circulation management process).
-RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT = 3 * 365 / 12
-# Specify the delay (in days) when a loan should be anonymized anyway after it concluded.
-RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT = 6 * 365 / 12
+# Specify the delay (in days) after which a concluded loan is anonymized.
+# All concluded loans are anonymized after this delay regardless of the patron
+# keep_history preference (default: 12 months).
+RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT = 365
 
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.item_exists

@@ -42,7 +42,7 @@ def loan_anonymizer(dbcommit=True, reindex=True):
     """
     counter = 0
     for loan in Loan.get_anonymized_candidates():
-        if Loan.can_anonymize(loan_data=loan, patron=None):
+        if Loan.can_anonymize(loan_data=loan):
             loan.anonymize(dbcommit=dbcommit, reindex=reindex)
             counter += 1
 
