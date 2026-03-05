@@ -2959,10 +2959,10 @@ RECORDS_REST_SORT_OPTIONS["items"]["barcode"] = dict(
 )
 
 RECORDS_REST_SORT_OPTIONS["items"]["call_number"] = dict(
-    fields=["call_number.raw"], title="Call Number", default_order="asc"
+    fields=["sort_call_number"], title="Call Number", default_order="asc"
 )
 RECORDS_REST_SORT_OPTIONS["items"]["second_call_number"] = dict(
-    fields=["second_call_number.raw"], title="Second call Number", default_order="asc"
+    fields=["sort_second_call_number"], title="Second call Number", default_order="asc"
 )
 RECORDS_REST_SORT_OPTIONS["items"]["issue_expected_date"] = dict(
     fields=["issue.expected_date"], title="Issue expected date", default_order="asc"

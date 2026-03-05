@@ -80,3 +80,10 @@ def enrich_item_data(
         ):
             claims_data["dates"] = dates
         json["issue"]["claims"] = claims_data
+
+    if sort_call_number := json.get("call_number") or json.get("issue", {}).get("inherited_first_call_number"):
+        json["sort_call_number"] = sort_call_number
+    if sort_second_call_number := json.get("second_call_number") or json.get("issue", {}).get(
+        "inherited_second_call_number"
+    ):
+        json["sort_second_call_number"] = sort_second_call_number

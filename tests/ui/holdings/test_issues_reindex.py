@@ -121,6 +121,22 @@ def test_inherited_call_numbers_after_holdings_update(
     item = Item.get_record(item.id)
     assert ItemsSearch().filter("term", issue__inherited_first_call_number__raw="cote1").count() == 1
     assert ItemsSearch().filter("term", call_numbers__raw="cote1").count() == 1
+    # sort_call_number must use the inherited call number when item has none
+    assert ItemsSearch().filter("term", sort_call_number="cote1").count() == 1
+
+    # set a call_number directly on the issue item: it must take priority over
+    # the inherited one for sorting
+    item["call_number"] = "item-own-cote"
+    item.update(item, dbcommit=True, reindex=True)
+    ItemsSearch.flush_and_refresh()
+    assert ItemsSearch().filter("term", sort_call_number="item-own-cote").count() == 1
+    assert ItemsSearch().filter("term", sort_call_number="cote1").count() == 0
+
+    # remove the item call_number again to restore the inherited behaviour
+    item.pop("call_number", None)
+    item.update(item, dbcommit=True, reindex=True)
+    ItemsSearch.flush_and_refresh()
+    assert ItemsSearch().filter("term", sort_call_number="cote1").count() == 1
 
     # delete holdings first call number and change the second call_number
     holding.pop("call_number", None)
@@ -137,6 +153,8 @@ def test_inherited_call_numbers_after_holdings_update(
     assert ItemsSearch().filter("term", call_numbers__raw="cote2").count() == 1
     assert ItemsSearch().filter("term", issue__inherited_first_call_number__raw="cote1").count() == 0
     assert ItemsSearch().filter("term", call_numbers__raw="cote1").count() == 0
+    assert ItemsSearch().filter("term", sort_second_call_number="cote2").count() == 1
+    assert ItemsSearch().filter("term", sort_call_number="cote1").count() == 0
 
     # clean up data
     holding.update(initial_holding_data, dbcommit=True, reindex=True)

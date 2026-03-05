@@ -65,6 +65,12 @@
           }
         }
       },
+      "sort_call_number": {
+        "type": "keyword"
+      },
+      "sort_second_call_number": {
+        "type": "keyword"
+      },
       "enumerationAndChronology": {
         "type": "keyword",
         "fields": {
