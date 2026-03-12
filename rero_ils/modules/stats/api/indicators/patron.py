@@ -68,6 +68,7 @@ class NumberOfPatronsCfg(IndicatorCfg):
                 format="yyyy",
             ),
             "postal_code": A("terms", field="postal_code", size=self.cfg.aggs_size),
+            "local_codes": A("terms", field="local_codes", size=self.cfg.aggs_size),
             "gender": A("terms", field="gender", size=self.cfg.aggs_size),
             "role": A("terms", field="roles", size=self.cfg.aggs_size),
             "type": A("terms", field="patron.type.pid", size=self.cfg.aggs_size),
@@ -89,6 +90,7 @@ class NumberOfPatronsCfg(IndicatorCfg):
             "birth_year": lambda: bucket.key_as_string,
             "gender": lambda: bucket.key,
             "postal_code": lambda: bucket.key,
+            "local_codes": lambda: bucket.key,
             "role": lambda: bucket.key,
         }
         return cfg[distribution]()

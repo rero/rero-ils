@@ -897,6 +897,7 @@
               "patron_type",
               "patron_age",
               "patron_postal_code",
+              "patron_local_codes",
               "document_type",
               "transaction_channel"
             ]
@@ -940,6 +941,10 @@
                     "label": "patron_postal_code"
                   },
                   {
+                    "value": "patron_local_codes",
+                    "label": "patron_local_codes"
+                  },
+                  {
                     "value": "document_type",
                     "label": "document_type"
                   },
@@ -971,6 +976,7 @@
               "patron_type",
               "patron_age",
               "patron_postal_code",
+              "patron_local_codes",
               "document_type",
               "transaction_channel",
               "pickup_location"
@@ -1011,6 +1017,10 @@
                     "label": "patron_postal_code"
                   },
                   {
+                    "value": "patron_local_codes",
+                    "label": "patron_local_codes"
+                  },
+                  {
                     "value": "document_type",
                     "label": "document_type"
                   },
@@ -1044,6 +1054,7 @@
               "gender",
               "type",
               "postal_code",
+              "local_codes",
               "birth_year",
               "role"
             ]
@@ -1073,6 +1084,10 @@
                   {
                     "value": "postal_code",
                     "label": "postal_code"
+                  },
+                  {
+                    "value": "local_codes",
+                    "label": "local_codes"
                   },
                   {
                     "value": "birth_year",
