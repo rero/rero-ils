@@ -58,7 +58,7 @@ success_msg() {
 msg "PROGRAM: ${PROGRAM}"
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dcst: -l deploy,ci,sip2,tgz_package: -- "$@")
+if ! options=$(getopt -o dct: -l deploy,ci,tgz_package: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -69,7 +69,6 @@ flags=()
 deploy=false
 cmd="uv sync --frozen"
 ci=false
-sip2=false
 tgz_file=""
 while test $# -gt 0
 do
@@ -87,9 +86,6 @@ do
         error_msg+exit "package tgz file does not exist: ${tgz_file}"
       fi
       shift ;;
-    -s|--sip2)
-        # install extra sip2 package
-        sip2=true ;;
     (--) shift; break;;
     (-*) flags+=("$1") ;;
     (*) break;;
@@ -111,10 +107,6 @@ else
     if $ci ; then
         cmd="uv sync --upgrade"
     fi
-fi
-
-if $sip2  ; then
-  flags+=( "--extra sip2" )
 fi
 
 # BOOTSTRAP START

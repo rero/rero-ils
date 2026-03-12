@@ -34,13 +34,13 @@ jobs:
     - name: Bootstrap
       if: ${{ matrix.dependencies == 'dev' }}
       run: |
-        uv run ./scripts/bootstrap --ci --sip2
+        uv run ./scripts/bootstrap --ci
 
     - name: Bootstrap deploy
       if: ${{ matrix.dependencies == 'deploy' }}
       run: |
         uv pip list
-        uv run ./scripts/bootstrap --ci --deploy --sip2 E2E=yes
+        uv run ./scripts/bootstrap --ci --deploy E2E=yes
 
     - name: Run Test
       run: |

@@ -71,7 +71,6 @@
       "title": "Public note",
       "description": "A short note displayed to the public about this location.",
       "type": "array",
-      "minItems": 1,
       "items": {
         "title": "Note",
         "type": "object",
