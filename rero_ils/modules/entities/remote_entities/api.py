@@ -7,9 +7,9 @@
 import contextlib
 from functools import partial
 
-from elasticsearch_dsl.query import Q
 from flask import current_app
 from invenio_db import db
+from opensearch_dsl.query import Q
 from urllib3.exceptions import HTTPError
 
 from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch

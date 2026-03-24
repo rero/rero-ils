@@ -59,20 +59,15 @@ fi
 
 function pretests () {
   info_msg "Check vulnerabilities:"
-  # urrlib3 is pinned because of ES compatibility until migration to OpenSearch
-  # urllib3 1.26.20 GHSA-pq67-6m6q-mj2v 2.5.0
-  add_exceptions "GHSA-pq67-6m6q-mj2v"
-  # urllib3 1.26.20 CVE-2025-66418 2.6.0
-  add_exceptions "CVE-2025-66418"
-  # urllib3 1.26.20 CVE-2025-66471 2.6.0
-  add_exceptions "CVE-2025-66471"
-  # urllib3   1.26.20 CVE-2026-21441 2.6.3
-  add_exceptions "CVE-2026-21441"
-  # urllib3 1.26.20 CVE-2026-44431 2.7.0
-  add_exceptions "CVE-2026-44431"
   # pytest needs to be updated by pytest-invenio
   # pytest 8.4.2   CVE-2025-71176 9.0.3
   add_exceptions "CVE-2025-71176"
+  # flask-cors 6.0.2   PYSEC-2024-271 (no fix version available)
+  add_exceptions "PYSEC-2024-271"
+  # markdown 3.10.2    PYSEC-2026-89  (no fix version available)
+  add_exceptions "PYSEC-2026-89"
+  # pyjwt 2.12.1       PYSEC-2025-183 (no fix version available)
+  add_exceptions "PYSEC-2025-183"
   pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"

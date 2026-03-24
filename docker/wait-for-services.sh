@@ -20,7 +20,7 @@ _db_check(){ docker compose exec --user postgres db bash -c "pg_isready" &>/dev/
 check_ready "postgres" _db_check
 
 _es_check(){ [[ $(curl -sL -w "%{http_code}\\n" "http://localhost:9200/" -o /dev/null)==200 ]]; }
-check_ready "Elasticsearch" _es_check
+check_ready "OpenSearch" _es_check
 
 _redis_check(){ [[ $(docker compose exec cache bash -c "redis-cli ping")=="PONG" ]]; }
 check_ready "redis" _redis_check

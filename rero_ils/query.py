@@ -7,11 +7,11 @@ import re
 from datetime import UTC, datetime
 
 from dateutil.relativedelta import relativedelta
-from elasticsearch_dsl.query import Q
 from flask import abort, current_app, request
 from flask import request as flask_request
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError
+from opensearch_dsl.query import Q
 from werkzeug.datastructures import ImmutableMultiDict, MultiDict
 
 from rero_ils.modules.ill_requests.models import ILLRequestStatus
@@ -417,7 +417,7 @@ def search_factory(self, search, query_parser=None):
     """
 
     def _default_parser(qstr=None, query_boosting=None):
-        """Default parser that uses the Q() from elasticsearch_dsl."""
+        """Default parser that uses the Q() from opensearch_dsl."""
         query_type = "query_string"
         # avoid search index errors when it can't convert a boolean or
         # numerical values during the query

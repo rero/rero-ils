@@ -4,10 +4,10 @@
 
 """Blueprint used for loading templates."""
 
-from elasticsearch_dsl.query import Q
 from flask import Blueprint, current_app, render_template, url_for
 from flask_babel import gettext as _
 from invenio_records_ui.signals import record_viewed
+from opensearch_dsl.query import Q
 
 from rero_ils.modules.entities.api import Entity
 from rero_ils.modules.entities.helpers import get_entity_record_from_data

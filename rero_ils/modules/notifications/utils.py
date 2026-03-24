@@ -5,7 +5,7 @@
 """Utilities functions for notifications."""
 
 import ciso8601
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 
 from rero_ils.modules.circ_policies.api import (
     DUE_SOON_REMINDER_TYPE,

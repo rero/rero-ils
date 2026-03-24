@@ -42,7 +42,7 @@ def test_remote_entity_create(app, entity_person_data_tmp, caplog):
 
     pers.delete_from_index()
     # test the messages from current_app.logger
-    assert caplog.records[0].name == "elasticsearch"
+    assert caplog.records[0].name == "opensearch"
     assert caplog.record_tuples[1] == (
         "invenio",
         30,

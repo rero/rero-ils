@@ -6,7 +6,7 @@
 from unittest import mock
 
 import pytest
-from elasticsearch import NotFoundError
+from opensearchpy import NotFoundError
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.indexer_utils import record_to_index
@@ -64,7 +64,7 @@ def test_record_to_index(app):
 
 
 def test_get_resource_from_ES(document):
-    """Test get_resource from ElasticSearch engine."""
+    """Test get_resource from OpenSearch engine."""
     metadata = DocumentsSearch().get_record_by_pid("doc1")
     assert metadata
     fields = ["pid", "title"]

@@ -6,9 +6,9 @@
 
 from unittest import mock
 
-from elasticsearch_dsl.search import Response
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from opensearch_dsl.search import Response
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.operation_logs.api import OperationLogsSearch

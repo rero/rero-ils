@@ -5,7 +5,7 @@
 
 from datetime import datetime
 
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 
 
 def patron_expiration_filter(expired=True):

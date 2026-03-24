@@ -6,7 +6,7 @@
 
 import re
 
-from elasticsearch_dsl.aggs import A
+from opensearch_dsl.aggs import A
 
 from rero_ils.modules.loans.logs.api import LoanOperationLogsSearch
 from rero_ils.modules.locations.api import LocationsSearch

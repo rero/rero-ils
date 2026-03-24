@@ -42,14 +42,14 @@ uv run ./scripts/bootstrap
 ```
 
 Start all dependent services using docker-compose (this will start PostgreSQL,
-Elasticsearch 6, RabbitMQ and Redis):
+OpenSearch 2, RabbitMQ and Redis):
 
 ```console
 docker-compose up -d
 ```
 
-Make sure you have [enough virtual memory](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode)
-for Elasticsearch in Docker:
+Make sure you have [enough virtual memory](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/#important-host-settings)
+for OpenSearch in Docker:
 
 ```shell
 # Linux

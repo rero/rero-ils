@@ -174,7 +174,7 @@ class SyncEntity:
             :returns: iterator over all pids
 
             The scroll is done using the slice scroll feature:
-            https://www.elastic.co/guide/en/elasticsearch/reference/8.5/paginate-search-results.html#slice-scroll
+            https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search
             """
             self.logger.info("Processing: %s MEF records", total)
             if total > 2 * chunk_size:
@@ -379,7 +379,7 @@ class SyncEntity:
         :param from_date: (string) only the MEF records updated on the MEF
             server after the given date will be considered.
         :param in_memory: (boolean) is the record could be stored in memory
-            instead of using generator. Use to avoid ElasticSearch timeout
+            instead of using generator. Use to avoid OpenSearch timeout
             problem in case of big data set.
         :returns: the number of updated documents, the number of updated MEF
             records, the list of MEF pids that generate an error.

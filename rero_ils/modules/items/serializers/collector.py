@@ -6,8 +6,8 @@
 import itertools
 
 import ciso8601
-from elasticsearch_dsl import A
 from flask import current_app
+from opensearch_dsl import A
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.local_fields.api import LocalField

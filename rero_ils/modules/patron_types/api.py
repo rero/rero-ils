@@ -6,8 +6,8 @@
 
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from opensearch_dsl import Q
 
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
@@ -50,8 +50,8 @@ class PatronTypesSearch(IlsRecordsSearch):
         """Build a search to get hits related to an organisation pid.
 
         :param organisation_pid: string - the organisation pid to filter with
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `opensearch_dsl.Search`
         """
         return self.filter("term", organisation__pid=organisation_pid)
 

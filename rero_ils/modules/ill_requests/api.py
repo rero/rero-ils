@@ -8,9 +8,9 @@ from datetime import UTC, datetime
 from functools import partial
 
 from dateutil.relativedelta import relativedelta
-from elasticsearch_dsl.query import Q
 from flask import current_app
 from flask_babel import gettext as _
+from opensearch_dsl.query import Q
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher

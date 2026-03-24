@@ -10,8 +10,6 @@ from uuid import uuid4
 
 import click
 from celery import current_app as current_celery_app
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch.helpers import bulk
 from flask import current_app
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
@@ -26,6 +24,8 @@ from invenio_search.engine import search
 from jsonschema import FormatChecker
 from jsonschema.exceptions import ValidationError
 from kombu.compat import Consumer
+from opensearchpy.exceptions import NotFoundError
+from opensearchpy.helpers import bulk
 from sqlalchemy import text
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -93,13 +93,13 @@ class IlsRecordsSearch(RecordsSearch):
         current_search.flush_and_refresh(cls.Meta.index)
 
     def get_record_by_pid(self, pid, fields=None):
-        """Get ElasticSearch hit by pid.
+        """Get OpenSearch hit by pid.
 
         :param pid: the record PID to retrieve.
         :param fields: a list of field to return. If ``None`` all fields will
             be returned.
-        :returns: An ``AttrDict`` representing the ElasticSearch hit found.
-        :raise NotFoundError: If the record cannot be found into ElasticSearch
+        :returns: An ``AttrDict`` representing the OpenSearch hit found.
+        :raise NotFoundError: If the record cannot be found into OpenSearch
         """
         if hit := next(self.get_records_by_pids([pid], fields), None):
             return hit
@@ -111,7 +111,7 @@ class IlsRecordsSearch(RecordsSearch):
         :param pids: the list of record pids to retrieve.
         :param fields: a list of field to return. If ``None`` all fields will
             be returned.
-        :returns: A generator of ``AttrDict`` representing ElasticSearch hits
+        :returns: A generator of ``AttrDict`` representing OpenSearch hits
             found.
         """
         assert type(pids) is list
@@ -557,7 +557,7 @@ class IlsRecordsIndexer(RecordIndexer):
         """Process bulk indexing queue.
 
         :param dict search_bulk_kwargs: Passed to
-            :func:`elasticsearch:elasticsearch.helpers.bulk`.
+            :func:`opensearchpy.helpers.bulk`.
         :param boolean stats_only: if `True` only report number of
             successful/failed operations instead of just number of
             successful and a list of error responses

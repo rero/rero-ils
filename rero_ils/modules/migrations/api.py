@@ -6,8 +6,8 @@
 from datetime import UTC, datetime
 from enum import Enum
 
-from elasticsearch_dsl import Date, Document, Index, Keyword, Text
-from elasticsearch_dsl.exceptions import ValidationException
+from opensearch_dsl import Date, Document, Index, Keyword, Text
+from opensearch_dsl.exceptions import ValidationException
 from werkzeug.utils import import_string
 
 from rero_ils.modules.libraries.api import Library
@@ -46,7 +46,7 @@ class Status(Keyword):
 
 
 class Migration(Document):
-    """Migration Resource (ElasticSearch only)."""
+    """Migration Resource (OpenSearch only)."""
 
     name = Text(fields={"raw": Keyword()}, required=True)
     description = Text(fields={"raw": Keyword()})

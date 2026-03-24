@@ -7,7 +7,7 @@
 import contextlib
 from functools import partial
 
-from elasticsearch import NotFoundError
+from opensearchpy import NotFoundError
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord

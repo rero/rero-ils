@@ -92,10 +92,10 @@ def search(appctx):
     should used the function-scoped :py:data:`search_clear` fixture to leave the
     indexes clean for the following tests.
     """
-    from elasticsearch.exceptions import NotFoundError as ESNotFoundError
-    from elasticsearch.exceptions import RequestError as ESRequestError
     from invenio_search import current_search, current_search_client
     from invenio_search.errors import IndexAlreadyExistsError
+    from opensearchpy.exceptions import NotFoundError as ESNotFoundError
+    from opensearchpy.exceptions import RequestError as ESRequestError
 
     try:
         list(current_search.put_templates(ignore=[400]))

@@ -8,9 +8,9 @@ import contextlib
 from datetime import UTC, datetime
 from functools import partial
 
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Q
 from invenio_search import current_search_client
+from opensearch_dsl import Q
+from opensearchpy.exceptions import NotFoundError
 
 from rero_ils.modules.api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsSearch
