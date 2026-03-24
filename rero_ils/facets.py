@@ -5,12 +5,12 @@
 
 from copy import deepcopy
 
-from elasticsearch_dsl import Q
 from flask import current_app, request
 from invenio_base.utils import obj_or_import_string
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.facets import _aggregations, _query_filter
 from invenio_records_rest.utils import make_comma_list_a_list
+from opensearch_dsl import Q
 from six import text_type
 from werkzeug.datastructures import MultiDict
 

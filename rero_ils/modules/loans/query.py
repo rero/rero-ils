@@ -4,7 +4,7 @@
 
 """Query factories for Document REST API."""
 
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 
 
 def misc_status_filter():
@@ -15,7 +15,7 @@ def misc_status_filter():
       - request_expire: loans with a `request_expire_date` lower than current
         timestamp.
 
-    :return: Function allowing to filter the ElasticSearch query.
+    :return: Function allowing to filter the OpenSearch query.
     """
 
     def inner(values):

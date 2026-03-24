@@ -6,9 +6,9 @@
 import contextlib
 
 import click
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Index
 from flask.cli import with_appcontext
+from opensearch_dsl import Index
+from opensearchpy.exceptions import NotFoundError
 
 from rero_ils.modules.migrations.api import Migration, MigrationStatus
 from rero_ils.modules.utils import draw_data_table

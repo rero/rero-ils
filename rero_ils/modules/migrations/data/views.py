@@ -6,11 +6,11 @@
 import json
 from datetime import UTC, datetime
 
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Index
 from flask import Blueprint, abort
 from flask import request as flask_request
 from invenio_rest import ContentNegotiatedMethodView
+from opensearch_dsl import Index
+from opensearchpy.exceptions import NotFoundError
 
 from rero_ils.modules.documents.dumpers.indexer import IndexerDumper
 from rero_ils.modules.documents.extensions import (

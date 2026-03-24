@@ -55,7 +55,7 @@ class NotificationsSearch(IlsRecordsSearch):
         """Get the query to retrieve claim notifications about an issue.
 
         :param item_pid: the item pid related to the claim notification.
-        :returns: a ElasticSearch query object.
+        :returns: a OpenSearch query object.
         """
         return self.filter("term", context__item__pid=item_pid).filter(
             "term", notification_type=NotificationType.CLAIM_ISSUE

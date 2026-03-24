@@ -731,33 +731,6 @@ wheels = [
 ]
 
 [[package]]
-name = "elasticsearch"
-version = "7.13.4"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "certifi" },
-    { name = "urllib3" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/06/50/220b2d903eccaf6065b4d2d546c06d216e3c8eabcb8d9cd56af691cb712b/elasticsearch-7.13.4.tar.gz", hash = "sha256:52dda85f76eeb85ec873bf9ffe0ba6849e544e591f66d4048a5e48016de268e0", size = 218961, upload-time = "2021-07-20T17:09:12.967Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/7f/82/c3ce164af6f1e4f82e747c50e684b3fd74c418b194c2062e0e30ade933f0/elasticsearch-7.13.4-py2.py3-none-any.whl", hash = "sha256:5920df0ab2630778680376d86bea349dc99860977eec9b6d2bd0860f337313f2", size = 356300, upload-time = "2021-07-20T17:09:09.711Z" },
-]
-
-[[package]]
-name = "elasticsearch-dsl"
-version = "7.4.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "elasticsearch" },
-    { name = "python-dateutil" },
-    { name = "six" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/0c/7d/dcd5493c707db180c5fc71f0d69b34b590418ee4fd1b06284df552926609/elasticsearch-dsl-7.4.1.tar.gz", hash = "sha256:07ee9c87dc28cc3cae2daa19401e1e18a172174ad9e5ca67938f752e3902a1d5", size = 56722, upload-time = "2023-03-01T20:58:53.301Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/7a/35/5be0558cb93b69d8da5235d0f9448b8fdaccb988b60c8e18f332632d3d9b/elasticsearch_dsl-7.4.1-py2.py3-none-any.whl", hash = "sha256:97f79239a252be7c4cce554c29e64695d7ef6a4828372316a5e5ff815e7a7498", size = 64110, upload-time = "2023-03-01T20:58:50.791Z" },
-]
-
-[[package]]
 name = "email-validator"
 version = "2.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -800,6 +773,14 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/0e/70/429ee91d941b4969571fca658f3350eb5e217f04e4aa9bc295b77613ec3b/ephem-4.2.1-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:15bc51d5c926b65ec15742042de79f6181a979809a6f9da1bd8d6abfb23415b7", size = 1795831, upload-time = "2026-02-28T09:47:42.703Z" },
     { url = "https://files.pythonhosted.org/packages/9b/92/cc35c78c00894e64d312960507ee84c9fa76919ffca28a7f92ffa59bda20/ephem-4.2.1-cp314-cp314t-win32.whl", hash = "sha256:ce86665355d88e4e7ccc3b9e9c74905a2c6ad51c27433e5c98371a7ea38ad502", size = 1407887, upload-time = "2026-02-28T09:47:44.374Z" },
     { url = "https://files.pythonhosted.org/packages/da/c8/b0f1788a6a87a0a18e799b73486329f33f0ae4c152d62bca46476e76fc35/ephem-4.2.1-cp314-cp314t-win_amd64.whl", hash = "sha256:c4e6e15dc6ccc22504e27aea58a06f8308fd7eb007947d16dfcea6a3aec28b4d", size = 1424698, upload-time = "2026-02-28T09:47:46.38Z" },
+]
+
+[[package]]
+name = "events"
+version = "0.5"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/25/ed/e47dec0626edd468c84c04d97769e7ab4ea6457b7f54dcb3f72b17fcd876/Events-0.5-py3-none-any.whl", hash = "sha256:a7286af378ba3e46640ac9825156c93bdba7502174dd696090fdfcd4d80a1abd", size = 6758, upload-time = "2023-07-31T08:23:13.645Z" },
 ]
 
 [[package]]
@@ -1934,9 +1915,9 @@ wheels = [
 ]
 
 [package.optional-dependencies]
-elasticsearch7 = [
-    { name = "elasticsearch" },
-    { name = "elasticsearch-dsl" },
+opensearch2 = [
+    { name = "opensearch-dsl" },
+    { name = "opensearch-py" },
 ]
 
 [[package]]
@@ -2711,6 +2692,36 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/7a/d8/a1bcc8ba112a627f8ffbdc212a78ce18d3ac07e91a5ca65d27918eee25a1/oauthlib-4.0.0.tar.gz", hash = "sha256:efb274799819440f95b4ab3b818869f1ce9ae26c5beacba0201d1a1b76b54f86", size = 187232, upload-time = "2026-09-28T06:01:18.77Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d9/f4/78229a1066068ca14fc60fb26cf7381cabe4382261392b90e5f9552722d4/oauthlib-4.0.0-py3-none-any.whl", hash = "sha256:624c28c13a0a59cabf9747dfa52af63be3e512a7f2714df16e91b5b3a145e6cd", size = 159715, upload-time = "2026-09-28T06:01:17.008Z" },
+]
+
+[[package]]
+name = "opensearch-dsl"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "opensearch-py" },
+    { name = "python-dateutil" },
+    { name = "six" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e6/f9/ebf7132d42c367522c5cface5c92ec78218ed5778651d05d620627dd9371/opensearch-dsl-2.1.0.tar.gz", hash = "sha256:e54ad0d754358233503e0c08e85b77dbe07d6c00babeae62c81d8cee11965ae6", size = 67097, upload-time = "2023-03-21T23:43:56.272Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bf/28/1b06a9314f49892843f1559fb47c30d17771ba838ee01a3c0c638832101a/opensearch_dsl-2.1.0-py2.py3-none-any.whl", hash = "sha256:31559b738b48ed5abe87b357205a040fa1dc64042a6454ad2d6854050d911ba0", size = 63775, upload-time = "2023-03-21T23:43:54.287Z" },
+]
+
+[[package]]
+name = "opensearch-py"
+version = "2.8.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "certifi" },
+    { name = "events" },
+    { name = "python-dateutil" },
+    { name = "requests" },
+    { name = "urllib3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/7c/e4/192c97ca676c81f69e138a22e10fb03f64e14a55633cb2acffb41bf6d061/opensearch_py-2.8.0.tar.gz", hash = "sha256:6598df0bc7a003294edd0ba88a331e0793acbb8c910c43edf398791e3b2eccda", size = 237923, upload-time = "2024-11-29T21:06:02.952Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/23/35/a957c6fb88ff6874996be688448b889475cf0ea978446cd5a30e764e0561/opensearch_py-2.8.0-py3-none-any.whl", hash = "sha256:52c60fdb5d4dcf6cce3ee746c13b194529b0161e0f41268b98ab8f1624abe2fa", size = 353492, upload-time = "2024-11-29T21:05:56.075Z" },
 ]
 
 [[package]]
@@ -3572,7 +3583,6 @@ dependencies = [
     { name = "babel" },
     { name = "bootstrap-flask" },
     { name = "ciso8601" },
-    { name = "click" },
     { name = "dateparser" },
     { name = "dcxml" },
     { name = "deepdiff" },
@@ -3605,7 +3615,7 @@ dependencies = [
     { name = "invenio-records-rest" },
     { name = "invenio-records-ui" },
     { name = "invenio-rest" },
-    { name = "invenio-search", extra = ["elasticsearch7"] },
+    { name = "invenio-search", extra = ["opensearch2"] },
     { name = "invenio-search-ui" },
     { name = "invenio-sip2" },
     { name = "isbnlib" },
@@ -3627,7 +3637,6 @@ dependencies = [
     { name = "sentry-sdk" },
     { name = "sqlalchemy-celery-beat" },
     { name = "unidecode" },
-    { name = "urllib3" },
     { name = "xmltodict" },
 ]
 
@@ -3653,7 +3662,6 @@ requires-dist = [
     { name = "babel", specifier = ">=2.16.0" },
     { name = "bootstrap-flask", specifier = ">=2.5.0" },
     { name = "ciso8601" },
-    { name = "click", specifier = ">=8.3.3" },
     { name = "dateparser", specifier = ">=1.1.1" },
     { name = "dcxml", specifier = ">=0.1.2" },
     { name = "deepdiff", specifier = ">=5.5.0" },
@@ -3686,7 +3694,7 @@ requires-dist = [
     { name = "invenio-records-rest", specifier = ">=6.0.2" },
     { name = "invenio-records-ui", specifier = ">=2.0.0" },
     { name = "invenio-rest", specifier = ">=3.0.0" },
-    { name = "invenio-search", extras = ["elasticsearch7"], specifier = ">=3.0.0" },
+    { name = "invenio-search", extras = ["opensearch2"], specifier = ">=3.0.0" },
     { name = "invenio-search-ui", specifier = ">=4.0.0" },
     { name = "invenio-sip2", specifier = ">=0.6.25" },
     { name = "isbnlib", specifier = ">=3.9.1" },
@@ -3702,13 +3710,12 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=0.13.0" },
     { name = "pyyaml", specifier = ">=5.3.1" },
     { name = "requests", specifier = ">=2.23.0" },
-    { name = "rero-invenio-base", specifier = ">=1.3.0" },
-    { name = "rero-invenio-files", specifier = ">=1.0.0" },
+    { name = "rero-invenio-base", git = "https://github.com/rerowep/rero-invenio-base?rev=wep-opensearch" },
+    { name = "rero-invenio-files", git = "https://github.com/rerowep/rero-invenio-files?rev=wep-opensearch" },
     { name = "rero-invenio-thumbnails", specifier = ">=2.0.0" },
     { name = "sentry-sdk" },
     { name = "sqlalchemy-celery-beat", specifier = ">=0.8.3" },
     { name = "unidecode", specifier = ">=1.3.8" },
-    { name = "urllib3", specifier = "<2.0.0" },
     { name = "xmltodict" },
 ]
 
@@ -3731,39 +3738,31 @@ prod = [
 
 [[package]]
 name = "rero-invenio-base"
-version = "1.3.0"
-source = { registry = "https://pypi.org/simple" }
+version = "1.4.0"
+source = { git = "https://github.com/rerowep/rero-invenio-base?rev=wep-opensearch#4c32dca099622dee7d229bcfdff9dda11cf56886" }
 dependencies = [
     { name = "babel" },
     { name = "invenio-db", extra = ["postgresql"] },
     { name = "invenio-i18n" },
     { name = "invenio-records-rest" },
-    { name = "invenio-search", extra = ["elasticsearch7"] },
+    { name = "invenio-search", extra = ["opensearch2"] },
     { name = "jsonpatch" },
     { name = "pyyaml" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/38/a6/7eb559ae573c55ed2912aa0fd971ef372f01bdf551f0725e6c60358938a3/rero_invenio_base-1.3.0.tar.gz", hash = "sha256:e4357d63e610ddca40ae0ca21ebac7941d88ed433d847519977471e616f4cd7b", size = 36210, upload-time = "2026-08-27T12:02:49.87Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/1d/5f/84beeb7ddaa5a4a60bb13897fb8526a652af1aa6a1c60c26d267bce1a035/rero_invenio_base-1.3.0-py3-none-any.whl", hash = "sha256:d16254163e7484ab90782ac5142fded3ecc006a35bfde6a3a5c6416e534b82c5", size = 48160, upload-time = "2026-08-27T12:02:48.78Z" },
 ]
 
 [[package]]
 name = "rero-invenio-files"
 version = "2.0.2"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "https://github.com/rerowep/rero-invenio-files?rev=wep-opensearch#e40010066d437db37cdb12d584ecba01aff64fe2" }
 dependencies = [
     { name = "fpdf2" },
     { name = "invenio-db", extra = ["postgresql"] },
     { name = "invenio-previewer" },
     { name = "invenio-records-resources" },
-    { name = "invenio-search", extra = ["elasticsearch7"] },
+    { name = "invenio-search", extra = ["opensearch2"] },
     { name = "pillow" },
     { name = "poethepoet" },
     { name = "pymupdf" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/b3/df/290ba98bd1661928dbd0a42232b470b94e9939ffcfcf0251fe2552d2a2fc/rero_invenio_files-2.0.2.tar.gz", hash = "sha256:d7c8b34c00811e61e442c966815beec1d76e13d2b2bfe8a74322a7c343a4e127", size = 1455322, upload-time = "2026-09-07T06:37:01.78Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c5/f5/606e5affafc5a2e9660f1eea1a38cc3c299809e16e2668eb2517b16ed0ee/rero_invenio_files-2.0.2-py3-none-any.whl", hash = "sha256:b980f292f143bfa39c31d5a0d2bebda09de1def26e5a001f7cbc0f8bf9a083b1", size = 1463864, upload-time = "2026-09-07T06:37:00.583Z" },
 ]
 
 [[package]]
@@ -4335,11 +4334,11 @@ wheels = [
 
 [[package]]
 name = "urllib3"
-version = "1.26.20"
+version = "2.8.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/e4/e8/6ff5e6bc22095cfc59b6ea711b687e2b7ed4bdb373f7eeec370a97d7392f/urllib3-1.26.20.tar.gz", hash = "sha256:40c2dc0c681e47eb8f90e7e27bf6ff7df2e677421fd46756da1161c39ca70d32", size = 307380, upload-time = "2024-08-29T15:43:11.37Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e3/05/b17359e1cefb4f909b5e40b1b90a496d987258916dbbf88e842c729f510e/urllib3-2.8.0.tar.gz", hash = "sha256:63bf2ead4c879426ebf22ef2a781eeb4aa3b4ae798a0435506f8687fd5bb9b63", size = 458972, upload-time = "2026-09-15T19:29:36.253Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/33/cf/8435d5a7159e2a9c83a95896ed596f68cf798005fe107cc655b5c5c14704/urllib3-1.26.20-py2.py3-none-any.whl", hash = "sha256:0ed14ccfbf1c30a9072c7ca157e4319b70d65f623e91e7b32fadb2853431016e", size = 144225, upload-time = "2024-08-29T15:43:08.921Z" },
+    { url = "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl", hash = "sha256:0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3", size = 135717, upload-time = "2026-09-15T19:29:34.577Z" },
 ]
 
 [package.optional-dependencies]

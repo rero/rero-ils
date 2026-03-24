@@ -6,13 +6,13 @@
 
 from functools import partial
 
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Q
 from flask import current_app
 from invenio_access.permissions import system_identity
 from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
+from opensearch_dsl import Q
+from opensearchpy.exceptions import NotFoundError
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
@@ -67,8 +67,8 @@ class DocumentsSearch(IlsRecordsSearch):
         :param subjects: search on `subject` field.
         :param imported_subjects: search on `imported_subject` field.
         :param genre_forms: search on `genre_forms` field.
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `opensearch_dsl.Search`
         """
         field = f"contribution.entity.pids.{entity.resource_type}"
         filters = Q("term", **{field: entity.pid})
@@ -87,8 +87,8 @@ class DocumentsSearch(IlsRecordsSearch):
         """Build a search to get hits related to a library pid.
 
         :param library_pid: string - the library pid to filter with
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `opensearch_dsl.Search`
         """
         return self.filter("term", holdings__organisation__library_pid=library_pid)
 

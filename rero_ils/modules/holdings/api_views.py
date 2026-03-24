@@ -6,7 +6,6 @@
 from copy import deepcopy
 from functools import wraps
 
-from elasticsearch import exceptions
 from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
 from invenio_circulation.errors import (
@@ -15,6 +14,7 @@ from invenio_circulation.errors import (
 )
 from invenio_db import db
 from jinja2.exceptions import TemplateSyntaxError, UndefinedError
+from opensearchpy import exceptions
 from werkzeug.exceptions import NotFound, Unauthorized
 
 from rero_ils.modules.decorators import check_authentication

@@ -6,8 +6,8 @@
 from contextlib import suppress
 from datetime import UTC, datetime
 
-from elasticsearch_dsl.query import Q
 from flask_babel import gettext as _
+from opensearch_dsl.query import Q
 
 from rero_ils.modules.api import IlsRecord
 from rero_ils.modules.holdings.models import HoldingTypes

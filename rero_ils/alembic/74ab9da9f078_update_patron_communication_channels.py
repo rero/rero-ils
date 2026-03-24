@@ -5,8 +5,8 @@
 
 from logging import getLogger
 
-from elasticsearch_dsl import Q
 from invenio_db import db
+from opensearch_dsl import Q
 
 from rero_ils.modules.patrons.api import Patron, PatronsIndexer, PatronsSearch
 from rero_ils.modules.patrons.models import CommunicationChannel

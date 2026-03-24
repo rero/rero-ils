@@ -153,7 +153,7 @@ def test_sru_search_backend_error(client):
     """Test SRU returns a diagnostic on non-recoverable search backend error."""
     from unittest.mock import patch
 
-    from elasticsearch.exceptions import RequestError as ESRequestError
+    from opensearchpy.exceptions import RequestError as ESRequestError
 
     from rero_ils.modules.documents.api import DocumentsSearch
 
@@ -172,7 +172,7 @@ def test_sru_search_window_overflow(client):
     """Test SRU returns zero results when search result window is exceeded."""
     from unittest.mock import patch
 
-    from elasticsearch.exceptions import RequestError as ESRequestError
+    from opensearchpy.exceptions import RequestError as ESRequestError
 
     from rero_ils.modules.documents.api import DocumentsSearch
 

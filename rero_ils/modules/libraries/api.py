@@ -11,9 +11,9 @@ from zoneinfo import ZoneInfo
 
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from opensearch_dsl import Q
+from opensearchpy.exceptions import NotFoundError
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -58,8 +58,8 @@ class LibrariesSearch(IlsRecordsSearch):
         """Build a search to get hits related to an organisation pid.
 
         :param organisation_pid: string - the organisation pid to filter with
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `opensearch_dsl.Search`
         """
         return self.filter("term", organisation__pid=organisation_pid)
 

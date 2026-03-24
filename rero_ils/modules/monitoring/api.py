@@ -6,10 +6,10 @@
 from datetime import UTC, datetime, timedelta
 
 import click
-from elasticsearch.exceptions import NotFoundError
 from flask import current_app
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import RecordsSearch
+from opensearchpy.exceptions import NotFoundError
 from sqlalchemy import text
 
 DB_CONNECTION_COUNTS_QUERY = text(

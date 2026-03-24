@@ -47,10 +47,10 @@ services:
     extends:
       file: docker-services.yml
       service: mq
-  es:
+  os:
     extends:
       file: docker-services.yml
-      service: es
+      service: os
     # Required to order es_init below. `_cluster/health` answers 200 whatever the
     # state, yellow included, so the colour is not part of the test.
     healthcheck:
@@ -91,13 +91,13 @@ services:
         condition: service_healthy
       mq:
         condition: service_healthy
-      es:
+      os:
         condition: service_healthy
     command:
       - "-fsS"
       - "-X"
       - "PUT"
-      - "http://es:9200/_template/dev-single-shard"
+      - "http://os:9200/_template/dev-single-shard"
       - "-H"
       - "Content-Type: application/json"
       - "-d"

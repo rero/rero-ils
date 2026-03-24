@@ -4,7 +4,7 @@
 """Test cli."""
 
 from click.testing import CliRunner
-from elasticsearch_dsl import Index
+from opensearch_dsl import Index
 
 from rero_ils.modules.migrations.api import Migration
 from rero_ils.modules.migrations.cli import create, delete, destroy, get, init, update

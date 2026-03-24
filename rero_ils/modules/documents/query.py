@@ -7,8 +7,8 @@
 import re
 from datetime import datetime
 
-from elasticsearch_dsl import Q
 from flask import abort, request
+from opensearch_dsl import Q
 
 
 def acquisition_filter():
@@ -96,7 +96,10 @@ def nested_identified_filter():
         #  * "(bf:Local)kw(2) --> id_type=bf:Local, id_value=kw(2)
         regexp = re.compile(r"^(\((?P<id_type>[\w\d:]+)\))?(?P<id_value>.*)$")
         matches = re.match(regexp, identifier)
-        criteria = Q("wildcard", nested_identifiers__value=matches["id_value"])
+        # Apply the same normalization as the identifier-analyzer (strip hyphens,
+        # lowercase) so the wildcard query matches the analyzed tokens in the index.
+        id_value = matches["id_value"].replace("-", "").lower()
+        criteria = Q("wildcard", nested_identifiers__value=id_value)
         if matches["id_type"]:
             criteria &= Q("match", nested_identifiers__type=matches["id_type"])
         return Q("nested", path="nested_identifiers", query=criteria)
