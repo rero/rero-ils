@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2022-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Test item circulation extend actions at external library."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import ciso8601
 from freezegun import freeze_time
@@ -70,7 +70,7 @@ def test_item_loans_extend_duration(
             extend_action_date = (end_date - timedelta(days=1)).replace(hour=15)
             with freeze_time(extend_action_date.isoformat()):
                 duration = get_extension_params(loan, parameter_name="duration_default")
-                now = datetime.now(timezone.utc)
+                now = datetime.now(UTC)
                 utc_end_date = now + duration
                 # computed end date at the library timezone
                 end_date = utc_end_date.astimezone(tz=lib_martigny.get_timezone())

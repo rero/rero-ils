@@ -18,9 +18,8 @@
 """API for manipulating item records."""
 
 from contextlib import suppress
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
-import pytz
 from elasticsearch_dsl.query import Q
 from flask_babel import gettext as _
 
@@ -112,7 +111,7 @@ class ItemRecord(IlsRecord):
                 return _("Temporary circulation category cannot be the same than default circulation category.")
             if tmp_itty.get("end_date"):
                 end_date = date_string_to_utc(tmp_itty.get("end_date"))
-                if end_date <= pytz.utc.localize(datetime.now()):
+                if end_date <= datetime.now(UTC):
                     return _("Temporary circulation category end date must be a date in the future.")
 
         return True
@@ -181,7 +180,7 @@ class ItemRecord(IlsRecord):
 
         status = data.get("issue", {}).get("status")
         item = cls.get_record_by_pid(data.get("pid"))
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
 
         if item:  # item already exists
             if status and status != item.issue_status:
@@ -397,7 +396,7 @@ class ItemRecord(IlsRecord):
         # location isn't yet over.
         if tmp_location := self.get("temporary_location"):
             if end_date := tmp_location.get("end_date"):
-                now_date = pytz.utc.localize(datetime.now())
+                now_date = datetime.now(UTC)
                 end_date = date_string_to_utc(end_date)
                 if now_date > end_date:
                     return self.get_location()
@@ -427,7 +426,7 @@ class ItemRecord(IlsRecord):
         if tmp_item_type := self.get("temporary_item_type", {}):
             # if the temporary_item_type end_date is over : return none
             if end_date := tmp_item_type.get("end_date"):
-                now_date = pytz.utc.localize(datetime.now())
+                now_date = datetime.now(UTC)
                 end_date = date_string_to_utc(end_date)
                 if now_date > end_date:
                     return None

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -209,15 +209,10 @@ class User:
             raise ValidationError(str(e)) from e
 
     @classmethod
-    @property
-    def fields(cls):
-        """Validate password."""
-        return cls.profile_fields + cls.user_fields
-
-    @classmethod
     def remove_fields(cls, data):
-        """."""
-        return {k: v for k, v in data.items() if k not in cls.fields}
+        """Remove user-specific fields from data."""
+        fields = cls.profile_fields + cls.user_fields
+        return {k: v for k, v in data.items() if k not in fields}
 
     @classmethod
     def get_record(cls, user_id):

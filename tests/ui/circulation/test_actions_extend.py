@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 """Test item circulation extend actions."""
 
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import ciso8601
 import pytest
@@ -73,7 +73,7 @@ def test_fees_after_extend(
     # LIBRARY FIXTURES EXCEPTION: Christmas Holidays is 15 days
     interval = 20
     while not loan.is_loan_overdue():
-        new_end_date = datetime.now(timezone.utc) - timedelta(days=interval)
+        new_end_date = datetime.now(UTC) - timedelta(days=interval)
         loan["end_date"] = new_end_date.isoformat()
         interval += 1
     loan.update(loan, dbcommit=True, reindex=True)
@@ -100,7 +100,7 @@ def test_fees_after_extend(
     # UPDATE LOAN TO BE OVERDUE
     interval = 10
     while not loan.is_loan_overdue():
-        new_end_date = datetime.now(timezone.utc) - timedelta(days=interval)
+        new_end_date = datetime.now(UTC) - timedelta(days=interval)
         loan["end_date"] = new_end_date.isoformat()
         interval += 1
     loan.update(loan, dbcommit=True, reindex=True)
@@ -240,13 +240,13 @@ def test_extend_on_item_on_loan_with_no_requests(
         "transaction_location_pid": loc_public_martigny.pid,
         "transaction_user_pid": librarian_martigny.pid,
     }
-    frozen_now = datetime.now(timezone.utc)
+    frozen_now = datetime.now(UTC)
     with freeze_time(frozen_now):
         item, _actions = item.extend_loan(**params)
         assert item.status == ItemStatus.ON_LOAN
         extended_loan = Loan.get_record_by_pid(initial_loan.pid)
 
-        now_lib_tz = datetime.now(timezone.utc).astimezone(lib_martigny.get_timezone())
+        now_lib_tz = datetime.now(UTC).astimezone(lib_martigny.get_timezone())
         expected_date = now_lib_tz + timedelta(days=cipo["renewal_duration"])
         expected_date_eve = expected_date - timedelta(days=1)
         expected_date = lib_martigny.next_open(expected_date_eve)

@@ -4,7 +4,7 @@
 
 rero-ils is the Python/Flask backend of the RERO ILS Integrated Library System (ILS). Some frontend elements are defined in this project as HTML/Jinja templates, the rest is a separate Angular project (rero-ils-ui) based on (ng-core).
 
-**Stack**: Python 3.12, Flask (Invenio), PostgreSQL, Elasticsearch 7, Celery, RabbitMQ, Redis
+**Stack**: Python 3.14, Flask (Invenio), PostgreSQL, Elasticsearch 7, Celery, RabbitMQ, Redis
 **Package manager**: `uv` with `poethepoet` for task running
 
 ## Commands
@@ -66,6 +66,7 @@ Each module has a `permissions.py` using `invenio-records-permissions`. Access i
 ## Code Style
 
 - Be clear and concise in the docstrings and do not over-comment the code.
+- Do not use Python type annotations (no `-> str`, `: str`, etc. in signatures).
 - Commit messages follow [Conventional Commits](https://www.conventionalcommits.org)
 
 ### Translations
@@ -74,6 +75,7 @@ Translations are only added manually before a release. During standard developme
 
 ## Testing Notes
 
+- Tests use function-based style (no class-based tests).
 - Tests are split into `tests/api/`, `tests/unit/`, `tests/ui/`, `tests/e2e/`, `tests/scheduler/`
 - The project follows a test-driven development methodology. Each commit must be accompanied by tests that ensure that the functionality works as intended. Tests must follow DRY principles and should only test specific app behaviour and not the behaviour of external modules (e.g. invenio dependencies).
 - Test fixtures (shared data) are in `tests/fixtures/` and `tests/conftest.py`

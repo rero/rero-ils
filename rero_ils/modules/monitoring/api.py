@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Monitoring utilities."""
 
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 import click
 from elasticsearch.exceptions import NotFoundError
@@ -177,7 +177,7 @@ class Monitoring:
         pids_search = []
         pids_db = []
         if index and doc_type not in self.has_no_db:
-            date = datetime.utcnow() - timedelta(minutes=self.time_delta)
+            date = datetime.now(UTC) - timedelta(minutes=self.time_delta)
             pids_search = {}
             search_query = RecordsSearch(index=index).filter("range", _created={"lte": date})
             for hit in search_query.source("pid").scan():
@@ -204,7 +204,7 @@ class Monitoring:
         info = {}
         for doc_type, endpoint in current_app.config.get("RECORDS_REST_ENDPOINTS").items():
             info[doc_type] = {}
-            date = datetime.utcnow() - timedelta(minutes=self.time_delta)
+            date = datetime.now(UTC) - timedelta(minutes=self.time_delta)
             if doc_type not in self.has_no_db:
                 count_db = self.get_db_count(doc_type, with_deleted=with_deleted, date=date)
                 count_db = count_db if isinstance(count_db, int) else 0

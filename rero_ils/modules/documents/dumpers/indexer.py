@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -270,12 +270,6 @@ class IndexerDumper(Dumper):
         self._process_host_document(record, data)
         self._process_provision_activity(record, data)
         self._process_files(record, data)
-        # import pytz
-        # from datetime import datetime
-        # iso_now = pytz.utc.localize(datetime.utcnow()).isoformat()
-        # for date_field in ['_created', '_updated']:
-        #     if not data.get(date_field):
-        #         data[date_field] = iso_now
 
         # TODO: compare record with those in DB to check which authors have
         #       to be deleted from index

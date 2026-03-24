@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@ import random
 import re
 import string
 import unicodedata
-from datetime import date, datetime, time, timezone
+from datetime import UTC, date, datetime, time
 from functools import wraps
 from io import StringIO
 from json import JSONDecodeError, JSONDecoder, dumps
@@ -34,7 +34,6 @@ from time import sleep
 
 import click
 import psycopg2
-import pytz
 import requests
 import sqlalchemy
 from dateutil import parser
@@ -134,7 +133,7 @@ def do_bulk_index(uuids, doc_type="rec", process=False, verbose=False):
 def date_string_to_utc(date):
     """Converts a date of string format to a datetime utc aware."""
     parsed_date = parser.parse(date)
-    return parsed_date if parsed_date.tzinfo else pytz.utc.localize(parsed_date)
+    return parsed_date if parsed_date.tzinfo else parsed_date.replace(tzinfo=UTC)
 
 
 def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
@@ -574,7 +573,7 @@ def set_timestamp(name, **kwargs):
     :returns: time of time stamp
     """
     time_stamps = current_cache.get("timestamps") or {}
-    utc_now = datetime.now(timezone.utc)
+    utc_now = datetime.now(UTC)
     time_stamps[name] = kwargs | {"time": utc_now, "name": name}
     if not current_cache.set(key="timestamps", value=time_stamps, timeout=0):
         current_app.logger.warning(f"Cannot set time stamp for: {name}")

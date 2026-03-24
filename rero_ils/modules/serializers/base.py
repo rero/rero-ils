@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,6 @@
 
 from copy import deepcopy
 
-import pytz
 from flask import json, request
 from flask_babel import gettext as _
 from invenio_jsonschemas import current_jsonschemas
@@ -54,8 +53,8 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
             "metadata": metadata,
             "links": links_factory(pid, record=record, **kwargs),
             "revision": record.revision_id,
-            "created": (pytz.utc.localize(record.created).isoformat() if record.created else None),
-            "updated": (pytz.utc.localize(record.updated).isoformat() if record.updated else None),
+            "created": (record.created.isoformat() if record.created else None),
+            "updated": (record.updated.isoformat() if record.updated else None),
         }
 
     @staticmethod

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Celery tasks for notification records."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from celery import shared_task
 from flask import current_app
@@ -57,7 +57,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
     from ..loans.utils import get_circ_policy
 
     types = types or []
-    tstamp = tstamp or datetime.now(timezone.utc)
+    tstamp = tstamp or datetime.now(UTC)
     logger = current_app.logger
     notification_counter = {}
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,11 +19,11 @@
 
 import csv
 import datetime
+from datetime import UTC
 from io import StringIO
 
 import arrow
 import jinja2
-import pytz
 from elasticsearch_dsl import Q
 from flask import Blueprint, abort, make_response, render_template, request
 
@@ -162,14 +162,13 @@ def stats_librarian_queries(record_pid):
 @jinja2.pass_context
 @blueprint.app_template_filter()
 def yearmonthfilter(context, value, format="%Y-%m-%dT%H:%M:%S"):
-    """Convert datetime in local timezone.
+    """Parse datetime string and assign UTC timezone.
 
-    value: datetime
+    value: datetime string
     returns: year and month of datetime
     """
-    utc = pytz.timezone("UTC")
     value = datetime.datetime.strptime(value, format)
-    value = utc.localize(value, is_dst=None).astimezone(pytz.utc)
+    value = value.replace(tzinfo=UTC)
     datetime_object = datetime.datetime.strptime(str(value.month), "%m")
     month_name = datetime_object.strftime("%b")
     return f"{month_name} {value.year}"

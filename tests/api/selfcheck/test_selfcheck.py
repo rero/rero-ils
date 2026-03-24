@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2022-2026 RERO
 # Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """Tests Selfcheck api."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from invenio_accounts.testutils import login_user_via_session
@@ -173,7 +173,7 @@ def test_patron_information(
     loan = Loan.get_record_by_pid(loan_pid)
     assert not loan.is_loan_overdue()
     # set loan on overdue
-    end_date = datetime.now(timezone.utc) - timedelta(days=7)
+    end_date = datetime.now(UTC) - timedelta(days=7)
     loan["end_date"] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     loan = Loan.get_record_by_pid(loan_pid)
@@ -308,7 +308,7 @@ def test_item_information(
 
     assert not loan.is_loan_overdue()
     # set loan on overdue
-    end_date = datetime.now(timezone.utc) - timedelta(days=7)
+    end_date = datetime.now(UTC) - timedelta(days=7)
     loan["end_date"] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     loan = Loan.get_record_by_pid(loan_pid)

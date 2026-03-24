@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,10 +19,10 @@
 """API for manipulating `Library` resources."""
 
 import contextlib
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from functools import partial
+from zoneinfo import ZoneInfo
 
-import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 from elasticsearch.exceptions import NotFoundError
@@ -195,7 +195,7 @@ class Library(IlsRecord):
             for opening_hour in opening_hours:
                 if opening_hour["is_open"]:
                     return True
-        current_timestamp = datetime.now(pytz.utc)
+        current_timestamp = datetime.now(UTC)
         for exception_date in filter(lambda d: d["is_open"], self.get("exception_dates", [])):
             start_date = date_string_to_utc(exception_date["start_date"])
             # avoid next_open infinite loop if an open exception date is
@@ -259,7 +259,7 @@ class Library(IlsRecord):
             callers that have not yet been updated.
         :type date_only: bool
         """
-        date = date or datetime.now(pytz.utc)
+        date = date or datetime.now(UTC)
         is_open = False
         rule_hours = []
 
@@ -267,7 +267,7 @@ class Library(IlsRecord):
         if isinstance(date, str):
             date = date_string_to_utc(date)
         if isinstance(date, datetime) and date.tzinfo is None:
-            date = date.replace(tzinfo=pytz.utc)
+            date = date.replace(tzinfo=UTC)
         # Prefer the explicit date_only flag; fall back to the midnight sentinel
         # (h==m==s==0) for callers that have not been updated yet.  When true,
         # the time component is reset to midnight *after* converting to the
@@ -323,7 +323,7 @@ class Library(IlsRecord):
 
     def next_open(self, date=None, previous=False, ensure=False):
         """Get next open day."""
-        date = date or datetime.now(pytz.utc)
+        date = date or datetime.now(UTC)
         if not self._has_is_open():
             raise LibraryNeverOpen(f"No open days found for library (pid: {self.pid})")
         if isinstance(date, str):
@@ -340,8 +340,8 @@ class Library(IlsRecord):
 
     def get_open_days(self, start_date=None, end_date=None):
         """Get all open days between date interval."""
-        start_date = start_date or datetime.now(pytz.utc)
-        end_date = end_date or datetime.now(pytz.utc)
+        start_date = start_date or datetime.now(UTC)
+        end_date = end_date or datetime.now(UTC)
         if isinstance(start_date, str):
             start_date = date_string_to_utc(start_date)
         if isinstance(end_date, str):
@@ -357,13 +357,13 @@ class Library(IlsRecord):
 
     def count_open(self, start_date=None, end_date=None):
         """Get number of open day between date interval."""
-        start_date = start_date or datetime.now(pytz.utc)
-        end_date = end_date or datetime.now(pytz.utc)
+        start_date = start_date or datetime.now(UTC)
+        end_date = end_date or datetime.now(UTC)
         return len(self.get_open_days(start_date, end_date))
 
     def in_working_days(self, count, date=None):
         """Get date for given working days."""
-        date = date or datetime.now(pytz.utc)
+        date = date or datetime.now(UTC)
         counting = 1
         if isinstance(date, str):
             date = date_string_to_utc(date)
@@ -431,7 +431,7 @@ class Library(IlsRecord):
         """Get library timezone."""
         # TODO: get timezone regarding Library address.
         # TODO: Use BABEL_DEFAULT_TIMEZONE by default
-        return pytz.timezone("Europe/Zurich")
+        return ZoneInfo("Europe/Zurich")
 
     def get_online_harvested_source_url(self, source):
         """Get online harvested source url."""

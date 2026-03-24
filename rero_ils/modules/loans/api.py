@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2024 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 
 import math
 from bisect import bisect_right
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import ciso8601
 from elasticsearch_dsl import A
@@ -459,7 +459,7 @@ class Loan(IlsRecord):
     def is_loan_late(self):
         """Check if the loan due_date is over."""
         due_date = ciso8601.parse_datetime(self.end_date)
-        return datetime.now(timezone.utc) > due_date
+        return datetime.now(UTC) > due_date
 
     def is_loan_overdue(self):
         """Check if the loan is overdue."""
@@ -469,7 +469,7 @@ class Loan(IlsRecord):
             return False
 
         circ_policy = get_circ_policy(self)
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         due_date = ciso8601.parse_datetime(self.end_date)
         days_after = circ_policy.initial_overdue_days
         return bool(days_after and now > due_date + timedelta(days=days_after - 1))
@@ -481,7 +481,7 @@ class Loan(IlsRecord):
                        Default to `datetime.now()`
         :returns: True if is due soon
         """
-        date = tstamp or datetime.now(timezone.utc)
+        date = tstamp or datetime.now(UTC)
         if due_soon_date := self.get("due_soon_date"):
             return ciso8601.parse_datetime(due_soon_date) <= date
         return False
@@ -550,7 +550,7 @@ class Loan(IlsRecord):
                 year=d_after.year,
                 month=d_after.month,
                 day=d_after.day,
-                tzinfo=timezone.utc,
+                tzinfo=UTC,
             )
         return None
 
@@ -704,8 +704,7 @@ class Loan(IlsRecord):
         for day_idx, day in enumerate(loan_lib.get_open_days(end_date), 1):
             # replace the hour to start of the day :: an overdue start at
             # at the beginning of the day
-            day = day.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=None)
-            day = loan_lib.get_timezone().localize(day)
+            day = day.astimezone(loan_lib.get_timezone()).replace(hour=0, minute=0, second=0, microsecond=0)
             # a) find the correct interval.
             # b) check the index found exist into intervals
             # c) check the upper limit of this interval is grower or equal
@@ -840,7 +839,7 @@ class Loan(IlsRecord):
             dispatch = n_type in NotificationType.INTERNAL_NOTIFICATIONS
 
             record = {
-                "creation_date": datetime.now(timezone.utc).isoformat(),
+                "creation_date": datetime.now(UTC).isoformat(),
                 "notification_type": n_type,
                 "context": {"loan": {"$ref": get_ref_for_pid("loans", loan.pid)}},
             }
@@ -920,7 +919,8 @@ class Loan(IlsRecord):
         """
         if value := self.get("transaction_date"):
             trans_date = ciso8601.parse_datetime(value)
-            loan_age = datetime.utcnow() - trans_date.replace(tzinfo=None)
+            trans_date = trans_date.replace(tzinfo=UTC) if trans_date.tzinfo is None else trans_date.astimezone(UTC)
+            loan_age = datetime.now(UTC) - trans_date
             return loan_age.days
         return 0
 
@@ -1088,7 +1088,7 @@ def get_due_soon_loans(tstamp=None):
 
     :param tstamp: a limit timestamp. Default is `datetime.now()`.
     """
-    end_date = tstamp or datetime.now(timezone.utc)
+    end_date = tstamp or datetime.now(UTC)
     end_date = end_date.strftime("%Y-%m-%dT%H:%M:%S.000Z")
     query = (
         current_circulation.loan_search_cls()
@@ -1108,7 +1108,7 @@ def get_expired_request(tstamp=None):
 
     :param tstamp: a limit timestamp. Default is `datetime.now()`.
     """
-    end_date = tstamp or datetime.now(timezone.utc)
+    end_date = tstamp or datetime.now(UTC)
     end_date = end_date.strftime("%Y-%m-%dT%H:%M:%S.000Z")
     query = (
         current_circulation.loan_search_cls()
@@ -1129,7 +1129,7 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
                    Default to `datetime.now()`.
     :return: a list of loan pids
     """
-    end_date = tstamp or datetime.now(timezone.utc)
+    end_date = tstamp or datetime.now(UTC)
     end_date = end_date.strftime("%Y-%m-%dT%H:%M:%S.000Z")
     query = (
         current_circulation.loan_search_cls()

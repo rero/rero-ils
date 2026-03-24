@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2022-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,10 +18,10 @@
 """Tests REST API item_types."""
 
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
+from zoneinfo import ZoneInfo
 
 import ciso8601
-import pytz
 from flask import url_for
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
@@ -272,11 +272,11 @@ def test_due_soon_loans(
     loan_date = ciso8601.parse_datetime(checkout_loan.get("end_date"))
 
     # as instance timezone is Europe/Zurich, it should be either 21 or 22
-    check_timezone_date(pytz.utc, loan_date, [21, 22])
+    check_timezone_date(UTC, loan_date, [21, 22])
 
     # should be 14:59/15:59 in US/Pacific (because of daylight saving time)
-    check_timezone_date(pytz.timezone("US/Pacific"), loan_date, [14, 15])
-    check_timezone_date(pytz.timezone("Europe/Amsterdam"), loan_date)
+    check_timezone_date(ZoneInfo("US/Pacific"), loan_date, [14, 15])
+    check_timezone_date(ZoneInfo("Europe/Amsterdam"), loan_date)
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(
@@ -331,7 +331,7 @@ def test_overdue_loans(
 
     loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
     loan = Loan.get_record_by_pid(loan_pid)
-    end_date = datetime.now(timezone.utc) - timedelta(days=7)
+    end_date = datetime.now(UTC) - timedelta(days=7)
     loan["end_date"] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
 
@@ -589,7 +589,7 @@ def test_timezone_due_date(
     # and datetime.now() in the assertion could straddle midnight (CET = UTC+1)
     # and produce different library-local calendar days, causing a spurious
     # failure when tests run after 23:00 UTC.
-    frozen_now = datetime.now(timezone.utc)
+    frozen_now = datetime.now(UTC)
     with freeze_time(frozen_now):
         # Checkout the item
         res, data = postdata(
@@ -614,7 +614,7 @@ def test_timezone_due_date(
         # computation, so results match across UTC/local day boundaries.
         lib = Library.get_record_by_pid(item.library_pid)
         lib_tz = lib.get_timezone()
-        soon = datetime.now(pytz.utc).astimezone(lib_tz) + timedelta(days=checkout_duration - 1)
+        soon = datetime.now(UTC).astimezone(lib_tz) + timedelta(days=checkout_duration - 1)
         lib_datetime = lib.next_open(soon)
 
         # Loan date should be in UTC (as lib_datetime).
@@ -627,7 +627,7 @@ It should be the same date, even if timezone changed."
         assert loan_datetime.month == lib_datetime.month, fail_msg
         assert loan_datetime.day == lib_datetime.day, fail_msg
         # Loan date differs regarding timezone, and day of the year (GMT+1/2).
-        check_timezone_date(pytz.utc, loan_datetime, [21, 22])
+        check_timezone_date(UTC, loan_datetime, [21, 22])
 
 
 def test_librarian_request_on_blocked_user(

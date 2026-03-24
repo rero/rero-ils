@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Tests REST return an item API methods in the item api_views."""
 
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 
 from flask import url_for
 from flask_babel import gettext as _
@@ -152,7 +152,7 @@ def test_checkin_overdue_item(
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
     end = date.today() - timedelta(days=30)
-    end = datetime(end.year, end.month, end.day, tzinfo=timezone.utc)
+    end = datetime(end.year, end.month, end.day, tzinfo=UTC)
     end = end - timedelta(microseconds=1)
     loan["end_date"] = end.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)

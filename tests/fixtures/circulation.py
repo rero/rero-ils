@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 """Common pytest fixtures and plugins."""
 
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from unittest import mock
 
 import pytest
@@ -407,7 +407,7 @@ def loan_pending_martigny(
 
     item_lib_fully is requested by patron2_martigny.
     """
-    transaction_date = datetime.now(timezone.utc).isoformat()
+    transaction_date = datetime.now(UTC).isoformat()
     item_lib_fully.request(
         patron_pid=patron2_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
@@ -450,7 +450,7 @@ def loan_validated_martigny(
 
     item2_lib_martigny is requested and validated to patron_martigny.
     """
-    transaction_date = datetime.now(timezone.utc).isoformat()
+    transaction_date = datetime.now(UTC).isoformat()
 
     item2_lib_martigny.request(
         patron_pid=patron_martigny.pid,
@@ -496,7 +496,7 @@ def loan2_validated_martigny(
 
     item3_lib_martigny is requested and validated to patron_martigny.
     """
-    transaction_date = datetime.now(timezone.utc).isoformat()
+    transaction_date = datetime.now(UTC).isoformat()
 
     # delete old loans
     for loan in item3_lib_martigny.get_loans_by_item_pid(item_pid=item3_lib_martigny.pid):
@@ -543,7 +543,7 @@ def loan_validated_sion(
     circulation_policies,
 ):
     """Request and validate item to a patron."""
-    transaction_date = datetime.now(timezone.utc).isoformat()
+    transaction_date = datetime.now(UTC).isoformat()
 
     item2_lib_sion.request(
         patron_pid=patron_sion.pid,
@@ -626,7 +626,7 @@ def loan_due_soon_martigny(
         patron_pid=patron_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
-        transaction_date=datetime.now(timezone.utc).isoformat(),
+        transaction_date=datetime.now(UTC).isoformat(),
         document_pid=extracted_data_from_ref(item.get("document")),
     )
     ItemsSearch.flush_and_refresh()
@@ -667,7 +667,7 @@ def loan_overdue_martigny(
 
     item4_lib_martigny is overdue.
     """
-    transaction_date = datetime.now(timezone.utc).isoformat()
+    transaction_date = datetime.now(UTC).isoformat()
 
     item4_lib_martigny.checkout(
         patron_pid=patron_martigny.pid,
@@ -679,7 +679,7 @@ def loan_overdue_martigny(
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     loan = Loan.get_record_by_pid(item4_lib_martigny.get_loan_pid_with_item_on_loan(item4_lib_martigny.pid))
-    end_date = datetime.now(timezone.utc) - timedelta(days=25)
+    end_date = datetime.now(UTC) - timedelta(days=25)
     loan["end_date"] = end_date.isoformat()
     return loan.update(loan, dbcommit=True, reindex=True)
 
@@ -731,7 +731,7 @@ def loan_overdue_saxon(
 
     item2_lib_saxon is overdue.
     """
-    transaction_date = datetime.now(timezone.utc).isoformat()
+    transaction_date = datetime.now(UTC).isoformat()
 
     item2_lib_saxon.checkout(
         patron_pid=patron_martigny.pid,
@@ -743,7 +743,7 @@ def loan_overdue_saxon(
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     loan = Loan.get_record_by_pid(item2_lib_saxon.get_loan_pid_with_item_on_loan(item2_lib_saxon.pid))
-    end_date = datetime.now(timezone.utc) - timedelta(days=25)
+    end_date = datetime.now(UTC) - timedelta(days=25)
     loan["end_date"] = end_date.isoformat()
     return loan.update(loan, dbcommit=True, reindex=True)
 
@@ -822,7 +822,7 @@ def loan_overdue_sion(
 
     item_lib_sion is overdue.
     """
-    transaction_date = datetime.now(timezone.utc).isoformat()
+    transaction_date = datetime.now(UTC).isoformat()
 
     item_lib_sion.checkout(
         patron_pid=patron_sion.pid,
@@ -834,7 +834,7 @@ def loan_overdue_sion(
     ItemsSearch.flush_and_refresh()
     LoansSearch.flush_and_refresh()
     loan = Loan.get_record_by_pid(item_lib_sion.get_loan_pid_with_item_on_loan(item_lib_sion.pid))
-    end_date = datetime.now(timezone.utc) - timedelta(days=25)
+    end_date = datetime.now(UTC) - timedelta(days=25)
     loan["end_date"] = end_date.isoformat()
     return loan.update(loan, dbcommit=True, reindex=True)
 

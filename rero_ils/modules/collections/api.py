@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2024 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """API for manipulating collections."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import partial
 
 from flask_babel import gettext as _
@@ -60,7 +60,7 @@ class CollectionsSearch(IlsRecordsSearch):
         """
         return (
             self.filter("term", items__pid=item_pid)
-            .filter("range", end_date={"gte": datetime.now(timezone.utc)})
+            .filter("range", end_date={"gte": datetime.now(UTC)})
             .sort({"end_date": {"order": "asc"}})
         )
 

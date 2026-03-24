@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """API for manipulating patron_transaction_events."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import partial
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -88,7 +88,7 @@ class PatronTransactionEvent(IlsRecord):
     ):
         """Create patron transaction event record."""
         if "creation_date" not in data:
-            data["creation_date"] = datetime.now(timezone.utc).isoformat()
+            data["creation_date"] = datetime.now(UTC).isoformat()
         record = super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
         if update_parent and record:
             record.update_parent_patron_transaction()

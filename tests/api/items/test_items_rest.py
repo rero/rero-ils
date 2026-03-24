@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@
 
 import json
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest import mock
 
 import ciso8601
@@ -673,12 +673,10 @@ def test_items_extend_end_date(
     loan = Loan.get_record_by_pid(loan_pid)
     loan_date = loan.get("end_date")
     # then process a date with current UTC date + renewal
-    current_date = datetime.now(timezone.utc)
+    current_date = datetime.now(UTC)
     calc_date = current_date + renewal_duration
     # finally the comparison should give the same date (in UTC)!
-    assert calc_date.strftime("%Y-%m-%d") == ciso8601.parse_datetime(loan_date).astimezone(timezone.utc).strftime(
-        "%Y-%m-%d"
-    )
+    assert calc_date.strftime("%Y-%m-%d") == ciso8601.parse_datetime(loan_date).astimezone(UTC).strftime("%Y-%m-%d")
 
     # checkin
     res, _ = postdata(

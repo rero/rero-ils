@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 """Loans utils."""
 
 import math
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import ciso8601
 from flask import current_app
@@ -62,7 +62,7 @@ def get_circ_policy(loan, checkout_location=False):
 
 def get_default_loan_duration(loan, initial_loan):
     """Return calculated checkout duration in number of days."""
-    now_in_utc = datetime.now(timezone.utc)
+    now_in_utc = datetime.now(UTC)
 
     # Get library (to check opening hours and get timezone)
     library = Library.get_record_by_pid(loan.library_pid)
@@ -93,7 +93,11 @@ def get_default_loan_duration(loan, initial_loan):
     end_date_in_library_timezone = end_date.astimezone(library.get_timezone()).replace(
         hour=23, minute=59, second=0, microsecond=0
     )
-    return end_date_in_library_timezone - now_in_library_timezone
+    # Convert to UTC before subtracting: zoneinfo uses a single tzinfo object
+    # for all DST states, so Python performs naive subtraction when both
+    # operands share the same tzinfo — yielding a wrong result across DST
+    # boundaries.  Converting to UTC ensures a correct timedelta.
+    return end_date_in_library_timezone.astimezone(UTC) - now_in_utc
 
 
 def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
@@ -116,7 +120,7 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
     if config_settings["from_end_date"]:
         trans_date_tz = end_date
     else:
-        now_in_utc = datetime.now(timezone.utc)
+        now_in_utc = datetime.now(UTC)
         trans_date_tz = now_in_utc.astimezone(tz=library.get_timezone())
 
     # Due date should be defined differently from checkout_duration
@@ -145,7 +149,9 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
     end_date_in_library_timezone = next_open_date.astimezone(library.get_timezone()).replace(
         hour=23, minute=59, second=0, microsecond=0
     )
-    params["duration_default"] = end_date_in_library_timezone - trans_date_tz
+    # Convert to UTC before subtracting to avoid the zoneinfo naive
+    # subtraction issue across DST boundaries (see get_default_loan_duration).
+    params["duration_default"] = end_date_in_library_timezone.astimezone(UTC) - trans_date_tz.astimezone(UTC)
     return params.get(parameter_name)
 
 
@@ -156,13 +162,11 @@ def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
     library = Library.get_record_by_pid(library_pid)
     try:
         first_open_date = library.next_open(
-            date=datetime.now(timezone.utc) + timedelta(days=renewal_duration) - timedelta(days=1)
+            date=datetime.now(UTC) + timedelta(days=renewal_duration) - timedelta(days=1)
         )
     # if library has no open dates, use the default renewal duration
     except LibraryNeverOpen:
-        first_open_date = datetime.now(timezone.utc)
-        +timedelta(days=renewal_duration)
-        -timedelta(days=1)
+        first_open_date = datetime.now(UTC) + timedelta(days=renewal_duration) - timedelta(days=1)
     return first_open_date.date() > end_date.date()
 
 

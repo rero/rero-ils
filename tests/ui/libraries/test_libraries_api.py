@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,8 +18,8 @@
 """Library Record tests."""
 
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
-import pytz
 from dateutil import parser
 
 from rero_ils.modules.libraries.api import Library
@@ -76,12 +76,12 @@ def test_libraries_is_open(lib_martigny):
     orginal_date = datetime.strptime("2020/08/17", "%Y/%m/%d")  # random date
     for day_idx in range(5):
         test_date = next_weekday(orginal_date, day_idx)
-        assert not library.is_open(tz.localize(test_date.replace(hour=6, minute=0)))
-        assert library.is_open(tz.localize(test_date.replace(hour=12, minute=0)))
+        assert not library.is_open(test_date.replace(hour=6, minute=0, tzinfo=tz))
+        assert library.is_open(test_date.replace(hour=12, minute=0, tzinfo=tz))
     test_date = next_weekday(orginal_date, 5)
-    assert not library.is_open(tz.localize(test_date))
+    assert not library.is_open(test_date.replace(tzinfo=tz))
     test_date = next_weekday(orginal_date, 6)
-    assert not library.is_open(tz.localize(test_date))
+    assert not library.is_open(test_date.replace(tzinfo=tz))
 
     # CASE 2 :: Check single exception dates
     #   * According to library setting, the '2018-12-15' day is an exception
@@ -157,7 +157,7 @@ def test_library_can_delete(lib_martigny):
 def test_library_timezone(lib_martigny):
     """Test library timezone."""
     tz = lib_martigny.get_timezone()
-    assert tz == pytz.timezone("Europe/Zurich")
+    assert tz == ZoneInfo("Europe/Zurich")
 
 
 def test_library_get_address(lib_martigny, lib_saxon):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,7 @@
 import csv
 import json
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from unittest.mock import MagicMock, Mock
 
 import jsonref
@@ -286,7 +286,9 @@ def item_record_to_a_specific_loan_state(item=None, loan_state=None, params=None
         item = create_new_item_from_existing_item(item=item)
 
     # complete missing parameters
-    params.setdefault("transaction_date", datetime.now(timezone.utc).isoformat())
+    if params is None:
+        params = {}
+    params.setdefault("transaction_date", datetime.now(UTC).isoformat())
     params.setdefault("document_pid", item.document_pid)
 
     # a parameter to allow in_transit returns

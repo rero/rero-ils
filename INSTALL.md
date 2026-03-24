@@ -37,9 +37,9 @@ in order to sandbox our Python environment, as well as manage the dependency ins
 among other things.
 
 ```console
-pyenv install 3.12
+pyenv install 3.14
 cd rero-ils
-pyenv local 3.12
+pyenv local 3.14
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 

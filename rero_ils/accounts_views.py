@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,8 +25,8 @@ from flask_security.confirmable import requires_confirmation
 from flask_security.utils import get_message, verify_and_update_password
 from invenio_accounts.utils import change_user_password
 from invenio_accounts.views.rest import ChangePasswordView as BaseChangePasswordView
+from invenio_accounts.views.rest import FlaskParser, _abort, _commit
 from invenio_accounts.views.rest import LoginView as CoreLoginView
-from invenio_accounts.views.rest import _abort, _commit, use_args, use_kwargs
 from marshmallow import Schema, fields, validates, validates_schema
 from webargs import ValidationError, validate
 from werkzeug.local import LocalProxy
@@ -36,6 +36,11 @@ from rero_ils.modules.users.api import User
 from rero_ils.modules.utils import PasswordValidatorException, password_validator
 
 current_datastore = LocalProxy(lambda: current_app.extensions["security"].datastore)
+
+
+_parser = FlaskParser(location="json_or_form")
+use_args = _parser.use_args
+use_kwargs = _parser.use_kwargs
 
 
 #
@@ -136,9 +141,8 @@ def make_password_schema(request):
     # Respect partial updates for PATCH requests
     partial = request.method == "PATCH"
     if request.json.get("username"):
-        return UsernamePassword(only=only, partial=partial, context={"request": request})
-    # Add current request to the schema's context
-    return PasswordPassword(only=only, partial=partial, context={"request": request})
+        return UsernamePassword(only=only, partial=partial)
+    return PasswordPassword(only=only, partial=partial)
 
 
 class ChangePasswordView(BaseChangePasswordView):

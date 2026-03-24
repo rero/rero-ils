@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 """Holdings records."""
 
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import partial
 
 from dateutil.relativedelta import relativedelta
@@ -636,7 +636,7 @@ class Holding(IlsRecord):
         data = {
             "issue": {
                 "status": status,
-                "status_date": datetime.now(timezone.utc).isoformat(),
+                "status_date": datetime.now(UTC).isoformat(),
                 "expected_date": expected_date,
                 "regular": True,
             },

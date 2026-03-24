@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 """Pytest configuration."""
 
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from importlib_resources import files
@@ -302,7 +302,7 @@ def vendors_schema():
 @pytest.fixture()
 def marc21_record():
     """Marc21 record."""
-    date = datetime.now(timezone.utc).isoformat()
+    date = datetime.now(UTC).isoformat()
     created = date_string_to_utc(date).strftime("%y%m%d")
     return {
         "leader": "00000cam a2200000zu 4500",

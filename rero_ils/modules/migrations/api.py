@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2024 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Migration API."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 
 from elasticsearch_dsl import Date, Document, Index, Keyword, Text
@@ -107,13 +107,13 @@ class Migration(Document):
         if self.organisation_pid is None and self.library:
             self.organisation_pid = self.library.organisation_pid
         if self.created_at is None:
-            self.created_at = datetime.now(timezone.utc)
+            self.created_at = datetime.now(UTC)
         self.meta["id"] = self.name
 
     def save(self, **kwargs):
         """Put the data on the search index."""
         self._set_default_values()
-        self.updated_at = datetime.now(timezone.utc)
+        self.updated_at = datetime.now(UTC)
         to_return = super().save(**kwargs)
         self.data_class.init()
         return to_return
@@ -121,4 +121,4 @@ class Migration(Document):
     def delete(self, **kwargs):
         """Delete a migration record."""
         Index(self.data_index_name).delete()
-        super().delete(*kwargs)
+        super().delete(**kwargs)

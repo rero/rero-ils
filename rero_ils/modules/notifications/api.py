@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 """API for manipulating Notifications."""
 
 from abc import ABC, abstractmethod
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import partial
 
 from flask import current_app
@@ -275,7 +275,7 @@ class Notification(IlsRecord, ABC):
         :param status: the new notification status.
         :return the updated notification.
         """
-        self["process_date"] = datetime.now(timezone.utc).isoformat()
+        self["process_date"] = datetime.now(UTC).isoformat()
         self["notification_sent"] = sent
         self["status"] = status
         return self.update(data=self.dumps(), commit=True, dbcommit=True, reindex=True)

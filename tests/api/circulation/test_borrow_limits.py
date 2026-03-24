@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 """Borrow limits."""
 
 from copy import deepcopy
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 from flask import url_for
 from freezegun import freeze_time
@@ -259,7 +259,7 @@ def test_overdue_limit(
     item_pid = item.pid
     patron_pid = patron_martigny.pid
     date_format = "%Y/%m/%dT%H:%M:%S.000Z"
-    today = datetime.utcnow()
+    today = datetime.now(UTC)
     eod = today.replace(hour=23, minute=59, second=0, microsecond=0, tzinfo=lib_martigny.get_timezone())
 
     # STEP 0 :: Prepare data for test

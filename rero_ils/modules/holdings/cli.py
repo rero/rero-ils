@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 
 import json
 import random
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import click
 from flask.cli import with_appcontext
@@ -163,5 +163,5 @@ def create_patterns(infile, verbose, debug, lazy):
     process_late_issues(dbcommit=True, reindex=True)
     # make late issues ready for a claim
     for issue in ItemIssue.get_issues_by_status(status=ItemIssueStatus.LATE):
-        issue["issue"]["status_date"] = (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
+        issue["issue"]["status_date"] = (datetime.now(UTC) - timedelta(days=8)).isoformat()
         issue.update(issue, dbcommit=True, reindex=True)

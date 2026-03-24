@@ -21,12 +21,16 @@ from flask_security.confirmable import requires_confirmation
 from flask_security.forms import Form
 from flask_security.forms import LoginForm as BaseLoginForm
 from flask_security.utils import get_message, hash_password, verify_and_update_password
+from wtforms import StringField, validators
 
 from rero_ils.modules.users.api import User
 
 
 class LoginForm(BaseLoginForm):
     """The login form (/signin)."""
+
+    # Override EmailField to accept both usernames and emails.
+    email = StringField(validators=[validators.DataRequired()])
 
     def validate(self, extra_validators=None):
         """Validate the form.

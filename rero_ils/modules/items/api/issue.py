@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """API for manipulating the item issue."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from rero_ils.modules.notifications.api import Notification, NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
@@ -177,7 +177,7 @@ class ItemIssue(ItemRecord):
         """
         # Create the notification and dispatch it synchronously.
         record = {
-            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "creation_date": datetime.now(UTC).isoformat(),
             "notification_type": NotificationType.CLAIM_ISSUE,
             "context": {
                 "item": {"$ref": get_ref_for_pid("item", self.pid)},

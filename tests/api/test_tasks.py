@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2022-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Tasks tests."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import ciso8601
 from freezegun import freeze_time
@@ -90,7 +90,7 @@ def test_notifications_task(
     #   update the loan end_date to reflect the due_soon date. So when we run
     #   the task to create notification this loan should be considered as
     #   due_soon and a notification should be created.
-    end_date = datetime.now(timezone.utc) + timedelta(days=5)
+    end_date = datetime.now(UTC) + timedelta(days=5)
     loan["end_date"] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     LoansSearch.flush_and_refresh()
@@ -112,12 +112,12 @@ def test_notifications_task(
     # during the weekend. No notification should be generated.
 
     # Friday
-    end_date = datetime(year=2021, month=1, day=22, tzinfo=timezone.utc)
+    end_date = datetime(year=2021, month=1, day=22, tzinfo=UTC)
     loan["end_date"] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
 
     # Process the notification during the weekend (Saturday)
-    process_date = datetime(year=2021, month=1, day=23, tzinfo=timezone.utc)
+    process_date = datetime(year=2021, month=1, day=23, tzinfo=UTC)
     overdue_loans = list(get_overdue_loans(tstamp=process_date))
     assert overdue_loans[0].get("pid") == loan_pid
     create_notifications(types=[NotificationType.OVERDUE], tstamp=process_date)
@@ -139,7 +139,7 @@ def test_notifications_task(
     add_days = 12
     open_days = []
     while len(open_days) < 12:
-        end_date = datetime.now(timezone.utc) - timedelta(days=add_days)
+        end_date = datetime.now(UTC) - timedelta(days=add_days)
         open_days = loan_lib.get_open_days(end_date)
         add_days += 1
 
@@ -159,7 +159,7 @@ def test_notifications_task(
     #   fixed date. In our test, no new notifications should be sent
     create_notifications(
         types=[NotificationType.DUE_SOON, NotificationType.OVERDUE],
-        tstamp=datetime.now(timezone.utc),
+        tstamp=datetime.now(UTC),
     )
     assert number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE) == 1
 
@@ -167,7 +167,7 @@ def test_notifications_task(
     #   For this test, we will update the loan to simulate an overdue of 40
     #   days. With this delay, regarding the cipo configuration, the second
     #   (and last) overdue reminder should be sent.
-    end_date = datetime.now(timezone.utc) - timedelta(days=40)
+    end_date = datetime.now(UTC) - timedelta(days=40)
     loan["end_date"] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     overdue_loans = list(get_overdue_loans())

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 """API for manipulating items."""
 
 import contextlib
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
@@ -198,7 +198,7 @@ class Item(ItemCirculation, ItemIssue):
         """Return a formatted end date."""
         # (`datetime.now(timezone.utc)` by default)
         if end_date is None:
-            end_date = datetime.now(timezone.utc)
+            end_date = datetime.now(UTC)
         return end_date.strftime("%Y-%m-%d")
 
     @classmethod

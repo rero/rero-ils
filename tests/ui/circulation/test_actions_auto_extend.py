@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2024 RERO
+# Copyright (C) 2024-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Test item/loan circulation auto extend task."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from unittest import mock
 
 from rero_ils.modules.items.api.circulation import ItemCirculation
@@ -39,8 +39,8 @@ def test_auto_extend_task(
     # Prepare a loan where the due date is today
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     cipo = get_circ_policy(loan)
-    start_date = datetime.now(timezone.utc) - timedelta(days=cipo["checkout_duration"])
-    end_date = datetime.now(timezone.utc)
+    start_date = datetime.now(UTC) - timedelta(days=cipo["checkout_duration"])
+    end_date = datetime.now(UTC)
     loan["start_date"] = start_date.isoformat()
     loan["end_date"] = end_date.isoformat()
     loan["transaction_date"] = start_date.isoformat()

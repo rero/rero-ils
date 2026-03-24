@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +21,7 @@ import json
 import os
 import random
 import traceback
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import click
 from flask.cli import with_appcontext
@@ -281,7 +281,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False, debug=
     try:
         item = next(loanable_items)
         patron = Patron.get_patron_by_barcode(barcode=barcode)
-        transaction_date = datetime.now(timezone.utc).isoformat()
+        transaction_date = datetime.now(UTC).isoformat()
         user_pid, user_location = get_random_librarian_and_transaction_location(patron)
         item.checkout(
             patron_pid=patron.pid,
@@ -295,25 +295,25 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False, debug=
         loan_pid = loan.get("pid")
         loan = Loan.get_record_by_pid(loan_pid)
         if transaction_type == "overdue_active":
-            end_date = datetime.now(timezone.utc) - timedelta(days=2)
+            end_date = datetime.now(UTC) - timedelta(days=2)
             loan["end_date"] = end_date.isoformat()
             loan.update(data=loan, dbcommit=True, reindex=True)
             notifications = loan.create_notification(_type=NotificationType.DUE_SOON)
             notification_pids.extend(notif["pid"] for notif in notifications)
-            end_date = datetime.now(timezone.utc) - timedelta(days=70)
+            end_date = datetime.now(UTC) - timedelta(days=70)
             loan["end_date"] = end_date.isoformat()
             loan.update(data=loan, dbcommit=True, reindex=True)
             notifications = loan.create_notification(_type=NotificationType.OVERDUE)
             notification_pids.extend(notif["pid"] for notif in notifications)
         elif transaction_type == "overdue_paid":
-            end_date = datetime.now(timezone.utc) - timedelta(days=2)
+            end_date = datetime.now(UTC) - timedelta(days=2)
             loan["end_date"] = end_date.isoformat()
             loan.update(data=loan, dbcommit=True, reindex=True)
             notifications = loan.create_notification(_type=NotificationType.DUE_SOON)
             for notif in notifications:
                 notification_pids.append(notif["pid"])
 
-            end_date = datetime.now(timezone.utc) - timedelta(days=70)
+            end_date = datetime.now(UTC) - timedelta(days=70)
             loan["end_date"] = end_date.isoformat()
             loan.update(data=loan, dbcommit=True, reindex=True)
             notifications = loan.create_notification(_type=NotificationType.OVERDUE)
@@ -328,7 +328,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False, debug=
             )
             PatronTransactionEvent.create(data=payment, dbcommit=True, reindex=True, update_parent=True)
         elif transaction_type == "extended":
-            end_date = datetime.now(timezone.utc) - timedelta(days=1)
+            end_date = datetime.now(UTC) - timedelta(days=1)
             loan["end_date"] = end_date.isoformat()
             loan.update(data=loan, dbcommit=True, reindex=True)
             user_pid, user_location = get_random_librarian_and_transaction_location(patron)
@@ -337,7 +337,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False, debug=
                 patron_pid=patron.pid,
                 transaction_location_pid=user_location,
                 transaction_user_pid=user_pid,
-                transaction_date=(datetime.now(timezone.utc) - timedelta(days=1)).isoformat(),
+                transaction_date=(datetime.now(UTC) - timedelta(days=1)).isoformat(),
                 document_pid=extracted_data_from_ref(item.get("document")),
                 item_pid=item.pid,
             )
@@ -378,7 +378,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False, deb
         rank_1_patron = get_random_patron(barcode)
         patron = Patron.get_patron_by_barcode(barcode=barcode)
         if transaction_type == "rank_2":
-            transaction_date = (datetime.now(timezone.utc) - timedelta(2)).isoformat()
+            transaction_date = (datetime.now(UTC) - timedelta(2)).isoformat()
             user_pid, user_location = get_random_librarian_and_transaction_location(patron)
 
             circ_policy = CircPolicy.provide_circ_policy(
@@ -396,7 +396,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False, deb
                     pickup_location_pid=get_random_pickup_location(rank_1_patron.pid, item),
                     document_pid=extracted_data_from_ref(item.get("document")),
                 )
-        transaction_date = datetime.now(timezone.utc).isoformat()
+        transaction_date = datetime.now(UTC).isoformat()
         user_pid, user_location = get_random_librarian_and_transaction_location(patron)
         item.request(
             patron_pid=patron.pid,
@@ -507,5 +507,5 @@ def create_payment_record(patron_transaction, user_pid, user_library):
     data["type"] = "payment"
     data["subtype"] = "cash"
     data["amount"] = patron_transaction.get("total_amount")
-    data["creation_date"] = datetime.now(timezone.utc).isoformat()
+    data["creation_date"] = datetime.now(UTC).isoformat()
     return data

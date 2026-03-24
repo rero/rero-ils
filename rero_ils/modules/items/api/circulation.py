@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@
 
 from contextlib import suppress
 from copy import deepcopy
-from datetime import datetime
+from datetime import UTC, datetime
 
 from flask import current_app
 from flask_babel import gettext as _
@@ -186,7 +186,7 @@ class ItemCirculation(ItemRecord):
                     "item_pid": item_pid_to_object(item["pid"]),
                     "patron_pid": patron_pid,
                 }
-                data.setdefault("transaction_date", datetime.utcnow().isoformat())
+                data.setdefault("transaction_date", datetime.now(UTC).isoformat())
                 loan = Loan.create(data, dbcommit=True, reindex=True)
             if not patron_pid and loan:
                 kwargs.setdefault("patron_pid", loan.patron_pid)
@@ -200,7 +200,7 @@ class ItemCirculation(ItemRecord):
 
         kwargs["item_pid"] = item_pid_to_object(item["pid"])
 
-        kwargs["transaction_date"] = datetime.utcnow().isoformat()
+        kwargs["transaction_date"] = datetime.now(UTC).isoformat()
         document_pid = extracted_data_from_ref(item.get("document"))
         kwargs.setdefault("document_pid", document_pid)
         # set the transaction location for the circulation transaction

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2022-2026 RERO
 # Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """Test item circulation expired request actions."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from freezegun import freeze_time
 
@@ -80,7 +80,7 @@ def test_expired_request_with_transit(
     # STEP#1 :: UPDATE THE LOAN TO SIMULATE REQUEST HAS EXPIRED
     #   Update the loan `request_expire_date` field to simulate than the
     #   requester patron never came take this item.
-    yesterday = datetime.now(timezone.utc) - timedelta(days=1)
+    yesterday = datetime.now(UTC) - timedelta(days=1)
     loan["request_expire_date"] = yesterday.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
     LoansSearch.flush_and_refresh()

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """RERO ILS common record extensions."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import ciso8601
 from flask import current_app
@@ -111,7 +111,8 @@ class CirculationDatesExtension(RecordExtension):
         if record.state == LoanState.ITEM_ON_LOAN and record.end_date:
             # find the correct policy based on the checkout location.
             circ_policy = get_circ_policy(record, checkout_location=True)
-            due_date = ciso8601.parse_datetime(record.end_date).replace(tzinfo=timezone.utc)
+            parsed = ciso8601.parse_datetime(record.end_date)
+            due_date = parsed.astimezone(UTC) if parsed.tzinfo else parsed.replace(tzinfo=UTC)
             if days_before := circ_policy.due_soon_interval_days:
                 due_soon = due_date - timedelta(days=days_before)
                 due_soon = due_soon.replace(hour=0, minute=0, second=0, microsecond=0)

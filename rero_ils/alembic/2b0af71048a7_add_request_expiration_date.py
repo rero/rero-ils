@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2021-2026 RERO
 # Copyright (C) 2021 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,9 +20,9 @@
 
 from datetime import datetime, timedelta
 from logging import getLogger
+from zoneinfo import ZoneInfo
 
 import ciso8601
-import pytz
 from elasticsearch_dsl import Q
 from invenio_circulation.proxies import current_circulation
 
@@ -53,7 +53,7 @@ def upgrade():
         trans_date = ciso8601.parse_datetime(loan.transaction_date)
         expire_date = trans_date + timedelta(days=10)
         expire_date = expire_date.replace(hour=23, minute=59, second=00, microsecond=000, tzinfo=None)
-        expire_date = pytz.timezone("Europe/Zurich").localize(expire_date)
+        expire_date = expire_date.replace(tzinfo=ZoneInfo("Europe/Zurich"))
         loan["request_expire_date"] = expire_date.isoformat()
         loan["request_start_date"] = datetime.now().isoformat()
         loan.update(loan, dbcommit=True, reindex=False)

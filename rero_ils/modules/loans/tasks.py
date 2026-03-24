@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Celery tasks for loan records."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import click
 from celery import shared_task
@@ -61,7 +61,7 @@ def automatic_renewal(tstamp=None):
     """
     extended_loans_count = 0
     ignored_loans_count = 0
-    tstamp = tstamp or datetime.now(timezone.utc)
+    tstamp = tstamp or datetime.now(UTC)
     # get all loans that are due today or earlier (will be overdue tomorrow)
     until_date = tstamp + timedelta(days=1)
     for loan in get_overdue_loans(tstamp=until_date):
@@ -117,7 +117,7 @@ def cancel_expired_request_task(tstamp=None):
 @shared_task(ignore_result=True)
 def delete_loans_created(verbose=False, hours=1, dbcommit=True, delindex=True):
     """Delete loans with state CREATED from time NOW - hours."""
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     if hours >= 0:
         now -= timedelta(hours=hours)
     count = LoansSearch().filter("term", state="CREATED").count()

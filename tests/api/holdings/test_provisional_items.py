@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2021-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 
 """Test provisional items."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -270,7 +270,7 @@ def test_holding_requests(
         "status": "open",
         "total_amount": 0.6,
         "type": "overdue",
-        "creation_date": datetime.now(timezone.utc).isoformat(),
+        "creation_date": datetime.now(UTC).isoformat(),
     }
     PatronTransaction.create(data, dbcommit=True, reindex=True)
     assert item_2 not in get_provisional_items_candidate_to_delete()

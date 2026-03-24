@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """API for manipulating Acquisition Orders."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import partial
 
 from flask_babel import gettext as _
@@ -454,7 +454,7 @@ class AcqOrder(AcquisitionIlsRecord):
         """
         # Create the notification and dispatch it synchronously.
         record = {
-            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "creation_date": datetime.now(UTC).isoformat(),
             "notification_type": NotificationType.ACQUISITION_ORDER,
             "context": {
                 "order": {"$ref": get_ref_for_pid("acor", self.pid)},

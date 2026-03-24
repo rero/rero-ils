@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 """Selfcheck Utilities."""
 
 import importlib
-from datetime import datetime
+from datetime import UTC, datetime
 
 from flask import current_app
 from flask_security.utils import verify_password
@@ -50,7 +50,7 @@ def authorize_selfckeck_terminal(terminal, access_token, **kwargs):
     """
     if terminal and terminal.access_token == access_token:
         if token := get_token(access_token=access_token):
-            terminal.last_login_at = datetime.utcnow()
+            terminal.last_login_at = datetime.now(UTC)
             terminal.last_login_ip = kwargs.get("terminal_ip")
             db.session.merge(terminal)
             return token.user

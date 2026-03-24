@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 """CircPolicy Record tests."""
 
 from copy import deepcopy
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 from unittest import mock
 
 import ciso8601
@@ -150,7 +150,7 @@ def test_item_loans_default_duration(
             # get loan duration
             duration = get_default_loan_duration(loan, None)
             # now in datetime object
-            now = datetime.now(timezone.utc)
+            now = datetime.now(UTC)
             utc_end_date = now + duration
             # computed end date at the library timezone
             end_date = utc_end_date.astimezone(tz=lib_martigny.get_timezone())
@@ -167,7 +167,7 @@ def test_item_loans_default_duration(
         # get loan duration
         duration = get_default_loan_duration(loan, None)
         # now in datetime object
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
 
         utc_end_date = now + duration
         # computed end date at the library timezone
@@ -231,7 +231,7 @@ def test_loan_keep_and_to_anonymize(
     assert not Loan.can_anonymize(loan_data=loan)
 
     # CHECK #2 : Loan older than 12 months is anonymized.
-    thirteen_months_ago = datetime.now(timezone.utc) - timedelta(days=RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT + 1)
+    thirteen_months_ago = datetime.now(UTC) - timedelta(days=RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT + 1)
     loan["transaction_date"] = thirteen_months_ago.isoformat()
     assert loan.is_concluded()
     assert loan.can_anonymize(loan_data=loan)
@@ -250,7 +250,7 @@ def test_loan_keep_and_to_anonymize(
     #  we update the loan end_date, removing 1 year. We are now sure that all
     #  possible library exceptions don't conflict with `library.open_days`
     #  computation
-    end_date = datetime.now(timezone.utc) - timedelta(days=365)
+    end_date = datetime.now(UTC) - timedelta(days=365)
     loan["end_date"] = end_date.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
 
@@ -282,7 +282,7 @@ def test_anonymizer_job(
     add_days = 10
     open_days = []
     while len(open_days) < 10:
-        end_date = datetime.now(timezone.utc) - timedelta(days=add_days)
+        end_date = datetime.now(UTC) - timedelta(days=add_days)
         open_days = loan_lib.get_open_days(end_date)
         add_days += 1
     loan["end_date"] = end_date.isoformat()
@@ -316,7 +316,7 @@ def test_anonymizer_job(
 
     # Update the loan transaction_date to more than 12 months ago and close
     # all open transactions so the loan is concluded and old enough to anonymize.
-    one_year_ago = datetime.now(timezone.utc) - timedelta(days=RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT + 1)
+    one_year_ago = datetime.now(UTC) - timedelta(days=RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT + 1)
     loan["transaction_date"] = one_year_ago.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
     # close open transactions and notifications
@@ -367,7 +367,7 @@ def test_anonymize_candidates(
     }
     item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
-    over_one_year_ago = datetime.now(timezone.utc) - timedelta(days=RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT + 1)
+    over_one_year_ago = datetime.now(UTC) - timedelta(days=RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT + 1)
     loan["transaction_date"] = over_one_year_ago.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
     LoansSearch.flush_and_refresh()
@@ -378,7 +378,7 @@ def test_anonymize_candidates(
     # Set the transaction date to 4 months ago. The loan is too recent
     # (< 12 months) so it is not yet an anonymize candidate, regardless of
     # the patron's keep_history preference.
-    four_month_ago = datetime.now(timezone.utc) - timedelta(days=4 * 30)
+    four_month_ago = datetime.now(UTC) - timedelta(days=4 * 30)
     loan["transaction_date"] = four_month_ago.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
     LoansSearch.flush_and_refresh()
@@ -398,7 +398,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
 
     def get_end_date(delta=0):
         end = date.today() - timedelta(days=delta)
-        end = datetime(end.year, end.month, end.day, tzinfo=timezone.utc)
+        end = datetime(end.year, end.month, end.day, tzinfo=UTC)
         return end - timedelta(microseconds=1)
 
     _, _, loan = item_on_loan_martigny_patron_and_loan_on_loan

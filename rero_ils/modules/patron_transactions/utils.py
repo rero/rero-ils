@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """Utility functions about PatronTransactions."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from flask_babel import gettext as _
 
@@ -115,7 +115,7 @@ def create_patron_transaction_from_overdue_loan(loan, dbcommit=True, reindex=Tru
             "status": "open",
             "note": _("incremental overdue fees"),
             "total_amount": total_amount,
-            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "creation_date": datetime.now(UTC).isoformat(),
             "steps": [{"timestamp": fee[1].isoformat(), "amount": fee[0]} for fee in fees],
         }
         return PatronTransaction.create(data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid)
@@ -134,7 +134,7 @@ def create_patron_transaction_from_notification(notification=None, dbcommit=None
             "patron": {"$ref": get_ref_for_pid("ptrn", notification.patron_pid)},
             "organisation": {"$ref": get_ref_for_pid("org", notification.organisation_pid)},
             "total_amount": total_amount,
-            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "creation_date": datetime.now(UTC).isoformat(),
             "type": "overdue",
             "status": "open",
         }
@@ -170,7 +170,7 @@ def create_subscription_for_patron(
             "patron": {"$ref": get_ref_for_pid("ptrn", patron.pid)},
             "organisation": {"$ref": get_ref_for_pid("org", patron.organisation_pid)},
             "total_amount": patron_type.get("subscription_amount"),
-            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "creation_date": datetime.now(UTC).isoformat(),
             "type": "subscription",
             "status": "open",
             "note": f"{start}-{end}",

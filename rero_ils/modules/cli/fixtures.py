@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@ import json
 import os
 import sys
 import traceback
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import click
@@ -200,7 +200,7 @@ def create(
     pids = []
     records = read_json_record(infile) if lazy else json.load(infile)
     count = 0
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     order_date = now.strftime("%Y-%m-%d")
     year = str(now.year)
     for count, record in enumerate(records, 1):
@@ -329,7 +329,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose, create_p
                 uuid = str(uuid4())
                 if verbose:
                     click.secho(f"{count}\t{record_type}\t{pid}:{uuid}")
-                date = str(datetime.utcnow())
+                date = str(datetime.now(UTC))
                 record["$schema"] = add_schema
                 try:
                     validate(record, schema)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2024 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2024 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """Selfcheck API."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from flask import current_app
 from flask_babel import force_locale
@@ -401,12 +401,12 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media
             except ItemBarcodeNotFound:
-                checkout = SelfcheckCheckout(title_id="", due_date=datetime.now(timezone.utc))
+                checkout = SelfcheckCheckout(title_id="", due_date=datetime.now(UTC))
                 checkout.get("screen_messages", []).append(_("Error encountered: item not found"))
                 checkout.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
             except ItemNotAvailableError:
                 # the due date is a required field from sip2
-                checkout["due_date"] = datetime.now(timezone.utc)
+                checkout["due_date"] = datetime.now(UTC)
 
                 # check if item is already checked out by the current
                 # patron
@@ -422,7 +422,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
                 else:
                     checkout.get("screen_messages", []).append(_("Item is already checked-out or requested by patron."))
             except PatronBarcodeNotFound:
-                checkout = SelfcheckCheckout(title_id="", due_date=datetime.now(timezone.utc))
+                checkout = SelfcheckCheckout(title_id="", due_date=datetime.now(UTC))
                 checkout.get("screen_messages", []).append(_("Error encountered: patron not found"))
                 checkout.get("screen_messages", []).append(_("Error encountered: please contact a librarian"))
             except NoCirculationAction:

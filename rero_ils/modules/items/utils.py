@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Item utils."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus, TypeOfItem
 from rero_ils.modules.locations.api import LocationsSearch
@@ -132,7 +132,7 @@ def update_late_expected_issue(dbcommit=False, reindex=False):
     """
     from rero_ils.modules.items.api import Item, ItemsSearch
 
-    yesterday = datetime.now(timezone.utc) - timedelta(days=1)
+    yesterday = datetime.now(UTC) - timedelta(days=1)
     yesterday = yesterday.strftime("%Y-%m-%d")
     query = (
         ItemsSearch()

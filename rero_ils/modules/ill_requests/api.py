@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,10 +18,10 @@
 
 """API for manipulating ill_requests."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import partial
 
-from dateutil.relativedelta import *
+from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl.query import Q
 from flask import current_app
 from flask_babel import gettext as _
@@ -71,7 +71,7 @@ class ILLRequestsSearch(IlsRecordsSearch):
         :return: return total of ill requests.
         """
         months = current_app.config.get("RERO_ILS_ILL_HIDE_MONTHS", 6)
-        date_delta = datetime.now(timezone.utc) - relativedelta(months=months)
+        date_delta = datetime.now(UTC) - relativedelta(months=months)
         filters = Q("range", _created={"lte": "now", "gte": date_delta})
         filters |= Q("term", status=ILLRequestStatus.PENDING)
         filters &= Q("term", patron__pid=patron_pid)

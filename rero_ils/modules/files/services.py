@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2024 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -65,14 +65,16 @@ class RecordFileServiceConfig(FileServiceConfig):
     # Common configuration
     permission_policy_cls = FilePermissionPolicy
 
-    @classmethod
-    @property
-    def max_files_count(cls):
-        """Maximum files per buckets."""
-        from flask import current_app
+    class _MaxFilesCount:
+        """Descriptor for max_files_count that works on both class and instance access."""
 
-        max_ui_files = current_app.config.get("RERO_ILS_FILES_UI_MAX", 600)
-        return max_ui_files * 3 + 100
+        def __get__(self, obj, objtype=None):
+            from flask import current_app
+
+            max_ui_files = current_app.config.get("RERO_ILS_FILES_UI_MAX", 600)
+            return max_ui_files * 3 + 100
+
+    max_files_count = _MaxFilesCount()
 
     # Service components
     components = [*FileServiceConfig.components, ReindexFileComponent, OperationLogsFileComponent]

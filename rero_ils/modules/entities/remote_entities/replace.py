@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 
 import contextlib
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import requests
 from flask import current_app
@@ -270,6 +270,6 @@ class ReplaceIdentifiedBy:
             "changed": self.changed,
             "not found": self._error_count(self.not_found),
             "rero only": self._error_count(self.rero_only),
-            "time": datetime.now(timezone.utc),
+            "time": datetime.now(UTC),
         }
         utils_set_timestamp(self.timestamp_name, **data)

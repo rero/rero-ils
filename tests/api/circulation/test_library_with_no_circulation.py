@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2021-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Tests REST checkout API methods in library with no circulation."""
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from invenio_accounts.testutils import login_user_via_session
 
@@ -203,8 +203,9 @@ def test_requesting_item_from_non_circulating_library(
     # checkout item to requested patron
     login_user_via_session(client, librarian_martigny.user)
     date_format = "%Y/%m/%dT%H:%M:%S.000Z"
-    today = datetime.utcnow()
-    eod = today.replace(hour=23, minute=59, second=0, microsecond=0, tzinfo=lib_martigny.get_timezone())
+    today = datetime.now(UTC)
+    localized_today = today.astimezone(lib_martigny.get_timezone())
+    eod = localized_today.replace(hour=23, minute=59, second=0, microsecond=0)
     params = {
         "item_pid": item_lib_martigny_bourg.pid,
         "patron_pid": patron_martigny.pid,

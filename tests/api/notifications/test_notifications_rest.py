@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2022-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,12 +19,11 @@
 
 import json
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from unittest import mock
 
 import ciso8601
 import pytest
-import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -138,7 +137,7 @@ def test_notification_secure_api(
     assert notif == data["metadata"]
 
     # test notification update
-    new_creation_date = datetime.now(timezone.utc).isoformat()
+    new_creation_date = datetime.now(UTC).isoformat()
     notif["creation_date"] = new_creation_date
     res = client.put(item_url, data=json.dumps(notif), headers=json_header)
     assert res.status_code == 200
@@ -154,7 +153,7 @@ def test_notification_secure_api(
     assert res.status_code == 403
 
     # test notification update
-    new_creation_date = datetime.now(timezone.utc).isoformat()
+    new_creation_date = datetime.now(UTC).isoformat()
     notif["creation_date"] = new_creation_date
     res = client.put(item_url, data=json.dumps(notif), headers=json_header)
     assert res.status_code == 403
@@ -1154,7 +1153,7 @@ def test_cancel_notifications(
 
     # try to create a new DUE_SOON notification for the same loan
     record = {
-        "creation_date": datetime.now(timezone.utc).isoformat(),
+        "creation_date": datetime.now(UTC).isoformat(),
         "notification_type": NotificationType.DUE_SOON,
         "context": {
             "loan": {"$ref": get_ref_for_pid("loans", loan.pid)},
@@ -1286,10 +1285,10 @@ def test_reminder_notifications_after_extend(
 
     # Update the loan
     delay = due_soon_reminder.get("days_delay") - 1
-    due_soon_date = datetime.now() - timedelta(days=delay)
-    end_date = datetime.now() + timedelta(days=1)
-    loan["due_soon_date"] = due_soon_date.astimezone(pytz.utc).isoformat()
-    loan["end_date"] = end_date.astimezone(pytz.utc).isoformat()
+    due_soon_date = datetime.now(UTC) - timedelta(days=delay)
+    end_date = datetime.now(UTC) + timedelta(days=1)
+    loan["due_soon_date"] = due_soon_date.isoformat()
+    loan["end_date"] = end_date.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
     assert loan.is_loan_due_soon()
 

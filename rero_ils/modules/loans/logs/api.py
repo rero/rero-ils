@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Loans logs API."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from rero_ils.modules.operation_logs.api import OperationLog, OperationLogsSearch
 from rero_ils.modules.operation_logs.logs.api import SpecificOperationLog
@@ -153,7 +153,7 @@ class NoCirculationOperationLog(OperationLog, SpecificOperationLog):
         log = {
             "record": {"value": item_pid, "type": "scan_item"},
             "operation": "create",
-            "date": datetime.now(timezone.utc).isoformat(),
+            "date": datetime.now(UTC).isoformat(),
             "scan": scan,
         }
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
+# Copyright (C) 2020-2026 RERO
 # Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """Common pytest fixtures for rero-ils."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 
@@ -26,10 +26,10 @@ import pytest
 @pytest.fixture(scope="module")
 def yesterday():
     """Get yesterday timestamp."""
-    return datetime.now(timezone.utc) - timedelta(days=1)
+    return datetime.now(UTC) - timedelta(days=1)
 
 
 @pytest.fixture(scope="module")
 def tomorrow():
     """Get tomorrow timestamp."""
-    return datetime.now(timezone.utc) + timedelta(days=1)
+    return datetime.now(UTC) + timedelta(days=1)

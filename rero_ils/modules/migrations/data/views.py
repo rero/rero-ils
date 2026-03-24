@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2024 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 """Blueprint used to get migrations."""
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl import Index
@@ -203,7 +203,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
             migration_data.deduplication.candidates = candidates
         if current_librarian:
             migration_data.deduplication.modified_by = current_librarian.formatted_name
-        migration_data.deduplication.modified_at = datetime.now(timezone.utc)
+        migration_data.deduplication.modified_at = datetime.now(UTC)
         migration_data.save()
         Index(name=migration.data_index_name).refresh()
 

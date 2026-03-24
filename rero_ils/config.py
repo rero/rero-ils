@@ -614,8 +614,8 @@ APP_DEFAULT_SECURE_HEADERS = {
     "session_cookie_secure": True,
     "session_cookie_http_only": True,
 }
-#: Sets cookie with the secure flag (by default False)
-SESSION_COOKIE_SECURE = False
+#: Sets cookie with the secure flag
+SESSION_COOKIE_SECURE = True
 #: Since HAProxy and Nginx route all requests no matter the host header
 #: provided, the allowed hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only

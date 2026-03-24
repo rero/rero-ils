@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,6 @@ from copy import deepcopy
 from uuid import uuid4
 
 import click
-import pytz
 from celery import current_app as current_celery_app
 from elasticsearch.exceptions import NotFoundError
 from elasticsearch.helpers import bulk
@@ -271,7 +270,7 @@ class IlsRecord(Record):
                 persistent_identifier = PersistentIdentifier.get(cls.provider.pid_type, pid)
                 return super().get_record(persistent_identifier.object_uuid, with_deleted=with_deleted)
             # TODO: is it better to raise a error or to return None?
-            except (NoResultFound, PIDDoesNotExistError):
+            except NoResultFound, PIDDoesNotExistError:
                 return None
         return None
 
@@ -299,7 +298,7 @@ class IlsRecord(Record):
             PersistentIdentifier.get(cls.provider.pid_type, pid)
             return True
 
-        except (NoResultFound, PIDDoesNotExistError):
+        except NoResultFound, PIDDoesNotExistError:
             return False
 
     @classmethod
@@ -705,8 +704,8 @@ class IlsRecordsIndexer(RecordIndexer):
             # data = copy.deepcopy(record.replace_refs())
             data = record.replace_refs().dumps() if current_app.config.get("INDEXER_REPLACE_REFS") else record.dumps()
 
-        data["_created"] = pytz.utc.localize(record.created).isoformat() if record.created else None
-        data["_updated"] = pytz.utc.localize(record.updated).isoformat() if record.updated else None
+        data["_created"] = record.created.isoformat() if record.created else None
+        data["_updated"] = record.updated.isoformat() if record.updated else None
 
         # Allow modification of data prior to sending to search index.
         before_record_index.send(

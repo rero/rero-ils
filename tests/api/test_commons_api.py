@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -23,6 +23,7 @@ from unittest import mock
 from flask import url_for
 from flask_principal import Identity, RoleNeed
 from invenio_access import ActionUsers, Permission
+from invenio_accounts.models import Role
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.acquisition.budgets.permissions import (
@@ -182,8 +183,9 @@ def test_permission_management(client, system_librarian_martigny):
     #  1) test user has permission
     #  2) delete this permission using API and test the permission
     #  3) add the permission using API and test it again.
+    role = Role.query.filter_by(name=UserRole.PROFESSIONAL_READ_ONLY).one()
     fake_identity = Identity("fake-id")
-    fake_identity.provides.add(RoleNeed(UserRole.PROFESSIONAL_READ_ONLY))
+    fake_identity.provides.add(RoleNeed(role.id))
     permission = Permission(budget_search_action)
     assert fake_identity.can(permission)
 

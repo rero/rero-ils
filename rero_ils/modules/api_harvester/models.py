@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2024 RERO
+# Copyright (C) 2024-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Define relation between records and buckets."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 
 from invenio_db import db
@@ -42,7 +42,7 @@ class ApiHarvestConfig(db.Model):
     name = db.Column(db.String(255), nullable=False)
     classname = db.Column(db.String(255), nullable=False)
     code = db.Column(db.Text, nullable=True)
-    lastrun = db.Column(db.DateTime, default=datetime(year=1900, month=1, day=1), nullable=True)
+    lastrun = db.Column(db.DateTime, default=datetime(year=1900, month=1, day=1, tzinfo=UTC), nullable=True)
 
     def save(self):
         """Save object to persistent storage."""
@@ -51,6 +51,6 @@ class ApiHarvestConfig(db.Model):
 
     def update_lastrun(self, new_date=None):
         """Update the 'lastrun' attribute of object to now."""
-        self.lastrun = new_date or datetime.now(timezone.utc)
+        self.lastrun = new_date or datetime.now(UTC)
         self.save()
         return self.lastrun

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2024 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 """DOJSON transformation for RERO MARC21 module tests."""
 
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest import mock
 
 from dojson.utils import GroupableOrderedDict
@@ -28,7 +28,7 @@ from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
 
 def add_created_updated(record, updated=False):
     """Adds _created and _updated to record."""
-    date = datetime.now(timezone.utc)
+    date = datetime.now(UTC)
     record["_created"] = date.isoformat()
     if updated:
         record["_updated"] = date.isoformat()
