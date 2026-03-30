@@ -32,7 +32,7 @@ from rero_ils.modules.vendors.api import VendorsSearch
 class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `Item` records as JSON."""
 
-    def _postprocess_search_hit(self, hit: dict) -> None:
+    def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""
 
         def _set_item_type_circulation_information(metadata, pid):
@@ -82,7 +82,7 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
 
         super()._postprocess_search_hit(hit)
 
-    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+    def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result."""
         JSONSerializer.enrich_bucket_with_data(
             aggregations.get("library", {}).get("buckets", []), LibrariesSearch, "name"

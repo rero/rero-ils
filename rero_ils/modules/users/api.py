@@ -47,7 +47,7 @@ def get_profile_countries():
     return [(option.get("value"), _(option.get("label"))) for option in options]
 
 
-def get_readonly_profile_fields() -> list[str]:
+def get_readonly_profile_fields():
     """Disallow to edit some fields for patrons."""
     if current_user.has_role("patron"):
         return ["first_name", "last_name", "birth_date"]
@@ -238,7 +238,7 @@ class User:
             "metadata": self.dumps_metadata(True),
         }
 
-    def dumps_metadata(self, dump_patron: bool = False) -> dict:
+    def dumps_metadata(self, dump_patron=False):
         """Dumps the profile, email, roles metadata.
 
         :param dump_patron: is the patron metadata should be dumped.

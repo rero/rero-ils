@@ -105,7 +105,7 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                              aggregations section.
         """
 
-        def _get_buckets(parent, bucket_name: str) -> list:
+        def _get_buckets(parent, bucket_name):
             return parent.get(bucket_name, {}).get("buckets", [])
 
         def _enrich_buckets(buckets, search_class, attribute):

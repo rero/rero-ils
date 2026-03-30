@@ -24,7 +24,7 @@ from rero_ils.modules.serializers import JSONSerializer
 class EntityJSONSerializer(JSONSerializer):
     """Serializer for RERO-ILS `Document` records as JSON."""
 
-    def _postprocess_search_links(self, search_results, pid_fetcher) -> None:
+    def _postprocess_search_links(self, search_results, pid_fetcher):
         """Post-process search links.
 
         :param search_results: Elasticsearch search result.

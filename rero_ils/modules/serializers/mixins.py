@@ -68,7 +68,7 @@ class PostprocessorMixin(PostprocessorMixinInterface):
         self._postprocess_search_links(results, pid_fetcher)
         return results
 
-    def _postprocess_search_links(self, search_results, pid_fetcher) -> None:
+    def _postprocess_search_links(self, search_results, pid_fetcher):
         """Post-process search links.
 
         :param search_results: Elasticsearch search result.
@@ -80,7 +80,7 @@ class PostprocessorMixin(PostprocessorMixinInterface):
         url = url_for(f"invenio_records_rest.{pid_type}_list", _external=True)
         search_results["links"].update({"create": url})
 
-    def _postprocess_search_hit(self, hit: dict) -> None:
+    def _postprocess_search_hit(self, hit):
         """Post-process a specific search hit.
 
         :param hit: the dictionary representing an ElasticSearch search hit.
@@ -89,7 +89,7 @@ class PostprocessorMixin(PostprocessorMixinInterface):
         #   Override this method in subclass to operate specific
         #   modification/enrichment on a search hit.
 
-    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+    def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result.
 
         :param aggregations: the dictionary representing ElasticSearch

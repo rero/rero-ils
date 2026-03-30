@@ -52,7 +52,7 @@ ils_record_format_checker = FormatChecker()
 
 @ils_record_format_checker.checks("email")
 @ils_record_format_checker.checks("idn-email")
-def _strong_email_validation(instance) -> bool:
+def _strong_email_validation(instance):
     """Allow to validate an email address (only email format, not DNS)."""
     if not isinstance(instance, str):
         return False

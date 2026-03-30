@@ -26,7 +26,7 @@ from ..api import AcqAccountsSearch
 class AcqAccountJSONSerializer(ACQJSONSerializer):
     """Serializer for RERO-ILS `AcqAccount` records as JSON."""
 
-    def _postprocess_search_hit(self, hit: dict) -> None:
+    def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""
         hit["metadata"]["number_of_children"] = (
             AcqAccountsSearch().filter("term", parent__pid=hit["metadata"]["pid"]).count()
@@ -56,7 +56,7 @@ class AcqAccountJSONSerializer(ACQJSONSerializer):
 
         return super().preprocess_record(pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)
 
-    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+    def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result."""
         JSONSerializer.enrich_bucket_with_data(
             aggregations.get("library", {}).get("buckets", []), LibrariesSearch, "name"

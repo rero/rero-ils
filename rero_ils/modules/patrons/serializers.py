@@ -28,7 +28,7 @@ from rero_ils.modules.serializers import (
 class PatronJSONSerializer(JSONSerializer):
     """Serializer for RERO-ILS `Patron` records as JSON."""
 
-    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+    def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result."""
         JSONSerializer.enrich_bucket_with_data(
             aggregations.get("patron_type", {}).get("buckets", []),

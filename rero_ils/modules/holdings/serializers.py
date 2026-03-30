@@ -33,7 +33,7 @@ from .api import Holding
 class HoldingsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `Holdings` records as JSON."""
 
-    def _postprocess_search_hit(self, hit: dict) -> None:
+    def _postprocess_search_hit(self, hit):
         """Post-process a search result hit.
 
         When serializing a holding record, we need to add some keys to the

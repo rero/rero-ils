@@ -445,7 +445,7 @@ class Document(IlsRecord):
             yield es_document.pid
 
     @classmethod
-    def get_document_pids_by_issn(cls, issn_number: str):
+    def get_document_pids_by_issn(cls, issn_number):
         """Get pids of documents having the given ISSN.
 
         :param issn_number: the ISSN to search

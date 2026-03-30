@@ -30,7 +30,7 @@ from rero_ils.modules.serializers import (
 class OperationLogsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `OperationLog` records as JSON."""
 
-    def _postprocess_search_hit(self, hit: dict) -> None:
+    def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""
         # add library name if the library entry exists.
         if library := hit.get("metadata", {}).get("library"):

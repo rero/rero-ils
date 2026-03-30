@@ -25,7 +25,7 @@ from rero_ils.modules.serializers.mixins import PostprocessorMixin
 class StatsCfgJSONSerializer(JSONSerializer, PostprocessorMixin):
     """Mixin serializing records as JSON."""
 
-    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+    def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result.
 
         :param aggregations: the dictionary representing ElasticSearch

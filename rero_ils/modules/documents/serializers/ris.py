@@ -92,7 +92,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
         """Return RIS export for single record."""
         return f"{self._fetch_fields()}ER{self.separator}\n"
 
-    def _doctype_mapper(self, main_type: str, sub_type: str | None = None):
+    def _doctype_mapper(self, main_type, sub_type=None):
         """Document type mapper.
 
         :param: main_type: main document type.

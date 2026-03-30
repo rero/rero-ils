@@ -47,7 +47,6 @@ use the `QualifierIdentifierRenderer` ; the result will be
 from abc import ABC, abstractmethod
 from copy import deepcopy
 from dataclasses import dataclass, field
-from typing import TypeVar
 
 from isbnlib import (
     NotValidISBNError,
@@ -110,9 +109,6 @@ class IdentifierStatus:
 #    * `ISBNIdentifier` class represent any ISBN identifier (isbn-10, isbn-13)
 #    * `EANIdentifier` class to represent an isbn without any hyphens
 # =============================================================================
-DocIdentifier = TypeVar("DocIdentifier")
-
-
 @dataclass(repr=False)
 class Identifier:
     """Generic document identifier representation."""
@@ -133,17 +129,17 @@ class Identifier:
         if not self.type:
             raise InvalidIdentifierException("'type' is a required property.")
 
-    def __hash__(self) -> int:
+    def __hash__(self):
         """Get a hash value for this identifier."""
-        return hash(self.type + self.value)
+        return hash(self.type + self.normalize())
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other):
         """Check if an identifier equals to another identifier."""
-        self_hash = hash(self.type + self.normalize())
-        other_hash = hash(self.type + self.normalize())
-        return self_hash == other_hash
+        if not isinstance(other, Identifier):
+            return NotImplemented
+        return self.type + self.normalize() == other.type + other.normalize()
 
-    def __str__(self) -> str:
+    def __str__(self):
         """Get simple string representation of the identifier."""
         return self.normalize()
 
@@ -153,23 +149,23 @@ class Identifier:
         data.pop("__type__", None)
         return data
 
-    def normalize(self) -> str:
+    def normalize(self):
         """Get the normalized value of the identifier."""
         return self.value
 
-    def is_valid(self) -> bool:
+    def is_valid(self):
         """Check if the identifier is valid."""
         # As we are in a generic class, all identifier are valid.
         return True
 
-    def validate(self) -> None:
+    def validate(self):
         """Validate the identifier."""
         # same as `is_valid` but raise an exception if the identifier isn't
         # valid
         if not self.is_valid():
             raise InvalidIdentifierException()
 
-    def dump(self) -> dict:
+    def dump(self):
         """Dump this identifier."""
         status = self.status if self.is_valid() else IdentifierStatus.INVALID
         data = {
@@ -182,7 +178,7 @@ class Identifier:
         }
         return {k: v for k, v in data.items() if v}
 
-    def render(self, **kwargs) -> str:
+    def render(self, **kwargs):
         """Render the identifier.
 
         :param kwargs: all possible named argument to render this identifier.
@@ -193,7 +189,7 @@ class Identifier:
         render_class = kwargs.pop("render_class", DefaultIdentifierRenderer())
         return render_class.render(self, **kwargs)
 
-    def get_alternatives(self) -> list[DocIdentifier]:
+    def get_alternatives(self):
         """Get a list of alternative for this identifier."""
         # a generic identifier doesn't have any alternatives
         return []
@@ -205,22 +201,22 @@ class ISBNIdentifier(Identifier):
 
     __type__: str = field(default=IdentifierType.ISBN, repr=False)
 
-    def __str__(self) -> str:
+    def __str__(self):
         """Get simple string representation for this ISBN (with hyphens)."""
         try:
             return mask(self.normalize())
         except NotValidISBNError:
             return self.value
 
-    def normalize(self) -> str:
+    def normalize(self):
         """Get the normalized value for this ISBN."""
         return canonical(self.value) or self.value
 
-    def is_valid(self) -> bool:
+    def is_valid(self):
         """Check if the identifier is valid."""
         return not notisbn(self.value)
 
-    def get_alternatives(self) -> list[Identifier]:
+    def get_alternatives(self):
         """Get a list of alternative for this identifiers."""
         alternatives = []
         transform_func = to_isbn13 if is_isbn10(self.value) else to_isbn10
@@ -243,17 +239,17 @@ class EANIdentifier(Identifier):
 
     __type__: str = field(default=IdentifierType.EAN, repr=False)
 
-    def normalize(self) -> str:
+    def normalize(self):
         """Get the normalized value for this EAN."""
         return canonical(self.value) or self.value
 
     __str__ = normalize
 
-    def is_valid(self) -> bool:
+    def is_valid(self):
         """Check if the identifier is valid."""
         return bool(canonical(self.value))
 
-    def get_alternatives(self) -> list[Identifier]:
+    def get_alternatives(self):
         """Get a list of alternative for this identifier."""
         alternatives = []
         for identifier in (to_isbn10(self.value), to_isbn13(self.value)):
@@ -283,7 +279,7 @@ class IdentifierRenderer(ABC):
     """Identifier renderer class."""
 
     @abstractmethod
-    def render(self, identifier: Identifier, **kwargs) -> str:
+    def render(self, identifier, **kwargs):
         """Get the string representation of an identifier."""
         raise NotImplementedError()
 
@@ -291,7 +287,7 @@ class IdentifierRenderer(ABC):
 class DefaultIdentifierRenderer(IdentifierRenderer):
     """Default identifier renderer class."""
 
-    def render(self, identifier: Identifier, **kwargs) -> str:
+    def render(self, identifier, **kwargs):
         """Get the string representation of an identifier."""
         return str(identifier)
 
@@ -299,7 +295,7 @@ class DefaultIdentifierRenderer(IdentifierRenderer):
 class QualifierIdentifierRenderer(IdentifierRenderer):
     """Identifier renderer class including the qualifier attribute."""
 
-    def render(self, identifier: Identifier, **kwargs) -> str:
+    def render(self, identifier, **kwargs):
         """Get the string representation of an identifier."""
         output = str(identifier)
         if identifier.qualifier:
@@ -321,7 +317,7 @@ class IdentifierFactory:
     }
 
     @staticmethod
-    def create_identifier(data) -> Identifier:
+    def create_identifier(data):
         """Factory method to create the concrete identifier class.
 
         :param data: the dictionary representing the identifier.

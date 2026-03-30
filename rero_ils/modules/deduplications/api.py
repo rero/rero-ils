@@ -38,7 +38,7 @@ from rero_ils.modules.documents.views import main_title_text
 class Deduplication:
     """Document deduplication class."""
 
-    def __init__(self, es_hosts=[]) -> None:
+    def __init__(self, es_hosts=None):
         """Constructor.
 
         :param es_hosts: Elasticsearch hosts to search duplicates.

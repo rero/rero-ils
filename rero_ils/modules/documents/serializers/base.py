@@ -137,7 +137,7 @@ class BaseDocumentFormatterMixin(ABC):
     def _get_authors(self):
         """Return authors."""
 
-        def _extract_contribution_callback(contribution) -> str:
+        def _extract_contribution_callback(contribution):
             """Extract value for the given contribution."""
             agent = contribution.get("entity", {})
             role = contribution.get("role", [])
@@ -154,7 +154,7 @@ class BaseDocumentFormatterMixin(ABC):
     def _get_secondary_authors(self):
         """Return other authors."""
 
-        def _extract_contribution_callback(contribution) -> str:
+        def _extract_contribution_callback(contribution):
             """Extract value for the given contribution."""
             agent = contribution.get("entity", {})
             role = contribution.get("role", [])

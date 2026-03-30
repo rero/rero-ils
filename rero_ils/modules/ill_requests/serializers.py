@@ -32,7 +32,7 @@ from rero_ils.modules.serializers import (
 class ILLRequestJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `ILLRequest` records as JSON."""
 
-    def _postprocess_search_hit(self, hit: dict) -> None:
+    def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""
         metadata = hit.get("metadata", {})
         if pid := metadata.get("pickup_location", {}).get("pid"):
@@ -41,7 +41,7 @@ class ILLRequestJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             metadata["pickup_location"]["name"] = pickup_name
         super()._postprocess_search_hit(hit)
 
-    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+    def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result."""
         JSONSerializer.enrich_bucket_with_data(
             aggregations.get("library", {}).get("buckets", []), LibrariesSearch, "name"
