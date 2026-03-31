@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 1.24.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2026-01-14 08:39+0100\n"
+"POT-Creation-Date: 2026-03-31 12:25+0200\n"
 "PO-Revision-Date: 2025-08-30 18:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language: ta\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: rero_ils/accounts_views.py:57
 msgid "The 2 passwords are not identical."
@@ -73,7 +73,7 @@ msgid "Global catalog"
 msgstr "உலகளாவிய பட்டியல்"
 
 #: rero_ils/config.py:2177
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:85
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:86
 msgid "online"
 msgstr "இணைப்பில்"
 
@@ -85,7 +85,7 @@ msgstr "இணையம்_இல்லா"
 msgid "author"
 msgstr "நூலாசிரியர்"
 
-#: rero_ils/config.py:2188 rero_ils/config.py:2604
+#: rero_ils/config.py:2188 rero_ils/config.py:2605
 msgid "subject"
 msgstr "பொருள்"
 
@@ -103,8 +103,8 @@ msgstr "அடையாளங்காட்டிகள்"
 
 #: rero_ils/config.py:2197 rero_ils/config.py:2198 rero_ils/config.py:2274
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:373
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:944
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1015
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:949
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1025
 msgid "document_type"
 msgstr "ஆவணம்_வகை"
 
@@ -121,9 +121,9 @@ msgstr "மொழி"
 msgid "organisation"
 msgstr "அமைப்பு"
 
-#: rero_ils/config.py:2204 rero_ils/config.py:2276 rero_ils/config.py:2438
-#: rero_ils/config.py:2475 rero_ils/config.py:2603 rero_ils/config.py:2647
-#: rero_ils/config.py:2753
+#: rero_ils/config.py:2204 rero_ils/config.py:2276 rero_ils/config.py:2439
+#: rero_ils/config.py:2476 rero_ils/config.py:2604 rero_ils/config.py:2648
+#: rero_ils/config.py:2754
 msgid "library"
 msgstr "நூலகம்"
 
@@ -132,7 +132,7 @@ msgid "location"
 msgstr "இடம்"
 
 #: rero_ils/config.py:2207 rero_ils/config.py:2281 rero_ils/config.py:2363
-#: rero_ils/config.py:2489 rero_ils/modules/migrations/views.py:88
+#: rero_ils/config.py:2490 rero_ils/modules/migrations/views.py:88
 msgid "status"
 msgstr "நிலை"
 
@@ -165,7 +165,7 @@ msgstr "தற்காலிக_உருப்படி_வகை"
 msgid "temporary_location"
 msgstr "தற்காலிக_இடம்"
 
-#: rero_ils/config.py:2282 rero_ils/config.py:2476
+#: rero_ils/config.py:2282 rero_ils/config.py:2477
 msgid "vendor"
 msgstr "விற்பனையாளர்"
 
@@ -199,7 +199,7 @@ msgstr "எடுக்கும்_நூலகம்"
 
 #: rero_ils/config.py:2360
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:564
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1023
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1033
 msgid "pickup_location"
 msgstr "எடுக்கும்_இடம்"
 
@@ -208,7 +208,7 @@ msgid "transaction_library"
 msgstr "பரிவர்த்தனை_நூலகம்"
 
 #: rero_ils/config.py:2362
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:928
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:929
 msgid "transaction_location"
 msgstr "பரிவர்த்தனை_இடம்"
 
@@ -217,9 +217,9 @@ msgid "misc_status"
 msgstr "மற்ற_நிலை"
 
 #: rero_ils/config.py:2365 rero_ils/config.py:2413
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:932
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1003
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1071
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:933
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1009
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1082
 msgid "patron_type"
 msgstr "புரவலர்_வகை"
 
@@ -251,95 +251,99 @@ msgstr "தடுக்கப்பட்டது"
 msgid "expired"
 msgstr "காலாவதியான"
 
-#: rero_ils/config.py:2439 rero_ils/config.py:2478
+#: rero_ils/config.py:2416
+msgid "not_expired"
+msgstr ""
+
+#: rero_ils/config.py:2440 rero_ils/config.py:2479
 msgid "budget"
 msgstr "நிதிதிட்டம்"
 
-#: rero_ils/config.py:2477
+#: rero_ils/config.py:2478
 msgid "account"
 msgstr "கணக்கு"
 
-#: rero_ils/config.py:2479
+#: rero_ils/config.py:2480
 msgid "order_date"
 msgstr "order_date"
 
-#: rero_ils/config.py:2483
+#: rero_ils/config.py:2484
 msgid "receipt_date"
 msgstr "இரசீது_தேதி"
 
-#: rero_ils/config.py:2503
+#: rero_ils/config.py:2504
 msgid "resource_type"
 msgstr "resource_type"
 
-#: rero_ils/config.py:2504 rero_ils/config.py:2515 rero_ils/config.py:2527
-#: rero_ils/config.py:2554 rero_ils/config.py:2602
+#: rero_ils/config.py:2505 rero_ils/config.py:2516 rero_ils/config.py:2528
+#: rero_ils/config.py:2555 rero_ils/config.py:2603
 msgid "type"
 msgstr "வகை"
 
-#: rero_ils/config.py:2505
+#: rero_ils/config.py:2506
 msgid "source_catalog"
 msgstr "மூல அட்டவணை"
 
-#: rero_ils/config.py:2514 rero_ils/config.py:2526
+#: rero_ils/config.py:2515 rero_ils/config.py:2527
 msgid "sources"
 msgstr "மூலங்கள்"
 
-#: rero_ils/config.py:2555
+#: rero_ils/config.py:2556
 msgid "visibility"
 msgstr "விழிமை"
 
-#: rero_ils/config.py:2605
+#: rero_ils/config.py:2606
 msgid "teacher"
 msgstr "ஆசிரியர்"
 
-#: rero_ils/config.py:2644
+#: rero_ils/config.py:2645
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:568
 msgid "request_status"
 msgstr "request_status"
 
-#: rero_ils/config.py:2645
+#: rero_ils/config.py:2646
 msgid "loan_status"
 msgstr "கடன்_நிலை"
 
-#: rero_ils/config.py:2646
+#: rero_ils/config.py:2647
 msgid "requester"
 msgstr "கோரிக்கை"
 
-#: rero_ils/config.py:2750
+#: rero_ils/config.py:2751
 msgid "category"
 msgstr "வகை"
 
-#: rero_ils/config.py:2751
+#: rero_ils/config.py:2752
 msgid "indicator"
 msgstr "காட்டொளி"
 
-#: rero_ils/config.py:2752
+#: rero_ils/config.py:2753
 msgid "frequency"
 msgstr "நிகழ்வெண்"
 
-#: rero_ils/config.py:2754
+#: rero_ils/config.py:2755
 msgid "active"
 msgstr "செயலில்"
 
-#: rero_ils/config.py:3489 rero_ils/manual_translations.txt:69
+#: rero_ils/config.py:3490 rero_ils/manual_translations.txt:69
 #: rero_ils/theme/templates/rero_ils/header.html:104
 msgid "This is a TEST VERSION."
 msgstr "இது ஒரு சோதனை பதிப்பு."
 
-#: rero_ils/config.py:3490 rero_ils/manual_translations.txt:70
+#: rero_ils/config.py:3491 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:106
 msgid "Go to the production site."
 msgstr "விளைவாக்கம் தளத்திற்குச் செல்."
 
-#: rero_ils/config.py:4174
+#: rero_ils/config.py:4182
 msgid "contains"
 msgstr "கொண்டுள்ளது"
 
-#: rero_ils/config.py:4176
+#: rero_ils/config.py:4184
 msgid "phrase"
 msgstr "சொற்றொடர்"
 
-#: rero_ils/config.py:4182
+#: rero_ils/config.py:4190
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:26
@@ -359,35 +363,35 @@ msgstr "சொற்றொடர்"
 msgid "Title"
 msgstr "தலைப்பு"
 
-#: rero_ils/config.py:4188
+#: rero_ils/config.py:4196
 msgid "Responsibility statement"
 msgstr "பொறுப்பு அறிக்கை"
 
-#: rero_ils/config.py:4194
+#: rero_ils/config.py:4202
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:8
 msgid "Contribution"
 msgstr "பங்களிப்பு"
 
-#: rero_ils/config.py:4200 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
+#: rero_ils/config.py:4208 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:354
 msgid "Country"
 msgstr "நாடு"
 
-#: rero_ils/config.py:4206
+#: rero_ils/config.py:4214
 msgid "Canton"
 msgstr "கேன்டன்"
 
-#: rero_ils/config.py:4212
+#: rero_ils/config.py:4220
 msgid "Provision activity statement"
 msgstr "வழங்கல் செயல்பாட்டு அறிக்கை"
 
-#: rero_ils/config.py:4218
+#: rero_ils/config.py:4226
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 msgid "Series statement"
 msgstr "தொடர் அறிக்கை"
 
-#: rero_ils/config.py:4224 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
+#: rero_ils/config.py:4232 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:52
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:58
@@ -396,15 +400,15 @@ msgstr "தொடர் அறிக்கை"
 msgid "Identifier"
 msgstr "அடையாளங்காட்டி"
 
-#: rero_ils/config.py:4230
+#: rero_ils/config.py:4238
 msgid "ISBN"
 msgstr "ISBN"
 
-#: rero_ils/config.py:4236
+#: rero_ils/config.py:4244
 msgid "ISSN"
 msgstr "Issn"
 
-#: rero_ils/config.py:4242
+#: rero_ils/config.py:4250
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:130
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:14
@@ -412,14 +416,14 @@ msgstr "Issn"
 msgid "Genre, form"
 msgstr "வகை, வடிவம்"
 
-#: rero_ils/config.py:4248
+#: rero_ils/config.py:4256
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:141
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:15
 msgid "Subject"
 msgstr "பொருள்"
 
-#: rero_ils/config.py:4254
+#: rero_ils/config.py:4262
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:94
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:54
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
@@ -428,32 +432,32 @@ msgstr "பொருள்"
 msgid "Call number"
 msgstr "அழைப்பு எண்"
 
-#: rero_ils/config.py:4260
+#: rero_ils/config.py:4268
 msgid "Local fields (document)"
 msgstr "உள்ளக புலங்கள் (ஆவணம்)"
 
-#: rero_ils/config.py:4266
+#: rero_ils/config.py:4274
 msgid "Local fields (holdings)"
 msgstr "உள்ளக புலங்கள் (ஓல்டிங்ச்)"
 
-#: rero_ils/config.py:4272
+#: rero_ils/config.py:4280
 msgid "Local fields (items)"
 msgstr "உள்ளக புலங்கள் (உருப்படிகள்)"
 
-#: rero_ils/config.py:4278
+#: rero_ils/config.py:4286
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 msgid "Classification"
 msgstr "வகைப்பாடு"
 
-#: rero_ils/config.py:4284
+#: rero_ils/config.py:4292
 msgid "RDA content type"
 msgstr "RDA உள்ளடக்க வகை"
 
-#: rero_ils/config.py:4290
+#: rero_ils/config.py:4298
 msgid "RDA media type"
 msgstr "ஆர்டிஏ மீடியா வகை"
 
-#: rero_ils/config.py:4296
+#: rero_ils/config.py:4304
 msgid "RDA carrier type"
 msgstr "ஆர்டிஏ கேரியர் வகை"
 
@@ -2432,7 +2436,7 @@ msgstr "நாணயம்"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:192
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:702
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:388
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:65
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:66
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:581
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:35
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:77
@@ -4509,11 +4513,11 @@ msgstr "கடவுச்சொல்லில் ஒரு எண் இரு
 msgid "The password must contain a special character."
 msgstr "கடவுச்சொல்லில் ஒரு சிறப்பு எழுத்து இருக்க வேண்டும்."
 
-#: rero_ils/modules/acquisition/acq_accounts/api.py:296
+#: rero_ils/modules/acquisition/acq_accounts/api.py:291
 msgid "Cannot transfer fund to myself."
 msgstr "நிதியை நானே மாற்ற முடியாது."
 
-#: rero_ils/modules/acquisition/acq_accounts/api.py:298
+#: rero_ils/modules/acquisition/acq_accounts/api.py:293
 msgid "Not enough available money from source account."
 msgstr "மூல கணக்கிலிருந்து போதுமான பணம் கிடைக்கவில்லை."
 
@@ -4555,12 +4559,12 @@ msgstr "ஒரு தொகையை ஒதுக்கக்கூடிய ப
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:8
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:43
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:31
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:25
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:26
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:37
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:189
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:15
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:17
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:30
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:133
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
@@ -4601,9 +4605,9 @@ msgstr "கணக்கு ஐடி"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:373
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:407
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:474
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:36
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:37
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:219
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:59
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:60
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:418
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:26
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:33
@@ -4689,7 +4693,7 @@ msgstr "பட்செட் யூரி"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:111
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:549
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:157
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:220
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:84
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:122
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:139
@@ -4708,7 +4712,7 @@ msgstr "நூலகம்"
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:46
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:115
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:557
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:161
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:224
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:88
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:130
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:146
@@ -4727,7 +4731,7 @@ msgstr "நூலக யூரி"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:303
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:4
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:96
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:240
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:247
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:534
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:199
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:141
@@ -4750,7 +4754,7 @@ msgstr "அமைப்பு"
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:74
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:311
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:104
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:248
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:255
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:542
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:207
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:149
@@ -4767,7 +4771,7 @@ msgstr "அமைப்பு யூரி"
 msgid "%"
 msgstr "%"
 
-#: rero_ils/modules/acquisition/acq_order_lines/api.py:89
+#: rero_ils/modules/acquisition/acq_order_lines/api.py:91
 #: rero_ils/modules/acquisition/acq_orders/api.py:102
 #: rero_ils/modules/holdings/api.py:187
 #: rero_ils/modules/ill_requests/api.py:103
@@ -4775,7 +4779,11 @@ msgstr "%"
 msgid "Cannot have multiple notes of the same type."
 msgstr ""
 
-#: rero_ils/modules/acquisition/acq_order_lines/api.py:104
+#: rero_ils/modules/acquisition/acq_order_lines/api.py:97
+msgid "Cannot save an active order line for a deleted document."
+msgstr ""
+
+#: rero_ils/modules/acquisition/acq_order_lines/api.py:112
 msgid "Cannot create an order line with an order with a wrong status."
 msgstr ""
 
@@ -4851,6 +4859,7 @@ msgstr "குறிப்புகள்"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:690
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:375
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:569
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:75
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:547
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:692
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:79
@@ -5084,8 +5093,9 @@ msgstr "கட்டணம்"
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:20
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:24
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:34
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:133
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:199
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:134
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:200
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:91
 msgid "Label"
 msgstr "சிட்டை"
 
@@ -5106,9 +5116,9 @@ msgid "Name of the budget."
 msgstr "பட்செட்டின் பெயர்."
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:48
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:51
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:124
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:149
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:52
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:187
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:212
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:48
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:51
 msgid "This name is already taken."
@@ -5163,7 +5173,7 @@ msgstr "சுழற்சி கொள்கை ஐடி"
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:55
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:163
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:38
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:59
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:60
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:56
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:48
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:41
@@ -7523,6 +7533,7 @@ msgid "Is displayed next to the link, as additional information."
 msgstr "கூடுதல் தகவல்களாக இணைப்புக்கு அடுத்ததாக காட்டப்படும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:249
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:71
 msgid "Public note"
 msgstr "பொது குறிப்பு"
 
@@ -7799,7 +7810,7 @@ msgid "Examples: LCCN, PMID, DNB"
 msgstr "எடுத்துக்காட்டுகள்: எல்.சி.சி.என், பி.எம்.ஐ.டி, டி.என்.பி"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:215
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:117
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:118
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:162
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:164
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:38
@@ -9581,14 +9592,14 @@ msgstr "சுழற்சி வகை யூரி"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:122
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:123
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:214
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:277
 msgid "Location"
 msgstr "இடம்"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:129
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:130
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:267
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:217
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:280
 msgid "Location URI"
 msgstr "இருப்பிட யூரி"
 
@@ -10366,35 +10377,35 @@ msgstr "இந்த நிறுவனத்தில் மற்றொரு 
 msgid "Categorization of items."
 msgstr "உருப்படிகளின் வகைப்படுத்தல்."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:31
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:32
 msgid "ItemType ID."
 msgstr "ItemType ஐடி."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:37
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:38
 msgid "Name of the ItemType."
 msgstr "உருப்படி வகையின் பெயர்."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:60
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:61
 msgid "Description of the ItemType."
 msgstr "உருப்படி வகை விளக்கம்."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:66
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:67
 msgid "Type of the circulation category."
 msgstr "சுழற்சி வகையின் வகை."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:81
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:82
 msgid "standard"
 msgstr "தரநிலை"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:98
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:99
 msgid "Another online item type exists in this organisation."
 msgstr "இந்த நிறுவனத்தில் மற்றொரு நிகழ்நிலை உருப்படி வகை உள்ளது."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:106
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:107
 msgid "Mark the items of this category as not available"
 msgstr "இந்த வகையின் உருப்படிகளை கிடைக்கவில்லை எனக் குறிக்கவும்"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:107
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:108
 msgid ""
 "If enabled, all items of this circulation category will be displayed as "
 "not available, with the red availability symbol."
@@ -10402,11 +10413,11 @@ msgstr ""
 "இயக்கப்பட்டால், இந்த சுழற்சி வகையின் அனைத்து உருப்படிகளும் கிடைக்காதபடி "
 "காண்பிக்கப்படும், சிவப்பு கிடைக்கும் சின்னத்துடன்."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:112
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:113
 msgid "Displayed status"
 msgstr "காட்டப்பட்ட நிலை"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:114
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:115
 msgid ""
 "Short text displayed in the interface, for instance 'in acquisition' or "
 "'missing'."
@@ -10414,16 +10425,16 @@ msgstr ""
 "இடைமுகத்தில் காட்டப்படும் குறுகிய உரை, உதாரணமாக 'கையகப்படுத்துதலில்' "
 "அல்லது 'காணவில்லை'."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:170
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:232
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:171
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:233
 msgid "Only one label per language is allowed."
 msgstr "ஒரு மொழிக்கு ஒரு சிட்டை மட்டுமே அனுமதிக்கப்படுகிறது."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:178
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:179
 msgid "Circulation information"
 msgstr "புழக்கத்தில் செய்தி"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:180
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:181
 msgid ""
 "This optional text is displayed in the public interface, for instance "
 "'On-site consultation'"
@@ -10431,9 +10442,19 @@ msgstr ""
 "இந்த விருப்ப உரை பொது இடைமுகத்தில் காட்டப்படும், உதாரணமாக 'ஆன்-சைட் "
 "அறிவுரை'"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:184
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:185
 msgid "Information"
 msgstr "தகவல்"
+
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:241
+msgid "Remove temporary item type on item scan"
+msgstr ""
+
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:242
+msgid ""
+"If enabled, scanning an item with this temporary item type will remove "
+"the temporary item type from the item."
+msgstr ""
 
 #: rero_ils/modules/items/api/circulation.py:97
 msgid "No circulation action performed: validate impossible"
@@ -10801,7 +10822,7 @@ msgid "Billing informations"
 msgstr "பட்டியலிடல் செய்தி"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:214
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:40
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:41
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:38
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:61
 msgid "Code"
@@ -10910,19 +10931,19 @@ msgstr "rollover_no_transfer"
 msgid "rollover_allocated_amount"
 msgstr "ரோல்ஓவர் ஒதுக்கப்பட்ட தொகை"
 
-#: rero_ils/modules/loans/api.py:131
+#: rero_ils/modules/loans/api.py:130
 msgid "The loan cannot be extended"
 msgstr "கடனை நீட்டிக்க முடியாது"
 
-#: rero_ils/modules/loans/api.py:151
+#: rero_ils/modules/loans/api.py:150
 msgid "Circulation policies disallows the operation."
 msgstr "சுழற்சி கொள்கைகள் செயல்பாட்டை அனுமதிக்காது."
 
-#: rero_ils/modules/loans/api.py:153
+#: rero_ils/modules/loans/api.py:152
 msgid "A pending request exists on this item."
 msgstr "இந்த உருப்படியில் நிலுவையில் உள்ள கோரிக்கை உள்ளது."
 
-#: rero_ils/modules/loans/api.py:178
+#: rero_ils/modules/loans/api.py:177
 msgid "No circulation action is permitted"
 msgstr "புழக்க நடவடிக்கை எதுவும் அனுமதிக்கப்படவில்லை"
 
@@ -11138,101 +11159,113 @@ msgstr "பதிவு இடம் கோரிக்கையை அனும
 msgid "A subsection of a library in which items are stored."
 msgstr "உருப்படிகள் சேமிக்கப்படும் ஒரு நூலகத்தின் துணைப்பிரிவு."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:36
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:37
 msgid "Location ID"
 msgstr "இருப்பிட ஐடி"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:41
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:42
 msgid "Code of the location."
 msgstr "இருப்பிடத்தின் குறியீடு."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:51
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:52
 msgid "This code is already taken."
 msgstr "குறியீடு ஏற்கனவே எடுக்கப்பட்டுள்ளது."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:60
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:61
 msgid "Name of the location."
 msgstr "இருப்பிடத்தின் பெயர்."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:70
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:72
+msgid "A short note displayed to the public about this location."
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:98
+msgid "Example: Request delay 24h"
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:125
+msgid "Only one note per language is allowed."
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:133
 msgid "Is pickup location"
 msgstr "இடும் இடம்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:73
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:136
 msgid "Qualify this location as a pickup location."
 msgstr "இந்த இருப்பிடத்தை இடும் இடமாக தகுதி பெறுங்கள்."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:76
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:139
 msgid "Is ILL pickup location"
 msgstr "தவறான இடும் இடம்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:79
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:142
 msgid "Qualify this location as a ILL pickup location."
 msgstr "இந்த இருப்பிடத்தை தவறான இடும் இடமாக தகுதி பெறுங்கள்."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:82
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:145
 msgid "Is online location"
 msgstr "நிகழ்நிலை இடம்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:85
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:148
 msgid "Qualify this location as an online location."
 msgstr "இந்த இருப்பிடத்தை நிகழ்நிலை இருப்பிடமாக தகுதி பெறுங்கள்."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:99
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:162
 msgid "There is already one online location in this library."
 msgstr "இந்த நூலகத்தில் ஏற்கனவே ஒரு நிகழ்நிலை இடம் உள்ளது."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:107
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:170
 msgid "Pickup location name"
 msgstr "இடும் இருப்பிட பெயர்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:109
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:172
 msgid "Displayed pickup location name, if different from the location name."
 msgstr "இருப்பிட பெயரிலிருந்து வேறுபட்டால், இடும் இடமளிக்கும் இடத்தின் பெயர்."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:132
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:195
 msgid "ILL Pickup location name"
 msgstr "தவறான இடும் இருப்பிட பெயர்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:134
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:197
 msgid "Displayed ILL pickup location name, if different from the location name."
 msgstr ""
 "இருப்பிட பெயரிலிருந்து வேறுபட்டால், மோசமான இடும் இருப்பிட பெயர் "
 "காட்டப்படும்."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:168
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:231
 msgid "Allow request"
 msgstr "கோரிக்கையை அனுமதிக்கவும்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:170
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:233
 msgid "If enabled, it allows requests for items linked to this location."
 msgstr ""
 "இயக்கப்பட்டால், இந்த இருப்பிடத்துடன் இணைக்கப்பட்ட உருப்படிகளுக்கான "
 "கோரிக்கைகளை இது அனுமதிக்கிறது."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:174
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:237
 msgid "Send notification"
 msgstr "அறிவிப்பை அனுப்பவும்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:175
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:238
 msgid "Send a email notification when an item of the location has been requested."
 msgstr "இருப்பிடத்தின் ஒரு உருப்படி கோரப்பட்டால் மின்னஞ்சல் அறிவிப்பை அனுப்பவும்."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:188
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:251
 msgid "Notification email"
 msgstr "அறிவிப்பு மின்னஞ்சல்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:189
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:252
 msgid "Specify a generic email address used for notification."
 msgstr ""
 "அறிவிப்புக்கு பயன்படுத்தப்படும் பொதுவான மின்னஞ்சல் முகவரியைக் "
 "குறிப்பிடவும்."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:207
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:270
 msgid "Restrict pickup to"
 msgstr "எடுப்பதை கட்டுப்படுத்துங்கள்"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:208
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:271
 msgid ""
 "Select locations where items linked to the current location could be "
 "requested."
@@ -12346,8 +12379,8 @@ msgstr "ஆவணங்களின் எண்ணிக்கை"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:432
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:539
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:889
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:964
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1039
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:969
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1049
 msgid "distributions"
 msgstr "வழங்கல்"
 
@@ -12355,7 +12388,7 @@ msgstr "வழங்கல்"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:295
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:365
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:556
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1059
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1070
 msgid "created_month"
 msgstr "created_month"
 
@@ -12363,7 +12396,7 @@ msgstr "created_month"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:299
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:369
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:560
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1063
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1074
 msgid "created_year"
 msgstr "உருவாக்கப்பட்டது_இயர்"
 
@@ -12371,8 +12404,8 @@ msgstr "உருவாக்கப்பட்டது_இயர்"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:303
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:381
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:457
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:920
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:995
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:921
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1001
 msgid "owning_library"
 msgstr "சொந்த_ லைப்ரரி"
 
@@ -12389,8 +12422,8 @@ msgid "Number of items"
 msgstr "பொருட்களின் எண்ணிக்கை"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:385
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:924
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:999
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:925
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1005
 msgid "owning_location"
 msgstr "சொந்த_ லோகேசன்"
 
@@ -12485,44 +12518,53 @@ msgstr ""
 msgid "month"
 msgstr "மாதம்"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:912
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:987
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:913
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:993
 msgid "transaction_month"
 msgstr "பரிவர்த்தனை_ மாத"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:916
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:991
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:917
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:997
 msgid "transaction_year"
 msgstr "பரிவர்த்தனை_ ஆண்டு"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:936
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1007
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:937
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1013
 msgid "patron_age"
 msgstr "உதவி"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:940
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1011
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:941
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1017
 msgid "patron_postal_code"
 msgstr "batron_postal_code"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:948
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1019
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:945
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1021
+msgid "patron_local_codes"
+msgstr ""
+
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:953
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1029
 msgid "transaction_channel"
 msgstr "பரிவர்த்தனை_சானல்"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1067
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1078
 msgid "gender"
 msgstr "பாலினம்"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1075
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1086
 msgid "postal_code"
 msgstr "அஞ்சல் குறியீடு"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1079
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1090
+msgid "local_codes"
+msgstr ""
+
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1094
 msgid "birth_year"
 msgstr "பிறப்பு_ ஆண்டு"
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1083
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1098
 msgid "role"
 msgstr "பங்கு"
 
@@ -12802,6 +12844,11 @@ msgstr "ஒரு வகைக்கு ஒரு தொடர்பு மட�
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa fa-user\"></i>"
+msgstr "<i class=\"fa fa-user\"></i>"
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa fa-globe\"></i>"
 msgstr "<i class=\"fa fa-globe\"></i>"
 
@@ -12809,11 +12856,6 @@ msgstr "<i class=\"fa fa-globe\"></i>"
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa fa-phone\"></i>"
 msgstr "<i class=\"fa fa-phone\"></i>"
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa fa-user\"></i>"
-msgstr "<i class=\"fa fa-user\"></i>"
 
 #: rero_ils/theme/menus.py:52
 msgid "My Account"
@@ -12941,6 +12983,11 @@ msgstr "அல்லது"
 #: rero_ils/theme/templates/rero_ils/frontpage.html:41
 msgid "What are you looking for?"
 msgstr "நீங்கள் எதைத் தேடுகிறீர்கள்?"
+
+#: rero_ils/theme/templates/rero_ils/header.html:27
+#: rero_ils/theme/templates/rero_ils/page_cover.html:38
+msgid "Home"
+msgstr ""
 
 #: rero_ils/theme/templates/rero_ils/header.html:40
 msgid "Search"
