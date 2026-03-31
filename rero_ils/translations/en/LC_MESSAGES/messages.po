@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-03-31 12:25+0200\n"
-"PO-Revision-Date: 2026-01-14 08:04+0000\n"
+"PO-Revision-Date: 2026-03-31 11:14+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/rero-"
+"ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.17-dev\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -262,7 +263,7 @@ msgstr "expired"
 
 #: rero_ils/config.py:2416
 msgid "not_expired"
-msgstr ""
+msgstr "not expired"
 
 #: rero_ils/config.py:2440 rero_ils/config.py:2479
 msgid "budget"
@@ -4790,7 +4791,7 @@ msgstr "Cannot have multiple notes of the same type."
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:97
 msgid "Cannot save an active order line for a deleted document."
-msgstr ""
+msgstr "Cannot save an active order line for a deleted document."
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:112
 msgid "Cannot create an order line with an order with a wrong status."
@@ -10419,13 +10420,15 @@ msgstr "Information"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:241
 msgid "Remove temporary item type on item scan"
-msgstr ""
+msgstr "Remove temporary item type on item scan"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:242
 msgid ""
 "If enabled, scanning an item with this temporary item type will remove "
 "the temporary item type from the item."
 msgstr ""
+"If enabled, scanning an item with this temporary item type will remove the "
+"temporary item type from the item."
 
 #: rero_ils/modules/items/api/circulation.py:97
 msgid "No circulation action performed: validate impossible"
@@ -11139,15 +11142,15 @@ msgstr "Name of the location."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:72
 msgid "A short note displayed to the public about this location."
-msgstr ""
+msgstr "A short note displayed to the public about this location."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:98
 msgid "Example: Request delay 24h"
-msgstr ""
+msgstr "Example: Request delay 24h"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:125
 msgid "Only one note per language is allowed."
-msgstr ""
+msgstr "Only one note per language is allowed."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:133
 msgid "Is pickup location"
@@ -12496,7 +12499,7 @@ msgstr "patron postal code"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:945
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1021
 msgid "patron_local_codes"
-msgstr ""
+msgstr "patron local codes"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:953
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1029
@@ -12513,7 +12516,7 @@ msgstr "postal code"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1090
 msgid "local_codes"
-msgstr ""
+msgstr "local codes"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1094
 msgid "birth_year"
@@ -12816,7 +12819,7 @@ msgstr "My account"
 
 #: rero_ils/theme/views.py:95 rero_ils/theme/views.py:110
 msgid "THEME_SITENAME"
-msgstr ""
+msgstr "THEME_SITENAME"
 
 #: rero_ils/theme/templates/rero_ils/_editor_button_actions.html:22
 msgid "JSON"
@@ -12934,7 +12937,7 @@ msgstr "What are you looking for?"
 #: rero_ils/theme/templates/rero_ils/header.html:27
 #: rero_ils/theme/templates/rero_ils/page_cover.html:38
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: rero_ils/theme/templates/rero_ils/header.html:40
 msgid "Search"
@@ -13037,4 +13040,3 @@ msgstr "Your library"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Your password has been successfully reset."
-
