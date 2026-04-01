@@ -1,0 +1,89 @@
+%%mermaid
+%% Maintenance: update annotations in the UTILS subgraph whenever a source
+%% adds, removes, or overrides a utils.py function (e.g. "→ DNB · UGent").
+%%{init: {"theme": "base", "themeVariables": {"fontSize": "13px"}}}%%
+flowchart TB
+
+    classDef source  fill:#4A90D9,color:#fff,stroke:#2E6BA8
+    classDef custom  fill:#F57C00,color:#fff,stroke:#E65100
+    classDef handler fill:#AB47BC,color:#fff,stroke:#7B1FA2
+    classDef helper  fill:#7CB342,color:#fff,stroke:#558B2F
+    classDef ref     fill:#ECEFF1,color:#333,stroke:#90A4AE
+
+    %% ── Sources ──────────────────────────────────────────────────
+
+    subgraph STANDARD["Standard sources<br/>(share LOC subject handler)"]
+        direction TB
+        DNB["DNB<br/>no 010  ·  no do_credits<br/>fiction from 008[33]"]:::source
+        UGent["UGent<br/>custom credits: 511 → FR prefix<br/>fiction from 008[33]"]:::source
+        KUL["KUL<br/>490 series handler disabled<br/>fiction from 008[33]"]:::source
+    end
+
+    subgraph CUSTOM["Custom sources<br/>(own subject handlers)"]
+        direction TB
+        LOC["LOC<br/>custom work_access_point 130/240/730<br/>custom 440 series handler"]:::custom
+        SLSP["SLSP<br/>custom pid from 001<br/>len(008)>33 guard"]:::custom
+        RERO["RERO<br/>custom type · language · contribution<br/>custom part_of · classification"]:::custom
+    end
+
+    %% ── Subject handlers ─────────────────────────────────────────
+
+    subgraph SUBJECTS["Subject handlers  (inline per model)"]
+        direction TB
+        sLOC["LOC handler<br/>───<br/>$2 gnd → subjects<br/>$2 rero/idref → subjects_imported<br/>ind2=0 → LCSH  ·  ind2=2 → MeSH<br/>GND $0 → MEF \$ref"]:::handler
+        sSLSP["SLSP handler<br/>───<br/>gnd / rero / idref / rerovoc<br/>$0 → identifiedBy<br/>648 Temporal  ·  655 genreForm"]:::handler
+        sRERO["RERO handler<br/>───<br/>full subdivision support<br/>creator-embedded work subjects"]:::handler
+    end
+
+    uSubdiv(["perform_subdivisions"]):::helper
+
+    %% ── Connections ──────────────────────────────────────────────
+
+    DNB   -.->|delegates| sLOC
+    UGent -.->|delegates| sLOC
+    KUL   -.->|delegates| sLOC
+    LOC   -->             sLOC
+    SLSP  -->             sSLSP
+    RERO  -->             sRERO
+
+    sLOC  --> uSubdiv
+    sSLSP --> uSubdiv
+    sRERO --> uSubdiv
+
+    uSubdiv ~~~ UTILS
+
+    %% ── Utils reference ──────────────────────────────────────────
+
+    subgraph UTILS["utils.py — function reference  (annotations show which sources use each)"]
+        direction TB
+
+        subgraph U_SOME["Used by subset of sources"]
+            direction LR
+            r14(["do_identified_by_010  LCCN<br/>→ UGent · KUL · LOC · SLSP"]):::ref
+            r15(["do_work_access_point<br/>→ DNB · UGent · KUL · SLSP · RERO"]):::ref
+            r16(["do_work_access_point_240<br/>→ DNB · UGent · KUL · SLSP"]):::ref
+            r17(["do_credits<br/>→ all except UGent  ·  UGent overrides with 511 FR prefix"]):::ref
+        end
+
+        subgraph U_MOST["Used by all except RERO"]
+            direction LR
+            r11(["do_type  ·  do_language"]):::ref
+            r12(["do_contribution"]):::ref
+            r13(["do_part_of  ·  do_classification"]):::ref
+        end
+
+        subgraph U_ALL["Used by all 6 sources"]
+            direction LR
+            r1(["do_issuance"]):::ref
+            r2(["do_title  ·  do_abbreviated_title"]):::ref
+            r3(["do_provision_activity  ·  do_edition_statement  ·  do_copyright_date"]):::ref
+            r4(["do_summary  ·  do_dissertation  ·  do_notes_and_original_title"]):::ref
+            r5(["do_table_of_contents  ·  do_intended_audience"]):::ref
+            r6(["do_electronic_locator_856  ·  do_specific_document_relation"]):::ref
+            r7(["do_scale_and_cartographic  ·  do_temporal_coverage"]):::ref
+            r8(["do_sequence_numbering  ·  do_frequency"]):::ref
+            r9(["do_usage_and_access_policy  ·  do_acquisition_terms"]):::ref
+            r10(["do_identified_by_020 / 022 / 024 / 028 / 035"]):::ref
+        end
+
+    end

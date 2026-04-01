@@ -19,9 +19,11 @@
 
 from unittest import mock
 
+import pytest
 from dojson.contrib.marc21.utils import create_record
 
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.slsp import marc21
+from rero_ils.modules.documents.models import DocumentFictionType
 
 
 def test_marc21_to_contribution():
@@ -662,3 +664,67 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
         }
     ]
     assert data.get("subjects") is None
+
+
+def test_marc21_to_pid():
+    """Test PID extraction from field 001 with REROILS prefix."""
+    marc21xml = """
+    <record>
+      <controlfield tag="001">REROILS:12345</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get("pid") == "12345"
+
+
+def test_marc21_to_pid_non_rero_prefix_ignored():
+    """Test that 001 values without REROILS prefix produce no pid."""
+    marc21xml = """
+    <record>
+      <controlfield tag="001">ALMA:99999</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get("pid") is None
+
+
+@pytest.mark.parametrize(
+    "char,expected",
+    [
+        ("1", DocumentFictionType.Fiction.value),
+        ("d", DocumentFictionType.Fiction.value),
+        ("f", DocumentFictionType.Fiction.value),
+        ("j", DocumentFictionType.Fiction.value),
+        ("p", DocumentFictionType.Fiction.value),
+        ("0", DocumentFictionType.NonFiction.value),
+        ("e", DocumentFictionType.NonFiction.value),
+        ("h", DocumentFictionType.NonFiction.value),
+        ("i", DocumentFictionType.NonFiction.value),
+        ("s", DocumentFictionType.NonFiction.value),
+        (" ", DocumentFictionType.Unspecified.value),
+    ],
+)
+def test_marc21_to_fiction_statement(char, expected):
+    """Test fiction_statement extraction from 008 position 33."""
+    marc21xml = f"""
+    <record>
+      <controlfield tag="008">160315s2015    cc ||| |  ||||00| {char}|chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data["fiction_statement"] == expected
+
+
+def test_marc21_to_fiction_statement_short_008():
+    """Test that a short 008 field (no position 33) defaults to Unspecified."""
+    marc21xml = """
+    <record>
+      <controlfield tag="008">160315</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data["fiction_statement"] == DocumentFictionType.Unspecified.value

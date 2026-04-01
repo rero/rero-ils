@@ -1116,7 +1116,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                     error_print("ERROR SERIAL TYPE:", self.bib_id, self.rero_id, err)
                 self.date1_from_008 = self.field_008_data[7:11]
                 self.date2_from_008 = self.field_008_data[11:15]
-                self.date_type_from_008 = self.field_008_data[6]
+                self.date_type_from_008 = self.field_008_data[6] if len(self.field_008_data) > 6 else ""
                 if self.date_type_from_008 == "r":
                     self.original_date_from_008 = self.date2_from_008
             self.admin_meta_data = {}

@@ -82,9 +82,10 @@ def marc21_to_language(self, key, value):
     language = do_language(self, marc21)
     # is fiction
     self["fiction_statement"] = DocumentFictionType.Unspecified.value
-    if value[33] in ["1", "d", "f", "j", "p"]:
+    char_33 = value[33] if len(value) > 33 else ""
+    if char_33 in ["1", "d", "f", "j", "p"]:
         self["fiction_statement"] = DocumentFictionType.Fiction.value
-    elif value[33] in ["0", "e", "h", "i", "s"]:
+    elif char_33 in ["0", "e", "h", "i", "s"]:
         self["fiction_statement"] = DocumentFictionType.NonFiction.value
     return language or None
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -329,3 +329,88 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
         }
     ]
     assert data.get("subjects") is None
+
+
+def test_marc21_to_work_access_point_130():
+    """Test work access point from field 130 with title, language, and parts."""
+    marc21xml = """
+    <record>
+      <datafield tag="130" ind1="0" ind2=" ">
+        <subfield code="a">Bible.</subfield>
+        <subfield code="l">English</subfield>
+        <subfield code="n">N.T.</subfield>
+        <subfield code="p">Gospels.</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get("work_access_point") == [
+        {
+            "title": "Bible.",
+            "language": "English",
+            "part": [{"partNumber": "N.T.", "partName": "Gospels"}],
+        }
+    ]
+
+
+def test_marc21_to_work_access_point_130_miscellaneous():
+    """Test that 130 $g and $s subfields are joined into miscellaneous_information."""
+    marc21xml = """
+    <record>
+      <datafield tag="130" ind1="0" ind2=" ">
+        <subfield code="a">Some work</subfield>
+        <subfield code="g">Selections</subfield>
+        <subfield code="s">Variant title</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get("work_access_point") == [
+        {
+            "title": "Some work",
+            "miscellaneous_information": "Selections. Variant title",
+        }
+    ]
+
+
+def test_marc21_to_series_440_with_enumeration():
+    """Test LOC 440 series statement: trailing punctuation removed from title."""
+    marc21xml = """
+    <record>
+      <datafield tag="440" ind1=" " ind2="0">
+        <subfield code="a">Lecture notes in mathematics,</subfield>
+        <subfield code="v">vol. 42</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Lecture notes in mathematics"}],
+            "seriesEnumeration": [{"value": "vol. 42"}],
+        }
+    ]
+
+
+def test_marc21_to_series_440_with_subseries():
+    """Test LOC 440 series statement with subseries built from $n and $p."""
+    marc21xml = """
+    <record>
+      <datafield tag="440" ind1=" " ind2="0">
+        <subfield code="a">Main series.</subfield>
+        <subfield code="n">Part 1.</subfield>
+        <subfield code="p">Subseries title</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Main series"}],
+            "subseriesStatement": [{"subseriesTitle": [{"value": "Part 1. Subseries title"}]}],
+        }
+    ]

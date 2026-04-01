@@ -379,10 +379,9 @@ def do_type(data, marc21):
         if marc21.bib_level == "m":
             doc_type = [{"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}]
 
-            field_008 = None
-            field_008 = marc21.get_fields("008")
+            field_008 = marc21.get_fields("008") or None
             # if it's an electronic book
-            if field_008[0]["data"][23] in ("o", "s"):
+            if field_008 and len(field_008[0]["data"]) > 23 and field_008[0]["data"][23] in ("o", "s"):
                 doc_type = [{"main_type": "docmaintype_book", "subtype": "docsubtype_e-book"}]
         elif marc21.bib_level == "s":
             doc_type = [{"main_type": "docmaintype_serial"}]
