@@ -549,6 +549,7 @@ INDEXER_BULK_REQUEST_TIMEOUT = 60
 
 RERO_ILS_IMPORT_CACHE = "redis://localhost:6379/5"
 RERO_ILS_IMPORT_CACHE_EXPIRE = 10
+SIP2_DATASTORE_REDIS_URL = "redis://localhost:6379/6"
 
 # Database
 # ========

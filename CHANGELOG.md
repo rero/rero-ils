@@ -1,5 +1,52 @@
 # Changelog
 
+## [v1.28.0](https://github.com/rero/rero-ils/tree/v1.28.0) (2026-04-23)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.27.1...v1.28.0)
+
+**New features:**
+
+- feat(thumbnails): add cover image support with rero-invenio-thumbnails [#4018](https://github.com/rero/rero-ils/pull/4018) (by @rerowep)
+- feat(documents): add async cover image support with Redis queue [#4067](https://github.com/rero/rero-ils/pull/4067) (by @rerowep)
+- Patrons list: add a "not expired" filter [#4043](https://github.com/rero/rero-ils/issues/4043) (by @PascalRepond)
+- feat(locations): add a public note field [#4040](https://github.com/rero/rero-ils/pull/4040) (by @PascalRepond)
+- feat(documents): allow deletion when acq order lines are terminal [#3818](https://github.com/rero/rero-ils/pull/3818) (by @rerowep)
+- feat(theme): add local custom CSS and logos [#4021](https://github.com/rero/rero-ils/pull/4021) (by @rerowep)
+- feat: auto-remove temporary item type on scan [#4008](https://github.com/rero/rero-ils/pull/4008) (by @PascalRepond)
+
+**Enhancements:**
+
+- Stat reports: add patron_local_codes distrib for circulation and patrons reports [#4050](https://github.com/rero/rero-ils/issues/4050)
+- Inventory list: sorting by call_number should also use inherited call_numbers [#4009](https://github.com/rero/rero-ils/issues/4009)
+- Anonymise loans 12 months after closure instead of 3/6 months [#4042](https://github.com/rero/rero-ils/issues/4042)
+- Late issues: display a filter for "0 claims" [#4015](https://github.com/rero/rero-ils/issues/4015) (by @PascalRepond)
+- Display item-issue sort date in brief and detailed views [#4032](https://github.com/rero/rero-ils/issues/4032) (by @PascalRepond)
+- feat(sru): enhance CQL search capabilities and performance [#4027](https://github.com/rero/rero-ils/pull/4027) (by @rerowep)
+
+**Fixes:**
+
+- fix(sru): do not export masked and draft documents [#4086](https://github.com/rero/rero-ils/pull/4086) (by @PascalRepond)
+- fix(broker): harden RabbitMQ and Redis connections [#4079](https://github.com/rero/rero-ils/pull/4079) (by @rerowep)
+- fix(documents): reindex all items of a document [#4082](https://github.com/rero/rero-ils/pull/4082) (by @rerowep)
+- Public patron profile: reload contributors when switching organisations [#4020](https://github.com/rero/rero-ils/issues/4020)
+- Import from the web: Import (except GND) all subjects/genreForms in subjects_imported [#4010](https://github.com/rero/rero-ils/issues/4010) (by @rerowep)
+- fix: route non-gnd 655 fields to genreForm_imported [#4069](https://github.com/rero/rero-ils/pull/4069) (by @PascalRepond)
+- fix(circulation): prevent test failures after 23:00 UTC [#4038](https://github.com/rero/rero-ils/pull/4038) (by @rerowep)
+- fix(location): remove minItems on public note [#4052](https://github.com/rero/rero-ils/pull/4052) (by @PascalRepond)
+- fix(documents): fix subject imports routing condition [#4035](https://github.com/rero/rero-ils/pull/4035) (by @rerowep)
+- refactor(items): split issue sort_date display from ES sort key [#4034](https://github.com/rero/rero-ils/pull/4034) (by @PascalRepond)
+- fix(editor): display document notes as text areas [#4033](https://github.com/rero/rero-ils/pull/4033) (by @PascalRepond)
+
+**Other changes:**
+
+- docs: update "remove temp item type" hint [#4073](https://github.com/rero/rero-ils/pull/4073) (by @PascalRepond)
+- docs(user): fix loan history description to reflect the new policy [#4076](https://github.com/rero/rero-ils/pull/4076) (by @PascalRepond)
+- docs: add CLAUDE.md instructions [#4048](https://github.com/rero/rero-ils/pull/4048) (by @PascalRepond)
+- docs: consolidate config and relocate wiki content [#4039](https://github.com/rero/rero-ils/pull/4039) (by @PascalRepond)
+- chore(deps): Bump werkzeug from 3.1.5 to 3.1.6 [#4037](https://github.com/rero/rero-ils/pull/4037) (by @dependabot[bot])
+- chore: remove unused Invenio default files and Sphinx infrastructure [#4036](https://github.com/rero/rero-ils/pull/4036) (by @PascalRepond)
+- chore: fix vulnerability alerts [#4072](https://github.com/rero/rero-ils/pull/4072) (by @PascalRepond)
+
 ## [v1.27.1](https://github.com/rero/rero-ils/tree/v1.27.1) (2026-02-09)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.27.0...v1.27.1)
