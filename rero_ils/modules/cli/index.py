@@ -36,13 +36,7 @@ from kombu import Queue
 from ..api import IlsRecordsIndexer
 from ..monitoring.api import Monitoring
 from ..tasks import process_bulk_queue
-from .utils import get_record_class_from_schema_or_pid_type
-
-
-def abort_if_false(ctx, param, value):
-    """Abort command is value is False."""
-    if not value:
-        ctx.abort()
+from .utils import abort_if_false, get_record_class_from_schema_or_pid_type
 
 
 def connect_queue(connection, name):

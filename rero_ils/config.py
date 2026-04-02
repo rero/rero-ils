@@ -494,7 +494,7 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": schedules.crontab(
             minute=0, hour=22, day_of_week=6
         ),  # Every Sunday at 22:00 UTC,
-        "kwargs": {"commit": True},
+        "kwargs": {"commit": True, "verbose": False, "cached": True, "delay": 1},
         "enabled": False,
     },
     "celery.replace-identified-by": {
@@ -3511,9 +3511,37 @@ RERO_ILS_UI_GIT_HASH = None
 RERO_INVENIO_THUMBNAILS_FILES_DIR = "./data/thumbnails"
 
 #: Thumbnails URL configuration, used to construct the URL for thumbnails in
-#: the API responses. It should be the URL of the RERO-ILS instance, as
-#: the thumbnails are served by the same instance.
-RERO_INVENIO_THUMBNAILS_URL = os.environ.get("RERO_INVENIO_THUMBNAILS_URL", RERO_ILS_URL)
+#: the API responses. Always mirrors ``RERO_ILS_URL`` — do not override this
+#: directly. Set ``RERO_ILS_URL`` instead; ``finalize_app`` in
+#: ``rero_ils/modules/ext.py`` re-derives this value after all config sources
+#: (invenio.cfg, environment variables) have been applied.
+RERO_INVENIO_THUMBNAILS_URL = RERO_ILS_URL
+
+#: When True, the AddCoverUrlExtension is active and will automatically
+#: look up cover images on document create/update. Set to False to disable
+#: thumbnail creation in the extension (useful during bulk imports).
+RERO_ILS_THUMBNAILS_EXTENSION_ENABLED = True
+
+#: When True, cover URL lookup is dispatched as a Celery task after each
+#: document create/commit instead of running inline. Async mode avoids
+#: blocking the request on a potentially slow thumbnail provider call.
+RERO_ILS_DOCUMENT_COVER_URL_ASYNC = True
+
+#: Seconds between each item processed by the cover URL queue worker.
+#: post_commit fires before db.session.commit(), so the initial delay also
+#: ensures the document is fully written to the database before the worker
+#: fetches it.
+RERO_ILS_COVER_URL_TASK_DELAY = 1
+
+#: Redis key for the set of document PIDs awaiting a cover URL lookup.
+RERO_ILS_COVER_URL_QUEUE_KEY = "rero_ils:cover_url_queue"
+
+#: Redis key used as a lock to ensure only one queue worker runs at a time.
+RERO_ILS_COVER_URL_WORKER_KEY = "rero_ils:cover_url_worker"
+
+#: Redis key used to pause the cover URL queue worker.
+#: While set, PIDs are still enqueued but no worker is started.
+RERO_ILS_COVER_URL_PAUSED_KEY = "rero_ils:cover_url_paused"
 
 #: RERO_ILS MEF base url could be changed.
 RERO_ILS_MEF_REF_BASE_URL = os.environ.get("RERO_ILS_MEF_REF_BASE_URL", "mef.rero.ch")

@@ -69,7 +69,7 @@ dependencies = [
     ## RERO specific python modules
     "rero-invenio-base (>=0.3.0)",
     "rero-invenio-files (>=1.0.0,<2.0.0)",
-    "rero-invenio-thumbnails (>=1.0.0,<2.0.0)",
+    "rero-invenio-thumbnails>=1.0.0,<2.0.0",
     "flask-wiki (>=1.0.0)",
     ## RERO ILS specific python modules
     "PyYAML (>=5.3.1)",

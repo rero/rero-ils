@@ -22,16 +22,12 @@ from flask.cli import with_appcontext
 
 from rero_ils.modules.messages import Message
 
+from .utils import abort_if_false
+
 
 @click.group()
 def messages():
     """Messages commands."""
-
-
-def abort_if_false(ctx, param, value):
-    """Abort command is value is False."""
-    if not value:
-        ctx.abort()
 
 
 @messages.command()

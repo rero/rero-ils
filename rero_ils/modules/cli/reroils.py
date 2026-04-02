@@ -30,6 +30,7 @@ from rero_ils.modules.notifications.cli import notifications
 from rero_ils.modules.stats.cli import stats
 from rero_ils.schedulers import scheduler
 
+from .documents import documents
 from .fixtures import fixtures
 from .index import index
 from .utils import utils
@@ -42,6 +43,7 @@ def reroils():
 
 reroils.add_command(acquisition)
 reroils.add_command(api_harvester)
+reroils.add_command(documents)
 reroils.add_command(entity)
 reroils.add_command(fixtures)
 reroils.add_command(index)

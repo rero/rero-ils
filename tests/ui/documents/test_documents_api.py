@@ -175,27 +175,23 @@ def test_document_linked_subject(
     entity.delete()
 
 
-def test_document_add_cover_url(db, document):
-    """Test add url."""
-    rec, changed = document.add_cover_url(url="http://images.rero.ch/cover.png")
-    assert changed is True
-    assert rec.get("electronicLocator") == [
+def test_document_cover_property(db, document):
+    """Test cover property returns (url, provider) from electronicLocator."""
+    # no cover initially
+    assert document.cover == (None, None)
+
+    # add a cover locator manually
+    document["electronicLocator"] = [
         {
             "content": "coverImage",
             "type": "relatedResource",
             "url": "http://images.rero.ch/cover.png",
+            "publicNote": ["rero-invenio-thumbnails provider: google"],
         }
     ]
-    # don't add the same url
-    rec, changed = document.add_cover_url(url="http://images.rero.ch/cover.png")
-    assert changed is False
-    assert rec.get("electronicLocator") == [
-        {
-            "content": "coverImage",
-            "type": "relatedResource",
-            "url": "http://images.rero.ch/cover.png",
-        }
-    ]
+    url, provider = document.cover
+    assert url == "http://images.rero.ch/cover.png"
+    assert provider == "google"
 
 
 def test_document_with_item_can_not_delete(document, item_lib_martigny):

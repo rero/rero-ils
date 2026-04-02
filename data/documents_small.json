@@ -830,6 +830,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=pyHyjgEACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -1885,6 +1895,16 @@
     "copyrightDate": [
       "\u00a9 1974"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=m-csAQAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -2074,6 +2094,16 @@
           {
             "value": "Die \u00f6sterreichische Literatur"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://covers.openlibrary.org/b/isbn/9783201012829-L.jpg?default=false",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: open library"
         ]
       }
     ],
@@ -2322,6 +2352,16 @@
     "originalLanguage": [
       "eng"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2258053218.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -2482,6 +2522,16 @@
       {
         "value": "target_school_harmos4",
         "audienceType": "school_level"
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=GP33AwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
       }
     ],
     "fiction_statement": "unspecified",
@@ -2977,6 +3027,16 @@
           {
             "value": "2. aktualisierte Aufl"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=gSY2SQAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -3551,6 +3611,16 @@
           {
             "value": "Tch\u00f4! La collec..."
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://openapi.bnf.fr/couverture/image/image/recupererImage?ISBN=9782723480901&couverture=1",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: bnf"
         ]
       }
     ],
@@ -4299,6 +4369,16 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/221361136X.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -5848,6 +5928,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2501033671.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -6258,6 +6348,16 @@
     },
     "copyrightDate": [
       "\u00a9 1999"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=49TqAAAAMAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -6870,6 +6970,16 @@
     "tableOfContents": [
       "Bd. 1: A - Faustus von Byzanz. Bd. 2: Faustus von Mileve - Jeanne d'Arc. Bd. 3: Jedin, Hubert - Kleinschmidt, Beda. Bd. 4: Kleist, Heinrich von - Leyden, Lucas von. Bd. 5: Leyden, Nikolaus - M\u00f6nch, Antonius. Bd. 6: Moenius, Georg - Patijn, Constantijn Leopold. Bd. 7: Patocka, Jan - Remachus. Bd. 8: Rembrandt - Scharbel. Bd. 9: Scharling, Carl Henrik - Sheldon, Charles Monroe. Bd. 10: Shelkov, Vladimir Andreyevich - Stoss, Andreas. Bd. 11: Stoss, Veit - Tieffenthaler, Joseph. Bd. 12: Tibboniden - Volpe, Giovannio Antonio. Bd. 13: Voltaire, Fran\u00e7ois - Wolfram von Eschenbach. Bd. 14: Wolfram von Eschenbach bis Zygomalas, Theodosios ; Erg\u00e4nzungen I. Bd. 15: Erg\u00e4nzungen II. Bd. 16: Erg\u00e4nzungen III. Bd. 17: Erg\u00e4nzungen IV. Bd. 18: Erg\u00e4nzungen V. Bd. 19: Erg\u00e4nzungen VI. Bd. 20: Erg\u00e4nzungen VII. Bd. 21: Erg\u00e4nzungen VIII. Bd. 22: Erg\u00e4nzungen IX. Bd. 23: Erg\u00e4nzungen X. Bd. 24: Erg\u00e4nzungen XI. Bd. 25: Erg\u00e4nzungen XII. Bd. 26: Erg\u00e4nzungen XIII. Bd. 27: Erg\u00e4nzungen XIV. Bd. 28: Erg\u00e4nzungen XV. Bd. 29: Erg\u00e4nzungen XVI. Bd. 30: Erg\u00e4nzungen XVII. Bd. 31: Erg\u00e4nzungen XVIII. Bd. 32: Erg\u00e4nzungen XIX. Bd. 33: Erg\u00e4nzungen XX. Bd. 34: Erg. XXI. Bd. 35: Erg. XXII. Bd. 36: Erg. XXIII. Bd. 37: Erg. XXIV. Bd. 38: Erg. XXV. Bd. 39: Erg. XXVI. Bd. 40: Erg. XXVII. Bd. 41: Erg. XXVIII"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=8MbYAAAAMAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -7070,6 +7180,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2012371000.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -7217,6 +7337,16 @@
           {
             "value": "4"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=-ChBAAAAMAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -7373,6 +7503,16 @@
     },
     "copyrightDate": [
       "\u00a9 1986"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=HelaAAAAMAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -7606,6 +7746,16 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2246755611.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -8090,6 +8240,16 @@
       {
         "value": "from the age of 10",
         "audienceType": "filmage_ch"
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2914593090.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
       }
     ],
     "fiction_statement": "unspecified",
@@ -8605,6 +8765,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=52bBpwAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -9038,6 +9208,16 @@
     "originalLanguage": [
       "chi"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=8BJlygAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -9327,6 +9507,16 @@
           {
             "value": "170"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2092517449.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
         ]
       }
     ],
@@ -10335,6 +10525,16 @@
     "originalLanguage": [
       "rus"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=fcewAAAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -10675,6 +10875,16 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "electronicLocator": [
+      {
+        "url": "https://covers.openlibrary.org/b/isbn/9780226069319-L.jpg?default=false",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: open library"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -10827,6 +11037,16 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2501036271.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -11112,6 +11332,16 @@
       {
         "value": "target_understanding_children_6_9",
         "audienceType": "understanding_level"
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2203150327.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
       }
     ],
     "fiction_statement": "unspecified",
@@ -11702,6 +11932,16 @@
         "audienceType": "understanding_level"
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=hponAQAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -11985,6 +12225,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2070629449.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -12132,6 +12382,16 @@
           {
             "value": "37"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/207054852X.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
         ]
       }
     ],
@@ -12543,6 +12803,16 @@
     "originalLanguage": [
       "grc"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2080708481.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -12721,6 +12991,16 @@
     ],
     "originalLanguage": [
       "eng"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://covers.openlibrary.org/b/isbn/9782277230373-L.jpg?default=false",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: open library"
+        ]
+      }
     ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
@@ -13007,6 +13287,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2070407861.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -13183,6 +13473,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=JXZHAAAAMAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -13320,6 +13620,16 @@
           {
             "value": "69"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2070548821.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
         ]
       }
     ],
@@ -13790,6 +14100,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=EYYHAQAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -14070,6 +14390,16 @@
     },
     "originalLanguage": [
       "rus"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://archive.org/services/img/contesdespeuples0000unse",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: internet archive"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -15578,6 +15908,16 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=0cdjGanfmUQC&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -15745,6 +16085,16 @@
     ],
     "originalLanguage": [
       "eng"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://covers.openlibrary.org/b/isbn/9782277232438-L.jpg?default=false",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: open library"
+        ]
+      }
     ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
@@ -16057,6 +16407,16 @@
           {
             "value": "Bd. 796"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=ywnCAAAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -16695,6 +17055,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=4eDMSAAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -16852,6 +17222,16 @@
       "source": "RERO labcud",
       "encodingLevel": "Full level"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2879002419.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -17005,6 +17385,16 @@
           {
             "value": "Spielend leicht"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=5L3OSAAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -17187,6 +17577,16 @@
     ],
     "originalLanguage": [
       "eng"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2070621200.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -17377,6 +17777,16 @@
     "originalLanguage": [
       "grc",
       "lat"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=aPoHDgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -20324,6 +20734,16 @@
       {
         "value": "target_understanding_teenagers_12_15",
         "audienceType": "understanding_level"
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2092502794.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
       }
     ],
     "fiction_statement": "unspecified",
@@ -26968,6 +27388,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=qZ0YzGJLjZAC&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -29855,6 +30285,16 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=BosXAQAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -41239,6 +41679,16 @@
       "Bd. 1: Sailing. Lady in black. Dust in the wind. I still haven't found what I'm looking for. Listen to your heart. Purple rain. Blaze of glory. Still loving you. Holiday. Angie. While my guitar gently weeps. With a little help from my friends. Wonderful tonight. A whiter shade of pale. Right here waiting. Another day in paradise. Brothers in arms. Still got the blues.",
       "Bd. 2: Stand by me. Michelle. Yesterday. Hey Jude. San Francisco. Atlantis. Ruby uesday. My sweet Lord. Nights in white satin. Sylvia's mother. Heart of gold. The needle and the damage done. Walk on the wild side. Love hurts. Boat on the river. I'm on fire. On the beach. Wicked game. Wind of change. To be with you. Tears in Heaven. Don't cry. Cats in ihe cradle. Everything I do. What's up."
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=VI4tnwEACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -41549,6 +41999,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=FEZrhPSxnZAC&printsec=frontcover&img=1&zoom=5&edge=curl",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -41698,6 +42158,16 @@
       {
         "value": "target_understanding_teenagers_12_15",
         "audienceType": "understanding_level"
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2701131480.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
       }
     ],
     "fiction_statement": "unspecified",
@@ -42147,6 +42617,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=Uzg8DwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -42537,6 +43017,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=C2WOAAAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -42673,6 +43163,16 @@
       "source": "RERO jubmdj",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/284038275X.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -43082,6 +43582,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://openapi.bnf.fr/couverture/image/image/recupererImage?ISBN=9782013226714&couverture=1",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: bnf"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -43399,6 +43909,16 @@
           {
             "value": "3., neu \u00fcberarb. und erw. Aufl"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=4ZufPwAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -44087,6 +44607,16 @@
     "originalLanguage": [
       "ita"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=FtCq-xHNPlEC&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -44737,6 +45267,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=ZRDQAAAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -45284,6 +45824,16 @@
       {
         "value": "target_understanding_children_9_12",
         "audienceType": "understanding_level"
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://openapi.bnf.fr/couverture/image/image/recupererImage?ISBN=9782746508804&couverture=1",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: bnf"
+        ]
       }
     ],
     "fiction_statement": "fiction",
@@ -45984,6 +46534,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=DmdpadafRksC&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -46163,6 +46723,16 @@
       "source": "RERO frbcuc",
       "encodingLevel": "Full level"
     },
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=uYI6AQAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -46306,6 +46876,16 @@
       "source": "RERO jubmdj",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2215022086.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -46801,6 +47381,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=1VdXYgEACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -47048,6 +47638,16 @@
       "source": "RERO geulal",
       "encodingLevel": "Full level"
     },
+    "electronicLocator": [
+      {
+        "url": "http://books.google.com/books/content?id=64okDzyJ428C&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google api"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -47928,6 +48528,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/3896910124.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -48116,6 +48726,16 @@
           {
             "value": "Bd. 25"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=WKVOAAAAYAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -48489,6 +49109,16 @@
           {
             "value": "9"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=jw4nAAAAMAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -49070,6 +49700,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "http://books.google.com/books/content?id=5cycAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google api"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -49647,6 +50287,16 @@
         "audienceType": "understanding_level"
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/3893534458.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -49968,6 +50618,14 @@
         "publicNote": [
           "Bestellung f\u00fcr Lehrpersonen m\u00f6glich"
         ]
+      },
+      {
+        "url": "https://books.google.com/books/content?id=y2HWPwAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
       }
     ],
     "fiction_statement": "unspecified",
@@ -50121,6 +50779,16 @@
     },
     "copyrightDate": [
       "\u00a9 1982"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=en4gAAAAMAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -50627,6 +51295,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=J0kqQwAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -50831,6 +51509,16 @@
         "audienceType": "understanding_level"
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://openapi.bnf.fr/couverture/image/image/recupererImage?ISBN=9782701147192&couverture=1",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: bnf"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -50987,6 +51675,16 @@
     },
     "copyrightDate": [
       "\u00a9 1986"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://archive.org/services/img/macroeconomicsth0000hall",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: internet archive"
+        ]
+      }
     ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
@@ -51594,6 +52292,16 @@
       "source": "RERO labcur",
       "encodingLevel": "Minimal level"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2843231922.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -51729,6 +52437,16 @@
           {
             "value": "4. Aufl"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=1ceBAAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -51947,6 +52665,16 @@
           {
             "value": "Nouv. \u00e9d"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/226613065X.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
         ]
       }
     ],
@@ -52262,6 +52990,16 @@
     ],
     "originalLanguage": [
       "eng"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2070551911.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -52859,6 +53597,16 @@
           {
             "value": "Verticales"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2070128245.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
         ]
       }
     ],
@@ -53748,6 +54496,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=QD19J8pj-X0C&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -53901,6 +54659,16 @@
           {
             "value": "Si j'\u00e9tais Casterman"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://covers.openlibrary.org/b/isbn/9782203144545-L.jpg?default=false",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: open library"
         ]
       }
     ],
@@ -54066,6 +54834,16 @@
           {
             "value": "La Vie au coeur"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=myqByVuKWrEC&printsec=frontcover&img=1&zoom=5&edge=curl",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -54675,6 +55453,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "http://books.google.com/books/content?id=v2BHAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google api"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -55103,6 +55891,14 @@
         "publicNote": [
           "Bd. 2"
         ]
+      },
+      {
+        "url": "https://books.google.com/books/content?id=6DXdsgEACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
       }
     ],
     "fiction_statement": "non_fiction",
@@ -55317,6 +56113,16 @@
           {
             "value": "Carnets de sagesse"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2226071075.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
         ]
       }
     ],
@@ -55676,6 +56482,16 @@
             "value": "\u521d\u7248",
             "language": "jpn-jpan"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=3e_NPQAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -56139,6 +56955,16 @@
       "source": "RERO nebpun",
       "encodingLevel": "Full level"
     },
+    "electronicLocator": [
+      {
+        "url": "https://covers.openlibrary.org/b/isbn/9782226008886-L.jpg?default=false",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: open library"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -56752,6 +57578,16 @@
         "audienceType": "understanding_level"
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2070548015.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -56878,6 +57714,16 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2070128032.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -57337,6 +58183,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2707311839.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -57502,6 +58358,16 @@
           {
             "value": "4., aktualisierte Aufl"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/340670641X.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
         ]
       }
     ],
@@ -57748,6 +58614,16 @@
           {
             "value": "no 9"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=LwANAQAAMAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -58032,6 +58908,16 @@
       "source": "RERO jubmdj",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2226192042.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -59622,6 +60508,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=RYG4AAAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -59912,6 +60808,16 @@
     ],
     "originalLanguage": [
       "ger"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://openapi.bnf.fr/couverture/image/image/recupererImage?ISBN=9782824608419&couverture=1",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: bnf"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -60432,6 +61338,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=ZTBOJIwxOLoC&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -60733,6 +61649,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2865865606.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -60990,6 +61916,16 @@
     "originalLanguage": [
       "eng"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=WjH3jgEACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -61213,6 +62149,16 @@
       "Teil 2 : Speculum virtutum / Engelbert von Admont ; hrsg. von Karl Ubl. - Hannover : Hahnsche Buchhandlung, 2004. - VIII, 522 p.",
       "Teil 3 : De ortu et fine Romani imperii / Engelbert von Admont ; hrsg. von Herbert Schneider ... . - Wiesbaden : Harrassowitz Verlag, 2016. - XXXVIII, 262 p."
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=F8NhL2Cr8wMC&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -61421,6 +62367,16 @@
         "RERO geulal"
       ]
     },
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=ZXPNrQEACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -61806,6 +62762,16 @@
           {
             "value": "3"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2845630263.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
         ]
       }
     ],
@@ -62345,6 +63311,16 @@
         "audienceType": "understanding_level"
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=vBuxO3myKZUC&printsec=frontcover&img=1&zoom=5&edge=curl",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -62793,6 +63769,16 @@
         "RERO vsbcvs"
       ]
     },
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=4lLeSAAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -63617,6 +64603,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=2UdrrgEACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -64014,6 +65010,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=6qmHKQAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -64186,6 +65192,16 @@
     ],
     "originalLanguage": [
       "ita"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2226095705.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
     ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
@@ -64701,6 +65717,16 @@
           {
             "value": "1"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=RCQUAQAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -65405,6 +66431,16 @@
     "originalLanguage": [
       "jpn"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://openapi.bnf.fr/couverture/image/image/recupererImage?ISBN=9782360810062&couverture=1",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: bnf"
+        ]
+      }
+    ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [
       {
@@ -65714,6 +66750,16 @@
     "originalLanguage": [
       "eng"
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2020908158.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -65970,6 +67016,16 @@
       "source": "RERO jubmda",
       "encodingLevel": "Less-than-full level, material not examined"
     },
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=7SUrQwAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -66652,6 +67708,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2203144912.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -66824,6 +67890,16 @@
       {
         "value": "target_understanding_children_6_9",
         "audienceType": "understanding_level"
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/P/2092702866.01.LZZZZZZZ.jpg",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: amazon"
+        ]
       }
     ],
     "fiction_statement": "unspecified",
@@ -67135,6 +68211,16 @@
         ]
       }
     ],
+    "electronicLocator": [
+      {
+        "url": "https://openapi.bnf.fr/couverture/image/image/recupererImage?ISBN=9782913389410&couverture=1",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: bnf"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -67253,6 +68339,16 @@
       "source": "RERO nebpup",
       "encodingLevel": "Full level"
     },
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=V5PNAAAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
+    ],
     "fiction_statement": "unspecified",
     "provisionActivity": [
       {
@@ -67780,6 +68876,16 @@
           {
             "value": "6. Aufl"
           }
+        ]
+      }
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=mN-3QwAACAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
         ]
       }
     ],
@@ -68746,6 +69852,16 @@
     ],
     "originalLanguage": [
       "dut"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://books.google.com/books/content?id=ytQJAQAAIAAJ&printsec=frontcover&img=1&zoom=5",
+        "type": "relatedResource",
+        "content": "coverImage",
+        "publicNote": [
+          "rero-invenio-thumbnails provider: google books"
+        ]
+      }
     ],
     "fiction_statement": "non_fiction",
     "provisionActivity": [

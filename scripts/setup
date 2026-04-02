@@ -19,10 +19,6 @@
 DATA_PATH=./data
 
 # Parameters description:
-#  --create_items_holdings_small:
-#       used for create only the items and holdings files for the 'small' documents file
-#  --create_items_holdings_big:
-#       used for create only the items and holdings files for the 'big' documents file
 #  --deployment:
 #       used to deploy the 'big' fixtures, with ebooks and files
 #  --dont_stop:
@@ -88,8 +84,6 @@ create_token() {
 
 DEPLOYMENT=false
 LOAD_REMOTE_ENTITIES=false
-CREATE_ITEMS_HOLDINGS_SMALL=false
-CREATE_ITEMS_HOLDINGS_BIG=false
 STOP_EXECUTION=true
 CREATE_LAZY=""
 DONT_STOP=""
@@ -111,7 +105,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dCsbclptmwkD:i: -l deployment,entities,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path:,index_parallel: -- "$@")
+if ! options=$(getopt -o dCsbclptmwkD:i: -l deployment,entities,lazy,pursue,time,es-mapping,warnings,enqueue,data_path:,index_parallel: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -128,12 +122,6 @@ do
       ;;
     -E|--entities)
       LOAD_REMOTE_ENTITIES=true
-      ;;
-    -s|--create_items_holdings_small)
-      CREATE_ITEMS_HOLDINGS_SMALL=true
-      ;;
-    -b|--create_items_holdings_big)
-      CREATE_ITEMS_HOLDINGS_BIG=true
       ;;
     -c|--continue)
       STOP_EXECUTION=false
@@ -173,25 +161,6 @@ done
 
 if [[ ! -d "${DATA_PATH}" ]]; then
     error_msg+exit "Error - data path does not exist: ${DATA_PATH}"
-fi
-
-if ${CREATE_ITEMS_HOLDINGS_SMALL} && ${CREATE_ITEMS_HOLDINGS_BIG}
-then
-    error_msg+exit "Choose option for 'small' or 'big' documents generation"
-fi
-
-if ${CREATE_ITEMS_HOLDINGS_SMALL} || ${CREATE_ITEMS_HOLDINGS_BIG}
-then
-    if ${DEPLOYMENT}
-    then
-        error_msg+exit "Choose deployment option only"
-    fi
-fi
-
-if ${CREATE_ITEMS_HOLDINGS_BIG}
-then
-    # set DEPLOYMENT to true in order to use big documents file
-    DEPLOYMENT=true
 fi
 
 if ! ${ENABLE_WARNINGS}
@@ -358,7 +327,7 @@ eval ${PREFIX} invenio reroils index run --raise-on-error
 #: - xml to json transformation for rero marcxml --------------------------------
 #: don't forget to recreat the documents json schema files:
 # SIZE=big # SIZE=small
-# invenio reroils utils marc21tojson -t rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
+# invenio reroils documents marc21tojson -t rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
 # Save the entities after setup for later use.
 # invenio reroils utils export -t rement -o ${DATA_PATH}/remote_entities_${SIZE}.json -v
 
@@ -393,36 +362,14 @@ then
 #     eval ${PREFIX} invenio reroils fixtures get_all_mef_records ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE} -v
 fi
 
+info_msg "Pause cover URL queue worker to avoid race conditions"
+eval ${PREFIX} invenio reroils documents cover-url-queue-worker pause
+
 info_msg "- Documents: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type doc --schema 'https://bib.rero.ch/schemas/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${CREATE_LAZY} ${DONT_STOP}
 
-if ${CREATE_ITEMS_HOLDINGS_SMALL}
-then
-    # to generate small items file small documents must exist in DB
-    msg "\tSMALL documents, creation of items and holdings"
-    eval ${PREFIX} invenio reroils fixtures create_items -i 3 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
-    success_msg "Creation of items and holdings done for 'small' documents."
-    if ${STOP_EXECUTION}
-    then
-        exit 0
-    fi
-fi
-
-if ${CREATE_ITEMS_HOLDINGS_BIG}
-then
-    # to generate big items file big documents must exist in DB
-    msg "\tBIG documents, creation of items and holdings"
-    eval ${PREFIX} invenio reroils fixtures create_items -i 3 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
-    success_msg "Creation of items and holdings done for 'big' documents."
-    if ${STOP_EXECUTION}
-    then
-        exit 0
-    fi
-fi
-
 info_msg "- Holdings: ${HOLDINGS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type hold --schema 'https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
-
 
 info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'https://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
@@ -634,6 +581,10 @@ if ${LOADEXTRAFILES}
     info_msg "Fine transactions: ${DATA_PATH}/fines.json ${CREATE_LAZY} ${DONT_STOP}"
     eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/fines.json -t fine
 fi
+
+
+info_msg "Resume cover URL queue worker"
+eval ${PREFIX} invenio reroils documents cover-url-queue-worker resume
 
 info_msg "Collect statistics"
 eval ${PREFIX} invenio reroils stats collect billing

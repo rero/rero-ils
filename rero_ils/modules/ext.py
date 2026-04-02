@@ -344,6 +344,9 @@ def finalize_app(app):
     init_menu_tools(app)
     init_menu_lang(app)
     init_menu_profile(app)
+    # Keep RERO_INVENIO_THUMBNAILS_URL in sync with RERO_ILS_URL after all
+    # config sources (invenio.cfg, environment) have been applied.
+    app.config["RERO_INVENIO_THUMBNAILS_URL"] = app.config["RERO_ILS_URL"]
 
 
 # def api_finalize_app(app):

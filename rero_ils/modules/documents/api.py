@@ -502,41 +502,21 @@ class Document(IlsRecord):
             document_types.append(main_type)
         return document_types or ["docmaintype_other"]
 
-    def add_cover_url(self, url, provider=None, dbcommit=False, reindex=False, force=False):
-        """Add or replace a coverImage electronicLocator on the document.
+    @property
+    def cover(self):
+        """Return the cover image URL and provider if present.
 
-        - If a ``coverImage``/``relatedResource`` locator already exists and
-          ``force=False``: no-op, returns ``(self, False)``.
-        - If a ``coverImage``/``relatedResource`` locator already exists and
-          ``force=True``: replaces its URL and provider note in place.
-        - If no ``coverImage``/``relatedResource`` locator exists: appends one.
-
-        :param url: str - the cover image URL to store.
-        :param provider: str - optional provider/attribution note.
-        :param dbcommit: bool - commit the change to the database.
-        :param reindex: bool - reindex the document after update.
-        :param force: bool - overwrite an existing coverImage locator.
-        :returns: tuple (updated_record, changed) where changed is True if the
-            document was modified.
+        :returns: tuple (url, provider) or (None, None).
         """
-        locators = self.get("electronicLocator", [])
-        if existing := next(
-            (loc for loc in locators if loc.get("content") == "coverImage" and loc.get("type") == "relatedResource"),
-            None,
-        ):
-            if not force:
-                return self, False
-            existing["url"] = url
-            if provider:
-                existing["note"] = provider
-        else:
-            locator = {"content": "coverImage", "type": "relatedResource", "url": url}
-            if provider:
-                locator["note"] = provider
-            locators.append(locator)
-        self["electronicLocator"] = locators
-        self.update(data=self, commit=True, dbcommit=dbcommit, reindex=reindex)
-        return self, True
+        for loc in self.get("electronicLocator", []):
+            if loc.get("content") == "coverImage" and loc.get("type") == "relatedResource":
+                provider = None
+                if notes := loc.get("publicNote"):
+                    # extract provider from "rero-invenio-thumbnails provider: <name>"
+                    prefix = "rero-invenio-thumbnails provider: "
+                    provider = next((n[len(prefix) :] for n in notes if n.startswith(prefix)), None)
+                return loc["url"], provider
+        return None, None
 
     def resolve(self):
         """Resolve references data.

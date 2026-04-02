@@ -21,12 +21,14 @@ from os.path import dirname, join
 
 from click.testing import CliRunner
 
+from rero_ils.modules.cli.documents import (
+    create_documents_with_items_lofis_cli,
+    validate_documents_with_items_lofis_cli,
+)
 from rero_ils.modules.cli.utils import (
     check_validate,
-    create_documents_with_items_lofis_cli,
     extract_from_xml,
     token_create,
-    validate_documents_with_items_lofis_cli,
 )
 
 

@@ -4026,20 +4026,20 @@ wheels = [
 
 [[package]]
 name = "rero-invenio-thumbnails"
-version = "1.0.0"
+version = "1.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "flask" },
     { name = "invenio-app" },
     { name = "invenio-base" },
     { name = "invenio-cache" },
+    { name = "isbnlib" },
     { name = "pillow" },
     { name = "requests" },
-    { name = "tenacity" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/06/fb/55246effeee17692de8b3942ed448981dfaf11dc784d0532882d21cfb809/rero_invenio_thumbnails-1.0.0.tar.gz", hash = "sha256:ba8b6b9809025f04dc8ed32b591470fc04332900e2ff064ab64bd87a31ec5aa3", size = 36063, upload-time = "2026-03-30T14:50:44.991Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/62/6f/3a6f16f15031b0a1b9b351614f5df20e1dbd86ce87b2df392565395b67bf/rero_invenio_thumbnails-1.1.0.tar.gz", hash = "sha256:7d6bc4b1576093b437b9d53488b4ed5795808facbbd2b15a78c783f567d26ab5", size = 35028, upload-time = "2026-04-16T14:44:49.238Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6a/fd/e22d83b5819b9731e64b60856737fa493f4158ccef96e84a2d2e94d91892/rero_invenio_thumbnails-1.0.0-py3-none-any.whl", hash = "sha256:33655b2903a5b9ebbd74a0ca1cabd91e65298cd1d461dc020883a44f95d055bb", size = 54570, upload-time = "2026-03-30T14:50:45.974Z" },
+    { url = "https://files.pythonhosted.org/packages/2e/f6/16c821af3650ef7b62fb3c36e6b180e4fc8856c40365c531b77d6aa246f7/rero_invenio_thumbnails-1.1.0-py3-none-any.whl", hash = "sha256:972489f8411b87a7575b9240819181f6d2db89e063b8d364f0828597a9dec39b", size = 56753, upload-time = "2026-04-16T14:44:48.307Z" },
 ]
 
 [[package]]
@@ -4425,15 +4425,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/28/e3/55dcc2cfbc3ca9c29519eb6884dd1415ecb53b0e934862d3559ddcb7e20b/stack_data-0.6.3.tar.gz", hash = "sha256:836a778de4fec4dcd1dcd89ed8abff8a221f58308462e1c4aa2a3cf30148f0b9", size = 44707, upload-time = "2023-09-30T13:58:05.479Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f1/7b/ce1eafaf1a76852e2ec9b22edecf1daa58175c090266e9f6c64afcd81d91/stack_data-0.6.3-py3-none-any.whl", hash = "sha256:d5558e0c25a4cb0853cddad3d77da9891a08cb85dd9f9f91b9f8cd66e511e695", size = 24521, upload-time = "2023-09-30T13:58:03.53Z" },
-]
-
-[[package]]
-name = "tenacity"
-version = "9.1.4"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/47/c6/ee486fd809e357697ee8a44d3d69222b344920433d3b6666ccd9b374630c/tenacity-9.1.4.tar.gz", hash = "sha256:adb31d4c263f2bd041081ab33b498309a57c77f9acf2db65aadf0898179cf93a", size = 49413, upload-time = "2026-02-07T10:45:33.841Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/d7/c1/eb8f9debc45d3b7918a32ab756658a0904732f75e555402972246b0b8e71/tenacity-9.1.4-py3-none-any.whl", hash = "sha256:6095a360c919085f28c6527de529e76a06ad89b23659fa881ae0649b867a9d55", size = 28926, upload-time = "2026-02-07T10:45:32.24Z" },
 ]
 
 [[package]]
