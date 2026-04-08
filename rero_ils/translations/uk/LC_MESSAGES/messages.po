@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: RERO_ILS VERSION\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-03-31 12:25+0200\n"
-"PO-Revision-Date: 2025-12-25 11:00+0000\n"
+"PO-Revision-Date: 2026-04-08 08:09+0000\n"
 "Last-Translator: Галина Нежурбіда <nezhga29@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/rero_plus/rero-"
+"ils/uk/>\n"
 "Language: uk\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/uk/>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.17-dev\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -296,7 +297,7 @@ msgstr "закінчився"
 
 #: rero_ils/config.py:2416
 msgid "not_expired"
-msgstr ""
+msgstr "термін дії не закінчився"
 
 #: rero_ils/config.py:2440 rero_ils/config.py:2479
 msgid "budget"
@@ -385,8 +386,9 @@ msgstr "Це ТЕСТОВА ВЕРСІЯ."
 
 #: rero_ils/config.py:3491 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:106
+#, fuzzy
 msgid "Go to the production site."
-msgstr ""
+msgstr "Перейдіть на сайт продукту."
 
 #: rero_ils/config.py:4182
 msgid "contains"
@@ -908,8 +910,9 @@ msgid "authenticated_user"
 msgstr "автентифікований_користувач"
 
 #: rero_ils/manual_translations.txt:124
+#, fuzzy
 msgid "document_importer"
-msgstr ""
+msgstr "імпортер документів"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 #, fuzzy
@@ -1155,1363 +1158,1373 @@ msgstr "Британська територія в Індійському оке
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:521
 msgid "country_bl"
-msgstr ""
+msgstr "Бразилія (bl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:525
 msgid "country_bm"
-msgstr ""
+msgstr "Бермудські острови (bm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:529
 msgid "country_bn"
-msgstr ""
+msgstr "Боснія і Герцеговина (bn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:533
 msgid "country_bo"
-msgstr ""
+msgstr "Болівія (bo)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:537
 msgid "country_bp"
-msgstr ""
+msgstr "Соломонові острови (bp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:541
 msgid "country_br"
-msgstr ""
+msgstr "Бірма (br)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:545
 msgid "country_bs"
-msgstr ""
+msgstr "Ботсвана (bs)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:549
 msgid "country_bt"
-msgstr ""
+msgstr "Бутан (bt)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:553
 msgid "country_bu"
-msgstr ""
+msgstr "Болгарія (bu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:557
 msgid "country_bv"
-msgstr ""
+msgstr "Острів Буве (bv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:561
 msgid "country_bw"
-msgstr ""
+msgstr "Білорусь (bw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:565
 msgid "country_bwr"
-msgstr ""
+msgstr "Білоруська Радянська Соціалістична Республіка (bwr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:569
 msgid "country_bx"
-msgstr ""
+msgstr "Бруней (bx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:573
 msgid "country_ca"
-msgstr ""
+msgstr "Карибські Нідерланди (ca)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:577
 msgid "country_cau"
-msgstr ""
+msgstr "Каліфорнія (cau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:581
 msgid "country_cb"
-msgstr ""
+msgstr "Камбоджа (cb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:585
 msgid "country_cc"
-msgstr ""
+msgstr "Китай (cc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:589
 msgid "country_cd"
-msgstr ""
+msgstr "Чад (cd)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:593
 msgid "country_ce"
-msgstr ""
+msgstr "Шрі-Ланка (ce)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:597
 msgid "country_cf"
-msgstr ""
+msgstr "Конго (Браззавіль) (cf.)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:601
 msgid "country_cg"
-msgstr ""
+msgstr "Конго (Демократична Республіка) (cg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:605
 msgid "country_ch"
-msgstr ""
+msgstr "Китай (Республіка: 1949-) (ch)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:609
 msgid "country_ci"
-msgstr ""
+msgstr "Хорватія (ci)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:613
 msgid "country_cj"
-msgstr ""
+msgstr "Кайманові острови (cj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:617
 msgid "country_ck"
-msgstr ""
+msgstr "Колумбія (ck)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:621
 msgid "country_cl"
-msgstr ""
+msgstr "Чилі (cl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:625
 msgid "country_cm"
-msgstr ""
+msgstr "Камерун (cm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:629
 msgid "country_co"
-msgstr ""
+msgstr "Кюрасао (co)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:633
 msgid "country_cou"
-msgstr ""
+msgstr "Колорадо (cou)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:637
 msgid "country_cp"
-msgstr ""
+msgstr "Острови Кантон і Ендербері (cp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:641
 msgid "country_cq"
-msgstr ""
+msgstr "Коморські острови (cq)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:645
 msgid "country_cr"
-msgstr ""
+msgstr "Коста Ріка (cr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:649
 msgid "country_cs"
-msgstr ""
+msgstr "Чехословаччина (cs)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:653
 msgid "country_ctu"
-msgstr ""
+msgstr "Коннектикут (ctu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:657
 msgid "country_cu"
-msgstr ""
+msgstr "Куба (cu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:661
 msgid "country_cv"
-msgstr ""
+msgstr "Кабо-Верде (cv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:665
 msgid "country_cw"
-msgstr ""
+msgstr "Острови Кука (cw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:669
 msgid "country_cx"
-msgstr ""
+msgstr "Центральноафриканська Республіка (cx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:673
 msgid "country_cy"
-msgstr ""
+msgstr "Кіпр (cy)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:677
 msgid "country_cz"
-msgstr ""
+msgstr "Зона Панамського каналу (cz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:681
 msgid "country_dcu"
-msgstr ""
+msgstr "Округ Колумбія (dcu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:685
 msgid "country_deu"
-msgstr ""
+msgstr "Делавер (deu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:689
 msgid "country_dk"
-msgstr ""
+msgstr "Данія (dk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:693
 msgid "country_dm"
-msgstr ""
+msgstr "Бенін (dm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:697
 msgid "country_dq"
-msgstr ""
+msgstr "Домініка (dq)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:701
 msgid "country_dr"
-msgstr ""
+msgstr "Домініканська Республіка (dr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:705
 msgid "country_ea"
-msgstr ""
+msgstr "Еритрея (ea)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:709
 msgid "country_ec"
-msgstr ""
+msgstr "Еквадор (ec)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:713
 msgid "country_eg"
-msgstr ""
+msgstr "Екваторіальна Гвінея (eg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:717
 msgid "country_em"
-msgstr ""
+msgstr "Східний Тимор, або Тимор-Лешті (em)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:721
 msgid "country_enk"
-msgstr ""
+msgstr "Англія (enk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:725
 msgid "country_er"
-msgstr ""
+msgstr "Естонія (er)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:729
 msgid "country_es"
-msgstr ""
+msgstr "Сальвадор (es)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:733
 msgid "country_et"
-msgstr ""
+msgstr "Ефіопія (et)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:737
 msgid "country_fa"
-msgstr ""
+msgstr "Фарерські острови (fa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:741
 msgid "country_fg"
-msgstr ""
+msgstr "Французька Гвіана (fg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:745
 msgid "country_fi"
-msgstr ""
+msgstr "Фінляндія (fi)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:749
 msgid "country_fj"
-msgstr ""
+msgstr "Фіджі (fj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:753
 msgid "country_fk"
-msgstr ""
+msgstr "Фолклендські острови (fk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:757
 msgid "country_flu"
-msgstr ""
+msgstr "Флорида (flu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:761
 msgid "country_fm"
-msgstr ""
+msgstr "Федеративні Штати Мікронезії (fm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:765
 msgid "country_fp"
-msgstr ""
+msgstr "Французька Полінезія (fp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:769
 msgid "country_fr"
-msgstr ""
+msgstr "Франція (fr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:774
 msgid "country_fs"
-msgstr ""
+msgstr "Французькі австралійські та антарктичні землі (fs)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:778
 msgid "country_ft"
-msgstr ""
+msgstr "Джібуті (ft)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:782
 msgid "country_gau"
-msgstr ""
+msgstr "Грузія (gau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:786
 msgid "country_gb"
-msgstr ""
+msgstr "Кірібаті (gb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:790
 msgid "country_gd"
-msgstr ""
+msgstr "Гренада (gd)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:794
 msgid "country_ge"
-msgstr ""
+msgstr "Німеччина (Східна), або Німецька Демократична Республіка (ge)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:798
 msgid "country_gg"
-msgstr ""
+msgstr "Гернсі (gg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:802
 msgid "country_gh"
-msgstr ""
+msgstr "Гана (gh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:806
 msgid "country_gi"
-msgstr ""
+msgstr "Гібралтар (gi)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:810
 msgid "country_gl"
-msgstr ""
+msgstr "Гренландія (gl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:814
 msgid "country_gm"
-msgstr ""
+msgstr "Гамбія (gm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:818
 msgid "country_gn"
-msgstr ""
+msgstr "Острови Гілберта і Елліс (gn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:822
 msgid "country_go"
-msgstr ""
+msgstr "Габон (go)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:826
 msgid "country_gp"
-msgstr ""
+msgstr "Гваделупа (gp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:830
 msgid "country_gr"
-msgstr ""
+msgstr "Греція (gr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:834
 msgid "country_gs"
-msgstr ""
+msgstr "Грузія (Республіка) (gs)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:838
 msgid "country_gsr"
-msgstr ""
+msgstr "Грузинська Радянська Соціалістична Республіка (gsr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:842
 msgid "country_gt"
-msgstr ""
+msgstr "Гватемала (gt)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:846
 msgid "country_gu"
-msgstr ""
+msgstr "Гуам (gu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:850
 msgid "country_gv"
-msgstr ""
+msgstr "Гвінея (gv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:854
 msgid "country_gw"
-msgstr ""
+msgstr "Німеччина (gw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:859
 msgid "country_gy"
-msgstr ""
+msgstr "Гаяна (gy)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:863
 msgid "country_gz"
-msgstr ""
+msgstr "Сектор Газа (gz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:867
 msgid "country_hiu"
-msgstr ""
+msgstr "Гаваї (hiu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:871
 msgid "country_hk"
-msgstr ""
+msgstr "Гонконг (hk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:875
 msgid "country_hm"
-msgstr ""
+msgstr "Острови Херд та Макдональд (hm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:879
 msgid "country_ho"
-msgstr ""
+msgstr "Гондурас (ho)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:883
 msgid "country_ht"
-msgstr ""
+msgstr "Гаїті (ht)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:887
 msgid "country_hu"
-msgstr ""
+msgstr "Угорщина (hu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:891
 msgid "country_iau"
-msgstr ""
+msgstr "Айова (iau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:895
 msgid "country_ic"
-msgstr ""
+msgstr "Ісландія (ic)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:899
 msgid "country_idu"
-msgstr ""
+msgstr "Айдахо (idu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:903
 msgid "country_ie"
-msgstr ""
+msgstr "Ірландія (ie)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:907
 msgid "country_ii"
-msgstr ""
+msgstr "Індія (ii)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:911
 msgid "country_ilu"
-msgstr ""
+msgstr "Іллінойс (ilu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:915
 msgid "country_im"
-msgstr ""
+msgstr "Острів Мен (im)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:919
 msgid "country_inu"
-msgstr ""
+msgstr "Індіана (inu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:923
 msgid "country_io"
-msgstr ""
+msgstr "Індонезія (io)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:927
 msgid "country_iq"
-msgstr ""
+msgstr "Ірак (iq)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:931
 msgid "country_ir"
-msgstr ""
+msgstr "Іран (ir)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:935
 msgid "country_is"
-msgstr ""
+msgstr "Ізраїль (is)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:939
 msgid "country_it"
-msgstr ""
+msgstr "Італія (it)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:944
+#, fuzzy
 msgid "country_iu"
-msgstr ""
+msgstr "Демілітаризовані зони Ізраїль-Сирія (iu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:948
 msgid "country_iv"
-msgstr ""
+msgstr "Кот-д'Івуар (iv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:952
 msgid "country_iw"
-msgstr ""
+msgstr "Демілітаризовані зони Ізраїль-Йорданія (iw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:956
 msgid "country_iy"
-msgstr ""
+msgstr "Нейтральна зона Ірак-Саудівська Аравія (iy)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:960
 msgid "country_ja"
-msgstr ""
+msgstr "Японія (ja)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:964
 msgid "country_je"
-msgstr ""
+msgstr "Джерсі (je)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:968
 msgid "country_ji"
-msgstr ""
+msgstr "Атол Джонстон (ji)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:972
 msgid "country_jm"
-msgstr ""
+msgstr "Ямайка (jm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:976
 msgid "country_jn"
-msgstr ""
+msgstr "Ян-Маєн (jn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:980
 msgid "country_jo"
-msgstr ""
+msgstr "Йорданія (jo)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:984
 msgid "country_ke"
-msgstr ""
+msgstr "Кенія (ke)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:988
 msgid "country_kg"
-msgstr ""
+msgstr "Киргизстан (kg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:992
 msgid "country_kgr"
-msgstr ""
+msgstr "Киргизька Радянська Соціалістична Республіка (kgr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:996
 msgid "country_kn"
-msgstr ""
+msgstr "Корея (Північна), або Корейская Народно-Демократическая Республика (kn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1000
 msgid "country_ko"
-msgstr ""
+msgstr "Корея (Південна) (ko)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1004
 msgid "country_ksu"
-msgstr ""
+msgstr "Канзас (ksu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1008
 msgid "country_ku"
-msgstr ""
+msgstr "Кувейт (ku)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1012
 msgid "country_kv"
-msgstr ""
+msgstr "Косово (kv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1016
 msgid "country_kyu"
-msgstr ""
+msgstr "Кентуккі (kyu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1020
 msgid "country_kz"
-msgstr ""
+msgstr "Казахстан (kz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1024
 msgid "country_kzr"
-msgstr ""
+msgstr "Казахська Радянська Соціалістична Республіка (kzr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1028
 msgid "country_lau"
-msgstr ""
+msgstr "Луїзіана (lau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1032
 msgid "country_lb"
-msgstr ""
+msgstr "Ліберія (lb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1036
 msgid "country_le"
-msgstr ""
+msgstr "Ліван (le)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1040
 msgid "country_lh"
-msgstr ""
+msgstr "Ліхтенштейн (lh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1044
 msgid "country_li"
-msgstr ""
+msgstr "Литва (li)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1048
+#, fuzzy
 msgid "country_ln"
-msgstr ""
+msgstr "Центральні та Південні Острови Лайна (Лайн-Айлендс) (ln)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1052
 msgid "country_lo"
-msgstr ""
+msgstr "Лесото (lo)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1056
 msgid "country_ls"
-msgstr ""
+msgstr "Лаос (ls)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1060
 msgid "country_lu"
-msgstr ""
+msgstr "Люксембург (lu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1064
 msgid "country_lv"
-msgstr ""
+msgstr "Латвія (lv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1068
 msgid "country_ly"
-msgstr ""
+msgstr "Лівія (ly)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1072
 msgid "country_mau"
-msgstr ""
+msgstr "Массачусетс (mau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1076
 msgid "country_mbc"
-msgstr ""
+msgstr "Манітоба (mbc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1080
 msgid "country_mc"
-msgstr ""
+msgstr "Монако (mc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1084
 msgid "country_mdu"
-msgstr ""
+msgstr "Меріленд (mdu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1088
 msgid "country_meu"
-msgstr ""
+msgstr "Мен (meu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1092
 msgid "country_mf"
-msgstr ""
+msgstr "Маврикій (mf)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1096
 msgid "country_mg"
-msgstr ""
+msgstr "Мадагаскар (mg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1100
 msgid "country_mh"
-msgstr ""
+msgstr "Макао (mh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1104
 msgid "country_miu"
-msgstr ""
+msgstr "Мічиган (miu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1108
 msgid "country_mj"
-msgstr ""
+msgstr "Монтсеррат (mj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1112
 msgid "country_mk"
-msgstr ""
+msgstr "Оман (mk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1116
 msgid "country_ml"
-msgstr ""
+msgstr "Малі (ml)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1120
 msgid "country_mm"
-msgstr ""
+msgstr "Мальта (mm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1124
 msgid "country_mnu"
-msgstr ""
+msgstr "Міннесота (mnu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1128
 msgid "country_mo"
-msgstr ""
+msgstr "Чорногорія (mo)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1132
 msgid "country_mou"
-msgstr ""
+msgstr "Міссурі (mou)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1136
 msgid "country_mp"
-msgstr ""
+msgstr "Монголія (mp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1140
 msgid "country_mq"
-msgstr ""
+msgstr "Мартиніка (mq)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1144
 msgid "country_mr"
-msgstr ""
+msgstr "Марокко (mr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1148
 msgid "country_msu"
-msgstr ""
+msgstr "Міссісіпі (msu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1152
 msgid "country_mtu"
-msgstr ""
+msgstr "Монтана (mtu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1156
 msgid "country_mu"
-msgstr ""
+msgstr "Мавританія (mu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1160
 msgid "country_mv"
-msgstr ""
+msgstr "Молдова (mv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1164
 msgid "country_mvr"
-msgstr ""
+msgstr "Молдавська Радянська Соціалістична Республіка (mvr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1168
 msgid "country_mw"
-msgstr ""
+msgstr "Малаві (mw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1172
 msgid "country_mx"
-msgstr ""
+msgstr "Мексика (mx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1176
 msgid "country_my"
-msgstr ""
+msgstr "Малайзія (my)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1180
 msgid "country_mz"
-msgstr ""
+msgstr "Мозамбік (mz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1184
 msgid "country_na"
-msgstr ""
+msgstr "Нідерланди Вест-Індія (na)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1188
 msgid "country_nbu"
-msgstr ""
+msgstr "Небраска (nbu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1192
 msgid "country_ncu"
-msgstr ""
+msgstr "Північна Кароліна (ncu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1196
 msgid "country_ndu"
-msgstr ""
+msgstr "Північна Дакота (ndu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1200
 msgid "country_ne"
-msgstr ""
+msgstr "Нідерланди (ne)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1204
 msgid "country_nfc"
-msgstr ""
+msgstr "Ньюфаундленд і Лабрадор (nfc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1208
 msgid "country_ng"
-msgstr ""
+msgstr "Нігер (ng)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1212
 msgid "country_nhu"
-msgstr ""
+msgstr "Нью-Гемпшир (nhu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1216
 msgid "country_nik"
-msgstr ""
+msgstr "Північна Ірландія (nik)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1220
 msgid "country_nju"
-msgstr ""
+msgstr "Нью-Джерсі (nju)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1224
 msgid "country_nkc"
-msgstr ""
+msgstr "Нью-Брансвік (nkc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1228
 msgid "country_nl"
-msgstr ""
+msgstr "Нова Каледонія (nl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1232
 msgid "country_nm"
-msgstr ""
+msgstr "Північні Маріанські острови (nm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1236
 msgid "country_nmu"
-msgstr ""
+msgstr "Нью-Мексико (nmu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1240
 msgid "country_nn"
-msgstr ""
+msgstr "Вануату (nn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1244
 msgid "country_no"
-msgstr ""
+msgstr "Норвегія (no)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1248
 msgid "country_np"
-msgstr ""
+msgstr "Непал (np)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1252
 msgid "country_nq"
-msgstr ""
+msgstr "Нікарагуа (nq)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1256
 msgid "country_nr"
-msgstr ""
+msgstr "Нігерія (nr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1260
 msgid "country_nsc"
-msgstr ""
+msgstr "Нова Шотландія (nsc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1264
 msgid "country_ntc"
-msgstr ""
+msgstr "Північно-Західні території (Канада) (ntc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1268
 msgid "country_nu"
-msgstr ""
+msgstr "Науру (nu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1272
 msgid "country_nuc"
-msgstr ""
+msgstr "Нунавут (nuc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1276
 msgid "country_nvu"
-msgstr ""
+msgstr "Невада (nvu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1280
 msgid "country_nw"
-msgstr ""
+msgstr "Північні Маріанські острови (nw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1284
 msgid "country_nx"
-msgstr ""
+msgstr "Острів Норфолк (nx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1288
 msgid "country_nyu"
-msgstr ""
+msgstr "Нью-Йорк (Штат) (nyu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1292
 msgid "country_nz"
-msgstr ""
+msgstr "Нова Зеландія (nz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1296
 msgid "country_ohu"
-msgstr ""
+msgstr "Огайо (ohu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1300
 msgid "country_oku"
-msgstr ""
+msgstr "Оклахома (oku)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1304
 msgid "country_onc"
-msgstr ""
+msgstr "Онтаріо (onc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1308
 msgid "country_oru"
-msgstr ""
+msgstr "Орегон (oru)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1312
 msgid "country_ot"
-msgstr ""
+msgstr "Майотта (ot)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1316
 msgid "country_pau"
-msgstr ""
+msgstr "Пенсільванія (pau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1320
 msgid "country_pc"
-msgstr ""
+msgstr "Острів Піткерн (pc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1324
 msgid "country_pe"
-msgstr ""
+msgstr "Перу (pe)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1328
 msgid "country_pf"
-msgstr ""
+msgstr "Парасельські острови (pf)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1332
 msgid "country_pg"
-msgstr ""
+msgstr "Гвінея-Бісау (pg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1336
 msgid "country_ph"
-msgstr ""
+msgstr "Філіппіни (ph)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1340
 msgid "country_pic"
-msgstr ""
+msgstr "Острів Принца Едварда (pic)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1344
 msgid "country_pk"
-msgstr ""
+msgstr "Пакистан (pk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1348
 msgid "country_pl"
-msgstr ""
+msgstr "Польща (pl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1352
 msgid "country_pn"
-msgstr ""
+msgstr "Панама (pn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1356
 msgid "country_po"
-msgstr ""
+msgstr "Португалія (po)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1360
 msgid "country_pp"
-msgstr ""
+msgstr "Папуа-Нова Гвінея (pp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1364
+#, fuzzy
 msgid "country_pr"
-msgstr ""
+msgstr "Пуерто-Рико (pr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1368
 msgid "country_pt"
-msgstr ""
+msgstr "Португальський Тимор (pt)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1372
 msgid "country_pw"
-msgstr ""
+msgstr "Палау (pw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1376
 msgid "country_py"
-msgstr ""
+msgstr "Парагвай (py)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1380
 msgid "country_qa"
-msgstr ""
+msgstr "Катар (qa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1384
 msgid "country_qea"
-msgstr ""
+msgstr "Квінсленд (qea)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1388
 msgid "country_quc"
-msgstr ""
+msgstr "Квебек (Province)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1392
 msgid "country_rb"
-msgstr ""
+msgstr "Сербія (rb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1396
 msgid "country_re"
-msgstr ""
+msgstr "Реюньйон (re)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1400
 msgid "country_rh"
-msgstr ""
+msgstr "Зімбабве (rh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1404
 msgid "country_riu"
-msgstr ""
+msgstr "Род-Айленд (riu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1408
 msgid "country_rm"
-msgstr ""
+msgstr "Румунія (rm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1412
 msgid "country_ru"
-msgstr ""
+msgstr "Росія (Російська Федерація) (ru)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1416
 msgid "country_rur"
-msgstr ""
+msgstr "Російська Радянська Федеративна Соціалістична Республіка (rur)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1420
 msgid "country_rw"
-msgstr ""
+msgstr "Руанда (rw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1424
 msgid "country_ry"
-msgstr ""
+msgstr "Острови Рюкю, Південні (Японія) (ry)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1428
 msgid "country_sa"
-msgstr ""
+msgstr "Південна Африка (sa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1432
 msgid "country_sb"
-msgstr ""
+msgstr "Шпіцберген (sb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1436
 msgid "country_sc"
-msgstr ""
+msgstr "Острови Святого Варфоломія (sc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1440
 msgid "country_scu"
-msgstr ""
+msgstr "Південна Кароліна (scu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1444
 msgid "country_sd"
-msgstr ""
+msgstr "Південний Судан (sd)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1448
 msgid "country_sdu"
-msgstr ""
+msgstr "Південна Дакота (sdu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1452
 msgid "country_se"
-msgstr ""
+msgstr "Сейшельські острови (se)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1456
 msgid "country_sf"
-msgstr ""
+msgstr "Сан-Томе і Прінсіпі (sf)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1460
 msgid "country_sg"
-msgstr ""
+msgstr "Сенегал (sg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1464
 msgid "country_sh"
-msgstr ""
+msgstr "Іспанська Північна Африка (sh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1468
 msgid "country_si"
-msgstr ""
+msgstr "Сінгапур (si)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1472
 msgid "country_sj"
-msgstr ""
+msgstr "Судан (sj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1476
 msgid "country_sk"
-msgstr ""
+msgstr "Сіккім (sk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1480
 msgid "country_sl"
-msgstr ""
+msgstr "Сьєрра-Леоне (sl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1484
 msgid "country_sm"
-msgstr ""
+msgstr "Сан-Марино (sm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1488
 msgid "country_sn"
-msgstr ""
+msgstr "Сінт-Мартен (sn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1492
 msgid "country_snc"
-msgstr ""
+msgstr "Саскачеван (snc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1496
 msgid "country_so"
-msgstr ""
+msgstr "Сомалі (so)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1500
 msgid "country_sp"
-msgstr ""
+msgstr "Іспанія (sp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1504
+#, fuzzy
 msgid "country_sq"
-msgstr ""
+msgstr "Есватіні, Королівство Е-Сватіні, Свазіленд, Нгване (sq)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1508
 msgid "country_sr"
-msgstr ""
+msgstr "Суринам (sr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1512
 msgid "country_ss"
-msgstr ""
+msgstr "Західна Сахара (ss)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1516
+#, fuzzy
 msgid "country_st"
-msgstr ""
+msgstr "Острів Святого Мартіна, Сен-Мартен (st)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1520
 msgid "country_stk"
-msgstr ""
+msgstr "Шотландія (stk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1524
 msgid "country_su"
-msgstr ""
+msgstr "Саудівська Аравія (su)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1528
 msgid "country_sv"
-msgstr ""
+msgstr "Острови Свон (sv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1532
 msgid "country_sw"
-msgstr ""
+msgstr "Швеція (sw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1536
 msgid "country_sx"
-msgstr ""
+msgstr "Намібія (sx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1540
 msgid "country_sy"
-msgstr ""
+msgstr "Сирія (sy)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1544
 msgid "country_sz"
-msgstr ""
+msgstr "Швейцарія (sz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1549
 msgid "country_ta"
-msgstr ""
+msgstr "Таджикистан (ta)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1553
 msgid "country_tar"
-msgstr ""
+msgstr "Таджицька Радянська Соціалістична Республіка (tar)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1557
 msgid "country_tc"
-msgstr ""
+msgstr "Острови Теркс і Кайкос (tc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1561
 msgid "country_tg"
-msgstr ""
+msgstr "Того (tg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1565
 msgid "country_th"
-msgstr ""
+msgstr "Таїланд (th)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1569
 msgid "country_ti"
-msgstr ""
+msgstr "Туніс (ti)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1573
 msgid "country_tk"
-msgstr ""
+msgstr "Туркменістан (tk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1577
 msgid "country_tkr"
-msgstr ""
+msgstr "Туркменська Радянська Соціалістична Республіка (tkr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1581
 msgid "country_tl"
-msgstr ""
+msgstr "Токелау (tl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1585
 msgid "country_tma"
-msgstr ""
+msgstr "Тасманія (tma)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1589
 msgid "country_tnu"
-msgstr ""
+msgstr "Теннессі (tnu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1593
 msgid "country_to"
-msgstr ""
+msgstr "Тонга (to)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1597
 msgid "country_tr"
-msgstr ""
+msgstr "Тринідад і Тобаго (tr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1601
 msgid "country_ts"
-msgstr ""
+msgstr "Об'єднані Арабські Емірати (ts)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1605
+#, fuzzy
 msgid "country_tt"
-msgstr ""
+msgstr "Підопічна територія Тихоокеанських островів (tt)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1609
 msgid "country_tu"
-msgstr ""
+msgstr "Туреччина (tu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1613
 msgid "country_tv"
-msgstr ""
+msgstr "Тувалу (tv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1617
 msgid "country_txu"
-msgstr ""
+msgstr "Техас (txu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1621
 msgid "country_tz"
-msgstr ""
+msgstr "Танзанія (tz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1625
 msgid "country_ua"
-msgstr ""
+msgstr "Єгипет (ua)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1629
 msgid "country_uc"
-msgstr ""
+msgstr "Сполучені Штати Америки Різні Карибські острови (uc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1633
 msgid "country_ug"
-msgstr ""
+msgstr "Уганда (ug)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1637
+#, fuzzy
 msgid "country_ui"
-msgstr ""
+msgstr "Різні Британські острови (ui)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1641
+#, fuzzy
 msgid "country_uik"
-msgstr ""
+msgstr "Різні острови Сполученого Королівства (uik)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1645
 msgid "country_un"
-msgstr ""
+msgstr "Україна (un)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1649
+#, fuzzy
 msgid "country_up"
-msgstr ""
+msgstr "Малі віддалені острови США, Різні острови Тихого океану (США) (up)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1653
 msgid "country_utu"
-msgstr ""
+msgstr "Юта (utu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1657
 msgid "country_uv"
-msgstr ""
+msgstr "Буркіна-Фасо (uv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1661
 msgid "country_uy"
-msgstr ""
+msgstr "Уругвай (uy)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1665
 msgid "country_uz"
-msgstr ""
+msgstr "Узбекистан (uz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1669
 msgid "country_uzr"
-msgstr ""
+msgstr "Узбецька Радянська Соціалістична Республіка (uzr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1673
 msgid "country_vau"
-msgstr ""
+msgstr "Вірджинія (vau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1677
 msgid "country_vb"
-msgstr ""
+msgstr "Британські Віргінські острови (vb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1681
 msgid "country_vc"
-msgstr ""
+msgstr "Ватикан (vc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1685
 msgid "country_ve"
-msgstr ""
+msgstr "Венесуела (ve)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1689
 msgid "country_vi"
-msgstr ""
+msgstr "Віргінські острови США (vi)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1693
 msgid "country_vm"
-msgstr ""
+msgstr "В'єтнам (vm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1697
 msgid "country_vn"
-msgstr ""
+msgstr "Північний В'єтнам (vn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1701
+#, fuzzy
 msgid "country_vp"
-msgstr ""
+msgstr "Різні місця (vp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1705
 msgid "country_vra"
-msgstr ""
+msgstr "Вікторія (vra)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1709
 msgid "country_vs"
-msgstr ""
+msgstr "Південний В'єтнам (vs)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1713
 msgid "country_vtu"
-msgstr ""
+msgstr "Вермонт (vtu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1717
 msgid "country_wau"
-msgstr ""
+msgstr "Вашингтон (State)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1721
 msgid "country_wb"
-msgstr ""
+msgstr "Західний Берлін (wb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1725
 msgid "country_wea"
-msgstr ""
+msgstr "Західна Австралія (wea)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1729
 msgid "country_wf"
-msgstr ""
+msgstr "Уолліс і Футуна (wf)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1733
 msgid "country_wiu"
-msgstr ""
+msgstr "Вісконсин (wiu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1737
 msgid "country_wj"
-msgstr ""
+msgstr "Західний берег річки Йордан (wj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1741
 msgid "country_wk"
-msgstr ""
+msgstr "Острів Вейк (wk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1745
 msgid "country_wlk"
-msgstr ""
+msgstr "Уельс (wlk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1749
 msgid "country_ws"
-msgstr ""
+msgstr "Самоа (ws)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1753
 msgid "country_wvu"
-msgstr ""
+msgstr "Західна Вірджинія (wvu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1757
 msgid "country_wyu"
-msgstr ""
+msgstr "Вайомінг (wyu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1761
 msgid "country_xa"
-msgstr ""
+msgstr "Острів Різдва (Індійський океан) (xa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1765
 msgid "country_xb"
-msgstr ""
+msgstr "Кокосові острови (Кілінг) (xb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1769
 msgid "country_xc"
-msgstr ""
+msgstr "Мальдіви (xc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1773
 msgid "country_xd"
-msgstr ""
+msgstr "Сент-Кітс-Невіс (xd)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1777
 msgid "country_xe"
-msgstr ""
+msgstr "Маршаллові острови (xe)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1781
 msgid "country_xf"
-msgstr ""
+msgstr "Мідвей (xf)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1785
 msgid "country_xga"
-msgstr ""
+msgstr "Територія островів Коралового моря (xga)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1789
 msgid "country_xh"
-msgstr ""
+msgstr "Ніуе, Савідж (xh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1793
 msgid "country_xi"
-msgstr ""
+msgstr "Сент-Кітс-Невіс-Ангілья (xi)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1797
 msgid "country_xj"
-msgstr ""
+msgstr "Острів Святої Єлени (xj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1801
 msgid "country_xk"
-msgstr ""
+msgstr "Сент-Люсія (xk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1805
 msgid "country_xl"
-msgstr ""
+msgstr "Сен-П'єр і Мікелон (xl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1809
 msgid "country_xm"
-msgstr ""
+msgstr "Сент-Вінсент і Гренадини (xm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1813
 msgid "country_xn"
-msgstr ""
+msgstr "Північна Македонія (xn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1817
 msgid "country_xna"
-msgstr ""
+msgstr "Новий Південний Уельс (xna)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1821
 msgid "country_xo"
-msgstr ""
+msgstr "Словаччина (xo)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1825
 msgid "country_xoa"
-msgstr ""
+msgstr "Північна територія (Австралія) (xoa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1829
 msgid "country_xp"
-msgstr ""
+msgstr "Острів Спратлі (xp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1833
 msgid "country_xr"
-msgstr ""
+msgstr "Чеська Республіка (xr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1837
 msgid "country_xra"
-msgstr ""
+msgstr "Південна Австралія (xra)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1841
 msgid "country_xs"
-msgstr ""
+msgstr "Південна Джорджія та Південні Сандвічеві острови (xs)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1845
 msgid "country_xv"
-msgstr ""
+msgstr "Словенія (xv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1849
 msgid "country_xx"
-msgstr ""
+msgstr "Місце невідоме, невизначене (xx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1853
 msgid "country_xxc"
-msgstr ""
+msgstr "Канада (xxc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1857
 msgid "country_xxk"
-msgstr ""
+msgstr "Велика Британія (xxk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1862
 msgid "country_xxr"
-msgstr ""
+msgstr "Радянський Союз (xxr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1866
 msgid "country_xxu"
-msgstr ""
+msgstr "Сполучені Штати (xxu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1871
 msgid "country_ye"
-msgstr ""
+msgstr "Ємен (ye)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1875
 msgid "country_ykc"
-msgstr ""
+msgstr "Територія Юкон (ykc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1879
 msgid "country_yu"
-msgstr ""
+msgstr "Сербія та Чорногорія (yu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1883
 msgid "country_za"
-msgstr ""
+msgstr "Замбія (za)"
 
 #: rero_ils/jsonschemas/common/currency-v0.0.1.json:3
 msgid "Currency"
@@ -2648,491 +2661,493 @@ msgstr "афарська_мова"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:504
 msgid "lang_abk"
-msgstr ""
+msgstr "абхазька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:508
+#, fuzzy
 msgid "lang_ace"
-msgstr ""
+msgstr "ачехська?ачинська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:512
 msgid "lang_ach"
-msgstr ""
+msgstr "ачолі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:516
 msgid "lang_ada"
-msgstr ""
+msgstr "адангме"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:520
 msgid "lang_ady"
-msgstr ""
+msgstr "адигейська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:524
 msgid "lang_afa"
-msgstr ""
+msgstr "афроазійські мови (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:528
 msgid "lang_afh"
-msgstr ""
+msgstr "африхілі (штучна мова)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:532
 msgid "lang_afr"
-msgstr ""
+msgstr "африкаанс"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:536
 msgid "lang_ain"
-msgstr ""
+msgstr "айнська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:540
 msgid "lang_aka"
-msgstr ""
+msgstr "акан"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:544
 msgid "lang_akk"
-msgstr ""
+msgstr "аккадська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:548
 msgid "lang_alb"
-msgstr ""
+msgstr "албанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:552
 msgid "lang_ale"
-msgstr ""
+msgstr "алеутська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:556
 msgid "lang_alg"
-msgstr ""
+msgstr "алгонкінські мови (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:560
 msgid "lang_alt"
-msgstr ""
+msgstr "алтайська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:564
 msgid "lang_amh"
-msgstr ""
+msgstr "амхарська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:568
 msgid "lang_ang"
-msgstr ""
+msgstr "англійська, давня (бл. 450-1100)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:572
 msgid "lang_anp"
-msgstr ""
+msgstr "ангіка"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:576
+#, fuzzy
 msgid "lang_apa"
-msgstr ""
+msgstr "апачські мови, мови апачів"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:580
 msgid "lang_ara"
-msgstr ""
+msgstr "арабська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:584
 msgid "lang_arc"
-msgstr ""
+msgstr "арамейська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:588
 msgid "lang_arg"
-msgstr ""
+msgstr "арагонська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:592
 msgid "lang_arm"
-msgstr ""
+msgstr "вірменська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:596
 msgid "lang_arn"
-msgstr ""
+msgstr "мапуче"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:600
 msgid "lang_arp"
-msgstr ""
+msgstr "арапахо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:604
 msgid "lang_art"
-msgstr ""
+msgstr "штучні мови (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:608
 msgid "lang_arw"
-msgstr ""
+msgstr "аравакська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:612
 msgid "lang_asm"
-msgstr ""
+msgstr "ассамська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:616
 msgid "lang_ast"
-msgstr ""
+msgstr "бабле (астурійська)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:620
 msgid "lang_ath"
-msgstr ""
+msgstr "атабаські мови (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:624
 msgid "lang_aus"
-msgstr ""
+msgstr "мови аборигенів Австралії"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:628
 msgid "lang_ava"
-msgstr ""
+msgstr "аварська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:632
 msgid "lang_ave"
-msgstr ""
+msgstr "авестійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:636
 msgid "lang_awa"
-msgstr ""
+msgstr "авадхі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:640
 msgid "lang_aym"
-msgstr ""
+msgstr "аймара"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:644
 msgid "lang_aze"
-msgstr ""
+msgstr "азербайджанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:648
 msgid "lang_bad"
-msgstr ""
+msgstr "мови банда (Центральна Африка)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:652
 msgid "lang_bai"
-msgstr ""
+msgstr "мови бамілеке"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:656
 msgid "lang_bak"
-msgstr ""
+msgstr "башкирська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:660
 msgid "lang_bal"
-msgstr ""
+msgstr "белуджська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:664
 msgid "lang_bam"
-msgstr ""
+msgstr "бамбара"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:668
 msgid "lang_ban"
-msgstr ""
+msgstr "балійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:672
 msgid "lang_baq"
-msgstr ""
+msgstr "баскська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:676
 msgid "lang_bas"
-msgstr ""
+msgstr "баса"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:680
 msgid "lang_bat"
-msgstr ""
+msgstr "балтійські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:684
 msgid "lang_bej"
-msgstr ""
+msgstr "беджа"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:688
 msgid "lang_bel"
-msgstr ""
+msgstr "білоруська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:692
 msgid "lang_bem"
-msgstr ""
+msgstr "бемба"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:696
 msgid "lang_ben"
-msgstr ""
+msgstr "бенгальська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:700
 msgid "lang_ber"
-msgstr ""
+msgstr "берберські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:704
 msgid "lang_bho"
-msgstr ""
+msgstr "бходжпурі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:708
 msgid "lang_bih"
-msgstr ""
+msgstr "біхарські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:712
 msgid "lang_bik"
-msgstr ""
+msgstr "бікольська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:716
 msgid "lang_bin"
-msgstr ""
+msgstr "едо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:720
 msgid "lang_bis"
-msgstr ""
+msgstr "біслама"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:724
 msgid "lang_bla"
-msgstr ""
+msgstr "сіксіка (блекфут)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:728
 msgid "lang_bnt"
-msgstr ""
+msgstr "банту (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:732
 msgid "lang_bos"
-msgstr ""
+msgstr "боснійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:736
 msgid "lang_bra"
-msgstr ""
+msgstr "брадж"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:740
 msgid "lang_bre"
-msgstr ""
+msgstr "бретонська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:744
 msgid "lang_btk"
-msgstr ""
+msgstr "батакська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:748
 msgid "lang_bua"
-msgstr ""
+msgstr "бурятська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:752
 msgid "lang_bug"
-msgstr ""
+msgstr "бугійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:756
 msgid "lang_bul"
-msgstr ""
+msgstr "болгарська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:760
 msgid "lang_bur"
-msgstr ""
+msgstr "бірманська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:764
 msgid "lang_byn"
-msgstr ""
+msgstr "білін"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:768
 msgid "lang_cad"
-msgstr ""
+msgstr "каддо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:772
 msgid "lang_cai"
-msgstr ""
+msgstr "індіанські мови Центральної Америки (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:776
 msgid "lang_car"
-msgstr ""
+msgstr "карибська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:780
 msgid "lang_cat"
-msgstr ""
+msgstr "каталанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:784
 msgid "lang_cau"
-msgstr ""
+msgstr "кавказькі (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:788
 msgid "lang_ceb"
-msgstr ""
+msgstr "себуанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:792
 msgid "lang_cel"
-msgstr ""
+msgstr "кельтські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:796
 msgid "lang_cha"
-msgstr ""
+msgstr "чаморро"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:800
 msgid "lang_chb"
-msgstr ""
+msgstr "чибча"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:804
 msgid "lang_che"
-msgstr ""
+msgstr "чеченська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:808
 msgid "lang_chg"
-msgstr ""
+msgstr "чагатайська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:812
 msgid "lang_chi"
-msgstr ""
+msgstr "китайська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:816
 msgid "lang_chk"
-msgstr ""
+msgstr "чуукська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:820
 msgid "lang_chm"
-msgstr ""
+msgstr "марійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:824
 msgid "lang_chn"
-msgstr ""
+msgstr "чинукcький жаргон"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:828
 msgid "lang_cho"
-msgstr ""
+msgstr "чокто"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:832
 msgid "lang_chp"
-msgstr ""
+msgstr "чипевіан"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:836
 msgid "lang_chr"
-msgstr ""
+msgstr "черокі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:840
 msgid "lang_chu"
-msgstr ""
+msgstr "церковнослов'янська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:844
 msgid "lang_chv"
-msgstr ""
+msgstr "чуваська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:848
 msgid "lang_chy"
-msgstr ""
+msgstr "шайєнська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:852
 msgid "lang_cmc"
-msgstr ""
+msgstr "чамські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:856
 msgid "lang_cnr"
-msgstr ""
+msgstr "чорногорська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:860
 msgid "lang_cop"
-msgstr ""
+msgstr "коптська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:864
 msgid "lang_cor"
-msgstr ""
+msgstr "корнська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:868
 msgid "lang_cos"
-msgstr ""
+msgstr "корсиканська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:872
 msgid "lang_cpe"
-msgstr ""
+msgstr "креольські та піджини на основі англійської (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:876
 msgid "lang_cpf"
-msgstr ""
+msgstr "креольські та піджини на основі французької (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:880
 msgid "lang_cpp"
-msgstr ""
+msgstr "креольські та піджини на основі португальської (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:884
 msgid "lang_cre"
-msgstr ""
+msgstr "крі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:888
 msgid "lang_crh"
-msgstr ""
+msgstr "кримськотатарська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:892
 msgid "lang_crp"
-msgstr ""
+msgstr "креольські та піджини (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:896
 msgid "lang_csb"
-msgstr ""
+msgstr "кашубська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:900
 msgid "lang_cus"
-msgstr ""
+msgstr "кушитські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:904
 msgid "lang_cze"
-msgstr ""
+msgstr "чеська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:908
 msgid "lang_dak"
-msgstr ""
+msgstr "дакота"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:912
 msgid "lang_dan"
-msgstr ""
+msgstr "данська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:916
 msgid "lang_dar"
-msgstr ""
+msgstr "даргінська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:920
 msgid "lang_day"
-msgstr ""
+msgstr "даякська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:924
 msgid "lang_del"
-msgstr ""
+msgstr "делаверські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:928
 msgid "lang_den"
-msgstr ""
+msgstr "слейві"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:932
 msgid "lang_dgr"
-msgstr ""
+msgstr "догриб"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:936
 msgid "lang_din"
-msgstr ""
+msgstr "дінка"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:940
 msgid "lang_div"
-msgstr ""
+msgstr "мальдівська (дівехі)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:944
 msgid "lang_doi"
-msgstr ""
+msgstr "догрі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:948
 msgid "lang_dra"
-msgstr ""
+msgstr "дравідійські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:952
 msgid "lang_dsb"
-msgstr ""
+msgstr "нижньолужицька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:956
 msgid "lang_dua"
-msgstr ""
+msgstr "дуала"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:960
 msgid "lang_dum"
-msgstr ""
+msgstr "нідерландська, середня (бл. 1050-1350)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:964
 msgid "lang_dut"
-msgstr ""
+msgstr "нідерландська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:969
 msgid "lang_dyu"
-msgstr ""
+msgstr "дьюла"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:973
 msgid "lang_dzo"
-msgstr ""
+msgstr "дзонг-ке"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:977
 msgid "lang_efi"
-msgstr ""
+msgstr "ефік"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:981
 msgid "lang_egy"
-msgstr ""
+msgstr "єгипетська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:985
 msgid "lang_eka"
-msgstr ""
+msgstr "екаджук"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:989
 msgid "lang_elx"
-msgstr ""
+msgstr "еламська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:993
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:23
@@ -3140,59 +3155,59 @@ msgstr ""
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:331
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:226
 msgid "lang_eng"
-msgstr ""
+msgstr "англійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:998
 msgid "lang_enm"
-msgstr ""
+msgstr "середньоанглійська (1100–1500)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1002
 msgid "lang_epo"
-msgstr ""
+msgstr "есперанто"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1006
 msgid "lang_est"
-msgstr ""
+msgstr "естонська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1010
 msgid "lang_ewe"
-msgstr ""
+msgstr "еве"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1014
 msgid "lang_ewo"
-msgstr ""
+msgstr "евондо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1018
 msgid "lang_fan"
-msgstr ""
+msgstr "фанг"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1022
 msgid "lang_fao"
-msgstr ""
+msgstr "фарерська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1026
 msgid "lang_fat"
-msgstr ""
+msgstr "фанті"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1030
 msgid "lang_fij"
-msgstr ""
+msgstr "фіджійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1034
 msgid "lang_fil"
-msgstr ""
+msgstr "філіппінська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1038
 msgid "lang_fin"
-msgstr ""
+msgstr "фінська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1042
 msgid "lang_fiu"
-msgstr ""
+msgstr "фінно-угорські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1046
 msgid "lang_fon"
-msgstr ""
+msgstr "фон"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1050
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:19
@@ -3200,55 +3215,55 @@ msgstr ""
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:327
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:222
 msgid "lang_fre"
-msgstr ""
+msgstr "французька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1055
 msgid "lang_frm"
-msgstr ""
+msgstr "середньофранцузька (бл. 1300–1600)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1059
 msgid "lang_fro"
-msgstr ""
+msgstr "старофранцузька (бл. 842–1300)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1063
 msgid "lang_frr"
-msgstr ""
+msgstr "північнофризька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1067
 msgid "lang_frs"
-msgstr ""
+msgstr "східнофризька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1071
 msgid "lang_fry"
-msgstr ""
+msgstr "фризька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1075
 msgid "lang_ful"
-msgstr ""
+msgstr "фула"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1079
 msgid "lang_fur"
-msgstr ""
+msgstr "фріульська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1083
 msgid "lang_gaa"
-msgstr ""
+msgstr "га"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1087
 msgid "lang_gay"
-msgstr ""
+msgstr "гайо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1091
 msgid "lang_gba"
-msgstr ""
+msgstr "гбая"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1095
 msgid "lang_gem"
-msgstr ""
+msgstr "германські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1099
 msgid "lang_geo"
-msgstr ""
+msgstr "грузинська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1103
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:27
@@ -3256,211 +3271,211 @@ msgstr ""
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:335
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:234
 msgid "lang_ger"
-msgstr ""
+msgstr "німецька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1108
 msgid "lang_gez"
-msgstr ""
+msgstr "ефіопська (геез)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1112
 msgid "lang_gil"
-msgstr ""
+msgstr "кірибаті (гілбертська)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1116
 msgid "lang_gla"
-msgstr ""
+msgstr "шотландська гельська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1120
 msgid "lang_gle"
-msgstr ""
+msgstr "ірландська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1124
 msgid "lang_glg"
-msgstr ""
+msgstr "галісійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1128
 msgid "lang_glv"
-msgstr ""
+msgstr "менська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1132
 msgid "lang_gmh"
-msgstr ""
+msgstr "середньоверхньонімецька (бл. 1050–1500)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1136
 msgid "lang_goh"
-msgstr ""
+msgstr "староверхньонімецька (бл. 750–1050)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1140
 msgid "lang_gon"
-msgstr ""
+msgstr "гонді"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1144
 msgid "lang_gor"
-msgstr ""
+msgstr "горонтало"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1148
 msgid "lang_got"
-msgstr ""
+msgstr "готська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1152
 msgid "lang_grb"
-msgstr ""
+msgstr "гребо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1156
 msgid "lang_grc"
-msgstr ""
+msgstr "давньогрецька (до 1453)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1160
 msgid "lang_gre"
-msgstr ""
+msgstr "новогрецька (з 1453)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1164
 msgid "lang_grn"
-msgstr ""
+msgstr "гуарані"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1168
 msgid "lang_gsw"
-msgstr ""
+msgstr "швейцарська німецька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1172
 msgid "lang_guj"
-msgstr ""
+msgstr "гуджараті"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1176
 msgid "lang_gwi"
-msgstr ""
+msgstr "гвічін"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1180
 msgid "lang_hai"
-msgstr ""
+msgstr "гайда"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1184
 msgid "lang_hat"
-msgstr ""
+msgstr "гаїтянська креольська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1188
 msgid "lang_hau"
-msgstr ""
+msgstr "хауса"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1192
 msgid "lang_haw"
-msgstr ""
+msgstr "гавайська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1196
 msgid "lang_heb"
-msgstr ""
+msgstr "іврит"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1200
 msgid "lang_her"
-msgstr ""
+msgstr "гереро"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1204
 msgid "lang_hil"
-msgstr ""
+msgstr "хілігайнон"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1208
 msgid "lang_him"
-msgstr ""
+msgstr "західні пахарські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1212
 msgid "lang_hin"
-msgstr ""
+msgstr "хінді"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1216
 msgid "lang_hit"
-msgstr ""
+msgstr "хетська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1220
 msgid "lang_hmn"
-msgstr ""
+msgstr "хмонг"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1224
 msgid "lang_hmo"
-msgstr ""
+msgstr "хірі-моту"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1228
 msgid "lang_hrv"
-msgstr ""
+msgstr "хорватська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1232
 msgid "lang_hsb"
-msgstr ""
+msgstr "верхньолужицька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1236
 msgid "lang_hun"
-msgstr ""
+msgstr "угорська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1240
 msgid "lang_hup"
-msgstr ""
+msgstr "хупа"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1244
 msgid "lang_iba"
-msgstr ""
+msgstr "ібанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1248
 msgid "lang_ibo"
-msgstr ""
+msgstr "ігбо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1252
 msgid "lang_ice"
-msgstr ""
+msgstr "ісландська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1256
 msgid "lang_ido"
-msgstr ""
+msgstr "ідо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1260
 msgid "lang_iii"
-msgstr ""
+msgstr "сичуанська і носу"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1264
 msgid "lang_ijo"
-msgstr ""
+msgstr "іджо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1268
 msgid "lang_iku"
-msgstr ""
+msgstr "інуктитут"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1272
 msgid "lang_ile"
-msgstr ""
+msgstr "інтерлінгве (окциденталь)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1276
 msgid "lang_ilo"
-msgstr ""
+msgstr "ілоканська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1280
 msgid "lang_ina"
-msgstr ""
+msgstr "інтерлінгва"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1284
 msgid "lang_inc"
-msgstr ""
+msgstr "індоарійські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1288
 msgid "lang_ind"
-msgstr ""
+msgstr "індонезійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1292
 msgid "lang_ine"
-msgstr ""
+msgstr "індоєвропейські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1296
 msgid "lang_inh"
-msgstr ""
+msgstr "інгуська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1300
 msgid "lang_ipk"
-msgstr ""
+msgstr "інупіак"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1304
 msgid "lang_ira"
-msgstr ""
+msgstr "іранські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1308
 msgid "lang_iro"
-msgstr ""
+msgstr "ірокезькі (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1312
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:31
@@ -3468,1136 +3483,1138 @@ msgstr ""
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:339
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:230
 msgid "lang_ita"
-msgstr ""
+msgstr "італійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1317
 msgid "lang_jav"
-msgstr ""
+msgstr "яванська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1321
 msgid "lang_jbo"
-msgstr ""
+msgstr "ложбан (штучна мова)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1325
 msgid "lang_jpn"
-msgstr ""
+msgstr "японська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1329
 msgid "lang_jpr"
-msgstr ""
+msgstr "єврейсько-перська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1333
 msgid "lang_jrb"
-msgstr ""
+msgstr "єврейсько-арабська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1337
 msgid "lang_kaa"
-msgstr ""
+msgstr "каракалпацька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1341
 msgid "lang_kab"
-msgstr ""
+msgstr "кабільська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1345
 msgid "lang_kac"
-msgstr ""
+msgstr "качинська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1349
 msgid "lang_kal"
-msgstr ""
+msgstr "гренландська (калааллісут)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1353
 msgid "lang_kam"
-msgstr ""
+msgstr "камба"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1357
 msgid "lang_kan"
-msgstr ""
+msgstr "каннада"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1361
 msgid "lang_kar"
-msgstr ""
+msgstr "каренські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1365
 msgid "lang_kas"
-msgstr ""
+msgstr "кашмірська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1369
 msgid "lang_kau"
-msgstr ""
+msgstr "канурі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1373
 msgid "lang_kaw"
-msgstr ""
+msgstr "каві"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1377
 msgid "lang_kaz"
-msgstr ""
+msgstr "казахська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1381
 msgid "lang_kbd"
-msgstr ""
+msgstr "кабардинська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1385
 msgid "lang_kha"
-msgstr ""
+msgstr "кхасі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1389
 msgid "lang_khi"
-msgstr ""
+msgstr "койсанські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1393
 msgid "lang_khm"
-msgstr ""
+msgstr "кхмерська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1397
 msgid "lang_kho"
-msgstr ""
+msgstr "хотаносакська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1401
 msgid "lang_kik"
-msgstr ""
+msgstr "кікуйю"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1405
 msgid "lang_kin"
-msgstr ""
+msgstr "кіньяруанда"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1409
 msgid "lang_kir"
-msgstr ""
+msgstr "киргизька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1413
 msgid "lang_kmb"
-msgstr ""
+msgstr "кімбунду"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1417
 msgid "lang_kok"
-msgstr ""
+msgstr "конкані"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1421
 msgid "lang_kom"
-msgstr ""
+msgstr "комі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1425
 msgid "lang_kon"
-msgstr ""
+msgstr "конго"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1429
 msgid "lang_kor"
-msgstr ""
+msgstr "корейська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1433
 msgid "lang_kos"
-msgstr ""
+msgstr "кусаїє (косрае)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1437
 msgid "lang_kpe"
-msgstr ""
+msgstr "кпеллє"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1441
 msgid "lang_krc"
-msgstr ""
+msgstr "карачаєво-балкарська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1445
 msgid "lang_krl"
-msgstr ""
+msgstr "карельська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1449
 msgid "lang_kro"
-msgstr ""
+msgstr "кру (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1453
 msgid "lang_kru"
-msgstr ""
+msgstr "курух"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1457
 msgid "lang_kua"
-msgstr ""
+msgstr "куаньяма"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1461
 msgid "lang_kum"
-msgstr ""
+msgstr "кумицька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1465
 msgid "lang_kur"
-msgstr ""
+msgstr "курдська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1469
 msgid "lang_kut"
-msgstr ""
+msgstr "кутенай"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1473
 msgid "lang_lad"
-msgstr ""
+msgstr "ладіно"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1477
 msgid "lang_lah"
-msgstr ""
+msgstr "лахнда"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1481
 msgid "lang_lam"
-msgstr ""
+msgstr "ламба (Замбія та Конго)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1485
 msgid "lang_lao"
-msgstr ""
+msgstr "лаоська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1489
 msgid "lang_lat"
-msgstr ""
+msgstr "латина"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1493
 msgid "lang_lav"
-msgstr ""
+msgstr "латвійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1497
 msgid "lang_lez"
-msgstr ""
+msgstr "лезгинська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1501
 msgid "lang_lim"
-msgstr ""
+msgstr "лімбурзька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1505
 msgid "lang_lin"
-msgstr ""
+msgstr "лінгала"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1509
 msgid "lang_lit"
-msgstr ""
+msgstr "литовська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1513
 msgid "lang_lol"
-msgstr ""
+msgstr "монго-нкунду"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1517
 msgid "lang_loz"
-msgstr ""
+msgstr "лозі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1521
 msgid "lang_ltz"
-msgstr ""
+msgstr "люксембурзька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1525
 msgid "lang_lua"
-msgstr ""
+msgstr "луба-лулуа"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1529
 msgid "lang_lub"
-msgstr ""
+msgstr "луба-катанга"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1533
 msgid "lang_lug"
-msgstr ""
+msgstr "луганда (ганда)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1537
 msgid "lang_lui"
-msgstr ""
+msgstr "луїсеньйо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1541
 msgid "lang_lun"
-msgstr ""
+msgstr "лунда"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1545
 msgid "lang_luo"
-msgstr ""
+msgstr "луо (Кенія та Танзанія)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1549
 msgid "lang_lus"
-msgstr ""
+msgstr "лушей"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1553
 msgid "lang_mac"
-msgstr ""
+msgstr "македонська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1557
 msgid "lang_mad"
-msgstr ""
+msgstr "мадурська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1561
 msgid "lang_mag"
-msgstr ""
+msgstr "магахі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1565
 msgid "lang_mah"
-msgstr ""
+msgstr "маршалльська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1569
 msgid "lang_mai"
-msgstr ""
+msgstr "майтхілі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1573
 msgid "lang_mak"
-msgstr ""
+msgstr "макасарська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1577
 msgid "lang_mal"
-msgstr ""
+msgstr "малаялам"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1581
 msgid "lang_man"
-msgstr ""
+msgstr "мандінг (мандінго)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1585
 msgid "lang_mao"
-msgstr ""
+msgstr "маорі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1589
 msgid "lang_map"
-msgstr ""
+msgstr "австронезійські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1593
 msgid "lang_mar"
-msgstr ""
+msgstr "маратхі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1597
 msgid "lang_mas"
-msgstr ""
+msgstr "масаї"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1601
 msgid "lang_may"
-msgstr ""
+msgstr "малайська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1605
 msgid "lang_mdf"
-msgstr ""
+msgstr "мокшанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1609
 msgid "lang_mdr"
-msgstr ""
+msgstr "мандарська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1613
 msgid "lang_men"
-msgstr ""
+msgstr "менде"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1617
 msgid "lang_mga"
-msgstr ""
+msgstr "середньоірландська (бл. 1100–1550)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1621
 msgid "lang_mic"
-msgstr ""
+msgstr "мікмак"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1625
 msgid "lang_min"
-msgstr ""
+msgstr "мінангкабау"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1629
+#, fuzzy
 msgid "lang_mis"
-msgstr ""
+msgstr "різноманітні мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1633
 msgid "lang_mkh"
-msgstr ""
+msgstr "мон-кхмерські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1637
 msgid "lang_mlg"
-msgstr ""
+msgstr "мальгаська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1641
 msgid "lang_mlt"
-msgstr ""
+msgstr "мальтійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1645
 msgid "lang_mnc"
-msgstr ""
+msgstr "маньчжурська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1649
 msgid "lang_mni"
-msgstr ""
+msgstr "маніпурі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1653
 msgid "lang_mno"
-msgstr ""
+msgstr "мови манобо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1657
 msgid "lang_moh"
-msgstr ""
+msgstr "могавк"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1661
 msgid "lang_mon"
-msgstr ""
+msgstr "монгольська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1665
 msgid "lang_mos"
-msgstr ""
+msgstr "мооре, море, моші, моссі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1669
+#, fuzzy
 msgid "lang_mul"
-msgstr ""
+msgstr "декілька мов"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1673
 msgid "lang_mun"
-msgstr ""
+msgstr "мунда (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1677
 msgid "lang_mus"
-msgstr ""
+msgstr "крік (маскогі)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1681
 msgid "lang_mwl"
-msgstr ""
+msgstr "мірандська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1685
 msgid "lang_mwr"
-msgstr ""
+msgstr "марварі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1689
 msgid "lang_myn"
-msgstr ""
+msgstr "майянські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1693
 msgid "lang_myv"
-msgstr ""
+msgstr "ерзянська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1697
 msgid "lang_nah"
-msgstr ""
+msgstr "науатль"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1701
 msgid "lang_nai"
-msgstr ""
+msgstr "північноамериканських індіанців (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1705
 msgid "lang_nap"
-msgstr ""
+msgstr "неаполітанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1709
 msgid "lang_nau"
-msgstr ""
+msgstr "науруанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1713
 msgid "lang_nav"
-msgstr ""
+msgstr "навахо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1717
 msgid "lang_nbl"
-msgstr ""
+msgstr "ндебеле (Південна Африка)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1721
 msgid "lang_nde"
-msgstr ""
+msgstr "ндебеле (Зімбабве)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1725
 msgid "lang_ndo"
-msgstr ""
+msgstr "ндонга"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1729
 msgid "lang_nds"
-msgstr ""
+msgstr "нижньонімецька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1733
 msgid "lang_nep"
-msgstr ""
+msgstr "непальська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1737
 msgid "lang_new"
-msgstr ""
+msgstr "неварська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1741
 msgid "lang_nia"
-msgstr ""
+msgstr "ніас"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1745
 msgid "lang_nic"
-msgstr ""
+msgstr "нігеро-кордофанські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1749
 msgid "lang_niu"
-msgstr ""
+msgstr "ніуе"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1753
 msgid "lang_nno"
-msgstr ""
+msgstr "норвезька (нюнорськ)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1757
 msgid "lang_nob"
-msgstr ""
+msgstr "норвезька (букмол)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1761
 msgid "lang_nog"
-msgstr ""
+msgstr "ногайська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1765
 msgid "lang_non"
-msgstr ""
+msgstr "давньоскандинавська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1769
 msgid "lang_nor"
-msgstr ""
+msgstr "норвезька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1773
 msgid "lang_nqo"
-msgstr ""
+msgstr "нко"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1777
 msgid "lang_nso"
-msgstr ""
+msgstr "північна сото"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1781
 msgid "lang_nub"
-msgstr ""
+msgstr "нубійські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1785
 msgid "lang_nwc"
-msgstr ""
+msgstr "давньоневарська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1789
 msgid "lang_nya"
-msgstr ""
+msgstr "ньянджа"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1793
 msgid "lang_nym"
-msgstr ""
+msgstr "ньямвезі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1797
 msgid "lang_nyn"
-msgstr ""
+msgstr "ньянколе"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1801
 msgid "lang_nyo"
-msgstr ""
+msgstr "ньогоро"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1805
 msgid "lang_nzi"
-msgstr ""
+msgstr "нзіма"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1809
 msgid "lang_oci"
-msgstr ""
+msgstr "окситанська (після 1500)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1813
 msgid "lang_oji"
-msgstr ""
+msgstr "оджибве"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1817
 msgid "lang_ori"
-msgstr ""
+msgstr "орія"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1821
 msgid "lang_orm"
-msgstr ""
+msgstr "оромо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1825
 msgid "lang_osa"
-msgstr ""
+msgstr "осейдж"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1829
 msgid "lang_oss"
-msgstr ""
+msgstr "осетинська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1833
 msgid "lang_ota"
-msgstr ""
+msgstr "османська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1837
 msgid "lang_oto"
-msgstr ""
+msgstr "отомійські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1841
 msgid "lang_paa"
-msgstr ""
+msgstr "папуаські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1845
 msgid "lang_pag"
-msgstr ""
+msgstr "пангасінанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1849
 msgid "lang_pal"
-msgstr ""
+msgstr "пехлеві (середньоперська)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1853
 msgid "lang_pam"
-msgstr ""
+msgstr "пампанга"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1857
 msgid "lang_pan"
-msgstr ""
+msgstr "панджабі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1861
 msgid "lang_pap"
-msgstr ""
+msgstr "пап'яменто"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1865
 msgid "lang_pau"
-msgstr ""
+msgstr "палауська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1869
 msgid "lang_peo"
-msgstr ""
+msgstr "давньоперська (бл. 600–400 до н.е.)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1873
 msgid "lang_per"
-msgstr ""
+msgstr "перська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1877
 msgid "lang_phi"
-msgstr ""
+msgstr "філіппінські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1881
 msgid "lang_phn"
-msgstr ""
+msgstr "фінікійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1885
 msgid "lang_pli"
-msgstr ""
+msgstr "палі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1889
 msgid "lang_pol"
-msgstr ""
+msgstr "польська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1893
 msgid "lang_pon"
-msgstr ""
+msgstr "понпеї"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1897
 msgid "lang_por"
-msgstr ""
+msgstr "португальська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1901
 msgid "lang_pra"
-msgstr ""
+msgstr "пракрити"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1905
 msgid "lang_pro"
-msgstr ""
+msgstr "провансальська (до 1500)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1909
 msgid "lang_pus"
-msgstr ""
+msgstr "пушту"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1913
 msgid "lang_que"
-msgstr ""
+msgstr "кечуа"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1917
 msgid "lang_raj"
-msgstr ""
+msgstr "раджастхані"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1921
 msgid "lang_rap"
-msgstr ""
+msgstr "рапануйська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1925
 msgid "lang_rar"
-msgstr ""
+msgstr "раротонга"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1929
 msgid "lang_roa"
-msgstr ""
+msgstr "романські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1933
 msgid "lang_roh"
-msgstr ""
+msgstr "ретороманська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1937
 msgid "lang_rom"
-msgstr ""
+msgstr "циганська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1941
 msgid "lang_rum"
-msgstr ""
+msgstr "румунська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1945
 msgid "lang_run"
-msgstr ""
+msgstr "кірунді"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1949
 msgid "lang_rup"
-msgstr ""
+msgstr "аромунська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1953
 msgid "lang_rus"
-msgstr ""
+msgstr "російська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1957
 msgid "lang_sad"
-msgstr ""
+msgstr "сандаве"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1961
 msgid "lang_sag"
-msgstr ""
+msgstr "санго"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1965
 msgid "lang_sah"
-msgstr ""
+msgstr "якутська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1969
 msgid "lang_sai"
-msgstr ""
+msgstr "південноамериканських індіанців (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1973
 msgid "lang_sal"
-msgstr ""
+msgstr "салішські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1977
 msgid "lang_sam"
-msgstr ""
+msgstr "самаритянська арамейська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1981
 msgid "lang_san"
-msgstr ""
+msgstr "санскрит"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1985
 msgid "lang_sas"
-msgstr ""
+msgstr "сасакська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1989
 msgid "lang_sat"
-msgstr ""
+msgstr "санталі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1993
 msgid "lang_scn"
-msgstr ""
+msgstr "сицилійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1997
 msgid "lang_sco"
-msgstr ""
+msgstr "шотландська (скотс)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2001
 msgid "lang_sel"
-msgstr ""
+msgstr "селькупська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2005
 msgid "lang_sem"
-msgstr ""
+msgstr "семітські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2009
 msgid "lang_sga"
-msgstr ""
+msgstr "давньоірландська (до 1100)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2013
 msgid "lang_sgn"
-msgstr ""
+msgstr "жестові мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2017
 msgid "lang_shn"
-msgstr ""
+msgstr "шанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2021
 msgid "lang_sid"
-msgstr ""
+msgstr "сідамо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2025
 msgid "lang_sin"
-msgstr ""
+msgstr "сингальська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2029
 msgid "lang_sio"
-msgstr ""
+msgstr "сіу (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2033
 msgid "lang_sit"
-msgstr ""
+msgstr "сино-тибетські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2037
 msgid "lang_sla"
-msgstr ""
+msgstr "слов'янські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2041
 msgid "lang_slo"
-msgstr ""
+msgstr "словацька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2045
 msgid "lang_slv"
-msgstr ""
+msgstr "словенська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2049
 msgid "lang_sma"
-msgstr ""
+msgstr "південносаамська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2053
 msgid "lang_sme"
-msgstr ""
+msgstr "північносаамська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2057
 msgid "lang_smi"
-msgstr ""
+msgstr "саамська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2061
 msgid "lang_smj"
-msgstr ""
+msgstr "луле-саамська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2065
 msgid "lang_smn"
-msgstr ""
+msgstr "інарі-саамська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2069
 msgid "lang_smo"
-msgstr ""
+msgstr "самоанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2073
 msgid "lang_sms"
-msgstr ""
+msgstr "колтта-саамська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2077
 msgid "lang_sna"
-msgstr ""
+msgstr "шона"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2081
 msgid "lang_snd"
-msgstr ""
+msgstr "сіндхі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2085
 msgid "lang_snk"
-msgstr ""
+msgstr "сонінке"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2089
 msgid "lang_sog"
-msgstr ""
+msgstr "согдійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2093
 msgid "lang_som"
-msgstr ""
+msgstr "сомалійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2097
 msgid "lang_son"
-msgstr ""
+msgstr "сонгай"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2101
 msgid "lang_sot"
-msgstr ""
+msgstr "сото"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2105
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:238
 msgid "lang_spa"
-msgstr ""
+msgstr "іспанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2109
 msgid "lang_srd"
-msgstr ""
+msgstr "сардинська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2113
 msgid "lang_srn"
-msgstr ""
+msgstr "сранан-тонго"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2117
 msgid "lang_srp"
-msgstr ""
+msgstr "сербська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2121
 msgid "lang_srr"
-msgstr ""
+msgstr "серер"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2125
 msgid "lang_ssa"
-msgstr ""
+msgstr "ніло-сахарські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2129
 msgid "lang_ssw"
-msgstr ""
+msgstr "свазі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2133
 msgid "lang_suk"
-msgstr ""
+msgstr "сукума"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2137
 msgid "lang_sun"
-msgstr ""
+msgstr "сунданська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2141
 msgid "lang_sus"
-msgstr ""
+msgstr "сусу"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2145
 msgid "lang_sux"
-msgstr ""
+msgstr "шумерська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2149
 msgid "lang_swa"
-msgstr ""
+msgstr "суахілі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2153
 msgid "lang_swe"
-msgstr ""
+msgstr "шведська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2157
 msgid "lang_syc"
-msgstr ""
+msgstr "сирійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2161
 msgid "lang_syr"
-msgstr ""
+msgstr "новосирійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2165
 msgid "lang_tah"
-msgstr ""
+msgstr "таїтянська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2169
 msgid "lang_tai"
-msgstr ""
+msgstr "тайські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2173
 msgid "lang_tam"
-msgstr ""
+msgstr "тамільська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2177
 msgid "lang_tat"
-msgstr ""
+msgstr "татарська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2181
 msgid "lang_tel"
-msgstr ""
+msgstr "телугу"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2185
 msgid "lang_tem"
-msgstr ""
+msgstr "темне"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2189
 msgid "lang_ter"
-msgstr ""
+msgstr "терена"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2193
 msgid "lang_tet"
-msgstr ""
+msgstr "тетум"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2197
 msgid "lang_tgk"
-msgstr ""
+msgstr "таджицька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2201
 msgid "lang_tgl"
-msgstr ""
+msgstr "тагальська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2205
 msgid "lang_tha"
-msgstr ""
+msgstr "тайська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2209
 msgid "lang_tib"
-msgstr ""
+msgstr "тибетська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2213
 msgid "lang_tig"
-msgstr ""
+msgstr "тигре"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2217
 msgid "lang_tir"
-msgstr ""
+msgstr "тигринья"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2221
 msgid "lang_tiv"
-msgstr ""
+msgstr "тів"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2225
 msgid "lang_tkl"
-msgstr ""
+msgstr "токелау"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2229
 msgid "lang_tlh"
-msgstr ""
+msgstr "клінгонська (штучна мова)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2233
 msgid "lang_tli"
-msgstr ""
+msgstr "тлінкітська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2237
 msgid "lang_tmh"
-msgstr ""
+msgstr "тамашек"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2241
 msgid "lang_tog"
-msgstr ""
+msgstr "тонга (ньяса)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2245
 msgid "lang_ton"
-msgstr ""
+msgstr "тонганська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2249
 msgid "lang_tpi"
-msgstr ""
+msgstr "ток-пісін"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2253
 msgid "lang_tsi"
-msgstr ""
+msgstr "цимшіанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2257
 msgid "lang_tsn"
-msgstr ""
+msgstr "тсвана"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2261
 msgid "lang_tso"
-msgstr ""
+msgstr "тсонга"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2265
 msgid "lang_tuk"
-msgstr ""
+msgstr "туркменська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2269
 msgid "lang_tum"
-msgstr ""
+msgstr "тумбука"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2273
 msgid "lang_tup"
-msgstr ""
+msgstr "тупійські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2277
 msgid "lang_tur"
-msgstr ""
+msgstr "турецька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2281
 msgid "lang_tut"
-msgstr ""
+msgstr "алтайські (інші)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2285
 msgid "lang_tvl"
-msgstr ""
+msgstr "тувалу"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2289
 msgid "lang_twi"
-msgstr ""
+msgstr "тві"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2293
 msgid "lang_tyv"
-msgstr ""
+msgstr "тувинська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2297
 msgid "lang_udm"
-msgstr ""
+msgstr "удмуртська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2301
 msgid "lang_uga"
-msgstr ""
+msgstr "угаритська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2305
 msgid "lang_uig"
-msgstr ""
+msgstr "уйгурська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2309
 msgid "lang_ukr"
-msgstr ""
+msgstr "українська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2313
 msgid "lang_umb"
-msgstr ""
+msgstr "умбунду"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2317
 msgid "lang_und"
-msgstr ""
+msgstr "невизначена"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2321
 msgid "lang_urd"
-msgstr ""
+msgstr "урду"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2325
 msgid "lang_uzb"
-msgstr ""
+msgstr "узбецька"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2329
 msgid "lang_vai"
-msgstr ""
+msgstr "ваї"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2333
 msgid "lang_ven"
-msgstr ""
+msgstr "венда"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2337
 msgid "lang_vie"
-msgstr ""
+msgstr "в'єтнамська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2341
 msgid "lang_vol"
-msgstr ""
+msgstr "волапюк"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2345
 msgid "lang_vot"
-msgstr ""
+msgstr "водська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2349
 msgid "lang_wak"
-msgstr ""
+msgstr "вакашські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2353
 msgid "lang_wal"
-msgstr ""
+msgstr "волайта"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2357
 msgid "lang_war"
-msgstr ""
+msgstr "варайська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2361
 msgid "lang_was"
-msgstr ""
+msgstr "вашо"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2365
 msgid "lang_wel"
-msgstr ""
+msgstr "валлійська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2369
 msgid "lang_wen"
-msgstr ""
+msgstr "лужицькі (інші)/сорбська, вендська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2373
 msgid "lang_wln"
-msgstr ""
+msgstr "валлонська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2377
 msgid "lang_wol"
-msgstr ""
+msgstr "волоф"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2381
 msgid "lang_xal"
-msgstr ""
+msgstr "ойратська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2385
 msgid "lang_xho"
-msgstr ""
+msgstr "коса"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2389
 msgid "lang_yao"
-msgstr ""
+msgstr "яо/ваяо (Африка)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2393
 msgid "lang_yap"
-msgstr ""
+msgstr "япська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2397
 msgid "lang_yid"
-msgstr ""
+msgstr "їдиш"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2401
 msgid "lang_yor"
-msgstr ""
+msgstr "йоруба"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2405
 msgid "lang_ypk"
-msgstr ""
+msgstr "юпікські мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2409
 msgid "lang_zap"
-msgstr ""
+msgstr "сапотекська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2413
 msgid "lang_zbl"
-msgstr ""
+msgstr "бліссимволіка"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2417
 msgid "lang_zen"
-msgstr ""
+msgstr "зенага"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2421
 msgid "lang_zha"
-msgstr ""
+msgstr "чжуанська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2425
 msgid "lang_znd"
-msgstr ""
+msgstr "занде/азанде мови"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2429
 msgid "lang_zul"
-msgstr ""
+msgstr "зулуська"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2433
 msgid "lang_zun"
-msgstr ""
+msgstr "зуні"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2437
 msgid "lang_zxx"
-msgstr ""
+msgstr "без лінгвістичного змісту"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2441
 msgid "lang_zza"
-msgstr ""
+msgstr "зазакі"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2450
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:3
@@ -4922,8 +4939,9 @@ msgid "Cannot have multiple notes of the same type."
 msgstr "Не можна мати кілька нотаток одного типу."
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:97
+#, fuzzy
 msgid "Cannot save an active order line for a deleted document."
-msgstr ""
+msgstr "Неможливо зберегти активний рядок замовлення для видаленого документа."
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:112
 #, fuzzy
@@ -5018,12 +5036,13 @@ msgstr "Примітки"
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:555
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:86
 msgid "Note"
-msgstr ""
+msgstr "Примітка"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:119
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:86
+#, fuzzy
 msgid "vendor_note"
-msgstr ""
+msgstr "примітка_постачальника"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:123
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:90
@@ -5035,7 +5054,7 @@ msgstr ""
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:585
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:147
 msgid "staff_note"
-msgstr ""
+msgstr "примітка_співробітника"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:133
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:100
@@ -5786,18 +5805,22 @@ msgstr ""
 "буде скасовано."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:309
+#, fuzzy
 msgid "Fiction statement"
-msgstr ""
+msgstr "Позначка художньої літератури"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:310
+#, fuzzy
 msgid ""
 "Defines whether the document is fiction or non-fiction (documentary). If "
 "irrelevant (image, object, score, etc.), use unspecified."
 msgstr ""
+"Визначає, чи це художня література, чи нехудожня (документальна). Якщо не "
+"має значення (зображення, об'єкт, ноти тощо), використовуйте - невказане."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:325
 msgid "fiction"
-msgstr ""
+msgstr "художня література"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:329
 msgid "non_fiction"
@@ -5806,55 +5829,65 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:333
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:755
 msgid "unspecified"
-msgstr ""
+msgstr "невизначено"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:342
+#, fuzzy
 msgid "Draft"
 msgstr ""
+"Позначає запис, імпортований за допомогою зовнішнього інструменту за "
+"допомогою API, який все ще потребує перевірки бібліотекарем."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:343
+#, fuzzy
 msgid "Document is a draft record or not, will disable record validation."
 msgstr ""
+"Незалежно від того, чи є документ чернеткою, перевірка запису буде вимкнена."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:354
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1103
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:797
+#, fuzzy
 msgid "Masked"
-msgstr ""
+msgstr "Прихований"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:356
 msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
 msgstr ""
+"Прихований документ видно в професійному інтерфейсі, але не в публічному."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
-msgstr ""
+msgstr "Умови доступності"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:4
+#, fuzzy
 msgid "A condition under which the document is supplied. This includes the price."
-msgstr ""
+msgstr "Умова, за якої надається документ. Це включає ціну."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
+#, fuzzy
 msgid "Term of availability"
-msgstr ""
+msgstr "Термін доступності"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:13
 msgid "Example: CHF 68.-"
-msgstr ""
+msgstr "Наприклад: CHF 68.-"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:3
 msgid "Admin metadata"
-msgstr ""
+msgstr "Адміністративні метадані"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:4
 msgid "Administrative information intended for professionals"
-msgstr ""
+msgstr "Адміністративна інформація, призначена для фахівців"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:36
+#, fuzzy
 msgid "Encoding level"
-msgstr ""
+msgstr "Рівень кодування"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:37
 msgid "Indicator of the fullness of the bibliographic information"
@@ -5894,12 +5927,14 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:92
 #: rero_ils/modules/serializers/base.py:122
+#, fuzzy
 msgid "Unknown"
-msgstr ""
+msgstr "Невідомо"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:96
+#, fuzzy
 msgid "Not applicable"
-msgstr ""
+msgstr "Не застосовується"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:106
 msgid "Original cataloging agency"
@@ -6123,19 +6158,19 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:80
 msgid "rdact:1002"
-msgstr ""
+msgstr "rdact:1002/аудіокартридж"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:84
 msgid "rdact:1003"
-msgstr ""
+msgstr "rdact:1003/аудіоциліндр"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:88
 msgid "rdact:1004"
-msgstr ""
+msgstr "rdact:1004/аудіодиск"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:92
 msgid "rdact:1005"
-msgstr ""
+msgstr "rdact:1005/бобіна зі звуковою доріжкою?звукова доріжка на котушці"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:96
 msgid "rdact:1006"
@@ -6257,20 +6292,21 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:366
 msgid "rdact:1030"
-msgstr ""
+msgstr "rdact:1030"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:381
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:398
 msgid "rdamt:1005"
-msgstr ""
+msgstr "rdamt:1005"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:435
+#, fuzzy
 msgid "rdact:1032"
-msgstr ""
+msgstr "плівковий картридж rdact:1032"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:439
 msgid "rdact:1033"
-msgstr ""
+msgstr "rdact:1033"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:443
 msgid "rdact:1034"
@@ -13156,8 +13192,9 @@ msgid "Privacy policy"
 msgstr "Політика конфіденційності"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:21
+#, fuzzy
 msgid "Forgot password"
-msgstr ""
+msgstr "Забули пароль"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:29
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:43
@@ -13203,7 +13240,7 @@ msgstr "Що Ви шукаєте?"
 #: rero_ils/theme/templates/rero_ils/header.html:27
 #: rero_ils/theme/templates/rero_ils/page_cover.html:38
 msgid "Home"
-msgstr ""
+msgstr "Головна"
 
 #: rero_ils/theme/templates/rero_ils/header.html:40
 msgid "Search"
@@ -13229,11 +13266,12 @@ msgstr "Забули пароль?"
 
 #: rero_ils/theme/templates/rero_ils/page_error.html:21
 msgid "Error"
-msgstr ""
+msgstr "Помилка"
 
 #: rero_ils/theme/templates/rero_ils/register_user.html:21
+#, fuzzy
 msgid "Register"
-msgstr ""
+msgstr "Зареєструватися"
 
 #: rero_ils/theme/templates/rero_ils/register_user.html:29
 #, fuzzy, python-format
@@ -13251,15 +13289,16 @@ msgstr "Скинути пароль"
 
 #: rero_ils/theme/templates/rero_ils/search.html:21
 msgid "Documents"
-msgstr ""
+msgstr "Документи"
 
 #: rero_ils/theme/templates/rero_ils/tombstone.html:30
 msgid "The document"
 msgstr "Документ"
 
 #: rero_ils/theme/templates/rero_ils/tombstone.html:32
+#, fuzzy
 msgid "The item"
-msgstr ""
+msgstr "Примірник"
 
 #: rero_ils/theme/templates/rero_ils/tombstone.html:34
 #, fuzzy
@@ -13316,4 +13355,3 @@ msgstr "Ваша бібліотека"
 #, fuzzy
 msgid "Your password has been successfully reset."
 msgstr "Ваш пароль успішно скинуто."
-
