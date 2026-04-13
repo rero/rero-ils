@@ -329,7 +329,8 @@ def marc21_to_subjects_6XX(self, key, value):
     """Get subjects.
 
     - create an object :
-        subjects_imported with 6XX fields
+        genreForm_imported : for field 655
+        subjects_imported : for other 6XX fields
     """
     type_per_tag = {
         "600": EntityType.PERSON,
@@ -363,7 +364,8 @@ def marc21_to_subjects_6XX(self, key, value):
             }
             perform_subdivisions(data, value)
             if data:
-                self.setdefault("subjects_imported", []).append({"entity": data})
+                field_key = "genreForm_imported" if tag_key == "655" else "subjects_imported"
+                self.setdefault(field_key, []).append({"entity": data})
 
 
 @marc21.over("sequence_numbering", "^362..")

@@ -520,7 +520,8 @@ def marc21_to_subjects_6XX(self, key, value):
     """Get subjects.
 
     Route 6XX fields to the appropriate key based on tag and $2 subfield:
-        - genreForm: field 655 (regardless of $2)
+        - genreForm: field 655 with $2 gnd (or gnd-content)
+        - genreForm_imported: field 655 not $2 gnd
         - subjects: other 6xx with $2 gnd
         - subjects_imported: other 6xx with $2 rero or idref,
           or with indicator 2 = '0' (LCSH) or '2' (MeSH)
@@ -562,7 +563,7 @@ def marc21_to_subjects_6XX(self, key, value):
     subfields_a = utils.force_list(value.get("a", []))
 
     if tag_key == "655":
-        field_key = "genreForm"
+        field_key = "genreForm" if subfield_2 == "gnd" else "genreForm_imported"
     elif subfield_2 == "gnd":
         field_key = "subjects"
     else:
@@ -602,7 +603,7 @@ def marc21_to_subjects_6XX(self, key, value):
             ):
                 subject["authorized_access_point"] = f"{creator}. {subject['authorized_access_point']}"
 
-        if field_key != "subjects_imported" and (
+        if field_key in ["subjects", "genreForm"] and (
             ref := get_mef_link(
                 bibid=marc21.bib_id,
                 reroid=marc21.bib_id,
@@ -613,7 +614,7 @@ def marc21_to_subjects_6XX(self, key, value):
         ):
             subject = {"$ref": ref}
         else:
-            if field_key == "genreForm":
+            if field_key in ["genreForm", "genreForm_imported"]:
                 perform_subdivisions(subject, value)
             if identifier := build_identifier(value):
                 subject["identifiedBy"] = identifier

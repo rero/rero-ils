@@ -334,9 +334,9 @@ def test_marc21_to_subjects(mock_get_mef_link):
     ]
     assert data.get("subjects") == [{"entity": {"$ref": "https://test.rero.ch/api/places/gnd/PLACE"}}]
 
-    # 655 Genre or form => import (all subfields) in Genre, form
-    # 655	_	7	$a Bildband $2 gnd-content
-    # 655	_	7	$a Photographie $0 (IDREF)028224248 $2 idref
+    # 655 Genre or form => route based on $2
+    # 655 with $2 gnd-content (treated as gnd) => genreForm
+    # 655 with $2 idref (non-gnd) => genreForm_imported
     marc21xml = """
     <record>
       <datafield tag="655" ind1="0" ind2="0">
@@ -353,6 +353,8 @@ def test_marc21_to_subjects(mock_get_mef_link):
             "entity": {"type": "bf:Topic", "authorized_access_point": "Bildband"},
         },
     ]
+    assert data.get("genreForm_imported") is None
+
     marc21xml = """
     <record>
       <datafield tag="655" ind1="0" ind2="0">
@@ -365,9 +367,16 @@ def test_marc21_to_subjects(mock_get_mef_link):
     marc21json = create_record(marc21xml)
     mock_get_mef_link.return_value = "https://test.rero.ch/api/concepts/TOPIC"
     data = marc21.do(marc21json)
-    assert data.get("genreForm") == [
-        {"entity": {"$ref": "https://test.rero.ch/api/concepts/TOPIC"}},
+    assert data.get("genreForm_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Photographie",
+                "identifiedBy": {"type": "IdRef", "value": "028224248"},
+            }
+        },
     ]
+    assert data.get("genreForm") is None
 
 
 @mock.patch("rero_ils.modules.documents.dojson.contrib.marc21tojson.slsp.model.get_mef_link")
@@ -499,7 +508,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
         },
     ]
 
-    # Test 6: gnd-content should be treated as gnd and go to subjects
+    # Test 6: 655 with gnd-content (treated as gnd) should go to genreForm
     marc21xml = """
     <record>
       <datafield tag="655" ind1=" " ind2="7">
@@ -519,7 +528,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
             }
         }
     ]
-    # genreForm uses different field_key logic, but gnd-content should still work
+    assert data.get("genreForm_imported") is None
 
     # Test 7: LCSH subject (indicator 2=0) should go to subjects_imported
     marc21xml = """

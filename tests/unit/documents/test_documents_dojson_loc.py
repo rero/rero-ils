@@ -197,7 +197,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
         },
     ]
 
-    # Test 8: gnd-content should be treated as gnd and go to subjects
+    # Test 8: gnd-content should be treated as gnd and go to genreForm
     marc21xml = """
     <record>
       <datafield tag="655" ind1=" " ind2="7">
@@ -217,6 +217,29 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
             }
         }
     ]
+    assert data.get("genreForm_imported") is None
+
+    # Test 8b: 655 with non-GND source should go to genreForm_imported
+    marc21xml = """
+    <record>
+      <datafield tag="655" ind1=" " ind2="7">
+        <subfield code="a">Roman policier</subfield>
+        <subfield code="2">rero</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    mock_get_mef_link.return_value = None
+    data = marc21.do(marc21json)
+    assert data.get("genreForm_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Roman policier",
+            }
+        }
+    ]
+    assert data.get("genreForm") is None
 
     # Test 9: GND Person subject WITHOUT MEF link
     marc21xml = """

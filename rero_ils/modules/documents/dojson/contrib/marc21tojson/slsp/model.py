@@ -351,7 +351,8 @@ def marc21_to_subjects_6XX(self, key, value):
     """Get subjects.
 
     - create an object :
-        genreForm : for the field 655
+        genreForm : for field 655 with $2 gnd (or gnd-content)
+        genreForm_imported : for field 655 not $2 gnd
         subjects : for 6xx with $2 gnd
         subjects_imported : for 6xx with $2 rero or idref, or indicator 2 '0' or '2'
     """
@@ -377,7 +378,7 @@ def marc21_to_subjects_6XX(self, key, value):
     subfields_a = utils.force_list(value.get("a", []))
 
     if tag_key == "655":
-        field_key = "genreForm"
+        field_key = "genreForm" if subfield_2 == "gnd" else "genreForm_imported"
     elif subfield_2 == "gnd":
         field_key = "subjects"
     else:
@@ -428,7 +429,7 @@ def marc21_to_subjects_6XX(self, key, value):
                 ".",
             ):
                 subject["authorized_access_point"] = f"{creator}. {subject['authorized_access_point']}"
-        if field_key != "subjects_imported" and (
+        if field_key in ["subjects", "genreForm"] and (
             ref := get_mef_link(
                 bibid=marc21.bib_id,
                 reroid=marc21.rero_id,
@@ -439,7 +440,7 @@ def marc21_to_subjects_6XX(self, key, value):
         ):
             subject = {"$ref": ref}
         else:
-            if field_key == "genreForm":
+            if field_key in ["genreForm", "genreForm_imported"]:
                 perform_subdivisions(subject, value)
             if identifier := build_identifier(value):
                 sub_2 = next(iter(utils.force_list(value.get("2") or [])), "")
