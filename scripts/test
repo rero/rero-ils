@@ -81,6 +81,8 @@ function pretests () {
   add_exceptions "CVE-2025-66471"
   # urllib3   1.26.20 CVE-2026-21441 2.6.3
   add_exceptions "CVE-2026-21441"
+  # pytest 8.4.2   CVE-2025-71176 9.0.3
+  add_exceptions "CVE-2025-71176"
   pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"
