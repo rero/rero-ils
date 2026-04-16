@@ -238,8 +238,8 @@
       }
     },
     "remove_temporary_item_type_on_scan": {
-      "title": "Remove temporary item type on item scan",
-      "description": "If enabled, scanning an item with this temporary item type will remove the temporary item type from the item.",
+      "title": "Remove temporary item type on check-in/checkout",
+      "description": "If enabled, scanning (in the circulation module) an item with this temporary item type will remove the temporary item type from the item.",
       "type": "boolean",
       "default": false
     },
