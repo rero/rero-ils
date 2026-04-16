@@ -3391,6 +3391,7 @@ RERO_ILS_ENABLE_OPERATION_LOG = {
     "items": "item",
     "ill_requests": "illr",
     "local_entities": "locent",
+    "patrons": "ptrn",
 }
 RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION = False
 
