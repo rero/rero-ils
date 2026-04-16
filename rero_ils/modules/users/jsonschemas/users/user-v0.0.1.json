@@ -257,7 +257,7 @@
     },
     "keep_history": {
       "title": "Keep history",
-      "description": "If enabled, the loan history is saved for a maximum of six months. It is visible to the user and the library staff.",
+      "description": "If enabled, the loan history is visible in the patron account. Loan data is always anonymised after a certain period.",
       "type": "boolean",
       "default": false
     },
