@@ -81,7 +81,7 @@ def test_stats_librarian_new_documents(stat_for_librarian, document_data, lib_ma
     """Test the number of new documents per library for given time interval."""
     assert stat_for_librarian.new_documents("foo") == 0
     with mock.patch(
-        "rero_ils.modules.operation_logs.extensions.current_librarian",
+        "rero_ils.modules.patrons.api.current_librarian",
         librarian_martigny,
     ):
         # needs to create a new document created by a librarian

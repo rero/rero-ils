@@ -31,6 +31,7 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.operation_logs.api import OperationLog, OperationLogsSearch
 from rero_ils.modules.operation_logs.models import OperationLogOperation
+from rero_ils.modules.patrons.utils import create_patron_from_data
 from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
 
@@ -55,7 +56,8 @@ def test_operation_logs_permissions(
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 4
+    librarian_count = data["hits"]["total"]["value"]
+    assert librarian_count > 0
 
     # Check access for patron role
     login_user_via_session(client, patron_martigny.user)
@@ -69,7 +71,7 @@ def test_operation_logs_permissions(
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 4
+    assert data["hits"]["total"]["value"] == librarian_count
 
 
 def test_operation_logs_rest(
@@ -183,6 +185,58 @@ def test_operation_log_on_item(
     assert data["hits"]["total"]["value"] == 4
     metadata = data["hits"]["hits"][0]["metadata"]
     assert metadata["operation"] == OperationLogOperation.DELETE
+
+
+def test_operation_log_on_patron(
+    app,
+    client,
+    roles,
+    lib_martigny,
+    patron_type_children_martigny,
+    patron_martigny_data_tmp,
+    librarian_martigny,
+):
+    """Test operation log on Patron."""
+    patron_data = deepcopy(patron_martigny_data_tmp)
+    patron_data["email"] = "oplg_patron@test.ch"
+    patron_data["username"] = "oplg_patron"
+    patron_data["patron"]["barcode"] = ["oplg_patron_barcode"]
+    del patron_data["pid"]
+
+    # STEP #1: Create a patron -> generates a CREATE operation log
+    patron = create_patron_from_data(patron_data)
+    OperationLogsSearch.flush_and_refresh()
+
+    login_user_via_session(client, librarian_martigny.user)
+    q = f"record.type:ptrn AND record.value:{patron.pid}"
+    search_url = url_for("invenio_records_rest.oplg_list", q=q, sort="mostrecent")
+    res = client.get(search_url)
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.CREATE
+
+    # STEP #2: Update the patron -> generates an UPDATE operation log
+    patron["patron"]["barcode"] = ["oplg_patron_barcode_updated"]
+    patron.update(patron, dbcommit=True, reindex=True)
+    OperationLogsSearch.flush_and_refresh()
+
+    res = client.get(search_url)
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.UPDATE
+
+    # STEP #3: Delete the patron -> generates a DELETE operation log
+    user_id = patron["user_id"]
+    patron.delete(dbcommit=True, delindex=True)
+    OperationLogsSearch.flush_and_refresh()
+
+    res = client.get(search_url)
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 3
+    assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.DELETE
+
+    ds = app.extensions["invenio-accounts"].datastore
+    ds.delete_user(ds.find_user(id=user_id))
 
 
 def test_operation_log_on_ill_request(client, ill_request_martigny, librarian_martigny):

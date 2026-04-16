@@ -628,3 +628,18 @@ def test_patrons_blocked(client, librarian_martigny, patron_martigny, patron3_ma
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
+
+
+def test_patron_get_links_to_me_ill_requests(
+    app,
+    patron_martigny,
+    ill_request_martigny,
+):
+    """Test that get_links_to_me includes ILL requests."""
+    links = patron_martigny.get_links_to_me()
+    assert "ill_requests" in links
+    assert links["ill_requests"] > 0
+
+    links_pids = patron_martigny.get_links_to_me(get_pids=True)
+    assert "ill_requests" in links_pids
+    assert len(links_pids["ill_requests"]) > 0

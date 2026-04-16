@@ -450,6 +450,11 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": schedules.crontab(minute=2, hour=2),  # Every day at 02:02 UTC,
         "enabled": False,
     },
+    "celery.delete-inactive-patrons": {
+        "task": "rero_ils.modules.patrons.tasks.task_delete_inactive_patrons",
+        "schedule": schedules.crontab(minute=0, hour=4, day_of_month="1"),  # 1st of each month at 04:00 UTC
+        "enabled": False,
+    },
     "celery.delete-standard-holdings-having-no-items": {
         "task": (
             "rero_ils.modules.holdings.tasks.delete_standard_holdings_having_no_items"

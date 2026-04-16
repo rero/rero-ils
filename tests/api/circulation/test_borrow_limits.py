@@ -467,83 +467,99 @@ def test_unpaid_subscription(
     patron_martigny,
     circ_policy_short_martigny,
 ):
-    """Test unpaid subscription restriction limit."""
+    """Test unpaid subscription restriction limit.
+
+    Verifies that when the patron_type has the ``unpaid_subscription`` limit
+    enabled, a checkout is denied (403) while the patron has an open
+    subscription transaction, and allowed (200) once the subscription is
+    paid.
+    """
     item = item_lib_martigny
     patron = patron_martigny
     patron_type = patron_type_children_martigny
 
     login_user_via_session(client, librarian_martigny.user)
 
-    # STEP#0 :: Prepare data for test
-    #   * Update the patron_type to set a unpaid_subscription limit rule to
-    #     False => Even if patron has unpaid subscription, any circulation
-    #     operation should be possible.
-    patron_type.setdefault("limits", {}).setdefault("unpaid_subscription", True)
-    patron_type.setdefault("subscription_amount", 10)
-    patron_type = patron_type.update(patron_type, dbcommit=True, reindex=True)
+    # Enable the unpaid_subscription limit on the patron_type. Direct
+    # assignment is used because the fixture data already contains
+    # ``unpaid_subscription: false`` and ``setdefault`` would not overwrite.
+    patron_type["limits"] = {"unpaid_subscription": True}
+    patron_type["subscription_amount"] = 10
+    patron_type.update(patron_type, dbcommit=True, reindex=True)
 
-    # STEP#1 :: Create an unpaid subscription for patron
-    assert not patron.pending_subscriptions
-    subscription_start = datetime.now()
-    subscription_end = subscription_start + timedelta(days=365)
-    patron.add_subscription(patron_type, subscription_start, subscription_end)
-    subscriptions = patron.pending_subscriptions
-    assert len(subscriptions) == 1
-    subscription = subscriptions[0]
+    try:
+        # Create an unpaid subscription for the patron.
+        assert not patron.pending_subscriptions
+        subscription_start = datetime.now(UTC)
+        subscription_end = subscription_start + timedelta(days=365)
+        patron.add_subscription(patron_type, subscription_start, subscription_end)
+        subscriptions = patron.pending_subscriptions
+        assert len(subscriptions) == 1
+        subscription = subscriptions[0]
 
-    # STEP#2 :: Try a circulation operation
-    #   As patron doesn't yet paid the subscription and we set a limit at
-    #   STEP#0, any checkout operation should be denied.
-    res, data = postdata(
-        client,
-        "api_item.checkout",
-        {
-            "item_pid": item.pid,
-            "patron_pid": patron.pid,
-            "transaction_location_pid": loc_public_martigny.pid,
-            "transaction_user_pid": librarian_martigny.pid,
-        },
-    )
-    assert res.status_code == 403
-    assert "Patron has unpaid subscription" in data["message"]
-    # STEP#3 :: Pay the subscription and retry a circulation operation
-    #   As the subscription will be paid the checkout operation must be granted
-    data = {
-        "parent": subscription["patron_transaction"],
-        "creation_date": datetime.now().isoformat(),
-        "type": "payment",
-        "subtype": "cash",
-        "amount": patron_type["subscription_amount"],
-        "operator": {"$ref": get_ref_for_pid(Patron, librarian_martigny.pid)},
-    }
-    PatronTransactionEvent.create(data, dbcommit=True, reindex=True)
-    assert not patron.pending_subscriptions
+        # Checkout must be denied: patron has an unpaid subscription.
+        # Re-login before the request: the gettext call in
+        # ``PatronTransactionExtension`` (triggered by ``add_subscription``)
+        # resolves the babel locale selector, which evaluates
+        # ``current_user`` and can drop the session_login state of the
+        # test client in some environments.
+        login_user_via_session(client, librarian_martigny.user)
+        res, data = postdata(
+            client,
+            "api_item.checkout",
+            {
+                "item_pid": item.pid,
+                "patron_pid": patron.pid,
+                "transaction_location_pid": loc_public_martigny.pid,
+                "transaction_user_pid": librarian_martigny.pid,
+            },
+        )
+        assert res.status_code == 403
+        assert "Patron has unpaid subscription" in data["message"]
 
-    res, data = postdata(
-        client,
-        "api_item.checkout",
-        {
-            "item_pid": item.pid,
-            "patron_pid": patron.pid,
-            "transaction_location_pid": loc_public_martigny.pid,
-            "transaction_user_pid": librarian_martigny.pid,
-        },
-    )
-    assert res.status_code == 200
-    loan_pid = data["action_applied"]["checkout"]["pid"]
+        # Pay the subscription; the related transaction becomes closed.
+        PatronTransactionEvent.create(
+            {
+                "parent": subscription["patron_transaction"],
+                "creation_date": datetime.now(UTC).isoformat(),
+                "type": "payment",
+                "subtype": "cash",
+                "amount": patron_type["subscription_amount"],
+                "operator": {"$ref": get_ref_for_pid(Patron, librarian_martigny.pid)},
+            },
+            dbcommit=True,
+            reindex=True,
+        )
+        assert not patron.pending_subscriptions
 
-    # RESET DATA
-    #   * check-in the item
-    #   * reset the patron_type
-    res, _ = postdata(
-        client,
-        "api_item.checkin",
-        {
-            "item_pid": item.pid,
-            "pid": loan_pid,
-            "transaction_location_pid": loc_public_martigny.pid,
-            "transaction_user_pid": librarian_martigny.pid,
-        },
-    )
-    assert res == 200
-    patron_type.update(patron_type_children_martigny_data, dbcommit=True, reindex=True)
+        # Checkout must now be allowed.
+        res, data = postdata(
+            client,
+            "api_item.checkout",
+            {
+                "item_pid": item.pid,
+                "patron_pid": patron.pid,
+                "transaction_location_pid": loc_public_martigny.pid,
+                "transaction_user_pid": librarian_martigny.pid,
+            },
+        )
+        assert res.status_code == 200
+        loan_pid = data["action_applied"]["checkout"]["pid"]
+
+        # Check-in the item to leave the fixture clean.
+        res, _ = postdata(
+            client,
+            "api_item.checkin",
+            {
+                "item_pid": item.pid,
+                "pid": loan_pid,
+                "transaction_location_pid": loc_public_martigny.pid,
+                "transaction_user_pid": librarian_martigny.pid,
+            },
+        )
+        assert res.status_code == 200
+    finally:
+        # Reset the patron_type to its original state even if an assertion
+        # fails above; the fixture is module-scoped and shared with other
+        # tests.
+        patron_type.update(patron_type_children_martigny_data, dbcommit=True, reindex=True)

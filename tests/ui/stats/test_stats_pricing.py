@@ -141,7 +141,7 @@ def test_stats_pricing_number_of_deleted_items(stat_for_pricing, item_lib_martig
     """Test the number of deleted items during the specified timeframe."""
     assert stat_for_pricing.number_of_deleted_items("foo") == 0
     with mock.patch(
-        "rero_ils.modules.operation_logs.extensions.current_librarian",
+        "rero_ils.modules.patrons.api.current_librarian",
         librarian_martigny,
     ):
         item_lib_martigny.delete(False, False, False)

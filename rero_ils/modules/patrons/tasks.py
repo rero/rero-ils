@@ -17,16 +17,20 @@
 
 """Celery tasks for patrons records."""
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from celery import shared_task
 from flask import current_app
 
+from rero_ils.modules.loans.api import LoansSearch
+from rero_ils.modules.loans.models import LoanState
+from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.users.api import User
+from rero_ils.modules.users.models import UserRole
 
 from ..patron_types.api import PatronType
 from ..utils import add_years, set_timestamp
-from .api import Patron
+from .api import Patron, PatronsSearch
 
 
 def clean_obsolete_subscriptions():
@@ -89,3 +93,91 @@ def task_clear_and_renew_subscriptions():
     clean_obsolete_subscriptions()
     check_patron_types_and_add_subscriptions()
     set_timestamp("clear_and_renew_subscriptions")
+
+
+def _delete_inactive_patrons_for_org(org_pid, config, dry_run=False):
+    """Process one organisation's inactive patron cleanup.
+
+    :param org_pid: the organisation pid.
+    :param config: the patron_cleanup configuration dict.
+    :param dry_run: if True, log candidates without deleting.
+    :returns: tuple (deleted_count, skipped_count).
+    """
+    now = datetime.now(UTC)
+    expiration_cutoff = add_years(now, -config["expiration_years"])
+    inactivity_cutoff = add_years(now, -config["inactivity_years"])
+    excluded_ptty_pids = set(config.get("excluded_patron_types", []))
+
+    # ES pre-filter: patron role, expired, not blocked, not professional
+    query = (
+        PatronsSearch()
+        .filter("term", organisation__pid=org_pid)
+        .filter("term", roles=UserRole.PATRON)
+        .filter("range", patron__expiration_date={"lt": expiration_cutoff.strftime("%Y-%m-%d")})
+        .exclude("term", patron__blocked=True)
+        .exclude("terms", roles=list(UserRole.PROFESSIONAL_ROLES))
+        .source(["pid", "patron.type.pid", "user_id"])
+    )
+
+    deleted = 0
+    skipped = 0
+    for hit in query.scan():
+        # Criterion: patron_type not in exclusion list
+        if hit.patron.type.pid in excluded_ptty_pids:
+            skipped += 1
+            continue
+
+        # Criterion: last connection date
+        patron = Patron.get_record_by_pid(hit.pid)
+        user = patron.user
+        last_login = user.current_login_at or user.last_login_at
+        if last_login and last_login > inactivity_cutoff:
+            skipped += 1
+            continue
+
+        # Criterion: no active links (loans, open transactions, ILL requests, templates)
+        if patron.get_links_to_me():
+            skipped += 1
+            continue
+
+        # Criterion: no non-anonymized historical loans
+        non_anon_count = (
+            LoansSearch()
+            .filter("term", to_anonymize=False)
+            .filter("terms", state=[LoanState.CANCELLED, LoanState.ITEM_RETURNED])
+            .filter("term", patron_pid=patron.pid)
+            .count()
+        )
+        if non_anon_count:
+            skipped += 1
+            continue
+
+        # All criteria met
+        if dry_run:
+            current_app.logger.info(f"[DRY RUN] Would delete patron {patron.pid} (org={org_pid})")
+        else:
+            patron.delete(force=False, dbcommit=True, delindex=True)
+        deleted += 1
+
+    current_app.logger.info(
+        f"Patron cleanup for org {org_pid}: deleted={deleted}, skipped={skipped}{' (dry run)' if dry_run else ''}"
+    )
+    return deleted, skipped
+
+
+@shared_task(ignore_result=True)
+def task_delete_inactive_patrons(dry_run=False):
+    """Delete inactive patron profiles for all organisations.
+
+    :param dry_run: if True, log candidates without deleting them.
+    """
+    delete_inactive_patrons = {}
+    for org in Organisation.get_all():
+        if config := org.get("patron_cleanup"):
+            deleted, skipped = _delete_inactive_patrons_for_org(org.pid, config, dry_run=dry_run)
+            delete_inactive_patrons[org.pid] = {
+                "deleted": deleted,
+                "skipped": skipped,
+            }
+    if not dry_run:
+        set_timestamp("delete_inactive_patrons", **delete_inactive_patrons)

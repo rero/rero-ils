@@ -4,6 +4,18 @@
   "title": "Organisation",
   "description": "Usually a network of several libraries sharing data for patrons, items, etc.",
   "additionalProperties": false,
+  "propertiesOrder": [
+    "$schema",
+    "pid",
+    "name",
+    "code",
+    "address",
+    "default_currency",
+    "current_budget_pid",
+    "online_harvested_source",
+    "collection_enabled_on_public_view",
+    "patron_cleanup"
+  ],
   "required": [
     "$schema",
     "pid",
@@ -66,6 +78,45 @@
       "title": "Collection enabled on public view",
       "type": "boolean",
       "default": false
+    },
+    "patron_cleanup": {
+      "title": "Patron cleanup configuration",
+      "description": "Configuration for the automatic deletion of inactive patron profiles.",
+      "type": "object",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "expiration_years",
+        "inactivity_years",
+        "excluded_patron_types"
+      ],
+      "required": [
+        "expiration_years",
+        "inactivity_years"
+      ],
+      "properties": {
+        "expiration_years": {
+          "title": "Expiration threshold (years)",
+          "description": "Only delete patrons whose expiration_date is older than this many years ago.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "inactivity_years": {
+          "title": "Inactivity threshold (years)",
+          "description": "Only delete patrons whose user last logged in more than this many years ago.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "excluded_patron_types": {
+          "title": "Excluded patron types",
+          "description": "List of patron type PIDs to exclude from automatic deletion.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
     }
   }
 }

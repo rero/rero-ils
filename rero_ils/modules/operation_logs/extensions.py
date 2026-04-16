@@ -25,8 +25,6 @@ from deepdiff import DeepDiff
 from flask import request as flask_request
 from invenio_records.extensions import RecordExtension
 
-from rero_ils.modules.patrons.api import current_librarian
-
 from ..utils import extracted_data_from_ref
 from .models import OperationLogOperation
 
@@ -52,6 +50,13 @@ class OperationLogFactory:
         :param operation: the trigger operation on this record.
         :return a dict representing the operation log to register.
         """
+        # avoid circular import
+        from rero_ils.modules.patrons.api import current_librarian
+
+        # Skip if the record has no pid (e.g. hard delete of a soft-deleted
+        # record whose data has been cleared).
+        if not record.get("pid"):
+            return None
         oplg = {
             "date": datetime.now(UTC).isoformat(),
             "record": {"value": record.get("pid"), "type": record.provider.pid_type},
@@ -93,8 +98,8 @@ class OperationLogFactory:
         """Build and register an operation log."""
         from .api import OperationLog
 
-        data = self._build_operation_log(record, operation)
-        OperationLog.create(data)
+        if data := self._build_operation_log(record, operation):
+            OperationLog.create(data)
 
 
 class OperationLogObserverExtension(RecordExtension, OperationLogFactory):
