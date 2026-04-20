@@ -7,18 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RERO_ILS VERSION\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2026-03-31 12:25+0200\n"
+"POT-Creation-Date: 2026-04-20 08:33+0200\n"
 "PO-Revision-Date: 2026-04-08 08:09+0000\n"
 "Last-Translator: Галина Нежурбіда <nezhga29@gmail.com>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/rero_plus/rero-"
-"ils/uk/>\n"
 "Language: uk\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/uk/>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -77,48 +76,48 @@ msgstr ""
 "щонайменше з трьох символів і містити лише літери, цифри, дефіси або "
 "символи підкреслення."
 
-#: rero_ils/config.py:1990
+#: rero_ils/config.py:1997
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 #, fuzzy
 msgid "Global catalog"
 msgstr "Глобальний каталог"
 
-#: rero_ils/config.py:2177
+#: rero_ils/config.py:2184
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:86
 #, fuzzy
 msgid "online"
 msgstr "онлайн"
 
-#: rero_ils/config.py:2184
+#: rero_ils/config.py:2191
 #, fuzzy
 msgid "not_online"
 msgstr "not_online"
 
-#: rero_ils/config.py:2187
+#: rero_ils/config.py:2194
 #, fuzzy
 msgid "author"
 msgstr "автор"
 
-#: rero_ils/config.py:2188 rero_ils/config.py:2605
+#: rero_ils/config.py:2195 rero_ils/config.py:2612
 #, fuzzy
 msgid "subject"
 msgstr "предмет"
 
-#: rero_ils/config.py:2190
+#: rero_ils/config.py:2197
 #, fuzzy
 msgid "acquisition"
 msgstr "комплектування"
 
-#: rero_ils/config.py:2193
+#: rero_ils/config.py:2200
 msgid "new_acquisition"
 msgstr ""
 
-#: rero_ils/config.py:2194
+#: rero_ils/config.py:2201
 #, fuzzy
 msgid "identifiers"
 msgstr "ідентифікатори"
 
-#: rero_ils/config.py:2197 rero_ils/config.py:2198 rero_ils/config.py:2274
+#: rero_ils/config.py:2204 rero_ils/config.py:2205 rero_ils/config.py:2281
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:373
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:949
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1025
@@ -126,137 +125,137 @@ msgstr "ідентифікатори"
 msgid "document_type"
 msgstr "тип_документа"
 
-#: rero_ils/config.py:2199 rero_ils/config.py:2275
+#: rero_ils/config.py:2206 rero_ils/config.py:2282
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:377
 #, fuzzy
 msgid "document_subtype"
 msgstr "підтип_документа"
 
-#: rero_ils/config.py:2201
+#: rero_ils/config.py:2208
 #, fuzzy
 msgid "language"
 msgstr "мова"
 
-#: rero_ils/config.py:2202 rero_ils/config.py:2203
+#: rero_ils/config.py:2209 rero_ils/config.py:2210
 msgid "organisation"
 msgstr "організація"
 
-#: rero_ils/config.py:2204 rero_ils/config.py:2276 rero_ils/config.py:2439
-#: rero_ils/config.py:2476 rero_ils/config.py:2604 rero_ils/config.py:2648
-#: rero_ils/config.py:2754
+#: rero_ils/config.py:2211 rero_ils/config.py:2283 rero_ils/config.py:2446
+#: rero_ils/config.py:2483 rero_ils/config.py:2611 rero_ils/config.py:2655
+#: rero_ils/config.py:2761
 #, fuzzy
 msgid "library"
 msgstr "бібліотека"
 
-#: rero_ils/config.py:2205 rero_ils/config.py:2277
+#: rero_ils/config.py:2212 rero_ils/config.py:2284
 #, fuzzy
 msgid "location"
 msgstr "місце знаходження"
 
-#: rero_ils/config.py:2207 rero_ils/config.py:2281 rero_ils/config.py:2363
-#: rero_ils/config.py:2490 rero_ils/modules/migrations/views.py:88
+#: rero_ils/config.py:2214 rero_ils/config.py:2288 rero_ils/config.py:2370
+#: rero_ils/config.py:2497 rero_ils/modules/migrations/views.py:88
 #, fuzzy
 msgid "status"
 msgstr "статус"
 
-#: rero_ils/config.py:2208
+#: rero_ils/config.py:2215
 #, fuzzy
 msgid "genreForm"
 msgstr "genreForm"
 
-#: rero_ils/config.py:2209
+#: rero_ils/config.py:2216
 #, fuzzy
 msgid "intendedAudience"
 msgstr "цільоваАудиторія"
 
-#: rero_ils/config.py:2210
+#: rero_ils/config.py:2217
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:875
 #, fuzzy
 msgid "year"
 msgstr "рік"
 
-#: rero_ils/config.py:2211
+#: rero_ils/config.py:2218
 #, fuzzy
 msgid "fiction_statement"
 msgstr "fiction_statement"
 
-#: rero_ils/config.py:2278
+#: rero_ils/config.py:2285
 #, fuzzy
 msgid "item_type"
 msgstr "item_type"
 
-#: rero_ils/config.py:2279
+#: rero_ils/config.py:2286
 #, fuzzy
 msgid "temporary_item_type"
 msgstr "temporary_item_type"
 
-#: rero_ils/config.py:2280
+#: rero_ils/config.py:2287
 #, fuzzy
 msgid "temporary_location"
 msgstr "тимчасове_місцезнаходження"
 
-#: rero_ils/config.py:2282 rero_ils/config.py:2477
+#: rero_ils/config.py:2289 rero_ils/config.py:2484
 #, fuzzy
 msgid "vendor"
 msgstr "постачальник"
 
-#: rero_ils/config.py:2283
+#: rero_ils/config.py:2290
 #, fuzzy
 msgid "or_issue_status"
 msgstr "or_issue_status"
 
-#: rero_ils/config.py:2286
+#: rero_ils/config.py:2293
 #, fuzzy
 msgid "claims_count"
 msgstr "claims_count"
 
-#: rero_ils/config.py:2287
+#: rero_ils/config.py:2294
 #, fuzzy
 msgid "claims_date"
 msgstr "дата_претензій"
 
-#: rero_ils/config.py:2291
+#: rero_ils/config.py:2298
 msgid "current_requests"
 msgstr "поточні_запити"
 
-#: rero_ils/config.py:2357
+#: rero_ils/config.py:2364
 #, fuzzy
 msgid "owner_library"
 msgstr "owner_library"
 
-#: rero_ils/config.py:2358
+#: rero_ils/config.py:2365
 #, fuzzy
 msgid "owner_location"
 msgstr "owner_location"
 
-#: rero_ils/config.py:2359
+#: rero_ils/config.py:2366
 #, fuzzy
 msgid "pickup_library"
 msgstr "пункт_видачі"
 
-#: rero_ils/config.py:2360
+#: rero_ils/config.py:2367
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:564
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1033
 msgid "pickup_location"
 msgstr "місце_отримання"
 
-#: rero_ils/config.py:2361
+#: rero_ils/config.py:2368
 #, fuzzy
 msgid "transaction_library"
 msgstr "transaction_library"
 
-#: rero_ils/config.py:2362
+#: rero_ils/config.py:2369
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:929
 #, fuzzy
 msgid "transaction_location"
 msgstr "transaction_location"
 
-#: rero_ils/config.py:2364
+#: rero_ils/config.py:2371
 #, fuzzy
 msgid "misc_status"
 msgstr "стан_виконання"
 
-#: rero_ils/config.py:2365 rero_ils/config.py:2413
+#: rero_ils/config.py:2372 rero_ils/config.py:2420
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:933
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1009
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1082
@@ -264,142 +263,142 @@ msgstr "стан_виконання"
 msgid "patron_type"
 msgstr "категорія_читачів"
 
-#: rero_ils/config.py:2366
+#: rero_ils/config.py:2373
 msgid "request_expire_date"
 msgstr "термін дії запиту/Дата замовлення/кінцева дата бронювання"
 
-#: rero_ils/config.py:2370
+#: rero_ils/config.py:2377
 msgid "end_date"
 msgstr "кінцева_дата"
 
-#: rero_ils/config.py:2374
+#: rero_ils/config.py:2381
 #, fuzzy
 msgid "exclude_status"
 msgstr "статус_виключення"
 
-#: rero_ils/config.py:2411
+#: rero_ils/config.py:2418
 msgid "roles"
 msgstr "ролі/функції"
 
-#: rero_ils/config.py:2412
+#: rero_ils/config.py:2419
 msgid "city"
 msgstr "місто"
 
-#: rero_ils/config.py:2414
+#: rero_ils/config.py:2421
 #, fuzzy
 msgid "blocked"
 msgstr "заблоковано"
 
-#: rero_ils/config.py:2415
+#: rero_ils/config.py:2422
 #, fuzzy
 msgid "expired"
 msgstr "закінчився"
 
-#: rero_ils/config.py:2416
+#: rero_ils/config.py:2423
 msgid "not_expired"
 msgstr "термін дії не закінчився"
 
-#: rero_ils/config.py:2440 rero_ils/config.py:2479
+#: rero_ils/config.py:2447 rero_ils/config.py:2486
 msgid "budget"
 msgstr "бюджет"
 
-#: rero_ils/config.py:2478
+#: rero_ils/config.py:2485
 #, fuzzy
 msgid "account"
 msgstr "обліковий запис"
 
-#: rero_ils/config.py:2480
+#: rero_ils/config.py:2487
 msgid "order_date"
 msgstr "дата_замовлення"
 
-#: rero_ils/config.py:2484
+#: rero_ils/config.py:2491
 #, fuzzy
 msgid "receipt_date"
 msgstr "дата _отримання"
 
-#: rero_ils/config.py:2504
+#: rero_ils/config.py:2511
 msgid "resource_type"
 msgstr "тип_ресурсів"
 
-#: rero_ils/config.py:2505 rero_ils/config.py:2516 rero_ils/config.py:2528
-#: rero_ils/config.py:2555 rero_ils/config.py:2603
+#: rero_ils/config.py:2512 rero_ils/config.py:2523 rero_ils/config.py:2535
+#: rero_ils/config.py:2562 rero_ils/config.py:2610
 msgid "type"
 msgstr "тип"
 
-#: rero_ils/config.py:2506
+#: rero_ils/config.py:2513
 msgid "source_catalog"
 msgstr "source_каталог"
 
-#: rero_ils/config.py:2515 rero_ils/config.py:2527
+#: rero_ils/config.py:2522 rero_ils/config.py:2534
 #, fuzzy
 msgid "sources"
 msgstr "джерела"
 
-#: rero_ils/config.py:2556
+#: rero_ils/config.py:2563
 #, fuzzy
 msgid "visibility"
 msgstr "видимість"
 
-#: rero_ils/config.py:2606
+#: rero_ils/config.py:2613
 msgid "teacher"
 msgstr "вчитель"
 
-#: rero_ils/config.py:2645
+#: rero_ils/config.py:2652
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:568
 #, fuzzy
 msgid "request_status"
 msgstr "статус_запиту"
 
-#: rero_ils/config.py:2646
+#: rero_ils/config.py:2653
 msgid "loan_status"
 msgstr "статус_виданого_документа/статус_позики"
 
-#: rero_ils/config.py:2647
+#: rero_ils/config.py:2654
 #, fuzzy
 msgid "requester"
 msgstr "запитувач/читач"
 
-#: rero_ils/config.py:2751
+#: rero_ils/config.py:2758
 msgid "category"
 msgstr "категорія"
 
-#: rero_ils/config.py:2752
+#: rero_ils/config.py:2759
 #, fuzzy
 msgid "indicator"
 msgstr "індикатор"
 
-#: rero_ils/config.py:2753
+#: rero_ils/config.py:2760
 #, fuzzy
 msgid "frequency"
 msgstr "періодичність"
 
-#: rero_ils/config.py:2755
+#: rero_ils/config.py:2762
 #, fuzzy
 msgid "active"
 msgstr "дійсний"
 
-#: rero_ils/config.py:3490 rero_ils/manual_translations.txt:69
+#: rero_ils/config.py:3497 rero_ils/manual_translations.txt:69
 #: rero_ils/theme/templates/rero_ils/header.html:104
 #, fuzzy
 msgid "This is a TEST VERSION."
 msgstr "Це ТЕСТОВА ВЕРСІЯ."
 
-#: rero_ils/config.py:3491 rero_ils/manual_translations.txt:70
+#: rero_ils/config.py:3498 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:106
 #, fuzzy
 msgid "Go to the production site."
 msgstr "Перейдіть на сайт продукту."
 
-#: rero_ils/config.py:4182
+#: rero_ils/config.py:4195
 msgid "contains"
 msgstr "містить"
 
-#: rero_ils/config.py:4184
+#: rero_ils/config.py:4197
 #, fuzzy
 msgid "phrase"
 msgstr "фраза"
 
-#: rero_ils/config.py:4190
+#: rero_ils/config.py:4203
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:26
@@ -419,36 +418,36 @@ msgstr "фраза"
 msgid "Title"
 msgstr "Назва"
 
-#: rero_ils/config.py:4196
+#: rero_ils/config.py:4209
 msgid "Responsibility statement"
 msgstr "Застереження/Заява про відповідальність"
 
-#: rero_ils/config.py:4202
+#: rero_ils/config.py:4215
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:8
 msgid "Contribution"
 msgstr "Внесок"
 
-#: rero_ils/config.py:4208 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
+#: rero_ils/config.py:4221 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:354
 msgid "Country"
 msgstr "Країна"
 
-#: rero_ils/config.py:4214
+#: rero_ils/config.py:4227
 #, fuzzy
 msgid "Canton"
 msgstr "Кантон"
 
-#: rero_ils/config.py:4220
+#: rero_ils/config.py:4233
 msgid "Provision activity statement"
 msgstr "Повідомлення про публікацію/Звіт про діяльність з надання послуг"
 
-#: rero_ils/config.py:4226
+#: rero_ils/config.py:4239
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 msgid "Series statement"
 msgstr "Відомості про серію"
 
-#: rero_ils/config.py:4232 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
+#: rero_ils/config.py:4245 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:52
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:58
@@ -457,15 +456,15 @@ msgstr "Відомості про серію"
 msgid "Identifier"
 msgstr "Ідентифікатор"
 
-#: rero_ils/config.py:4238
+#: rero_ils/config.py:4251
 msgid "ISBN"
 msgstr "ISBN"
 
-#: rero_ils/config.py:4244
+#: rero_ils/config.py:4257
 msgid "ISSN"
 msgstr "ISSN"
 
-#: rero_ils/config.py:4250
+#: rero_ils/config.py:4263
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:130
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:14
@@ -474,7 +473,7 @@ msgstr "ISSN"
 msgid "Genre, form"
 msgstr "Жанр, форма"
 
-#: rero_ils/config.py:4256
+#: rero_ils/config.py:4269
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:141
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:15
@@ -482,7 +481,7 @@ msgstr "Жанр, форма"
 msgid "Subject"
 msgstr "Предмет/тема"
 
-#: rero_ils/config.py:4262
+#: rero_ils/config.py:4275
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:94
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:54
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
@@ -492,32 +491,32 @@ msgstr "Предмет/тема"
 msgid "Call number"
 msgstr "Телефон"
 
-#: rero_ils/config.py:4268
+#: rero_ils/config.py:4281
 msgid "Local fields (document)"
 msgstr "Локальні поля (документ)"
 
-#: rero_ils/config.py:4274
+#: rero_ils/config.py:4287
 msgid "Local fields (holdings)"
 msgstr "Локальні поля (фонди)"
 
-#: rero_ils/config.py:4280
+#: rero_ils/config.py:4293
 msgid "Local fields (items)"
 msgstr "Локальні поля (примірники)"
 
-#: rero_ils/config.py:4286
+#: rero_ils/config.py:4299
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 msgid "Classification"
 msgstr "Класифікація"
 
-#: rero_ils/config.py:4292
+#: rero_ils/config.py:4305
 msgid "RDA content type"
 msgstr "Тип вмісту RDA"
 
-#: rero_ils/config.py:4298
+#: rero_ils/config.py:4311
 msgid "RDA media type"
 msgstr "Медіатип RDA"
 
-#: rero_ils/config.py:4304
+#: rero_ils/config.py:4317
 msgid "RDA carrier type"
 msgstr "Тип фізичного носія RDA"
 
@@ -5710,31 +5709,31 @@ msgstr "Штрих-код"
 msgid "Second call number"
 msgstr "Інший шифр зберігання"
 
-#: rero_ils/modules/documents/views.py:242
+#: rero_ils/modules/documents/views.py:238
 msgid "Journal"
 msgstr "Журнал"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:9
-#: rero_ils/modules/documents/views.py:244
+#: rero_ils/modules/documents/views.py:240
 msgid "Series"
 msgstr "Серія"
 
-#: rero_ils/modules/documents/views.py:246
+#: rero_ils/modules/documents/views.py:242
 #: rero_ils/modules/ill_requests/forms.py:85
 msgid "Published in"
 msgstr "Опубліковано в"
 
-#: rero_ils/modules/documents/views.py:258
+#: rero_ils/modules/documents/views.py:254
 #, fuzzy
 msgid "vol"
 msgstr "том"
 
-#: rero_ils/modules/documents/views.py:261
+#: rero_ils/modules/documents/views.py:257
 #, fuzzy
 msgid "nr"
 msgstr "№"
 
-#: rero_ils/modules/documents/views.py:264
+#: rero_ils/modules/documents/views.py:260
 msgid "p"
 msgstr "с"
 
@@ -5815,8 +5814,9 @@ msgid ""
 "Defines whether the document is fiction or non-fiction (documentary). If "
 "irrelevant (image, object, score, etc.), use unspecified."
 msgstr ""
-"Визначає, чи це художня література, чи нехудожня (документальна). Якщо не "
-"має значення (зображення, об'єкт, ноти тощо), використовуйте - невказане."
+"Визначає, чи це художня література, чи нехудожня (документальна). Якщо не"
+" має значення (зображення, об'єкт, ноти тощо), використовуйте - "
+"невказане."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:325
 msgid "fiction"
@@ -5842,7 +5842,8 @@ msgstr ""
 #, fuzzy
 msgid "Document is a draft record or not, will disable record validation."
 msgstr ""
-"Незалежно від того, чи є документ чернеткою, перевірка запису буде вимкнена."
+"Незалежно від того, чи є документ чернеткою, перевірка запису буде "
+"вимкнена."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:354
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1103
@@ -5855,8 +5856,7 @@ msgstr "Прихований"
 msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
-msgstr ""
-"Прихований документ видно в професійному інтерфейсі, але не в публічному."
+msgstr "Прихований документ видно в професійному інтерфейсі, але не в публічному."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
@@ -10765,13 +10765,13 @@ msgid "Information"
 msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:241
-msgid "Remove temporary item type on item scan"
+msgid "Remove temporary item type on check-in/checkout"
 msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:242
 msgid ""
-"If enabled, scanning an item with this temporary item type will remove "
-"the temporary item type from the item."
+"If enabled, scanning (in the circulation module) an item with this "
+"temporary item type will remove the temporary item type from the item."
 msgstr ""
 
 #: rero_ils/modules/items/api/circulation.py:97
@@ -12972,13 +12972,10 @@ msgid "Keep history"
 msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:260
-#, fuzzy
 msgid ""
-"If enabled, the loan history is saved for a maximum of six months. It is "
-"visible to the user and the library staff."
+"If enabled, the loan history is visible in the patron account. Loan data "
+"is always anonymised after a certain period."
 msgstr ""
-"Якщо цю функцію ввімкнено, історія позик зберігається максимум шість "
-"місяців. Її можуть бачити як користувач, так і персонал бібліотеки."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:273
 msgid "This email is already taken."
@@ -13355,3 +13352,4 @@ msgstr "Ваша бібліотека"
 #, fuzzy
 msgid "Your password has been successfully reset."
 msgstr "Ваш пароль успішно скинуто."
+
