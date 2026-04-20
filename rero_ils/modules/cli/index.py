@@ -39,19 +39,21 @@ from ..tasks import process_bulk_queue
 from .utils import abort_if_false, get_record_class_from_schema_or_pid_type
 
 
-def connect_queue(connection, name):
+def connect_queue(connection=None, name=None):
     """Queue establish connection or create queue.
 
+    :param connection: Kombu connection to bind to. When None, returns an unbound queue.
     :param name: Name for queue, if None the INDEXER_MQ_QUEUE is used.
     :returns: connected queue.
     """
     if name:
         exchange = current_app.config.get("INDEXER_MQ_EXCHANGE")
-        exchange = exchange(connection)
+        if connection:
+            exchange = exchange(connection)
         queue = Queue(name, exchange=exchange, routing_key=name)
     else:
         queue = current_app.config["INDEXER_MQ_QUEUE"]
-    return queue(connection)
+    return queue(connection) if connection else queue
 
 
 @index.command()
@@ -107,10 +109,7 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None, raise_o
             click.secho(f"Indexing records ({queue})...", fg="green")
         else:
             click.secho("Indexing records ...", fg="green")
-        connected_queue = None
-        if queue:
-            connection = current_app.extensions["invenio-celery"].celery.connection()
-            connected_queue = connect_queue(connection, queue)
+        connected_queue = connect_queue(name=queue) if queue else None
         indexer = IlsRecordsIndexer(
             version_type=version_type,
             queue=connected_queue,

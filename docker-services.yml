@@ -67,11 +67,17 @@ services:
     ports:
       - "5432:5432"
   mq:
-    image: rabbitmq:3-management
+    image: rabbitmq:4.2-management
     restart: "unless-stopped"
     ports:
       - "15672:15672"
       - "5672:5672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   es:
     build: ./docker/elasticsearch/
     image: elasticsearch-icu-7.10.2

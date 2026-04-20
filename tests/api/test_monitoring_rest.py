@@ -20,7 +20,9 @@
 
 import time
 
-from flask import url_for
+import pytest
+from flask import current_app, url_for
+from flask_security.utils import hash_password
 from invenio_access.models import ActionUsers
 from invenio_access.permissions import superuser_access
 from invenio_accounts.testutils import login_user_via_session
@@ -32,6 +34,21 @@ from rero_ils.modules.entities.remote_entities.api import (
 )
 from rero_ils.modules.utils import get_timestamp, set_timestamp
 from tests.utils import get_json
+
+
+@pytest.fixture()
+def monitoring_user(app, db, default_user_password):
+    """Create a user with the monitoring role."""
+    ds = app.extensions["invenio-accounts"].datastore
+    user = ds.create_user(
+        email="monitoring@rero.ch",
+        password=hash_password(default_user_password),
+        active=True,
+    )
+    role = ds.create_role(name="monitoring", description="Monitoring Group")
+    ds.add_role_to_user(user, role)
+    ds.commit()
+    return ds.get_user("monitoring@rero.ch")
 
 
 def test_monitoring_es_db_counts(client):
@@ -128,20 +145,30 @@ def test_monitoring_check_es_db_counts(app, client, entity_person_data, system_l
     }
 
 
-def test_timestamps(app, client):
+def test_monitoring_redis(client, monitoring_user):
+    """Test monitoring redis."""
+    res = client.get(url_for("api_monitoring.redis"))
+    assert res.status_code == 401
+
+    login_user_via_session(client, monitoring_user)
+
+    res = client.get(url_for("api_monitoring.redis"))
+    assert res.status_code == 200
+    data = get_json(res)["data"]
+    expected = set(current_app.extensions.get("rero_ils_redis_instances", {}).keys())
+    assert set(data.keys()) == expected
+    assert all("redis_version" in info for info in data.values())
+    assert all(info["name"] == name for name, info in data.items())
+
+
+def test_timestamps(client, monitoring_user):
     """Test timestamps."""
     time_stamp = set_timestamp("test", msg="test msg")
     assert get_timestamp("test") == {"time": time_stamp, "msg": "test msg"}
     res = client.get(url_for("api_monitoring.timestamps"))
     assert res.status_code == 401
 
-    ds = app.extensions["invenio-accounts"].datastore
-    user = ds.create_user(email="monitoring@rero.ch", password="1234", active=True)
-    role = ds.create_role(name="monitoring", description="Monitoring Group")
-    ds.add_role_to_user(user, role)
-    ds.commit()
-    user = ds.get_user("monitoring@rero.ch")
-    login_user_via_session(client, user)
+    login_user_via_session(client, monitoring_user)
     res = client.get(url_for("api_monitoring.timestamps"))
     assert res.status_code == 200
     assert get_json(res) == {

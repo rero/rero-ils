@@ -39,6 +39,7 @@ from invenio_records.signals import (
 from invenio_records_rest.errors import JSONSchemaValidationError
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
+from redis import Redis
 
 from rero_ils.filter import (
     address_block,
@@ -213,6 +214,18 @@ class REROILSAPP:
         NormalizerStopWords(app)
         self.init_config(app)
         app.extensions["rero-ils"] = self
+        instances = {}
+        for name, config_key in app.config.get("RERO_ILS_MONITORING_REDIS_INSTANCES", {}).items():
+            url = app.config.get(config_key)
+            if url and url.startswith(("redis://", "rediss://", "unix://")):
+                instances[name] = Redis.from_url(url)
+        app.extensions["rero_ils_redis_instances"] = instances
+        if "import_cache" in instances:
+            app.extensions["rero_ils_import_cache"] = instances["import_cache"]
+        else:
+            app.extensions["rero_ils_import_cache"] = Redis.from_url(
+                app.config.get("RERO_ILS_IMPORT_CACHE", "redis://localhost:6379/5")
+            )
         REROILSAPP.register_import_api_blueprint(app)
         REROILSAPP.register_users_api_blueprint(app)
         REROILSAPP.register_sru_api_blueprint(app)

@@ -17,11 +17,9 @@
 
 """Message interface."""
 
-from flask import current_app
 from flask_caching.backends import RedisCache
 from invenio_cache.proxies import current_cache
 from markupsafe import Markup
-from redis import Redis
 
 
 class Message:
@@ -64,15 +62,12 @@ class Message:
         """Get All Messages."""
         messages = {}
         if isinstance(current_cache.cache, RedisCache):
-            # current_cache for REDIS has no function to get all values. Get them directly from REDIS.
-            if url := current_app.config.get("CACHE_REDIS_URL"):
-                redis = Redis.from_url(url)
-                redis_keys = [
-                    redis_key.decode("utf-8").replace(f"cache::{cls.prefix}", "")
-                    for redis_key in redis.scan_iter(f"cache::{cls.prefix}*")
-                ]
-                for key in redis_keys:
-                    messages[key] = cls.get(key)
+            # current_cache has no API to scan keys; use the underlying client directly.
+            full_prefix = f"{current_cache.cache._get_prefix()}{cls.prefix}"
+            for redis_key in current_cache.cache._write_client.scan_iter(f"{full_prefix}*"):
+                key_str = redis_key.decode("utf-8") if isinstance(redis_key, bytes) else redis_key
+                msg_key = key_str.removeprefix(full_prefix)
+                messages[msg_key] = cls.get(msg_key)
         else:
             # needed for tests
             messages = {key.replace(f"{cls.prefix}", ""): current_cache.get(key) for key in current_cache.cache._cache}

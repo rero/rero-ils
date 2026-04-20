@@ -309,6 +309,17 @@ SECURITY_EMAIL_SUBJECT_PASSWORD_NOTICE = _("Your RERO ID password has been reset
 SECURITY_LOGIN_FORM = LoginForm
 #: Redis session storage URL.
 ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
+#: Redis instances to expose via the monitoring API, keyed by display name.
+#: Values are config keys; instances whose URL is absent or non-Redis are skipped.
+RERO_ILS_MONITORING_REDIS_INSTANCES = {
+    "cache": "CACHE_REDIS_URL",
+    "sessions": "ACCOUNTS_SESSION_REDIS_URL",
+    "celery_results": "CELERY_RESULT_BACKEND",
+    "ratelimit": "RATELIMIT_STORAGE_URI",
+    "celery_scheduler": "CELERY_REDIS_SCHEDULER_URL",
+    "import_cache": "RERO_ILS_IMPORT_CACHE",
+    "sip2": "SIP2_DATASTORE_REDIS_URL",
+}
 #: Enable session/user id request tracing. This feature will add X-Session-ID
 #: and X-User-ID headers to HTTP response. You MUST ensure that NGINX (or other
 #: proxies) removes these headers again before sending the response to the
@@ -549,7 +560,9 @@ DB_VERSIONING = False
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Celery
-CELERY_BROKER_HEARTBEAT = 0
+CELERY_BROKER_HEARTBEAT = 60
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BROKER_CONNECTION_MAX_RETRIES = 10
 CELERY_BEAT_SCHEDULER = "rero_ils.schedulers.DatabaseScheduler"
 
 # Flask configuration

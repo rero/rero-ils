@@ -23,7 +23,6 @@ from flask.cli import with_appcontext
 from invenio_cache import current_cache
 from invenio_db import db
 from invenio_search import current_search_client
-from redis import Redis
 
 from .api import DB_CONNECTION_COUNTS_QUERY, DB_CONNECTIONS_QUERY, Monitoring
 
@@ -128,11 +127,14 @@ def es_indices():
 @monitoring.command()
 @with_appcontext
 def redis():
-    """Displays redis info."""
-    url = current_app.config.get("ACCOUNTS_SESSION_REDIS_URL", "redis://localhost:6379")
-    redis = Redis.from_url(url)
-    for key, value in redis.info().items():
-        click.echo(f"{key:<33}: {value}")
+    """Displays redis info for all configured instances."""
+    for name, client in current_app.extensions.get("rero_ils_redis_instances", {}).items():
+        click.secho(f"\n[{name}]", fg="green")
+        try:
+            for key, value in client.info().items():
+                click.echo(f"  {key:<33}: {value}")
+        except Exception as err:
+            click.secho(f"  ERROR: {err}", fg="red")
 
 
 @monitoring.command("db_connection_counts")

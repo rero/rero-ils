@@ -25,7 +25,7 @@ from flask_login import current_user
 from invenio_cache import current_cache
 from invenio_db import db
 from invenio_search import current_search_client
-from redis import Redis
+from redis.exceptions import RedisError
 
 from ...permissions import monitoring_permission
 from .api import DB_CONNECTION_COUNTS_QUERY, DB_CONNECTIONS_QUERY, Monitoring
@@ -230,14 +230,17 @@ def missing_pids(doc_type):
 @api_blueprint.route("/redis")
 @check_authentication
 def redis():
-    """Displays redis info.
+    """Displays redis info for all configured instances.
 
-    :return: jsonified redis info.
+    :return: jsonified redis info keyed by instance name.
     """
-    url = current_app.config.get("ACCOUNTS_SESSION_REDIS_URL", "redis://localhost:6379")
-    redis = Redis.from_url(url)
-    info = redis.info()
-    return jsonify({"data": info})
+    data = {}
+    for name, client in current_app.extensions.get("rero_ils_redis_instances", {}).items():
+        try:
+            data[name] = {"name": name, **client.info()}
+        except RedisError:
+            data[name] = {"name": name, "status": "error"}
+    return jsonify({"data": data})
 
 
 @api_blueprint.route("/es")

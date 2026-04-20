@@ -28,7 +28,6 @@ from dojson.contrib.marc21.utils import create_record
 from dojson.utils import GroupableOrderedDict
 from flask import current_app, jsonify, url_for
 from lxml import etree
-from redis import Redis
 
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import (
     marc21_dnb,
@@ -63,7 +62,7 @@ class Import:
         assert self.search.get("anywhere")
         assert self.to_json_processor
         self.init_results()
-        self.cache = Redis.from_url(current_app.config.get("RERO_ILS_IMPORT_CACHE"))
+        self.cache = current_app.extensions["rero_ils_import_cache"]
         self.cache_expire = current_app.config.get("RERO_ILS_IMPORT_CACHE_EXPIRE")
 
     def init_results(self):

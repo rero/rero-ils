@@ -578,6 +578,7 @@ class IlsRecordsIndexer(RecordIndexer):
             successful and a list of error responses
         """
         with current_celery_app.pool.acquire(block=True) as conn:
+            conn.ensure_connection(max_retries=current_app.config.get("CELERY_BROKER_CONNECTION_MAX_RETRIES", 10))
             consumer = Consumer(
                 connection=conn,
                 queue=self.mq_queue.name,
