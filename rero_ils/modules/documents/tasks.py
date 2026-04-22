@@ -128,7 +128,9 @@ def reindex_document_items(record):
     """
     from rero_ils.modules.items.api import ItemsSearch
 
-    for hit in ItemsSearch().extra(version=True).filter("term", document__pid=record["pid"]):
+    query = ItemsSearch().extra(version=True).filter("term", document__pid=record["pid"])
+    items_count = query.count()
+    for hit in query.scan():
         data = hit.to_dict()
         # update the document type in item if different.
         if data["document"]["document_type"] != record["type"]:
@@ -140,6 +142,7 @@ def reindex_document_items(record):
                 version=hit.meta.version,
                 version_type="external_gte",
             )
+    return items_count
 
 
 def _cover_url_redis():
