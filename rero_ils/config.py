@@ -4021,6 +4021,8 @@ RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
 RERO_ILS_SRU_NUMBER_OF_RECORDS = 100
 # Maximum number of records which can be harvested with an request.
 RERO_ILS_SRU_MAXIMUM_RECORDS = 1000
+# Result set cache lifetime in seconds (0 disables result sets).
+RERO_ILS_SRU_RESULT_SET_TTL = 300
 
 # SIP2
 # ====

@@ -34,6 +34,7 @@ from rero_ils.modules.documents.dojson.contrib.jsontomarc21.model import (
 )
 from rero_ils.modules.entities.remote_entities.api import RemoteEntitiesSearch
 from rero_ils.modules.serializers import JSONSerializer
+from rero_ils.modules.sru.cql_parser import SRU_MARCXML_SCHEMA_URI
 from rero_ils.modules.utils import strip_chars
 
 DEFAULT_LANGUAGE = LocalProxy(lambda: current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
@@ -363,7 +364,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         _ = xslt_filename  # intentionally unused; kept for API compatibility
         element = ElementMaker(namespace=self.MARC21_ZS, nsmap={"zs": self.MARC21_ZS})
 
-        def dump_record(record, idx):
+        def dump_record(record, idx, schema=SRU_MARCXML_SCHEMA_URI):
             """Serialize a single MARC record to SRU XML format.
 
             Converts a MARC record dictionary into an XML structure with:
@@ -374,6 +375,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             Args:
                 record (GroupableOrderedDict): MARC record with fields as keys.
                 idx (int): Record position in the result set (1-based).
+                schema (str): Canonical schema URI to embed in the record element.
 
             Returns:
                 lxml.etree.Element: SRU record element containing the MARC data.
@@ -381,8 +383,8 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             rec_element = ElementMaker(namespace=self.MARC21_REC, nsmap={prefix: self.MARC21_REC})
             data_element = ElementMaker(namespace=self.MARC21_REC, nsmap={prefix: self.MARC21_REC})
             rec = element.record()
+            rec.append(element.recordSchema(schema))
             rec.append(element.recordPacking("xml"))
-            rec.append(element.recordSchema("marcxml"))
 
             rec_record_data = element.recordData()
             rec_data = rec_element.record()
@@ -455,33 +457,41 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             root = dump_record(records, 1)
         else:
             number_of_records = total["value"]
+            operation = sru.get("operation")
             start_record = sru.get("start_record", 1)
             maximum_records = sru.get("maximum_records", 0)
             cql_query = sru.get("cql_query")
             search_query = sru.get("search_query")
+            record_schema = sru.get("record_schema", SRU_MARCXML_SCHEMA_URI)
+            result_set_id = sru.get("result_set_id")
+            result_set_ttl = sru.get("result_set_ttl", 0)
             next_record = start_record + maximum_records
             root = element.searchRetrieveResponse()
             root.append(element.version("1.1"))
             root.append(element.numberOfRecords(str(number_of_records)))
-            if next_record > 1 and next_record <= number_of_records:
-                root.append(element.nextRecordPosition(str(next_record)))
+            if result_set_id:
+                root.append(element.resultSetId(result_set_id))
+                root.append(element.resultSetIdleTime(str(result_set_ttl)))
             data = element.records()
             for idx, record in enumerate(records, start_record):
-                data.append(dump_record(record, idx))
-            root.append(data)
+                data.append(dump_record(record, idx, record_schema))
+            if len(data):
+                root.append(data)
+            if maximum_records > 0 and next_record <= number_of_records:
+                root.append(element.nextRecordPosition(str(next_record)))
             echoed_search_rr = element.echoedSearchRetrieveRequest()
             echoed_search_rr.append(element.version("1.1"))
+            if operation:
+                echoed_search_rr.append(element.operation(operation))
             if cql_query:
                 echoed_search_rr.append(element.query(cql_query))
             if search_query:
                 echoed_search_rr.append(element.search_query(search_query))
-            if start_record:
-                echoed_search_rr.append(element.startRecord(str(start_record)))
-            if maximum_records:
-                echoed_search_rr.append(element.maximumRecords(str(maximum_records)))
+            echoed_search_rr.append(element.startRecord(str(start_record)))
+            echoed_search_rr.append(element.maximumRecords(str(maximum_records)))
             echoed_search_rr.append(element.recordPacking("XML"))
-            echoed_search_rr.append(element.recordSchema("info:sru/schema/1/marcxml-v1.1-light"))
-            echoed_search_rr.append(element.resultSetTTL("0"))
+            echoed_search_rr.append(element.recordSchema(record_schema))
+            echoed_search_rr.append(element.resultSetTTL(str(result_set_ttl)))
             root.append(echoed_search_rr)
 
         # Needed if we use display with XSLT file.

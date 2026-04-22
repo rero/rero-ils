@@ -377,7 +377,7 @@ def test_term():
     assert str(err.value) == ("info:srw/diagnostic/1/25 [Malformed Query]: >=")
     with pytest.raises(Diagnostic) as err:
         Term("^", query="query")
-    assert str(err.value) == ("info:srw/diagnostic/1/32 [Malformed Query]: Only anchoring charater(s) in term: ^")
+    assert str(err.value) == ("info:srw/diagnostic/1/32 [Malformed Query]: Only anchoring character(s) in term: ^")
     with pytest.raises(Diagnostic) as err:
         Term("\\\\x\\yz\\", query="query")
     assert str(err.value) == ("info:srw/diagnostic/1/26 [Malformed Query]: \\\\x\\yz\\")

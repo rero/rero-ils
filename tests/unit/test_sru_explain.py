@@ -17,7 +17,7 @@
 
 """Test explain."""
 
-from rero_ils.modules.sru.explaine import Explain
+from rero_ils.modules.sru.explain import Explain
 
 
 def test_explain(app):

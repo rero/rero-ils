@@ -167,7 +167,7 @@ def test_identified_by_to_dc():
     """Test identifiedBy transformation to Dublin Core."""
     record = {"identifiedBy": [{"value": "R003461120", "type": "bf:Local", "source": "RERO"}]}
     result = dublincore.do(record)
-    assert result == {"identifiers": ["bf:Local|R003461120(RERO)"]}
+    assert result == {"identifiers": ["bf:Local|(RERO)R003461120"]}
     record = {
         "identifiedBy": [
             {"qualifier": "vol. 5", "value": "604907014223", "type": "bf:Upc"},
@@ -180,7 +180,7 @@ def test_identified_by_to_dc():
         "identifiers": [
             "bf:Upc|604907014223",
             "bf:AudioIssueNumber|Arbiter 142",
-            "bf:Local|R005918723(RERO)",
+            "bf:Local|(RERO)R005918723",
         ]
     }
 

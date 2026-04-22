@@ -484,7 +484,7 @@ def json_to_identifiers(self, key, value):
 
     Output format:
 
-    - With source: "Type|Value(Source)" (e.g., "bf:Doi|10.1000/xyz(CrossRef)")
+    - With source: "Type|(Source)Value" (e.g., "bf:Doi|(CrossRef)10.1000/xyz")
     - Without source: "Type|Value" (e.g., "bf:Isbn|9781234567890")
 
     :param self: The Dublin Core record being built.
@@ -516,14 +516,14 @@ def json_to_identifiers(self, key, value):
             'source': 'CrossRef'
         }
         json_to_identifiers(dc, 'identifiedBy', value)
-        # Returns: 'bf:Doi|10.1000/xyz(CrossRef)'
+        # Returns: 'bf:Doi|(CrossRef)10.1000/xyz'
     """
     itype = value.get("type")
     identifier_value = value.get("value")
     if not itype or not identifier_value:
         return None
     if source := value.get("source"):
-        return f"{itype}|{identifier_value}({source})"
+        return f"{itype}|({source}){identifier_value}"
     return f"{itype}|{identifier_value}"
 
 
