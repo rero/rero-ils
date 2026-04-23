@@ -191,7 +191,12 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
                 response.headers["content-type"] = "application/xml"
                 raise HTTPException(response=response) from err
 
-            search = DocumentsSearch().query("query_string", query=query_string)
+            search = (
+                DocumentsSearch()
+                .query("query_string", query=query_string)
+                .exclude("term", _masked=True)
+                .exclude("term", _draft=True)
+            )
             # Apply sort if specified in CQL query
             if sort_keys:
                 search = search.sort(*sort_keys)

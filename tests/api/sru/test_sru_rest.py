@@ -100,6 +100,43 @@ def test_sru_documents_items(client, document_sion_items):
     assert ech_srr["query_es"] == 'title.\\*:"La reine Berthe et son fils"'
 
 
+def test_sru_excludes_masked_and_draft(client, document_ref):
+    """Test that SRU excludes masked and draft documents from results."""
+    from rero_ils.modules.documents.api import DocumentsSearch
+
+    api_url = url_for("api_sru.documents", version="1.1", operation="searchRetrieve", query="al-Wajīz")
+
+    # Baseline: document is visible
+    xml_dict = get_xml_dict(client.get(api_url))
+    assert xml_dict["zs:searchRetrieveResponse"].get("zs:numberOfRecords") == "1"
+
+    # Masked documents are hidden
+    document_ref["_masked"] = True
+    document_ref.update(document_ref, dbcommit=True, reindex=True)
+    DocumentsSearch.flush_and_refresh()
+    xml_dict = get_xml_dict(client.get(api_url))
+    assert xml_dict["zs:searchRetrieveResponse"].get("zs:numberOfRecords") == "0"
+
+    # Unmasking restores visibility
+    document_ref["_masked"] = False
+    document_ref.update(document_ref, dbcommit=True, reindex=True)
+    DocumentsSearch.flush_and_refresh()
+    xml_dict = get_xml_dict(client.get(api_url))
+    assert xml_dict["zs:searchRetrieveResponse"].get("zs:numberOfRecords") == "1"
+
+    # Draft documents are hidden
+    document_ref["_draft"] = True
+    document_ref.update(document_ref, dbcommit=True, reindex=True)
+    DocumentsSearch.flush_and_refresh()
+    xml_dict = get_xml_dict(client.get(api_url))
+    assert xml_dict["zs:searchRetrieveResponse"].get("zs:numberOfRecords") == "0"
+
+    # Restore state for other tests (fixture is module-scoped)
+    document_ref["_draft"] = False
+    document_ref.update(document_ref, dbcommit=True, reindex=True)
+    DocumentsSearch.flush_and_refresh()
+
+
 def test_sru_documents_diagnostics(client):
     """Test sru documents diagnostics."""
     api_url = url_for("api_sru.documents", version="1.1", operation="searchRetrieve", query="(((")
