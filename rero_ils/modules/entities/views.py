@@ -32,7 +32,6 @@ blueprint = Blueprint(
     __name__,
     url_prefix="/<string:viewcode>/entities",
     template_folder="templates",
-    static_folder="static",
 )
 
 

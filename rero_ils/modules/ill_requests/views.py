@@ -52,7 +52,6 @@ blueprint = Blueprint(
     __name__,
     url_prefix="/<string:viewcode>",
     template_folder="templates",
-    static_folder="static",
 )
 
 
