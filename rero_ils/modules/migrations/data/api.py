@@ -173,7 +173,7 @@ class MigrationData(Document):
             self.created_at = datetime.now(timezone.utc)
 
     def save(self, **kwargs):
-        """Put the data on the elasticsearch index."""
+        """Put the data on the search index."""
         _id = self._set_default_values()
         self.updated_at = datetime.now(timezone.utc)
         return super().save(**kwargs)

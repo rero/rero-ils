@@ -38,12 +38,14 @@ from rero_ils.modules.documents.views import main_title_text
 class Deduplication:
     """Document deduplication class."""
 
-    def __init__(self, es_hosts=None):
+    def __init__(self, search_hosts=None):
         """Constructor.
 
-        :param es_hosts: Elasticsearch hosts to search duplicates.
+        :param search_hosts: search index hosts to search duplicates.
         """
-        self.search = self.base_query(es_hosts).source(
+        if search_hosts is None:
+            search_hosts = []
+        self.search = self.base_query(search_hosts).source(
             [
                 "pid",
                 "title",
@@ -59,17 +61,17 @@ class Deduplication:
         )
 
     @classmethod
-    def base_query(cls, es_hosts):
-        """Elasticsearch base query.
+    def base_query(cls, search_hosts):
+        """Search index base query.
 
-        :param es_hosts: Elasticsearch hosts to search duplicates.
-        :returns: Elasticsearch search instance.
+        :param search_hosts: search index hosts to search for duplicates.
+        :returns: search instance.
         """
         search = DocumentsSearch()
-        if es_hosts:
+        if search_hosts:
             search = search.using(
                 Elasticsearch(
-                    hosts=es_hosts,
+                    hosts=search_hosts,
                     retry_on_timeout=True,
                     max_retries=5,
                     timeout=20,
@@ -362,7 +364,7 @@ class Deduplication:
         :param candidates: the current candidate list to filter.
         :returns: the score and a dict containing some detailed score information.
         """
-        # get the candidate data from ES format
+        # get the candidate data from search format
         candidate = candidate._source.to_dict()
 
         scores = {

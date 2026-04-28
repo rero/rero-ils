@@ -101,7 +101,7 @@ class ItemType(IlsRecord):
 
         :param name: the circulation category name to check.
         :param organisation_pid: the organisation pid to check.
-        :return: A ES hit if a circulation category already use thi name in
+        :return: A search hit if a circulation category already use thi name in
                  the organisation; otherwise, return None.
         """
         item_type = (
@@ -187,7 +187,7 @@ class ItemType(IlsRecord):
 
 
 class ItemTypesIndexer(IlsRecordsIndexer):
-    """Indexing documents in Elasticsearch."""
+    """Indexing documents in search index."""
 
     record_cls = ItemType
 

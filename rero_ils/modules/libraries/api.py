@@ -153,7 +153,7 @@ class Library(IlsRecord):
         )
 
     def location_pids(self):
-        """Return a generator of ES Hits of all pids of library locations."""
+        """Return a generator of search Hits of all pids of library locations."""
         return LocationsSearch().filter("term", library__pid=self.pid).source(["pid"]).scan()
 
     def get_pickup_locations_pids(self):

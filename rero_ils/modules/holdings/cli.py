@@ -38,8 +38,8 @@ from rero_ils.modules.utils import read_json_record
 
 def get_document_pid_by_rero_number(rero_control_number):
     """Get pid of document by rero control number."""
-    es_documents = DocumentsSearch().filter("term", identifiedBy__value__raw=rero_control_number).source("pid")
-    documents = [document.pid for document in es_documents.scan()]
+    search_documents = DocumentsSearch().filter("term", identifiedBy__value__raw=rero_control_number).source("pid")
+    documents = [document.pid for document in search_documents.scan()]
     return documents[0] if documents else None
 
 

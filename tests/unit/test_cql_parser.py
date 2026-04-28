@@ -20,8 +20,8 @@
 import pytest
 
 from rero_ils.modules.sru.cql_parser import (
-    ES_SORT_INDEX_MAPPINGS,
     RESERVED_PREFIXES,
+    SEARCH_SORT_INDEX_MAPPINGS,
     Boolean,
     Diagnostic,
     Index,
@@ -60,12 +60,12 @@ def test_get_query_clause(app):
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"spam hamm"'
-    es_string = query.to_es()
-    assert es_string == "(spam AND hamm)"
+    search_string = query.to_search()
+    assert search_string == "(spam AND hamm)"
 
     query = parse("((title=spam) or (subtitle=hamm)) or eggs")
-    es_string = query.to_es()
-    assert es_string == "((title:spam OR subtitle:hamm) OR eggs)"
+    search_string = query.to_search()
+    assert search_string == "((title:spam OR subtitle:hamm) OR eggs)"
     assert query.get_result_set_id() == ""
 
 
@@ -79,8 +79,8 @@ def test_get_query_clause_no_xml_character(app):
     # Check query instance
     assert isinstance(query, SearchClause)
     assert query.term.value == '">><<"'
-    es_string = query.to_es()
-    assert es_string == "(>><<)"
+    search_string = query.to_search()
+    assert search_string == "(>><<)"
 
 
 def test_get_query_clause_utf8(app):
@@ -98,8 +98,8 @@ def test_get_query_clause_utf8(app):
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"späm hämm"'
-    es_string = query.to_es()
-    assert es_string == "(späm OR hämm)"
+    search_string = query.to_search()
+    assert search_string == "(späm OR hämm)"
 
 
 def test_get_query_clause_modifiers():
@@ -113,7 +113,7 @@ def test_get_query_clause_modifiers():
     assert str(query.relation.modifiers[1].comparison) == "="
     assert str(query.relation.modifiers[1].value) == "okapi"
     with pytest.raises(Diagnostic):
-        query.to_es()
+        query.to_search()
 
 
 def test_get_query_clause_with_prefix(app):
@@ -131,8 +131,8 @@ def test_get_query_clause_with_prefix(app):
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"spam"'
-    es_string = query.to_es()
-    assert es_string == "(spam)"
+    search_string = query.to_search()
+    assert search_string == "(spam)"
 
 
 def test_get_query_clause_with_relation_modifier():
@@ -149,14 +149,14 @@ def test_get_query_clause_with_relation_modifier():
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"spam"'
-    # /relevant is now a supported modifier (default ES relevance scoring)
-    es_string = query.to_es()
-    assert es_string == "(anywhere:spam)"
+    # /relevant is now a supported modifier (default search relevance scoring)
+    search_string = query.to_search()
+    assert search_string == "(anywhere:spam)"
 
     # Unsupported modifiers should still raise Diagnostic
     query = parse('anywhere all/stem "spam"')
     with pytest.raises(Diagnostic) as err:
-        query.to_es()
+        query.to_search()
     assert "Unsupported relation modifier" in str(err.value)
 
 
@@ -174,20 +174,20 @@ def test_get_query_clause_with_sorting(app):
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"cat"'
-    # Sort is now supported - to_es() should work
-    es_string = query.to_es()
-    assert es_string == '"cat"'
+    # Sort is now supported - to_search() should work
+    search_string = query.to_search()
+    assert search_string == '"cat"'
     # Check sort keys are extracted correctly
-    sort_keys = query.get_es_sort()
+    sort_keys = query.get_search_sort()
     assert len(sort_keys) == 1
-    # "title" resolves via dc.title prefix fallback to ES_SORT_INDEX_MAPPINGS["dc.title"]
-    assert ES_SORT_INDEX_MAPPINGS["dc.title"] in sort_keys[0]
+    # "title" resolves via dc.title prefix fallback to SEARCH_SORT_INDEX_MAPPINGS["dc.title"]
+    assert SEARCH_SORT_INDEX_MAPPINGS["dc.title"] in sort_keys[0]
 
     # Test with sort modifiers
     query = parse('"dog" sortBy dc.date/descending')
-    es_string = query.to_es()
-    assert es_string == '"dog"'
-    sort_keys = query.get_es_sort()
+    search_string = query.to_search()
+    assert search_string == '"dog"'
+    sort_keys = query.get_search_sort()
     assert len(sort_keys) == 1
     # dc.date should be mapped to provisionActivity.startDate
     assert sort_keys[0].get("provisionActivity.startDate", {}).get("order") == "desc"
@@ -204,11 +204,11 @@ def test_get_query_clause_with_relation(app):
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == "1999"
-    es_string = query.to_es()
-    assert es_string == "year:>1999"
+    search_string = query.to_search()
+    assert search_string == "year:>1999"
     query = parse("ind1 = 1 AND ind2 > 2 AND ind3 >= 3 AND " + "ind4 < 4 AND ind5 <= 5 AND ind6 <> 6")
-    es_string = query.to_es()
-    assert es_string == ('(((((ind1:1 AND ind2:>2) AND ind3:>=3) AND ind4:<4) AND ind5:<=5) AND ind6:-"6")')
+    search_string = query.to_search()
+    assert search_string == ('(((((ind1:1 AND ind2:>2) AND ind3:>=3) AND ind4:<4) AND ind5:<=5) AND ind6:-"6")')
 
 
 def test_get_query_triple(app):
@@ -219,19 +219,19 @@ def test_get_query_triple(app):
     # Check left clause
     assert isinstance(query.left_operand, SearchClause)
     # remember terms get quoted during parsing
-    assert query.left_operand.to_es() == "(spam)"
+    assert query.left_operand.to_search() == "(spam)"
     # Check boolean
     assert isinstance(query.boolean, Boolean)
     assert query.boolean.value == "and"
     # Check right clause
     assert isinstance(query.right_operand, SearchClause)
     # Remember terms get quoted during parsing
-    assert query.right_operand.to_es() == "(eggs)"
-    es_string = query.to_es()
-    assert es_string == "((spam) AND (eggs))"
+    assert query.right_operand.to_search() == "(eggs)"
+    search_string = query.to_search()
+    assert search_string == "((spam) AND (eggs))"
     query = parse("dc.anywhere prox spam")
     with pytest.raises(Diagnostic) as err:
-        query.to_es()
+        query.to_search()
     assert str(err.value) == ("info:srw/diagnostic/1/37 [Unsupported boolean operator]: prox")
     assert query.get_result_set_id() == ""
 
@@ -242,17 +242,17 @@ def test_get_query_triple_with_sort(app):
     # Check query instance
     assert isinstance(query, Triple)
     # Sort is now supported
-    es_string = query.to_es()
-    assert es_string == "((spam) AND (eggs))"
+    search_string = query.to_search()
+    assert search_string == "((spam) AND (eggs))"
     # Check sort keys are extracted correctly
-    sort_keys = query.get_es_sort()
+    sort_keys = query.get_search_sort()
     assert len(sort_keys) == 1
     assert "subtitle" in sort_keys[0]
 
     # Test with multiple sort keys
     query = parse("title = book sortBy dc.title/ascending dc.date/descending")
-    es_string = query.to_es()
-    sort_keys = query.get_es_sort()
+    search_string = query.to_search()
+    sort_keys = query.get_search_sort()
     assert len(sort_keys) == 2
 
 
@@ -268,14 +268,14 @@ def test_get_query_with_modifiers():
     assert not str(query.relation.modifiers[0].comparison)
     assert not str(query.relation.modifiers[0].value)
     # /relevant is now supported - should not raise
-    es_string = query.to_es()
-    assert es_string == "(spam)"
+    search_string = query.to_search()
+    assert search_string == "(spam)"
 
     # Unsupported relation modifiers should still raise
     q_string = "dc.anywhere any/phonetic spam"
     query = parse(q_string)
     with pytest.raises(Diagnostic) as err:
-        query.to_es()
+        query.to_search()
     assert "Unsupported relation modifier" in str(err.value)
 
     # Boolean modifiers - unsupported ones should raise
@@ -288,7 +288,7 @@ def test_get_query_with_modifiers():
     assert str(query.boolean.modifiers[0].comparison) == "="
     assert str(query.boolean.modifiers[0].value) == "sum"
     with pytest.raises(Diagnostic) as err:
-        query.to_es()
+        query.to_search()
     assert "Unsupported boolean modifier" in str(err.value)
 
 

@@ -591,7 +591,7 @@ def test_acquisition_order_line_account_changes(
     # We will create an order line related to a first account (acc#A) ; then
     # we updated the related account (acc#B). We need to check if :
     #  - the destination account has enough balance to accept this order_line
-    #  - both account ES hits are correct (encumbrance, balance, ...) after
+    #  - both account search hits are correct (encumbrance, balance, ...) after
     #    this change.
 
     login_user_via_session(client, librarian_martigny.user)
@@ -600,7 +600,7 @@ def test_acquisition_order_line_account_changes(
     #   1) create two independent accounts
     #   2) create an order
     #   3) add an order line related to the acc#A
-    #   4) check if balance/encumbrance are correct into ES indexes.
+    #   4) check if balance/encumbrance are correct into search indexes.
     basic_data = {
         "allocated_amount": 0,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},

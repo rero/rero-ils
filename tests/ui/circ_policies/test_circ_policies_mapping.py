@@ -21,8 +21,8 @@ from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from tests.utils import get_mapping
 
 
-def test_circ_policy_es_mapping(search_clear, db, org_martigny, circ_policy_martigny_data_tmp):
-    """Test circulation policy elasticsearch mapping."""
+def test_circ_policy_search_mapping(search_clear, db, org_martigny, circ_policy_martigny_data_tmp):
+    """Test circulation policy search index mapping."""
     search = CircPoliciesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -38,7 +38,7 @@ def test_circ_policies_search_mapping(app, circulation_policies):
     assert c == 4
     c = search.query("match", name="default").count()
     assert c == 2
-    es_query = search.query("match", name="temporary").source(["pid"]).scan()
-    pids = [hit.pid for hit in es_query]
+    search_query = search.query("match", name="temporary").source(["pid"]).scan()
+    pids = [hit.pid for hit in search_query]
     assert len(pids) == 1
     assert "cipo3" in pids

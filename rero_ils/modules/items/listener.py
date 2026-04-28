@@ -59,7 +59,7 @@ def enrich_item_data(
         json["local_fields"] = local_fields
 
     if record.is_issue:
-        # `sort_key` used exclusively for ES sorting.
+        # `sort_key` used exclusively for search sorting.
         json["issue"]["sort_key"] = record.sort_date or record.expected_date
         # inherited_first_call_number to issue
         if call_number := record.issue_inherited_first_call_number:

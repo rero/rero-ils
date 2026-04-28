@@ -170,17 +170,17 @@ class SyncEntity:
         :returns: the list of the contribution identifiers.
         :rtype: list of strings.
         """
-        es_query = RemoteEntitiesSearch().filter("query_string", query=query)
-        total = es_query.count()
+        search_query = RemoteEntitiesSearch().filter("query_string", query=query)
+        total = search_query.count()
         if not from_date and self.from_date:
             from_date = self.from_date
         if from_date:
             self.logger.info(f"Get records updated after: {from_date}")
 
-        def get_mef_pids(es_query, chunk_size=1000):
-            """Get the identifiers from elasticsearch.
+        def get_mef_pids(search_query, chunk_size=1000):
+            """Get the identifiers from search index.
 
-            :param es_query: (string) the elasticsearch query to limit the
+            :param search_query: (string) the search index query to limit the
                 results
             :param chunk_size: (integer) the maximum number of pid per chunk
             :returns: iterator over all pids
@@ -193,13 +193,15 @@ class SyncEntity:
                 n_part = int(total / chunk_size)
                 for i in range(n_part):
                     # processing the slice should be faster than 30m
-                    for hit in es_query.extra(slice={"id": i, "max": n_part}).params(scroll="30m").source("pid").scan():
+                    for hit in (
+                        search_query.extra(slice={"id": i, "max": n_part}).params(scroll="30m").source("pid").scan()
+                    ):
                         yield hit.pid
             # no need to slice as the part is smaller than the number
             # of results
             # the results can be in memory as it is small
             else:
-                for hit in list(es_query.params(scroll="30m").scan()):
+                for hit in list(search_query.params(scroll="30m").scan()):
                     yield hit.pid
 
         # ask the MEF server to know which MEF pids has been updated
@@ -238,12 +240,12 @@ class SyncEntity:
 
             if total:
                 return (
-                    get_updated_mef(pids=get_mef_pids(es_query), chunk_size=5000),
+                    get_updated_mef(pids=get_mef_pids(search_query), chunk_size=5000),
                     total,
                 )
             return [], 0
         # considers all MEF pids
-        return get_mef_pids(es_query), total
+        return get_mef_pids(search_query), total
 
     def sync_record(self, pid):
         """Sync a MEF record.

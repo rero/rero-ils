@@ -180,7 +180,7 @@ class Collector:
     def get_item_data(hit):
         """Collect es items data.
 
-        :param hit: ES item hit.
+        :param hit: search item hit.
         :return csv_data: dictionary of data.
         """
         hit = hit.to_dict()
@@ -373,7 +373,7 @@ class Collector:
     def append_loan_data(hit, csv_data, items_stats):
         """Append item loan.
 
-        :param hit: item ES record.
+        :param hit: item search record.
         :param csv_data: dictionary of data.
         :param loans: loans data.
         """

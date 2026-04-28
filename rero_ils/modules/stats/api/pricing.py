@@ -92,7 +92,7 @@ class StatsForPricing:
     def process(self, library):
         """Process statistics for a given library.
 
-        :param library: library from the elasticsearch index
+        :param library: library from the search index
         :return: a dict containing all the processed values.
         """
         return {
@@ -310,10 +310,10 @@ class StatsForPricing:
         :return: the number of matched files
         :rtype: integer
         """
-        es_query = self._get_record_file_query()
-        es_query = es_query.filter("term", metadata__library__pid=library_pid)
-        es_query.aggs.metric("number_of_files", "sum", field="metadata.n_files")
-        return int(es_query.execute().aggs.number_of_files.value)
+        search_query = self._get_record_file_query()
+        search_query = search_query.filter("term", metadata__library__pid=library_pid)
+        search_query.aggs.metric("number_of_files", "sum", field="metadata.n_files")
+        return int(search_query.execute().aggs.number_of_files.value)
 
     def files_volume(self, library_pid):
         """Size in Mb of the files linked to a given library.
@@ -323,7 +323,7 @@ class StatsForPricing:
         :return: the volume taken by the files in Mb
         :rtype: str
         """
-        es_query = self._get_record_file_query()
-        es_query = es_query.filter("term", metadata__library__pid=library_pid)
-        es_query.aggs.metric("files_size", "sum", field="metadata.file_size")
-        return "%.3f" % (es_query.execute().aggs.files_size.value / (1024 * 1024))
+        search_query = self._get_record_file_query()
+        search_query = search_query.filter("term", metadata__library__pid=library_pid)
+        search_query.aggs.metric("files_size", "sum", field="metadata.file_size")
+        return "%.3f" % (search_query.execute().aggs.files_size.value / (1024 * 1024))

@@ -80,18 +80,18 @@ def test_remote_entities_get(client, entity_person):
 @mock.patch("rero_ils.modules.decorators.login_and_librarian", mock.MagicMock())
 @mock.patch("requests.request")
 def test_remote_search_proxy(
-    mock_es_concept_get,
+    mock_search_concept_get,
     app,
     client,
-    mef_concept2_es_response,
-    mef_agents1_es_response,
-    mef_places1_es_response,
+    mef_concept2_search_response,
+    mef_agents1_search_response,
+    mef_places1_search_response,
 ):
     """Test entities search on remote servers."""
     # TEST#1 :: Concepts
     #    All results must include a `type` key if a root `metadata` field
     #    exists.
-    mock_es_concept_get.return_value = mock_response(json_data=mef_concept2_es_response)
+    mock_search_concept_get.return_value = mock_response(json_data=mef_concept2_search_response)
 
     response = client.get(
         url_for(
@@ -110,7 +110,7 @@ def test_remote_search_proxy(
 
     # TEST#2 :: Agents
     #   All result must include a `identifiedBy` object if a root
-    mock_es_concept_get.return_value = mock_response(json_data=mef_agents1_es_response)
+    mock_search_concept_get.return_value = mock_response(json_data=mef_agents1_search_response)
     response = client.get(
         url_for(
             "api_remote_entities.remote_search_proxy",
@@ -118,12 +118,12 @@ def test_remote_search_proxy(
             term="UCLouvain",
         )
     )
-    identifier = mef_agents1_es_response["hits"]["hits"][0]["metadata"]["idref"]["identifier"]
+    identifier = mef_agents1_search_response["hits"]["hits"][0]["metadata"]["idref"]["identifier"]
     assert identifier == response.json["hits"]["hits"][0]["metadata"]["idref"]["identifiedBy"][0]["value"]
 
     # TEST#3 :: Places
     #   All result must include a `identifiedBy` object if a root
-    mock_es_concept_get.return_value = mock_response(json_data=mef_places1_es_response)
+    mock_search_concept_get.return_value = mock_response(json_data=mef_places1_search_response)
     response = client.get(
         url_for(
             "api_remote_entities.remote_search_proxy",
@@ -131,7 +131,9 @@ def test_remote_search_proxy(
             term="Rouen",
         )
     )
-    authorized_access_point = mef_places1_es_response["hits"]["hits"][0]["metadata"]["idref"]["authorized_access_point"]
+    authorized_access_point = mef_places1_search_response["hits"]["hits"][0]["metadata"]["idref"][
+        "authorized_access_point"
+    ]
     assert authorized_access_point == response.json["hits"]["hits"][0]["metadata"]["idref"]["authorized_access_point"]
 
     # TEST#4 :: Unknown MEF search type
@@ -150,7 +152,7 @@ def test_remote_search_proxy(
 
     # TEST#4 :: Simulate MEF errors
     #   Simulate than MEF call return an HTTP error and check the response.
-    mock_es_concept_get.return_value = mock_response(status=404)
+    mock_search_concept_get.return_value = mock_response(status=404)
     response = client.get(
         url_for(
             "api_remote_entities.remote_search_proxy",

@@ -136,10 +136,10 @@ def test_document_linked_subject(
     app,
     document_data_tmp,
     mef_concept1_data,
-    mef_concept1_es_response,
+    mef_concept1_search_response,
 ):
     """Load document with MEF reference as a subject."""
-    mock_subjects_mef_get.return_value = mock_response(json_data=mef_concept1_es_response)
+    mock_subjects_mef_get.return_value = mock_response(json_data=mef_concept1_search_response)
 
     concept_pid = mef_concept1_data["idref"]["pid"]
     entity_uri = f"https://mef.rero.ch/api/concepts/idref/{concept_pid}"
@@ -151,19 +151,19 @@ def test_document_linked_subject(
 
     # a "bf:Concepts" entity should be created.
     #    - Check if the entity has been created
-    #    - Check if ES mapping is correct for this entity
+    #    - Check if search mapping is correct for this entity
     _, _type, _id = extract_data_from_mef_uri(entity_uri)
     entity = RemoteEntity.get_entity(_type, _id)
     assert _type in entity.get("sources")
 
-    es_record = RemoteEntitiesSearch().get_record_by_pid(entity.pid)
-    assert es_record["type"] == EntityType.TOPIC
-    assert es_record[_type]["pid"] == _id
+    search_record = RemoteEntitiesSearch().get_record_by_pid(entity.pid)
+    assert search_record["type"] == EntityType.TOPIC
+    assert search_record[_type]["pid"] == _id
 
-    # Check the document ES record
+    # Check the document search record
     #    - check if $ref linked subject is correctly dumped
-    es_record = DocumentsSearch().get_record_by_pid(doc.pid)
-    subject = es_record["subjects"][0]
+    search_record = DocumentsSearch().get_record_by_pid(doc.pid)
+    subject = search_record["subjects"][0]
     assert subject["entity"]["primary_source"] == _type
     assert _id in subject["entity"]["pids"][_type]
     assert subject["entity"]["authorized_access_point_fr"] == "Antienzymes"
@@ -314,8 +314,8 @@ def test_document_replace_refs(document, mef_agents_url):
 
     document.update(document, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()
-    es_doc = DocumentsSearch().get_record_by_pid(document.pid).to_dict()
-    assert es_doc["contribution"][1]["entity"]["type"] == EntityType.PERSON
+    search_doc = DocumentsSearch().get_record_by_pid(document.pid).to_dict()
+    assert search_doc["contribution"][1]["entity"]["type"] == EntityType.PERSON
 
     data = document.replace_refs()
     assert len(data.get("contribution")) == 2
@@ -354,9 +354,9 @@ def test_document_type_change(app, document, item_lib_martigny):
     item_lib_martigny.update(data=item_lib_martigny, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
 
-    es_item = next(ItemsSearch().filter("term", document__pid=document.pid).source("document").scan()).to_dict()
+    search_item = next(ItemsSearch().filter("term", document__pid=document.pid).source("document").scan()).to_dict()
     # Test document.type and es.item.document.document_type are the same.
-    assert document["type"] == es_item["document"]["document_type"]
+    assert document["type"] == search_item["document"]["document_type"]
 
     # Change document type.
     document["type"] = [
@@ -366,6 +366,6 @@ def test_document_type_change(app, document, item_lib_martigny):
     document.update(data=document, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()
     for hit in ItemsSearch().filter("term", document__pid=document.pid).source("document").scan():
-        es_item = hit.to_dict()
+        search_item = hit.to_dict()
         # Test document.type and es.item.document.document_type are the same.
-        assert document["type"] == es_item["document"]["document_type"]
+        assert document["type"] == search_item["document"]["document_type"]

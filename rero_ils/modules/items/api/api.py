@@ -62,9 +62,9 @@ class ItemsSearch(IlsRecordsSearch):
         default_filter = None
 
     def available_query(self):
-        """Base elasticsearch query to compute availability.
+        """Base search index query to compute availability.
 
-        :returns: elasticsearch query.
+        :returns: search index query.
         """
         must_not_filters = [
             # should not be masked
@@ -215,40 +215,40 @@ class Item(ItemCirculation, ItemIssue):
         """
         end_date = cls.format_end_date(end_date)
         items_query = ItemsSearch()
-        loc_es_quey = items_query.filter("range", temporary_location__end_date={"lte": end_date})
-        locs = [(hit.meta.id, "loc") for hit in loc_es_quey.source("pid").scan()]
+        loc_search_query = items_query.filter("range", temporary_location__end_date={"lte": end_date})
+        locs = [(hit.meta.id, "loc") for hit in loc_search_query.source("pid").scan()]
 
-        itty_es_query = items_query.filter("range", temporary_item_type__end_date={"lte": end_date})
-        itty = [(hit.meta.id, "itty") for hit in itty_es_query.source("pid").scan()]
+        itty_search_query = items_query.filter("range", temporary_item_type__end_date={"lte": end_date})
+        itty = [(hit.meta.id, "itty") for hit in itty_search_query.source("pid").scan()]
         hits = itty + locs
         for id, field_type in hits:
             yield Item.get_record(id), field_type
 
 
 class ItemsIndexer(IlsRecordsIndexer):
-    """Indexing items in Elasticsearch."""
+    """Indexing items in search index."""
 
     record_cls = Item
 
     @classmethod
-    def _es_item(cls, record):
+    def _search_item(cls, record):
         """Get the item from the corresponding index.
 
         :param record: an item object
-        :returns: the elasticsearch document or {}
+        :returns: the search index document or {}
         """
         try:
-            es_item = current_search_client.get(ItemsSearch.Meta.index, record.id)
-            return es_item["_source"]
+            search_item = current_search_client.get(ItemsSearch.Meta.index, record.id)
+            return search_item["_source"]
         except NotFoundError:
             return {}
 
     @classmethod
-    def _update_status_in_doc(cls, record, es_item):
+    def _update_status_in_doc(cls, record, search_item):
         """Update the status of a given item in the document index.
 
         :param record: an item object
-        :param es_item: a dict of the elasticsearch item
+        :param search_item: a dict of the search index item
         """
         # retrieve the document in the corresponding es index
         document_pid = extracted_data_from_ref(record.get("document"))
@@ -281,14 +281,14 @@ class ItemsIndexer(IlsRecordsIndexer):
         from ...holdings.api import Holding
 
         # get previous indexed version
-        es_item = self._es_item(record)
+        search_item = self._search_item(record)
 
         # call the parent
         return_value = super().index(record)
 
         # fast document reindex for circulation operations
-        if es_item and record.get("status") != es_item.get("status"):
-            self._update_status_in_doc(record, es_item)
+        if search_item and record.get("status") != search_item.get("status"):
+            self._update_status_in_doc(record, search_item)
             return return_value
 
         # reindex the holding / doc for non circulation operations
@@ -297,9 +297,9 @@ class ItemsIndexer(IlsRecordsIndexer):
         holding.reindex()
         # reindex the old holding
         old_holding_pid = None
-        if es_item:
+        if search_item:
             # reindex old holding ot update hte count
-            old_holding_pid = es_item.get("holding", {}).get("pid")
+            old_holding_pid = search_item.get("holding", {}).get("pid")
             if old_holding_pid != holding_pid:
                 old_holding = Holding.get_record_by_pid(old_holding_pid)
                 old_holding.reindex()

@@ -114,7 +114,7 @@ class RecordTest(IlsRecord):
     model_cls = TestRecordMetadata
 
 
-def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
+def test_ilsrecord(app, search_default_index, ils_record, ils_record_2):
     """Test IlsRecord update."""
 
     # the created records will be accessible in all function of this test file
@@ -243,7 +243,7 @@ class FailedIlsRecord(IlsRecord):
     provider = FailedPidProvider
 
 
-def test_ilsrecord_failed_pid(app, es_default_index, ils_record, ils_record_2):
+def test_ilsrecord_failed_pid(app, search_default_index, ils_record, ils_record_2):
     """Test IlsRecord PID after validation failed"""
     schema = {
         "type": "object",

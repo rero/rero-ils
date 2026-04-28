@@ -29,7 +29,7 @@ class RecordWithFile(RecordWithFileBase):
     # Jsonschema
     schema = ConstantField("$schema", "local://files/record-v1.0.0.json")
 
-    # Elasticsearch index
+    # search index
     index = IndexField("files-record-v1.0.0", search_alias="files")
 
 

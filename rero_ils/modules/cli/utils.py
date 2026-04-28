@@ -726,13 +726,13 @@ def check_pid_dependencies(dependency_file, directory, verbose):
     sys.exit(dependency_tests.missing + dependency_tests.not_found)
 
 
-@utils.command("dump_es_mappings")
+@utils.command("dump_search_mappings")
 @click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 @click.option("-o", "--outfile", "outfile", type=click.File("w"), default=None)
 @with_appcontext
-def dump_es_mappings(verbose, outfile):
-    """Dumps ES mappings."""
-    click.secho("Dump ES mappings:", fg="green")
+def dump_search_mappings(verbose, outfile):
+    """Dumps search mappings."""
+    click.secho("Dump search mappings:", fg="green")
     aliases = current_search.client.indices.get_alias("*")
     mappings = current_search.client.indices.get_mapping()
     for alias in sorted(aliases):

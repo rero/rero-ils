@@ -55,7 +55,7 @@ def mock_redis():
 
 @pytest.fixture
 def mock_search():
-    """Patch DocumentsSearch to avoid hitting Elasticsearch."""
+    """Patch DocumentsSearch to avoid hitting search index."""
     with mock.patch("rero_ils.modules.documents.api.DocumentsSearch") as m:
         yield m
 

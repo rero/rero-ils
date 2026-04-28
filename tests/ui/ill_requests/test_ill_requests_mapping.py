@@ -21,8 +21,8 @@ from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from tests.utils import get_mapping
 
 
-def test_ill_request_es_mapping(es, db, loc_public_martigny, patron_martigny, ill_request_martigny_data):
-    """Test ill request elasticsearch mapping."""
+def test_ill_request_search_mapping(es, db, loc_public_martigny, patron_martigny, ill_request_martigny_data):
+    """Test ill request search index mapping."""
     search = ILLRequestsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

@@ -47,7 +47,7 @@ def test_documents_get(client, document_with_files):
     """Test record retrieval."""
     document = document_with_files
 
-    def clean_es_metadata(metadata):
+    def clean_search_metadata(metadata):
         """Clean contribution from authorized_access_point_"""
         # Contributions, subject and genreForm are i18n indexed field, so it's
         # too complicated to compare it from original record. Just take the
@@ -59,7 +59,7 @@ def test_documents_get(client, document_with_files):
         if genreForms := document.get("genreForm"):
             metadata["genreForm"] = genreForms
 
-        # REMOVE DYNAMICALLY ADDED ES KEYS (see indexer.py:IndexerDumper)
+        # REMOVE DYNAMICALLY ADDED search KEYS (see indexer.py:IndexerDumper)
         metadata.pop("sort_date_new", None)
         metadata.pop("sort_date_old", None)
         metadata.pop("sort_title", None)
@@ -76,12 +76,12 @@ def test_documents_get(client, document_with_files):
     assert res.headers["ETag"] == f'"{document.revision_id}"'
     data = get_json(res)
     # DEV NOTES : Why removing `identifiedBy` key
-    #   During the ES enrichment process, we complete the original identifiers
-    #   with alternate identifiers. So comparing ES data identifiers, to
+    #   During the search enrichment process, we complete the original identifiers
+    #   with alternate identifiers. So comparing search data identifiers, to
     #   original data identifiers doesn't make sense.
     document_data = document.dumps()
     document_data.pop("identifiedBy", None)
-    assert document_data == clean_es_metadata(data["metadata"])
+    assert document_data == clean_search_metadata(data["metadata"])
 
     # Check self links
     res = client.get(to_relative_url(data["links"]["self"]))
@@ -91,7 +91,7 @@ def test_documents_get(client, document_with_files):
     assert data == res_content
     document_data = document.dumps()
     document_data.pop("identifiedBy", None)
-    assert document_data == clean_es_metadata(data["metadata"])
+    assert document_data == clean_search_metadata(data["metadata"])
 
     list_url = url_for("invenio_records_rest.doc_list", q=f"pid:{document.pid}")
     res = client.get(list_url)
@@ -107,7 +107,7 @@ def test_documents_get(client, document_with_files):
         "organisation_pid",
         "library_pid",
     }
-    data_clean = clean_es_metadata(metadata)
+    data_clean = clean_search_metadata(metadata)
     document = document.replace_refs().dumps()
     document.pop("identifiedBy", None)
     assert document == data_clean
@@ -756,8 +756,8 @@ def test_document_identifiers_search(client, document):
     res = client.get(url)
     assert success(get_json(res))
 
-    # STEP#6 :: SEARCH USING SHORTCUT ES KEYS
-    #   'isbn' and 'issn' keys are added to the ES stored document. These key
+    # STEP#6 :: SEARCH USING SHORTCUT search KEYS
+    #   'isbn' and 'issn' keys are added to the search stored document. These key
     #   only contains the corresponding identifiers value ; but analyzer
     #   allows search using hyphens or not.
     url = url_for("invenio_records_rest.doc_list", q="isbn:2-84426-778-5")

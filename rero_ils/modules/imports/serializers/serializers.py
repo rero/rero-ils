@@ -50,7 +50,7 @@ class ImportsSearchSerializer(JSONSerializer):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
-        :param search_result: Elasticsearch search result.
+        :param search_result: search index search result.
         :param links: Dictionary of links to add to response.
         """
         for hit in search_result["hits"]["hits"]:
@@ -84,7 +84,7 @@ class ImportsSearchSerializer(JSONSerializer):
         """Serialize a single record.
 
         :param pid: Persistent identifier instance.
-        :param search_result: Elasticsearch search result.
+        :param search_result: search index search result.
         :param links: Dictionary of links to add to response.
         """
         return json.dumps(
@@ -171,7 +171,7 @@ class ImportsMarcSearchSerializer(JSONSerializer):
         """Serialize a single record.
 
         :param pid: Persistent identifier instance.
-        :param search_result: Elasticsearch search result.
+        :param search_result: search index search result.
         :param links: Dictionary of links to add to response.
         """
         return json.dumps(self.convert_marc_to_marc_text_dict(record), **self._format_args())

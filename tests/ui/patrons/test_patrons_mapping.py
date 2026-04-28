@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Patron elasticsearch mapping tests."""
+"""Patron search index mapping tests."""
 
 from rero_ils.modules.patrons.api import PatronsSearch
 from tests.utils import get_mapping
 
 
-def test_patron_es_mapping(roles, search, lib_martigny, librarian_martigny_data_tmp):
-    """Test patron elasticsearch mapping."""
+def test_patron_mapping(roles, search, lib_martigny, librarian_martigny_data_tmp):
+    """Test patron search index mapping."""
     search = PatronsSearch()
     mapping = get_mapping(search.Meta.index)
     # TODO: create of an patron

@@ -21,7 +21,7 @@ from rero_ils.modules.collections.api import Collection, CollectionsSearch
 from tests.utils import get_mapping
 
 
-def test_collections_es_mapping(
+def test_collections_search_mapping(
     search,
     db,
     org_martigny,
@@ -29,7 +29,7 @@ def test_collections_es_mapping(
     item_lib_martigny,
     item2_lib_martigny,
 ):
-    """Test collections elasticsearch mapping."""
+    """Test collections search index mapping."""
     search = CollectionsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

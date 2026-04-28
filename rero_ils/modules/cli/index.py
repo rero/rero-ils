@@ -78,11 +78,11 @@ def connect_queue(connection=None, name=None):
     default=None,
     help="Name of the celery queue used to put the tasks into.",
 )
-@click.option("--version-type", help="Elasticsearch version type to use.")
+@click.option("--version-type", help="search index version type to use.")
 @click.option(
     "--raise-on-error/--skip-errors",
     default=True,
-    help="Controls if ES bulk indexing errors raise an exception.",
+    help="Controls if search bulk indexing errors raise an exception.",
 )
 @with_appcontext
 def run(delayed, concurrency, with_stats, version_type=None, queue=None, raise_on_error=True):
@@ -223,7 +223,7 @@ def reindex_missing(pid_types, verbose):
             )
             continue
         monitoring = Monitoring(time_delta=0)
-        pids_es, pids_db, pids_es_double, index = monitoring.get_es_db_missing_pids(p_type)
+        pids_search, pids_db, pids_search_double, index = monitoring.get_search_db_missing_pids(p_type)
         click.secho(
             f"{len(pids_db)}",
             fg="green",
@@ -268,7 +268,7 @@ def init(force):
 @click.argument("old")
 @click.argument("new")
 def switch_index(old, new):
-    """Switch index using the elasticsearch aliases.
+    """Switch index using the search index aliases.
 
     :param old: full name of the old index
     :param new: full name of the fresh created index

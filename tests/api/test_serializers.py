@@ -55,7 +55,7 @@ def test_operation_logs_serializers(
         params=params,
         copy_item=True,
     )
-    # Force update ES index
+    # Force update search index
     OperationLogsSearch.flush_and_refresh()
     list_url = url_for("invenio_records_rest.oplg_list")
     login_user(client, patron_martigny)

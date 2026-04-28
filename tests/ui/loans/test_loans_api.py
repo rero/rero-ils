@@ -50,7 +50,7 @@ from tests.utils import get_mapping
 
 
 def test_loan_es_mapping(search_clear, db):
-    """Test loans elasticsearch mapping."""
+    """Test loans search index mapping."""
     search = current_circulation.loan_search_cls
     mapping = get_mapping(search.Meta.index)
     assert mapping == get_mapping(search.Meta.index)

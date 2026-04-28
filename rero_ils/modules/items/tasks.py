@@ -118,7 +118,7 @@ def delete_holding(holding_pid, force=False, dbcommit=True, delindex=True):
     if holding_pid:
         holding_rec = Holding.get_record_by_pid(holding_pid)
         try:
-            # TODO: Need to split DB and elasticsearch deletion.
+            # TODO: Need to split DB and search index deletion.
             holding_rec.delete(force=force, dbcommit=dbcommit, delindex=delindex)
         except IlsRecordError.NotDeleted:
             current_app.logger.warning(f"Holding not deleted: {holding_pid}")

@@ -172,7 +172,7 @@
       "idref"
     ]
   },
-  "es_concepts_1": {
+  "search_concepts_1": {
     "hits": {
       "hits": [
         {
@@ -249,7 +249,7 @@
       "total": 2
     }
   },
-  "es_agents_1": {
+  "search_agents_1": {
     "hits": {
       "hits": [
         {
@@ -295,7 +295,7 @@
       "total": 1
     }
   },
-  "es_places_1": {
+  "search_places_1": {
     "hits": {
       "hits": [
         {

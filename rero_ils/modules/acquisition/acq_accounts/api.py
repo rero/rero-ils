@@ -415,7 +415,7 @@ class AcqAccount(AcquisitionIlsRecord):
 
 
 class AcqAccountsIndexer(IlsRecordsIndexer):
-    """Indexing AcqAccount in Elasticsearch."""
+    """Indexing AcqAccount in search index."""
 
     record_cls = AcqAccount
 

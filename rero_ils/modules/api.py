@@ -121,7 +121,7 @@ class IlsRecordsSearch(RecordsSearch):
         raise NotFoundError(f"Record not found pid: {pid}")
 
     def get_records_by_pids(self, pids, fields=None):
-        """Get ES hits by pids.
+        """Get search hits by pids.
 
         :param pids: the list of record pids to retrieve.
         :param fields: a list of field to return. If ``None`` all fields will
@@ -621,7 +621,7 @@ class IlsRecordsIndexer(RecordIndexer):
         :param op_type: Indexing operation (one of ``index``, ``create``,
             ``delete`` or ``update``).
         :param index: The search engine index. (Default: ``None``)
-        :param doc_type: The Elasticsearch doc_type. (Default: ``None``)
+        :param doc_type: The search index doc_type. (Default: ``None``)
         """
         with self.create_producer() as producer:
             for rec in record_id_iterator:
@@ -661,7 +661,7 @@ class IlsRecordsIndexer(RecordIndexer):
         """Bulk index action.
 
         :param payload: Decoded message body.
-        :return: Dictionary defining an Elasticsearch bulk 'index' action.
+        :return: Dictionary defining a search index bulk 'index' action.
         """
         record = self.record_cls.get_record(payload["id"])
         index = self.record_to_index(record)
@@ -685,8 +685,8 @@ class IlsRecordsIndexer(RecordIndexer):
         """Prepare record data for indexing.
 
         :param record: The record to prepare.
-        :param index: The Elasticsearch index.
-        :param arguments: The arguments to send to Elasticsearch upon indexing.
+        :param index: The search index.
+        :param arguments: The arguments to send to search index upon indexing.
         :param **kwargs: Extra parameters.
         :return: The record metadata.
         """
@@ -708,7 +708,7 @@ class IlsRecordsIndexer(RecordIndexer):
         data["_created"] = pytz.utc.localize(record.created).isoformat() if record.created else None
         data["_updated"] = pytz.utc.localize(record.updated).isoformat() if record.updated else None
 
-        # Allow modification of data prior to sending to Elasticsearch.
+        # Allow modification of data prior to sending to search index.
         before_record_index.send(
             current_app._get_current_object(),
             json=data,

@@ -159,7 +159,7 @@ def do_item_jsonify_action(func):
       * Generic Exception errors (catch-all)
     - The removal info is NOT returned for:
       * NotFound errors (item not found before removal is attempted)
-      * RequestError errors (Elasticsearch errors before removal is attempted)
+      * RequestError errors (search index errors before removal is attempted)
     """
 
     def _add_removed_item_type_info(error_response, removed_temp_item_type_name):

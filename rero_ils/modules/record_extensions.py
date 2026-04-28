@@ -30,11 +30,11 @@ def _add_org_and_lib(record):
     :param record: the record metadata.
     """
     location_pid = extracted_data_from_ref(record.get("location"))
-    # try on the elasticsearch location index
+    # try on the search index location index
     try:
-        es_loc = next(LocationsSearch().filter("term", pid=location_pid).source(["organisation", "library"]).scan())
-        organisation_pid = es_loc.organisation.pid
-        library_pid = es_loc.library.pid
+        search_loc = next(LocationsSearch().filter("term", pid=location_pid).source(["organisation", "library"]).scan())
+        organisation_pid = search_loc.organisation.pid
+        library_pid = search_loc.library.pid
     except StopIteration:
         # ok go to the db
         library = Location.get_record_by_pid(location_pid).get_library()

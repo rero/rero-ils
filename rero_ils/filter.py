@@ -34,7 +34,7 @@ from .modules.messages import Message
 from .modules.utils import extracted_data_from_ref
 
 
-def get_record_by_ref(ref, type="es_record"):
+def get_record_by_ref(ref, type="search_record"):
     """Get record by ref.
 
     :param ref: The json $ref. Ex: {$ref: 'xxxxx'}.

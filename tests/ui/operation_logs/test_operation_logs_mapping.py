@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Operation logs elasticsearch mapping tests."""
+"""Operation logs search index mapping tests."""
 
 from rero_ils.modules.operation_logs.api import OperationLog
 from tests.utils import get_mapping
 
 
-def test_operation_log_es_mapping(item_lib_sion, operation_log_data):
-    """Test operation log elasticsearch mapping."""
+def test_operation_log_search_mapping(item_lib_sion, operation_log_data):
+    """Test operation log search index mapping."""
     mapping = get_mapping(OperationLog.index_name)
     assert mapping
     OperationLog.create(operation_log_data)

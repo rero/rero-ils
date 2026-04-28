@@ -36,17 +36,17 @@ class NumberOfPatronsCfg(IndicatorCfg):
 
     @property
     def query(self):
-        """Base Elasticsearch Query.
+        """Base search index Query.
 
-        :returns: an elasticsearch query object
+        :returns: a search index query object
         """
         return PatronsSearch()[:0].filter("term", organisation__pid=self.cfg.org_pid)
 
     def aggregation(self, distribution):
-        """Elasticsearch Aggregation configuration to compute distributions.
+        """Search index Aggregation configuration to compute distributions.
 
         :param distrubtion: str - report distrubtion name
-        :returns: an elasticsearch aggregation object
+        :returns: a search index aggregation object
         """
         cfg = {
             "created_month": A(
@@ -79,7 +79,7 @@ class NumberOfPatronsCfg(IndicatorCfg):
         """Column/Raw label transformations.
 
         :param distrubtion: str - the report distrubtion name
-        :param bucket: the elasticsearch aggregation bucket
+        :param bucket: the search index aggregation bucket
         :returns: the label
         :rtype: str
         """
@@ -101,11 +101,11 @@ class NumberOfActivePatronsCfg(NumberOfPatronsCfg):
 
     @property
     def query(self):
-        """Base Elasticsearch Query.
+        """Base search index Query.
 
-        :returns: an elasticsearch query object
+        :returns: a search index query object
         """
-        es_query = super().query
+        search_query = super().query
         range_period = self.cfg.get_range_period(self.cfg.period)
         op_query = (
             LoanOperationLogsSearch()[:0]
@@ -130,4 +130,4 @@ class NumberOfActivePatronsCfg(NumberOfPatronsCfg):
         results = op_query.execute()
         convert = {hashlib.md5(f"{i}".encode()).hexdigest(): i for i in range(1, PatronIdentifier.max() + 1)}
         active_patron_pids = [convert[v.key] for v in results.aggregations.hashed_pid.buckets]
-        return es_query.filter("terms", pid=active_patron_pids)
+        return search_query.filter("terms", pid=active_patron_pids)

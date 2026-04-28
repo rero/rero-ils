@@ -25,7 +25,7 @@ from elasticsearch_dsl.exceptions import ValidationException
 from rero_ils.modules.migrations.api import Migration
 
 
-def test_migrations_create(es_indices, lib_martigny):
+def test_migrations_create(search_indices, lib_martigny):
     """Test the migration creation."""
     with pytest.raises(ValidationException):
         Migration().save()

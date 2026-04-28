@@ -573,7 +573,7 @@ def test_regular_issue_creation_update_delete_api(
     issue_display, expected_date = holding._get_next_issue_display_text(holding.get("patterns"))
     issue = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
     issue_pid = issue.pid
-    # flush index to prevent ES conflicts on delete
+    # flush index to prevent search conflicts on delete
     ItemsSearch.flush_and_refresh()
     assert holding.delete(dbcommit=True, delindex=True)
     assert not Item.get_record_by_pid(issue_pid)

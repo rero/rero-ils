@@ -15,13 +15,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Libraries elasticsearch mapping tests."""
+"""Libraries search index mapping tests."""
 
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 from tests.utils import get_mapping
 
 
-def test_template_es_mapping(
+def test_template_mapping(
     search,
     db,
     templ_doc_public_martigny_data,
@@ -29,7 +29,7 @@ def test_template_es_mapping(
     system_librarian_martigny,
     librarian_martigny,
 ):
-    """Test template elasticsearch mapping."""
+    """Test template search index mapping."""
     search = TemplatesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

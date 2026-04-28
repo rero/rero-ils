@@ -75,7 +75,7 @@ class Stat(IlsRecord):
 
 
 class StatsIndexer(IlsRecordsIndexer):
-    """Indexing stats in Elasticsearch."""
+    """Indexing stats in search index."""
 
     record_cls = Stat
 

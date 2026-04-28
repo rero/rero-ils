@@ -45,7 +45,7 @@ def reindex_document(pid):
 def delete_orphan_harvested(delete=False, verbose=False):
     """Delete orphan harvested documents.
 
-    :param delete: if True, delete from DB and ES.
+    :param delete: if True, delete from DB and search.
     :param verbose: if True, print progress output to the terminal.
     :returns: count of deleted documents.
     """
@@ -84,7 +84,7 @@ def delete_drafts(days=1, delete=False, verbose=False):
     """Delete drafts.
 
     :param days: delete drafts older than this number of days.
-    :param delete: if True, delete from DB and ES.
+    :param delete: if True, delete from DB and search.
     :param verbose: if True, print progress output to the terminal.
     :returns: count of deleted drafts.
     """

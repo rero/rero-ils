@@ -349,8 +349,8 @@ class Document(IlsRecord):
             acq_order_lines = sorted_pids(acq_order_lines_query)
             local_fields = sorted_pids(local_fields_query)
             documents = {}
-            for relation, relation_es in relation_types.items():
-                doc_query = DocumentsSearch().filter({"term": {relation_es: self.pid}})
+            for relation, relation_search in relation_types.items():
+                doc_query = DocumentsSearch().filter({"term": {relation_search: self.pid}})
                 if pids := sorted_pids(doc_query):
                     documents[relation] = pids
         else:
@@ -361,8 +361,8 @@ class Document(IlsRecord):
             acq_order_lines = acq_order_lines_query.count()
             local_fields = local_fields_query.count()
             documents = 0
-            for relation_es in relation_types.values():
-                doc_query = DocumentsSearch().filter({"term": {relation_es: self.pid}})
+            for relation_search in relation_types.values():
+                doc_query = DocumentsSearch().filter({"term": {relation_search: self.pid}})
                 documents += doc_query.count()
 
         links = {
@@ -440,9 +440,9 @@ class Document(IlsRecord):
 
         a serial document has mode_of_issuance main_type equal to rdami:1003
         """
-        es_documents = DocumentsSearch().filter("term", issuance__main_type="rdami:1003").source(["pid"]).scan()
-        for es_document in es_documents:
-            yield es_document.pid
+        search_documents = DocumentsSearch().filter("term", issuance__main_type="rdami:1003").source(["pid"]).scan()
+        for search_document in search_documents:
+            yield search_document.pid
 
     @classmethod
     def get_document_pids_by_issn(cls, issn_number):
@@ -454,11 +454,11 @@ class Document(IlsRecord):
         """
         criteria = Q("term", nested_identifiers__type=IdentifierType.ISSN)
         criteria &= Q("term", nested_identifiers__value__raw=issn_number)
-        es_documents = (
+        search_documents = (
             DocumentsSearch().filter("nested", path="nested_identifiers", query=criteria).source("pid").scan()
         )
-        for es_document in es_documents:
-            yield es_document.pid
+        for search_document in search_documents:
+            yield search_document.pid
 
     def get_identifiers(self, filters=None, with_alternatives=False):
         """Get the document identifier object filtered by identifier types.
@@ -530,29 +530,29 @@ class Document(IlsRecord):
 
 
 class DocumentsIndexer(IlsRecordsIndexer):
-    """Indexing documents in Elasticsearch."""
+    """Indexing documents in search index."""
 
     record_cls = Document
     # data dumper for indexing
     record_dumper = document_indexer_dumper
 
     @classmethod
-    def _es_document(cls, record):
+    def _search_document(cls, record):
         """Get the document from the corresponding index.
 
         :param record: an item object
-        :returns: the elasticsearch document or {}
+        :returns: the search index document or {}
         """
         try:
-            es_item = current_search_client.get(DocumentsSearch.Meta.index, record.id)
-            return es_item["_source"]
+            search_item = current_search_client.get(DocumentsSearch.Meta.index, record.id)
+            return search_item["_source"]
         except NotFoundError:
             return {}
 
     def index(self, record):
         """Index an document."""
         # get previous indexed version
-        es_document = self._es_document(record)
+        search_document = self._search_document(record)
 
         # call the parent index method
         return_value = super().index(record)
@@ -565,7 +565,7 @@ class DocumentsIndexer(IlsRecordsIndexer):
         # has been changed
         # the comparison should be done on the dumps as _text is
         # added for indexing
-        if not es_document or (record.dumps().get("title") != es_document.get("title")):
+        if not search_document or (record.dumps().get("title") != search_document.get("title")):
             search = DocumentsSearch().filter("term", partOf__document__pid=record.pid)
             if ids := [doc.meta.id for doc in search.source().scan()]:
                 # reindex in background as the list can be huge

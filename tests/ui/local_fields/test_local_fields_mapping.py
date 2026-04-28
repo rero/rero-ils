@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Libraries elasticsearch mapping tests."""
+"""Libraries search index mapping tests."""
 
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
 from tests.utils import get_mapping
 
 
-def test_local_field_es_mapping(es, db, org_martigny, document, local_field_martigny_data):
-    """Test local field elasticsearch mapping."""
+def test_local_field_search_mapping(es, db, org_martigny, document, local_field_martigny_data):
+    """Test local field search index mapping."""
     search = LocalFieldsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

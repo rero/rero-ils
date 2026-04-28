@@ -68,8 +68,8 @@ class StatsReport:
             for hit in LibrariesSearch().by_organisation_pid(self.org_pid).source(["pid", "name"]).scan()
         }
         self.lib_pids = list(self.libraries.keys())
-        es_locations = LocationsSearch().by_organisation_pid(self.org_pid).source(["pid", "name", "library"]).scan()
-        self.locations = {hit.pid: f"{self.libraries[hit.library.pid]} / {hit.name}" for hit in es_locations}
+        search_locations = LocationsSearch().by_organisation_pid(self.org_pid).source(["pid", "name", "library"]).scan()
+        self.locations = {hit.pid: f"{self.libraries[hit.library.pid]} / {hit.name}" for hit in search_locations}
         self.patron_types = {
             hit.pid: hit.name
             for hit in PatronTypesSearch().by_organisation_pid(self.org_pid).source(["pid", "name"]).scan()
@@ -101,18 +101,18 @@ class StatsReport:
         }
         return cfg[self.indicator]
 
-    def _process_aggregations(self, es_results):
+    def _process_aggregations(self, search_results):
         """Process the es aggregations structures."""
         results = {}
         y_keys = set()
         iter_distrib = iter(self.distributions)
         if distrib1 := next(iter_distrib, None):
             distrib2 = next(iter_distrib, None)
-            for dist1 in es_results.aggs[distrib1].buckets:
+            for dist1 in search_results.aggs[distrib1].buckets:
                 if isinstance(dist1, str):
                     key1 = dist1
-                    parent_dist = es_results.aggs[distrib1].buckets[key1]
-                    doc_count = es_results.aggs[distrib1].buckets[key1].doc_count
+                    parent_dist = search_results.aggs[distrib1].buckets[key1]
+                    doc_count = search_results.aggs[distrib1].buckets[key1].doc_count
                 else:
                     parent_dist = dist1
                     key1 = self.indicator_cfg.label(distrib1, dist1)
@@ -138,7 +138,7 @@ class StatsReport:
         return self._process_distributions(x_keys, y_keys, results)
 
     def _process_distributions(self, x_keys, y_keys, results):
-        """Process the elasticsearch aggregations results."""
+        """Process the search index aggregations results."""
         data = []
         if y_keys:
             data.append(["", *y_keys])
@@ -179,7 +179,7 @@ class StatsReport:
         return self._process_aggregations(results)
 
     def get_range_period(self, period):
-        """Get the range period for elasticsearch date range aggs."""
+        """Get the range period for search index date range aggs."""
         if period == "month":
             # now - 1 month
             previous_month = datetime.now() - relativedelta(months=1)

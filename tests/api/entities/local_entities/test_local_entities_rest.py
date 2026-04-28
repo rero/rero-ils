@@ -125,7 +125,7 @@ def test_local_entities_post_put_delete(client, local_entity_person_data, json_h
     data = get_json(res)
     assert data["metadata"]["name"] == "Test Name"
 
-    # Check value from Elasticsearch
+    # Check value from search index
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)["hits"]["hits"][0]

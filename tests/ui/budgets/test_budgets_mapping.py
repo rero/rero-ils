@@ -21,8 +21,8 @@ from rero_ils.modules.acquisition.budgets.api import Budget, BudgetsSearch
 from tests.utils import get_mapping
 
 
-def test_budgets_es_mapping(search, db, org_martigny, budget_2017_martigny_data):
-    """Test acquisition budget elasticsearch mapping."""
+def test_budgets_search_mapping(search, db, org_martigny, budget_2017_martigny_data):
+    """Test acquisition budget search index mapping."""
     search = BudgetsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

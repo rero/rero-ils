@@ -29,7 +29,7 @@ class NotificationOperationLog(OperationLog, SpecificOperationLog):
 
     @classmethod
     def create(cls, data, id_=None, index_refresh="false", **kwargs):
-        """Create a new record instance and store it in elasticsearch.
+        """Create a new record instance and store it in search index.
 
         :param data: Dict with the notification metadata.
         :param id_: Specify a UUID to use for the new record, instead of

@@ -231,11 +231,11 @@ class REROILSAPP:
         REROILSAPP.register_sru_api_blueprint(app)
         if db_log := app.config.get("RERO_ILS_DB_LOGGING"):
             logging.getLogger("sqlalchemy.engine").setLevel(db_log)
-        if es_log := app.config.get("RERO_ILS_ES_LOGGING"):
-            es_trace_logger = logging.getLogger("elasticsearch.trace")
-            es_trace_logger.setLevel(es_log)
+        if search_log := app.config.get("RERO_ILS_SEARCH_LOGGING"):
+            search_trace_logger = logging.getLogger("elasticsearch.trace")
+            search_trace_logger.setLevel(search_log)
             handler = logging.StreamHandler()
-            es_trace_logger.addHandler(handler)
+            search_trace_logger.addHandler(handler)
         app_loaded.connect(set_boosting_query_fields)
         connections.add_connection("default", current_search_client)
 

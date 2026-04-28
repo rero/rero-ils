@@ -219,7 +219,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
 
 
 class AcqReceiptLinesIndexer(IlsRecordsIndexer):
-    """Indexing documents in Elasticsearch."""
+    """Indexing documents in search index."""
 
     record_cls = AcqReceiptLine
 

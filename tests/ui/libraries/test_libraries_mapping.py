@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Libraries elasticsearch mapping tests."""
+"""Libraries search index mapping tests."""
 
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from tests.utils import get_mapping
 
 
-def test_library_es_mapping(search, db, lib_martigny_data, org_martigny):
-    """Test library elasticsearch mapping."""
+def test_library_search_mapping(search, db, lib_martigny_data, org_martigny):
+    """Test library search index mapping."""
     search = LibrariesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -40,7 +40,7 @@ def test_libraries_search_mapping(app, libraries_records):
     assert search.query("query_string", query="library AND Martigny").count() == 1
     assert search.query("match", name="Aproz").count() == 1
 
-    es_query = search.query("match", name="Sion").source(["pid"]).scan()
-    pids = [hit.pid for hit in es_query]
+    search_query = search.query("match", name="Sion").source(["pid"]).scan()
+    pids = [hit.pid for hit in search_query]
     assert len(pids) == 1
     assert "lib4" in pids

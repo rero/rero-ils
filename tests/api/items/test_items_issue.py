@@ -207,7 +207,7 @@ def test_issues_claim_notifications(
     NotificationsSearch.flush_and_refresh()
     assert issue_item.claims_count == 2
 
-    # Check that all is correctly indexed into ES
+    # Check that all is correctly indexed into search
     url = url_for("invenio_records_rest.item_list", q=f"pid:{issue_pid}", facets="claims_date")
     response = client.get(url)
     data = response.json["hits"]["hits"][0]["metadata"]
@@ -250,7 +250,7 @@ def test_issue_claims_counter_indexed_without_claims(
         # Flush and refresh the index to ensure data is searchable
         ItemsSearch.flush_and_refresh()
 
-        # Query ES to verify the indexed data includes claims.counter = 0
+        # Query search to verify the indexed data includes claims.counter = 0
         url = url_for("invenio_records_rest.item_list", q=f"pid:{issue_item.pid}")
         response = client.get(url)
         assert response.status_code == 200
@@ -279,7 +279,7 @@ def test_issue_sort_key_indexed(
     holding_lib_martigny_w_patterns,
     librarian_martigny,
 ):
-    """Test that ES sort_key reflects expected_date or sort_date correctly.
+    """Test that search sort_key reflects expected_date or sort_date correctly.
 
     The listener computes `sort_key` as `sort_date or expected_date`:
     - when the record has no sort_date, sort_key must equal expected_date
@@ -293,21 +293,21 @@ def test_issue_sort_key_indexed(
 
     try:
         ItemsSearch.flush_and_refresh()
-        es_issue = ItemsSearch().get_record_by_pid(issue_item.pid)
+        search_issue = ItemsSearch().get_record_by_pid(issue_item.pid)
 
         # no sort_date on the record → sort_key falls back to expected_date
         assert not issue_item.sort_date
-        assert es_issue["issue"]["sort_key"] == issue_item.expected_date
+        assert search_issue["issue"]["sort_key"] == issue_item.expected_date
 
         # set sort_date explicitly and reindex
         issue_item.sort_date = issue_item.expected_date
         issue_item = issue_item.update(issue_item, dbcommit=True, reindex=True)
         ItemsSearch.flush_and_refresh()
-        es_issue = ItemsSearch().get_record_by_pid(issue_item.pid)
+        search_issue = ItemsSearch().get_record_by_pid(issue_item.pid)
 
         # sort_date is now set → sort_key must use sort_date
-        assert es_issue["issue"]["sort_key"] == issue_item.sort_date
-        assert es_issue["issue"]["sort_date"] == issue_item.sort_date
+        assert search_issue["issue"]["sort_key"] == issue_item.sort_date
+        assert search_issue["issue"]["sort_date"] == issue_item.sort_date
     finally:
         issue_item.delete(dbcommit=True, delindex=True)
         ItemsSearch.flush_and_refresh()

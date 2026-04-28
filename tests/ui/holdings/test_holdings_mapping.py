@@ -21,7 +21,7 @@ from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from tests.utils import get_mapping
 
 
-def test_holding_es_mapping(
+def test_holding_search_mapping(
     search,
     db,
     loc_public_martigny,
@@ -29,7 +29,7 @@ def test_holding_es_mapping(
     document,
     holding_lib_martigny_data,
 ):
-    """Test holding elasticsearch mapping."""
+    """Test holding search index mapping."""
     search = HoldingsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

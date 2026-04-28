@@ -110,7 +110,7 @@ class StatConfiguration(IlsRecord):
 
 
 class StatsConfigurationIndexer(IlsRecordsIndexer):
-    """Indexing stats configuration in Elasticsearch."""
+    """Indexing stats configuration in search index."""
 
     record_cls = StatConfiguration
     record_dumper = indexer_dumper

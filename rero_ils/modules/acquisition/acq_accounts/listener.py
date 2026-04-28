@@ -75,7 +75,7 @@ def enrich_acq_account_data(
     (self_amount, total_amount) = account.remaining_balance
     json["remaining_balance"] = {"self": self_amount, "total": total_amount}
 
-    # additional fields for ES
+    # additional fields for search
     json["is_active"] = account.is_active
     json["depth"] = account.depth
     json["distribution"] = account.distribution

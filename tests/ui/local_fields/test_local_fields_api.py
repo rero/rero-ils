@@ -59,8 +59,8 @@ def test_local_fields(
     LocalFieldsSearch.flush_and_refresh()
     DocumentsSearch.flush_and_refresh()
 
-    es_doc = DocumentsSearch().get_record_by_pid(document.pid).to_dict()
-    assert "local_fields" not in es_doc
+    search_doc = DocumentsSearch().get_record_by_pid(document.pid).to_dict()
+    assert "local_fields" not in search_doc
 
     # TEST#3 :: Delete the document
     #   - Add new LocalFields on the document

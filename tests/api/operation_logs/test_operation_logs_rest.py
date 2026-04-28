@@ -127,9 +127,9 @@ def test_operation_log_on_item(
     OperationLogsSearch.flush_and_refresh()
 
     q = f"record.type:item AND record.value:{item.pid}"
-    es_url = url_for("invenio_records_rest.oplg_list", q=q, sort="mostrecent")
+    search_url = url_for("invenio_records_rest.oplg_list", q=q, sort="mostrecent")
     login_user_via_session(client, librarian_martigny.user)
-    res = client.get(es_url)
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
     metadata = data["hits"]["hits"][0]["metadata"]
@@ -142,7 +142,7 @@ def test_operation_log_on_item(
     item = item.update(item, dbcommit=True, reindex=True)
     OperationLogsSearch.flush_and_refresh()
 
-    res = client.get(es_url)
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 2
     metadata = data["hits"]["hits"][0]["metadata"]
@@ -155,7 +155,7 @@ def test_operation_log_on_item(
     item = item.update(item, dbcommit=True, reindex=True)
     OperationLogsSearch.flush_and_refresh()
 
-    res = client.get(es_url)
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 2
 
@@ -167,7 +167,7 @@ def test_operation_log_on_item(
     item = item.update(item, dbcommit=True, reindex=True)
     OperationLogsSearch.flush_and_refresh()
 
-    res = client.get(es_url)
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 3
     metadata = data["hits"]["hits"][0]["metadata"]
@@ -178,7 +178,7 @@ def test_operation_log_on_item(
     item.delete(dbcommit=True, delindex=True)
     OperationLogsSearch.flush_and_refresh()
 
-    res = client.get(es_url)
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 4
     metadata = data["hits"]["hits"][0]["metadata"]
@@ -197,8 +197,8 @@ def test_operation_log_on_ill_request(client, ill_request_martigny, librarian_ma
     OperationLogsSearch.flush_and_refresh()
 
     q = f"record.type:illr AND record.value:{ill_request_martigny.pid}"
-    es_url = url_for("invenio_records_rest.oplg_list", q=q, sort="mostrecent")
-    res = client.get(es_url)
+    search_url = url_for("invenio_records_rest.oplg_list", q=q, sort="mostrecent")
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
     metadata = data["hits"]["hits"][0]["metadata"]
@@ -235,8 +235,8 @@ def test_operation_log_on_file(client, librarian_martigny, document, lib_martign
     login_user_via_session(client, librarian_martigny.user)
 
     # record file creation is in the op
-    es_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:create")
-    res = client.get(es_url)
+    search_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:create")
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
     metadata = data["hits"]["hits"][0]["metadata"]
@@ -246,18 +246,18 @@ def test_operation_log_on_file(client, librarian_martigny, document, lib_martign
     # record file update is in the op
     record_service.update(system_identity, recid, {"metadata": record["metadata"]})
     OperationLogsSearch.flush_and_refresh()
-    es_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:update")
-    res = client.get(es_url)
+    search_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:update")
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
 
     # file creation is in the op
     pdf_file_name = "doc_doc1_1.pdf"
-    es_url = url_for(
+    search_url = url_for(
         "invenio_records_rest.oplg_list",
         q=f"record.type:file AND operation:create AND record.value:{pdf_file_name}",
     )
-    res = client.get(es_url)
+    res = client.get(search_url)
     data = get_json(res)
     metadata = data["hits"]["hits"][0]["metadata"]
     assert data["hits"]["total"]["value"] == 1
@@ -274,18 +274,18 @@ def test_operation_log_on_file(client, librarian_martigny, document, lib_martign
     file_service.delete_file(identity=system_identity, id_=recid, file_key=pdf_file_name)
     OperationLogsSearch.flush_and_refresh()
 
-    es_url = url_for(
+    search_url = url_for(
         "invenio_records_rest.oplg_list",
         q=f"record.type:file AND operation:delete AND record.value:{pdf_file_name}",
     )
-    res = client.get(es_url)
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
 
     # record file deletion is in the op
     record_service.delete(identity=system_identity, id_=recid)
     OperationLogsSearch.flush_and_refresh()
-    es_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:delete")
-    res = client.get(es_url)
+    search_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:delete")
+    res = client.get(search_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1

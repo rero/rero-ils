@@ -25,8 +25,8 @@ from rero_ils.modules.entities.remote_entities.api import (
 from tests.utils import get_mapping
 
 
-def test_remote_entity_es_mapping(search_clear, db, entity_person_data_tmp):
-    """Test contribution entity elasticsearch mapping."""
+def test_remote_entity_search_mapping(search_clear, db, entity_person_data_tmp):
+    """Test contribution entity search index mapping."""
     search = RemoteEntitiesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -34,8 +34,8 @@ def test_remote_entity_es_mapping(search_clear, db, entity_person_data_tmp):
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_concept_entity_es_mapping(search_clear, db, mef_concept1_data_tmp):
-    """Test concept entity elasticsearch mapping."""
+def test_concept_entity_search_mapping(search_clear, db, mef_concept1_data_tmp):
+    """Test concept entity search index mapping."""
     search = RemoteEntitiesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

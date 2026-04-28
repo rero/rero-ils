@@ -42,7 +42,7 @@ class TitleExtension(RecordExtension):
         parallel_titles = []
         for title in titles:
             if isinstance(title, AttrDict):
-                # force title to dict because ES gives AttrDict
+                # force title to dict because search gives AttrDict
                 title = title.to_dict()
             title = dict(title)
             if title.get("type") == "bf:Title":

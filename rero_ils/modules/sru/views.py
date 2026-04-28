@@ -153,7 +153,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
         """Handle GET requests to the SRU endpoint.
 
         Processes SRU searchRetrieve and explain operations. For searchRetrieve,
-        parses the CQL query, executes it against Elasticsearch, and returns
+        parses the CQL query, executes it against search index, and returns
         results in the requested format. For explain (or when no operation is
         specified), returns the server's capabilities.
 
@@ -169,7 +169,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
                 response with the error details.
         """
         operation = flask_request.args.get("operation", None)
-        query = flask_request.args.get("query", None)
+        cql_query = flask_request.args.get("query", None)
         start_record = max(int(flask_request.args.get("startRecord", 1)), 1)
         maximum_records = min(
             int(
@@ -180,12 +180,12 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
             ),
             current_app.config.get("RERO_ILS_SRU_MAXIMUM_RECORDS", 1000),
         )
-        if operation == "searchRetrieve" and query:
+        if operation == "searchRetrieve" and cql_query:
             try:
-                parsed_query = parse(query)
-                query_string = parsed_query.to_es()
+                parsed_query = parse(cql_query)
+                search_query = parsed_query.to_search()
                 # Extract sort keys if present
-                sort_keys = parsed_query.get_es_sort()
+                sort_keys = parsed_query.get_search_sort()
             except Diagnostic as err:
                 response = Response(err.xml_str())
                 response.headers["content-type"] = "application/xml"
@@ -193,7 +193,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
 
             search = (
                 DocumentsSearch()
-                .query("query_string", query=query_string)
+                .query("query_string", query=search_query)
                 .exclude("term", _masked=True)
                 .exclude("term", _draft=True)
             )
@@ -218,15 +218,15 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
             except ESRequestError as e:
                 _err_text = str(getattr(e, "info", e))
                 if "Result window" in _err_text or "result_window" in _err_text:
-                    # startRecord window exceeds ES max_result_window; return 0 records.
-                    current_app.logger.warning(f"ES window overflow during SRU search: {e}")
+                    # startRecord window exceeds search max_result_window; return 0 records.
+                    current_app.logger.warning(f"search window overflow during SRU search: {e}")
                 else:
-                    current_app.logger.error(f"ES backend error during SRU search: {e}")
+                    current_app.logger.error(f"search backend error during SRU search: {e}")
                     diag = Diagnostic(
                         code=2,
                         message="System temporarily unavailable",
                         details=str(e),
-                        query=query,
+                        query=cql_query,
                     )
                     diag_response = Response(diag.xml_str())
                     diag_response.headers["content-type"] = "application/xml"
@@ -237,8 +237,8 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
                     "hits": records,
                     "total": {"value": total, "relation": "eq"},
                     "sru": {
-                        "query": strip_chars(query),
-                        "query_es": query_string,
+                        "cql_query": strip_chars(cql_query),
+                        "search_query": search_query,
                         "start_record": start_record,
                         "maximum_records": maximum_records,
                     },

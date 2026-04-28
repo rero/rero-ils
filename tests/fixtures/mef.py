@@ -49,9 +49,9 @@ def mef_concept1_data_tmp(mef_entities):
 
 
 @pytest.fixture(scope="module")
-def mef_concept1_es_response(mef_concept1_data_tmp):
-    """Get MEF ES response for `concept_1` entities."""
-    # transform data to a valid MEF ES hit response
+def mef_concept1_search_response(mef_concept1_data_tmp):
+    """Get MEF search response for `concept_1` entities."""
+    # transform data to a valid MEF search hit response
     data = deepcopy(mef_concept1_data_tmp)
     data["$schema"] = "https://mef.rero.ch/schemas/concepts_mef/mef-concept-v0.0.1.json"
     data.pop("type", None)
@@ -60,18 +60,18 @@ def mef_concept1_es_response(mef_concept1_data_tmp):
 
 
 @pytest.fixture(scope="module")
-def mef_concept2_es_response(mef_entities):
-    """Load MEF es_concept_1 data."""
-    return deepcopy(mef_entities.get("es_concepts_1"))
+def mef_concept2_search_response(mef_entities):
+    """Load MEF search_concept_1 data."""
+    return deepcopy(mef_entities.get("search_concepts_1"))
 
 
 @pytest.fixture(scope="module")
-def mef_agents1_es_response(mef_entities):
-    """Load MEF es_agents_1 data."""
-    return deepcopy(mef_entities.get("es_agents_1"))
+def mef_agents1_search_response(mef_entities):
+    """Load MEF search_agents_1 data."""
+    return deepcopy(mef_entities.get("search_agents_1"))
 
 
 @pytest.fixture(scope="module")
-def mef_places1_es_response(mef_entities):
-    """Load MEF es_places_1 data."""
-    return deepcopy(mef_entities.get("es_places_1"))
+def mef_places1_search_response(mef_entities):
+    """Load MEF search_places_1 data."""
+    return deepcopy(mef_entities.get("search_places_1"))

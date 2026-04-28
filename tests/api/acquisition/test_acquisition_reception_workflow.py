@@ -632,7 +632,7 @@ def test_acquisition_reception_workflow(
     #       - AcqOrderLine.replace_refs(): must not raise JsonRefError when
     #         the order line is re-indexed after document deletion.
     #       - AcqOrderLineESDumper: must fall back to {"pid": ...} only.
-    #       - AcqReceiptLineESDumper: same fallback for receipt-line ES dumps.
+    #       - AcqReceiptLineESDumper: same fallback for receipt-line search dumps.
     doc_pid = document.pid
     url = url_for("invenio_records_rest.doc_item", pid_value=doc_pid)
     res = client.delete(url)
@@ -687,7 +687,7 @@ def test_acquisition_reception_workflow(
         line = AcqReceiptLine.get_record_by_pid(pid)
         assert line is None
     assert AcqReceipt.get_record_by_pid(receipt_2.pid) is None
-    # Check ES is up-to-date
+    # Check search is up-to-date
     response = AcqReceiptLinesSearch().filter("terms", pid=receipt_line_pids).execute()
     assert response.hits.total.value == 0
     response = AcqReceiptsSearch().filter("term", pid=receipt_2.pid).execute()
@@ -705,7 +705,7 @@ def test_acquisition_reception_workflow(
         line = AcqReceiptLine.get_record_by_pid(pid)
         assert line is None
     assert AcqReceipt.get_record_by_pid(receipt_1.pid) is None
-    # Check ES is up-to-date
+    # Check search is up-to-date
     response = AcqReceiptLinesSearch().filter("terms", pid=receipt_line_pids).execute()
     assert response.hits.total.value == 0
     response = AcqReceiptsSearch().filter("term", pid=receipt_1.pid).execute()

@@ -27,10 +27,10 @@ class NumberOfRequestsCfg(NumberOfCirculationCfg):
     """Number of circulation action based on trigger."""
 
     def aggregation(self, distribution):
-        """Elasticsearch Aggregation configuration to compute distributions.
+        """Search index Aggregation configuration to compute distributions.
 
         :param distrubtion: str - report distrubtion name
-        :returns: an elasticsearch aggregation object
+        :returns: a search index aggregation object
         """
         cfg = {"pickup_location": A("terms", field="loan.pickup_location.pid", size=self.cfg.aggs_size)}
         if agg := cfg.get(distribution):
@@ -41,7 +41,7 @@ class NumberOfRequestsCfg(NumberOfCirculationCfg):
         """Column/Raw label transformations.
 
         :param distribution: str - the report distribution name
-        :param bucket: the elasticsearch aggregation bucket
+        :param bucket: the search index aggregation bucket
         :returns: the label
         :rtype: str
         """

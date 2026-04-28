@@ -1184,8 +1184,8 @@ class ItemCirculation(ItemRecord):
             sort_term = sort_by or "_created"
             if sort_term.startswith("-"):
                 (sort_term, order_by) = (sort_term[1:], "desc")
-            es_query = query.params(preserve_order=True).sort({sort_term: {"order": order_by}})
-            for result in es_query.scan():
+            search_query = query.params(preserve_order=True).sort({sort_term: {"order": order_by}})
+            for result in search_query.scan():
                 yield Loan.get_record_by_pid(result.pid)
 
         query = search_by_pid(

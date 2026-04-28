@@ -108,7 +108,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
 
         Args:
             pid (str): Persistent identifier of the document.
-            record (dict): Elasticsearch hit source (minimal record data).
+            record (dict): search index hit source (minimal record data).
             links_factory (callable, optional): Factory function for generating
                 record links. Defaults to None.
             language (str, optional): Target language for i18n fields.
@@ -128,7 +128,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
         )
 
     def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs):
-        """Serialize Elasticsearch search results into Dublin Core XML.
+        """Serialize search index search results into Dublin Core XML.
 
         Generates an SRU-compliant searchRetrieveResponse containing Dublin Core
         records for all search hits. The response includes:
@@ -146,7 +146,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
         Args:
             pid_fetcher (callable): Function to extract persistent identifier from hits.
                 Currently unused; PIDs are extracted directly from record source.
-            search_result (dict): Elasticsearch search response containing:
+            search_result (dict): search index search response containing:
                 - hits.total.value: Total number of matching documents
                 - hits.hits: List of search result hits
                 - hits.sru: SRU-specific metadata (optional)
@@ -168,8 +168,8 @@ class DublinCoreSerializer(_DublinCoreSerializer):
         sru = search_result["hits"].get("sru", {})
         start_record = sru.get("start_record", 0)
         maximum_records = sru.get("maximum_records", 0)
-        query = sru.get("query")
-        query_es = sru.get("query_es")
+        cql_query = sru.get("cql_query")
+        search_query = sru.get("search_query")
         next_record = start_record + maximum_records + 1
 
         element = ElementMaker()
@@ -201,10 +201,10 @@ class DublinCoreSerializer(_DublinCoreSerializer):
 
         if sru:
             echoed_search_rr = element.echoedSearchRetrieveRequest()
-            if query:
-                echoed_search_rr.append(element.query(query))
-            if query_es:
-                echoed_search_rr.append(element.query_es(query_es))
+            if cql_query:
+                echoed_search_rr.append(element.query(cql_query))
+            if search_query:
+                echoed_search_rr.append(element.search_query(search_query))
             if start_record:
                 echoed_search_rr.append(element.startRecord(str(start_record)))
             if next_record > 1 and next_record < total:

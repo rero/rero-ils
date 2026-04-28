@@ -39,8 +39,8 @@ class IndexerDumper(Dumper):
         from rero_ils.modules.items.models import ItemNoteTypes
 
         holdings = []
-        es_holdings = HoldingsSearch().filter("term", document__pid=record["pid"]).source().scan()
-        for holding in es_holdings:
+        search_holdings = HoldingsSearch().filter("term", document__pid=record["pid"]).source().scan()
+        for holding in search_holdings:
             holding = holding.to_dict()
             hold_data = {
                 "pid": holding["pid"],
@@ -75,8 +75,8 @@ class IndexerDumper(Dumper):
                 hold_data["notes"] = notes
 
             # Index items attached to each holdings record
-            es_items = ItemsSearch().filter("term", holding__pid=holding["pid"]).scan()
-            for item in es_items:
+            search_items = ItemsSearch().filter("term", holding__pid=holding["pid"]).scan()
+            for item in search_items:
                 item = item.to_dict()
                 item_data = {
                     "pid": item["pid"],
@@ -131,17 +131,17 @@ class IndexerDumper(Dumper):
         identifiers = {
             IdentifierFactory.create_identifier(identifier_data) for identifier_data in data.get("identifiedBy", [])
         }
-        # enrich elasticsearch data with encoded identifier alternatives. The
+        # enrich search index data with encoded identifier alternatives. The
         # result identifiers list should contain only distinct identifier !
         for identifier in list(identifiers):
             identifiers.update(identifier.get_alternatives())
         data["identifiedBy"] = [identifier.dump() for identifier in identifiers]
         # DEV NOTES :: Why copy `identifiedBy` into `nested_identifiers`
         # We use an alternative `nested_identifiers` to duplicate identifiers
-        # into a nested structure into ES. Doing this we can continue to search
+        # into a nested structure into search. Doing this we can continue to search
         # about `identifiedBy.*` using query string (nested field could not be
         # use with query string)
-        # DEV NOTES :: Why not use `copy_to` into the ES mapping.
+        # DEV NOTES :: Why not use `copy_to` into the search mapping.
         # It's not possible to copy an "object" field (with properties) into a
         # "nested" field using the `copy_to` directive ; this will cause an
         # exception during index creation.

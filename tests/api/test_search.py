@@ -220,7 +220,7 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     assert hits["total"]["value"] == 1
 
     # test wildcard query with boolean sub property
-    # See: elasticsearch query_string lenient property
+    # See: search index query_string lenient property
     #      for more details
     list_url = url_for("invenio_records_rest.doc_list", q=r"subjects.\*:test")
     res = client.get(list_url)
@@ -228,7 +228,7 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     assert hits
 
     # test wildcard query with boolean sub property
-    # See: elasticsearch query_string lenient property
+    # See: search index query_string lenient property
     #      for more details
     list_url = url_for("invenio_records_rest.doc_list", q=r"autocomplete_title:travailleu")
     res = client.get(list_url)

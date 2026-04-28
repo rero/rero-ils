@@ -239,7 +239,7 @@ class DocumentExportJSONSerializer(JSONSerializer):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
-        :param search_result: Elasticsearch search result.
+        :param search_result: search index search result.
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """

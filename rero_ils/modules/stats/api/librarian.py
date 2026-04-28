@@ -69,7 +69,7 @@ class StatsForLibrarian(StatsForPricing):
     def process(self, library):
         """Process statistics for a give library.
 
-        :param library: library from the elasticsearch index
+        :param library: library from the search index
         :return: a dict containing all the processed values.
         """
         return {

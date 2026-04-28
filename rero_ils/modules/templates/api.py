@@ -96,7 +96,7 @@ class Template(IlsRecord):
 
 
 class TemplatesIndexer(IlsRecordsIndexer):
-    """Indexing templates in Elasticsearch."""
+    """Indexing templates in search index."""
 
     record_cls = Template
 

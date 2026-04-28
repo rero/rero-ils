@@ -120,7 +120,7 @@ class Budget(AcquisitionIlsRecord):
 
 
 class BudgetsIndexer(IlsRecordsIndexer):
-    """Indexing documents in Elasticsearch."""
+    """Indexing documents in search index."""
 
     record_cls = Budget
 
@@ -141,7 +141,7 @@ class BudgetsIndexer(IlsRecordsIndexer):
         """Detect is `is_active` field changed.
 
         In this case, we need to reindex related accounts to set them as
-        inactive into the AcqAccount ES index.
+        inactive into the AcqAccount search index.
 
         :param record: the record to index.
         """

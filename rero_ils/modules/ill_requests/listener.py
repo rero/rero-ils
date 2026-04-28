@@ -34,7 +34,7 @@ def enrich_ill_request_data(sender, json=None, record=None, index=None, doc_type
         if not isinstance(record, ILLRequest):
             record = ILLRequest.get_record_by_pid(record.get("pid"))
         json["organisation"] = {"pid": record.organisation_pid}
-        # add patron name to ES index (for faceting)
+        # add patron name to search index (for faceting)
         patron = extracted_data_from_ref(record.get("patron").get("$ref"), "record")
         json["patron"]["name"] = patron.formatted_name
         if loc_pid := json.get("pickup_location", {}).get("pid"):

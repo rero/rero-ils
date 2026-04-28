@@ -145,60 +145,60 @@ def _check_server():
 @pytest.mark.external
 @pytest.mark.usefixtures("_check_server")
 class TestCQLIndexMappings:
-    """Verify that each DC index is translated to the correct ES field."""
+    """Verify that each DC index is translated to the correct search field."""
 
     def test_serverchoice(self):
-        """Bare term uses server-choice (no field prefix in ES query)."""
+        """Bare term uses server-choice (no field prefix in search query)."""
         xml = sru("swift")
-        assert echoed(xml)["zs:query_es"] == "swift"
+        assert echoed(xml)["zs:search_query"] == "swift"
 
     def test_quoted_term(self):
         """Quoted phrase is passed through as-is."""
         xml = sru('"Les voyages de Gulliver"')
-        assert echoed(xml)["zs:query_es"] == '"Les voyages de Gulliver"'
+        assert echoed(xml)["zs:search_query"] == '"Les voyages de Gulliver"'
         assert n_records(xml) >= 1
 
     def test_dc_title(self):
         """dc.title maps to title.* wildcard field."""
         xml = sru("dc.title=Gulliver")
-        assert echoed(xml)["zs:query_es"] == r"title.\*:Gulliver"
+        assert echoed(xml)["zs:search_query"] == r"title.\*:Gulliver"
         assert n_records(xml) >= 1
 
     def test_dc_title_quoted(self):
-        """Quoted dc.title phrase is preserved in the ES query."""
+        """Quoted dc.title phrase is preserved in the search query."""
         xml = sru('dc.title="Les voyages de Gulliver"')
-        assert echoed(xml)["zs:query_es"] == r'title.\*:"Les voyages de Gulliver"'
+        assert echoed(xml)["zs:search_query"] == r'title.\*:"Les voyages de Gulliver"'
         assert n_records(xml) >= 1
 
     def test_dc_creator(self):
         """dc.creator maps to contribution role + authorized_access_point."""
         xml = sru("dc.creator=Swift")
-        es = echoed(xml)["zs:query_es"]
+        es = echoed(xml)["zs:search_query"]
         assert "authorized_access_point:Swift" in es
         assert "cre" in es  # creator role must be in the role list
 
     def test_dc_language(self):
         """dc.language maps to language.value."""
         xml = sru("dc.language=fre", maximum_records=1)
-        assert echoed(xml)["zs:query_es"] == "language.value:fre"
+        assert echoed(xml)["zs:search_query"] == "language.value:fre"
         assert n_records(xml) >= 1
 
     def test_dc_publisher(self):
         """dc.publisher maps to provisionActivity publication statement."""
         xml = sru("dc.publisher=Edito", maximum_records=1)
-        es = echoed(xml)["zs:query_es"]
+        es = echoed(xml)["zs:search_query"]
         assert "provisionActivity" in es
         assert "Edito" in es
 
     def test_dc_type(self):
         """dc.type maps to type.main_type."""
         xml = sru("dc.type=docmaintype_book", maximum_records=1)
-        assert echoed(xml)["zs:query_es"] == "type.main_type:docmaintype_book"
+        assert echoed(xml)["zs:search_query"] == "type.main_type:docmaintype_book"
 
     def test_dc_organisation(self):
         """dc.organisation maps to organisation_pid."""
         xml = sru("dc.organisation=3", maximum_records=1)
-        assert echoed(xml)["zs:query_es"] == "organisation_pid:3"
+        assert echoed(xml)["zs:search_query"] == "organisation_pid:3"
 
 
 # ---------------------------------------------------------------------------
@@ -212,16 +212,16 @@ class TestCQLBooleans:
     """Verify AND / OR boolean combinations."""
 
     def test_and_title_organisation(self):
-        """AND combines two clauses with parentheses in ES."""
+        """AND combines two clauses with parentheses in search."""
         xml = sru('dc.title="Les voyages de Gulliver" AND dc.organisation=3')
-        es = echoed(xml)["zs:query_es"]
+        es = echoed(xml)["zs:search_query"]
         assert es == r'(title.\*:"Les voyages de Gulliver" AND organisation_pid:3)'
         assert n_records(xml) == 1
 
     def test_and_title_type(self):
         """AND with type filter narrows results correctly."""
         xml = sru("dc.title=Gulliver AND dc.type=docmaintype_book")
-        es = echoed(xml)["zs:query_es"]
+        es = echoed(xml)["zs:search_query"]
         assert r"title.\*:Gulliver" in es
         assert "type.main_type:docmaintype_book" in es
 
@@ -236,7 +236,7 @@ class TestCQLBooleans:
     def test_triple_and(self):
         """Three-clause AND wraps correctly."""
         xml = sru('dc.title="Les voyages de Gulliver" AND dc.organisation=3 AND dc.language=fre')
-        es = echoed(xml)["zs:query_es"]
+        es = echoed(xml)["zs:search_query"]
         assert r'title.\*:"Les voyages de Gulliver"' in es
         assert "organisation_pid:3" in es
         assert "language.value:fre" in es
@@ -257,7 +257,7 @@ class TestCQLSort:
         xml = sru("dc.language=fre sortBy dc.title/ascending", maximum_records=3)
         ech = echoed(xml)
         # Query part strips the sort clause
-        assert "sortBy" not in ech["zs:query_es"]
+        assert "sortBy" not in ech["zs:search_query"]
         # Results are returned
         assert n_records(xml) >= 1
 
@@ -265,13 +265,13 @@ class TestCQLSort:
         """SortBy dc.title/descending is valid."""
         xml = sru("dc.language=fre sortBy dc.title/descending", maximum_records=3)
         assert n_records(xml) >= 1
-        assert "sortBy" not in echoed(xml)["zs:query_es"]
+        assert "sortBy" not in echoed(xml)["zs:search_query"]
 
     def test_sort_by_date_descending(self):
         """SortBy dc.date/descending maps provisionActivity.startDate desc."""
         xml = sru("dc.title=Gulliver sortBy dc.date/descending")
         assert n_records(xml) >= 1
-        assert "sortBy" not in echoed(xml)["zs:query_es"]
+        assert "sortBy" not in echoed(xml)["zs:search_query"]
 
     def test_sort_by_date_ascending(self):
         """SortBy dc.date/ascending is valid."""
@@ -282,18 +282,18 @@ class TestCQLSort:
         """SortBy _relevance maps to _score."""
         xml = sru("dc.title=Gulliver sortBy _relevance")
         assert n_records(xml) >= 1
-        assert "sortBy" not in echoed(xml)["zs:query_es"]
+        assert "sortBy" not in echoed(xml)["zs:search_query"]
 
     def test_sort_multi_key(self):
         """Multiple sort keys (dc.title then dc.date) are accepted."""
         xml = sru("swift sortBy dc.title/ascending dc.date/descending", maximum_records=3)
         assert n_records(xml) >= 1
-        assert "sortBy" not in echoed(xml)["zs:query_es"]
+        assert "sortBy" not in echoed(xml)["zs:search_query"]
 
     def test_sort_with_boolean(self):
         """Sort clause works together with a boolean AND query."""
         xml = sru("dc.title=Gulliver AND dc.language=fre sortBy dc.title", maximum_records=3)
-        es = echoed(xml)["zs:query_es"]
+        es = echoed(xml)["zs:search_query"]
         assert r"title.\*:Gulliver" in es
         assert "sortBy" not in es
 

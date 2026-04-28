@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Item type elasticsearch mapping tests."""
+"""Item type search index mapping tests."""
 
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from tests.utils import get_mapping
 
 
-def test_item_type_es_mapping(search, db, org_martigny, item_type_data_tmp):
-    """Test item type elasticsearch mapping."""
+def test_item_type_search_mapping(search, db, org_martigny, item_type_data_tmp):
+    """Test item type search index mapping."""
     search = ItemTypesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

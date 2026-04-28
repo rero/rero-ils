@@ -28,7 +28,7 @@ from .utils import set_timestamp
 def process_bulk_queue(version_type=None, queue=None, search_bulk_kwargs=None, stats_only=True):
     """Process bulk indexing queue.
 
-    :param str version_type: Elasticsearch version type.
+    :param str version_type: search index version type.
     :param str queue: Queue name to use (also used as routing key).
     :param dict search_bulk_kwargs: Passed to
         :func:`elasticsearch:elasticsearch.helpers.bulk`.

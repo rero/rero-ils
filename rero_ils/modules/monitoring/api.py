@@ -77,30 +77,30 @@ class Monitoring:
     def __init__(self, time_delta=1):
         """Constructor.
 
-        :param time_delta: Minutes to subtract from DB ES creation time.
+        :param time_delta: Minutes to subtract from DB search creation time.
         """
         self.time_delta = int(time_delta)
 
     def __str__(self):
-        """Table representation of database and elasticsearch differences.
+        """Table representation of database and search index differences.
 
-        :return: string representation of database and elasticsearch
+        :return: string representation of database and search index
         differences. Following columns are in the string:
-            1. database count minus elasticsearch count
+            1. database count minus search index count
             2. document type
             3. database count
-            4. elasticsearch index
-            5. elasticsearch count
+            4. search index
+            5. search index count
         """
         result = ""
-        msg_head = f"DB - ES{'type':>8}{'count':>11}{'index':>27}{'count':>11}"
+        msg_head = f"DB - search{'type':>8}{'count':>11}{'index':>27}{'count':>11}"
         msg_head += f"\n{'':-^64s}\n"
         for doc_type, info in sorted(self.info().items()):
-            db_es = info.get("db-es", "")
+            db_search = info.get("db-search", "")
             count_db = info.get("db", "")
-            msg = f"{db_es:>7}  {doc_type:>6} {count_db:>10}"
+            msg = f"{db_search:>7}  {doc_type:>6} {count_db:>10}"
             if index := info.get("index", ""):
-                msg += f"  {index:>25} {info.get('es', ''):>10}"
+                msg += f"  {index:>25} {info.get('search', ''):>10}"
             result += msg + "\n"
         return msg_head + result
 
@@ -124,10 +124,10 @@ class Monitoring:
         return query.count()
 
     @classmethod
-    def get_es_count(cls, index, date=None):
-        """Get elasticsearch count.
+    def get_search_count(cls, index, date=None):
+        """Get search index count.
 
-        Get count of items in elasticsearch for the given index.
+        Get count of items in search index for the given index.
 
         :param index: index.
         :return: items count.
@@ -138,7 +138,7 @@ class Monitoring:
                 query = query.filter("range", _created={"lte": date})
             result = query.count()
         except NotFoundError:
-            result = f"No >>{index}<< in ES"
+            result = f"No >>{index}<< in search"
         return result
 
     @classmethod
@@ -169,37 +169,37 @@ class Monitoring:
             for identifier in query:
                 yield identifier.pid_value
 
-    def get_es_db_missing_pids(self, doc_type, with_deleted=False):
-        """Get ES and DB counts."""
+    def get_search_db_missing_pids(self, doc_type, with_deleted=False):
+        """Get search and DB counts."""
         endpoint = current_app.config.get("RECORDS_REST_ENDPOINTS").get(doc_type, {})
         index = endpoint.get("search_index")
-        pids_es_double = []
-        pids_es = []
+        pids_search_double = []
+        pids_search = []
         pids_db = []
         if index and doc_type not in self.has_no_db:
             date = datetime.utcnow() - timedelta(minutes=self.time_delta)
-            pids_es = {}
-            es_query = RecordsSearch(index=index).filter("range", _created={"lte": date})
-            for hit in es_query.source("pid").scan():
-                if pids_es.get(hit.pid):
-                    pids_es_double.append(hit.pid)
-                pids_es[hit.pid] = 1
+            pids_search = {}
+            search_query = RecordsSearch(index=index).filter("range", _created={"lte": date})
+            for hit in search_query.source("pid").scan():
+                if pids_search.get(hit.pid):
+                    pids_search_double.append(hit.pid)
+                pids_search[hit.pid] = 1
             pids_db = []
             for pid in self.get_all_pids(doc_type, with_deleted=with_deleted, date=date):
-                if pids_es.get(pid):
-                    pids_es.pop(pid)
+                if pids_search.get(pid):
+                    pids_search.pop(pid)
                 else:
                     pids_db.append(pid)
-        return list(pids_es), pids_db, pids_es_double, index
+        return list(pids_search), pids_db, pids_search_double, index
 
-    def info(self, with_deleted=False, difference_db_es=False):
+    def info(self, with_deleted=False, difference_db_search=False):
         """Info.
 
         Get count details for all records rest endpoints in json format.
 
         :param with_deleted: count also deleted items in database.
-        :return: dictionary with database, elasticsearch and database minus
-        elasticsearch count information.
+        :return: dictionary with database, search index and database minus
+        search index count information.
         """
         info = {}
         for doc_type, endpoint in current_app.config.get("RECORDS_REST_ENDPOINTS").items():
@@ -210,65 +210,65 @@ class Monitoring:
                 count_db = count_db if isinstance(count_db, int) else 0
                 info[doc_type]["db"] = count_db
             if index := endpoint.get("search_index", ""):
-                count_es = self.get_es_count(index, date=date)
-                count_es = count_es if isinstance(count_es, int) else 0
-                db_es = count_db - count_es
+                count_search = self.get_search_count(index, date=date)
+                count_search = count_search if isinstance(count_search, int) else 0
+                db_search = count_db - count_search
                 info[doc_type]["index"] = index
-                info[doc_type]["es"] = count_es
+                info[doc_type]["search"] = count_search
                 if doc_type not in self.has_no_db:
-                    info[doc_type]["db-es"] = db_es
-                    if db_es == 0 and difference_db_es:
-                        missing_in_db, missing_in_es, pids_es_double, index = self.get_es_db_missing_pids(
+                    info[doc_type]["db-search"] = db_search
+                    if db_search == 0 and difference_db_search:
+                        missing_in_db, missing_in_search, pids_search_double, index = self.get_search_db_missing_pids(
                             doc_type=doc_type, with_deleted=with_deleted
                         )
                         if index:
                             if missing_in_db:
                                 info[doc_type]["db-"] = list(missing_in_db)
-                            if missing_in_es:
-                                info[doc_type]["es-"] = list(missing_in_es)
+                            if missing_in_search:
+                                info[doc_type]["search-"] = list(missing_in_search)
                 else:
                     info[doc_type]["db"] = 0
-                    info[doc_type]["db-es"] = 0
+                    info[doc_type]["db-search"] = 0
         return info
 
-    def check(self, with_deleted=False, difference_db_es=False):
-        """Compare elasticsearch with database counts.
+    def check(self, with_deleted=False, difference_db_search=False):
+        """Compare search index with database counts.
 
         :param with_deleted: count also deleted items in database.
         :return: dictionary with all document types with a difference in
-        database and elasticsearch counts.
+        database and search index counts.
         """
         checks = {}
-        for info, data in self.info(with_deleted=with_deleted, difference_db_es=difference_db_es).items():
-            db_es = data.get("db-es", "")
-            if db_es and db_es not in [0, ""]:
+        for info, data in self.info(with_deleted=with_deleted, difference_db_search=difference_db_search).items():
+            db_search = data.get("db-search", "")
+            if db_search and db_search not in [0, ""]:
                 checks.setdefault(info, {})
-                checks[info]["db_es"] = db_es
+                checks[info]["db_search"] = db_search
             if data.get("db-"):
                 checks.setdefault(info, {})
                 checks[info]["db-"] = len(data.get("db-"))
-            if data.get("es-"):
+            if data.get("search-"):
                 checks.setdefault(info, {})
-                checks[info]["es-"] = len(data.get("es-"))
+                checks[info]["search-"] = len(data.get("search-"))
         return checks
 
     def missing(self, doc_type, with_deleted=False):
         """Get missing pids.
 
-        Get missing pids in database and elasticsearch and find duplicate
-        pids in elasticsearch.
+        Get missing pids in database and search index and find duplicate
+        pids in search index.
 
         :param doc_type: doc type to get missing pids.
         :return: dictionary with all missing pids.
         """
-        missing_in_db, missing_in_es, pids_es_double, index = self.get_es_db_missing_pids(
+        missing_in_db, missing_in_search, pids_search_double, index = self.get_search_db_missing_pids(
             doc_type=doc_type, with_deleted=with_deleted
         )
         if index:
             return {
                 "DB": list(missing_in_db),
-                "ES": list(missing_in_es),
-                "ES duplicate": pids_es_double,
+                "search": list(missing_in_search),
+                "search duplicate": pids_search_double,
             }
         return {"ERROR": f"Document type not found: {doc_type}"}
 
@@ -281,12 +281,12 @@ class Monitoring:
         if "ERROR" in missing:
             click.secho(f"Error: {missing['ERROR']}", fg="yellow")
         else:
-            if missing.get("ES duplicate"):
+            if missing.get("search duplicate"):
                 click.secho(
-                    f"ES duplicate {doc_type}: {', '.join(missing['ES duplicate'])}",
+                    f"SEARCH duplicate {doc_type}: {', '.join(missing['search duplicate'])}",
                     fg="red",
                 )
-            if missing.get("ES"):
-                click.secho(f"ES missing {doc_type}: {', '.join(missing['ES'])}", fg="red")
+            if missing.get("search"):
+                click.secho(f"SEARCH missing {doc_type}: {', '.join(missing['search'])}", fg="red")
             if missing.get("DB"):
                 click.secho(f"DB missing {doc_type}: {', '.join(missing['DB'])}", fg="red")

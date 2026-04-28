@@ -24,7 +24,7 @@ from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, AcqReceipt
 from tests.utils import get_mapping
 
 
-def test_acq_receipts_es_mapping(
+def test_acq_receipts_search_mapping(
     search,
     db,
     lib_martigny,
@@ -34,7 +34,7 @@ def test_acq_receipts_es_mapping(
     acq_account_fiction_martigny,
     acq_receipt_fiction_martigny_data,
 ):
-    """Test acquisition receipts elasticsearch mapping."""
+    """Test acquisition receipts search index mapping."""
     search = AcqReceiptsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

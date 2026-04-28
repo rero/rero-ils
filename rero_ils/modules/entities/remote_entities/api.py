@@ -86,11 +86,14 @@ class RemoteEntity(Entity):
         if ref_type == "mef":
             return cls.get_record_by_pid(ref_pid)
 
-        es_filter = Q("term", **{f"{ref_type}.pid": ref_pid})
+        search_filter = Q("term", **{f"{ref_type}.pid": ref_pid})
         if ref_type == "viaf":
-            es_filter = Q("term", viaf_pid=ref_pid)
+            search_filter = Q("term", viaf_pid=ref_pid)
         query = (
-            RemoteEntitiesSearch().params(preserve_order=True).sort({"_updated": {"order": "desc"}}).filter(es_filter)
+            RemoteEntitiesSearch()
+            .params(preserve_order=True)
+            .sort({"_updated": {"order": "desc"}})
+            .filter(search_filter)
         )
         with contextlib.suppress(StopIteration):
             pid = next(query.source("pid").scan()).pid

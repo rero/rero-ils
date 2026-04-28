@@ -84,7 +84,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         template,
         pid=pid,
         record=record,
-        es_record=record.dumps(document_indexer_dumper),
+        search_record=record.dumps(document_indexer_dumper),
         holdings_count=holdings_count,
         viewcode=viewcode,
         recordType="documents",

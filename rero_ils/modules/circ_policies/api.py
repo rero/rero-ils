@@ -462,7 +462,7 @@ class CircPolicy(IlsRecord):
 
 
 class CircPoliciesIndexer(IlsRecordsIndexer):
-    """Indexing documents in Elasticsearch."""
+    """Indexing documents in search index."""
 
     record_cls = CircPolicy
 

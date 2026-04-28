@@ -21,13 +21,13 @@ from rero_ils.modules.items.api import Item, ItemsSearch
 from tests.utils import get_mapping
 
 
-def test_item_es_mapping(
+def test_item_search_mapping(
     document,
     loc_public_martigny,
     item_type_standard_martigny,
     item_lib_martigny_data_tmp,
 ):
-    """Test item elasticsearch mapping."""
+    """Test item search index mapping."""
     search = ItemsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -41,7 +41,7 @@ def test_item_sort_call_number(
     item_type_standard_martigny,
     item_lib_martigny_data_tmp,
 ):
-    """Test sort_call_number is correctly populated in the ES index.
+    """Test sort_call_number is correctly populated in the search index.
 
     For a regular item, sort_call_number must equal the item's own call_number.
     For a regular item with no call_number, sort_call_number must be absent/None.

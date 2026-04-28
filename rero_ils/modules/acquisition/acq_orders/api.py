@@ -169,7 +169,7 @@ class AcqOrder(AcquisitionIlsRecord):
         results = search.execute()
         statuses = [hit.key for hit in results.aggregations.status.buckets]
 
-        # If the ES query return multiple values, then we can remove
+        # If the search query return multiple values, then we can remove
         # 'CANCELLED' status to compute the correct order status value.
         if len(statuses) > 1 and AcqOrderLineStatus.CANCELLED in statuses:
             statuses.remove(AcqOrderLineStatus.CANCELLED)
@@ -482,7 +482,7 @@ class AcqOrder(AcquisitionIlsRecord):
 
 
 class AcqOrdersIndexer(IlsRecordsIndexer):
-    """Indexing documents in Elasticsearch."""
+    """Indexing documents in search index."""
 
     record_cls = AcqOrder
 
@@ -496,10 +496,10 @@ class AcqOrdersIndexer(IlsRecordsIndexer):
     def delete(self, record):
         """Delete a record from indexer.
 
-        First delete order lines from the ES index, then delete the order.
+        First delete order lines from the search index, then delete the order.
         """
-        es_query = AcqOrderLinesSearch().filter("term", acq_order__pid=record.pid)
-        if es_query.count():
-            es_query.delete()
+        search_query = AcqOrderLinesSearch().filter("term", acq_order__pid=record.pid)
+        if search_query.count():
+            search_query.delete()
             AcqOrderLinesSearch.flush_and_refresh()
         super().delete(record)

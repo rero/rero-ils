@@ -45,7 +45,7 @@ class PatronTransactionEventCSVSerializer(CSVSerializer, CachedDataSerializerMix
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
-        :param search_result: Elasticsearch search result.
+        :param search_result: search index search result.
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """
@@ -175,7 +175,7 @@ def _extract_operator_data(record):
 def _extract_patron_type_data(record):
     """Extract data from patron type to include into the csv export file.
 
-    :param record: a dictionary with indexed ES data about the patron type.
+    :param record: a dictionary with indexed search data about the patron type.
     :returns a dictionary containing desired patron type data.
     """
     return {"patron_type": record.get("name")}

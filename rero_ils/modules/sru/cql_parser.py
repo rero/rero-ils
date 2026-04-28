@@ -20,7 +20,7 @@
 """CQL (Contextual Query Language) Parser for SRU.
 
 This module provides a CQL 1.2 parser that translates CQL queries into
-Elasticsearch query strings. It supports the standard CQL features including
+search index query strings. It supports the standard CQL features including
 boolean operators, relation modifiers, sort specifications, and prefix
 declarations.
 
@@ -35,15 +35,15 @@ Features:
     - Relations: =, <, >, <=, >=, <>, all, any
     - Sort specifications with ascending/descending modifiers
     - Relation modifiers: /relevant, /exact, /word, /ignoreCase
-    - Dublin Core index mappings to Elasticsearch fields
+    - Dublin Core index mappings to search index fields
     - Prefix declarations for custom context sets
 
 Example::
 
     from rero_ils.modules.sru.cql_parser import parse
     query = parse('dc.title all "python programming" sortBy dc.date/descending')
-    es_query = query.to_es()
-    sort_keys = query.get_es_sort()
+    search_query = query.to_search()
+    sort_keys = query.get_search_sort()
 
 See Also:
     - CQL Specification: http://www.loc.gov/standards/sru/cql/
@@ -81,10 +81,10 @@ ERROR_ON_DUPLICATE_PREFIX = False  # >a=b >a=c ''
 FULL_RESULT_SET_NAME_CHECK = True  # cql.rsn=a and cql.rsn=a    (mutant!)
 
 
-#: CQL sort modifier to Elasticsearch sort order mapping.
-#: Maps CQL sort modifiers (e.g., /ascending, /descending) to ES sort orders.
+#: CQL sort modifier to search index sort order mapping.
+#: Maps CQL sort modifiers (e.g., /ascending, /descending) to search sort orders.
 #: Supports both short form (/ascending) and prefixed form (/sort.ascending).
-ES_SORT_MODIFIERS = {
+SEARCH_SORT_MODIFIERS = {
     "ascending": "asc",
     "descending": "desc",
     "sort.ascending": "asc",
@@ -97,11 +97,11 @@ ES_SORT_MODIFIERS = {
     "sort.missingomit": "missingomit",
 }
 
-#: CQL sort index to Elasticsearch sortable field mapping.
-#: Maps Dublin Core and custom indexes to ES fields suitable for sorting.
+#: CQL sort index to search index sortable field mapping.
+#: Maps Dublin Core and custom indexes to search fields suitable for sorting.
 #: These fields should be keyword type or have doc_values enabled for
 #: efficient sorting. Use '_relevance' to sort by search score.
-ES_SORT_INDEX_MAPPINGS = {
+SEARCH_SORT_INDEX_MAPPINGS = {
     "dc.title": "sort_title",
     "dc.date": "provisionActivity.startDate",
     "dc.creator": "facet_contribution_en",
@@ -116,12 +116,12 @@ ES_SORT_INDEX_MAPPINGS = {
 
 #: Supported CQL relation modifiers that are processed without error.
 #: These modifiers are acknowledged by the parser. Most map to default
-#: Elasticsearch behavior (relevance scoring, word matching, case insensitivity).
+#: search index behavior (relevance scoring, word matching, case insensitivity).
 #:
-#: - ``relevant``: Use relevance scoring (default ES behavior)
+#: - ``relevant``: Use relevance scoring (default search behavior)
 #: - ``exact``: Exact match semantics
-#: - ``word``: Word-based matching (default ES behavior)
-#: - ``ignorecase``: Case-insensitive matching (default ES behavior)
+#: - ``word``: Word-based matching (default search behavior)
+#: - ``ignorecase``: Case-insensitive matching (default search behavior)
 #: - ``string``: Treat search term as a string literal
 SUPPORTED_RELATION_MODIFIERS = {
     "relevant": "relevant",
@@ -143,8 +143,8 @@ UNSUPPORTED_RELATION_MODIFIERS = {
     "isodate": "ISO date parsing not supported",
 }
 
-#: Dublin Core index to Elasticsearch query mapping.
-#: Maps standard Dublin Core elements and CQL indexes to Elasticsearch
+#: Dublin Core index to search index query mapping.
+#: Maps standard Dublin Core elements and CQL indexes to search index
 #: query expressions. Complex mappings may include boolean operators
 #: and field constraints (e.g., filtering by contribution role).
 #:
@@ -153,7 +153,7 @@ UNSUPPORTED_RELATION_MODIFIERS = {
 #: rights, source, subject.
 #:
 #: Custom extensions: organisation, library, location, subtype.
-ES_INDEX_MAPPINGS = {
+SEARCH_INDEX_MAPPINGS = {
     "cql.anywhere": SERVER_CHOICE_INDEX,
     "dc.anywhere": SERVER_CHOICE_INDEX,
     "dc.contributor": "contribution.role:("
@@ -211,10 +211,10 @@ ES_INDEX_MAPPINGS = {
 # End of 'configurable' stuff
 
 
-def _convert_sort_keys_to_es(sort_keys, query=""):
-    """Convert CQL sort keys to Elasticsearch sort format.
+def _convert_sort_keys_to_search(sort_keys, query=""):
+    """Convert CQL sort keys to search index sort format.
 
-    Transforms a list of CQL sort key Index objects into Elasticsearch
+    Transforms a list of CQL sort key Index objects into search index
     sort specifications. Handles sort direction modifiers (/ascending,
     /descending) and missing value handling (/missingLow, /missingHigh).
 
@@ -225,7 +225,7 @@ def _convert_sort_keys_to_es(sort_keys, query=""):
             raised for unsupported modifiers.
 
     Returns:
-        list: Elasticsearch sort specifications. Each item is a dict like::
+        list: search index sort specifications. Each item is a dict like::
 
             {"field_name": {"order": "asc", "missing": "_last"}}
 
@@ -236,23 +236,23 @@ def _convert_sort_keys_to_es(sort_keys, query=""):
     Example::
 
         # For query: sortBy dc.title/descending dc.date/ascending
-        sort_specs = _convert_sort_keys_to_es(query.sort_keys)
+        sort_specs = _convert_sort_keys_to_search(query.sort_keys)
         # Returns: [{"title._text.raw": {"order": "desc", ...}}, ...]
     """
     valid_sort_modifiers = {"ascending", "descending", "missinglow", "missinghigh", "missingomit"}
-    es_sort = []
+    search_sort = []
     for sort_key in sort_keys:
         # Get the index name
         index_name = str(sort_key).lower()
 
-        # Map to ES sortable field
-        es_field = ES_SORT_INDEX_MAPPINGS.get(index_name)
-        if not es_field:
+        # Map to search sortable field
+        search_field = SEARCH_SORT_INDEX_MAPPINGS.get(index_name)
+        if not search_field:
             # Try without prefix
-            es_field = ES_SORT_INDEX_MAPPINGS.get(f"dc.{sort_key.value}")
-        if not es_field:
-            # Use the field as-is (might be a direct ES field name)
-            es_field = index_name
+            search_field = SEARCH_SORT_INDEX_MAPPINGS.get(f"dc.{sort_key.value}")
+        if not search_field:
+            # Use the field as-is (might be a direct search field name)
+            search_field = index_name
 
         # Default sort order is ascending
         order = "asc"
@@ -285,18 +285,18 @@ def _convert_sort_keys_to_es(sort_keys, query=""):
         elif missing_pref == "missinghigh":
             missing = "_last" if order == "asc" else "_first"
         elif missing_pref == "missingomit":
-            # NOTE: ES doesn't support omitting docs with missing values in sort.
+            # NOTE: search doesn't support omitting docs with missing values in sort.
             # Documents with missing values will be placed last instead.
             missing = "_last"
 
         # Build the sort specification
-        if es_field == "_score":
+        if search_field == "_score":
             # Relevance sorting
-            es_sort.append({"_score": {"order": order}})
+            search_sort.append({"_score": {"order": order}})
         else:
-            es_sort.append({es_field: {"order": order, "missing": missing}})
+            search_sort.append({search_field: {"order": order, "missing": missing}})
 
-    return es_sort
+    return search_sort
 
 
 class Diagnostic(Exception):
@@ -512,9 +512,9 @@ class Triple(PrefixableObject):
     boolean = None
     sort_keys = []
 
-    def to_es(self):
-        """Create the ES representation of the object."""
-        boolean = self.boolean.to_es()
+    def to_search(self):
+        """Create the search representation of the object."""
+        boolean = self.boolean.to_search()
         if boolean == "prox":
             diag = Diagnostic()
             diag.code = 37
@@ -522,25 +522,25 @@ class Triple(PrefixableObject):
             diag.details = "prox"
             diag.query = self.query
             raise diag
-        txt = [self.left_operand.to_es()]
+        txt = [self.left_operand.to_search()]
         if boolean == "not":
             txt.append("AND")
         else:
             txt.append(boolean.upper())
-        txt.append(self.right_operand.to_es())
-        # Sort keys are handled separately via get_es_sort()
+        txt.append(self.right_operand.to_search())
+        # Sort keys are handled separately via get_search_sort()
         pre = "NOT" if boolean == "not" else ""
         return f"{pre}({' '.join(txt)})"
 
-    def get_es_sort(self):
-        """Extract sort keys in Elasticsearch format.
+    def get_search_sort(self):
+        """Extract sort keys in search index format.
 
-        Returns a list of sort specifications for Elasticsearch.
+        Returns a list of sort specifications for search index.
         Each item is either a string (field name) or a dict with options.
         """
         if not self.sort_keys:
             return []
-        return _convert_sort_keys_to_es(self.sort_keys, query=self.query)
+        return _convert_sort_keys_to_search(self.sort_keys, query=self.query)
 
     def get_result_set_id(self, top=None):
         """Get result set id."""
@@ -587,40 +587,40 @@ class SearchClause(PrefixableObject):
         rel.parent = self
         term.parent = self
 
-    def to_es(self):
-        """Create the ES representation of the object."""
+    def to_search(self):
+        """Create the search representation of the object."""
 
         def index_term(index, relation, term):
             """Clean term."""
             from .explaine import Explain
 
             # try to map dc mappings
-            index = ES_INDEX_MAPPINGS.get(index.lower(), index)
-            # try to map es mappings
-            index = Explain("tmp").es_mappings.get(index, index)
+            index = SEARCH_INDEX_MAPPINGS.get(index.lower(), index)
+            # try to map search mappings
+            index = Explain("tmp").search_mappings.get(index, index)
             if relation in ["=", "all", "any"]:
                 relation = ""
             if str(index) == SERVER_CHOICE_INDEX:
                 return f"{relation}{term}"
             # Handle multi-field OR expression: "(field1 OR field2)" + term
-            # ES query string does not support "(f1 OR f2):value"; expand each field.
+            # search query string does not support "(f1 OR f2):value"; expand each field.
             if index.startswith("(") and index.endswith(")"):
                 fields = [f.strip() for f in index[1:-1].split(" OR ")]
                 return f"({' OR '.join(f'{f}:{relation}{term}' for f in fields)})"
             return f"{index}:{relation}{term}"
 
-        index = self.index.to_es()
-        relation = self.relation.to_es()
+        index = self.index.to_search()
+        relation = self.relation.to_search()
         if relation == "<>":
-            es_term = self.term.to_es()
-            if not (es_term.startswith('"') and es_term.endswith('"')):
-                es_term = f'"{es_term}"'
-            text = index_term(index, "-", es_term)
+            search_term = self.term.to_search()
+            if not (search_term.startswith('"') and search_term.endswith('"')):
+                search_term = f'"{search_term}"'
+            text = index_term(index, "-", search_term)
         elif relation in ORDER:
-            text = index_term(index, relation, self.term.to_es())
+            text = index_term(index, relation, self.term.to_search())
         else:
             texts = []
-            for term in self.term.to_es().split(" "):
+            for term in self.term.to_search().split(" "):
                 texts.append(index_term(index, relation, term))
             if texts:
                 texts[0] = texts[0].replace('"', "")
@@ -636,18 +636,18 @@ class SearchClause(PrefixableObject):
                 diag.details = relation
                 diag.query = self.query
                 raise diag
-        # Sort keys are handled separately via get_es_sort()
+        # Sort keys are handled separately via get_search_sort()
         return text
 
-    def get_es_sort(self):
-        """Extract sort keys in Elasticsearch format.
+    def get_search_sort(self):
+        """Extract sort keys in search index format.
 
-        Returns a list of sort specifications for Elasticsearch.
+        Returns a list of sort specifications for search index.
         Each item is either a string (field name) or a dict with options.
         """
         if not self.sort_keys:
             return []
-        return _convert_sort_keys_to_es(self.sort_keys, query=self.query)
+        return _convert_sort_keys_to_search(self.sort_keys, query=self.query)
 
     def get_result_set_id(self, top=None):
         """Get result set id."""
@@ -672,8 +672,8 @@ class Index(PrefixedObject, ModifiableObject):
             diag.query = self.query
             raise diag
 
-    def to_es(self):
-        """Create the ES representation of the object."""
+    def to_search(self):
+        """Create the search representation of the object."""
         if self.modifiers:
             # Index modifiers are typically used for sorting (handled separately)
             # Check for any unsupported modifiers
@@ -682,8 +682,8 @@ class Index(PrefixedObject, ModifiableObject):
                 mod_type = str(modifier.type).lower()
                 if "." in mod_type:
                     mod_type = mod_type.split(".")[-1]
-                # Sort modifiers are handled by get_es_sort()
-                if mod_type not in ES_SORT_MODIFIERS and mod_type not in SUPPORTED_RELATION_MODIFIERS:
+                # Sort modifiers are handled by get_search_sort()
+                if mod_type not in SEARCH_SORT_MODIFIERS and mod_type not in SUPPORTED_RELATION_MODIFIERS:
                     if mod_type in UNSUPPORTED_RELATION_MODIFIERS:
                         unsupported.append(f"{mod_type} ({UNSUPPORTED_RELATION_MODIFIERS[mod_type]})")
                     else:
@@ -709,8 +709,8 @@ class Relation(PrefixedObject, ModifiableObject):
         for mod in mods:
             mod.parent = self
 
-    def to_es(self):
-        """Create the ES representation of the object."""
+    def to_search(self):
+        """Create the search representation of the object."""
         if self.modifiers:
             # Check if all modifiers are supported
             unsupported = []
@@ -731,8 +731,8 @@ class Relation(PrefixedObject, ModifiableObject):
                 diag.details = ", ".join(unsupported)
                 diag.query = self.query
                 raise diag
-            # Supported modifiers are acknowledged but don't change ES query
-            # (ES handles relevance, word matching, case insensitivity by default)
+            # Supported modifiers are acknowledged but don't change search query
+            # (search handles relevance, word matching, case insensitivity by default)
         return self.value
 
 
@@ -793,8 +793,8 @@ class Term:
         """String representation of the object."""
         return f"{self.value}"
 
-    def to_es(self):
-        """Create the ES representation of the object."""
+    def to_search(self):
+        """Create the search representation of the object."""
         return self.value
 
 
@@ -811,8 +811,8 @@ class Boolean(ModifiableObject):
         self.parent = None
         self.query = query
 
-    def to_es(self):
-        """Create the ES representation of the object."""
+    def to_search(self):
+        """Create the search representation of the object."""
         if self.modifiers:
             diag = Diagnostic()
             diag.code = 21
@@ -856,8 +856,8 @@ class ModifierClause:
             return f"{self.type}{self.comparison}{self.value}"
         return f"{self.type}"
 
-    def to_es(self):
-        """Create the ES representation of the object."""
+    def to_search(self):
+        """Create the search representation of the object."""
         return self
 
     def resolve_prefix(self, name):

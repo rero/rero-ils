@@ -27,7 +27,7 @@ class EntityJSONSerializer(JSONSerializer):
     def _postprocess_search_links(self, search_results, pid_fetcher):
         """Post-process search links.
 
-        :param search_results: Elasticsearch search result.
+        :param search_results: search index search result.
         :param pid_fetcher: Persistent identifier fetcher related to records
                             into the search result.
         """

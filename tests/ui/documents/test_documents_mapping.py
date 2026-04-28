@@ -27,7 +27,7 @@ from tests.utils import get_mapping, mock_response
 
 
 @mock.patch("requests.Session.get")
-def test_document_es_mapping(
+def test_document_mapping(
     mock_contributions_mef_get,
     search,
     db,
@@ -36,7 +36,7 @@ def test_document_es_mapping(
     item_lib_martigny,
     entity_person_response_data,
 ):
-    """Test document elasticsearch mapping."""
+    """Test document search index mapping."""
     search = DocumentsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

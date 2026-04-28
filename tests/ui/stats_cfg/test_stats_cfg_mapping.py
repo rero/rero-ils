@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Statistics Configuration elasticsearch mapping tests."""
+"""Statistics Configuration search index mapping tests."""
 
 from invenio_accounts.testutils import login_user_via_session
 
@@ -23,8 +23,8 @@ from rero_ils.modules.stats_cfg.api import StatConfiguration, StatsConfiguration
 from tests.utils import get_mapping
 
 
-def test_stats_cfg_es_mapping(client, stats_cfg_martigny_data, system_librarian_martigny):
-    """Test statistics configuration elasticsearch mapping."""
+def test_stats_cfg_mapping(client, stats_cfg_martigny_data, system_librarian_martigny):
+    """Test statistics configuration search index mapping."""
     search = StatsConfigurationSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -39,7 +39,7 @@ def test_stats_cfg_search_mapping(app, stats_cfg_martigny, stats_cfg_sion):
     """Test statistics configuration search mapping."""
     search = StatsConfigurationSearch()
 
-    es_query = search.source(["pid"]).scan()
-    pids = [hit.pid for hit in es_query]
+    search_query = search.source(["pid"]).scan()
+    pids = [hit.pid for hit in search_query]
     assert len(pids) == 2
     assert "stats_cfg2" in pids

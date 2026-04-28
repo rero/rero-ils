@@ -40,30 +40,30 @@ class NumberOfCirculationCfg(IndicatorCfg):
 
     @property
     def query(self):
-        """Base Elasticsearch Query.
+        """Base search index Query.
 
-        :returns: an elasticsearch query object
+        :returns: a search index query object
         """
-        es_query = (
+        search_query = (
             LoanOperationLogsSearch()[:0]
             .filter("terms", loan__item__library_pid=self.cfg.lib_pids)
             .filter("term", record__type="loan")
             .filter("term", loan__trigger=self.trigger)
         )
         if period := self.cfg.period:
-            es_query = es_query.filter("range", date=self.cfg.get_range_period(period))
+            search_query = search_query.filter("range", date=self.cfg.get_range_period(period))
         if lib_pids := self.cfg.filter_by_libraries:
             loc_pids = [
                 hit.pid for hit in LocationsSearch().filter("terms", library__pid=lib_pids).source("pid").scan()
             ]
-            es_query = es_query.filter("terms", loan__transaction_location__pid=loc_pids)
-        return es_query
+            search_query = search_query.filter("terms", loan__transaction_location__pid=loc_pids)
+        return search_query
 
     def aggregation(self, distribution):
-        """Elasticsearch Aggregation configuration to compute distributions.
+        """Search index Aggregation configuration to compute distributions.
 
         :param distrubtion: str - report distrubtion name
-        :returns: an elasticsearch aggregation object
+        :returns: a search index aggregation object
         """
         cfg = {
             "transaction_location": A("terms", field="loan.transaction_location.pid", size=self.cfg.aggs_size),
@@ -93,7 +93,7 @@ class NumberOfCirculationCfg(IndicatorCfg):
         """Column/Raw label transformations.
 
         :param distrubtion: str - the report distrubtion name
-        :param bucket: the elasticsearch aggregation bucket
+        :param bucket: the search index aggregation bucket
         :returns: the label
         :rtype: str
         """

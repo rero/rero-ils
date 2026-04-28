@@ -417,7 +417,7 @@ def operation_logs_search_factory(self, search, query_parser=None):
 
 
 def search_factory(self, search, query_parser=None):
-    """Parse query using elasticsearch DSL query.
+    """Parse query using search index DSL query.
 
     Terms defined by: RERO_ILS_QUERY_BOOSTING will be boosted
     at the query level.
@@ -431,7 +431,7 @@ def search_factory(self, search, query_parser=None):
     def _default_parser(qstr=None, query_boosting=None):
         """Default parser that uses the Q() from elasticsearch_dsl."""
         query_type = "query_string"
-        # avoid elasticsearch errors when it can't convert a boolean or
+        # avoid search index errors when it can't convert a boolean or
         # numerical values during the query
         lenient = True
         default_operator = "OR"

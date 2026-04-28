@@ -314,8 +314,8 @@ def extracted_data_from_ref(input, data="pid"):
             return record_class.get_record_by_pid(pid)
         return None
 
-    def get_data_from_es():
-        """Try to load a resource from elasticsearch."""
+    def get_data_from_search():
+        """Try to load a resource from search index."""
         pid = extracted_data_from_ref(input, data="pid")
         resource_list = extracted_data_from_ref(input, data="resource")
         if resource_list is None:
@@ -331,7 +331,7 @@ def extracted_data_from_ref(input, data="pid"):
     if isinstance(input, str):
         input = {"$ref": input}
     switcher = {
-        "es_record": get_data_from_es,
+        "search_record": get_data_from_search,
         "pid": lambda: extract_part(input.get("$ref"), -1),
         "resource": lambda: extract_part(input.get("$ref"), -2),
         "acronym": get_acronym,
@@ -1046,7 +1046,7 @@ def remove_user_name(sender, user):
 
 
 def sorted_pids(query):
-    """Get sorted pids from a ES query."""
+    """Get sorted pids from a search query."""
     pids = [hit.pid for hit in query.source("pid").scan()]
     try:
         return sorted(pids, key=int)

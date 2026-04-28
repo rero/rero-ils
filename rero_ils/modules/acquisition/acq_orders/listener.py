@@ -43,7 +43,7 @@ def enrich_acq_order_data(
     if index.split("-")[0] != AcqOrdersSearch.Meta.index:
         return
     # NOTES PERFORMING ----------------------------------------------------
-    #   We include notes from multiple sources into the AcqOrder ES index
+    #   We include notes from multiple sources into the AcqOrder search index
     #   to allow search on each terms of any notes related to this parent
     #   resource :
     #     - AcqOrder self notes.

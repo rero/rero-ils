@@ -84,7 +84,7 @@ class OperationLog(RecordBase):
 
     @classmethod
     def create(cls, data, id_=None, index_refresh="false", **kwargs):
-        """Create a new record instance and store it in elasticsearch.
+        """Create a new record instance and store it in search index.
 
         :param data: Dict with the record metadata.
         :param id_: Specify a UUID to use for the new record, instead of
@@ -163,7 +163,7 @@ class OperationLog(RecordBase):
             actions.append(action)
         n_succeed, errors = bulk(current_search_client, actions)
         if n_succeed != len(data):
-            raise Exception(f"Elasticsearch Indexing Errors: {errors}")
+            raise Exception(f"search indexing Errors: {errors}")
 
     @classmethod
     def get_record(cls, _id):
@@ -173,17 +173,17 @@ class OperationLog(RecordBase):
         :param id_: record ID.
         :returns: The :class:`Record` instance.
         """
-        # here the elasticsearch get API cannot be used with an index alias
+        # here the search index get API cannot be used with an index alias
         return cls(next(RecordsSearch(index=cls.index_name).filter("term", _id=_id).scan()).to_dict())
 
     @classmethod
     def get_indices(cls):
-        """Get all index names present in the elasticsearch server."""
+        """Get all index names present in the search index server."""
         return {v["index"] for v in current_search_client.cat.indices(index=f"{cls.index_name}*", format="json")}
 
     @classmethod
     def delete_indices(cls):
-        """Remove all index names present in the elasticsearch server."""
+        """Remove all index names present in the search index server."""
         current_search_client.indices.delete(f"{cls.index_name}*")
         return True
 
@@ -191,7 +191,7 @@ class OperationLog(RecordBase):
     def update(cls, _id, date, data):
         """Update all data for a record.
 
-        :param str _id: Elasticsearch document ID.
+        :param str _id: search index document ID.
         :param str date: Log date, useful for getting the right index.
         :param dict data: New record data.
         """

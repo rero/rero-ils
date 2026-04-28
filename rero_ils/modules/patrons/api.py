@@ -640,7 +640,7 @@ class Patron(IlsRecord):
         """
 
         def basic_query(channel):
-            """Return basic ES query."""
+            """Return basic search query."""
             return (
                 PatronsSearch()
                 .filter("term", user_id=user.id)

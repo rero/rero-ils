@@ -75,9 +75,9 @@ def test_late_expected(holding_lib_martigny_w_patterns, holding_lib_sion_w_patte
     issue = late_issues[0]
     assert issue.issue_status == ItemIssueStatus.LATE
     original_expected_date = issue.expected_date
-    es_issue = ItemsSearch().get_record_by_pid(issue.pid)
+    search_issue = ItemsSearch().get_record_by_pid(issue.pid)
     assert not issue.sort_date
-    assert es_issue["issue"]["sort_key"] == original_expected_date
+    assert search_issue["issue"]["sort_key"] == original_expected_date
 
     issue.expected_date = tomorrow.strftime("%Y-%m-%d")
     issue = issue.update(issue, dbcommit=True, reindex=True)

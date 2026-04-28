@@ -70,20 +70,20 @@ def test_location_restrict_pickup(
 
     # STEP 2 :: Define that loc_m2 isn't yet a pickup location
     #   The `loc_m1` must now only contain `loc_sax` as restriction for
-    #   pickup location. ES index should also reflect this change.
+    #   pickup location. search index should also reflect this change.
     del loc_m2["is_pickup"]
     loc_m2 = loc_m2.update(loc_m2, dbcommit=True, reindex=True)
     loc_m1 = Location.get_record(loc_m1.id)
     assert loc_m1.restrict_pickup_to == [loc_sax.pid]
     LocationsSearch.flush_and_refresh()
-    es_restrictions = [
+    search_restrictions = [
         restriction_loc.pid for restriction_loc in LocationsSearch().get_record_by_pid(loc_m1.pid).restrict_pickup_to
     ]
-    assert es_restrictions == [loc_sax.pid]
+    assert search_restrictions == [loc_sax.pid]
 
     # STEP 3 :: Define that loc_sax isn't yet a pickup location
     #   The `loc_m1` must not contain any restriction for pickup location.
-    #   ES index should reflect this change`
+    #   search index should reflect this change`
     del loc_sax["is_pickup"]
     loc_sax = loc_sax.update(loc_sax, dbcommit=True, reindex=True)
     assert "pickup_name" not in loc_sax

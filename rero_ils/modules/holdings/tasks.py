@@ -27,9 +27,9 @@ from .api import Holding, HoldingsIndexer, HoldingsSearch
 @shared_task(ignore_result=True)
 def delete_standard_holdings_having_no_items():
     """Removes standard holdings records with no attached items."""
-    es_query = HoldingsSearch().filter("term", holdings_type="standard").filter("term", items_count=0).source("pid")
+    search_query = HoldingsSearch().filter("term", holdings_type="standard").filter("term", items_count=0).source("pid")
 
-    search_results = list(es_query.scan())
+    search_results = list(search_query.scan())
     count = len(search_results)
     deleted = 0
     errors = 0

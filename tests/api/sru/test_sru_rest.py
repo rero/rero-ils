@@ -43,7 +43,7 @@ def test_sru_documents(client, document_ref, entity_person_data):
         "zs:version": "1.1",
         "zs:maximumRecords": "100",
         "zs:query": "al-Wajīz",
-        "zs:query_es": "al-Wajīz",
+        "zs:search_query": "al-Wajīz",
         "zs:recordPacking": "XML",
         "zs:recordSchema": "info:sru/schema/1/marcxml-v1.1-light",
         "zs:resultSetTTL": "0",
@@ -67,7 +67,7 @@ def test_sru_documents_items(client, document_sion_items):
     assert "zs:searchRetrieveResponse" in xml_dict
     ech_srr = xml_dict["zs:searchRetrieveResponse"]["zs:echoedSearchRetrieveRequest"]
     assert ech_srr["zs:query"] == '"La reine Berthe et son fils"'
-    assert ech_srr["zs:query_es"] == '"La reine Berthe et son fils"'
+    assert ech_srr["zs:search_query"] == '"La reine Berthe et son fils"'
 
     api_url = url_for(
         "api_sru.documents",
@@ -82,7 +82,7 @@ def test_sru_documents_items(client, document_sion_items):
     assert "zs:searchRetrieveResponse" in xml_dict
     ech_srr = xml_dict["zs:searchRetrieveResponse"]["zs:echoedSearchRetrieveRequest"]
     assert ech_srr["zs:query"] == '"La reine Berthe et son fils"'
-    assert ech_srr["zs:query_es"] == '"La reine Berthe et son fils"'
+    assert ech_srr["zs:search_query"] == '"La reine Berthe et son fils"'
 
     api_url = url_for(
         "api_sru.documents",
@@ -97,7 +97,7 @@ def test_sru_documents_items(client, document_sion_items):
     assert "searchRetrieveResponse" in xml_dict
     ech_srr = xml_dict["searchRetrieveResponse"]["echoedSearchRetrieveRequest"]
     assert ech_srr["query"] == 'dc.title="La reine Berthe et son fils"'
-    assert ech_srr["query_es"] == 'title.\\*:"La reine Berthe et son fils"'
+    assert ech_srr["search_query"] == 'title.\\*:"La reine Berthe et son fils"'
 
 
 def test_sru_excludes_masked_and_draft(client, document_ref):
@@ -160,8 +160,8 @@ def test_sru_explain_conditional_get(client):
     assert res.headers.get("ETag") == etag
 
 
-def test_sru_es_backend_error(client):
-    """Test SRU returns a diagnostic on non-recoverable ES backend error."""
+def test_sru_search_backend_error(client):
+    """Test SRU returns a diagnostic on non-recoverable search backend error."""
     from unittest.mock import patch
 
     from elasticsearch.exceptions import RequestError as ESRequestError
@@ -179,8 +179,8 @@ def test_sru_es_backend_error(client):
     assert diag["diag:message"] == "System temporarily unavailable"
 
 
-def test_sru_es_window_overflow(client):
-    """Test SRU returns zero results when ES result window is exceeded."""
+def test_sru_search_window_overflow(client):
+    """Test SRU returns zero results when search result window is exceeded."""
     from unittest.mock import patch
 
     from elasticsearch.exceptions import RequestError as ESRequestError

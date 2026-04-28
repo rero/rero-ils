@@ -238,7 +238,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
     def status(self):
         """Calculate the order line status.
 
-        The status of the order line is saved only in the elasticsearch index
+        The status of the order line is saved only in the search index
         and it is calculated based on the following roles:
         * at the creation, the order line receives the `APPROVED` status
         * if field `is_cancelled` is checked, it receives the `CANCELLED`status
@@ -251,7 +251,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         status = AcqOrderLineStatus.ORDERED if self.order.get("order_date") else AcqOrderLineStatus.APPROVED
 
         received_quantity = self.received_quantity
-        # not use the property to prevent an extra ES call
+        # not use the property to prevent an extra search call
         unreceived_quantity = self.quantity - received_quantity
         if unreceived_quantity == 0:  # fully received
             status = AcqOrderLineStatus.RECEIVED
@@ -312,7 +312,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
 
 
 class AcqOrderLinesIndexer(IlsRecordsIndexer):
-    """Indexing AcqOrderLine in Elasticsearch."""
+    """Indexing AcqOrderLine in search index."""
 
     record_cls = AcqOrderLine
 

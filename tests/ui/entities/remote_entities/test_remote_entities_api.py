@@ -425,7 +425,7 @@ def test_entity_get_record_by_ref(mef_agents_url, entity_person, entity_person_d
     dummy_ref = f"{mef_agents_url}/idref/dummy_idref_pid"
     assert RemoteEntity.get_record_by_ref(dummy_ref) == (None, False)
 
-    # Remote entity from ES index
+    # Remote entity from search index
     RemoteEntitiesSearch().filter("term", pid=entity_person.pid).delete()
     RemoteEntitiesSearch.flush_and_refresh()
     ent_ref = f"{mef_agents_url}/idref/{entity_person['idref']['pid']}"

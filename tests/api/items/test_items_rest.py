@@ -1104,7 +1104,7 @@ def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_jso
 
     # STEP 1 :: Sort on 'call_number'
     #   * Ensure sort on `call_number` is possible
-    #   * Ensure `call_number.raw` ES field contains correct value
+    #   * Ensure `call_number.raw` search field contains correct value
     url = url_for("invenio_records_rest.item_list", sort="call_number")
     response = client.get(url, headers=rero_json_header)
     assert response.status_code == 200
@@ -1122,7 +1122,7 @@ def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_jso
 
     # STEP 2 :: Sort on 'second_call_number'
     #   * Ensure sort `second_call_number` is possible
-    #   * Ensure `second_call_number.raw` ES field contains correct value
+    #   * Ensure `second_call_number.raw` search field contains correct value
     url = url_for("invenio_records_rest.item_list", sort="second_call_number")
     response = client.get(url, headers=rero_json_header)
     assert response.status_code == 200

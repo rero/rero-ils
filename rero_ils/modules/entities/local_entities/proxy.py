@@ -54,7 +54,7 @@ class LocalEntityProxy:
         yield from query.execute()
 
     def _create_base_query(self):
-        """Build the base ES query object to search `LocalEntity`.
+        """Build the base search query object to search `LocalEntity`.
 
         Either the search_category is key for a predefined configuration,
         either the search_category will be used as local entity type search

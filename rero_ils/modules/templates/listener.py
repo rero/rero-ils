@@ -38,7 +38,7 @@ def prepare_template_data(
     :param doc_type: The document type of the record.
     """
     if index.split("-")[0] == TemplatesSearch.Meta.index:
-        # remove `data` fields from ES.
+        # remove `data` fields from search.
         #   This metadata isn't required for indexing process and cause some
         #   troubles with $ref resolution
         json.pop("data", None)

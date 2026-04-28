@@ -35,7 +35,7 @@ indexing_chunck_size = 1000
 
 
 def upgrade():
-    """Reindex 'opened' loans to add some keys into ES index."""
+    """Reindex 'opened' loans to add some keys into search index."""
     # Keep only loan without `location_pid` field (these loans are already
     # indexed with correct data)
     query = (

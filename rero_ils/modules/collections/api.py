@@ -129,7 +129,7 @@ class Collection(IlsRecord):
 
 
 class CollectionsIndexer(IlsRecordsIndexer):
-    """Indexing collections in Elasticsearch."""
+    """Indexing collections in search index."""
 
     record_cls = Collection
 

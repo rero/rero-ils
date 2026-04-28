@@ -118,7 +118,7 @@ def get_mef_data_by_type(
         try:
             json_data = request.json()
             if hits := json_data.get("hits", {}):
-                # we got an ES response
+                # we got an search response
                 data = hits.get("hits", [None])[0].get("metadata", {})
             else:
                 # we got an DB response

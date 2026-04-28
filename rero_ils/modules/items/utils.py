@@ -102,7 +102,7 @@ def get_provisional_items_candidate_to_delete():
     """
     from rero_ils.modules.items.api import Item, ItemsSearch
 
-    # query ES index for open fees
+    # query search index for open fees
     query_fees = (
         PatronTransactionsSearch()
         .filter("term", status="open")

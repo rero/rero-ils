@@ -47,7 +47,7 @@ def test_item_stats_endpoint(item_at_desk_martigny_patron_and_loan_at_desk, clie
 
 
 def test_item_dumps(client, item_lib_martigny, org_martigny, librarian_martigny):
-    """Test item dumps and Elasticsearch version."""
+    """Test item dumps and search index version."""
     item_dumps = Item(item_lib_martigny.dumps()).replace_refs()
 
     assert item_dumps.get("organisation").get("pid") == org_martigny.pid
@@ -130,8 +130,8 @@ def test_item_stats(app, client, librarian_martigny, item_lib_martigny):
     # A mock on the answer has been created, because it is not possible
     # to freeze on the date, because the string "now-1y" passed to
     # the configuration of the "year" facet is calculated
-    # on the Elasticsearch instance.
-    es_response = Response(
+    # on the search index instance.
+    search_response = Response(
         OperationLogsSearch(),
         {
             "aggregations": {
@@ -158,7 +158,7 @@ def test_item_stats(app, client, librarian_martigny, item_lib_martigny):
         },
     )
 
-    es_response_checkin = Response(
+    search_response_checkin = Response(
         OperationLogsSearch(),
         {
             "aggregations": {
@@ -176,7 +176,7 @@ def test_item_stats(app, client, librarian_martigny, item_lib_martigny):
     )
 
     login_user_via_session(client, librarian_martigny.user)
-    with mock.patch.object(OperationLogsSearch, "execute", mock.MagicMock(return_value=es_response)):
+    with mock.patch.object(OperationLogsSearch, "execute", mock.MagicMock(return_value=search_response)):
         # We sum the Legacy_count field in the checkout field
         StatsSearch.flush_and_refresh()
         res = client.get(url_for("api_item.stats", item_pid="item1"))
@@ -185,7 +185,7 @@ def test_item_stats(app, client, librarian_martigny, item_lib_martigny):
             "total_year": {"checkout": 1, "extend": 1, "checkin": 1},
         }
 
-    with mock.patch.object(OperationLogsSearch, "execute", mock.MagicMock(return_value=es_response_checkin)):
+    with mock.patch.object(OperationLogsSearch, "execute", mock.MagicMock(return_value=search_response_checkin)):
         # item found
         # We add the legacy_checkout_count field to the checkout field
         StatsSearch.flush_and_refresh()

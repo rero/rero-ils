@@ -89,7 +89,7 @@ class HoldingsSearch(IlsRecordsSearch):
     def available_query(self):
         """Base query for holding availability.
 
-        :returns: a filtered Elasticsearch query.
+        :returns: a filtered search index query.
         """
         # should not masked
         return self.exclude("term", _masked=True)
@@ -378,24 +378,24 @@ class Holding(IlsRecord):
     @classmethod
     def get_holdings_pid_by_document_pid(cls, document_pid, with_masked=True):
         """Returns holding pids attached for a given document pid."""
-        es_query = HoldingsSearch().filter("term", document__pid=document_pid).source(["pid"])
+        search_query = HoldingsSearch().filter("term", document__pid=document_pid).source(["pid"])
         if not with_masked:
-            es_query = es_query.filter("bool", must_not=[Q("term", _masked=True)])
-        for holding in es_query.scan():
+            search_query = search_query.filter("bool", must_not=[Q("term", _masked=True)])
+        for holding in search_query.scan():
             yield holding.pid
 
     @classmethod
     def get_holdings_pid_by_document_pid_by_org(cls, document_pid, org_pid, with_masked=True):
         """Returns holding pids attached for a given document pid."""
-        es_query = (
+        search_query = (
             HoldingsSearch()
             .filter("term", document__pid=document_pid)
             .filter("term", organisation__pid=org_pid)
             .source(["pid"])
         )
         if not with_masked:
-            es_query = es_query.filter("bool", must_not=[Q("term", _masked=True)])
-        for holding in es_query.scan():
+            search_query = search_query.filter("bool", must_not=[Q("term", _masked=True)])
+        for holding in search_query.scan():
             yield holding.pid
 
     def get_items_filter_by_viewcode(self, viewcode):

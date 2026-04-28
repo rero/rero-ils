@@ -24,8 +24,8 @@ from rero_ils.modules.entities.local_entities.api import (
 from tests.utils import get_mapping
 
 
-def test_local_entities_es_mapping(app, local_entity_person2_data):
-    """Test local entity elasticsearch mapping."""
+def test_local_entities_search_mapping(app, local_entity_person2_data):
+    """Test local entity search index mapping."""
     search = LocalEntitiesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

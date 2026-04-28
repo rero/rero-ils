@@ -66,10 +66,10 @@ def thumbnail_covers():
 
 @pytest.fixture(scope="module")
 def search(appctx):
-    """Setup and teardown all registered Elasticsearch indices.
+    """Setup and teardown all registered search index indices.
 
     Scope: module
-    This fixture will create all registered indexes in Elasticsearch and remove
+    This fixture will create all registered indexes in search index and remove
     once done. Fixtures that perform changes (e.g. index or remove documents),
     should used the function-scoped :py:data:`search_clear` fixture to leave the
     indexes clean for the following tests.

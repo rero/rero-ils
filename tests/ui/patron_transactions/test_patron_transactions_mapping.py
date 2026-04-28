@@ -24,8 +24,8 @@ from rero_ils.modules.patron_transactions.api import (
 from tests.utils import get_mapping
 
 
-def test_patron_transaction_es_mapping(search, db, patron_transaction_overdue_martigny):
-    """Test patron_transaction elasticsearch mapping."""
+def test_patron_transaction_search_mapping(search, db, patron_transaction_overdue_martigny):
+    """Test patron_transaction search index mapping."""
     search = PatronTransactionsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

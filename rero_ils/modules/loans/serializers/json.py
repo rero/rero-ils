@@ -135,14 +135,14 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             _enrich_buckets(aggr_loc, LocationsSearch, "name")
 
         # Add configuration for `end_date` and `request_expire_date`
-        #   ES `date_histogram` facet need some configuration settings to
+        #   search `date_histogram` facet need some configuration settings to
         #   display the widget.
         for aggr_name in ["end_date", "request_expire_date"]:
             aggr = aggregations.get(aggr_name, {})
             JSONSerializer.add_date_range_configuration(aggr)
 
         # Miscellaneous status
-        #   The `misc_status` aggregation buckets are based on ES filters
+        #   The `misc_status` aggregation buckets are based on search filters
         #   queries. We need to rebuild this aggregation to display each
         #   filter query hit as a 'classic' term facet hit.
         if misc_aggr := aggregations.get("misc_status", {}).get("buckets"):

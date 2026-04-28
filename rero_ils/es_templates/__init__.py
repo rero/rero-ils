@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Records Templates Elasticsearch."""
+"""Records Templates search index."""
 
 
-def list_es_templates():
-    """Elasticsearch templates path."""
+def list_search_templates():
+    """Search index templates path."""
     return ["rero_ils.es_templates"]

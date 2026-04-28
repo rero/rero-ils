@@ -172,7 +172,7 @@ class ILLRequest(IlsRecord):
 
 
 class ILLRequestsIndexer(IlsRecordsIndexer):
-    """Indexing documents in Elasticsearch."""
+    """Indexing documents in search index."""
 
     record_cls = ILLRequest
 

@@ -442,8 +442,8 @@ templates = "rero_ils.modules.templates.mappings"
 vendors = "rero_ils.modules.vendors.mappings"
 
 [project.entry-points."invenio_search.templates"]
-operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
-rero_ils = "rero_ils.es_templates:list_es_templates"
+operation_logs = "rero_ils.modules.operation_logs.es_templates:list_search_templates"
+rero_ils = "rero_ils.es_templates:list_search_templates"
 
 # ---------------------------------------------------------------------------
 # Tool configurations

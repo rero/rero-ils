@@ -39,11 +39,11 @@ from lxml import etree
 from lxml.builder import ElementMaker
 
 from ..utils import get_schema_for_resource
-from .cql_parser import ES_INDEX_MAPPINGS
+from .cql_parser import SEARCH_INDEX_MAPPINGS
 
 
 def _get_properties(data):
-    """Recursively extract searchable field paths from ES mapping properties."""
+    """Recursively extract searchable field paths from search mapping properties."""
     keys = []
     for key, value in data.items():
         if isinstance(value, dict):
@@ -59,12 +59,12 @@ def _get_properties(data):
 
 
 @cache
-def _get_es_mappings(index):
-    """Load and cache field mappings from the Elasticsearch index definition.
+def _get_search_mappings(index):
+    """Load and cache field mappings from the search index definition.
 
-    :param index: The Elasticsearch index alias name.
+    :param index: The search index alias name.
     :type index: str
-    :returns: Mapping of normalized index names to ES field paths.
+    :returns: Mapping of normalized index names to search field paths.
     :rtype: dict
     """
     try:
@@ -75,7 +75,7 @@ def _get_es_mappings(index):
         if properties := data.get("mappings", {}).get("properties", {}):
             return {field.lower().replace(".", "__"): field for field in _get_properties(properties)}
     except Exception:
-        current_app.logger.debug("Failed to load ES mappings for index: %s", index, exc_info=True)
+        current_app.logger.debug("Failed to load search mappings for index: %s", index, exc_info=True)
     return {}
 
 
@@ -90,9 +90,9 @@ class Explain:
         database: The SRU database path (e.g., 'api/sru/documents').
         number_of_records: Default number of records returned per request.
         maximum_records: Maximum allowed records per request.
-        doc_type: The document type for Elasticsearch index lookup.
-        index: The Elasticsearch index name.
-        es_mappings: Dictionary mapping normalized index names to ES field paths.
+        doc_type: The document type for search index lookup.
+        index: The search index name.
+        search_mappings: Dictionary mapping normalized index names to search field paths.
         xml_root: The root XML element of the Explain response.
 
     Example::
@@ -106,7 +106,7 @@ class Explain:
 
         Args:
             database: The SRU database path used in the serverInfo element.
-            doc_type: Document type key for looking up the Elasticsearch index
+            doc_type: Document type key for looking up the search index
                 in RECORDS_REST_ENDPOINTS configuration. Defaults to 'doc'.
         """
         self.database = database
@@ -114,7 +114,7 @@ class Explain:
         self.maximum_records = current_app.config.get("RERO_ILS_SRU_MAXIMUM_RECORDS", 1000)
         self.doc_type = doc_type
         self.index = current_app.config.get("RECORDS_REST_ENDPOINTS", {}).get(doc_type, {}).get("search_index")
-        self.es_mappings = _get_es_mappings(self.index) if self.index else {}
+        self.search_mappings = _get_search_mappings(self.index) if self.index else {}
         self.init_xml()
 
     def __str__(self):
@@ -137,7 +137,7 @@ class Explain:
             - recordData
               - explain
                 - serverInfo (protocol, host, database)
-                - indexInfo (DC indexes + ES field indexes)
+                - indexInfo (DC indexes + search field indexes)
                 - schemaInfo (JSON schema reference)
                 - configInfo (default/maximum records settings)
         """
@@ -183,7 +183,7 @@ class Explain:
         """Create the Dublin Core index information element.
 
         Generates an XML element listing all supported Dublin Core indexes
-        from the ES_INDEX_MAPPINGS configuration.
+        from the SEARCH_INDEX_MAPPINGS configuration.
 
         Returns:
             An lxml Element containing the DC index map with all supported
@@ -193,7 +193,7 @@ class Explain:
         element_dc = ElementMaker(namespace=dc_ns, nsmap={"dc": dc_ns})
         index = element_dc.index()
         dc_map = element_dc.map()
-        for dc_index in ES_INDEX_MAPPINGS:
+        for dc_index in SEARCH_INDEX_MAPPINGS:
             dc_map.append(element_dc.name(dc_index.replace("dc.", "")))
         index.append(dc_map)
         return index
@@ -201,20 +201,20 @@ class Explain:
     def init_index_info(self):
         """Create the RERO-ILS specific index information element.
 
-        Generates an XML element listing all Elasticsearch field indexes
+        Generates an XML element listing all search index field indexes
         available for searching, using the RERO-ILS namespace.
 
         Returns:
-            An lxml Element containing the index map with all ES field paths
+            An lxml Element containing the index map with all search field paths
             that can be used directly in CQL queries.
         """
         rero_ils_ns = get_schema_for_resource("doc")
         element_rero_ils = ElementMaker(namespace=rero_ils_ns, nsmap={"rero-ils": rero_ils_ns})
         index = element_rero_ils.index()
-        es_map = element_rero_ils.map()
-        for rero_ils_index in self.es_mappings:
-            es_map.append(element_rero_ils.name(rero_ils_index))
-        index.append(es_map)
+        search_map = element_rero_ils.map()
+        for rero_ils_index in self.search_mappings:
+            search_map.append(element_rero_ils.name(rero_ils_index))
+        index.append(search_map)
         return index
 
     def init_schema_info(self, element):

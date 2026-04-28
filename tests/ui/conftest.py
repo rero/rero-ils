@@ -108,8 +108,8 @@ def ils_record_2():
 
 
 @pytest.fixture(scope="module")
-def es_default_index(search):
-    """ES default index."""
+def search_default_index(search):
+    """Search default index."""
     index_name = list(current_search_client.indices.get_alias("records-record-v1.0.0").keys()).pop()
     current_search_client.indices.delete(index=index_name)
     current_search_client.indices.create(

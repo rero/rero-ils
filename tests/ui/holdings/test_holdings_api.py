@@ -54,8 +54,8 @@ def test_holding_create(
     assert fetched_pid.pid_type == "hold"
 
     search = HoldingsSearch()
-    es_hit = next(search.filter("term", pid=holding.pid).source("pid").scan())
-    holding_record = Holding.get_record_by_pid(es_hit.pid)
+    search_hit = next(search.filter("term", pid=holding.pid).source("pid").scan())
+    holding_record = Holding.get_record_by_pid(search_hit.pid)
     assert holding_record.organisation_pid == org_martigny.get("pid")
     # holdings does not exist
     assert not Holding.get_holdings_type_by_holding_pid("toto")

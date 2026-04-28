@@ -81,8 +81,8 @@ def test_collection_enrich_data(
     coll_martigny_1.reindex()
     CollectionsSearch.flush_and_refresh()
     query = CollectionsSearch().filter("term", pid=coll_martigny_1.pid).source().scan()
-    coll_martigny_1_es_data = next(query)
-    assert coll_martigny_1_es_data.organisation.pid == "org1"
+    coll_martigny_1_search_data = next(query)
+    assert coll_martigny_1_search_data.organisation.pid == "org1"
 
 
 def test_collection_search(client, coll_sion_1, coll_martigny_1, librarian_martigny, librarian_sion, rero_json_header):

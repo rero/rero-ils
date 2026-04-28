@@ -60,7 +60,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
 
     @staticmethod
     def preprocess_search_hit(pid, record_hit, links_factory=None, **kwargs):
-        """Prepare a record hit from Elasticsearch for serialization."""
+        """Prepare a record hit from search index for serialization."""
         record = _JSONSerializer.preprocess_search_hit(
             pid=pid, record_hit=record_hit, links_factory=links_factory, kwargs=kwargs
         )
@@ -73,7 +73,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
-        :param search_result: Elasticsearch search result.
+        :param search_result: search index search result.
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """

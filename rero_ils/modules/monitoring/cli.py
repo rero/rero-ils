@@ -32,7 +32,7 @@ def monitoring():
     """Monitoring commands."""
 
 
-@monitoring.command("es_db_counts")
+@monitoring.command("search_db_counts")
 @click.option(
     "-m",
     "--missing",
@@ -46,32 +46,32 @@ def monitoring():
     "--delay",
     "delay",
     default=1,
-    help="Get ES and DB counts from delay min minutes in the past.",
+    help="Get search and DB counts from delay min minutes in the past.",
 )
 @with_appcontext
-def es_db_counts_cli(missing, delay):
-    """Print ES and DB counts.
+def search_db_counts_cli(missing, delay):
+    """Print search and DB counts.
 
-    Prints a table representation of database and elasticsearch counts.
+    Prints a table representation of database and search index counts.
     Columns:
-    1. database count minus elasticsearch count
+    1. database count minus search index count
     2. document type
     3. database count
-    4. elasticsearch index
-    5. elasticsearch count
+    4. search index
+    5. search index count
     """
     missing_doc_types = []
     mon = Monitoring(time_delta=delay)
-    msg_head = f"DB - ES{'type':>8}{'count':>11}{'index':>27}{'count':>11}\n"
+    msg_head = f"DB - search{'type':>8}{'count':>11}{'index':>27}{'count':>11}\n"
     msg_head += f"{'':-^64s}"
     click.echo(msg_head)
-    info = mon.info(with_deleted=False, difference_db_es=False)
+    info = mon.info(with_deleted=False, difference_db_search=False)
     for doc_type in sorted(info):
-        db_es = info[doc_type].get("db-es", "")
+        db_es = info[doc_type].get("db-search", "")
         msg = f"{db_es:>7}{doc_type:>8}{info[doc_type].get('db', ''):>11}"
         index = info[doc_type].get("index", "")
         if index:
-            msg += f"{index:>27}{info[doc_type].get('es', ''):>11}"
+            msg += f"{index:>27}{info[doc_type].get('search', ''):>11}"
         if db_es not in [0, ""]:
             click.secho(msg, fg="red")
         else:
@@ -82,17 +82,17 @@ def es_db_counts_cli(missing, delay):
         mon.print_missing(missing_doc_type)
 
 
-@monitoring.command("es_db_missing")
+@monitoring.command("search_db_missing")
 @click.argument("doc_type")
 @click.option(
     "-d",
     "--delay",
     "delay",
     default=1,
-    help="Get ES and DB counts from delay minutes in the past.",
+    help="Get search and DB counts from delay minutes in the past.",
 )
 @with_appcontext
-def es_db_missing_cli(doc_type, delay):
+def search_db_missing_cli(doc_type, delay):
     """Print missing pids informations."""
     mon = Monitoring(time_delta=delay)
     mon.print_missing(doc_type)
@@ -112,15 +112,15 @@ def time_stamps_cli():
 @monitoring.command("es")
 @with_appcontext
 def es():
-    """Displays Elasticsearch cluster info."""
+    """Displays search index cluster info."""
     for key, value in current_search_client.cluster.health().items():
         click.echo(f"{key:<33}: {value}")
 
 
-@monitoring.command("es_indices")
+@monitoring.command("search_indices")
 @with_appcontext
-def es_indices():
-    """Displays Elasticsearch indices info."""
+def search_indices():
+    """Displays search index indices info."""
     click.echo(current_search_client.cat.indices(s="index"))
 
 

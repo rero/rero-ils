@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Libraries elasticsearch mapping tests."""
+"""Libraries search index mapping tests."""
 
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from tests.utils import get_mapping
 
 
-def test_location_es_mapping(search, db, loc_public_martigny_data, lib_martigny, org_martigny):
-    """Test library elasticsearch mapping."""
+def test_location_mapping(search, db, loc_public_martigny_data, lib_martigny, org_martigny):
+    """Test library search index mapping."""
     search = LocationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

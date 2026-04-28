@@ -647,7 +647,7 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 # RERO_ILS_DB_LOGGING = 1
 
 #: Enable Indexer logging (level)
-# RERO_ILS_ES_LOGGING = 1
+# RERO_ILS_SEARCH_LOGGING = 1
 
 # REST API Configuration
 # ======================
@@ -674,7 +674,7 @@ REST_MIMETYPE_QUERY_ARG_NAME = "format"
 """Name of the query argument to specify the mimetype wanted for the output."""
 
 MAX_RESULT_WINDOW = 100000
-"""max result window for ES, must be the same in json mapping files."""
+"""max result window for search, must be the same in json mapping files."""
 
 RECORDS_REST_ENDPOINTS = dict(
     coll=dict(
@@ -2778,7 +2778,7 @@ RECORDS_REST_FACETS = dict(
     ),
 )
 
-# Elasticsearch fields boosting by index
+# search index fields boosting by index
 RERO_ILS_QUERY_BOOSTING = {
     "documents": [
         "autocomplete_title^3",

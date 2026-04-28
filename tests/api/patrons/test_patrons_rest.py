@@ -143,7 +143,7 @@ def test_patron_has_valid_subscriptions(
     patron_sion.add_subscription(patron_type_youngsters_sion, start, end)
     assert patron_sion.has_valid_subscription
 
-    # Create a old subscription for `patron_sion`. Call ES to know patrons with
+    # Create a old subscription for `patron_sion`. Call search to know patrons with
     # an obsolete subscription. This query should return the recently updated
     # patron.
     start = datetime.now() - timedelta(days=20)

@@ -32,7 +32,7 @@ class LoanOperationLogsSearch(OperationLogsSearch):
         """Get the operation logs base es search.
 
         :param triggers: list[str] - loan triggers value to filter
-        :return: an elasticsearch dsl search query
+        :return: a search index dsl search query
         """
         query = self.filter("term", record__type="loan").filter("terms", loan__trigger=triggers)
         if date_range:
@@ -45,7 +45,7 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
 
     @classmethod
     def create(cls, data, id_=None, index_refresh="false", **kwargs):
-        """Create a new record instance and store it in elasticsearch.
+        """Create a new record instance and store it in search index.
 
         :param loan_data: Dict with the loan metadata.
         :param id_: Specify a UUID to use for the new record, instead of
@@ -124,7 +124,7 @@ class NoCirculationOperationLog(OperationLog, SpecificOperationLog):
 
     @classmethod
     def create(cls, scan, id_=None, index_refresh="false", **kwargs):
-        """Create a new record instance and store it in elasticsearch.
+        """Create a new record instance and store it in search index.
         :param item_data: Dict with the item metadata.
         :param loan: Dict with the loan metadata.
         :param message: Message for item category.

@@ -35,15 +35,15 @@ def test_budget_cascade_reindex(acq_account_fiction_martigny, budget_2020_martig
 
     # when the `is_active` budget field change, the related account must be
     # reindex too.
-    es_budg = BudgetsSearch().get_record_by_pid(budg.pid)
-    es_acac = AcqAccountsSearch().get_record_by_pid(acac.pid)
-    assert es_budg["is_active"] and es_acac["is_active"]
+    search_budg = BudgetsSearch().get_record_by_pid(budg.pid)
+    search_acac = AcqAccountsSearch().get_record_by_pid(acac.pid)
+    assert search_budg["is_active"] and search_acac["is_active"]
 
     budg["is_active"] = False
     budg.update(budg, dbcommit=True, reindex=True)
     BudgetsSearch.flush_and_refresh()
     AcqAccountsSearch.flush_and_refresh()
 
-    es_budg = BudgetsSearch().get_record_by_pid(budg.pid)
-    es_acac = AcqAccountsSearch().get_record_by_pid(acac.pid)
-    assert not es_budg["is_active"] and not es_acac["is_active"]
+    search_budg = BudgetsSearch().get_record_by_pid(budg.pid)
+    search_acac = AcqAccountsSearch().get_record_by_pid(acac.pid)
+    assert not search_budg["is_active"] and not search_acac["is_active"]

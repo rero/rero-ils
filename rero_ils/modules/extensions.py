@@ -41,10 +41,10 @@ class UniqueFieldsExtension(RecordExtension):
         class attribute. This extension require 2 parameters :
           * a list of tuple. Each tuple could provide 2 data :
             - the record attribute to check (required).
-            - the corresponding field into ES index (optional).
-            if no ES field is provided, the same key should be used to search
-            into ES.
-          * the search class allowing to search into the ES index.
+            - the corresponding field into search index (optional).
+            if no search field is provided, the same key should be used to search
+            into search.
+          * the search class allowing to search into the search index.
 
     EXAMPLE:
         _extensions = UniqueFieldsExtension(
@@ -53,10 +53,10 @@ class UniqueFieldsExtension(RecordExtension):
         )
 
     NOTE FOR DEVELOPERS:
-        Avoid to use search on ES `text` analyzed field. It will generate
+        Avoid to use search on search `text` analyzed field. It will generate
         strange result (see https://www.elastic.co/guide/en/elasticsearch/
         reference/current/query-dsl-term-query.html#avoid-term-query-text-
-        fields). Use a ES `keyword` analyzed field.
+        fields). Use a search `keyword` analyzed field.
     """
 
     def __init__(self, fields, record_search_class):
@@ -89,9 +89,9 @@ class UniqueFieldsExtension(RecordExtension):
         # Create an `OR` query with all fields to check and exclude the current
         # record from the result. If one hit matches, raise a ValidationError,
         # otherwise, all should be fine. Enjoy !
-        terms = [Q("term", **{es_field: record[attr]}) for attr, es_field in self.fields if attr in record]
+        terms = [Q("term", **{search_field: record[attr]}) for attr, search_field in self.fields if attr in record]
 
-        es_query = (
+        search_query = (
             self.search_class()
             .query("bool", should=terms, minimum_should_match=1)
             .exclude("term", pid=record.pid)
@@ -100,7 +100,7 @@ class UniqueFieldsExtension(RecordExtension):
         )
 
         _exhausted = object()
-        matching_hit = next(es_query, _exhausted)
+        matching_hit = next(search_query, _exhausted)
         if matching_hit != _exhausted:
             pid = matching_hit.pid
             field_keys = " and/or ".join(attrs_to_check)

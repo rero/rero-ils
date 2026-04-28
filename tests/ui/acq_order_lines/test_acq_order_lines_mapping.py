@@ -24,7 +24,7 @@ from rero_ils.modules.acquisition.acq_order_lines.api import (
 from tests.utils import get_mapping
 
 
-def test_acq_order_lines_es_mapping(
+def test_acq_order_lines_search_mapping(
     es,
     db,
     document,
@@ -32,7 +32,7 @@ def test_acq_order_lines_es_mapping(
     acq_order_fiction_martigny,
     acq_order_line_fiction_martigny_data,
 ):
-    """Test aquisition order line elasticsearch mapping."""
+    """Test aquisition order line search index mapping."""
     search = AcqOrderLinesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

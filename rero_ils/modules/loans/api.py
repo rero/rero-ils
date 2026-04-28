@@ -84,7 +84,7 @@ class LoansSearch(IlsRecordsSearch):
 
         Unavailable if some active loans exists.
 
-        :returns: an elasticsearch query
+        :returns: a search index query
         """
         states = [LoanState.PENDING] + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
         return self.filter("terms", state=states)

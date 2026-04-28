@@ -113,7 +113,7 @@ class ReplaceIdentifiedBy:
 
     @property
     def query(self):
-        """ES query for documents with identifiedBy and entity types."""
+        """Search query for documents with identifiedBy and entity types."""
         entity_types = list(current_app.config["RERO_ILS_ENTITY_TYPES"].keys())
         return (
             DocumentsSearch()

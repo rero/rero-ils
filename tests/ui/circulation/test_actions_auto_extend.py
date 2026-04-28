@@ -113,20 +113,20 @@ def test_auto_extend_task(
 
     # Check that the operation_logs were created
     OperationLogsSearch.flush_and_refresh()
-    es_query = (
+    search_query = (
         OperationLogsSearch()
         .filter("term", loan__pid=loan.pid)
         .filter("term", record__type="loan")
         .filter("term", loan__trigger=ItemCirculationAction.EXTEND)
         .filter("term", loan__auto_extend=True)
     )
-    assert es_query.count() == 1
+    assert search_query.count() == 1
 
-    es_query = (
+    search_query = (
         OperationLogsSearch()
         .filter("term", loan__pid=loan.pid)
         .filter("term", record__type="notif")
         .filter("term", loan__trigger=ItemCirculationAction.EXTEND)
         .filter("term", notification__type="auto_extend")
     )
-    assert es_query.count() == 1
+    assert search_query.count() == 1

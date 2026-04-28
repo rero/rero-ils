@@ -25,7 +25,7 @@ from rero_ils.modules.migrations.data.api import Deduplication
 
 
 @pytest.fixture(scope="module")
-def migration(es_indices, lib_martigny):
+def migration(search_indices, lib_martigny):
     """Migration fixture."""
     data = {
         "name": "name",
@@ -121,7 +121,7 @@ def migration_data(migration_xml_data, migration):
 
 
 @pytest.fixture(scope="module")
-def es_indices(app):
+def search_indices(app):
     """Create test app."""
     Migration.init()
     yield

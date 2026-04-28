@@ -285,7 +285,7 @@ class ItemRecord(IlsRecord):
         """Returns item pids from holding pid."""
         from . import ItemsSearch
 
-        es_query = (
+        search_query = (
             ItemsSearch()
             .params(preserve_order=True)
             .filter("term", holding__pid=holding_pid)
@@ -293,8 +293,8 @@ class ItemRecord(IlsRecord):
             .source(["pid"])
         )
         if not with_masked:
-            es_query = es_query.filter("bool", must_not=[Q("term", _masked=True)])
-        for item in es_query.scan():
+            search_query = search_query.filter("bool", must_not=[Q("term", _masked=True)])
+        for item in search_query.scan():
             yield item.pid
 
     @property

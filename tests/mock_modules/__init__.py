@@ -95,7 +95,9 @@ class Converter:
         status = "no match"
         if data.deduplication.status == "pending" or force:
             try:
-                candidates = Deduplication(es_hosts=["10.247.6.4:9200"]).get_candidates(data.conversion.json.to_dict())
+                candidates = Deduplication(search_hosts=["10.247.6.4:9200"]).get_candidates(
+                    data.conversion.json.to_dict()
+                )
             except Exception as err:
                 logs["error"] = [f"{err}"]
                 status = "error"

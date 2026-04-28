@@ -35,20 +35,20 @@ class NumberOfDocumentsCfg(IndicatorCfg):
 
     @property
     def query(self):
-        """Base Elasticsearch Query.
+        """Base search index Query.
 
-        :returns: an elasticsearch query object
+        :returns: a search index query object
         """
-        es_query = DocumentsSearch()[:0].filter("term", organisation_pid=self.cfg.org_pid)
+        search_query = DocumentsSearch()[:0].filter("term", organisation_pid=self.cfg.org_pid)
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter("terms", library_pid=pids)
-        return es_query
+            search_query = search_query.filter("terms", library_pid=pids)
+        return search_query
 
     def aggregation(self, distribution):
-        """Elasticsearch Aggregation configuration to compute distributions.
+        """Search index Aggregation configuration to compute distributions.
 
         :param distrubtion: str - report distribution name
-        :returns: an elasticsearch aggregation object
+        :returns: a search index aggregation object
         """
         cfg = {
             "owning_library": A(
@@ -81,7 +81,7 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         """Column/Raw label transformations.
 
         :param distrubtion: str - the report distrubtion name
-        :param bucket: the elasticsearch aggregation bucket
+        :param bucket: the search index aggregation bucket
         :returns: the label
         :rtype: str
         """
@@ -99,24 +99,24 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
 
     @property
     def query(self):
-        """Base Elasticsearch Query.
+        """Base search index Query.
 
-        :returns: an elasticsearch query object
+        :returns: a search index query object
         """
-        es_query = (
+        search_query = (
             HoldingsSearch()[:0]
             .filter("term", holdings_type="serial")
             .filter("term", organisation__pid=self.cfg.org_pid)
         )
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter("terms", library__pid=pids)
-        return es_query
+            search_query = search_query.filter("terms", library__pid=pids)
+        return search_query
 
     def aggregation(self, distribution):
-        """Elasticsearch Aggregation configuration to compute distributions.
+        """Search index Aggregation configuration to compute distributions.
 
         :param distrubtion: str - report distrubtion name
-        :returns: an elasticsearch aggregation object
+        :returns: a search index aggregation object
         """
         cfg = {
             "owning_library": A(
@@ -144,7 +144,7 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
         """Column/Raw label transformations.
 
         :param distrubtion: str - the report distrubtion name
-        :param bucket: the elasticsearch aggregation bucket
+        :param bucket: the search index aggregation bucket
         :returns: the label
         :rtype: str
         """
@@ -161,20 +161,20 @@ class NumberOfItemsCfg(IndicatorCfg):
 
     @property
     def query(self):
-        """Base Elasticsearch Query.
+        """Base search index Query.
 
-        :returns: an elasticsearch query object
+        :returns: a search index query object
         """
-        es_query = ItemsSearch()[:0].filter("term", organisation__pid=self.cfg.org_pid)
+        search_query = ItemsSearch()[:0].filter("term", organisation__pid=self.cfg.org_pid)
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter("terms", library__pid=pids)
-        return es_query
+            search_query = search_query.filter("terms", library__pid=pids)
+        return search_query
 
     def aggregation(self, distribution):
-        """Elasticsearch Aggregation configuration to compute distributions.
+        """Search index Aggregation configuration to compute distributions.
 
         :param distrubtion: str - report distrubtion name
-        :returns: an elasticsearch aggregation object
+        :returns: a search index aggregation object
         """
         cfg = {
             "owning_library": A(
@@ -215,7 +215,7 @@ class NumberOfItemsCfg(IndicatorCfg):
         """Column/Raw label transformations.
 
         :param distrubtion: str - the report distrubtion name
-        :param bucket: the elasticsearch aggregation bucket
+        :param bucket: the search index aggregation bucket
         :returns: the label
         :rtype: str
         """
@@ -236,11 +236,11 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
 
     @property
     def query(self):
-        """Base Elasticsearch Query.
+        """Base search index Query.
 
-        :returns: an elasticsearch query object
+        :returns: a search index query object
         """
-        es_query = (
+        search_query = (
             LoanOperationLogsSearch()[:0]
             .filter(
                 Q("term", record__organisation_pid=self.cfg.org_pid) | Q("term", organisation__value=self.cfg.org_pid)
@@ -249,16 +249,16 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
             .filter("term", operation="delete")
         )
         if period := self.cfg.period:
-            es_query = es_query.filter("range", date=self.cfg.get_range_period(period))
+            search_query = search_query.filter("range", date=self.cfg.get_range_period(period))
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter(Q("terms", record__library_pid=pids) | Q("terms", library__value=pids))
-        return es_query
+            search_query = search_query.filter(Q("terms", record__library_pid=pids) | Q("terms", library__value=pids))
+        return search_query
 
     def aggregation(self, distribution):
-        """Elasticsearch Aggregation configuration to compute distributions.
+        """Search index Aggregation configuration to compute distributions.
 
         :param distrubtion: str - report distrubtion name
-        :returns: an elasticsearch aggregation object
+        :returns: a search index aggregation object
         """
         cfg = {
             "owning_library": A("terms", field="record.library_pid", size=self.cfg.aggs_size),
@@ -277,7 +277,7 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         """Column/Raw label transformations.
 
         :param distrubtion: str - the report distrubtion name
-        :param bucket: the elasticsearch aggregation bucket
+        :param bucket: the search index aggregation bucket
         :returns: the label
         :rtype: str
         """
@@ -295,22 +295,22 @@ class NumberOfILLRequests(IndicatorCfg):
 
     @property
     def query(self):
-        """Base Elasticsearch Query.
+        """Base search index Query.
 
-        :returns: an elasticsearch query object
+        :returns: a search index query object
         """
-        es_query = ILLRequestsSearch()[:0].filter("term", organisation__pid=self.cfg.org_pid)
+        search_query = ILLRequestsSearch()[:0].filter("term", organisation__pid=self.cfg.org_pid)
         if period := self.cfg.period:
-            es_query = es_query.filter("range", _created=self.cfg.get_range_period(period))
+            search_query = search_query.filter("range", _created=self.cfg.get_range_period(period))
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter("terms", library__pid=pids)
-        return es_query
+            search_query = search_query.filter("terms", library__pid=pids)
+        return search_query
 
     def aggregation(self, distribution):
-        """Elasticsearch Aggregation configuration to compute distributions.
+        """Search index Aggregation configuration to compute distributions.
 
         :param distrubtion: str - report distrubtion name
-        :returns: an elasticsearch aggregation object
+        :returns: a search index aggregation object
         """
         cfg = {
             "pickup_location": A("terms", field="pickup_location.pid", size=self.cfg.aggs_size),
@@ -334,7 +334,7 @@ class NumberOfILLRequests(IndicatorCfg):
         """Column/Raw label transformations.
 
         :param distrubtion: str - the report distrubtion name
-        :param bucket: the elasticsearch aggregation bucket
+        :param bucket: the search index aggregation bucket
         :returns: the label
         :rtype: str
         """

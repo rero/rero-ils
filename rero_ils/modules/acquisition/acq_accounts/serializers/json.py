@@ -35,7 +35,7 @@ class AcqAccountJSONSerializer(ACQJSONSerializer):
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         """Prepare a record and persistent identifier for serialization."""
-        # Add some ES stored keys into response
+        # Add some search stored keys into response
         query = AcqAccountsSearch().filter("term", pid=record.pid).source()
         if hit := next(query.scan(), None):
             hit_metadata = hit.to_dict()

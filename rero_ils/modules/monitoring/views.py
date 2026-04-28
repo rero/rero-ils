@@ -98,54 +98,54 @@ def db_connections():
     return jsonify({"data": data})
 
 
-@api_blueprint.route("/es_db_counts")
-def es_db_counts():
-    """Display count for elasticsearch and documents.
+@api_blueprint.route("/search_db_counts")
+def search_db_counts():
+    """Display count for search index and documents.
 
     Displays for all document types defined in config.py following information:
     - index name for document type
     - count of records in database
-    - count of records in elasticsearch
-    - difference between the count in elasticsearch and database
-    :return: jsonified count for elasticsearch and documents
+    - count of records in search index
+    - difference between the count in search index and database
+    :return: jsonified count for search index and documents
     """
-    difference_db_es = request.args.get("diff", False)
+    difference_db_search = request.args.get("diff", False)
     with_deleted = request.args.get("deleted", False)
     time_delta = request.args.get("delay", 1)
     mon = Monitoring(time_delta=time_delta)
-    return jsonify({"data": mon.info(with_deleted=with_deleted, difference_db_es=difference_db_es)})
+    return jsonify({"data": mon.info(with_deleted=with_deleted, difference_db_search=difference_db_search)})
 
 
-@api_blueprint.route("/check_es_db_counts")
-def check_es_db_counts():
-    """Displays health status for elasticsearch and database counts.
+@api_blueprint.route("/check_search_db_counts")
+def check_search_db_counts():
+    """Displays health status for search index and database counts.
 
     If there are no problems the status in returned data will be `green`,
     otherwise the status will be `red` and in the returned error
     links will be provided with more detailed information.
-    :return: jsonified health status for elasticsearch and database counts
+    :return: jsonified health status for search index and database counts
     """
     result = {"data": {"status": "green"}}
-    difference_db_es = request.args.get("diff", False)
+    difference_db_search = request.args.get("diff", False)
     with_deleted = request.args.get("deleted", False)
     time_delta = request.args.get("delay", 1)
     mon = Monitoring(time_delta=time_delta)
-    checks = mon.check(with_deleted=with_deleted, difference_db_es=difference_db_es)
+    checks = mon.check(with_deleted=with_deleted, difference_db_search=difference_db_search)
     if checks:
         result = {"data": {"status": "red"}}
         errors = []
         for doc_type, doc_type_data in checks.items():
-            links = {"about": url_for("api_monitoring.check_es_db_counts", _external=True)}
+            links = {"about": url_for("api_monitoring.check_search_db_counts", _external=True)}
             for info, count in doc_type_data.items():
-                if info == "db_es":
-                    msg = f"There are {count} items from {doc_type} missing in ES."
+                if info == "db_search":
+                    msg = f"There are {count} items from {doc_type} missing in search."
                     links[doc_type] = url_for("api_monitoring.missing_pids", doc_type=doc_type, _external=True)
                     errors.append(
                         {
-                            "id": "DB_ES_COUNTER_MISMATCH",
+                            "id": "DB_SEARCH_COUNTER_MISMATCH",
                             "links": links,
-                            "code": "DB_ES_COUNTER_MISMATCH",
-                            "title": "DB items counts don't match ES items count.",
+                            "code": "DB_SEARCH_COUNTER_MISMATCH",
+                            "title": "DB items counts don't match search items count.",
                             "details": msg,
                         }
                     )
@@ -154,22 +154,22 @@ def check_es_db_counts():
                     links[doc_type] = url_for("api_monitoring.missing_pids", doc_type=doc_type, _external=True)
                     errors.append(
                         {
-                            "id": "DB_ES_UNEQUAL",
+                            "id": "DB_SEARCH_UNEQUAL",
                             "links": links,
-                            "code": "DB_ES_UNEQUAL",
-                            "title": "DB items unequal ES items.",
+                            "code": "DB_SEARCH_UNEQUAL",
+                            "title": "DB items unequal search items.",
                             "details": msg,
                         }
                     )
-                elif info == "es-":
-                    msg = f"There are {count} items from {doc_type} missing in ES."
+                elif info == "search-":
+                    msg = f"There are {count} items from {doc_type} missing in search."
                     links[doc_type] = url_for("api_monitoring.missing_pids", doc_type=doc_type, _external=True)
                     errors.append(
                         {
-                            "id": "DB_ES_UNEQUAL",
+                            "id": "DB_SEARCH_UNEQUAL",
                             "links": links,
-                            "code": "DB_ES_UNEQUAL",
-                            "title": "DB items unequal ES items.",
+                            "code": "DB_SEARCH_UNEQUAL",
+                            "title": "DB items unequal search items.",
                             "details": msg,
                         }
                     )
@@ -184,8 +184,8 @@ def missing_pids(doc_type):
 
     Following information will be displayed:
     - missing pids in database
-    - missing pids in elasticsearch
-    - pids indexed multiple times in elasticsearch
+    - missing pids in search index
+    - pids indexed multiple times in search index
     If possible, direct links will be provided to the corresponding records.
     This view needs an logged in system admin.
 
@@ -208,22 +208,22 @@ def missing_pids(doc_type):
                 "details": res.get("ERROR"),
             }
         }
-    data = {"DB": [], "ES": [], "ES duplicate": []}
+    data = {"DB": [], "search": [], "search duplicate": []}
     for pid in res.get("DB"):
         if api_url:
             data["DB"].append(f'{api_url}?q=pid:"{pid}"')
         else:
             data["DB"].append(pid)
-    for pid in res.get("ES"):
+    for pid in res.get("search"):
         if api_url:
-            data["ES"].append(f"{api_url}{pid}")
+            data["search"].append(f"{api_url}{pid}")
         else:
-            data["ES"].append(pid)
-    for pid in res.get("ES duplicate"):
+            data["search"].append(pid)
+    for pid in res.get("search duplicate"):
         if api_url:
-            data["ES duplicate"].append(f'{api_url}?q=pid:"{pid}"')
+            data["search duplicate"].append(f'{api_url}?q=pid:"{pid}"')
         else:
-            data["ES duplicate"].append(pid)
+            data["search duplicate"].append(pid)
     return jsonify({"data": data})
 
 
@@ -246,20 +246,20 @@ def redis():
 @api_blueprint.route("/es")
 @check_authentication
 def elastic_search():
-    """Displays Elasticsearch cluster info.
+    """Displays search index cluster info.
 
-    :return: jsonified Elasticsearch cluster info.
+    :return: jsonified search index cluster info.
     """
     info = current_search_client.cluster.health()
     return jsonify({"data": info})
 
 
-@api_blueprint.route("/es_indices")
+@api_blueprint.route("/search_indices")
 @check_authentication
-def elastic_search_indices():
-    """Displays Elasticsearch indices info.
+def search_indices():
+    """Displays search index indices info.
 
-    :return: jsonified Elasticsearch indices info.
+    :return: jsonified search index indices info.
     """
     info = current_search_client.cat.indices(bytes="b", format="json", s="index")
     info = {data["index"]: data for data in info}
