@@ -24,5 +24,6 @@
 
 {%- block javascript %}
 {{ super() }}
-{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile/browser', tags='type="module"') }}
+{{ angular_assets('@rero/rero-ils-ui/dist/public-patron-profile/browser', 'modulepreload') }}
+{{ angular_assets('@rero/rero-ils-ui/dist/public-patron-profile/browser', 'js') }}
 {%- endblock javascript %}

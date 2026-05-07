@@ -67,9 +67,10 @@
     {%- block header %}{% endblock header %}
     {%- block css %}
       <style>
-        @layer bootstrap, babel, theme, rero-ils-ui, primeng;
+        @layer bootstrap, babel, theme, base, rero-ils-ui, primeng, utilities;
       </style>
-      {{ node_assets('@rero/rero-ils-ui/dist/public-search/browser', ['styles-*.css'], 'css') }}
+      <style type="text/css" data-primeng-style-id="layer-order"></style>
+      {{ angular_assets('@rero/rero-ils-ui/dist/public-search/browser', 'css') }}
       {{ webpack['global.css'] }}
       {% if config.get('RERO_ILS_PERSONALIZED_CSS_BY_VIEW') %}
        <link

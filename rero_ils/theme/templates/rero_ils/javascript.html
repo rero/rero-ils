@@ -18,5 +18,6 @@
 #}
 {%- block javascript %}
 {{ webpack['reroils_public.js']}}
-{{ node_assets('@rero/rero-ils-ui/dist/search-bar/browser', tags='type="module"') }}
+{{ angular_assets('@rero/rero-ils-ui/dist/search-bar/browser', 'modulepreload') }}
+{{ angular_assets('@rero/rero-ils-ui/dist/search-bar/browser', 'js') }}
 {%- endblock javascript %}

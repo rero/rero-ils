@@ -313,7 +313,8 @@
 
 {%- block javascript %}
   {{ super() }}
-  {{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items/browser', tags='type="module"') }}
+  {{ angular_assets('@rero/rero-ils-ui/dist/public-holdings-items/browser', 'modulepreload') }}
+  {{ angular_assets('@rero/rero-ils-ui/dist/public-holdings-items/browser', 'js') }}
   {% if viewcode | babeltheque_enabled_view and isbn is not none %}
     <script type="text/javascript" src="https://www.babelio.com/bw_330.js"></script>
   {% endif %}

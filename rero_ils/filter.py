@@ -17,7 +17,6 @@
 
 """Jinja filters."""
 
-import glob
 import json
 import os
 import re
@@ -44,39 +43,56 @@ def get_record_by_ref(ref, type="search_record"):
     return extracted_data_from_ref(ref, data=type)
 
 
-def node_assets(
-    package,
-    patterns=["runtime*.js", "polyfills*.js", "main*.js"],
-    _type="js",
-    tags="",
-):
-    """Generate the node assets html code.
+def angular_assets(package, _type="js"):
+    """Generate HTML tags from an Angular application's generated index.html.
 
-    :param package: The node package path relative to node_modules.
-    :param patters: list of glob bash like partterns.
-    "param _type: string one of ['js', 'css'].
-    "param tags: additional script, link, html tags such as 'defer', etc.
-    "return" html link, script code
+    Reads the build-tool generated index.html as the single source of truth,
+    avoiding any coupling to Angular's internal output format or file naming.
+
+    :param package: The Angular package path relative to node_modules.
+    :param _type: one of 'js', 'css', 'modulepreload'.
+    :return: html tags extracted from the Angular index.html
     """
     package_path = os.path.join(current_app.static_folder, "node_modules", package)
+    index_path = os.path.join(package_path, "index.html")
+    try:
+        with open(index_path, encoding="utf-8") as f:
+            content = f.read()
+    except OSError as error:
+        current_app.logger.warning("angular_assets: unable to read %s (%s)", index_path, error)
+        content = ""
 
-    def to_html(value):
-        value = re.sub(r"(.*?)\/static", "/static", value)
-        # default: js
-        html_code = f'<script {tags} src="{value}"></script>'
-        # styles
-        if _type == "css":
-            html_code = f'<link {tags} href="{value}" rel="stylesheet">'
-        return html_code
+    tag_patterns = {
+        "css": r'<link\b[^>]*\brel="stylesheet"[^>]*>',
+        "modulepreload": r'<link\b[^>]*\brel="modulepreload"[^>]*>',
+        "js": r'<script\b[^>]*\btype="module"[^>]*></script>',
+    }
+    static_base = f"/static/node_modules/{package}/"
 
-    output_files = []
-    for pattern in patterns:
-        files = glob.glob(os.path.join(package_path, pattern))
-        output_files.extend([to_html(v) for v in files])
+    def normalize_url(tag):
+        def fix(m):
+            attr, url = m.group(1), m.group(2)
+            if url.startswith("/static/") and "browser/" in url:
+                # Correct absolute URLs whose package path may differ from the
+                # installed location (e.g. wrong --deploy-url in the Angular build).
+                url = static_base + url.split("browser/", 1)[1]
+            elif not url.startswith(("/", "http")):
+                # Relative URL: prefix with the correct static base.
+                url = static_base + url
+            return f'{attr}="{url}"'
+
+        return re.sub(r'(href|src)="([^"]+)"', fix, tag)
+
+    pattern = tag_patterns.get(_type)
+    if pattern is None:
+        current_app.logger.warning("angular_assets: unsupported type '%s' for package '%s'", _type, package)
+        tags = []
+    else:
+        tags = [normalize_url(t) for t in re.findall(pattern, content)]
 
     class HTMLSafe:
         def __html__():
-            return Markup("\n".join(output_files))
+            return Markup("\n".join(tags))
 
     return HTMLSafe
 
