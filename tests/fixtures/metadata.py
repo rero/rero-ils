@@ -1239,7 +1239,7 @@ def local_field_3_martigny_data(local_fields):
 
 
 @pytest.fixture(scope="module")
-def local_field_3_martigny(app, org_martigny, document, local_field_3_martigny_data):
+def local_field_3_martigny(app, org_martigny, document, item_lib_martigny, local_field_3_martigny_data):
     """Load local field."""
     local_field = LocalField.create(data=local_field_3_martigny_data, delete_pid=False, dbcommit=True, reindex=True)
     LocalFieldsSearch.flush_and_refresh()
