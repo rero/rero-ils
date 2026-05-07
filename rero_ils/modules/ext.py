@@ -44,12 +44,12 @@ from redis import Redis
 
 from rero_ils.filter import (
     address_block,
+    angular_assets,
     empty_data,
     format_date_filter,
     get_record_by_ref,
     jsondumps,
     message_filter,
-    node_assets,
     text_to_id,
     to_pretty_json,
     translate,
@@ -199,7 +199,7 @@ class REROILSAPP:
             # register filters
             app.add_template_filter(get_record_by_ref)
             app.add_template_filter(format_date_filter, name="format_date")
-            app.add_template_global(node_assets)
+            app.add_template_global(angular_assets)
             app.add_template_filter(to_pretty_json, name="tojson_pretty")
             app.add_template_filter(text_to_id)
             app.add_template_filter(jsondumps)

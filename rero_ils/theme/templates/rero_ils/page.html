@@ -69,7 +69,7 @@
       <style>
         @layer bootstrap, babel, theme, rero-ils-ui, primeng;
       </style>
-      {{ node_assets('@rero/rero-ils-ui/dist/public-search/browser', ['styles-*.css'], 'css') }}
+      {{ angular_assets('@rero/rero-ils-ui/dist/public-search/browser', 'css') }}
       {{ webpack['global.css'] }}
       {% if config.get('RERO_ILS_PERSONALIZED_CSS_BY_VIEW') %}
        <link
