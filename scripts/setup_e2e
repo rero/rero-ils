@@ -1,0 +1,171 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+#
+# RERO ILS
+# Copyright (C) 2026 RERO
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+# Minimal fixture setup for E2E tests.
+#
+# Loads only what the Playwright test suite needs:
+#   organisations, libraries, locations, item types, patron types,
+#   circulation policies, users/patrons.
+#
+# Skips: documents, holdings, items, acquisitions, statistics, wiki,
+#        migration data, loans, collections, patterns, remote entities.
+#
+# Estimated time: ~3-5 min (vs ~15 min for the full setup).
+
+DATA_PATH=./data
+FILES_PATH="${INVENIO_RERO_ILS_FILES_FOLDER:=data/files}"
+
+# COLORS
+NC='\033[0m'
+INFO_COLOR='\033[1;97;44m'
+SUCCESS_COLOR='\033[1;97;42m'
+ERROR_COLOR='\033[1;97;41m'
+
+PROGRAM=$(basename "$0")
+
+msg()        { echo -e "${1}" 1>&2; }
+info_msg()   { msg "${INFO_COLOR}[INFO]: ${1}${NC}"; }
+error_msg()  { msg "${ERROR_COLOR}[ERROR]: ${1}${NC}"; }
+success_msg(){ msg "${SUCCESS_COLOR}[SUCCESS]: ${1}${NC}"; }
+
+error_msg+exit() { error_msg "${1}" && exit 1; }
+
+create_token() {
+    if [ -z "${3}" ]; then
+        invenio reroils utils token-create -n "${1}" -u "${2}"
+    else
+        invenio reroils utils token-create -n "${1}" -u "${2}" -t "${3}"
+    fi
+}
+
+msg "PROGRAM: ${PROGRAM}"
+
+if [[ -z "${VIRTUAL_ENV}" ]]; then
+    error_msg+exit "Error - Launch via uv:\n\tuv run ${PROGRAM}"
+fi
+
+if [[ ! -d "${DATA_PATH}" ]]; then
+    error_msg+exit "Error - data path does not exist: ${DATA_PATH}"
+fi
+
+set -e
+
+# ── Infrastructure ─────────────────────────────────────────────────────────────
+
+info_msg "Purge celery"
+celery --app rero_ils.celery purge -f
+
+info_msg "Clean redis"
+invenio shell --no-term-title -c \
+    "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
+
+info_msg "Reset database"
+invenio db destroy --yes-i-know
+invenio db init create
+
+info_msg "Reset search indices"
+invenio reroils index queue purge
+invenio reroils index queue delete
+invenio reroils migrations index destroy --yes-i-know
+invenio index destroy --force --yes-i-know
+invenio reroils fixtures destroy_operation_logs --yes-i-know
+invenio reroils index init --force
+invenio reroils migrations index init
+invenio reroils index queue init
+invenio index delete loans-loan-v1.0.0 --force --yes-i-know
+
+info_msg "Initialize files location"
+rm -fr "${FILES_PATH:?}"/*
+invenio files location create --default fixtures "${FILES_PATH}"
+
+# ── Roles and system users ────────────────────────────────────────────────────
+
+info_msg "Create roles"
+invenio roles create -d 'Admins Group' admin
+invenio roles create -d 'Super Users Group' superuser
+invenio roles create -d 'Monitoring Group' monitoring
+invenio roles create -d 'Patron' patron
+invenio roles create -d 'Professional: Read_only' pro_read_only
+invenio roles create -d 'Professional: Acquisition manager' pro_acquisition_manager
+invenio roles create -d 'Professional: Full permissions' pro_full_permissions
+invenio roles create -d 'Professional: Catalog manager' pro_catalog_manager
+invenio roles create -d 'Professional: Circulation manager' pro_circulation_manager
+invenio roles create -d 'Professional: Library administrator' pro_library_administrator
+invenio roles create -d 'Professional: User manager' pro_user_manager
+invenio roles create -d 'Professional: Entity manager' pro_entity_manager
+invenio roles create -d 'Documentation Editor' editor
+invenio roles create -d 'Document Importing' document_importer
+invenio roles create -d 'Professional: Statistics manager' pro_statistic_manager
+
+info_msg "Create action role policies"
+invenio reroils fixtures import_system_role_policies data/system_role_policies.json
+invenio reroils fixtures import_role_policies data/role_policies.json
+
+info_msg "Create system users"
+invenio users create --active --confirm --password administrator admin@rero.ch
+invenio users create --active --confirm --password monitor monitoring@rero.ch
+
+info_msg "Grant roles"
+invenio access allow superuser-access role admin
+invenio access allow superuser-access role superuser
+invenio roles add admin@rero.ch admin
+invenio roles add admin@rero.ch superuser
+invenio roles add admin@rero.ch monitoring
+invenio roles add monitoring@rero.ch monitoring
+
+info_msg "Create token for: monitoring@rero.ch"
+create_token monitoring monitoring@rero.ch "${INVENIO_RERO_ILS_ACCESS_TOKEN_MONITORING}"
+
+# ── Core fixtures (E2E minimum) ───────────────────────────────────────────────
+
+info_msg "Organisations"
+invenio reroils fixtures create --pid_type org "${DATA_PATH}/organisations.json" --append
+invenio reroils index reindex -t org --yes-i-know
+
+info_msg "Libraries"
+invenio reroils fixtures create --pid_type lib "${DATA_PATH}/libraries.json" --append
+invenio reroils index reindex -t lib --yes-i-know
+
+info_msg "Locations"
+invenio reroils fixtures create --pid_type loc "${DATA_PATH}/locations.json" --append
+invenio reroils index reindex -t loc --yes-i-know
+
+info_msg "Item types"
+invenio reroils fixtures create --pid_type itty "${DATA_PATH}/item_types.json" --append
+invenio reroils index reindex -t itty --yes-i-know
+
+info_msg "Patron types"
+invenio reroils fixtures create --pid_type ptty "${DATA_PATH}/patron_types.json" --append
+invenio reroils index reindex -t ptty --yes-i-know
+
+info_msg "Circulation policies"
+invenio reroils fixtures create --pid_type cipo "${DATA_PATH}/circulation_policies.json" --append
+invenio reroils index reindex -t cipo --yes-i-know
+
+invenio reroils index run --raise-on-error
+
+info_msg "Users and patrons"
+invenio reroils fixtures import_users "${DATA_PATH}/users.json" -v --append
+
+info_msg "API harvester configuration"
+invenio reroils api-harvester init-config "${DATA_PATH}/apisources.yml"
+
+info_msg "Scheduler initialisation"
+invenio reroils scheduler init --reset
+
+success_msg "E2E setup complete."

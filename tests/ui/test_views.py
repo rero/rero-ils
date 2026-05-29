@@ -85,9 +85,9 @@ def test_view_parameter_exists(client):
     assert result.status_code == 302
 
 
-def test_view_parameter_cypress(client):
-    """Test view parameter with cypress viewcode."""
-    result = client.get(url_for("rero_ils.index_with_view_code", viewcode="cypress"))
+def test_view_parameter_e2e(client):
+    """Test view parameter with e2e viewcode."""
+    result = client.get(url_for("rero_ils.index_with_view_code", viewcode="e2e"))
     assert result.status_code == 404
 
 

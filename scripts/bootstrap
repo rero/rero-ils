@@ -143,5 +143,10 @@ fi
 info_msg "Compile translations"
 uv run pybabel compile -d rero_ils/translations
 
+if ! $deploy ; then
+  info_msg "Install Playwright browsers (Chromium, Firefox, WebKit) for E2E tests"
+  uv run playwright install chromium firefox webkit
+fi
+
 success_msg "${PROGRAM} finished!"
 exit 0

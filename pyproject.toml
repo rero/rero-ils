@@ -116,7 +116,10 @@ dev = [
     "ruff>=0.12.8",
     "pytest-ruff>=0.5",
     "python-semantic-release>=10.5.3",
+    "pytest-playwright>=0.8.0",
+    "playwright>=1.30.0"
 ]
+
 prod = [
     "uwsgi>=2.0.30",
     "uwsgitop>=0.11",
@@ -446,13 +449,17 @@ rero_ils = "rero_ils.es_templates:list_search_templates"
 bootstrap = {cmd = "./scripts/bootstrap", help = "Runs bootstrap"}
 console = {cmd = "./scripts/console", help = "Opens invenio shell"}
 server = {cmd = "./scripts/server", help = "Starts the server"}
-setup = {cmd = "./scripts/setup", help = "Runs setup"}
+setup = {cmd = "./scripts/setup", help = "Runs full setup"}
+setup_e2e = {cmd = "./scripts/setup_e2e", help = "Minimal setup for E2E tests (orgs, libs, locs, item types, patron types, circ policies, users — no documents/items)"}
 update = {cmd = "./scripts/update", help = "Runs update"}
 # Code quality
 format = {cmd = "ruff format rero_ils tests", help = "Formats all files"}
 lint = {cmd = "ruff check rero_ils tests", help = "Checks linting"}
 # Tests
-cypress = {cmd = "./scripts/cypress", help = "Runs Cypress tests"}
+e2e = {cmd = "pytest tests/e2e -m \"e2e and not chromium_only\" --base-url https://localhost:5000 --browser chromium --browser firefox --browser webkit -o \"addopts=--color=yes\"", help = "Runs cross-browser E2E tests (requires a running RERO ILS instance)"}
+e2e_chromium = {cmd = "pytest tests/e2e -m e2e --base-url https://localhost:5000 --browser chromium -o \"addopts=--color=yes\"", help = "Runs all E2E tests on Chromium including chromium_only tests (requires a running RERO ILS instance)"}
+e2e_firefox = {cmd = "pytest tests/e2e -m \"e2e and not chromium_only\" --base-url https://localhost:5000 --browser firefox -o \"addopts=--color=yes\"", help = "Runs Playwright E2E tests on Firefox, skipping Chromium-only tests (requires a running RERO ILS instance)"}
+e2e_webkit = {cmd = "pytest tests/e2e -m \"e2e and not chromium_only\" --base-url https://localhost:5000 --browser webkit -o \"addopts=--color=yes\"", help = "Runs Playwright E2E tests on WebKit, skipping Chromium-only tests (requires a running RERO ILS instance)"}
 run_tests = {cmd = "./scripts/test", help = "Runs all tests"}
 tests = {cmd = "pytest", help = "pytest"}
 tests_debug = {cmd = "pytest -s -vv --no-cov", help = "pytest -s -vv --no-cov"}
@@ -505,10 +512,24 @@ match = "staging"
 prerelease = false
 
 [tool.pytest.ini_options]
-addopts = "--color=yes --ruff --exclude-warning-annotations --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=rero_ils/config.py -m \"not external\""
+addopts = "--color=yes --ruff --exclude-warning-annotations --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=rero_ils/config.py --ignore=tests/e2e -m \"not external\""
 testpaths = ["tests", "rero_ils"]
-markers = ["external: mark a test as dealing with external services."]
-filterwarnings = "ignore::PendingDeprecationWarning"
+markers = [
+    "external: mark a test as dealing with external services.",
+    "e2e: mark a test as a Playwright end-to-end test (requires a running instance).",
+    "chromium_only: mark a test as Chromium-only (Angular PrimeNG form submission incompatible with Playwright Firefox/WebKit).",
+]
+filterwarnings = [
+    "ignore::PendingDeprecationWarning",
+    # marshmallow: 'missing' argument renamed to 'load_default' (upstream fix needed)
+    "ignore::DeprecationWarning:marshmallow",
+    # iso639: uses codecs.open() internally
+    "ignore:.*codecs\\.open.*:DeprecationWarning",
+    # jsonmerge uses jsonschema.RefResolver which was deprecated in jsonschema 4.18
+    "ignore:.*RefResolver.*:DeprecationWarning",
+    # pytest-playwright: false positive when session-scoped browser fixture is used with multiple --browser flags
+    "ignore:When using unittest.TestCase specifying multiple browsers is not supported:UserWarning",
+]
 
 [tool.ruff]
 target-version = "py314"

@@ -1,4 +1,4 @@
-# **Circulation Actions**
+# Circulation Actions
 
 ## Add a request
 

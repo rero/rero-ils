@@ -185,7 +185,7 @@ class Organisation(IlsRecord):
 
     def is_test_organisation(self):
         """Check if this is a test organisation."""
-        return self.get("code") == "cypress"
+        return self.get("code") == "e2e"
 
 
 class OrganisationsIndexer(IlsRecordsIndexer):

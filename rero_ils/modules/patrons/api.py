@@ -785,9 +785,16 @@ class Patron(IlsRecord):
 
     @property
     def manageable_library_pids(self):
-        """Get list of manageable library pids for this patron."""
+        """Get list of manageable library pids for this patron.
+
+        For full-permission users the patron's own library pids come first so
+        that callers (e.g. the Angular app) can use the first entry as the
+        default working library.
+        """
         if UserRole.FULL_PERMISSIONS in self.get("roles", []):
-            return self.organisation.get_libraries_pids()
+            own = self.library_pids or []
+            all_pids = self.organisation.get_libraries_pids()
+            return own + [pid for pid in all_pids if pid not in own]
         return self.library_pids or []
 
     @property

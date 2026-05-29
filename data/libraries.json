@@ -3515,7 +3515,7 @@
     "pid": "22",
     "address": "On board the Enterprise",
     "code": "ENTERPRISE",
-    "email": "reroilstest+cypress1@gmail.com",
+    "email": "reroilstest+e2e1@gmail.com",
     "name": "Starfleet library",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/4"
@@ -3595,44 +3595,44 @@
     "notification_settings": [
       {
         "type": "due_soon",
-        "email": "reroilstest+cypress1@gmail.com"
+        "email": "reroilstest+e2e1@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+cypress1@gmail.com"
+        "email": "reroilstest+e2e1@gmail.com"
       },
       {
         "type": "request",
-        "email": "reroilstest+cypress1@gmail.com"
+        "email": "reroilstest+e2e1@gmail.com"
       },
       {
         "type": "transit_notice",
-        "email": "reroilstest+cypress1@gmail.com"
+        "email": "reroilstest+e2e1@gmail.com"
       },
       {
         "type": "booking",
-        "email": "reroilstest+cypress1@gmail.com"
+        "email": "reroilstest+e2e1@gmail.com"
       }
     ],
     "communication_language": "eng",
     "acquisition_settings": {
       "shipping_informations": {
-        "name": "cypress1, John",
-        "email": "reroilstest+cypress1@gmail.com",
+        "name": "e2e1, John",
+        "email": "reroilstest+e2e1@gmail.com",
         "phone": "+4134567888",
         "address": {
-          "street": "street of cypress1",
+          "street": "street of e2e1",
           "zip_code": "11026",
           "city": "Pont-Saint-Martin",
           "country": "sz"
         }
       },
       "billing_informations": {
-        "name": "cypress1, John",
-        "email": "reroilstest+cypress1@gmail.com",
+        "name": "e2e1, John",
+        "email": "reroilstest+e2e1@gmail.com",
         "phone": "+4134567888",
         "address": {
-          "street": "street of cypress1",
+          "street": "street of e2e1",
           "zip_code": "11026",
           "city": "Pont-Saint-Martin",
           "country": "sz"
@@ -3641,22 +3641,22 @@
     },
     "serial_acquisition_settings": {
       "shipping_informations": {
-        "name": "cypress1, John",
-        "email": "reroilstest+cypress1@gmail.com",
+        "name": "e2e1, John",
+        "email": "reroilstest+e2e1@gmail.com",
         "phone": "+4134567888",
         "address": {
-          "street": "street of cypress1",
+          "street": "street of e2e1",
           "zip_code": "11026",
           "city": "Pont-Saint-Martin",
           "country": "sz"
         }
       },
       "billing_informations": {
-        "name": "cypress1, John",
-        "email": "reroilstest+cypress1@gmail.com",
+        "name": "e2e1, John",
+        "email": "reroilstest+e2e1@gmail.com",
         "phone": "+4134567888",
         "address": {
-          "street": "street of cypress1",
+          "street": "street of e2e1",
           "zip_code": "11026",
           "city": "Pont-Saint-Martin",
           "country": "sz"
@@ -3671,7 +3671,7 @@
     "pid": "23",
     "address": "Somewhere on Vulcan",
     "code": "VULCAN",
-    "email": "reroilstest+cypress2@gmail.com",
+    "email": "reroilstest+e2e2@gmail.com",
     "name": "Vulcan Sciences Academy",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/4"
@@ -3751,53 +3751,53 @@
     "notification_settings": [
       {
         "type": "availability",
-        "email": "reroilstest+cypress2@gmail.com",
+        "email": "reroilstest+e2e2@gmail.com",
         "delay": 5
       },
       {
         "type": "due_soon",
-        "email": "reroilstest+cypress2@gmail.com"
+        "email": "reroilstest+e2e2@gmail.com"
       },
       {
         "type": "overdue",
-        "email": "reroilstest+cypress2@gmail.com"
+        "email": "reroilstest+e2e2@gmail.com"
       },
       {
         "type": "recall",
-        "email": "reroilstest+cypress2@gmail.com"
+        "email": "reroilstest+e2e2@gmail.com"
       },
       {
         "type": "request",
-        "email": "reroilstest+cypress2@gmail.com"
+        "email": "reroilstest+e2e2@gmail.com"
       },
       {
         "type": "transit_notice",
-        "email": "reroilstest+cypress2@gmail.com"
+        "email": "reroilstest+e2e2@gmail.com"
       },
       {
         "type": "booking",
-        "email": "reroilstest+cypress2@gmail.com"
+        "email": "reroilstest+e2e2@gmail.com"
       }
     ],
     "communication_language": "eng",
     "acquisition_settings": {
       "shipping_informations": {
-        "name": "cypress2, John",
-        "email": "reroilstest+cypress2@gmail.com",
+        "name": "e2e2, John",
+        "email": "reroilstest+e2e2@gmail.com",
         "phone": "+4134567889",
         "address": {
-          "street": "street of cypress2",
+          "street": "street of e2e2",
           "zip_code": "11026",
           "city": "Pont-Saint-Martin",
           "country": "sz"
         }
       },
       "billing_informations": {
-        "name": "cypress2, John",
-        "email": "reroilstest+cypress2@gmail.com",
+        "name": "e2e2, John",
+        "email": "reroilstest+e2e2@gmail.com",
         "phone": "+4134567889",
         "address": {
-          "street": "street of cypress2",
+          "street": "street of e2e2",
           "zip_code": "11026",
           "city": "Pont-Saint-Martin",
           "country": "sz"
@@ -3806,22 +3806,22 @@
     },
     "serial_acquisition_settings": {
       "shipping_informations": {
-        "name": "cypress2, John",
-        "email": "reroilstest+cypress2@gmail.com",
+        "name": "e2e2, John",
+        "email": "reroilstest+e2e2@gmail.com",
         "phone": "+4134567889",
         "address": {
-          "street": "street of cypress2",
+          "street": "street of e2e2",
           "zip_code": "11026",
           "city": "Pont-Saint-Martin",
           "country": "sz"
         }
       },
       "billing_informations": {
-        "name": "cypress2, John",
-        "email": "reroilstest+cypress2@gmail.com",
+        "name": "e2e2, John",
+        "email": "reroilstest+e2e2@gmail.com",
         "phone": "+4134567889",
         "address": {
-          "street": "street of cypress2",
+          "street": "street of e2e2",
           "zip_code": "11026",
           "city": "Pont-Saint-Martin",
           "country": "sz"

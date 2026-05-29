@@ -618,10 +618,10 @@ PREVIEWER_RECORD_FILE_FACOTRY = (
     "rero_invenio_files.records.previewer.record_file_factory"
 )
 
-PREVIEWER_MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024
+PREVIEWER_MAX_IMAGE_SIZE_BYTES = 50 * 1024 * 1024
 """Maximum file size in bytes for image files."""
 
-PREVIEWER_MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024
+PREVIEWER_MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024
 """Maximum file size in bytes for JSON/XML files."""
 
 # Debug
