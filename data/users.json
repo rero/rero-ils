@@ -1359,7 +1359,7 @@
     "patron": {
       "expiration_date": "2100-10-07",
       "barcode": [
-        "cypress-1"
+        "e2e-test-1"
       ],
       "type": {
         "$ref": "https://bib.rero.ch/api/patron_types/7"
@@ -1387,7 +1387,7 @@
     "patron": {
       "expiration_date": "2100-10-07",
       "barcode": [
-        "cypress-2"
+        "e2e-test-2"
       ],
       "type": {
         "$ref": "https://bib.rero.ch/api/patron_types/7"

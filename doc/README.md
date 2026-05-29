@@ -1,10 +1,11 @@
 # Developer resources
 
-This directory should contain resources about RERO-ils as Loan state chart, Item state chart, Link between RERO resources chart, list of circulation actions, etc.
+This directory contains resources about RERO ILS: loan state chart, item state chart,
+link between RERO resources chart, list of circulation actions, etc.
 
-# RERO-ils resources chart
+## RERO ILS resources chart
 
-This is a chart with some RERO-ils resources as Patron, Document, Item and Budget.
+A chart with some RERO ILS resources: Patron, Document, Item and Budget.
 
 To generate the chart:
 
@@ -12,24 +13,21 @@ To generate the chart:
 make
 ```
 
-**reroils\_resources.png** and **reroils\_resources.svg** should be generated.
+`reroils_resources.png` and `reroils_resources.svg` will be generated.
 
-# Circulation
+## Circulation
 
-  * [actions](./circulation/actions.md): detail of all actions in circulation module
-  * [scenarios](./circulation/scenarios.md): use previous actions to compose more complex scenarios
+- [actions](./circulation/actions.md): detail of all actions in the circulation module
+- [scenarios](./circulation/scenarios.md): use previous actions to compose more complex scenarios
 
-## Loan state chart
+### Loan state chart
 
-A chart with all Loan states.
-
-Can be found in **circulation** directory.
+A chart with all loan states. Can be found in the **circulation** directory.
 
 To generate the chart:
 
-```
-cd circulation && make loan_states
+```bash
+cd circulation && make
 ```
 
-**loan\_states.png** and **loan\_states.jpg** should be generated.
-
+`loan_states.png` and `loan_states.svg` will be generated.

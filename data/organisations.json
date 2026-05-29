@@ -318,7 +318,7 @@
     "pid": "4",
     "address": "The front-end",
     "name": "Institute of user interface tests",
-    "code": "cypress",
+    "code": "e2e",
     "default_currency": "CHF",
     "current_budget_pid": "4",
     "homepage": {

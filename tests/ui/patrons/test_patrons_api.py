@@ -325,7 +325,7 @@ def test_patron_properties(
 
     # TEST `manageable_library_pids`
     assert librarian_martigny.manageable_library_pids == [lib_martigny.pid]
-    assert system_librarian_martigny.manageable_library_pids == org_martigny.get_libraries_pids()
+    assert sorted(system_librarian_martigny.manageable_library_pids) == sorted(org_martigny.get_libraries_pids())
 
     # TEST `blocked`
     patron = Patron.get_patron_by_email(patron_martigny.dumps().get("email"))

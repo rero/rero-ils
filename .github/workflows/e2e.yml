@@ -1,0 +1,73 @@
+name: E2E
+
+on: [push, pull_request, workflow_dispatch]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - name: Setup node
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version: '24'
+
+      - name: Docker compose up
+        run: docker compose up -d
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.0.0
+
+      - name: Set up Python
+        run: uv python install 3.14
+
+      - name: Bootstrap (CI mode)
+        run: uv run ./scripts/bootstrap --ci
+
+      - name: Install Playwright system dependencies
+        run: uv run playwright install-deps chromium firefox webkit
+
+      - name: Install Playwright browsers
+        run: uv run playwright install chromium firefox webkit
+
+      - name: Run minimal E2E setup
+        run: uv run poe setup_e2e
+
+      - name: Start server (background)
+        env:
+          FLASK_DEBUG: 'false'
+        run: |
+          uv run poe server &
+          # Wait until the server is ready (max 60 s); fail if it never responds.
+          for i in $(seq 1 30); do
+            curl -sk https://localhost:5000/api/ping | grep -q OK && exit 0
+            sleep 2
+          done
+          echo "ERROR: Flask server did not become healthy after 60 s" >&2
+          exit 1
+
+      # Run all browsers sequentially in a single job.
+      # Chromium runs all 9 tests (including chromium_only).
+      # Firefox and WebKit run the 5 cross-browser tests only.
+      - name: Run E2E tests — Chromium (all tests)
+        run: uv run poe e2e_chromium
+
+      - name: Run E2E tests — Firefox (cross-browser tests)
+        run: uv run poe e2e_firefox
+
+      - name: Run E2E tests — WebKit (cross-browser tests)
+        run: uv run poe e2e_webkit
+
+      - name: Upload Playwright traces on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7

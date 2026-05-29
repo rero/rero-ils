@@ -54,10 +54,13 @@ def init():
 )
 def destroy():
     """Remove the migration search index."""
-    for migration in Migration.search().source().scan():
-        migration.delete()
-    Index(Migration.Index.name).delete()
-    click.echo("Migration search index has been deleted.")
+    try:
+        for migration in Migration.search().source().scan():
+            migration.delete()
+        Index(Migration.Index.name).delete()
+        click.echo("Migration search index has been deleted.")
+    except NotFoundError:
+        click.echo("Migration search index does not exist, skipping.")
 
 
 @migrations.command()
