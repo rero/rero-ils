@@ -431,6 +431,10 @@
     "pro_full_permissions",
     "pro_read_only"
   ],
+  "org-access": [
+    "pro_full_permissions",
+    "pro_library_administrator"
+  ],
   "org-search": [
     "pro_full_permissions",
     "pro_read_only",

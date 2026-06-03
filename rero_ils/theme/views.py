@@ -36,12 +36,16 @@ from flask import (
     url_for,
 )
 from flask_babel import gettext as _
+from invenio_cache import current_cache
 from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
 from invenio_jsonschemas.proxies import current_refresolver_store
 
 from rero_ils.modules.messages import Message
 from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.organisations.cache import (
+    homepage_organisation_cache_key,
+)
 from rero_ils.modules.utils import cached
 from rero_ils.permissions import can_access_professional_view
 
@@ -91,9 +95,20 @@ def index():
     return render_template(
         "rero_ils/frontpage.html",
         organisations=Organisation.get_all(),
+        view_organisation=None,
         viewcode=global_view_code,
         title=_(view_organisation_name(global_view_code)) + " | " + _(current_app.config["THEME_SITENAME"]),
     )
+
+
+def get_cached_organisation_by_viewcode(viewcode):
+    """Get cached organisation by viewcode or create new one with cache."""
+    cache_key = homepage_organisation_cache_key(viewcode)
+    organisation = current_cache.get(cache_key)
+    if organisation is None:
+        organisation = Organisation.get_record_by_viewcode(viewcode)
+        current_cache.set(cache_key, organisation, timeout=0)
+    return organisation
 
 
 @blueprint.route("/<string:viewcode>")
@@ -103,11 +118,13 @@ def index_with_view_code(viewcode):
     """Home Page with viewcode."""
     if viewcode == current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
         return redirect(url_for("rero_ils.index"))
+    organisation = get_cached_organisation_by_viewcode(viewcode)
     return render_template(
         "rero_ils/frontpage.html",
         organisations=Organisation.get_all(),
+        view_organisation=organisation,
         viewcode=viewcode,
-        title=_(view_organisation_name(viewcode)) + " | " + _(current_app.config["THEME_SITENAME"]),
+        title=_(organisation["name"]) + " | " + _(current_app.config["THEME_SITENAME"]),
     )
 
 
@@ -170,6 +187,32 @@ def view_organisation_name(viewcode):
         if org := Organisation.get_record_by_viewcode(viewcode):
             return org["name"]
     return current_app.config.get("RERO_ILS_SEARCH_GLOBAL_NAME", "")
+
+
+@blueprint.app_template_filter("localizedLabel")
+def localized_label(values, language, fallback_language="fr"):
+    """Get a localized label from a language/label list."""
+    if not values:
+        return None
+
+    def get_value(value, key):
+        if isinstance(value, dict):
+            return value.get(key)
+        return getattr(value, key, None)
+
+    labels = {}
+    for value in values:
+        item_language = get_value(value, "language")
+        item_label = get_value(value, "value")
+        if item_language and item_label:
+            labels[item_language] = item_label
+
+    if label := labels.get(language):
+        return label
+    if fallback_language is None:
+        # Avoid displaying "None" when a localized homepage block is missing.
+        return " "
+    return labels.get(fallback_language) or next(iter(labels.values()), None)
 
 
 @blueprint.add_app_template_global

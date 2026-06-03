@@ -26,9 +26,22 @@
 {%- block page_body %}
 <div class="flex-grow-1">
 {%- block body %}
+  {% set homepage = view_organisation.homepage|default({}) if view_organisation else {} %}
+  {% set blocks = homepage.blocks|default({}) %}
+  {% set slogan = homepage.slogan|default([])|localizedLabel(current_i18n.language) %}
+  {% set placeholder = homepage.placeholder|default([])|localizedLabel(current_i18n.language) %}
+  {% set block_left = blocks.left|default([])|localizedLabel(current_i18n.language, none) %}
+  {% set block_center = blocks.center|default([])|localizedLabel(current_i18n.language, none) %}
+  {% set block_right = blocks.right|default([])|localizedLabel(current_i18n.language, none) %}
   <header class="rero-ils-frontpage d-flex flex-column justify-content-center text-white pt-4">
     <!-- Slogan -->
-    {% if not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
+    {% if slogan %}
+      <div class="rero-slogan mb-4">
+        <div class="container text-center">
+          <h1>{{ slogan }}</h1>
+        </div>
+      </div>
+    {% elif not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
       {%- include config.RERO_ILS_HOMEPAGE_GENERAL_SLOGAN %}
     {% else %}
       {%- include "rero_ils/_frontpage_slogan_" + viewcode + ".html" %}
@@ -38,9 +51,8 @@
     <div class="rero-search-bar">
       <div class="container">
         <main-search-bar
-          placeholder="{{ _('What are you looking for?') }}"
+          placeholder="{{ placeholder or _('What are you looking for?') }}"
           viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
-          language="{{ current_i18n.locale.language[:2] }}"
           inputstyleclass="ui:md:text-xl ui:w-full"
           styleclass="ui:w-full"
         />
@@ -56,7 +68,25 @@
   <!-- Block links -->
   <div class="container">
     <article class="row mt-md-4">
-      {% if not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
+      {% if block_left or block_center or block_right %}
+        <section class="col-md-4 order-1 order-md-1 px-4 pt-4">
+          {% if block_left %}
+            {{ block_left|safe }}
+          {% endif %}
+        </section>
+
+        <section class="col-md-4 order-2 order-md-2 px-4 pt-4">
+          {% if block_center %}
+            {{ block_center|safe }}
+          {% endif %}
+        </section>
+
+        <section class="col-md-4 order-3 order-md-3 px-4 pt-4">
+          {% if block_right %}
+            {{ block_right|safe }}
+          {% endif %}
+        </section>
+      {% elif not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
         {%- include config.RERO_ILS_HOMEPAGE_GENERAL_BLOCK %}
       {% else %}
         {%- include "rero_ils/_frontpage_block_" + viewcode + ".html" %}

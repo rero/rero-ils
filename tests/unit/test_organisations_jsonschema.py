@@ -81,3 +81,37 @@ def test_default_currency(organisation_schema, org_martigny_data):
         data = copy.deepcopy(org_martigny_data)
         data["default_currency"] = "chf"  # bad string case
         validate(data, organisation_schema)
+
+
+def test_homepage_fields(organisation_schema, org_martigny_data):
+    """Test homepage fields for organisation jsonschemas."""
+    data = copy.deepcopy(org_martigny_data)
+    data["homepage"] = {
+        "slogan": [
+            {"language": "fr", "value": "Bienvenue"},
+            {"language": "en", "value": "Welcome"},
+        ],
+        "placeholder": [
+            {"language": "fr", "value": "Que cherchez-vous?"},
+            {"language": "en", "value": "What are you looking for?"},
+        ],
+        "blocks": {
+            "left": [
+                {"language": "fr", "value": "<h3>Bloc gauche</h3>"},
+                {"language": "en", "value": "<h3>Left block</h3>"},
+            ],
+            "center": [{"language": "fr", "value": "<h3>Bloc centre</h3>"}],
+            "right": [{"language": "fr", "value": "<h3>Bloc droite</h3>"}],
+        },
+    }
+
+    validate(data, organisation_schema)
+
+
+def test_homepage_block_label_type(organisation_schema, org_martigny_data):
+    """Test homepage block label type for organisation jsonschemas."""
+    data = copy.deepcopy(org_martigny_data)
+    data["homepage"] = {"blocks": {"left": [{"language": "fr", "value": 25}]}}
+
+    with pytest.raises(ValidationError):
+        validate(data, organisation_schema)

@@ -5,22 +5,14 @@
   "description": "Usually a network of several libraries sharing data for patrons, items, etc.",
   "additionalProperties": false,
   "propertiesOrder": [
-    "$schema",
-    "pid",
     "name",
-    "code",
     "address",
     "default_currency",
-    "current_budget_pid",
-    "online_harvested_source",
-    "collection_enabled_on_public_view",
+    "homepage",
     "patron_cleanup"
   ],
   "required": [
-    "$schema",
-    "pid",
     "name",
-    "code",
     "default_currency"
   ],
   "properties": {
@@ -114,6 +106,345 @@
           "items": {
             "type": "string",
             "minLength": 1
+          }
+        }
+      }
+    },
+    "homepage": {
+      "title": "Homepage",
+      "type": "object",
+      "description": "Configuration for the public homepage.",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "slogan",
+        "placeholder",
+        "blocks"
+      ],
+      "properties": {
+        "slogan": {
+          "title": "Slogan",
+          "type": "array",
+          "description": "Text displayed on the public homepage banner.",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "title": "Slogan",
+            "additionalProperties": false,
+            "required": [
+              "language",
+              "value"
+            ],
+            "propertiesOrder": [
+              "language",
+              "value"
+            ],
+            "properties": {
+              "language": {
+                "$ref": "https://bib.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+              },
+              "value": {
+                "title": "value",
+                "type": "string",
+                "maxLength": 255,
+                "minLength": 1,
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "ui:col-span-12 ui:md:col-span-9"
+                    }
+                  }
+                }
+              }
+            },
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
+                }
+              }
+            }
+          },
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "validation": {
+                  "validators": {
+                    "uniqueValueKeysInObject": {
+                      "keys": [
+                        "language"
+                      ]
+                    }
+                  },
+                  "messages": {
+                    "uniqueValueKeysInObjectMessage": "Only one value per language is allowed."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "placeholder": {
+          "title": "Placeholder",
+          "type": "array",
+          "description": "Placeholder text displayed in the public homepage search box.",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "title": "Placeholder",
+            "additionalProperties": false,
+            "required": [
+              "language",
+              "value"
+            ],
+            "propertiesOrder": [
+              "language",
+              "value"
+            ],
+            "properties": {
+              "language": {
+                "$ref": "https://bib.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+              },
+              "value": {
+                "title": "value",
+                "type": "string",
+                "maxLength": 255,
+                "minLength": 1,
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "ui:col-span-12 ui:md:col-span-9"
+                    }
+                  }
+                }
+              }
+            },
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
+                }
+              }
+            }
+          },
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "validation": {
+                  "validators": {
+                    "uniqueValueKeysInObject": {
+                      "keys": [
+                        "language"
+                      ]
+                    }
+                  },
+                  "messages": {
+                    "uniqueValueKeysInObjectMessage": "Only one value per language is allowed."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "blocks": {
+          "title": "Blocks",
+          "type": "object",
+          "description": "HTML content displayed in the homepage blocks.",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "left",
+            "center",
+            "right"
+          ],
+          "properties": {
+            "left": {
+              "title": "Left block",
+              "type": "array",
+              "description": "HTML content displayed in the left homepage block. Will also be the second block displayed on mobile.",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "title": "Left block",
+                "additionalProperties": false,
+                "required": [
+                  "language",
+                  "value"
+                ],
+                "propertiesOrder": [
+                  "language",
+                  "value"
+                ],
+                "properties": {
+                  "language": {
+                    "$ref": "https://bib.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+                  },
+                  "value": {
+                    "title": "HTML",
+                    "type": "string",
+                    "minLength": 1,
+                    "widget": {
+                      "formlyConfig": {
+                        "type": "textarea",
+                        "props": {
+                          "rows": 8,
+                          "itemCssClass": "ui:col-span-12 ui:md:col-span-9"
+                        }
+                      }
+                    }
+                  }
+                },
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
+                    }
+                  }
+                }
+              },
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "validation": {
+                      "validators": {
+                        "uniqueValueKeysInObject": {
+                          "keys": [
+                            "language"
+                          ]
+                        }
+                      },
+                      "messages": {
+                        "uniqueValueKeysInObjectMessage": "Only one value per language is allowed."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "center": {
+              "title": "Center block",
+              "type": "array",
+              "description": "HTML content displayed in the center homepage block. Will also be the first block displayed on mobile.",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "title": "Center block",
+                "additionalProperties": false,
+                "required": [
+                  "language",
+                  "value"
+                ],
+                "propertiesOrder": [
+                  "language",
+                  "value"
+                ],
+                "properties": {
+                  "language": {
+                    "$ref": "https://bib.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+                  },
+                  "value": {
+                    "title": "HTML",
+                    "type": "string",
+                    "minLength": 1,
+                    "widget": {
+                      "formlyConfig": {
+                        "type": "textarea",
+                        "props": {
+                          "rows": 8,
+                          "itemCssClass": "ui:col-span-12 ui:md:col-span-9"
+                        }
+                      }
+                    }
+                  }
+                },
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
+                    }
+                  }
+                }
+              },
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "validation": {
+                      "validators": {
+                        "uniqueValueKeysInObject": {
+                          "keys": [
+                            "language"
+                          ]
+                        }
+                      },
+                      "messages": {
+                        "uniqueValueKeysInObjectMessage": "Only one value per language is allowed."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "right": {
+              "title": "Right block",
+              "type": "array",
+              "description": "HTML content displayed in the right homepage block. Will also be the third block displayed on mobile.",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "title": "Right block",
+                "additionalProperties": false,
+                "required": [
+                  "language",
+                  "value"
+                ],
+                "propertiesOrder": [
+                  "language",
+                  "value"
+                ],
+                "properties": {
+                  "language": {
+                    "$ref": "https://bib.rero.ch/schemas/common/ui-languages-v0.0.1.json#/language"
+                  },
+                  "value": {
+                    "title": "HTML",
+                    "type": "string",
+                    "minLength": 1,
+                    "widget": {
+                      "formlyConfig": {
+                        "type": "textarea",
+                        "props": {
+                          "rows": 8,
+                          "itemCssClass": "ui:col-span-12 ui:md:col-span-9"
+                        }
+                      }
+                    }
+                  }
+                },
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
+                    }
+                  }
+                }
+              },
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "validation": {
+                      "validators": {
+                        "uniqueValueKeysInObject": {
+                          "keys": [
+                            "language"
+                          ]
+                        }
+                      },
+                      "messages": {
+                        "uniqueValueKeysInObjectMessage": "Only one value per language is allowed."
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

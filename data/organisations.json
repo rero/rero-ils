@@ -9,6 +9,100 @@
     "online_harvested_source": [
       "ebibliomedia"
     ],
+    "homepage": {
+      "slogan": [
+        {
+          "language": "fr",
+          "value": "Bienvenue dans le catalogue d'Aoste"
+        },
+        {
+          "language": "en",
+          "value": "Welcome to the Aosta catalogue"
+        },
+        {
+          "language": "de",
+          "value": "Willkommen im Katalog von Aosta"
+        },
+        {
+          "language": "it",
+          "value": "Benvenuti nel catalogo di Aosta"
+        }
+      ],
+      "placeholder": [
+        {
+          "language": "fr",
+          "value": "Rechercher dans les bibliotheques d'Aoste"
+        },
+        {
+          "language": "en",
+          "value": "Search the Aosta libraries"
+        },
+        {
+          "language": "de",
+          "value": "In den Bibliotheken von Aosta suchen"
+        },
+        {
+          "language": "it",
+          "value": "Cerca nelle biblioteche di Aosta"
+        }
+      ],
+      "blocks": {
+        "left": [
+          {
+            "language": "fr",
+            "value": "<h3>Decouvrir</h3><p>Explorez les collections du reseau.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Discover</h3><p>Explore the network collections.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Entdecken</h3><p>Entdecken Sie die Sammlungen des Netzwerks.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Scoprire</h3><p>Esplora le collezioni della rete.</p>"
+          }
+        ],
+        "center": [
+          {
+            "language": "fr",
+            "value": "<h3>Services</h3><p>Consultez les informations pratiques de votre bibliotheque.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Services</h3><p>Find practical information about your library.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Dienste</h3><p>Finden Sie praktische Informationen zu Ihrer Bibliothek.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Servizi</h3><p>Trova informazioni pratiche sulla tua biblioteca.</p>"
+          }
+        ],
+        "right": [
+          {
+            "language": "fr",
+            "value": "<h3>Aide</h3><p>Contactez votre bibliotheque pour toute question.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Help</h3><p>Contact your library for any question.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Hilfe</h3><p>Kontaktieren Sie Ihre Bibliothek bei Fragen.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Aiuto</h3><p>Contatta la tua biblioteca per qualsiasi domanda.</p>"
+          }
+        ]
+      }
+    },
     "collection_enabled_on_public_view": true
   },
   {
@@ -21,6 +115,100 @@
     "online_harvested_source": [
       "mv-cantook"
     ],
+    "homepage": {
+      "slogan": [
+        {
+          "language": "fr",
+          "value": "Bienvenue dans les bibliotheques des Highlands"
+        },
+        {
+          "language": "en",
+          "value": "Welcome to the Highlands libraries"
+        },
+        {
+          "language": "de",
+          "value": "Willkommen in den Highlands-Bibliotheken"
+        },
+        {
+          "language": "it",
+          "value": "Benvenuti nelle biblioteche delle Highlands"
+        }
+      ],
+      "placeholder": [
+        {
+          "language": "fr",
+          "value": "Rechercher dans les collections des Highlands"
+        },
+        {
+          "language": "en",
+          "value": "Search the Highlands collections"
+        },
+        {
+          "language": "de",
+          "value": "In den Highlands-Sammlungen suchen"
+        },
+        {
+          "language": "it",
+          "value": "Cerca nelle collezioni delle Highlands"
+        }
+      ],
+      "blocks": {
+        "left": [
+          {
+            "language": "fr",
+            "value": "<h3>Collections</h3><p>Parcourez les documents disponibles.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Collections</h3><p>Browse available documents.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Sammlungen</h3><p>Durchsuchen Sie verfuegbare Dokumente.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Collezioni</h3><p>Sfoglia i documenti disponibili.</p>"
+          }
+        ],
+        "center": [
+          {
+            "language": "fr",
+            "value": "<h3>Compte lecteur</h3><p>Connectez-vous pour suivre vos prets.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Reader account</h3><p>Sign in to follow your loans.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Leserkonto</h3><p>Melden Sie sich an, um Ihre Ausleihen zu verfolgen.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Account lettore</h3><p>Accedi per seguire i tuoi prestiti.</p>"
+          }
+        ],
+        "right": [
+          {
+            "language": "fr",
+            "value": "<h3>Informations</h3><p>Retrouvez les horaires et les contacts.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Information</h3><p>Find opening hours and contacts.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Informationen</h3><p>Finden Sie Oeffnungszeiten und Kontakte.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Informazioni</h3><p>Trova orari e contatti.</p>"
+          }
+        ]
+      }
+    },
     "collection_enabled_on_public_view": false
   },
   {
@@ -30,6 +218,100 @@
     "code": "fictive",
     "default_currency": "CHF",
     "current_budget_pid": "3",
+    "homepage": {
+      "slogan": [
+        {
+          "language": "fr",
+          "value": "Bienvenue dans le reseau des bibliotheques fictives"
+        },
+        {
+          "language": "en",
+          "value": "Welcome to the fictive libraries network"
+        },
+        {
+          "language": "de",
+          "value": "Willkommen im Netzwerk fiktiver Bibliotheken"
+        },
+        {
+          "language": "it",
+          "value": "Benvenuti nella rete delle biblioteche fittizie"
+        }
+      ],
+      "placeholder": [
+        {
+          "language": "fr",
+          "value": "Rechercher dans les bibliotheques fictives"
+        },
+        {
+          "language": "en",
+          "value": "Search the fictive libraries"
+        },
+        {
+          "language": "de",
+          "value": "In den fiktiven Bibliotheken suchen"
+        },
+        {
+          "language": "it",
+          "value": "Cerca nelle biblioteche fittizie"
+        }
+      ],
+      "blocks": {
+        "left": [
+          {
+            "language": "fr",
+            "value": "<h3>Nouveautes</h3><p>Decouvrez les derniers documents ajoutes.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>New items</h3><p>Discover recently added documents.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Neuheiten</h3><p>Entdecken Sie neu hinzugefuegte Dokumente.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Novita</h3><p>Scopri i documenti aggiunti di recente.</p>"
+          }
+        ],
+        "center": [
+          {
+            "language": "fr",
+            "value": "<h3>Recherche</h3><p>Trouvez facilement livres, articles et ressources.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Search</h3><p>Find books, articles and resources easily.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Suche</h3><p>Finden Sie Buecher, Artikel und Ressourcen einfach.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Ricerca</h3><p>Trova facilmente libri, articoli e risorse.</p>"
+          }
+        ],
+        "right": [
+          {
+            "language": "fr",
+            "value": "<h3>Besoin d'aide</h3><p>L'equipe de la bibliotheque vous accompagne.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Need help</h3><p>The library team is here to help.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Hilfe benoetigt</h3><p>Das Bibliotheksteam hilft Ihnen gerne.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Hai bisogno di aiuto</h3><p>Il team della biblioteca e qui per aiutarti.</p>"
+          }
+        ]
+      }
+    },
     "collection_enabled_on_public_view": false
   },
   {
@@ -39,6 +321,100 @@
     "code": "cypress",
     "default_currency": "CHF",
     "current_budget_pid": "4",
+    "homepage": {
+      "slogan": [
+        {
+          "language": "fr",
+          "value": "Bienvenue dans le catalogue de test"
+        },
+        {
+          "language": "en",
+          "value": "Welcome to the test catalogue"
+        },
+        {
+          "language": "de",
+          "value": "Willkommen im Testkatalog"
+        },
+        {
+          "language": "it",
+          "value": "Benvenuti nel catalogo di test"
+        }
+      ],
+      "placeholder": [
+        {
+          "language": "fr",
+          "value": "Rechercher dans le catalogue de test"
+        },
+        {
+          "language": "en",
+          "value": "Search the test catalogue"
+        },
+        {
+          "language": "de",
+          "value": "Im Testkatalog suchen"
+        },
+        {
+          "language": "it",
+          "value": "Cerca nel catalogo di test"
+        }
+      ],
+      "blocks": {
+        "left": [
+          {
+            "language": "fr",
+            "value": "<h3>Tests</h3><p>Contenu utilise pour verifier l'interface.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Tests</h3><p>Content used to check the interface.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Tests</h3><p>Inhalt zur Pruefung der Oberflaeche.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Test</h3><p>Contenuto usato per verificare l'interfaccia.</p>"
+          }
+        ],
+        "center": [
+          {
+            "language": "fr",
+            "value": "<h3>Parcours</h3><p>Utilisez ce catalogue pour les scenarios de test.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Flows</h3><p>Use this catalogue for test scenarios.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Ablaufe</h3><p>Nutzen Sie diesen Katalog fuer Testszenarien.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Percorsi</h3><p>Usa questo catalogo per gli scenari di test.</p>"
+          }
+        ],
+        "right": [
+          {
+            "language": "fr",
+            "value": "<h3>Support</h3><p>Les donnees peuvent etre adaptees aux besoins de test.</p>"
+          },
+          {
+            "language": "en",
+            "value": "<h3>Support</h3><p>The data can be adapted for testing needs.</p>"
+          },
+          {
+            "language": "de",
+            "value": "<h3>Support</h3><p>Die Daten koennen fuer Tests angepasst werden.</p>"
+          },
+          {
+            "language": "it",
+            "value": "<h3>Supporto</h3><p>I dati possono essere adattati alle esigenze di test.</p>"
+          }
+        ]
+      }
+    },
     "collection_enabled_on_public_view": true
   }
 ]

@@ -24,13 +24,28 @@ from flask_security import url_for_security
 from invenio_accounts.testutils import login_user_via_view
 
 from rero_ils.modules.users.api import user_formatted_name
-from rero_ils.theme.views import nl2br
+from rero_ils.theme.views import localized_label, nl2br
 from tests.utils import postdata
 
 
 def test_nl2br():
     """Test nl2br function view."""
     assert nl2br("foo\nBar") == "foo<br>Bar"
+
+
+def test_localized_label():
+    """Test localized label filter."""
+    values = [
+        {"language": "fr", "value": "Bonjour"},
+        {"language": "en", "value": "Hello"},
+    ]
+
+    assert localized_label(values, "en") == "Hello"
+    assert localized_label(values, "de") == "Bonjour"
+    assert localized_label(values, "it", None) == " "
+    assert localized_label([{"language": "en", "value": "Hello"}], "de") == "Hello"
+    assert localized_label([], "fr") is None
+    assert localized_label(None, "fr") is None
 
 
 def test_error(client):

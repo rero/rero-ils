@@ -31,6 +31,7 @@ from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import sorted_pids
 from rero_ils.modules.vendors.api import Vendor, VendorsSearch
 
+from .extensions import OrganisationHomepageSanitizerExtension
 from .models import OrganisationIdentifier, OrganisationMetadata
 
 # provider
@@ -76,6 +77,7 @@ class Organisation(IlsRecord):
     fetcher = organisation_id_fetcher
     provider = OrganisationProvider
     model_cls = OrganisationMetadata
+    _extensions = [OrganisationHomepageSanitizerExtension()]
 
     @classmethod
     def get_all(cls):
