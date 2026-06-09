@@ -37,6 +37,7 @@ from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.minters import id_minter
+from rero_ils.modules.operation_logs.extensions import OperationLogObserverExtension
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patron_transactions.utils import (
@@ -102,7 +103,7 @@ class Patron(IlsRecord):
     model_cls = PatronMetadata
     schema = "patrons/patron-v0.0.1.json"
 
-    _extensions = [UserDataExtension()]
+    _extensions = [UserDataExtension(), OperationLogObserverExtension()]
 
     def extended_validation(self, **kwargs):
         """Return reasons for validation failures, otherwise True.
@@ -157,7 +158,7 @@ class Patron(IlsRecord):
         record._update_roles()
         return record
 
-    def update(self, data, commit=True, dbcommit=False, reindex=False):
+    def update(self, data, commit=False, dbcommit=False, reindex=False):
         """Update data for record."""
         super().update(Patron._clean_data(data), commit, dbcommit, reindex)
         self._update_roles()

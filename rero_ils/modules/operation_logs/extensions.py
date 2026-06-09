@@ -25,8 +25,6 @@ from deepdiff import DeepDiff
 from flask import request as flask_request
 from invenio_records.extensions import RecordExtension
 
-from rero_ils.modules.patrons.api import current_librarian
-
 from ..utils import extracted_data_from_ref
 from .models import OperationLogOperation
 
@@ -52,6 +50,8 @@ class OperationLogFactory:
         :param operation: the trigger operation on this record.
         :return a dict representing the operation log to register.
         """
+        from rero_ils.modules.patrons.api import current_librarian
+
         oplg = {
             "date": datetime.now(UTC).isoformat(),
             "record": {"value": record.get("pid"), "type": record.provider.pid_type},
