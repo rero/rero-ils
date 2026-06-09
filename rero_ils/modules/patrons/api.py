@@ -159,7 +159,7 @@ class Patron(IlsRecord):
         record._update_roles()
         return record
 
-    def update(self, data, commit=True, dbcommit=False, reindex=False):
+    def update(self, data, commit=False, dbcommit=False, reindex=False):
         """Update data for record."""
         super().update(Patron._clean_data(data), commit, dbcommit, reindex)
         self._update_roles()

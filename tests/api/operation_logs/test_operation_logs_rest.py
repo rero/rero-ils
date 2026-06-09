@@ -17,6 +17,7 @@
 
 """Tests REST API operation logs."""
 
+import json
 from copy import deepcopy
 from datetime import datetime
 from unittest import mock
@@ -31,6 +32,7 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.operation_logs.api import OperationLog, OperationLogsSearch
 from rero_ils.modules.operation_logs.models import OperationLogOperation
+from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.utils import create_patron_from_data
 from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
@@ -195,6 +197,7 @@ def test_operation_log_on_patron(
     patron_type_children_martigny,
     patron_martigny_data_tmp,
     librarian_martigny,
+    json_header,
 ):
     """Test operation log on Patron."""
     patron_data = deepcopy(patron_martigny_data_tmp)
@@ -225,14 +228,32 @@ def test_operation_log_on_patron(
     assert data["hits"]["total"]["value"] == 2
     assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.UPDATE
 
+    # STEP #2bis: Update through the REST API (PUT) -> a single UPDATE log.
+    #   The REST handler calls ``record.update(data)`` then ``record.commit()``.
+    #   ``Patron.update`` must not commit by itself, otherwise the operation
+    #   log would be written twice for one PUT.
+    item_url = url_for("invenio_records_rest.ptrn_item", pid_value=patron.pid)
+    put_data = deepcopy(dict(patron))
+    put_data["patron"]["barcode"] = ["oplg_patron_barcode_put"]
+    res = client.put(item_url, data=json.dumps(put_data), headers=json_header)
+    assert res.status_code == 200
+    OperationLogsSearch.flush_and_refresh()
+
+    res = client.get(search_url)
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 3
+    assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.UPDATE
+
     # STEP #3: Delete the patron -> generates a DELETE operation log
+    #   Reload the record as the PUT above bumped its revision server-side.
+    patron = Patron.get_record_by_pid(patron.pid)
     user_id = patron["user_id"]
     patron.delete(dbcommit=True, delindex=True)
     OperationLogsSearch.flush_and_refresh()
 
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 3
+    assert data["hits"]["total"]["value"] == 4
     assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.DELETE
 
     ds = app.extensions["invenio-accounts"].datastore

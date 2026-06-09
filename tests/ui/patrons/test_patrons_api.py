@@ -186,7 +186,7 @@ def test_patron_extended_validation(
     # check that we cannot update a patron to an existing barcode
     patron2_martigny["patron"]["barcode"].append("duplicate")
     with pytest.raises(ValidationError) as err:
-        patron2_martigny.update(patron2_martigny)
+        patron2_martigny.update(patron2_martigny, commit=True)
     assert "already taken" in str(err)
 
     # check that we can create a patron even with existing barcode in another
@@ -199,7 +199,7 @@ def test_patron_extended_validation(
     # check that we can update a patron with existing barcode in another
     # organisation
     patron_sion["patron"]["barcode"] = ["duplicate"]
-    assert patron_sion.update(patron_sion)
+    assert patron_sion.update(patron_sion, commit=True)
 
     # clean up fixtures
     patron_sion["patron"]["barcode"] = patron_sion_barcode
