@@ -15,6 +15,18 @@ from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.utils import get_ref_for_pid
 
 
+def test_build_total_amount():
+    """Total amount is amount * quantity, rounded to 2 decimal places."""
+    data = {"amount": 10.50, "quantity": 3}
+    AcqOrderLine._build_total_amount(data)
+    assert data["total_amount"] == 31.50
+
+    # Float drift: 0.1 * 3 in Python = 0.30000000000000004 without round
+    data = {"amount": 0.10, "quantity": 3}
+    AcqOrderLine._build_total_amount(data)
+    assert data["total_amount"] == 0.30
+
+
 def test_order_line_properties(
     acq_order_fiction_martigny,
     acq_order_line_fiction_martigny,

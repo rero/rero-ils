@@ -148,7 +148,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
     @classmethod
     def _build_total_amount(cls, data):
         """Build total amount for order line."""
-        data["total_amount"] = data["amount"] * data["quantity"]
+        data["total_amount"] = round(data["amount"] * data["quantity"], 2)
 
     # GETTER & SETTER =========================================================
     #   * Define some properties as shortcut to quickly access object attrs.
