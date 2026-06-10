@@ -22,7 +22,7 @@ import logging
 
 import jinja2
 from elasticsearch_dsl import connections
-from flask import Blueprint
+from flask import Blueprint, jsonify, request
 from flask_bootstrap import Bootstrap4
 from flask_login import current_user
 from flask_login.signals import user_loaded_from_cookie, user_logged_in, user_logged_out
@@ -31,16 +31,18 @@ from flask_wiki import Wiki
 from invenio_base.signals import app_loaded
 from invenio_base.utils import obj_or_import_string
 from invenio_circulation.signals import loan_state_changed
+from invenio_db import db
 from invenio_indexer.signals import before_record_index
 from invenio_records.signals import (
     after_record_insert,
     after_record_update,
     before_record_update,
 )
-from invenio_records_rest.errors import JSONSchemaValidationError
+from invenio_records_rest.errors import JSONSchemaValidationError, PIDResolveRESTError
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
 from redis import Redis
+from sqlalchemy.orm.exc import StaleDataError
 
 from rero_ils.filter import (
     address_block,
@@ -243,6 +245,52 @@ class REROILSAPP:
             search_trace_logger.addHandler(handler)
         app_loaded.connect(set_boosting_query_fields)
         connections.add_connection("default", current_search_client)
+
+        # TODO: Temporary workaround for nginx gzip + invenio-rest ETag interaction.
+        # nginx converts strong ETags ("N") to weak ETags (W/"N") when gzip is applied to
+        # a response, which is correct per RFC 7232 (byte content changes after compression).
+        # invenio-rest's check_etag() uses strong comparison only: when If-Match contains
+        # W/"N", as_set(include_weak=False) returns an empty set and the check is silently
+        # skipped, allowing any PUT to succeed regardless of the If-Match value.
+        # The proper fix belongs in invenio-rest: check_etag() should handle weak ETags in
+        # If-Match (either reject with 412 or accept with weak comparison).
+        # Track upstream: https://github.com/inveniosoftware/invenio-rest
+        @app.before_request
+        def normalize_weak_etags_in_if_match():
+            """Strip W/ prefix from ETags in If-Match to restore strong ETag semantics."""
+            if_match = request.environ.get("HTTP_IF_MATCH", "")
+            if if_match:
+                request.environ["HTTP_IF_MATCH"] = if_match.replace('W/"', '"')
+
+        # TODO: Temporary workaround for concurrent PUT requests (e.g. double-click on save).
+        # StaleDataError is raised by SQLAlchemy optimistic locking (version_id_col on
+        # RecordMetadata) when two requests read the same revision and both try to commit.
+        # The proper fix belongs in invenio-records-rest (and invenio-records-resources):
+        # the put() handler should catch StaleDataError and return 409 itself.
+        # Track upstream: https://github.com/inveniosoftware/invenio-records-rest
+        @app.errorhandler(StaleDataError)
+        def handle_concurrent_update(e):
+            """Return 409 when two concurrent requests update the same record."""
+            db.session.rollback()
+            return jsonify(
+                status=409,
+                message="A conflict happened while processing the request. The resource might have been modified while the request was being processed.",
+            ), 409
+
+        # invenio-records-rest's pass_record decorator wraps the entire PUT handler in a
+        # try/except SQLAlchemyError, which intercepts StaleDataError before it can reach
+        # handle_concurrent_update above and re-raises it as PIDResolveRESTError (500).
+        # We catch PIDResolveRESTError here and check the exception chain to detect this case.
+        @app.errorhandler(PIDResolveRESTError)
+        def handle_pid_resolve_concurrent(e):
+            """Return 409 when PIDResolveRESTError wraps a concurrent update conflict."""
+            if isinstance(e.__context__, StaleDataError):
+                db.session.rollback()
+                return jsonify(
+                    status=409,
+                    message="A conflict happened while processing the request. The resource might have been modified while the request was being processed.",
+                ), 409
+            return e.get_response()
 
     @staticmethod
     def register_import_api_blueprint(app):
