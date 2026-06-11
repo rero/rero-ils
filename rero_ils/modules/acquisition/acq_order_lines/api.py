@@ -25,6 +25,7 @@ from flask_babel import gettext as _
 
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
 from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.extensions import AmountExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
@@ -71,7 +72,12 @@ class AcqOrderLine(AcquisitionIlsRecord):
         "not_required": {"org": "organisation"},
     }
 
-    _extensions = [AcqOrderLineValidationExtension()]
+    _amount_fields = ["amount", "total_amount"]
+
+    _extensions = [
+        AmountExtension(*_amount_fields),
+        AcqOrderLineValidationExtension(),
+    ]
 
     # API METHODS =============================================================
     #   Overriding the `IlsRecord` default behavior for create and update

@@ -268,7 +268,7 @@ def test_holding_requests(
         "patron": {"$ref": get_ref_for_pid("patrons", patron_martigny.pid)},
         "organisation": {"$ref": get_ref_for_pid("org", org_martigny.pid)},
         "status": "open",
-        "total_amount": 0.6,
+        "total_amount": 60,
         "type": "overdue",
         "creation_date": datetime.now(UTC).isoformat(),
     }

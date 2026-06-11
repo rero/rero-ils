@@ -42,14 +42,14 @@ def test_receipt_lines_properties(
     # NOTE --------------------------------------------------------------------
     assert acrl1.get_note(AcqReceiptLineNoteType.STAFF)
     # ACQ ACCOUNT -------------------------------------------------------------
-    assert acq_account_fiction_martigny.expenditure_amount == (1001.0, 0.0)
+    assert acq_account_fiction_martigny.expenditure_amount == (100100, 0)
 
     # TOTAL AMOUNT ------------------------------------------------------------
     #   The receipt line total amount has multiple variables : quantity,
     #   amount, exchange rate and VAT rate
-    #   Starting situation is : qte=1, amount=1000, vat=0, exchange=0
-    assert acrl1.total_amount == 1000
-    acrl1["vat_rate"] = 6.2  # 1000 * 0.062 --> 62
-    assert acrl1.total_amount == 1062
-    acrl1["vat_rate"] = 100  # 1000 * 1.00 --> 1000
-    assert acrl1.total_amount == 2000
+    #   Starting situation is : qte=1, amount=100000, vat=0, exchange=0
+    assert acrl1.total_amount == 100000
+    acrl1["vat_rate"] = 6.2  # 100000 * 1.062 --> 106200
+    assert acrl1.total_amount == 106200
+    acrl1["vat_rate"] = 100  # 100000 * 2.00 --> 200000
+    assert acrl1.total_amount == 200000

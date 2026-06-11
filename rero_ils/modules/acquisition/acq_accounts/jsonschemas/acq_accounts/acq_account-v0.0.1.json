@@ -61,7 +61,8 @@
             "itemCssClass": "ui:md:w-3/12"
           }
         }
-      }
+      },
+      "multipleOf": 0.01
     },
     "encumbrance_exceedance": {
       "title": "Encumbrance exceedance",

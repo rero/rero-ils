@@ -72,13 +72,13 @@
         "type": "integer"
       },
       "amount": {
-        "type": "float"
+        "type": "integer"
       },
       "total_amount": {
-        "type": "float"
+        "type": "integer"
       },
       "total_unreceived_amount": {
-        "type": "float"
+        "type": "integer"
       },
       "notes": {
         "properties": {

@@ -138,7 +138,7 @@ def test_rollover_exceptions(client, acq_full_structure_a, org_martigny, org_sio
         {
             "name": "account_1",
             "number": "000.0000.01",
-            "allocated_amount": 1000,
+            "allocated_amount": 100000,
             "budget": {"$ref": get_ref_for_pid("budg", dest_budget.pid)},
             "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
         },

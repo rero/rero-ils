@@ -761,7 +761,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
         {
             "name": "account_1",
             "number": "000.0000.01",
-            "allocated_amount": 1000,
+            "allocated_amount": 100000,
             "budget": {"$ref": budget_ref},
             "library": {"$ref": lib_ref},
         },
@@ -772,7 +772,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
         {
             "name": "account_2",
             "number": "000.0000.02",
-            "allocated_amount": 2000,
+            "allocated_amount": 200000,
             "budget": {"$ref": budget_ref},
             "library": {"$ref": lib_ref},
         },
@@ -783,7 +783,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
         {
             "name": "account_3",
             "number": "000.0000.03",
-            "allocated_amount": 3000,
+            "allocated_amount": 300000,
             "budget": {"$ref": budget_ref},
             "library": {"$ref": lib_ref},
         },
@@ -794,7 +794,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
         {
             "name": "account_3.1",
             "number": "000.0000.03",
-            "allocated_amount": 300,
+            "allocated_amount": 30000,
             "budget": {"$ref": budget_ref},
             "library": {"$ref": lib_ref},
             "parent": {"$ref": get_ref("acac", acac3.pid)},
@@ -825,7 +825,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
             "acq_order": {"$ref": get_ref("acor", order_10.pid)},
             "document": {"$ref": get_ref("doc", document.pid)},
             "quantity": 4,
-            "amount": 25,
+            "amount": 2500,
         },
     )
     orderline_10_2 = _make_resource(
@@ -836,7 +836,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
             "acq_order": {"$ref": get_ref("acor", order_10.pid)},
             "document": {"$ref": get_ref("doc", document.pid)},
             "quantity": 2,
-            "amount": 15,
+            "amount": 1500,
         },
     )
     orderline_30_1 = _make_resource(
@@ -847,7 +847,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
             "acq_order": {"$ref": get_ref("acor", order_30.pid)},
             "document": {"$ref": get_ref("doc", document.pid)},
             "quantity": 3,
-            "amount": 33,
+            "amount": 3300,
         },
     )
     for order in [order_10, order_20, order_30]:
@@ -871,7 +871,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
             "amount_adjustments": [
                 {
                     "label": "handling fees",
-                    "amount": 2.0,
+                    "amount": 200,
                     "acq_account": {"$ref": get_ref("acac", acac1.pid)},
                 }
             ],
@@ -894,7 +894,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
             "acq_receipt": {"$ref": get_ref("acre", reception_10_1.pid)},
             "acq_order_line": {"$ref": get_ref("acol", orderline_10_1.pid)},
             "quantity": 2,
-            "amount": 25,
+            "amount": 2500,
             "receipt_date": "2022-06-01",
             "library": {"$ref": lib_ref},
         },
@@ -906,7 +906,7 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
             "acq_receipt": {"$ref": get_ref("acre", reception_30_1.pid)},
             "acq_order_line": {"$ref": get_ref("acol", orderline_30_1.pid)},
             "quantity": 1,
-            "amount": 30,
+            "amount": 3000,
             "receipt_date": "2022-07-01",
             "library": {"$ref": lib_ref},
         },

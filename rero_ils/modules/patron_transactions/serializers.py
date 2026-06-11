@@ -22,6 +22,7 @@ from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.items.api.api import Item
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.serializers import (
+    AmountMixin,
     CachedDataSerializerMixin,
     JSONSerializer,
     RecordSchemaJSONV1,
@@ -29,8 +30,10 @@ from rero_ils.modules.serializers import (
 )
 
 
-class PatronTransactionsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
+class PatronTransactionsJSONSerializer(AmountMixin, JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `PatronTransaction` records as JSON."""
+
+    _amount_fields = ["total_amount"]
 
     def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result.

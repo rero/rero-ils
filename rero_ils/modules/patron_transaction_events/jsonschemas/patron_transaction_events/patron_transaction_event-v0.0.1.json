@@ -42,7 +42,8 @@
     "amount": {
       "title": "Amount",
       "type": "number",
-      "exclusiveMinimum": 0
+      "exclusiveMinimum": 0,
+      "multipleOf": 0.01
     },
     "steps": {
       "title": "Steps",
@@ -58,7 +59,8 @@
           },
           "amount": {
             "type": "number",
-            "exclusiveMinimum": 0
+            "exclusiveMinimum": 0,
+            "multipleOf": 0.01
           }
         },
         "required": [

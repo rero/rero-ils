@@ -316,7 +316,7 @@
         "type": "keyword"
       },
       "price": {
-        "type": "float"
+        "type": "integer"
       },
       "_masked": {
         "type": "boolean"

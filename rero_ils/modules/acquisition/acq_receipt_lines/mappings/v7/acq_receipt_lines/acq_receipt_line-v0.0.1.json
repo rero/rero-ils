@@ -53,13 +53,13 @@
         "type": "integer"
       },
       "amount": {
-        "type": "float"
+        "type": "integer"
       },
       "vat_rate": {
         "type": "float"
       },
       "total_amount": {
-        "type": "float"
+        "type": "integer"
       },
       "notes": {
         "properties": {

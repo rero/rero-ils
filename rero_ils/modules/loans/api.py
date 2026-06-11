@@ -655,11 +655,11 @@ class Loan(IlsRecord):
         checkout location, not the extended location.
 
         :return: An array of tuple. Each tuple are composed with two values :
-                the fee amount and a related timestamp.
+                the fee amount in integer cents and a related timestamp.
                 Ex: [
-                  (0.1, datetime.date('2021-01-28')),
-                  (0.1, datetime.date('2021-01-29')),
-                  (0.5, datetime.date('2021-01-30')),
+                  (10, datetime.date('2021-01-28')),
+                  (10, datetime.date('2021-01-29')),
+                  (50, datetime.date('2021-01-30')),
                   ...
                 ]
         """
@@ -717,9 +717,9 @@ class Loan(IlsRecord):
             # d) add the corresponding fee_amount to the fees array.
             # e) if maximum_overdue is reached, exit the loop
             fee_amount = intervals[interval_idx]["fee_amount"]
-            gap = round(max_overdue - total, 2)
+            gap = max_overdue - total
             fee_amount = min(fee_amount, gap)
-            total = round(math.fsum([total, fee_amount]), 2)
+            total += fee_amount
             fees.append((fee_amount, day))
             if max_overdue <= total:
                 break

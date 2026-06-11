@@ -387,10 +387,10 @@ def test_overdue_limit(
     # [2] test fee amount limit
 
     # Update the patron_type to set a fee_amount_limit rule
-    patron_type.setdefault("limits", {}).setdefault("fee_amount_limits", {}).setdefault("default_value", 0.5)
+    patron_type.setdefault("limits", {}).setdefault("fee_amount_limits", {}).setdefault("default_value", 50)
     patron_type.update(patron_type, dbcommit=True, reindex=True)
     patron_type = PatronType.get_record_by_pid(patron_type.pid)
-    assert patron_type.get("limits", {}).get("fee_amount_limits", {}).get("default_value") == 0.5
+    assert patron_type.get("limits", {}).get("fee_amount_limits", {}).get("default_value") == 50
 
     # [2.1] test fee amount limit when we try to checkout a second item
     res, data = postdata(
@@ -484,7 +484,7 @@ def test_unpaid_subscription(
     # assignment is used because the fixture data already contains
     # ``unpaid_subscription: false`` and ``setdefault`` would not overwrite.
     patron_type["limits"] = {"unpaid_subscription": True}
-    patron_type["subscription_amount"] = 10
+    patron_type["subscription_amount"] = 1000
     patron_type.update(patron_type, dbcommit=True, reindex=True)
 
     try:

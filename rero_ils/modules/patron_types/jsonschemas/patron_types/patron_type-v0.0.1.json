@@ -82,7 +82,8 @@
       "title": "Yearly subscription",
       "description": "Yearly amount due by patrons linked to this patron type.",
       "type": "number",
-      "exclusiveMinimum": 0
+      "exclusiveMinimum": 0,
+      "multipleOf": 0.01
     },
     "limits": {
       "title": "Limits",
@@ -254,7 +255,8 @@
               "title": "Fee amount",
               "description": "The checkout, renewal and the request are blocked once the specified overdue fee amount is reached by the patron.",
               "type": "number",
-              "minimum": 0
+              "minimum": 0,
+              "multipleOf": 0.01
             }
           }
         },

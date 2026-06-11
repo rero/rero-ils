@@ -25,12 +25,14 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.organisations.api import OrganisationsSearch
-from rero_ils.modules.serializers import CachedDataSerializerMixin, JSONSerializer
+from rero_ils.modules.serializers import AmountMixin, CachedDataSerializerMixin, JSONSerializer
 from rero_ils.modules.vendors.api import VendorsSearch
 
 
-class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
+class ItemsJSONSerializer(AmountMixin, JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `Item` records as JSON."""
+
+    _amount_fields = ["price"]
 
     def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""

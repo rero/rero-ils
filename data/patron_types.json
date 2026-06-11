@@ -6,7 +6,7 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
     },
-    "subscription_amount": 10,
+    "subscription_amount": 1000,
     "limits": {
       "unpaid_subscription": false,
       "checkout_limits": {

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2026 RERO
+# Copyright (C) 2019-2022 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@ from datetime import UTC, datetime
 from functools import partial
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from rero_ils.modules.extensions import DecimalAmountExtension
+from rero_ils.modules.extensions import AmountExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.patron_transactions.models import PatronTransactionStatus
@@ -73,7 +73,11 @@ class PatronTransactionEvent(IlsRecord):
         "not_required": {"lib": "library", "ptrn": "operator"},
     }
 
-    _extensions = [DecimalAmountExtension("amount")]
+    _amount_fields = ["amount", "steps.amount"]
+
+    _extensions = [
+        AmountExtension(*_amount_fields),
+    ]
 
     @classmethod
     def create(
@@ -103,27 +107,16 @@ class PatronTransactionEvent(IlsRecord):
 
     def update_parent_patron_transaction(self):
         """Update parent patron transaction amount and status."""
-        # NOTE :
-        #   due to bit representation of float number
-        #   (https://en.wikipedia.org/wiki/IEEE_754), the arithmetic operation
-        #   with float can cause some strange behavior
-        #     >>> 10 - 9.54
-        #     0.46000000000000085
-        #   To solve this problem in our case, as we keep only 2 decimal
-        #   digits, we can multiply amounts by 100, cast result as integer,
-        #   do operation with these values, and (at the end) divide the result
-        #   by 100.
         if not self.amount or self.event_type == PatronTransactionEventType.DISPUTE:
             return
 
         pttr = self.patron_transaction
-        total_amount = int(pttr.get("total_amount") * 100)
-        amount = int(self.amount * 100)
+        total_amount = pttr.get("total_amount", 0)
         if self.event_type == PatronTransactionEventType.FEE:
-            total_amount += amount
+            total_amount += self.amount
         else:
-            total_amount -= amount
-        pttr["total_amount"] = total_amount / 100
+            total_amount -= self.amount
+        pttr["total_amount"] = total_amount
         if total_amount == 0:
             pttr["status"] = PatronTransactionStatus.CLOSED
         pttr.update(pttr, dbcommit=True, reindex=True)

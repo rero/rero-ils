@@ -23,6 +23,7 @@ from functools import partial
 from werkzeug.utils import cached_property
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.extensions import AmountExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.organisations.api import Organisation
@@ -65,7 +66,12 @@ class PatronTransactionsSearch(IlsRecordsSearch):
 class PatronTransaction(IlsRecord):
     """Patron Transaction class."""
 
-    _extensions = [PatronTransactionExtension()]
+    _amount_fields = ["total_amount"]
+
+    _extensions = [
+        AmountExtension(*_amount_fields),
+        PatronTransactionExtension(),
+    ]
 
     minter = patron_transaction_id_minter
     fetcher = patron_transaction_id_fetcher

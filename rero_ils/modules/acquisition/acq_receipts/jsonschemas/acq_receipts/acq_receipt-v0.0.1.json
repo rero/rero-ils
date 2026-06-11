@@ -72,7 +72,8 @@
           },
           "amount": {
             "title": "Amount",
-            "type": "number"
+            "type": "number",
+            "multipleOf": 0.01
           },
           "acq_account": {
             "title": "Acquisition account",

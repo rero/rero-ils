@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2025 RERO
+# Copyright (C) 2019-2022 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,7 @@ from elasticsearch_dsl import Q
 from flask_babel import gettext as _
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.extensions import AmountExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.minters import id_minter
@@ -83,7 +84,16 @@ class CircPolicy(IlsRecord):
         },
     }
 
-    _extensions = [CircPolicyFieldsExtension()]
+    _amount_fields = [
+        "overdue_fees.intervals.fee_amount",
+        "overdue_fees.maximum_total_amount",
+        "reminders.fee_amount",
+    ]
+
+    _extensions = [
+        AmountExtension(*_amount_fields),
+        CircPolicyFieldsExtension(),
+    ]
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.

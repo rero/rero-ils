@@ -366,26 +366,16 @@ class AcqOrder(AcquisitionIlsRecord):
             .filter("term", acq_order__pid=self.pid)
             .exclude("term", status=AcqOrderLineStatus.CANCELLED)
         )
-        search.aggs.metric(
-            "order_total_amount",
-            "sum",
-            field="total_amount",
-            script={"source": "Math.round(_value*100)/100.00"},
-        )
+        search.aggs.metric("order_total_amount", "sum", field="total_amount")
         results = search.execute()
-        return round(results.aggregations.order_total_amount.value, 2)
+        return round(results.aggregations.order_total_amount.value)
 
     def get_order_expenditure_total_amount(self):
         """Get total amount of known expenditures of this order."""
         search = AcqReceiptsSearch().filter("term", acq_order__pid=self.pid)
-        search.aggs.metric(
-            "receipt_total_amount",
-            "sum",
-            field="total_amount",
-            script={"source": "Math.round(_value*100)/100.00"},
-        )
+        search.aggs.metric("receipt_total_amount", "sum", field="total_amount")
         results = search.execute()
-        return round(results.aggregations.receipt_total_amount.value, 2)
+        return round(results.aggregations.receipt_total_amount.value)
 
     def get_account_statement(self):
         """Get account statement for this order.

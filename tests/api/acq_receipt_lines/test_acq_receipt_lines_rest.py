@@ -67,7 +67,7 @@ def test_acq_receipt_lines_get(client, acq_receipt_line_1_fiction_martigny):
         del metadata["acq_account"]
         del metadata["total_amount"]
         del metadata["document"]
-        assert data["hits"]["hits"][0]["metadata"] == acq_receipt_line.replace_refs()
+        assert data["hits"]["hits"][0]["metadata"] == acq_receipt_line.dumps()
 
 
 @mock.patch(

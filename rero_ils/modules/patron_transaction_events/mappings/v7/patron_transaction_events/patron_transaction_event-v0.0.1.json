@@ -23,7 +23,7 @@
         "type": "date"
       },
       "amount": {
-        "type": "float"
+        "type": "integer"
       },
       "steps": {
         "properties": {
@@ -31,7 +31,7 @@
             "type": "keyword"
           },
           "amount": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },

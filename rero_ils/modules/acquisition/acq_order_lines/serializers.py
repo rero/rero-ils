@@ -19,7 +19,14 @@
 
 from invenio_records_rest.serializers.response import record_responsify
 
-from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.serializers import ACQJSONSerializer, AmountMixin, RecordSchemaJSONV1
 
-_json = ACQJSONSerializer(RecordSchemaJSONV1)
+
+class AcqOrderLinesJSONSerializer(AmountMixin, ACQJSONSerializer):
+    """Serializer for RERO-ILS `AcqOrderLine` records as JSON."""
+
+    _amount_fields = ["amount", "total_amount"]
+
+
+_json = AcqOrderLinesJSONSerializer(RecordSchemaJSONV1)
 json_acol_record = record_responsify(_json, "application/rero+json")

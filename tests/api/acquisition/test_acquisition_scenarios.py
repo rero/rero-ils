@@ -44,7 +44,7 @@ def test_create_accounts(client, rero_json_header, org_martigny, lib_martigny, b
     root_account_data = {
         "name": "Root account",
         "number": "000.0000.00",
-        "allocated_amount": 1000,
+        "allocated_amount": 100000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
     }
@@ -131,61 +131,61 @@ def test_transfer_funds_api(
     #       |   +-- C22{20, 20}
     #       +-- C3{100, 100}
     basic_data = {
-        "allocated_amount": 1000,
+        "allocated_amount": 100000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
     }
-    account_a = {"name": "A", "allocated_amount": 2000}
+    account_a = {"name": "A", "allocated_amount": 200000}
     account_a = {**basic_data, **account_a}
     account_a = _make_resource(client, "acac", account_a)
     a_ref = {"$ref": get_ref_for_pid("acac", account_a.pid)}
 
-    account_b = {"name": "B", "allocated_amount": 500, "parent": a_ref}
+    account_b = {"name": "B", "allocated_amount": 50000, "parent": a_ref}
     account_b = {**basic_data, **account_b}
     account_b = _make_resource(client, "acac", account_b)
     b_ref = {"$ref": get_ref_for_pid("acac", account_b.pid)}
 
-    account_c = {"name": "C", "allocated_amount": 1000, "parent": a_ref}
+    account_c = {"name": "C", "allocated_amount": 100000, "parent": a_ref}
     account_c = {**basic_data, **account_c}
     account_c = _make_resource(client, "acac", account_c)
     c_ref = {"$ref": get_ref_for_pid("acac", account_c.pid)}
 
-    account_b1 = {"name": "B1", "allocated_amount": 300, "parent": b_ref}
+    account_b1 = {"name": "B1", "allocated_amount": 30000, "parent": b_ref}
     account_b1 = {**basic_data, **account_b1}
     account_b1 = _make_resource(client, "acac", account_b1)
-    account_b2 = {"name": "B2", "allocated_amount": 50, "parent": b_ref}
+    account_b2 = {"name": "B2", "allocated_amount": 5000, "parent": b_ref}
     account_b2 = {**basic_data, **account_b2}
     account_b2 = _make_resource(client, "acac", account_b2)
 
-    account_c1 = {"name": "C1", "allocated_amount": 100, "parent": c_ref}
+    account_c1 = {"name": "C1", "allocated_amount": 10000, "parent": c_ref}
     account_c1 = {**basic_data, **account_c1}
     account_c1 = _make_resource(client, "acac", account_c1)
-    account_c2 = {"name": "C2", "allocated_amount": 100, "parent": c_ref}
+    account_c2 = {"name": "C2", "allocated_amount": 10000, "parent": c_ref}
     account_c2 = {**basic_data, **account_c2}
     account_c2 = _make_resource(client, "acac", account_c2)
-    account_c3 = {"name": "C3", "allocated_amount": 100, "parent": c_ref}
+    account_c3 = {"name": "C3", "allocated_amount": 10000, "parent": c_ref}
     account_c3 = {**basic_data, **account_c3}
     account_c3 = _make_resource(client, "acac", account_c3)
     c2_ref = {"$ref": get_ref_for_pid("acac", account_c2.pid)}
 
-    account_c21 = {"name": "C21", "allocated_amount": 50, "parent": c2_ref}
+    account_c21 = {"name": "C21", "allocated_amount": 5000, "parent": c2_ref}
     account_c21 = {**basic_data, **account_c21}
     account_c21 = _make_resource(client, "acac", account_c21)
-    account_c22 = {"name": "C22", "allocated_amount": 20, "parent": c2_ref}
+    account_c22 = {"name": "C22", "allocated_amount": 2000, "parent": c2_ref}
     account_c22 = {**basic_data, **account_c22}
     account_c22 = _make_resource(client, "acac", account_c22)
 
-    account_e = {"name": "E", "allocated_amount": 300}
+    account_e = {"name": "E", "allocated_amount": 30000}
     account_e = {**basic_data, **account_e}
     account_e = _make_resource(client, "acac", account_e)
     e_ref = {"$ref": get_ref_for_pid("acac", account_e.pid)}
 
-    account_f = {"name": "F", "allocated_amount": 200, "parent": e_ref}
+    account_f = {"name": "F", "allocated_amount": 20000, "parent": e_ref}
     account_f = {**basic_data, **account_f}
     account_f = _make_resource(client, "acac", account_f)
     f_ref = {"$ref": get_ref_for_pid("acac", account_f.pid)}
 
-    account_g = {"name": "G", "allocated_amount": 100, "parent": f_ref}
+    account_g = {"name": "G", "allocated_amount": 10000, "parent": f_ref}
     account_g = {**basic_data, **account_g}
     account_g = _make_resource(client, "acac", account_g)
 
@@ -215,7 +215,7 @@ def test_transfer_funds_api(
         {
             "source": account_a.pid,
             "target": account_b.pid,
-            "amount": -1.52,
+            "amount": -152,
             "error": "'amount' should be a positive number",
         },
         {
@@ -265,16 +265,16 @@ def test_transfer_funds_api(
             "api_acq_account.transfer_funds",
             source=account_c21.pid,
             target=account_c.pid,
-            amount=25,
+            amount=2500,
         )
     )
     assert res.status_code == 200
     account_c21 = AcqAccount.get_record_by_pid(account_c21.pid)
     account_c2 = AcqAccount.get_record_by_pid(account_c2.pid)
     account_c = AcqAccount.get_record_by_pid(account_c.pid)
-    assert _check_account(account_c) == (1000, 725)
-    assert _check_account(account_c2) == (75, 30)
-    assert _check_account(account_c21) == (25, 25)
+    assert _check_account(account_c) == (100000, 72500)
+    assert _check_account(account_c2) == (7500, 3000)
+    assert _check_account(account_c21) == (2500, 2500)
 
     # STATUS BEFORE NEXT TEST
     #   A{2000, 500}                E{300, 100}
@@ -299,7 +299,7 @@ def test_transfer_funds_api(
             "api_acq_account.transfer_funds",
             source=account_a.pid,
             target=account_c22.pid,
-            amount=100,
+            amount=10000,
         )
     )
     assert res.status_code == 200
@@ -307,10 +307,10 @@ def test_transfer_funds_api(
     account_c = AcqAccount.get_record_by_pid(account_c.pid)
     account_c2 = AcqAccount.get_record_by_pid(account_c2.pid)
     account_c22 = AcqAccount.get_record_by_pid(account_c22.pid)
-    assert _check_account(account_a) == (2000, 400)
-    assert _check_account(account_c) == (1100, 725)
-    assert _check_account(account_c2) == (175, 30)
-    assert _check_account(account_c22) == (120, 120)
+    assert _check_account(account_a) == (200000, 40000)
+    assert _check_account(account_c) == (110000, 72500)
+    assert _check_account(account_c2) == (17500, 3000)
+    assert _check_account(account_c22) == (12000, 12000)
 
     # STATUS BEFORE NEXT TEST
     #   A{2000, 400}                E{300, 100}
@@ -332,7 +332,7 @@ def test_transfer_funds_api(
             "api_acq_account.transfer_funds",
             source=account_b1.pid,
             target=account_c21.pid,
-            amount=300,
+            amount=30000,
         )
     )
     assert res.status_code == 200
@@ -343,11 +343,11 @@ def test_transfer_funds_api(
     account_c2 = AcqAccount.get_record_by_pid(account_c2.pid)
     account_c21 = AcqAccount.get_record_by_pid(account_c21.pid)
     assert _check_account(account_b1) == (0, 0)
-    assert _check_account(account_b) == (200, 150)
-    assert _check_account(account_a) == (2000, 400)
-    assert _check_account(account_c) == (1400, 725)
-    assert _check_account(account_c2) == (475, 30)
-    assert _check_account(account_c21) == (325, 325)
+    assert _check_account(account_b) == (20000, 15000)
+    assert _check_account(account_a) == (200000, 40000)
+    assert _check_account(account_c) == (140000, 72500)
+    assert _check_account(account_c2) == (47500, 3000)
+    assert _check_account(account_c21) == (32500, 32500)
 
     # STATUS BEFORE NEXT TEST
     #   A{2000, 400}                E{300, 100}
@@ -370,7 +370,7 @@ def test_transfer_funds_api(
             "api_acq_account.transfer_funds",
             source=account_f.pid,
             target=account_c3.pid,
-            amount=100,
+            amount=10000,
         )
     )
     assert res.status_code == 200
@@ -379,11 +379,11 @@ def test_transfer_funds_api(
     account_a = AcqAccount.get_record_by_pid(account_a.pid)
     account_c = AcqAccount.get_record_by_pid(account_c.pid)
     account_c3 = AcqAccount.get_record_by_pid(account_c3.pid)
-    assert _check_account(account_f) == (100, 0)
-    assert _check_account(account_e) == (200, 100)
-    assert _check_account(account_a) == (2100, 400)
-    assert _check_account(account_c) == (1500, 725)
-    assert _check_account(account_c3) == (200, 200)
+    assert _check_account(account_f) == (10000, 0)
+    assert _check_account(account_e) == (20000, 10000)
+    assert _check_account(account_a) == (210000, 40000)
+    assert _check_account(account_c) == (150000, 72500)
+    assert _check_account(account_c3) == (20000, 20000)
 
     # STATUS BEFORE NEXT TEST
     #   A{2100, 400}                E{200, 100}
@@ -430,16 +430,16 @@ def test_acquisition_order(
 
     # STEP 0 :: Create the account tree
     basic_data = {
-        "allocated_amount": 1000,
+        "allocated_amount": 100000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
     }
-    account_a = {"name": "A", "allocated_amount": 2000}
+    account_a = {"name": "A", "allocated_amount": 200000}
     account_a = {**basic_data, **account_a}
     account_a = _make_resource(client, "acac", account_a)
     account_a_ref = {"$ref": get_ref_for_pid("acac", account_a.pid)}
 
-    account_b = {"name": "B", "allocated_amount": 500, "parent": account_a_ref}
+    account_b = {"name": "B", "allocated_amount": 50000, "parent": account_a_ref}
     account_b = {**basic_data, **account_b}
     account_b = _make_resource(client, "acac", account_b)
     account_b_ref = {"$ref": get_ref_for_pid("acac", account_b.pid)}
@@ -463,15 +463,15 @@ def test_acquisition_order(
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "document": {"$ref": get_ref_for_pid("doc", document.pid)},
         "quantity": 4,
-        "amount": 25,
+        "amount": 2500,
     }
     order_line_1 = _make_resource(client, "acol", basic_data)
-    assert order_line_1.get("total_amount") == 100
+    assert order_line_1.get("total_amount") == 10000
 
-    assert account_b.encumbrance_amount[0] == 100
-    assert account_b.remaining_balance[0] == 400  # 500 - 100
-    assert account_a.encumbrance_amount == (0, 100)
-    assert account_a.remaining_balance[0] == 1500
+    assert account_b.encumbrance_amount[0] == 10000
+    assert account_b.remaining_balance[0] == 40000  # 50000 - 10000
+    assert account_a.encumbrance_amount == (0, 10000)
+    assert account_a.remaining_balance[0] == 150000
     assert account_a.expenditure_amount == (0, 0)
 
     # TEST 2 :: update the number of received item from the order line.
@@ -489,16 +489,16 @@ def test_acquisition_order(
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "document": {"$ref": get_ref_for_pid("doc", document.pid)},
         "quantity": 2,
-        "amount": 10,
+        "amount": 1000,
         "is_cancelled": True,
     }
     order_line_1_1 = _make_resource(client, "acol", basic_data)
-    assert order_line_1_1.get("total_amount") == 20
+    assert order_line_1_1.get("total_amount") == 2000
 
-    assert account_b.encumbrance_amount[0] == 100
-    assert account_b.remaining_balance[0] == 400  # 500 - 100
-    assert account_a.encumbrance_amount == (0, 100)
-    assert account_a.remaining_balance[0] == 1500
+    assert account_b.encumbrance_amount[0] == 10000
+    assert account_b.remaining_balance[0] == 40000  # 50000 - 10000
+    assert account_a.encumbrance_amount == (0, 10000)
+    assert account_a.remaining_balance[0] == 150000
     assert account_a.expenditure_amount == (0, 0)
 
     # TEST 4 :: new order line raises the limit of account available money.
@@ -521,10 +521,10 @@ def test_acquisition_order(
 
     order_line_1["quantity"] = 20
     order_line_1 = order_line_1.update(order_line_1, dbcommit=True, reindex=True)
-    assert account_b.encumbrance_amount[0] == 500
+    assert account_b.encumbrance_amount[0] == 50000
     assert account_b.remaining_balance[0] == 0
-    assert account_a.encumbrance_amount == (0, 500)
-    assert account_a.remaining_balance[0] == 1500
+    assert account_a.encumbrance_amount == (0, 50000)
+    assert account_a.remaining_balance[0] == 150000
 
     # TEST 5 :: Update the account encumbrance exceedance and test it.
     #   * At this time, the account B doesn't have any available money to
@@ -537,13 +537,13 @@ def test_acquisition_order(
         order_line_1.update(order_line_1, dbcommit=True, reindex=True)
     assert "Parent account available amount too low" in str(excinfo.value)
 
-    account_b["encumbrance_exceedance"] = 5  # 5% of 500 = 25
+    account_b["encumbrance_exceedance"] = 5  # 5% of 50000 = 2500
     account_b = account_b.update(account_b, dbcommit=True, reindex=True)
     order_line_1 = order_line_1.update(order_line_1, dbcommit=True, reindex=True)
-    assert account_b.encumbrance_amount[0] == 525
-    assert account_b.remaining_balance[0] == -25
-    assert account_a.encumbrance_amount == (0, 525)
-    assert account_a.remaining_balance[0] == 1500
+    assert account_b.encumbrance_amount[0] == 52500
+    assert account_b.remaining_balance[0] == -2500
+    assert account_a.encumbrance_amount == (0, 52500)
+    assert account_a.remaining_balance[0] == 150000
 
     # Test cascade deleting of order lines when attempting to delete a
     # PENDING order.
@@ -606,7 +606,7 @@ def test_acquisition_order_line_account_changes(
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
     }
-    account_a = {"name": "A", "allocated_amount": 1000}
+    account_a = {"name": "A", "allocated_amount": 100000}
     account_a = _make_resource(client, "acac", {**basic_data, **account_a})
     account_a_ref = {"$ref": get_ref_for_pid("acac", account_a.pid)}
 
@@ -630,12 +630,12 @@ def test_acquisition_order_line_account_changes(
             "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
             "document": {"$ref": get_ref_for_pid("doc", document.pid)},
             "quantity": 2,
-            "amount": 100,
+            "amount": 10000,
         },
     )
 
-    assert account_a.encumbrance_amount == (200, 0)
-    assert account_a.remaining_balance == (800, 800)
+    assert account_a.encumbrance_amount == (20000, 0)
+    assert account_a.remaining_balance == (80000, 80000)
     assert account_b.encumbrance_amount == (0, 0)
     assert account_b.remaining_balance == (0, 0)
 
@@ -655,16 +655,16 @@ def test_acquisition_order_line_account_changes(
     #   Staff member add some money on the destination account to accept this
     #   order line. We update the order line again and check that balance of
     #   original and destination account are correct.
-    account_b["allocated_amount"] = 1000
+    account_b["allocated_amount"] = 100000
     account_b = account_b.update(account_b, dbcommit=True, reindex=True)
     order_line["acq_account"] = account_b_ref
     order_line = order_line.update(order_line, dbcommit=True, reindex=True)
     AcqAccountsSearch.flush_and_refresh()
     assert order_line.account_pid == account_b.pid
     assert account_a.encumbrance_amount == (0, 0)
-    assert account_a.remaining_balance == (1000, 1000)
-    assert account_b.encumbrance_amount == (200, 0)
-    assert account_b.remaining_balance == (800, 800)
+    assert account_a.remaining_balance == (100000, 100000)
+    assert account_b.encumbrance_amount == (20000, 0)
+    assert account_b.remaining_balance == (80000, 80000)
 
     # RESET FIXTURES
     _del_resource(client, "acol", order_line.pid)

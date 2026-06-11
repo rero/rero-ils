@@ -47,7 +47,7 @@
             "type": "integer"
           },
           "fee_amount": {
-            "type": "float"
+            "type": "integer"
           },
           "communication_channel": {
             "type": "keyword"
@@ -68,12 +68,12 @@
                 "type": "integer"
               },
               "fee_amount": {
-                "type": "float"
+                "type": "integer"
               }
             }
           },
           "maximum_total_amount": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },

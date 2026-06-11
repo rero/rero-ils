@@ -74,13 +74,15 @@
             "itemCssClass": "ui:col-span-4 ui:md:col-span-2"
           }
         }
-      }
+      },
+      "multipleOf": 0.01
     },
     "total_amount": {
       "title": "Total amount",
       "type": "number",
       "default": 0,
-      "minimum": 0
+      "minimum": 0,
+      "multipleOf": 0.01
     },
     "notes": {
       "title": "Notes",

@@ -185,7 +185,6 @@
             "type": "number",
             "title": "Amount",
             "exclusiveMinimum": 0,
-            "multipleOf": 0.01,
             "widget": {
               "formlyConfig": {
                 "props": {
@@ -193,7 +192,8 @@
                   "fieldMap": "amount"
                 }
               }
-            }
+            },
+            "multipleOf": 0.01
           },
           "communication_channel": {
             "type": "string",
@@ -302,7 +302,6 @@
                 "type": "number",
                 "title": "Amount",
                 "exclusiveMinimum": 0,
-                "multipleOf": 0.01,
                 "widget": {
                   "formlyConfig": {
                     "props": {
@@ -310,7 +309,8 @@
                       "fieldMap": "fee_amount"
                     }
                   }
-                }
+                },
+                "multipleOf": 0.01
               }
             },
             "widget": {
@@ -327,14 +327,14 @@
           "description": "This defines the maximum fee amount per document, without considering the reminder fees.",
           "title": "Maximum total amount",
           "exclusiveMinimum": 0,
-          "multipleOf": 0.01,
           "widget": {
             "formlyConfig": {
               "props": {
                 "fieldMap": "amount"
               }
             }
-          }
+          },
+          "multipleOf": 0.01
         }
       },
       "widget": {

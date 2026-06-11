@@ -25,13 +25,14 @@ from invenio_records_rest.serializers.response import (
     search_responsify as _search_responsify,
 )
 
-from .base import ACQJSONSerializer, JSONSerializer
+from .base import ACQJSONSerializer, AmountMixin, JSONSerializer
 from .mixins import CachedDataSerializerMixin, StreamSerializerMixin
 from .response import record_responsify_file, search_responsify, search_responsify_file
 from .schema import RecordSchemaJSONV1
 
 __all__ = [
     "ACQJSONSerializer",
+    "AmountMixin",
     "CachedDataSerializerMixin",
     "JSONSerializer",
     "RecordSchemaJSONV1",

@@ -25,6 +25,8 @@ from flask_babel import gettext as _
 from invenio_jsonschemas import current_jsonschemas
 from invenio_records_rest.serializers.json import JSONSerializer as _JSONSerializer
 
+from rero_ils.modules.extensions import _apply_path
+
 from .mixins import PostprocessorMixin
 
 
@@ -134,6 +136,32 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
                 "max": max(values),
                 "step": step,  # 1 day in millis
             }
+
+
+class AmountMixin:
+    """Mixin to convert stored integer amounts to floats in serialized responses.
+
+    Add this mixin to a serializer class and set ``_amount_fields`` to the same
+    dot-notation paths defined on the corresponding record class.
+    """
+
+    _amount_fields = []
+
+    def _convert_amounts(self, data):
+        """Convert integer cent values to floats in-place."""
+        for path in self._amount_fields:
+            _apply_path(data, path, lambda v: round(v / 100, 2) if isinstance(v, int) else v)
+
+    def preprocess_record(self, pid, record, links_factory=None, **kwargs):
+        """Convert integer amounts to floats in a single-record response."""
+        result = super().preprocess_record(pid, record, links_factory, **kwargs)
+        self._convert_amounts(result.get("metadata", {}))
+        return result
+
+    def _postprocess_search_hit(self, hit):
+        """Convert integer amounts to floats (/100) in a search hit."""
+        self._convert_amounts(hit.get("metadata", {}))
+        super()._postprocess_search_hit(hit)
 
 
 class ACQJSONSerializer(JSONSerializer, PostprocessorMixin):

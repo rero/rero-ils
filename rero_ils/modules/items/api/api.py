@@ -28,6 +28,7 @@ from invenio_search import current_search_client
 
 from rero_ils.modules.api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.extensions import AmountExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.item_types.api import ItemTypesSearch
 from rero_ils.modules.minters import id_minter
@@ -103,6 +104,10 @@ class Item(ItemCirculation, ItemIssue):
             "hold": "holding",
         },
     }
+
+    _amount_fields = ["price"]
+
+    _extensions = [*ItemCirculation._extensions, AmountExtension(*_amount_fields)]
 
     def delete(self, force=False, dbcommit=False, delindex=False):
         """Delete record."""

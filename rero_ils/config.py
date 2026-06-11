@@ -1239,13 +1239,13 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index="patron_types",
         indexer_class="rero_ils.modules.patron_types.api:PatronTypesIndexer",
         record_serializers={
-            "application/json": "rero_ils.modules.serializers:json_v1_response"
+            "application/json": "rero_ils.modules.patron_types.serializers:json_ptty_response"
         },
         record_serializers_aliases={
             "json": "application/json",
         },
         search_serializers={
-            "application/json": "rero_ils.modules.serializers:json_v1_search"
+            "application/json": "rero_ils.modules.patron_types.serializers:json_ptty_search"
         },
         list_route="/patron_types/",
         record_loaders={
@@ -1517,13 +1517,13 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index="circ_policies",
         indexer_class="rero_ils.modules.circ_policies.api:CircPoliciesIndexer",
         record_serializers={
-            "application/json": "rero_ils.modules.serializers:json_v1_response"
+            "application/json": "rero_ils.modules.circ_policies.serializers:json_cipo_response"
         },
         record_serializers_aliases={
             "json": "application/json",
         },
         search_serializers={
-            "application/json": "rero_ils.modules.serializers:json_v1_search"
+            "application/json": "rero_ils.modules.circ_policies.serializers:json_cipo_search"
         },
         record_loaders={
             "application/json": lambda: CircPolicy(request.get_json()),

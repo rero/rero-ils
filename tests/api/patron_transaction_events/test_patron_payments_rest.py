@@ -36,15 +36,15 @@ def test_patron_payment(client, librarian_martigny, patron_transaction_overdue_e
     transaction = ptre.patron_transaction
     calculated_amount = sum(event.amount for event in transaction.events)
     transaction = PatronTransaction.get_record_by_pid(transaction.pid)
-    assert calculated_amount == transaction.total_amount == 2.00
+    assert calculated_amount == transaction.total_amount == 200
 
     login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = "invenio_records_rest.ptre_list"
     payment = deepcopy(ptre)
 
-    # STEP#1 :: PARTIAL PAYMENT WITH TOO MUCH DECIMAL
-    #   Try to pay a part of the transaction amount, but according to
-    #   event amount restriction, only 2 decimals are allowed.
+    # STEP#1 :: PARTIAL PAYMENT WITH NON-INTEGER AMOUNT
+    #   Try to pay a part of the transaction amount with a float (not valid,
+    #   amounts must be integers in cents).
     del payment["pid"]
     payment["type"] = PatronTransactionEventType.PAYMENT
     payment["subtype"] = "cash"
@@ -53,20 +53,18 @@ def test_patron_payment(client, librarian_martigny, patron_transaction_overdue_e
     res, _ = postdata(client, post_entrypoint, payment)
     assert res.status_code == 400
 
-    # STEP#2 :: PARTIAL PAYMENT WITH GOOD NUMBER OF DECIMALS
-    #   Despite if a set a number with 3 decimals, if this number represent
-    #   the value of a 2 decimals, it's allowed
-    payment["amount"] = 0.540
+    # STEP#2 :: PARTIAL PAYMENT WITH INTEGER AMOUNT (cents)
+    payment["amount"] = 54
     res, _ = postdata(client, post_entrypoint, payment)
     assert res.status_code == 201
     transaction = PatronTransaction.get_record_by_pid(transaction.pid)
-    assert transaction.total_amount == 1.46
+    assert transaction.total_amount == 146
     assert transaction.status == "open"
 
     # STEP#3 :: PAY TOO MUCH MONEY
     #   Try to proceed a payment with too much money, the system must
     #   reject the payment
-    payment["amount"] = 2
+    payment["amount"] = 200
     res, data = postdata(client, post_entrypoint, payment)
     assert res.status_code == 400
 
@@ -82,7 +80,7 @@ def test_patron_payment(client, librarian_martigny, patron_transaction_overdue_e
     res, data = postdata(client, post_entrypoint, dispute)
     assert res.status_code == 201
     transaction = PatronTransaction.get_record_by_pid(transaction.pid)
-    assert transaction.total_amount == 1.46
+    assert transaction.total_amount == 146
     assert transaction.status == "open"
 
     # STEP#5 :: PAY THE REST
@@ -156,7 +154,7 @@ def test_patron_transaction_events_facets(
     assert total_bucket["doc_count"] == 2
     cash_subtype_aggr = _find_bucket(total_bucket["subtype"], "cash")
     assert cash_subtype_aggr["doc_count"] == 2
-    assert cash_subtype_aggr["subtotal"]["value"] == 2.0
+    assert cash_subtype_aggr["subtotal"]["value"] == 200
 
     #  filter with dummy subtypes :: no payment must be found
     params = {

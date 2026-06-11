@@ -168,11 +168,11 @@ def test_circ_policy_overdue_fees(circ_policy_schema, circ_policy_short_martigny
     validate(cipo, circ_policy_schema)
 
     overdue_data = {
-        "maximum_total_amount": 100,
+        "maximum_total_amount": 10000,
         "intervals": [
-            {"from": 1, "to": 5, "fee_amount": 0.1},
-            {"from": 11, "fee_amount": 0.5},
-            {"from": 6, "to": 10, "fee_amount": 0.1},
+            {"from": 1, "to": 5, "fee_amount": 10},
+            {"from": 11, "fee_amount": 50},
+            {"from": 6, "to": 10, "fee_amount": 10},
         ],
     }
     cipo["overdue_fees"] = overdue_data

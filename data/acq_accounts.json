@@ -3,7 +3,7 @@
     "pid": "1",
     "name": "AOSTE-CANT1-Collections",
     "number": "AOSTE-CANT1.Col.01.000",
-    "allocated_amount": 50000,
+    "allocated_amount": 5000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -17,7 +17,7 @@
     "pid": "2",
     "name": "AOSTE-CANT1-Religions",
     "number": "AOSTE-CANT1.Col.01.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -34,7 +34,7 @@
     "pid": "3",
     "name": "AOSTE-CANT1-Arts",
     "number": "AOSTE-CANT1.Col.01.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -51,7 +51,7 @@
     "pid": "4",
     "name": "AOSTE-CANT1-Periodicals",
     "number": "AOSTE-CANT1.Per.02.000",
-    "allocated_amount": 80000,
+    "allocated_amount": 8000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -65,7 +65,7 @@
     "pid": "5",
     "name": "AOSTE-CANT1-Newspapers",
     "number": "AOSTE-CANT1.Per.02.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -82,7 +82,7 @@
     "pid": "6",
     "name": "AOSTE-CANT1-Online references",
     "number": "AOSTE-CANT1.Per.02.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -99,7 +99,7 @@
     "pid": "7",
     "name": "AOSTE-CANT2-Collections",
     "number": "AOSTE-CANT2.Col.01.000",
-    "allocated_amount": 50000,
+    "allocated_amount": 5000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -113,7 +113,7 @@
     "pid": "8",
     "name": "AOSTE-CANT2-Religions",
     "number": "AOSTE-CANT2.Col.01.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -130,7 +130,7 @@
     "pid": "9",
     "name": "AOSTE-CANT2-Arts",
     "number": "AOSTE-CANT2.Col.01.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -147,7 +147,7 @@
     "pid": "10",
     "name": "AOSTE-CANT2-Periodicals",
     "number": "AOSTE-CANT2.Per.02.000",
-    "allocated_amount": 80000,
+    "allocated_amount": 8000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -161,7 +161,7 @@
     "pid": "11",
     "name": "AOSTE-CANT2-Newspapers",
     "number": "AOSTE-CANT2.Per.02.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -178,7 +178,7 @@
     "pid": "12",
     "name": "AOSTE-CANT2-Online references",
     "number": "AOSTE-CANT2.Per.02.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -195,7 +195,7 @@
     "pid": "13",
     "name": "AOSTE-AVISE-Collections",
     "number": "AOSTE-AVISE.Col.01.000",
-    "allocated_amount": 50000,
+    "allocated_amount": 5000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -209,7 +209,7 @@
     "pid": "14",
     "name": "AOSTE-AVISE-Religions",
     "number": "AOSTE-AVISE.Col.01.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -226,7 +226,7 @@
     "pid": "15",
     "name": "AOSTE-AVISE-Arts",
     "number": "AOSTE-AVISE.Col.01.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -243,7 +243,7 @@
     "pid": "16",
     "name": "AOSTE-AVISE-Periodicals",
     "number": "AOSTE-AVISE.Per.02.000",
-    "allocated_amount": 80000,
+    "allocated_amount": 8000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -257,7 +257,7 @@
     "pid": "17",
     "name": "AOSTE-AVISE-Newspapers",
     "number": "AOSTE-AVISE.Per.02.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -274,7 +274,7 @@
     "pid": "18",
     "name": "AOSTE-AVISE-Online references",
     "number": "AOSTE-AVISE.Per.02.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -291,7 +291,7 @@
     "pid": "19",
     "name": "AOSTE-LYCEE-Collections",
     "number": "AOSTE-LYCEE.Col.01.000",
-    "allocated_amount": 50000,
+    "allocated_amount": 5000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -305,7 +305,7 @@
     "pid": "20",
     "name": "AOSTE-LYCEE-Religions",
     "number": "AOSTE-LYCEE.Col.01.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -322,7 +322,7 @@
     "pid": "21",
     "name": "AOSTE-LYCEE-Arts",
     "number": "AOSTE-LYCEE.Col.01.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -339,7 +339,7 @@
     "pid": "22",
     "name": "AOSTE-LYCEE-Periodicals",
     "number": "AOSTE-LYCEE.Per.02.000",
-    "allocated_amount": 80000,
+    "allocated_amount": 8000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -353,7 +353,7 @@
     "pid": "23",
     "name": "AOSTE-LYCEE-Newspapers",
     "number": "AOSTE-LYCEE.Per.02.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -370,7 +370,7 @@
     "pid": "24",
     "name": "AOSTE-LYCEE-Online references",
     "number": "AOSTE-LYCEE.Per.02.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -387,7 +387,7 @@
     "pid": "25",
     "name": "HOG-Newspapers",
     "number": "HOG.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -401,7 +401,7 @@
     "pid": "26",
     "name": "HOG-Online references",
     "number": "HOG.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -418,7 +418,7 @@
     "pid": "27",
     "name": "JEDI-Newspapers",
     "number": "JEDI.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -432,7 +432,7 @@
     "pid": "28",
     "name": "JEDI-Online references",
     "number": "JEDI.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -449,7 +449,7 @@
     "pid": "29",
     "name": "CITADELLE-Newspapers",
     "number": "CITADELLE.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -463,7 +463,7 @@
     "pid": "30",
     "name": "CITADELLE-Online references",
     "number": "CITADELLE.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -480,7 +480,7 @@
     "pid": "31",
     "name": "BEAST-Newspapers",
     "number": "BEAST.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -494,7 +494,7 @@
     "pid": "32",
     "name": "BEAST-Online references",
     "number": "BEAST.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -511,7 +511,7 @@
     "pid": "33",
     "name": "DREAM-Newspapers",
     "number": "DREAM.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -525,7 +525,7 @@
     "pid": "34",
     "name": "DREAM-Online references",
     "number": "DREAM.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -542,7 +542,7 @@
     "pid": "35",
     "name": "WHO-Newspapers",
     "number": "WHO.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -556,7 +556,7 @@
     "pid": "36",
     "name": "WHO-Online references",
     "number": "WHO.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -573,7 +573,7 @@
     "pid": "37",
     "name": "HOG-St-Newspapers",
     "number": "HOG-St.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -587,7 +587,7 @@
     "pid": "38",
     "name": "HOG-St-Online references",
     "number": "HOG-St.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -604,7 +604,7 @@
     "pid": "39",
     "name": "BABEL-Newspapers",
     "number": "BABEL.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -618,7 +618,7 @@
     "pid": "40",
     "name": "BABEL-Online references",
     "number": "BABEL.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -635,7 +635,7 @@
     "pid": "41",
     "name": "ROSE-Newspapers",
     "number": "ROSE.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -649,7 +649,7 @@
     "pid": "42",
     "name": "ROSE-Online references",
     "number": "ROSE.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -666,7 +666,7 @@
     "pid": "43",
     "name": "UNI-Newspapers",
     "number": "UNI.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -680,7 +680,7 @@
     "pid": "44",
     "name": "UNI-Online references",
     "number": "UNI.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -697,7 +697,7 @@
     "pid": "45",
     "name": "CEMETERY-Newspapers",
     "number": "CEMETERY.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -711,7 +711,7 @@
     "pid": "46",
     "name": "CEMETERY-Online references",
     "number": "CEMETERY.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -728,7 +728,7 @@
     "pid": "47",
     "name": "TRUTH-Newspapers",
     "number": "TRUTH.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -742,7 +742,7 @@
     "pid": "48",
     "name": "TRUTH-Online references",
     "number": "TRUTH.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -759,7 +759,7 @@
     "pid": "49",
     "name": "RIVE-Newspapers",
     "number": "RIVE.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -773,7 +773,7 @@
     "pid": "50",
     "name": "RIVE-Online references",
     "number": "RIVE.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -790,7 +790,7 @@
     "pid": "51",
     "name": "MATILDA-Newspapers",
     "number": "MATILDA.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -804,7 +804,7 @@
     "pid": "52",
     "name": "MATILDA-Online references",
     "number": "MATILDA.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -821,7 +821,7 @@
     "pid": "53",
     "name": "UNSEEN-Newspapers",
     "number": "UNSEEN.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -835,7 +835,7 @@
     "pid": "54",
     "name": "UNSEEN-Online references",
     "number": "UNSEEN.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -852,7 +852,7 @@
     "pid": "55",
     "name": "WAN-Newspapers",
     "number": "WAN.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -866,7 +866,7 @@
     "pid": "56",
     "name": "WAN-Online references",
     "number": "WAN.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -883,7 +883,7 @@
     "pid": "57",
     "name": "BUFFY-Newspapers",
     "number": "BUFFY.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -897,7 +897,7 @@
     "pid": "58",
     "name": "BUFFY-Online references",
     "number": "BUFFY.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -914,7 +914,7 @@
     "pid": "59",
     "name": "ENTERPRISE-Newspapers",
     "number": "ENTERPRISE.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -928,7 +928,7 @@
     "pid": "60",
     "name": "ENTERPRISE-Online references",
     "number": "ENTERPRISE.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -945,7 +945,7 @@
     "pid": "61",
     "name": "VULCAN-Newspapers",
     "number": "VULCAN.Per.01",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -959,7 +959,7 @@
     "pid": "62",
     "name": "VULCAN-Online references",
     "number": "VULCAN.01.001",
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -976,7 +976,7 @@
     "pid": "71",
     "name": "AOSTE-CANT1-2021-Collections",
     "number": "AOSTE-CANT1.2021.Col.01.000",
-    "allocated_amount": 50000,
+    "allocated_amount": 5000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -990,7 +990,7 @@
     "pid": "72",
     "name": "AOSTE-CANT1-2021-Religions",
     "number": "AOSTE-CANT1.2021.Col.01.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -1007,7 +1007,7 @@
     "pid": "73",
     "name": "AOSTE-CANT2-2021-Collections",
     "number": "AOSTE-CANT2.2021.Col.01.000",
-    "allocated_amount": 50000,
+    "allocated_amount": 5000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -1021,7 +1021,7 @@
     "pid": "74",
     "name": "AOSTE-CANT2-Religions",
     "number": "AOSTE-CANT2.2021.Col.01.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -1038,7 +1038,7 @@
     "pid": "75",
     "name": "AOSTE-AVISE-2021-Collections",
     "number": "AOSTE-AVISE.2021.Col.01.000",
-    "allocated_amount": 50000,
+    "allocated_amount": 5000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -1052,7 +1052,7 @@
     "pid": "76",
     "name": "AOSTE-AVISE-2021-Religions",
     "number": "AOSTE-AVISE.2021.Col.01.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -1069,7 +1069,7 @@
     "pid": "77",
     "name": "AOSTE-LYCEE-2021-Collections",
     "number": "AOSTE-LYCEE.2021.Col.01.000",
-    "allocated_amount": 50000,
+    "allocated_amount": 5000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "budget": {
@@ -1083,7 +1083,7 @@
     "pid": "78",
     "name": "AOSTE-LYCEE-2021-Religions",
     "number": "AOSTE-LYCEE.2021.Col.01.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -1100,7 +1100,7 @@
     "pid": "79",
     "name": "AOSTE-LYCEE-2021-Newspapers",
     "number": "AOSTE-LYCEE.2021.Per.02.001",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {
@@ -1117,7 +1117,7 @@
     "pid": "80",
     "name": "AOSTE-LYCEE-2021-Online references",
     "number": "AOSTE-LYCEE.2021.Per.02.002",
-    "allocated_amount": 20000,
+    "allocated_amount": 2000000,
     "encumbrance_exceedance": 5,
     "expenditure_exceedance": 5,
     "parent": {

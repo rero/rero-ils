@@ -23,6 +23,7 @@ from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.patron_types.api import PatronTypesSearch
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.serializers import (
+    AmountMixin,
     CachedDataSerializerMixin,
     JSONSerializer,
     RecordSchemaJSONV1,
@@ -30,8 +31,10 @@ from rero_ils.modules.serializers import (
 )
 
 
-class PatronTransactionEventsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
+class PatronTransactionEventsJSONSerializer(AmountMixin, JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `PatronTransactionEvent` records as JSON."""
+
+    _amount_fields = ["amount", "steps.amount"]
 
     def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""
@@ -49,6 +52,10 @@ class PatronTransactionEventsJSONSerializer(JSONSerializer, CachedDataSerializer
         pid = metadata.get("operator", {}).get("pid")
         if pid and (resource := self.get_resource(Patron, pid)):
             metadata["operator"]["name"] = resource.formatted_name
+
+        pid = metadata.get("patron", {}).get("pid")
+        if pid and (resource := self.get_resource(Patron, pid)):
+            metadata["patron"]["name"] = resource.formatted_name
 
         super()._postprocess_search_hit(hit)
 

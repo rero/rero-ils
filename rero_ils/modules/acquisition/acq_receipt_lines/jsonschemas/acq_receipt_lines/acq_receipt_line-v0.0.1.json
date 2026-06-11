@@ -89,7 +89,8 @@
             "fieldMap": "amount"
           }
         }
-      }
+      },
+      "multipleOf": 0.01
     },
     "vat_rate": {
       "title": "VAT rate",

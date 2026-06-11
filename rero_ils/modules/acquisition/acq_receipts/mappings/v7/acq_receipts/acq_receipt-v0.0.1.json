@@ -46,7 +46,7 @@
         "type": "integer"
       },
       "total_amount": {
-        "type": "float"
+        "type": "integer"
       },
       "amount_adjustments": {
         "type": "nested",
@@ -65,7 +65,7 @@
             "type": "text"
           },
           "amount": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },
@@ -108,7 +108,7 @@
             }
           },
           "amount": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },

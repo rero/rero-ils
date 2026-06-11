@@ -411,13 +411,13 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     #    * no maximum overdue
     cipo["overdue_fees"] = {
         "intervals": [
-            {"from": 1, "to": 1, "fee_amount": 0.10},
-            {"from": 2, "to": 2, "fee_amount": 0.20},
-            {"from": 3, "fee_amount": 0.50},
+            {"from": 1, "to": 1, "fee_amount": 10},
+            {"from": 2, "to": 2, "fee_amount": 20},
+            {"from": 3, "fee_amount": 50},
         ]
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
-    expected_due_amount = [0.1, 0.3, 0.8, 1.3, 1.8, 2.3, 2.8, 3.3, 3.8, 4.3]
+    expected_due_amount = [10, 30, 80, 130, 180, 230, 280, 330, 380, 430]
     for delta in range(len(expected_due_amount)):
         end = get_end_date(delta)
         loan["end_date"] = end.isoformat()
@@ -432,13 +432,13 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     #      interval
     cipo["overdue_fees"] = {
         "intervals": [
-            {"from": 1, "to": 1, "fee_amount": 0.10},
-            {"from": 2, "to": 2, "fee_amount": 0.20},
-            {"from": 3, "to": 3, "fee_amount": 0.50},
+            {"from": 1, "to": 1, "fee_amount": 10},
+            {"from": 2, "to": 2, "fee_amount": 20},
+            {"from": 3, "to": 3, "fee_amount": 50},
         ]
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
-    expected_due_amount = [0.1, 0.3, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
+    expected_due_amount = [10, 30, 80, 80, 80, 80, 80, 80, 80, 80]
     for delta in range(len(expected_due_amount)):
         end = get_end_date(delta)
         loan["end_date"] = end.isoformat()
@@ -451,17 +451,17 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     # CASE#3 :: classic setting + maximum overdue.
     #    * 3 intervals with no gap into each one.
     #    * no limit on last interval
-    #    * maximum overdue = 2
+    #    * maximum overdue = 200 cents
     cipo["overdue_fees"] = {
         "intervals": [
-            {"from": 1, "to": 1, "fee_amount": 0.10},
-            {"from": 2, "to": 2, "fee_amount": 0.20},
-            {"from": 3, "fee_amount": 0.50},
+            {"from": 1, "to": 1, "fee_amount": 10},
+            {"from": 2, "to": 2, "fee_amount": 20},
+            {"from": 3, "fee_amount": 50},
         ],
-        "maximum_total_amount": 2,
+        "maximum_total_amount": 200,
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
-    expected_due_amount = [0.1, 0.3, 0.8, 1.3, 1.8, 2.0, 2.0, 2.0, 2.0, 2.0]
+    expected_due_amount = [10, 30, 80, 130, 180, 200, 200, 200, 200, 200]
     for delta in range(len(expected_due_amount)):
         end = get_end_date(delta)
         loan["end_date"] = end.isoformat()
@@ -474,16 +474,16 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     # CASE#4 :: intervals with gaps
     #    * define 2 intervals with gaps between
     #    * grace period for first overdue day
-    #    * maximum overdue to 2.5 (not a normal step)
+    #    * maximum overdue to 110 cents (not a normal step)
     cipo["overdue_fees"] = {
         "intervals": [
-            {"from": 2, "to": 3, "fee_amount": 0.10},
-            {"from": 5, "fee_amount": 0.50},
+            {"from": 2, "to": 3, "fee_amount": 10},
+            {"from": 5, "fee_amount": 50},
         ],
-        "maximum_total_amount": 1.1,
+        "maximum_total_amount": 110,
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
-    expected_due_amount = [0, 0.1, 0.2, 0.2, 0.7, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1]
+    expected_due_amount = [0, 10, 20, 20, 70, 110, 110, 110, 110, 110, 110]
     for delta in range(len(expected_due_amount)):
         end = get_end_date(delta)
         loan["end_date"] = end.isoformat()

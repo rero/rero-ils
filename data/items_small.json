@@ -18,7 +18,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -66,7 +66,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 74,
+    "price": 7400,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -102,7 +102,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 48,
+    "price": 4800,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -134,7 +134,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 13,
+    "price": 1300,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-12-29",
     "notes": [
@@ -191,7 +191,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 14,
+    "price": 1400,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -223,7 +223,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 74,
+    "price": 7400,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -259,7 +259,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 79,
+    "price": 7900,
     "legacy_checkout_count": 8
   },
   {
@@ -281,7 +281,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -309,7 +309,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 46,
+    "price": 4600,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -362,7 +362,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 77,
+    "price": 7700,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-09-29"
   },
@@ -385,7 +385,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 48,
+    "price": 4800,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-12-18",
     "notes": [
@@ -435,7 +435,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-12-16",
     "second_call_number": "19LI6"
@@ -459,7 +459,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 79,
+    "price": 7900,
     "legacy_checkout_count": 12
   },
   {
@@ -481,7 +481,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 3,
+    "price": 300,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-07-22",
     "notes": [
@@ -534,7 +534,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 18,
+    "price": 1800,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-05-29"
   },
@@ -557,7 +557,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 5,
+    "price": 500,
     "legacy_checkout_count": 5,
     "acquisition_date": "2021-02-04",
     "notes": [
@@ -598,7 +598,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -643,7 +643,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 93,
+    "price": 9300,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-04-15",
     "second_call_number": "EGPJK"
@@ -667,7 +667,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 90,
+    "price": 9000,
     "legacy_checkout_count": 4,
     "second_call_number": "CMF11"
   },
@@ -690,7 +690,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 9,
     "acquisition_date": "2021-01-27"
   },
@@ -713,7 +713,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 69,
+    "price": 6900,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -765,7 +765,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-10-06",
     "notes": [
@@ -822,7 +822,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 25,
+    "price": 2500,
     "legacy_checkout_count": 15
   },
   {
@@ -844,7 +844,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-08-01",
     "second_call_number": "EAI3G"
@@ -868,7 +868,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 78,
+    "price": 7800,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-06-22",
     "second_call_number": "RCS0E"
@@ -892,7 +892,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 84,
+    "price": 8400,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-08-05",
     "notes": [
@@ -953,7 +953,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 61,
+    "price": 6100,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -981,7 +981,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 74,
+    "price": 7400,
     "legacy_checkout_count": 5,
     "second_call_number": "GURHS"
   },
@@ -1004,7 +1004,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-11-25",
     "second_call_number": "T2HR5"
@@ -1028,7 +1028,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-03-17",
     "second_call_number": "SCZA7"
@@ -1052,7 +1052,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 5
   },
   {
@@ -1074,7 +1074,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 81,
+    "price": 8100,
     "legacy_checkout_count": 12
   },
   {
@@ -1096,7 +1096,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-12-27"
   },
@@ -1119,7 +1119,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 18,
+    "price": 1800,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -1172,7 +1172,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-06-15",
     "notes": [
@@ -1221,7 +1221,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-07-31"
   },
@@ -1244,7 +1244,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -1272,7 +1272,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 30,
+    "price": 3000,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-05-18",
     "notes": [
@@ -1309,7 +1309,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 59,
+    "price": 5900,
     "legacy_checkout_count": 2
   },
   {
@@ -1331,7 +1331,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -1375,7 +1375,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 36,
+    "price": 3600,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -1407,7 +1407,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -1464,7 +1464,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-12-03",
     "notes": [
@@ -1502,7 +1502,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-12-12",
     "notes": [
@@ -1543,7 +1543,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 14,
+    "price": 1400,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-03-25",
     "notes": [
@@ -1572,7 +1572,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 5,
+    "price": 500,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -1624,7 +1624,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 57,
+    "price": 5700,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -1676,7 +1676,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-05-06",
     "notes": [
@@ -1713,7 +1713,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 61,
+    "price": 6100,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -1773,7 +1773,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 80,
+    "price": 8000,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-05-29"
   },
@@ -1796,7 +1796,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 42,
+    "price": 4200,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-07-26"
   },
@@ -1819,7 +1819,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-05-03"
   },
@@ -1842,7 +1842,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 17,
+    "price": 1700,
     "legacy_checkout_count": 1,
     "acquisition_date": "2021-02-26"
   },
@@ -1865,7 +1865,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 83,
+    "price": 8300,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -1894,7 +1894,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 51,
+    "price": 5100,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -1954,7 +1954,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 12,
     "acquisition_date": "2021-04-02"
   },
@@ -1977,7 +1977,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 29,
+    "price": 2900,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -2017,7 +2017,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 28,
+    "price": 2800,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-07-02",
     "notes": [
@@ -2050,7 +2050,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 66,
+    "price": 6600,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-12-27",
     "notes": [
@@ -2087,7 +2087,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 93,
+    "price": 9300,
     "legacy_checkout_count": 4,
     "second_call_number": "EYPGZ"
   },
@@ -2110,7 +2110,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 85,
+    "price": 8500,
     "legacy_checkout_count": 10
   },
   {
@@ -2132,7 +2132,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 84,
+    "price": 8400,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-11-11",
     "second_call_number": "COHN8"
@@ -2156,7 +2156,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 78,
+    "price": 7800,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-04-17",
     "notes": [
@@ -2209,7 +2209,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 67,
+    "price": 6700,
     "legacy_checkout_count": 14
   },
   {
@@ -2231,7 +2231,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-12-04",
     "notes": [
@@ -2260,7 +2260,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-12-01"
   },
@@ -2283,7 +2283,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 25,
+    "price": 2500,
     "legacy_checkout_count": 1,
     "acquisition_date": "2021-04-06"
   },
@@ -2306,7 +2306,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 7,
+    "price": 700,
     "legacy_checkout_count": 3,
     "second_call_number": "U8AFH"
   },
@@ -2329,7 +2329,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 13
   },
   {
@@ -2351,7 +2351,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 68,
+    "price": 6800,
     "legacy_checkout_count": 12
   },
   {
@@ -2373,7 +2373,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 24,
+    "price": 2400,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-09-18",
     "second_call_number": "ZZN2Y"
@@ -2397,7 +2397,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 19,
+    "price": 1900,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-04-05"
   },
@@ -2420,7 +2420,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-03-24",
     "notes": [
@@ -2469,7 +2469,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 96,
+    "price": 9600,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-10-27"
   },
@@ -2492,7 +2492,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 6
   },
   {
@@ -2514,7 +2514,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -2567,7 +2567,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 4
   },
   {
@@ -2589,7 +2589,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -2645,7 +2645,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 47,
+    "price": 4700,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-12-23"
   },
@@ -2668,7 +2668,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 82,
+    "price": 8200,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-12-01",
     "notes": [
@@ -2725,7 +2725,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-07-23"
   },
@@ -2748,7 +2748,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 29,
+    "price": 2900,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-07-21",
     "notes": [
@@ -2809,7 +2809,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 94,
+    "price": 9400,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -2865,7 +2865,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 61,
+    "price": 6100,
     "legacy_checkout_count": 15,
     "acquisition_date": "2021-02-15",
     "notes": [
@@ -2902,7 +2902,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 39,
+    "price": 3900,
     "legacy_checkout_count": 8
   },
   {
@@ -2924,7 +2924,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -2960,7 +2960,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-10-23"
   },
@@ -2983,7 +2983,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 47,
+    "price": 4700,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -3039,7 +3039,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 12,
+    "price": 1200,
     "legacy_checkout_count": 10,
     "acquisition_date": "2021-03-26",
     "notes": [
@@ -3084,7 +3084,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -3136,7 +3136,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 3
   },
   {
@@ -3158,7 +3158,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 70,
+    "price": 7000,
     "legacy_checkout_count": 9
   },
   {
@@ -3180,7 +3180,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 14
   },
   {
@@ -3202,7 +3202,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 46,
+    "price": 4600,
     "legacy_checkout_count": 4,
     "acquisition_date": "2021-01-24"
   },
@@ -3225,7 +3225,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 85,
+    "price": 8500,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-03-23",
     "notes": [
@@ -3278,7 +3278,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 14,
+    "price": 1400,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-10-24",
     "second_call_number": "EJA89"
@@ -3302,7 +3302,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -3342,7 +3342,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 90,
+    "price": 9000,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-05-05",
     "notes": [
@@ -3383,7 +3383,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 13,
+    "price": 1300,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -3419,7 +3419,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 29,
+    "price": 2900,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -3451,7 +3451,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 88,
+    "price": 8800,
     "legacy_checkout_count": 13,
     "acquisition_date": "2021-02-18"
   },
@@ -3474,7 +3474,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 70,
+    "price": 7000,
     "legacy_checkout_count": 11,
     "second_call_number": "M74Q6"
   },
@@ -3497,7 +3497,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 15,
+    "price": 1500,
     "legacy_checkout_count": 3
   },
   {
@@ -3519,7 +3519,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -3555,7 +3555,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 7,
+    "price": 700,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-10-28",
     "notes": [
@@ -3605,7 +3605,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 44,
+    "price": 4400,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-04-05",
     "notes": [
@@ -3654,7 +3654,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 68,
+    "price": 6800,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -3707,7 +3707,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 45,
+    "price": 4500,
     "legacy_checkout_count": 2,
     "acquisition_date": "2021-03-22",
     "notes": [
@@ -3768,7 +3768,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 78,
+    "price": 7800,
     "legacy_checkout_count": 6,
     "acquisition_date": "2021-01-22"
   },
@@ -3791,7 +3791,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 55,
+    "price": 5500,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -3839,7 +3839,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 15,
     "acquisition_date": "2021-03-10",
     "second_call_number": "YH2D7"
@@ -3863,7 +3863,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 32,
+    "price": 3200,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-07-07",
     "notes": [
@@ -3904,7 +3904,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -3965,7 +3965,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 11,
+    "price": 1100,
     "legacy_checkout_count": 8,
     "second_call_number": "BQKOM"
   },
@@ -3988,7 +3988,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 11,
+    "price": 1100,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-12-04"
   },
@@ -4011,7 +4011,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 19,
+    "price": 1900,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -4043,7 +4043,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-05-27",
     "notes": [
@@ -4096,7 +4096,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 82,
+    "price": 8200,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -4144,7 +4144,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-03-27",
     "second_call_number": "9X6Z3"
@@ -4168,7 +4168,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 25,
+    "price": 2500,
     "legacy_checkout_count": 10
   },
   {
@@ -4190,7 +4190,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 18,
+    "price": 1800,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -4243,7 +4243,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 81,
+    "price": 8100,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-11-12"
   },
@@ -4266,7 +4266,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 55,
+    "price": 5500,
     "legacy_checkout_count": 2,
     "acquisition_date": "2021-01-04",
     "notes": [
@@ -4327,7 +4327,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 12,
+    "price": 1200,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -4363,7 +4363,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 52,
+    "price": 5200,
     "legacy_checkout_count": 12
   },
   {
@@ -4385,7 +4385,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 47,
+    "price": 4700,
     "legacy_checkout_count": 13
   },
   {
@@ -4407,7 +4407,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 22,
+    "price": 2200,
     "legacy_checkout_count": 8,
     "second_call_number": "6SMH6"
   },
@@ -4430,7 +4430,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 33,
+    "price": 3300,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-07-08"
   },
@@ -4453,7 +4453,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 13,
+    "price": 1300,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -4489,7 +4489,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 55,
+    "price": 5500,
     "legacy_checkout_count": 4,
     "acquisition_date": "2021-01-20",
     "notes": [
@@ -4542,7 +4542,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 42,
+    "price": 4200,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-07-02"
   },
@@ -4565,7 +4565,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -4621,7 +4621,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -4674,7 +4674,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 3
   },
   {
@@ -4696,7 +4696,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 21,
+    "price": 2100,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -4740,7 +4740,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 57,
+    "price": 5700,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-07-12"
   },
@@ -4763,7 +4763,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 64,
+    "price": 6400,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-04-28",
     "notes": [
@@ -4824,7 +4824,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 3
   },
   {
@@ -4846,7 +4846,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -4879,7 +4879,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 42,
+    "price": 4200,
     "legacy_checkout_count": 8
   },
   {
@@ -4901,7 +4901,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -4930,7 +4930,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-05-15",
     "notes": [
@@ -4979,7 +4979,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 9,
+    "price": 900,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -5040,7 +5040,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 7
   },
   {
@@ -5062,7 +5062,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 70,
+    "price": 7000,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-05-07"
   },
@@ -5085,7 +5085,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 52,
+    "price": 5200,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -5117,7 +5117,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 66,
+    "price": 6600,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -5150,7 +5150,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -5186,7 +5186,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 15
   },
   {
@@ -5208,7 +5208,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-08-08",
     "notes": [
@@ -5261,7 +5261,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-07-04",
     "notes": [
@@ -5310,7 +5310,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 4
   },
   {
@@ -5332,7 +5332,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 7
   },
   {
@@ -5354,7 +5354,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 3
   },
   {
@@ -5376,7 +5376,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 73,
+    "price": 7300,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -5428,7 +5428,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 6,
     "second_call_number": "YC8IE"
   },
@@ -5451,7 +5451,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 67,
+    "price": 6700,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-06-10"
   },
@@ -5474,7 +5474,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 82,
+    "price": 8200,
     "legacy_checkout_count": 12,
     "acquisition_date": "2021-03-21",
     "notes": [
@@ -5503,7 +5503,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 51,
+    "price": 5100,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -5547,7 +5547,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 69,
+    "price": 6900,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-06-27",
     "notes": [
@@ -5585,7 +5585,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -5637,7 +5637,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 6,
+    "price": 600,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -5689,7 +5689,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 41,
+    "price": 4100,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -5734,7 +5734,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 4
   },
   {
@@ -5756,7 +5756,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 22,
+    "price": 2200,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -5812,7 +5812,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 1,
+    "price": 100,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -5852,7 +5852,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 40,
+    "price": 4000,
     "legacy_checkout_count": 7,
     "acquisition_date": "2021-01-18",
     "notes": [
@@ -5893,7 +5893,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 48,
+    "price": 4800,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-11-03"
   },
@@ -5916,7 +5916,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 8,
+    "price": 800,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -5952,7 +5952,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 67,
+    "price": 6700,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -5980,7 +5980,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 14,
     "acquisition_date": "2021-01-05",
     "notes": [
@@ -6037,7 +6037,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 11,
     "acquisition_date": "2021-02-05"
   },
@@ -6060,7 +6060,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 44,
+    "price": 4400,
     "legacy_checkout_count": 7,
     "acquisition_date": "2021-01-11"
   },
@@ -6083,7 +6083,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -6124,7 +6124,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 96,
+    "price": 9600,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -6184,7 +6184,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 8,
+    "price": 800,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -6232,7 +6232,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 5,
     "second_call_number": "70OY6"
   },
@@ -6255,7 +6255,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-08-29",
     "second_call_number": "ZHGHI"
@@ -6279,7 +6279,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 77,
+    "price": 7700,
     "legacy_checkout_count": 2
   },
   {
@@ -6301,7 +6301,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 68,
+    "price": 6800,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-05-29"
   },
@@ -6324,7 +6324,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-03-15",
     "notes": [
@@ -6369,7 +6369,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -6425,7 +6425,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 2,
+    "price": 200,
     "legacy_checkout_count": 8,
     "acquisition_date": "2021-02-11",
     "notes": [
@@ -6466,7 +6466,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 30,
+    "price": 3000,
     "legacy_checkout_count": 15,
     "second_call_number": "XNIZT"
   },
@@ -6489,7 +6489,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 88,
+    "price": 8800,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -6545,7 +6545,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-03-09",
     "notes": [
@@ -6587,7 +6587,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 33,
+    "price": 3300,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -6636,7 +6636,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-11-23",
     "notes": [
@@ -6693,7 +6693,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 57,
+    "price": 5700,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -6721,7 +6721,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -6753,7 +6753,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 29,
+    "price": 2900,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-12-20",
     "notes": [
@@ -6814,7 +6814,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 66,
+    "price": 6600,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-07-25",
     "notes": [
@@ -6844,7 +6844,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 79,
+    "price": 7900,
     "legacy_checkout_count": 3,
     "second_call_number": "PIWBF"
   },
@@ -6867,7 +6867,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 83,
+    "price": 8300,
     "legacy_checkout_count": 10,
     "second_call_number": "G41NS"
   },
@@ -6890,7 +6890,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-11-25"
   },
@@ -6913,7 +6913,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 78,
+    "price": 7800,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -6941,7 +6941,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 47,
+    "price": 4700,
     "legacy_checkout_count": 9
   },
   {
@@ -6963,7 +6963,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 31,
+    "price": 3100,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-08-27"
   },
@@ -6986,7 +6986,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 94,
+    "price": 9400,
     "legacy_checkout_count": 10
   },
   {
@@ -7008,7 +7008,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 9,
     "acquisition_date": "2021-02-23",
     "notes": [
@@ -7058,7 +7058,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-04-21"
   },
@@ -7081,7 +7081,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 83,
+    "price": 8300,
     "legacy_checkout_count": 14,
     "acquisition_date": "2021-03-11",
     "notes": [
@@ -7123,7 +7123,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 61,
+    "price": 6100,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-08-06",
     "notes": [
@@ -7176,7 +7176,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 18,
+    "price": 1800,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-08-13",
     "notes": [
@@ -7213,7 +7213,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 12,
     "acquisition_date": "2021-04-08",
     "notes": [
@@ -7242,7 +7242,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 12,
+    "price": 1200,
     "legacy_checkout_count": 9,
     "second_call_number": "HO667"
   },
@@ -7265,7 +7265,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 15,
+    "price": 1500,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -7306,7 +7306,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 1,
     "acquisition_date": "2021-03-08",
     "notes": [
@@ -7355,7 +7355,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 12,
+    "price": 1200,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-05-14",
     "notes": [
@@ -7412,7 +7412,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 19,
+    "price": 1900,
     "legacy_checkout_count": 10,
     "second_call_number": "QD0AR"
   },
@@ -7435,7 +7435,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-10-07",
     "notes": [
@@ -7465,7 +7465,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -7525,7 +7525,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-11-19",
     "notes": [
@@ -7558,7 +7558,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 41,
+    "price": 4100,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-07-12"
   },
@@ -7581,7 +7581,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 78,
+    "price": 7800,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-07-26",
     "notes": [
@@ -7610,7 +7610,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 73,
+    "price": 7300,
     "legacy_checkout_count": 5,
     "acquisition_date": "2021-01-21",
     "notes": [
@@ -7647,7 +7647,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-06-13",
     "second_call_number": "4ZMY0"
@@ -7671,7 +7671,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-05-18"
   },
@@ -7694,7 +7694,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 64,
+    "price": 6400,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -7735,7 +7735,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-05-13"
   },
@@ -7758,7 +7758,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 11,
+    "price": 1100,
     "legacy_checkout_count": 12
   },
   {
@@ -7780,7 +7780,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -7808,7 +7808,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-11-24"
   },
@@ -7831,7 +7831,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 3,
+    "price": 300,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-11-02"
   },
@@ -7854,7 +7854,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 42,
+    "price": 4200,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-07-24"
   },
@@ -7877,7 +7877,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 10,
     "acquisition_date": "2021-03-29",
     "notes": [
@@ -7911,7 +7911,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -7952,7 +7952,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 73,
+    "price": 7300,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -8001,7 +8001,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 50,
+    "price": 5000,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-08-31",
     "notes": [
@@ -8046,7 +8046,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 9
   },
   {
@@ -8068,7 +8068,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-10-05",
     "second_call_number": "78X0B"
@@ -8092,7 +8092,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 1,
+    "price": 100,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-12-28",
     "notes": [
@@ -8141,7 +8141,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-07-07",
     "notes": [
@@ -8187,7 +8187,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 64,
+    "price": 6400,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-05-08",
     "notes": [
@@ -8224,7 +8224,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-10-02",
     "notes": [
@@ -8281,7 +8281,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 50,
+    "price": 5000,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-06-28"
   },
@@ -8304,7 +8304,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 93,
+    "price": 9300,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-10-14"
   },
@@ -8327,7 +8327,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -8367,7 +8367,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 7,
+    "price": 700,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-06-03"
   },
@@ -8390,7 +8390,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 13
   },
   {
@@ -8412,7 +8412,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 92,
+    "price": 9200,
     "legacy_checkout_count": 15,
     "second_call_number": "M0JCG"
   },
@@ -8435,7 +8435,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-03-25",
     "notes": [
@@ -8477,7 +8477,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 70,
+    "price": 7000,
     "legacy_checkout_count": 9,
     "acquisition_date": "2021-04-06",
     "notes": [
@@ -8527,7 +8527,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 21,
+    "price": 2100,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -8571,7 +8571,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 25,
+    "price": 2500,
     "legacy_checkout_count": 9
   },
   {
@@ -8593,7 +8593,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 6,
+    "price": 600,
     "legacy_checkout_count": 4
   },
   {
@@ -8615,7 +8615,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 1,
+    "price": 100,
     "legacy_checkout_count": 7
   },
   {
@@ -8637,7 +8637,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 70,
+    "price": 7000,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-04-29",
     "notes": [
@@ -8682,7 +8682,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-04-06",
     "notes": [
@@ -8728,7 +8728,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 57,
+    "price": 5700,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -8781,7 +8781,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 61,
+    "price": 6100,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -8841,7 +8841,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 1
   },
   {
@@ -8863,7 +8863,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 8,
+    "price": 800,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -8895,7 +8895,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 34,
+    "price": 3400,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-09-14"
   },
@@ -8918,7 +8918,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-04-09",
     "notes": [
@@ -8967,7 +8967,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 21,
+    "price": 2100,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -9016,7 +9016,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 3,
+    "price": 300,
     "legacy_checkout_count": 14
   },
   {
@@ -9038,7 +9038,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 12,
     "acquisition_date": "2021-01-31"
   },
@@ -9061,7 +9061,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 82,
+    "price": 8200,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-11-28",
     "notes": [
@@ -9106,7 +9106,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -9158,7 +9158,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 93,
+    "price": 9300,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-10-20"
   },
@@ -9181,7 +9181,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 13,
+    "price": 1300,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -9217,7 +9217,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 15,
+    "price": 1500,
     "legacy_checkout_count": 5
   },
   {
@@ -9239,7 +9239,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 87,
+    "price": 8700,
     "legacy_checkout_count": 8
   },
   {
@@ -9261,7 +9261,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 73,
+    "price": 7300,
     "legacy_checkout_count": 14,
     "acquisition_date": "2021-02-24",
     "notes": [
@@ -9314,7 +9314,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 7
   },
   {
@@ -9336,7 +9336,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -9377,7 +9377,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 15
   },
   {
@@ -9399,7 +9399,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-04-25",
     "notes": [
@@ -9452,7 +9452,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 15,
+    "price": 1500,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-08-18",
     "second_call_number": "XXU6E"
@@ -9476,7 +9476,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 45,
+    "price": 4500,
     "legacy_checkout_count": 7
   },
   {
@@ -9498,7 +9498,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 17,
+    "price": 1700,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -9538,7 +9538,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 66,
+    "price": 6600,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -9582,7 +9582,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 39,
+    "price": 3900,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -9634,7 +9634,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -9686,7 +9686,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 6,
     "acquisition_date": "2021-04-01"
   },
@@ -9709,7 +9709,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-03-11"
   },
@@ -9732,7 +9732,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 56,
+    "price": 5600,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-08-25",
     "notes": [
@@ -9765,7 +9765,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-09-12",
     "notes": [
@@ -9807,7 +9807,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -9863,7 +9863,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 87,
+    "price": 8700,
     "legacy_checkout_count": 10,
     "second_call_number": "5X2WQ"
   },
@@ -9886,7 +9886,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 2,
+    "price": 200,
     "legacy_checkout_count": 8
   },
   {
@@ -9908,7 +9908,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 15,
+    "price": 1500,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-11-17",
     "notes": [
@@ -9965,7 +9965,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 73,
+    "price": 7300,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -10009,7 +10009,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 98,
+    "price": 9800,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -10069,7 +10069,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-10-15",
     "notes": [
@@ -10122,7 +10122,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 13,
+    "price": 1300,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-10-06"
   },
@@ -10145,7 +10145,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 80,
+    "price": 8000,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -10197,7 +10197,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 59,
+    "price": 5900,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-12-04",
     "notes": [
@@ -10247,7 +10247,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 2
   },
   {
@@ -10269,7 +10269,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 30,
+    "price": 3000,
     "legacy_checkout_count": 5
   },
   {
@@ -10291,7 +10291,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 4
   },
   {
@@ -10313,7 +10313,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-09-15",
     "notes": [
@@ -10366,7 +10366,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 7
   },
   {
@@ -10388,7 +10388,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-06-21",
     "second_call_number": "42Z1B"
@@ -10412,7 +10412,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 61,
+    "price": 6100,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-05-11"
   },
@@ -10435,7 +10435,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 98,
+    "price": 9800,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-05-09",
     "notes": [
@@ -10464,7 +10464,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 1,
     "second_call_number": "YMJ44"
   },
@@ -10487,7 +10487,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-11-15"
   },
@@ -10510,7 +10510,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-05-27"
   },
@@ -10533,7 +10533,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-03-23"
   },
@@ -10556,7 +10556,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 29,
+    "price": 2900,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-07-22",
     "notes": [
@@ -10601,7 +10601,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-05-24"
   },
@@ -10624,7 +10624,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 66,
+    "price": 6600,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-05-03"
   },
@@ -10647,7 +10647,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 2
   },
   {
@@ -10669,7 +10669,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 50,
+    "price": 5000,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -10730,7 +10730,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 28,
+    "price": 2800,
     "legacy_checkout_count": 11
   },
   {
@@ -10752,7 +10752,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 84,
+    "price": 8400,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -10808,7 +10808,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 5,
+    "price": 500,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -10868,7 +10868,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 88,
+    "price": 8800,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -10904,7 +10904,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 40,
+    "price": 4000,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -10949,7 +10949,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -10981,7 +10981,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 51,
+    "price": 5100,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-07-18",
     "notes": [
@@ -11031,7 +11031,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 46,
+    "price": 4600,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -11064,7 +11064,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 36,
+    "price": 3600,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-12-24",
     "notes": [
@@ -11121,7 +11121,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 15,
+    "price": 1500,
     "legacy_checkout_count": 7
   },
   {
@@ -11143,7 +11143,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 28,
+    "price": 2800,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -11175,7 +11175,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 74,
+    "price": 7400,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -11203,7 +11203,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 4
   },
   {
@@ -11225,7 +11225,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 84,
+    "price": 8400,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-03-26",
     "notes": [
@@ -11266,7 +11266,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 84,
+    "price": 8400,
     "legacy_checkout_count": 10
   },
   {
@@ -11288,7 +11288,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 35,
+    "price": 3500,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -11348,7 +11348,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-03-16",
     "notes": [
@@ -11381,7 +11381,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 39,
+    "price": 3900,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -11413,7 +11413,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-10-26",
     "notes": [
@@ -11475,7 +11475,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 28,
+    "price": 2800,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-07-05",
     "notes": [
@@ -11505,7 +11505,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 96,
+    "price": 9600,
     "legacy_checkout_count": 10
   },
   {
@@ -11527,7 +11527,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 68,
+    "price": 6800,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -11583,7 +11583,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 98,
+    "price": 9800,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-04-14",
     "notes": [
@@ -11625,7 +11625,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 29,
+    "price": 2900,
     "legacy_checkout_count": 1,
     "acquisition_date": "2021-02-01",
     "notes": [
@@ -11662,7 +11662,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -11714,7 +11714,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-08-08"
   },
@@ -11737,7 +11737,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 25,
+    "price": 2500,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-06-16",
     "notes": [
@@ -11798,7 +11798,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 54,
+    "price": 5400,
     "legacy_checkout_count": 2
   },
   {
@@ -11820,7 +11820,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 24,
+    "price": 2400,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-05-18",
     "notes": [
@@ -11881,7 +11881,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-04-16",
     "notes": [
@@ -11943,7 +11943,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 84,
+    "price": 8400,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-07-26",
     "notes": [
@@ -11976,7 +11976,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 67,
+    "price": 6700,
     "legacy_checkout_count": 4
   },
   {
@@ -11998,7 +11998,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 7,
+    "price": 700,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -12030,7 +12030,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -12078,7 +12078,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 48,
+    "price": 4800,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-05-24",
     "notes": [
@@ -12120,7 +12120,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 3
   },
   {
@@ -12142,7 +12142,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 79,
+    "price": 7900,
     "legacy_checkout_count": 7,
     "acquisition_date": "2021-02-26",
     "notes": [
@@ -12199,7 +12199,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-10-23",
     "notes": [
@@ -12229,7 +12229,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-12-10",
     "notes": [
@@ -12266,7 +12266,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 73,
+    "price": 7300,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-05-28"
   },
@@ -12289,7 +12289,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 36,
+    "price": 3600,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -12321,7 +12321,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -12353,7 +12353,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 51,
+    "price": 5100,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-07-15"
   },
@@ -12376,7 +12376,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 29,
+    "price": 2900,
     "legacy_checkout_count": 6,
     "second_call_number": "DF24Z"
   },
@@ -12399,7 +12399,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 22,
+    "price": 2200,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-04-21",
     "notes": [
@@ -12449,7 +12449,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 96,
+    "price": 9600,
     "legacy_checkout_count": 3
   },
   {
@@ -12471,7 +12471,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-09-17"
   },
@@ -12494,7 +12494,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 45,
+    "price": 4500,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -12530,7 +12530,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -12562,7 +12562,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 97,
+    "price": 9700,
     "legacy_checkout_count": 11,
     "second_call_number": "6SJFG"
   },
@@ -12585,7 +12585,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 48,
+    "price": 4800,
     "legacy_checkout_count": 15,
     "acquisition_date": "2021-02-28",
     "notes": [
@@ -12647,7 +12647,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 13
   },
   {
@@ -12669,7 +12669,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-12-03"
   },
@@ -12692,7 +12692,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 97,
+    "price": 9700,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -12740,7 +12740,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 64,
+    "price": 6400,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -12793,7 +12793,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 68,
+    "price": 6800,
     "legacy_checkout_count": 13,
     "acquisition_date": "2021-01-30",
     "second_call_number": "CFM8A"
@@ -12817,7 +12817,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -12878,7 +12878,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 44,
+    "price": 4400,
     "legacy_checkout_count": 1,
     "acquisition_date": "2021-04-02",
     "second_call_number": "ARYZ0"
@@ -12902,7 +12902,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 4,
     "second_call_number": "QTRYH"
   },
@@ -12925,7 +12925,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 25,
+    "price": 2500,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-09-08",
     "notes": [
@@ -12958,7 +12958,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 84,
+    "price": 8400,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -13007,7 +13007,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 8,
+    "price": 800,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-05-15",
     "second_call_number": "UJ3TX"
@@ -13031,7 +13031,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 61,
+    "price": 6100,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-09-24"
   },
@@ -13054,7 +13054,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 52,
+    "price": 5200,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -13090,7 +13090,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-12-08",
     "notes": [
@@ -13127,7 +13127,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 77,
+    "price": 7700,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -13175,7 +13175,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 54,
+    "price": 5400,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-12-20",
     "notes": [
@@ -13229,7 +13229,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 5,
+    "price": 500,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-04-26",
     "notes": [
@@ -13258,7 +13258,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 90,
+    "price": 9000,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -13286,7 +13286,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 3,
+    "price": 300,
     "legacy_checkout_count": 2,
     "second_call_number": "5PP8U"
   },
@@ -13309,7 +13309,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 92,
+    "price": 9200,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-03-13",
     "notes": [
@@ -13347,7 +13347,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-06-22"
   },
@@ -13370,7 +13370,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 4,
+    "price": 400,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-04-20",
     "second_call_number": "VNYRR"
@@ -13394,7 +13394,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 3,
+    "price": 300,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-10-12"
   },
@@ -13417,7 +13417,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 36,
+    "price": 3600,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-12-09"
   },
@@ -13440,7 +13440,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 18,
+    "price": 1800,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -13468,7 +13468,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -13520,7 +13520,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 79,
+    "price": 7900,
     "legacy_checkout_count": 9,
     "acquisition_date": "2021-01-23",
     "notes": [
@@ -13577,7 +13577,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 14,
+    "price": 1400,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -13629,7 +13629,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -13669,7 +13669,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -13721,7 +13721,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 62,
+    "price": 6200,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-07-14",
     "notes": [
@@ -13766,7 +13766,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-04-01",
     "notes": [
@@ -13827,7 +13827,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 17,
+    "price": 1700,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -13855,7 +13855,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 40,
+    "price": 4000,
     "legacy_checkout_count": 11,
     "second_call_number": "REWWW"
   },
@@ -13878,7 +13878,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 24,
+    "price": 2400,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -13927,7 +13927,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 69,
+    "price": 6900,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-04-18",
     "notes": [
@@ -13977,7 +13977,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 46,
+    "price": 4600,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-03-20",
     "notes": [
@@ -14026,7 +14026,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 17,
+    "price": 1700,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-09-21"
   },
@@ -14049,7 +14049,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -14077,7 +14077,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-10-02",
     "notes": [
@@ -14114,7 +14114,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 50,
+    "price": 5000,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -14146,7 +14146,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-04-03",
     "notes": [
@@ -14187,7 +14187,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 28,
+    "price": 2800,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-11-16"
   },
@@ -14210,7 +14210,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 64,
+    "price": 6400,
     "legacy_checkout_count": 5,
     "second_call_number": "RHGXN"
   },
@@ -14233,7 +14233,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 5,
+    "price": 500,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-06-13",
     "notes": [
@@ -14267,7 +14267,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-12-01"
   },
@@ -14290,7 +14290,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 79,
+    "price": 7900,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-10-15"
   },
@@ -14313,7 +14313,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 51,
+    "price": 5100,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-09-17"
   },
@@ -14336,7 +14336,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 92,
+    "price": 9200,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -14396,7 +14396,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 30,
+    "price": 3000,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-08-15",
     "notes": [
@@ -14457,7 +14457,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 92,
+    "price": 9200,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -14517,7 +14517,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 81,
+    "price": 8100,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -14545,7 +14545,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 5
   },
   {
@@ -14567,7 +14567,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-03-18"
   },
@@ -14590,7 +14590,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 39,
+    "price": 3900,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-12-22",
     "notes": [
@@ -14631,7 +14631,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-08-01",
     "notes": [
@@ -14664,7 +14664,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 45,
+    "price": 4500,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-04-14"
   },
@@ -14687,7 +14687,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 81,
+    "price": 8100,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-06-28",
     "notes": [
@@ -14732,7 +14732,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-04-21",
     "notes": [
@@ -14773,7 +14773,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 3,
     "second_call_number": "RPS0Z"
   },
@@ -14796,7 +14796,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 31,
+    "price": 3100,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-08-10",
     "notes": [
@@ -14833,7 +14833,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 15,
     "acquisition_date": "2021-02-19",
     "notes": [
@@ -14894,7 +14894,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 62,
+    "price": 6200,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -14947,7 +14947,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 74,
+    "price": 7400,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-09-06",
     "second_call_number": "SNDZ2"
@@ -14971,7 +14971,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 77,
+    "price": 7700,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-10-08"
   },
@@ -14994,7 +14994,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 90,
+    "price": 9000,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -15038,7 +15038,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -15074,7 +15074,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -15123,7 +15123,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 97,
+    "price": 9700,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-06-09",
     "notes": [
@@ -15180,7 +15180,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -15220,7 +15220,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-04-09"
   },
@@ -15243,7 +15243,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -15275,7 +15275,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 97,
+    "price": 9700,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-05-07",
     "second_call_number": "BTDC6"
@@ -15299,7 +15299,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 4,
     "acquisition_date": "2021-01-21",
     "notes": [
@@ -15332,7 +15332,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-11-27",
     "notes": [
@@ -15378,7 +15378,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 4,
+    "price": 400,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-07-14",
     "notes": [
@@ -15431,7 +15431,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -15464,7 +15464,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -15493,7 +15493,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -15553,7 +15553,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 84,
+    "price": 8400,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-11-27",
     "notes": [
@@ -15594,7 +15594,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -15630,7 +15630,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 65,
+    "price": 6500,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -15662,7 +15662,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 45,
+    "price": 4500,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-05-18"
   },
@@ -15685,7 +15685,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 33,
+    "price": 3300,
     "legacy_checkout_count": 11
   },
   {
@@ -15707,7 +15707,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-10-13",
     "notes": [
@@ -15768,7 +15768,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 50,
+    "price": 5000,
     "legacy_checkout_count": 13,
     "second_call_number": "1P4EL"
   },
@@ -15791,7 +15791,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 56,
+    "price": 5600,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -15827,7 +15827,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 22,
+    "price": 2200,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -15883,7 +15883,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 24,
+    "price": 2400,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-05-09",
     "second_call_number": "CVW64"
@@ -15907,7 +15907,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-06-12",
     "notes": [
@@ -15969,7 +15969,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 48,
+    "price": 4800,
     "legacy_checkout_count": 15,
     "second_call_number": "KUWFF"
   },
@@ -15992,7 +15992,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-05-02",
     "notes": [
@@ -16037,7 +16037,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 3,
+    "price": 300,
     "legacy_checkout_count": 12,
     "acquisition_date": "2021-03-25"
   },
@@ -16060,7 +16060,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 39,
+    "price": 3900,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -16104,7 +16104,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -16145,7 +16145,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 3
   },
   {
@@ -16167,7 +16167,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 14,
     "acquisition_date": "2021-03-24"
   },
@@ -16190,7 +16190,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 68,
+    "price": 6800,
     "legacy_checkout_count": 8
   },
   {
@@ -16212,7 +16212,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 4
   },
   {
@@ -16234,7 +16234,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 5,
+    "price": 500,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-06-14",
     "notes": [
@@ -16279,7 +16279,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-09-11",
     "second_call_number": "WDI3H"
@@ -16303,7 +16303,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 31,
+    "price": 3100,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -16339,7 +16339,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -16367,7 +16367,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 46,
+    "price": 4600,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-09-24"
   },
@@ -16390,7 +16390,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 30,
+    "price": 3000,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-04-16"
   },
@@ -16413,7 +16413,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-03-14",
     "notes": [
@@ -16463,7 +16463,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -16491,7 +16491,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 83,
+    "price": 8300,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -16539,7 +16539,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 8
   },
   {
@@ -16561,7 +16561,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 77,
+    "price": 7700,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -16589,7 +16589,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 45,
+    "price": 4500,
     "legacy_checkout_count": 8,
     "second_call_number": "7BJB5"
   },
@@ -16612,7 +16612,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-08-16",
     "notes": [
@@ -16669,7 +16669,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 98,
+    "price": 9800,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -16709,7 +16709,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-10-22",
     "notes": [
@@ -16742,7 +16742,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -16782,7 +16782,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 19,
+    "price": 1900,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -16842,7 +16842,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 64,
+    "price": 6400,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -16882,7 +16882,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 8
   },
   {
@@ -16904,7 +16904,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-10-01"
   },
@@ -16927,7 +16927,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 24,
+    "price": 2400,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-12-07"
   },
@@ -16950,7 +16950,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -16998,7 +16998,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -17027,7 +17027,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 44,
+    "price": 4400,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-12-11",
     "notes": [
@@ -17076,7 +17076,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 2,
+    "price": 200,
     "legacy_checkout_count": 3,
     "acquisition_date": "2021-02-13",
     "notes": [
@@ -17122,7 +17122,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -17183,7 +17183,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 77,
+    "price": 7700,
     "legacy_checkout_count": 10,
     "acquisition_date": "2021-03-30",
     "notes": [
@@ -17220,7 +17220,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-08-01",
     "notes": [
@@ -17274,7 +17274,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-07-06",
     "notes": [
@@ -17315,7 +17315,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 39,
+    "price": 3900,
     "legacy_checkout_count": 8
   },
   {
@@ -17337,7 +17337,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 85,
+    "price": 8500,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-04-20",
     "notes": [
@@ -17394,7 +17394,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 3,
+    "price": 300,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -17422,7 +17422,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 5,
+    "price": 500,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -17462,7 +17462,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 44,
+    "price": 4400,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -17522,7 +17522,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -17558,7 +17558,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-12-20",
     "notes": [
@@ -17600,7 +17600,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 10
   },
   {
@@ -17622,7 +17622,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 73,
+    "price": 7300,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-07-06",
     "second_call_number": "0YX1H"
@@ -17646,7 +17646,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 17,
+    "price": 1700,
     "legacy_checkout_count": 2
   },
   {
@@ -17668,7 +17668,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 32,
+    "price": 3200,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-08-11",
     "second_call_number": "V4E3B"
@@ -17692,7 +17692,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 2,
+    "price": 200,
     "legacy_checkout_count": 7
   },
   {
@@ -17714,7 +17714,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 21,
+    "price": 2100,
     "legacy_checkout_count": 13,
     "acquisition_date": "2021-02-05"
   },
@@ -17737,7 +17737,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 5,
+    "price": 500,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-04-08",
     "second_call_number": "JVDAN"
@@ -17761,7 +17761,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 70,
+    "price": 7000,
     "legacy_checkout_count": 10
   },
   {
@@ -17783,7 +17783,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 45,
+    "price": 4500,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-10-22",
     "notes": [
@@ -17824,7 +17824,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -17857,7 +17857,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-11-02",
     "second_call_number": "K5QWE"
@@ -17881,7 +17881,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 3,
+    "price": 300,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -17913,7 +17913,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-09-09",
     "notes": [
@@ -17942,7 +17942,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 13,
     "second_call_number": "WOLCX"
   },
@@ -17965,7 +17965,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 99,
+    "price": 9900,
     "legacy_checkout_count": 8
   },
   {
@@ -17987,7 +17987,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 2
   },
   {
@@ -18009,7 +18009,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 4,
+    "price": 400,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-12-27",
     "notes": [
@@ -18063,7 +18063,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 42,
+    "price": 4200,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-03-15",
     "notes": [
@@ -18101,7 +18101,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 68,
+    "price": 6800,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-12-26",
     "notes": [
@@ -18146,7 +18146,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-05-27"
   },
@@ -18169,7 +18169,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 1,
+    "price": 100,
     "legacy_checkout_count": 1
   },
   {
@@ -18191,7 +18191,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-11-23",
     "notes": [
@@ -18240,7 +18240,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 4,
+    "price": 400,
     "legacy_checkout_count": 10,
     "acquisition_date": "2020-08-30",
     "notes": [
@@ -18285,7 +18285,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 56,
+    "price": 5600,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -18325,7 +18325,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 85,
+    "price": 8500,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -18370,7 +18370,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 24,
+    "price": 2400,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-10-30",
     "notes": [
@@ -18427,7 +18427,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 13,
+    "price": 1300,
     "legacy_checkout_count": 2
   },
   {
@@ -18449,7 +18449,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 12,
     "acquisition_date": "2021-02-06",
     "second_call_number": "45TI7"
@@ -18473,7 +18473,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 69,
+    "price": 6900,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-06-01",
     "second_call_number": "TRM58"
@@ -18497,7 +18497,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-12-06"
   },
@@ -18520,7 +18520,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 66,
+    "price": 6600,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-12-30"
   },
@@ -18543,7 +18543,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 97,
+    "price": 9700,
     "legacy_checkout_count": 8,
     "second_call_number": "XCRP3"
   },
@@ -18566,7 +18566,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 11,
+    "price": 1100,
     "legacy_checkout_count": 10,
     "second_call_number": "2LR8L"
   },
@@ -18589,7 +18589,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 96,
+    "price": 9600,
     "legacy_checkout_count": 15,
     "acquisition_date": "2021-03-25"
   },
@@ -18612,7 +18612,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 4,
     "acquisition_date": "2021-03-22"
   },
@@ -18635,7 +18635,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 47,
+    "price": 4700,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-10-12",
     "notes": [
@@ -18696,7 +18696,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 26,
+    "price": 2600,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -18756,7 +18756,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 57,
+    "price": 5700,
     "legacy_checkout_count": 7
   },
   {
@@ -18778,7 +18778,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 42,
+    "price": 4200,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -18839,7 +18839,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 7
   },
   {
@@ -18861,7 +18861,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 96,
+    "price": 9600,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-04-05",
     "notes": [
@@ -18898,7 +18898,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -18946,7 +18946,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 52,
+    "price": 5200,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-06-30"
   },
@@ -18969,7 +18969,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 12,
+    "price": 1200,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -19025,7 +19025,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 42,
+    "price": 4200,
     "legacy_checkout_count": 8
   },
   {
@@ -19047,7 +19047,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-06-08"
   },
@@ -19070,7 +19070,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 19,
+    "price": 1900,
     "legacy_checkout_count": 11
   },
   {
@@ -19092,7 +19092,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 36,
+    "price": 3600,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-08-26"
   },
@@ -19115,7 +19115,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 14
   },
   {
@@ -19137,7 +19137,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 23,
+    "price": 2300,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -19177,7 +19177,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 10,
     "acquisition_date": "2021-03-06",
     "notes": [
@@ -19223,7 +19223,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-11-25"
   },
@@ -19246,7 +19246,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 80,
+    "price": 8000,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -19283,7 +19283,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 49,
+    "price": 4900,
     "legacy_checkout_count": 2,
     "notes": [
       {
@@ -19315,7 +19315,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 4,
     "acquisition_date": "2021-02-12"
   },
@@ -19338,7 +19338,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 93,
+    "price": 9300,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -19370,7 +19370,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 14,
+    "price": 1400,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-05-25",
     "second_call_number": "A58T5"
@@ -19394,7 +19394,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -19423,7 +19423,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 7,
     "notes": [
       {
@@ -19484,7 +19484,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 53,
+    "price": 5300,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -19536,7 +19536,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 67,
+    "price": 6700,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -19584,7 +19584,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 14,
     "acquisition_date": "2021-03-22",
     "notes": [
@@ -19621,7 +19621,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 14
   },
   {
@@ -19643,7 +19643,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 74,
+    "price": 7400,
     "legacy_checkout_count": 5
   },
   {
@@ -19665,7 +19665,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 71,
+    "price": 7100,
     "legacy_checkout_count": 13,
     "second_call_number": "OAZHW"
   },
@@ -19688,7 +19688,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 32,
+    "price": 3200,
     "legacy_checkout_count": 3,
     "acquisition_date": "2021-01-30"
   },
@@ -19711,7 +19711,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 21,
+    "price": 2100,
     "legacy_checkout_count": 2
   },
   {
@@ -19733,7 +19733,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 35,
+    "price": 3500,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-05-16",
     "notes": [
@@ -19790,7 +19790,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -19846,7 +19846,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 93,
+    "price": 9300,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -19879,7 +19879,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 87,
+    "price": 8700,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-08-01",
     "notes": [
@@ -19940,7 +19940,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 31,
+    "price": 3100,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -20001,7 +20001,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 36,
+    "price": 3600,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-03-23",
     "notes": [
@@ -20042,7 +20042,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -20078,7 +20078,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 72,
+    "price": 7200,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-07-01"
   },
@@ -20101,7 +20101,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 74,
+    "price": 7400,
     "legacy_checkout_count": 3,
     "second_call_number": "ERBNI"
   },
@@ -20124,7 +20124,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-06-24",
     "notes": [
@@ -20185,7 +20185,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 85,
+    "price": 8500,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-10-31",
     "notes": [
@@ -20242,7 +20242,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 7,
+    "price": 700,
     "legacy_checkout_count": 2,
     "acquisition_date": "2021-01-13"
   },
@@ -20265,7 +20265,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 11,
     "acquisition_date": "2021-04-09",
     "notes": [
@@ -20299,7 +20299,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 93,
+    "price": 9300,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -20343,7 +20343,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 30,
+    "price": 3000,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-06-18",
     "notes": [
@@ -20392,7 +20392,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-03-23",
     "second_call_number": "R50ZZ"
@@ -20416,7 +20416,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 74,
+    "price": 7400,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-04-08",
     "notes": [
@@ -20445,7 +20445,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 7,
     "second_call_number": "A88EQ"
   },
@@ -20468,7 +20468,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 31,
+    "price": 3100,
     "legacy_checkout_count": 1
   },
   {
@@ -20490,7 +20490,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 55,
+    "price": 5500,
     "legacy_checkout_count": 14,
     "notes": [
       {
@@ -20518,7 +20518,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-05-14",
     "notes": [
@@ -20575,7 +20575,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 15,
     "acquisition_date": "2020-06-14",
     "notes": [
@@ -20625,7 +20625,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 66,
+    "price": 6600,
     "legacy_checkout_count": 8,
     "acquisition_date": "2021-02-07",
     "notes": [
@@ -20671,7 +20671,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 60,
+    "price": 6000,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -20707,7 +20707,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -20744,7 +20744,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 37,
+    "price": 3700,
     "legacy_checkout_count": 4,
     "acquisition_date": "2021-02-22",
     "notes": [
@@ -20777,7 +20777,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 57,
+    "price": 5700,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-09-18",
     "notes": [
@@ -20806,7 +20806,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 93,
+    "price": 9300,
     "legacy_checkout_count": 13
   },
   {
@@ -20828,7 +20828,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-08-24"
   },
@@ -20851,7 +20851,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 4,
+    "price": 400,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-08-18",
     "notes": [
@@ -20896,7 +20896,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 59,
+    "price": 5900,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -20941,7 +20941,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 19,
+    "price": 1900,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -21001,7 +21001,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -21054,7 +21054,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 70,
+    "price": 7000,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -21086,7 +21086,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 4,
     "acquisition_date": "2021-03-12",
     "notes": [
@@ -21119,7 +21119,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 75,
+    "price": 7500,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -21179,7 +21179,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 8,
+    "price": 800,
     "legacy_checkout_count": 9,
     "second_call_number": "75FGK"
   },
@@ -21202,7 +21202,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 88,
+    "price": 8800,
     "legacy_checkout_count": 7
   },
   {
@@ -21224,7 +21224,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 36,
+    "price": 3600,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-07-06",
     "notes": [
@@ -21258,7 +21258,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 89,
+    "price": 8900,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-12-16",
     "notes": [
@@ -21299,7 +21299,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 59,
+    "price": 5900,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-08-09",
     "notes": [
@@ -21352,7 +21352,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 1,
+    "price": 100,
     "legacy_checkout_count": 13,
     "notes": [
       {
@@ -21384,7 +21384,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 25,
+    "price": 2500,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-07-07"
   },
@@ -21407,7 +21407,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 41,
+    "price": 4100,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-07-09",
     "notes": [
@@ -21465,7 +21465,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 7,
     "acquisition_date": "2021-03-16",
     "notes": [
@@ -21522,7 +21522,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 80,
+    "price": 8000,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -21550,7 +21550,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 13,
     "acquisition_date": "2021-01-20",
     "notes": [
@@ -21604,7 +21604,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -21649,7 +21649,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 22,
+    "price": 2200,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-10-29"
   },
@@ -21672,7 +21672,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 44,
+    "price": 4400,
     "legacy_checkout_count": 2,
     "acquisition_date": "2020-10-24"
   },
@@ -21695,7 +21695,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 9
   },
   {
@@ -21717,7 +21717,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-10-09",
     "second_call_number": "Z6RLP"
@@ -21741,7 +21741,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -21781,7 +21781,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -21809,7 +21809,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 100,
+    "price": 10000,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-05-01",
     "second_call_number": "MUKMW"
@@ -21833,7 +21833,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -21865,7 +21865,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-09-26",
     "notes": [
@@ -21923,7 +21923,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 11,
+    "price": 1100,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-03-30",
     "notes": [
@@ -21953,7 +21953,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 86,
+    "price": 8600,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-11-25",
     "notes": [
@@ -22014,7 +22014,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 62,
+    "price": 6200,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-11-01",
     "notes": [
@@ -22059,7 +22059,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 42,
+    "price": 4200,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -22120,7 +22120,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 13,
+    "price": 1300,
     "legacy_checkout_count": 15,
     "acquisition_date": "2021-02-22",
     "second_call_number": "KE8T9"
@@ -22144,7 +22144,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 2,
+    "price": 200,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -22172,7 +22172,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -22225,7 +22225,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 13,
+    "price": 1300,
     "legacy_checkout_count": 1
   },
   {
@@ -22247,7 +22247,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 67,
+    "price": 6700,
     "legacy_checkout_count": 13,
     "acquisition_date": "2020-10-25"
   },
@@ -22270,7 +22270,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 12,
+    "price": 1200,
     "legacy_checkout_count": 15,
     "notes": [
       {
@@ -22306,7 +22306,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 90,
+    "price": 9000,
     "legacy_checkout_count": 3,
     "acquisition_date": "2020-04-03",
     "notes": [
@@ -22359,7 +22359,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 1,
+    "price": 100,
     "legacy_checkout_count": 7,
     "acquisition_date": "2021-02-05"
   },
@@ -22382,7 +22382,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 97,
+    "price": 9700,
     "legacy_checkout_count": 6,
     "second_call_number": "FZYYZ"
   },
@@ -22405,7 +22405,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 17,
+    "price": 1700,
     "legacy_checkout_count": 5,
     "acquisition_date": "2020-12-13",
     "notes": [
@@ -22434,7 +22434,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 69,
+    "price": 6900,
     "legacy_checkout_count": 4,
     "notes": [
       {
@@ -22467,7 +22467,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 62,
+    "price": 6200,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-06-04",
     "second_call_number": "U3SRM"
@@ -22491,7 +22491,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 92,
+    "price": 9200,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -22532,7 +22532,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 39,
+    "price": 3900,
     "legacy_checkout_count": 8,
     "notes": [
       {
@@ -22560,7 +22560,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 76,
+    "price": 7600,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-09-06",
     "notes": [
@@ -22601,7 +22601,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 6,
+    "price": 600,
     "legacy_checkout_count": 7
   },
   {
@@ -22623,7 +22623,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 81,
+    "price": 8100,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-11-25",
     "notes": [
@@ -22652,7 +22652,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 78,
+    "price": 7800,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -22692,7 +22692,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 8,
     "acquisition_date": "2020-08-06",
     "notes": [
@@ -22738,7 +22738,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 91,
+    "price": 9100,
     "legacy_checkout_count": 9,
     "acquisition_date": "2020-08-31"
   },
@@ -22761,7 +22761,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 12,
+    "price": 1200,
     "legacy_checkout_count": 6,
     "acquisition_date": "2020-10-11",
     "notes": [
@@ -22810,7 +22810,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 6,
     "acquisition_date": "2021-01-02",
     "notes": [
@@ -22859,7 +22859,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 27,
+    "price": 2700,
     "legacy_checkout_count": 4,
     "second_call_number": "3A56A"
   },
@@ -22882,7 +22882,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 95,
+    "price": 9500,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-08-20",
     "notes": [
@@ -22923,7 +22923,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 68,
+    "price": 6800,
     "legacy_checkout_count": 1,
     "notes": [
       {
@@ -22963,7 +22963,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 96,
+    "price": 9600,
     "legacy_checkout_count": 11,
     "acquisition_date": "2020-08-18"
   },
@@ -22986,7 +22986,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 59,
+    "price": 5900,
     "legacy_checkout_count": 11,
     "notes": [
       {
@@ -23042,7 +23042,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 29,
+    "price": 2900,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -23079,7 +23079,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 3,
     "notes": [
       {
@@ -23139,7 +23139,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 56,
+    "price": 5600,
     "legacy_checkout_count": 14,
     "acquisition_date": "2020-05-01",
     "notes": [
@@ -23196,7 +23196,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 58,
+    "price": 5800,
     "legacy_checkout_count": 6,
     "notes": [
       {
@@ -23232,7 +23232,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 92,
+    "price": 9200,
     "legacy_checkout_count": 1,
     "acquisition_date": "2020-11-19",
     "notes": [
@@ -23265,7 +23265,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 66,
+    "price": 6600,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -23317,7 +23317,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 16,
+    "price": 1600,
     "legacy_checkout_count": 9,
     "notes": [
       {
@@ -23365,7 +23365,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 15,
+    "price": 1500,
     "legacy_checkout_count": 5,
     "notes": [
       {
@@ -23409,7 +23409,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 20,
+    "price": 2000,
     "legacy_checkout_count": 7,
     "acquisition_date": "2021-01-09",
     "notes": [
@@ -23442,7 +23442,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 7,
+    "price": 700,
     "legacy_checkout_count": 7,
     "acquisition_date": "2020-07-16",
     "notes": [
@@ -23491,7 +23491,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 10,
+    "price": 1000,
     "legacy_checkout_count": 10,
     "notes": [
       {
@@ -23539,7 +23539,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 32,
+    "price": 3200,
     "legacy_checkout_count": 9,
     "acquisition_date": "2021-01-19",
     "notes": [
@@ -23572,7 +23572,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 73,
+    "price": 7300,
     "legacy_checkout_count": 12,
     "acquisition_date": "2020-07-17",
     "notes": [
@@ -23633,7 +23633,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 43,
+    "price": 4300,
     "legacy_checkout_count": 4,
     "acquisition_date": "2020-09-18",
     "notes": [
@@ -23695,7 +23695,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 36,
+    "price": 3600,
     "legacy_checkout_count": 12,
     "notes": [
       {
@@ -23751,7 +23751,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 63,
+    "price": 6300,
     "legacy_checkout_count": 1
   },
   {
@@ -23773,7 +23773,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 38,
+    "price": 3800,
     "legacy_checkout_count": 2
   },
   {
@@ -23795,7 +23795,7 @@
     },
     "type": "standard",
     "pac_code": "2_controlled_consumption",
-    "price": 1,
+    "price": 100,
     "legacy_checkout_count": 5,
     "acquisition_date": "2021-02-08"
   }

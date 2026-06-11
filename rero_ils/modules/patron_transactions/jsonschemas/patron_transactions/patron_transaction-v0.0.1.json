@@ -181,7 +181,8 @@
     "total_amount": {
       "type": "number",
       "minimum": 0,
-      "title": "Total calculated amount of the patron transaction"
+      "title": "Total calculated amount of the patron transaction",
+      "multipleOf": 0.01
     }
   }
 }

@@ -8,7 +8,7 @@
       "$ref": "https://bib.rero.ch/api/acq_order_lines/1"
     },
     "quantity": 3,
-    "amount": 25,
+    "amount": 2500,
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/1"
     },
@@ -26,7 +26,7 @@
       "$ref": "https://bib.rero.ch/api/acq_order_lines/10"
     },
     "quantity": 3,
-    "amount": 25,
+    "amount": 2500,
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/1"
     },

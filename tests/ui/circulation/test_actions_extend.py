@@ -55,7 +55,7 @@ def test_fees_after_extend(
     extend_cipo.update(
         {
             "libraries": [{"$ref": get_ref_for_pid(Library, loc_public_saxon.library_pid)}],
-            "overdue_fees": {"intervals": [{"from": 1, "fee_amount": 0.01}]},
+            "overdue_fees": {"intervals": [{"from": 1, "fee_amount": 1}]},
         }
     )
     del extend_cipo["pid"]
@@ -65,7 +65,7 @@ def test_fees_after_extend(
     # Update checkout cipo to set some intervals
     checkout_cipo_ori = get_circ_policy(loan, checkout_location=True)
     checkout_cipo = deepcopy(checkout_cipo_ori)
-    checkout_fee_amount = 10
+    checkout_fee_amount = 1000
     checkout_cipo["overdue_fees"] = {"intervals": [{"from": 1, "fee_amount": checkout_fee_amount}]}
     checkout_cipo = checkout_cipo.update(checkout_cipo, dbcommit=True, reindex=True)
 

@@ -145,9 +145,9 @@ def test_checkin_overdue_item(
     cipo = get_circ_policy(loan)
     cipo["overdue_fees"] = {
         "intervals": [
-            {"from": 1, "to": 5, "fee_amount": 0.50},
-            {"from": 6, "to": 10, "fee_amount": 1},
-            {"from": 11, "fee_amount": 2},
+            {"from": 1, "to": 5, "fee_amount": 50},
+            {"from": 6, "to": 10, "fee_amount": 100},
+            {"from": 11, "fee_amount": 200},
         ]
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)

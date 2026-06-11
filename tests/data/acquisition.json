@@ -184,7 +184,7 @@
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg1"
     },
-    "allocated_amount": 15000,
+    "allocated_amount": 1500000,
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib1"
     }
@@ -197,7 +197,7 @@
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg1"
     },
-    "allocated_amount": 10000,
+    "allocated_amount": 1000000,
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib2"
     }
@@ -210,7 +210,7 @@
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg1"
     },
-    "allocated_amount": 12000,
+    "allocated_amount": 1200000,
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib3"
     }
@@ -223,7 +223,7 @@
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg2"
     },
-    "allocated_amount": 11000,
+    "allocated_amount": 1100000,
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib4"
     }
@@ -236,7 +236,7 @@
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg2"
     },
-    "allocated_amount": 14000,
+    "allocated_amount": 1400000,
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib5"
     }
@@ -248,7 +248,7 @@
     "budget": {
       "$ref": "https://bib.rero.ch/api/budgets/budg2"
     },
-    "allocated_amount": 16000,
+    "allocated_amount": 1600000,
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib1"
     }
@@ -307,7 +307,7 @@
     "is_cancelled": false,
     "quantity": 5,
     "priority": 5,
-    "amount": 1000
+    "amount": 100000
   },
   "acol2": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -323,7 +323,7 @@
     },
     "is_cancelled": false,
     "quantity": 1,
-    "amount": 500
+    "amount": 50000
   },
   "acol3": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -339,7 +339,7 @@
     },
     "is_cancelled": false,
     "quantity": 5,
-    "amount": 1000
+    "amount": 100000
   },
   "acol4": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -355,7 +355,7 @@
     },
     "is_cancelled": false,
     "quantity": 5,
-    "amount": 500
+    "amount": 50000
   },
   "acol5": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -372,7 +372,7 @@
     "is_cancelled": false,
     "quantity": 1,
     "priority": 5,
-    "amount": 1000
+    "amount": 100000
   },
   "acre1": {
     "$schema": "https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v0.0.1.json",
@@ -383,14 +383,14 @@
     "amount_adjustments": [
       {
         "label": "handling fees",
-        "amount": 2.0,
+        "amount": 200,
         "acq_account": {
           "$ref": "https://bib.rero.ch/api/acq_accounts/acac1"
         }
       },
       {
         "label": "discount",
-        "amount": -1.0,
+        "amount": -100,
         "acq_account": {
           "$ref": "https://bib.rero.ch/api/acq_accounts/acac1"
         }
@@ -418,7 +418,7 @@
     "acq_order_line": {
       "$ref": "https://bib.rero.ch/api/acq_order_lines/acol1"
     },
-    "amount": 1000,
+    "amount": 100000,
     "quantity": 1,
     "notes": [
       {
@@ -436,7 +436,7 @@
     "acq_order_line": {
       "$ref": "https://bib.rero.ch/api/acq_order_lines/acol2"
     },
-    "amount": 500,
+    "amount": 50000,
     "quantity": 1,
     "notes": [
       {
@@ -454,14 +454,14 @@
     "amount_adjustments": [
       {
         "label": "handling fees",
-        "amount": 2.0,
+        "amount": 200,
         "acq_account": {
           "$ref": "https://bib.rero.ch/api/acq_accounts/acac2"
         }
       },
       {
         "label": "discount",
-        "amount": -2.0,
+        "amount": -200,
         "acq_account": {
           "$ref": "https://bib.rero.ch/api/acq_accounts/acac2"
         }
@@ -489,7 +489,7 @@
     "acq_order_line": {
       "$ref": "https://bib.rero.ch/api/acq_order_lines/acol3"
     },
-    "amount": 1000,
+    "amount": 100000,
     "quantity": 1,
     "notes": [
       {
@@ -507,14 +507,14 @@
     "amount_adjustments": [
       {
         "label": "handling fees",
-        "amount": 2.0,
+        "amount": 200,
         "acq_account": {
           "$ref": "https://bib.rero.ch/api/acq_accounts/acac4"
         }
       },
       {
         "label": "discount",
-        "amount": -2.0,
+        "amount": -200,
         "acq_account": {
           "$ref": "https://bib.rero.ch/api/acq_accounts/acac4"
         }
@@ -542,7 +542,7 @@
     "acq_order_line": {
       "$ref": "https://bib.rero.ch/api/acq_order_lines/acol4"
     },
-    "amount": 500,
+    "amount": 50000,
     "quantity": 2,
     "notes": [
       {

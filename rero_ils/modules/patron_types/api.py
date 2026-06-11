@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2025 RERO+
+# Copyright (C) 2019-2022 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -25,6 +25,7 @@ from flask_babel import gettext as _
 
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
+from ..extensions import AmountExtension
 from ..fetchers import id_fetcher
 from ..loans.api import get_loans_count_by_library_for_patron_pid, get_overdue_loan_pids
 from ..loans.models import LoanState
@@ -77,11 +78,18 @@ class PatronType(IlsRecord):
     fetcher = patron_type_id_fetcher
     provider = PatronTypeProvider
     model_cls = PatronTypeMetadata
+
     pids_exist_check = {
         "required": {
             "org": "organisation",
         }
     }
+
+    _amount_fields = ["subscription_amount", "limits.fee_amount_limits.default_value"]
+
+    _extensions = [
+        AmountExtension(*_amount_fields),
+    ]
 
     def extended_validation(self, **kwargs):
         """Add additional record validation.

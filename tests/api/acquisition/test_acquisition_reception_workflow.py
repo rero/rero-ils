@@ -90,7 +90,7 @@ def test_acquisition_reception_workflow(
     data = {
         "name": "Martigny root account",
         "number": "MTY.0000.00",
-        "allocated_amount": 10000,
+        "allocated_amount": 1000000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
     }
@@ -98,7 +98,7 @@ def test_acquisition_reception_workflow(
     data = {
         "name": "Martigny Books child account",
         "number": "MTY.000b.00",
-        "allocated_amount": 2000,
+        "allocated_amount": 200000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
         "parent": {"$ref": get_ref_for_pid("acac", m_root_acc.pid)},
@@ -107,7 +107,7 @@ def test_acquisition_reception_workflow(
     data = {
         "name": "Martigny Serials child account",
         "number": "MTY.000s.00",
-        "allocated_amount": 3000,
+        "allocated_amount": 300000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
         "parent": {"$ref": get_ref_for_pid("acac", m_root_acc.pid)},
@@ -116,7 +116,7 @@ def test_acquisition_reception_workflow(
     data = {
         "name": "Saxon root account",
         "number": "SXN.0000.00",
-        "allocated_amount": 20000,
+        "allocated_amount": 2000000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_saxon.pid)},
     }
@@ -124,7 +124,7 @@ def test_acquisition_reception_workflow(
     data = {
         "name": "Saxon Books chid account",
         "number": "SXN.000b.00",
-        "allocated_amount": 2500,
+        "allocated_amount": 250000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_saxon.pid)},
         "parent": {"$ref": get_ref_for_pid("acac", s_root_acc.pid)},
@@ -133,7 +133,7 @@ def test_acquisition_reception_workflow(
     data = {
         "name": "Saxon Serials chid account",
         "number": "SXN.000s.00",
-        "allocated_amount": 4000,
+        "allocated_amount": 400000,
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_saxon.pid)},
         "parent": {"$ref": get_ref_for_pid("acac", s_root_acc.pid)},
@@ -143,12 +143,12 @@ def test_acquisition_reception_workflow(
     # For each account check data. the dict values are tuples. Each tuple
     # define `balance`, `expenditure`, `encumbrance`
     manual_controls = {
-        m_root_acc: ((5000, 10000), (0, 0), (0, 0)),
-        m_books_acc: ((2000, 2000), (0, 0), (0, 0)),
-        m_serials_acc: ((3000, 3000), (0, 0), (0, 0)),
-        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
-        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
-        s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
+        m_root_acc: ((500000, 1000000), (0, 0), (0, 0)),
+        m_books_acc: ((200000, 200000), (0, 0), (0, 0)),
+        m_serials_acc: ((300000, 300000), (0, 0), (0, 0)),
+        s_root_acc: ((1350000, 2000000), (0, 0), (0, 0)),
+        s_books_acc: ((250000, 250000), (0, 0), (0, 0)),
+        s_serials_acc: ((400000, 400000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)
 
@@ -182,11 +182,11 @@ def test_acquisition_reception_workflow(
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "document": {"$ref": get_ref_for_pid("doc", document.pid)},
         "quantity": 5,
-        "amount": 10,
+        "amount": 1000,
     }
     order_line_1 = _make_resource(client, "acol", data)
     order_line_1_ref = get_ref_for_pid("acol", order_line_1.pid)
-    assert order_line_1.get("total_amount") == 50
+    assert order_line_1.get("total_amount") == 5000
     assert order_line_1.quantity == 5
     assert order_line_1.received_quantity == 0
     assert order_line_1.unreceived_quantity == 5
@@ -198,11 +198,11 @@ def test_acquisition_reception_workflow(
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "document": {"$ref": get_ref_for_pid("doc", document.pid)},
         "quantity": 2,
-        "amount": 50,
+        "amount": 5000,
     }
     order_line_2 = _make_resource(client, "acol", data)
     order_line_2_ref = get_ref_for_pid("acol", order_line_2.pid)
-    assert order_line_2.get("total_amount") == 100
+    assert order_line_2.get("total_amount") == 10000
     assert order_line_2.quantity == 2
     assert order_line_2.received_quantity == 0
     assert order_line_2.unreceived_quantity == 2
@@ -214,11 +214,11 @@ def test_acquisition_reception_workflow(
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "document": {"$ref": get_ref_for_pid("doc", document.pid)},
         "quantity": 3,
-        "amount": 100,
+        "amount": 10000,
     }
     order_line_3 = _make_resource(client, "acol", data)
     order_line_3_ref = get_ref_for_pid("acol", order_line_3.pid)
-    assert order_line_3.get("total_amount") == 300
+    assert order_line_3.get("total_amount") == 30000
     assert order_line_3.quantity == 3
     assert order_line_3.received_quantity == 0
     assert order_line_3.unreceived_quantity == 3
@@ -230,11 +230,11 @@ def test_acquisition_reception_workflow(
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "document": {"$ref": get_ref_for_pid("doc", document.pid)},
         "quantity": 3,
-        "amount": 15,
+        "amount": 1500,
     }
     order_line_4 = _make_resource(client, "acol", data)
     order_line_4_ref = get_ref_for_pid("acol", order_line_4.pid)
-    assert order_line_4.get("total_amount") == 45
+    assert order_line_4.get("total_amount") == 4500
     assert order_line_4.quantity == 3
     assert order_line_4.received_quantity == 0
     assert order_line_4.unreceived_quantity == 3
@@ -246,11 +246,11 @@ def test_acquisition_reception_workflow(
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "document": {"$ref": get_ref_for_pid("doc", document.pid)},
         "quantity": 1,
-        "amount": 150,
+        "amount": 15000,
     }
     order_line_5 = _make_resource(client, "acol", data)
     order_line_5_ref = get_ref_for_pid("acol", order_line_5.pid)
-    assert order_line_5.get("total_amount") == 150
+    assert order_line_5.get("total_amount") == 15000
     assert order_line_5.quantity == 1
     assert order_line_5.received_quantity == 0
     assert order_line_5.unreceived_quantity == 1
@@ -262,11 +262,11 @@ def test_acquisition_reception_workflow(
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "document": {"$ref": get_ref_for_pid("doc", document.pid)},
         "quantity": 10,
-        "amount": 7,
+        "amount": 700,
     }
     order_line_6 = _make_resource(client, "acol", data)
     order_line_6_ref = get_ref_for_pid("acol", order_line_6.pid)
-    assert order_line_6.get("total_amount") == 70
+    assert order_line_6.get("total_amount") == 7000
     assert order_line_6.quantity == 10
     assert order_line_6.received_quantity == 0
     assert order_line_6.unreceived_quantity == 10
@@ -274,7 +274,7 @@ def test_acquisition_reception_workflow(
     assert order_line_6.status == AcqOrderLineStatus.APPROVED
 
     # test order after adding lines
-    assert order.get_order_provisional_total_amount() == 715
+    assert order.get_order_provisional_total_amount() == 71500
     assert order.status == AcqOrderStatus.PENDING
     # TODO: fix links to me for the order resource, this should fail
     assert order.can_delete
@@ -283,12 +283,12 @@ def test_acquisition_reception_workflow(
     assert order.item_received_quantity == 0
 
     manual_controls = {
-        m_root_acc: ((5000, 9285), (0, 0), (0, 715)),
-        m_books_acc: ((1550, 1550), (0, 0), (450, 0)),
-        m_serials_acc: ((2735, 2735), (0, 0), (265, 0)),
-        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
-        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
-        s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
+        m_root_acc: ((500000, 928500), (0, 0), (0, 71500)),
+        m_books_acc: ((155000, 155000), (0, 0), (45000, 0)),
+        m_serials_acc: ((273500, 273500), (0, 0), (26500, 0)),
+        s_root_acc: ((1350000, 2000000), (0, 0), (0, 0)),
+        s_books_acc: ((250000, 250000), (0, 0), (0, 0)),
+        s_serials_acc: ((400000, 400000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)
 
@@ -320,51 +320,51 @@ def test_acquisition_reception_workflow(
 
     # ensure correct calculations and status again
     manual_controls = {
-        m_root_acc: ((5000, 9305), (0, 0), (0, 695)),
-        m_books_acc: ((1650, 1650), (0, 0), (350, 0)),
-        m_serials_acc: ((2655, 2655), (0, 0), (345, 0)),
-        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
-        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
-        s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
+        m_root_acc: ((500000, 930500), (0, 0), (0, 69500)),
+        m_books_acc: ((165000, 165000), (0, 0), (35000, 0)),
+        m_serials_acc: ((265500, 265500), (0, 0), (34500, 0)),
+        s_root_acc: ((1350000, 2000000), (0, 0), (0, 0)),
+        s_books_acc: ((250000, 250000), (0, 0), (0, 0)),
+        s_serials_acc: ((400000, 400000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)
 
-    assert order_line_6.get("total_amount") == 70
+    assert order_line_6.get("total_amount") == 7000
     assert order_line_6.is_cancelled
     assert order_line_6.quantity == 10
     assert order_line_6.received_quantity == 0
     assert order_line_6.unreceived_quantity == 10
     assert order_line_6.status == AcqOrderLineStatus.CANCELLED
 
-    assert order_line_5.get("total_amount") == 300
+    assert order_line_5.get("total_amount") == 30000
     assert not order_line_5.is_cancelled
     assert order_line_5.quantity == 2
     assert order_line_5.received_quantity == 0
     assert order_line_5.unreceived_quantity == 2
     assert order_line_5.status == AcqOrderLineStatus.APPROVED
 
-    assert order_line_4.get("total_amount") == 45
+    assert order_line_4.get("total_amount") == 4500
     assert not order_line_4.is_cancelled
     assert order_line_4.quantity == 3
     assert order_line_4.received_quantity == 0
     assert order_line_4.unreceived_quantity == 3
     assert order_line_4.status == AcqOrderLineStatus.APPROVED
 
-    assert order_line_3.get("total_amount") == 300
+    assert order_line_3.get("total_amount") == 30000
     assert order_line_3.is_cancelled
     assert order_line_3.quantity == 3
     assert order_line_3.received_quantity == 0
     assert order_line_3.unreceived_quantity == 3
     assert order_line_3.status == AcqOrderLineStatus.CANCELLED
 
-    assert order_line_2.get("total_amount") == 300
+    assert order_line_2.get("total_amount") == 30000
     assert not order_line_2.is_cancelled
     assert order_line_2.quantity == 6
     assert order_line_2.received_quantity == 0
     assert order_line_2.unreceived_quantity == 6
     assert order_line_2.status == AcqOrderLineStatus.APPROVED
 
-    assert order_line_1.get("total_amount") == 50
+    assert order_line_1.get("total_amount") == 5000
     assert not order_line_1.is_cancelled
     assert order_line_1.quantity == 5
     assert order_line_1.received_quantity == 0
@@ -428,17 +428,17 @@ def test_acquisition_reception_workflow(
         "amount_adjustments": [
             {
                 "label": "handling fees",
-                "amount": 2.0,
+                "amount": 200,
                 "acq_account": {"$ref": ref_acc_book},
             },
             {
                 "label": "discount",
-                "amount": -1.0,
+                "amount": -100,
                 "acq_account": {"$ref": ref_acc_book},
             },
             {
                 "label": "handling fees",
-                "amount": 10,
+                "amount": 1000,
                 "acq_account": {"$ref": ref_acc_serial},
             },
         ],
@@ -446,16 +446,16 @@ def test_acquisition_reception_workflow(
         "organisation": {"$ref": get_ref_for_pid("org", org_martigny.pid)},
     }
     receipt_1 = _make_resource(client, "acre", data)
-    assert receipt_1.total_amount == 11  # 2 - 1 + 10
+    assert receipt_1.total_amount == 1100  # 200 - 100 + 1000
     assert receipt_1.can_delete
 
     manual_controls = {
-        m_root_acc: ((5000, 9294), (0, 11), (0, 695)),
-        m_books_acc: ((1649, 1649), (1, 0), (350, 0)),
-        m_serials_acc: ((2645, 2645), (10, 0), (345, 0)),
-        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
-        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
-        s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
+        m_root_acc: ((500000, 929400), (0, 1100), (0, 69500)),
+        m_books_acc: ((164900, 164900), (100, 0), (35000, 0)),
+        m_serials_acc: ((264500, 264500), (1000, 0), (34500, 0)),
+        s_root_acc: ((1350000, 2000000), (0, 0), (0, 0)),
+        s_books_acc: ((250000, 250000), (0, 0), (0, 0)),
+        s_serials_acc: ((400000, 400000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)
 
@@ -472,7 +472,7 @@ def test_acquisition_reception_workflow(
         data=[
             {
                 "acq_order_line": {"$ref": order_line_1_ref},
-                "amount": 10,
+                "amount": 1000,
                 "quantity": 12,
                 "receipt_date": "2021-11-01",
             }
@@ -490,7 +490,7 @@ def test_acquisition_reception_workflow(
         data=[
             {
                 "acq_order_line": {"$ref": order_line_1_ref},
-                "amount": 10,
+                "amount": 1000,
                 "quantity": 2,
                 "vat_rate": 6,
                 "receipt_date": "2021-11-01",
@@ -522,12 +522,12 @@ def test_acquisition_reception_workflow(
     assert order.status == AcqOrderStatus.PARTIALLY_RECEIVED
 
     manual_controls = {
-        m_root_acc: ((5000, 9292.8), (0, 32.2), (0, 675)),
-        m_books_acc: ((1647.8, 1647.8), (22.2, 0), (330, 0)),
-        m_serials_acc: ((2645, 2645), (10, 0), (345, 0)),
-        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
-        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
-        s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
+        m_root_acc: ((500000, 929280), (0, 3220), (0, 67500)),
+        m_books_acc: ((164780, 164780), (2220, 0), (33000, 0)),
+        m_serials_acc: ((264500, 264500), (1000, 0), (34500, 0)),
+        s_root_acc: ((1350000, 2000000), (0, 0), (0, 0)),
+        s_books_acc: ((250000, 250000), (0, 0), (0, 0)),
+        s_serials_acc: ((400000, 400000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)
 
@@ -547,25 +547,25 @@ def test_acquisition_reception_workflow(
     data = [
         {
             "acq_order_line": {"$ref": order_line_1_ref},
-            "amount": 10,
+            "amount": 1000,
             "quantity": 3,
             "receipt_date": "2021-11-01",
         },
         {
             "acq_order_line": {"$ref": order_line_2_ref},
-            "amount": 50,
+            "amount": 5000,
             "quantity": 6,
             "receipt_date": "2021-11-01",
         },
         {
             "acq_order_line": {"$ref": order_line_4_ref},
-            "amount": 15,
+            "amount": 1500,
             "quantity": 3,
             "receipt_date": "2021-11-01",
         },
         {
             "acq_order_line": {"$ref": order_line_5_ref},
-            "amount": 150,
+            "amount": 15000,
             "quantity": 12,  # too many items ! Max quantity should be 2
             "receipt_date": "2021-11-01",
         },
@@ -595,7 +595,7 @@ def test_acquisition_reception_workflow(
     data = [
         {
             "acq_order_line": {"$ref": order_line_5_ref},
-            "amount": 150,
+            "amount": 15000,
             "quantity": 2,
             "receipt_date": "2021-11-01",
         }
@@ -612,12 +612,12 @@ def test_acquisition_reception_workflow(
     assert order.status == AcqOrderStatus.RECEIVED
     # check account amounts
     manual_controls = {
-        m_root_acc: ((5000, 9292.8), (0, 707.2), (0, 0)),
-        m_books_acc: ((1647.8, 1647.8), (352.2, 0), (0, 0)),
-        m_serials_acc: ((2645, 2645), (355, 0), (0, 0)),
-        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
-        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
-        s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
+        m_root_acc: ((500000, 929280), (0, 70720), (0, 0)),
+        m_books_acc: ((164780, 164780), (35220, 0), (0, 0)),
+        m_serials_acc: ((264500, 264500), (35500, 0), (0, 0)),
+        s_root_acc: ((1350000, 2000000), (0, 0), (0, 0)),
+        s_books_acc: ((250000, 250000), (0, 0), (0, 0)),
+        s_serials_acc: ((400000, 400000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)
 
@@ -716,11 +716,11 @@ def test_acquisition_reception_workflow(
 
     # ensure correct calculations and status again
     manual_controls = {
-        m_root_acc: ((5000, 9305), (0, 0), (0, 695)),
-        m_books_acc: ((1650, 1650), (0, 0), (350, 0)),
-        m_serials_acc: ((2655, 2655), (0, 0), (345, 0)),
-        s_root_acc: ((13500, 20000), (0, 0), (0, 0)),
-        s_books_acc: ((2500, 2500), (0, 0), (0, 0)),
-        s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
+        m_root_acc: ((500000, 930500), (0, 0), (0, 69500)),
+        m_books_acc: ((165000, 165000), (0, 0), (35000, 0)),
+        m_serials_acc: ((265500, 265500), (0, 0), (34500, 0)),
+        s_root_acc: ((1350000, 2000000), (0, 0), (0, 0)),
+        s_books_acc: ((250000, 250000), (0, 0), (0, 0)),
+        s_serials_acc: ((400000, 400000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)

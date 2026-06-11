@@ -18,13 +18,27 @@
 """Acquisition account serialization."""
 
 from rero_ils.modules.libraries.api import LibrariesSearch
-from rero_ils.modules.serializers import ACQJSONSerializer, JSONSerializer
+from rero_ils.modules.serializers import ACQJSONSerializer, AmountMixin, JSONSerializer
 
 from ..api import AcqAccountsSearch
 
 
-class AcqAccountJSONSerializer(ACQJSONSerializer):
+class AcqAccountJSONSerializer(AmountMixin, ACQJSONSerializer):
     """Serializer for RERO-ILS `AcqAccount` records as JSON."""
+
+    _amount_fields = [
+        "allocated_amount",
+        "encumbrance_amount.self",
+        "encumbrance_amount.children",
+        "encumbrance_amount.total",
+        "expenditure_amount.self",
+        "expenditure_amount.children",
+        "expenditure_amount.total",
+        "remaining_balance.self",
+        "remaining_balance.total",
+        "encumbrance_exceedance.amount",
+        "expenditure_exceedance.amount",
+    ]
 
     def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""

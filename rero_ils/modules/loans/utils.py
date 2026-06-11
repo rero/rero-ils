@@ -18,7 +18,6 @@
 
 """Loans utils."""
 
-import math
 from datetime import UTC, datetime, timedelta
 
 import ciso8601
@@ -240,11 +239,10 @@ def sum_for_fees(fee_steps):
     """Compute the sum of fee steps/intervals.
 
     :param fee_steps: an array of tuples. Each first tuple element should be
-                      the amount to add (as a float).
-    :return the sum of fee steps rounded with a precision of 2 digits after
-            decimal
+                      the amount in integer cents.
+    :return the sum of fee steps as integer cents.
     """
-    return round(math.fsum([fee[0] for fee in fee_steps]), 2) if fee_steps else 0
+    return sum(fee[0] for fee in fee_steps) if fee_steps else 0
 
 
 def get_loan_checkout_date(loan_pid):

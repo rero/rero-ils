@@ -785,7 +785,8 @@
             }
           }
         }
-      }
+      },
+      "multipleOf": 0.01
     },
     "legacy_checkout_count": {
       "title": "Number of checkouts from previous system",

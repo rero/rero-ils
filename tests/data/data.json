@@ -100,7 +100,7 @@
         "end_date": "2019-01-06",
         "is_open": false,
         "start_date": "2018-12-22",
-        "title": "Vacances de No\u00ebl",
+        "title": "Vacances de Noël",
         "repeat": {
           "interval": 1,
           "period": "yearly"
@@ -124,7 +124,7 @@
           "period": "yearly"
         },
         "start_date": "2019-08-01",
-        "title": "1er ao\u00fbt"
+        "title": "1er août"
       },
       {
         "is_open": false,
@@ -193,7 +193,7 @@
         "name": "martigny billing dept",
         "email": "reroilstest+martignyshipping@gmail.com",
         "address": {
-          "street": "Place de l'\u00e9querre 12",
+          "street": "Place de l'équerre 12",
           "city": "Aristo",
           "zip_code": "1234",
           "country": "be"
@@ -311,7 +311,7 @@
         "end_date": "2019-01-06",
         "is_open": false,
         "start_date": "2018-12-22",
-        "title": "Vacances de No\u00ebl"
+        "title": "Vacances de Noël"
       },
       {
         "is_open": true,
@@ -331,7 +331,7 @@
           "period": "yearly"
         },
         "start_date": "2019-08-01",
-        "title": "1er ao\u00fbt"
+        "title": "1er août"
       }
     ],
     "notification_settings": [
@@ -458,7 +458,7 @@
         "end_date": "2019-01-06",
         "is_open": false,
         "start_date": "2018-12-22",
-        "title": "Vacances de No\u00ebl"
+        "title": "Vacances de Noël"
       },
       {
         "is_open": true,
@@ -478,7 +478,7 @@
           "period": "yearly"
         },
         "start_date": "2019-08-01",
-        "title": "1er ao\u00fbt"
+        "title": "1er août"
       }
     ],
     "notification_settings": [
@@ -593,7 +593,7 @@
         "end_date": "2019-01-06",
         "is_open": false,
         "start_date": "2018-12-22",
-        "title": "Vacances de No\u00ebl"
+        "title": "Vacances de Noël"
       },
       {
         "is_open": true,
@@ -613,7 +613,7 @@
           "period": "yearly"
         },
         "start_date": "2019-08-01",
-        "title": "1er ao\u00fbt"
+        "title": "1er août"
       }
     ],
     "notification_settings": [
@@ -689,7 +689,7 @@
     "address": "Centre culturel",
     "code": "APROZ",
     "email": "reroilstest+aproz@gmail.com",
-    "name": "Biblioth\u00e8que d'Aproz",
+    "name": "Bibliothèque d'Aproz",
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/org2"
     },
@@ -761,7 +761,7 @@
         "end_date": "2019-01-06",
         "is_open": false,
         "start_date": "2018-12-22",
-        "title": "Vacances de No\u00ebl"
+        "title": "Vacances de Noël"
       },
       {
         "is_open": true,
@@ -781,7 +781,7 @@
           "period": "yearly"
         },
         "start_date": "2019-08-01",
-        "title": "1er ao\u00fbt"
+        "title": "1er août"
       }
     ],
     "notification_settings": [
@@ -896,7 +896,7 @@
         "end_date": "2019-01-06",
         "is_open": false,
         "start_date": "2018-12-22",
-        "title": "Vacances de No\u00ebl"
+        "title": "Vacances de Noël"
       },
       {
         "is_open": true,
@@ -916,7 +916,7 @@
           "period": "yearly"
         },
         "start_date": "2019-08-01",
-        "title": "1er ao\u00fbt"
+        "title": "1er août"
       }
     ],
     "notification_settings": [
@@ -1351,7 +1351,7 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/org2"
     },
-    "subscription_amount": 25,
+    "subscription_amount": 2500,
     "limits": {
       "unpaid_subscription": false
     }
@@ -1364,7 +1364,7 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/org2"
     },
-    "subscription_amount": 15,
+    "subscription_amount": 1500,
     "limits": {
       "unpaid_subscription": false
     }
@@ -1388,7 +1388,7 @@
       {
         "type": "overdue",
         "days_delay": 5,
-        "fee_amount": 2,
+        "fee_amount": 200,
         "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
@@ -1422,14 +1422,14 @@
       {
         "type": "overdue",
         "days_delay": 5,
-        "fee_amount": 2,
+        "fee_amount": 200,
         "communication_channel": "patron_setting",
         "template": "email/overdue"
       },
       {
         "type": "overdue",
         "days_delay": 12,
-        "fee_amount": 2,
+        "fee_amount": 200,
         "communication_channel": "mail",
         "template": "email/overdue"
       }
@@ -1479,7 +1479,7 @@
       {
         "type": "overdue",
         "days_delay": 5,
-        "fee_amount": 2,
+        "fee_amount": 200,
         "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
@@ -1523,7 +1523,7 @@
       {
         "type": "overdue",
         "days_delay": 5,
-        "fee_amount": 2,
+        "fee_amount": 200,
         "communication_channel": "patron_setting",
         "template": "email/overdue"
       }
@@ -1588,7 +1588,7 @@
       "$schema": "https://mef.test.rero.ch/schemas/gnd/gnd-contribution-v0.0.1.json",
       "bf:Agent": "bf:Person",
       "biographical_information": [
-        "Diss. philosophische Fakulta\u0308t"
+        "Diss. philosophische Fakultät"
       ],
       "date_of_birth": "1885",
       "identifier": "http://d-nb.info/gnd/13343771X",
@@ -1644,13 +1644,13 @@
     "pid": "ent_pers2",
     "rero": {
       "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
-      "authorized_access_point": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
+      "authorized_access_point": "Athenagoras (patriarche oecuménique ; 1)",
       "bf:Agent": "bf:Person",
       "identifier": "http://data.rero.ch/02-A009963344",
       "numeration": "1)",
       "pid": "A009963344",
-      "preferred_name": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
-      "qualifier": "(patriarche oecum\u00e9nique",
+      "preferred_name": "Athenagoras (patriarche oecuménique ; 1)",
+      "qualifier": "(patriarche oecuménique",
       "variant_access_point": [
         "Spyrou, Aristokles"
       ],
@@ -1676,7 +1676,7 @@
       "preferred_name": "Convegno internazionale di italianistica Craiova",
       "authorized_access_point": "Convegno internazionale di italianistica Craiova",
       "variant_access_point": [
-        "VIII Convegno internazionale di italianistica dell'Universita\u0300 di Craiova, 16-17 settembre 2016"
+        "VIII Convegno internazionale di italianistica dell'Università di Craiova, 16-17 settembre 2016"
       ]
     },
     "rero": {
@@ -1749,7 +1749,7 @@
             "Grand Larousse universel",
             "Encycl. universalis - http://www.universalis-edu.com (2010-09-02)",
             "Dict. du jazz / P. Carles, A. Clergeat, J.-L. Comolli, 1994",
-            "Encycl. illustr\u00e9e de toutes les musiques / P. Du Noyer, 2004",
+            "Encycl. illustrée de toutes les musiques / P. Du Noyer, 2004",
             "Oxford music online - http://www.grovemusic.com (2007-07-05)",
             "Jazz styles - http://www.jazz-styles.com (2007-07-05)"
           ],
@@ -1757,7 +1757,7 @@
         },
         {
           "label": [
-            "Style de jazz jou\u00e9 dans les ann\u00e9es 1930 et 1940, appel\u00e9 \"mainstream\" (courant pricipal) dans ses prolongements plus r\u00e9cents"
+            "Style de jazz joué dans les années 1930 et 1940, appelé \"mainstream\" (courant pricipal) dans ses prolongements plus récents"
           ],
           "noteType": "general"
         }
@@ -1789,10 +1789,10 @@
     "pid": "ent_topic2",
     "rero": {
       "$schema": "https://mef.rero.ch/schemas/concepts_rero/rero-concept-v0.0.1.json",
-      "authorized_access_point": "Bases de donn\u00e9es d\u00e9ductives",
+      "authorized_access_point": "Bases de données déductives",
       "broader": [
         {
-          "authorized_access_point": "Bases de donn\u00e9es"
+          "authorized_access_point": "Bases de données"
         }
       ],
       "identifiedBy": [
@@ -1867,7 +1867,7 @@
       "note": [
         {
           "label": [
-            "Dict. encyclop\u00e9dique d'histoire / M. Mourre, 1996"
+            "Dict. encyclopédique d'histoire / M. Mourre, 1996"
           ],
           "noteType": "dataSource"
         },
@@ -1880,7 +1880,7 @@
         {
           "label": [
             "2 septembre 1945 : fin de la Seconde guerre mondiale",
-            "S'emploie uniquement en subdivision chronologique [sans subd. g\u00e9ogr.] \u00e0 tous sujets noms communs et noms propres, \u00e0 l'exception des personnes et des sujets pour lesquels il existe un d\u00e9coupage chronologique sp\u00e9cifique, par ex. : Paris (France) -- 1944-"
+            "S'emploie uniquement en subdivision chronologique [sans subd. géogr.] à tous sujets noms communs et noms propres, à l'exception des personnes et des sujets pour lesquels il existe un découpage chronologique spécifique, par ex. : Paris (France) -- 1944-"
           ],
           "noteType": "general"
         }
@@ -1888,7 +1888,7 @@
       "pid": "033472890",
       "related": [
         {
-          "authorized_access_point": "20e si\u00e8cle"
+          "authorized_access_point": "20e siècle"
         },
         {
           "authorized_access_point": "Histoire universelle - 1945-...."
@@ -1948,7 +1948,7 @@
         },
         {
           "label": [
-            "Voir aussi la subdivision Et la Suisse aux personnes et collectivit\u00e9s"
+            "Voir aussi la subdivision Et la Suisse aux personnes et collectivités"
           ],
           "noteType": "seeReference"
         }
@@ -1956,10 +1956,10 @@
       "pid": "027249654",
       "type": "bf:Place",
       "variant_access_point": [
-        "Conf\u00e9d\u00e9ration helv\u00e9tique",
+        "Confédération helvétique",
         "Confederazione svizzera",
         "Helvetia",
-        "Helv\u00e9tie",
+        "Helvétie",
         "Schweiz",
         "Schweizerische Eidgenossenschaft",
         "Svizra",
@@ -2092,7 +2092,7 @@
     "$schema": "https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json",
     "pid": "locent_work",
     "title": "Preludes",
-    "creator": "Chopin, Fre\u0301de\u0301ric (1810-1849)",
+    "creator": "Chopin, Frédéric (1810-1849)",
     "type": "bf:Work"
   },
   "locent_genreForm": {
@@ -2120,7 +2120,7 @@
     "note": [
       {
         "noteType": "general",
-        "label": "La pr\u00e9face porte la date : 1889"
+        "label": "La préface porte la date : 1889"
       }
     ],
     "title": [
@@ -2137,7 +2137,7 @@
         ],
         "subtitle": [
           {
-            "value": "une page du dixi\u00e8me si\u00e8cle offerte aux jeunes"
+            "value": "une page du dixième siècle offerte aux jeunes"
           }
         ],
         "part": [
@@ -2199,7 +2199,7 @@
           "value": "Zeng Lingliang zhu bian"
         },
         {
-          "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+          "value": "曾令良主编",
           "language": "chi-hani"
         }
       ]
@@ -2209,7 +2209,7 @@
       {
         "seriesTitle": [
           {
-            "value": "Biblioth\u00e8que de la jeune fille"
+            "value": "Bibliothèque de la jeune fille"
           }
         ],
         "seriesEnumeration": [
@@ -2296,7 +2296,7 @@
       }
     ],
     "copyrightDate": [
-      "\u00a9 1971"
+      "© 1971"
     ],
     "editionStatement": [
       {
@@ -2305,7 +2305,7 @@
             "value": "Di 3 ban"
           },
           {
-            "value": "\u7b2c3\u7248",
+            "value": "第3版",
             "language": "chi-hani"
           }
         ],
@@ -2314,7 +2314,7 @@
             "value": "Zeng Lingliang zhu bian"
           },
           {
-            "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+            "value": "曾令良主编",
             "language": "chi-hani"
           }
         ]
@@ -2420,7 +2420,7 @@
       },
       {
         "type": "bf:Isbn",
-        "qualifier": "broch\u00e9",
+        "qualifier": "broché",
         "value": "9786039012641"
       },
       {
@@ -2448,7 +2448,7 @@
         "type": "bf:Title",
         "mainTitle": [
           {
-            "value": "al-Waj\u012bz f\u012b ni\u1e93\u0101m khidmat al-afr\u0101d al-s\u02bf\u016bd\u012b"
+            "value": "al-Wajīz fī niẓām khidmat al-afrād al-sʿūdī"
           }
         ]
       }
@@ -2461,7 +2461,7 @@
             "country": "sz",
             "label": [
               {
-                "value": "al-Riy\u0101\u1e0d"
+                "value": "al-Riyāḍ"
               }
             ],
             "type": "bf:Place"
@@ -2469,7 +2469,7 @@
           {
             "label": [
               {
-                "value": "Maktabat al-qan\u016bn wa al-iqti\u1e63\u0101d"
+                "value": "Maktabat al-qanūn wa al-iqtiṣād"
               }
             ],
             "type": "bf:Agent"
@@ -2527,7 +2527,7 @@
       {
         "seriesTitle": [
           {
-            "value": "Biblioth\u00e8que de la jeune fille"
+            "value": "Bibliothèque de la jeune fille"
           }
         ],
         "seriesEnumeration": [
@@ -2669,7 +2669,7 @@
           "value": "Liang Xi yuan zhu zhu bian, Wang Xianshu fu zhu bian"
         },
         {
-          "value": "\u6881\u897f\u539f\u8457\u4e3b\u7f16, \u738b\u732e\u67a2\u526f\u4e3b\u7f16",
+          "value": "梁西原著主编, 王献枢副主编",
           "language": "chi-hani"
         }
       ]
@@ -2681,7 +2681,7 @@
             "value": "Guo ji fa"
           },
           {
-            "value": "\u56fd\u9645\u6cd5",
+            "value": "国际法",
             "language": "chi-hani"
           }
         ],
@@ -2798,7 +2798,7 @@
             "value": "Di 3 ban"
           },
           {
-            "value": "\u7b2c3\u7248",
+            "value": "第3版",
             "language": "chi-hani"
           }
         ],
@@ -2807,7 +2807,7 @@
             "value": "Zeng Lingliang zhu bian"
           },
           {
-            "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+            "value": "曾令良主编",
             "language": "chi-hani"
           }
         ]
@@ -2824,7 +2824,7 @@
                 "value": "Wuhan"
               },
               {
-                "value": "\u6b66\u6c49",
+                "value": "武汉",
                 "language": "chi-hani"
               }
             ]
@@ -2836,7 +2836,7 @@
                 "value": "Wuhan da xue chu ban she"
               },
               {
-                "value": "\u6b66\u6c49\u5927\u5b66\u51fa\u7248\u793e",
+                "value": "武汉大学出版社",
                 "language": "chi-hani"
               }
             ]
@@ -2938,7 +2938,7 @@
       {
         "mainTitle": [
           {
-            "value": "Manuales del Africa espa\u00f1ola"
+            "value": "Manuales del Africa española"
           }
         ],
         "type": "bf:Title"
@@ -2960,7 +2960,7 @@
             "type": "bf:Agent",
             "label": [
               {
-                "value": "Consejo Superior de Investigacio\u00f1es Cientificas"
+                "value": "Consejo Superior de Investigacioñes Cientificas"
               }
             ]
           },
@@ -3063,7 +3063,7 @@
             "type": "bf:Agent",
             "label": [
               {
-                "value": "Consejo Superior de Investigacio\u00f1es Cientificas"
+                "value": "Consejo Superior de Investigacioñes Cientificas"
               }
             ]
           },
@@ -3142,7 +3142,7 @@
     "responsibilityStatement": [
       [
         {
-          "value": "Honor\u00e9 Daumier"
+          "value": "Honoré Daumier"
         }
       ],
       [
@@ -3152,7 +3152,7 @@
       ],
       [
         {
-          "value": "\u00fcbertr. von Christian M. Nebehay"
+          "value": "übertr. von Christian M. Nebehay"
         }
       ],
       [
@@ -3225,7 +3225,7 @@
       {
         "seriesTitle": [
           {
-            "value": "Die bibliophilen Taschenb\u00fccher"
+            "value": "Die bibliophilen Taschenbücher"
           }
         ]
       }
@@ -3273,7 +3273,7 @@
         ],
         "subtitle": [
           {
-            "value": "quelle int\u00e9gration ? Quels droits politiques ?"
+            "value": "quelle intégration ? Quels droits politiques ?"
           }
         ],
         "type": "bf:Title"
@@ -3304,7 +3304,7 @@
       },
       {
         "entity": {
-          "authorized_access_point": "Universit\u00e9 de Gen\u00e8ve. Facult\u00e9 des sciences",
+          "authorized_access_point": "Université de Genève. Faculté des sciences",
           "type": "bf:Organisation"
         },
         "role": [
@@ -3335,7 +3335,7 @@
       {
         "editionDesignation": [
           {
-            "value": "R\u00e9vis\u00e9, corrig\u00e9 et augment\u00e9"
+            "value": "Révisé, corrigé et augmenté"
           }
         ],
         "responsibility": [
@@ -3359,7 +3359,7 @@
           {
             "label": [
               {
-                "value": "Neuch\u00e2tel, La Chaux-de-Fonds [ou] Colombier"
+                "value": "Neuchâtel, La Chaux-de-Fonds [ou] Colombier"
               }
             ],
             "type": "bf:Place"
@@ -3466,7 +3466,7 @@
       {
         "entity": {
           "type": "bf:Person",
-          "authorized_access_point": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
+          "authorized_access_point": "Athenagoras (patriarche oecuménique ; 1)",
           "identifiedBy": {
             "value": "A009963344",
             "type": "RERO"
@@ -3486,7 +3486,7 @@
       {
         "entity": {
           "type": "bf:Topic",
-          "authorized_access_point": "Bases de donn\u00e9es d\u00e9ductives",
+          "authorized_access_point": "Bases de données déductives",
           "identifiedBy": {
             "value": "A021039750",
             "type": "RERO"
@@ -3495,7 +3495,7 @@
       },
       {
         "entity": {
-          "authorized_access_point": "Bases de donn\u00e9esi (Voltenauer, Marc)",
+          "authorized_access_point": "Bases de donnéesi (Voltenauer, Marc)",
           "type": "bf:Work",
           "identifiedBy": {
             "type": "RERO",
@@ -3540,7 +3540,7 @@
       },
       {
         "type": "bf:Isbn",
-        "qualifier": "broch\u00e9",
+        "qualifier": "broché",
         "value": "9786039012641"
       },
       {
@@ -3565,7 +3565,7 @@
         "type": "bf:Title",
         "mainTitle": [
           {
-            "value": "al-Waj\u012bz f\u012b ni\u1e93\u0101m khidmat al-afr\u0101d al-s\u02bf\u016bd\u012b"
+            "value": "al-Wajīz fī niẓām khidmat al-afrād al-sʿūdī"
           }
         ]
       }
@@ -3578,7 +3578,7 @@
             "country": "sz",
             "label": [
               {
-                "value": "al-Riy\u0101\u1e0d"
+                "value": "al-Riyāḍ"
               }
             ],
             "type": "bf:Place"
@@ -3586,7 +3586,7 @@
           {
             "label": [
               {
-                "value": "Maktabat al-qan\u016bn wa al-iqti\u1e63\u0101d"
+                "value": "Maktabat al-qanūn wa al-iqtiṣād"
               }
             ],
             "type": "bf:Agent"
@@ -3634,7 +3634,7 @@
         "type": "bf:Title",
         "mainTitle": [
           {
-            "value": "La maison des oubli\u00e9s"
+            "value": "La maison des oubliés"
           }
         ]
       }
@@ -3764,7 +3764,7 @@
         "type": "bf:Title",
         "mainTitle": [
           {
-            "value": "Kurkuma: Effekte auf den menschlichen K\u00f6rper-Der aktuelle Stand der Wissenschaft"
+            "value": "Kurkuma: Effekte auf den menschlichen Körper-Der aktuelle Stand der Wissenschaft"
           }
         ]
       }
@@ -3778,7 +3778,7 @@
     "contribution": [
       {
         "entity": {
-          "authorized_access_point": "Christopher Sch\u00fctze",
+          "authorized_access_point": "Christopher Schütze",
           "type": "bf:Person"
         },
         "role": [
@@ -3802,7 +3802,7 @@
           {
             "label": [
               {
-                "value": "Amazon Media EU S.\u00e0 r.l."
+                "value": "Amazon Media EU S.à r.l."
               }
             ],
             "type": "bf:Agent"
@@ -4020,7 +4020,7 @@
     "note": [
       {
         "noteType": "general",
-        "label": "La maison des oubli\u00e9s"
+        "label": "La maison des oubliés"
       }
     ],
     "adminMetadata": {
@@ -4132,7 +4132,7 @@
     "note": [
       {
         "noteType": "general",
-        "label": "La maison des oubli\u00e9s"
+        "label": "La maison des oubliés"
       }
     ],
     "adminMetadata": {
@@ -4168,7 +4168,7 @@
     "status": "on_shelf",
     "url": "https://lipda.mediatheque.ch/CH-000019-X:223156.file",
     "pac_code": "0_frozen_collection",
-    "price": 23.2,
+    "price": 2320,
     "legacy_checkout_count": 4
   },
   "item2": {
@@ -4332,7 +4332,7 @@
     "status": "on_shelf",
     "url": "https://lipda.mediatheque.ch/CH-000019-X:223156.file",
     "pac_code": "0_frozen_collection",
-    "price": 15.2
+    "price": 1520
   },
   "item11": {
     "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
@@ -4441,7 +4441,7 @@
   "ptrn4": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn4",
-    "first_name": "El\u00e9na",
+    "first_name": "Eléna",
     "last_name": "Rodriguez",
     "street": "Ave de la gare, 125",
     "postal_code": "1907",
@@ -4866,7 +4866,7 @@
     "pid": "pttr1",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "overdue",
-    "total_amount": 5,
+    "total_amount": 500,
     "notification": {
       "$ref": "https://bib.rero.ch/api/notifications/x"
     },
@@ -4887,7 +4887,7 @@
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "fee",
     "subtype": "overdue",
-    "amount": 5,
+    "amount": 500,
     "note": "event of the dummy_patron_transaction",
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/x"
@@ -4901,7 +4901,7 @@
     "pid": "pttr2",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "overdue",
-    "total_amount": 5,
+    "total_amount": 500,
     "notification": {
       "$ref": "https://bib.rero.ch/api/notifications/x"
     },
@@ -4922,7 +4922,7 @@
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "fee",
     "subtype": "overdue",
-    "amount": 5,
+    "amount": 500,
     "note": "event of the dummy_patron_transaction",
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/x"
@@ -4936,7 +4936,7 @@
     "pid": "pttr3",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "photocopy",
-    "total_amount": 5,
+    "total_amount": 500,
     "patron": {
       "$ref": "https://bib.rero.ch/api/patrons/ptrn1"
     },
@@ -5096,7 +5096,7 @@
     "loan_status": "PENDING",
     "copy": false,
     "document": {
-      "title": "Histoire d'\u00c9gypte",
+      "title": "Histoire d'Égypte",
       "authors": "Aly Badr, Cairo University"
     },
     "patron": {

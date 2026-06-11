@@ -2,7 +2,7 @@
   {
     "pid": "1",
     "creation_date": "2020-01-24T00:00:00",
-    "amount": 2,
+    "amount": 200,
     "type": "fee",
     "subtype": "overdue",
     "status": "closed",
@@ -16,7 +16,7 @@
   {
     "pid": "2",
     "creation_date": "2020-01-25T00:00:00",
-    "amount": 0.5,
+    "amount": 50,
     "type": "fee",
     "subtype": "overdue",
     "status": "open",
@@ -30,7 +30,7 @@
   {
     "pid": "3",
     "creation_date": "2020-01-25T10:00:00",
-    "amount": 1,
+    "amount": 100,
     "type": "payment",
     "subtype": "cash",
     "location": {
@@ -47,7 +47,7 @@
   {
     "pid": "4",
     "creation_date": "2020-01-25T10:00:20",
-    "amount": 1,
+    "amount": 100,
     "type": "payment",
     "subtype": "paypal",
     "location": {
@@ -86,7 +86,7 @@
       "$ref": "https://bib.rero.ch/api/patrons/1"
     },
     "note": "Waive for the dispute",
-    "amount": 0.5,
+    "amount": 50,
     "parent": {
       "$ref": "https://bib.rero.ch/api/patron_transactions/1"
     }

@@ -76,11 +76,11 @@ def test_receipts_custom_validation(
     """Test receipts custom validations."""
     acre1 = acq_receipt_fiction_martigny
     # TEST ADJUSTMENT AMOUNT WITH BAD DECIMALS --------------------------------
-    acre1["amount_adjustments"][0]["amount"] = 1.000003
+    acre1["amount_adjustments"][0]["amount"] = 1.5
     with pytest.raises(ValidationError) as err:
         acre1 = acre1.update(acre1, dbcommit=True, reindex=True)
-    assert "must be multiple of 0.01" in str(err)
+    assert "is not of type" in str(err)
 
-    acre1["amount_adjustments"][0]["amount"] = -99999.990
+    acre1["amount_adjustments"][0]["amount"] = -9999990
     acre1 = acre1.update(acre1, dbcommit=True, reindex=True)
     acre1.update(acq_receipt_fiction_martigny_data, dbcommit=True, reindex=True)

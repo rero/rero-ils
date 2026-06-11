@@ -164,6 +164,12 @@ class IlsRecord(Record):
     pids_exist_check = None
     pid_check = True
 
+    _amount_fields = []
+
+    def dumps(self, dumper=None, **kwargs):
+        """Return record data, running all configured extensions."""
+        return super().dumps(dumper=dumper)
+
     format_checker = ils_record_format_checker
 
     @classmethod

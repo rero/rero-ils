@@ -28,20 +28,20 @@
         }
       },
       "allocated_amount": {
-        "type": "float"
+        "type": "integer"
       },
       "remaining_balance": {
         "properties": {
           "self": {
-            "type": "float"
+            "type": "integer"
           },
           "total": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },
       "distribution": {
-        "type": "float"
+        "type": "integer"
       },
       "encumbrance_exceedance": {
         "properties": {
@@ -49,7 +49,7 @@
             "type": "float"
           },
           "amount": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },
@@ -59,33 +59,33 @@
             "type": "float"
           },
           "amount": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },
       "encumbrance_amount": {
         "properties": {
           "children": {
-            "type": "float"
+            "type": "integer"
           },
           "self": {
-            "type": "float"
+            "type": "integer"
           },
           "total": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },
       "expenditure_amount": {
         "properties": {
           "children": {
-            "type": "float"
+            "type": "integer"
           },
           "self": {
-            "type": "float"
+            "type": "integer"
           },
           "total": {
-            "type": "float"
+            "type": "integer"
           }
         }
       },

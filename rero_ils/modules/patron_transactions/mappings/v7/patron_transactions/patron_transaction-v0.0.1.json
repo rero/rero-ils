@@ -95,7 +95,7 @@
         }
       },
       "total_amount": {
-        "type": "float"
+        "type": "integer"
       },
       "_created": {
         "type": "date"

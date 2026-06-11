@@ -33,7 +33,7 @@
         }
       },
       "subscription_amount": {
-        "type": "float"
+        "type": "integer"
       },
       "limits": {
         "properties": {
@@ -43,7 +43,7 @@
           "fee_amount_limits": {
             "properties": {
               "default_value": {
-                "type": "float"
+                "type": "integer"
               }
             }
           },
