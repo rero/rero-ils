@@ -18,6 +18,8 @@
 
 """Circulation Indicator Report Configuration."""
 
+import re
+
 from elasticsearch_dsl.aggs import A
 
 from rero_ils.modules.loans.logs.api import LoanOperationLogsSearch
@@ -81,9 +83,19 @@ class NumberOfCirculationCfg(IndicatorCfg):
             "document_type": A("terms", field="loan.item.document.type", size=self.cfg.aggs_size),
             "transaction_channel": A("terms", field="loan.transaction_channel", size=self.cfg.aggs_size),
             "owning_library": A("terms", field="loan.item.library_pid", size=self.cfg.aggs_size),
+            # Historical logs carry only location_name; newer ones also carry
+            # location_pid. Emit "name (pid)" when the pid exists so same-named
+            # locations stay distinct, and fall back to the bare name otherwise.
             "owning_location": A(
                 "terms",
-                field="loan.item.holding.location_name.raw",
+                script={
+                    "source": (
+                        "def name = doc['loan.item.holding.location_name.raw'].value;"
+                        " def pid = doc['loan.item.holding.location_pid'];"
+                        " return pid.size() > 0 ? name + ' (' + pid.value + ')' : name;"
+                    ),
+                    "lang": "painless",
+                },
                 size=self.cfg.aggs_size,
             ),
         }
@@ -97,6 +109,15 @@ class NumberOfCirculationCfg(IndicatorCfg):
         :returns: the label
         :rtype: str
         """
+
+        def get_owning_location_label(value):
+
+            match = re.match(r"^.*\s\(([^()]+)\)$", value)
+            if match:
+                location_pid = match.group(1)
+                return self.cfg.locations.get(location_pid, value)
+            return value
+
         cfg = {
             "transaction_location": lambda: f"{self.cfg.locations.get(bucket.key, self.label_na_msg)} ({bucket.key})",
             "transaction_month": lambda: bucket.key_as_string,
@@ -108,6 +129,6 @@ class NumberOfCirculationCfg(IndicatorCfg):
             "patron_local_codes": lambda: bucket.key,
             "transaction_channel": lambda: bucket.key,
             "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} ({bucket.key})",
-            "owning_location": lambda: bucket.key,
+            "owning_location": lambda: get_owning_location_label(bucket.key),
         }
         return cfg[distribution]()

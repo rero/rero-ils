@@ -98,6 +98,7 @@ class SpecificOperationLog:
         """
         return {
             "pid": holding.pid,
+            "location_pid": holding.location_pid,
             "location_name": cls._get_location_name(holding.location_pid),
         }
 

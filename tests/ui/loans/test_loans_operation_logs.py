@@ -70,7 +70,7 @@ def test_loan_operation_log(
             "title": "titre en chinois. Part Number, Part Number = Titolo cinese : sottotitolo in cinese",
             "type": "docsubtype_other_book",
         },
-        "holding": {"pid": "1", "location_name": "Martigny Library Public Space"},
+        "holding": {"pid": "1", "location_pid": "loc1", "location_name": "Martigny Library Public Space"},
         "library_pid": "lib1",
         "pid": "item5",
     }

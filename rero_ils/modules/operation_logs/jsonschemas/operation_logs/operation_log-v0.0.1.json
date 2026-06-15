@@ -503,6 +503,11 @@
                   "type": "string",
                   "minLength": 1
                 },
+                "location_pid": {
+                  "title": "Location PID",
+                  "type": "string",
+                  "minLength": 1
+                },
                 "location_name": {
                   "title": "Location name",
                   "type": "string",
@@ -645,6 +650,11 @@
               "properties": {
                 "pid": {
                   "title": "PID",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "location_pid": {
+                  "title": "Location PID",
                   "type": "string",
                   "minLength": 1
                 },

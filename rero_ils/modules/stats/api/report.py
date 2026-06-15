@@ -68,8 +68,8 @@ class StatsReport:
             for hit in LibrariesSearch().by_organisation_pid(self.org_pid).source(["pid", "name"]).scan()
         }
         self.lib_pids = list(self.libraries.keys())
-        search_locations = LocationsSearch().by_organisation_pid(self.org_pid).source(["pid", "name", "library"]).scan()
-        self.locations = {hit.pid: f"{self.libraries[hit.library.pid]} / {hit.name}" for hit in search_locations}
+        loc_hits = list(LocationsSearch().by_organisation_pid(self.org_pid).source(["pid", "name", "library"]).scan())
+        self.locations = {hit.pid: f"{self.libraries[hit.library.pid]} / {hit.name}" for hit in loc_hits}
         self.patron_types = {
             hit.pid: hit.name
             for hit in PatronTypesSearch().by_organisation_pid(self.org_pid).source(["pid", "name"]).scan()
@@ -119,7 +119,10 @@ class StatsReport:
                     doc_count = dist1.doc_count
                 if not doc_count:
                     continue
-                results[key1] = {"count": doc_count}
+                if key1 in results:
+                    results[key1]["count"] += doc_count
+                else:
+                    results[key1] = {"count": doc_count}
                 values = {}
                 if distrib2:
                     for dist2 in parent_dist[distrib2].buckets:
@@ -132,7 +135,10 @@ class StatsReport:
                         values[key2] = doc_count
                         y_keys.add(key2)
                 if values:
-                    results[key1]["values"] = values
+                    existing = results[key1].get("values", {})
+                    for k, v in values.items():
+                        existing[k] = existing.get(k, 0) + v
+                    results[key1]["values"] = existing
             y_keys = sorted(y_keys)
             x_keys = sorted(results.keys())
         return self._process_distributions(x_keys, y_keys, results)

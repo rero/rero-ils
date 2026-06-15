@@ -132,7 +132,10 @@ def test_stats_report_number_of_checkins(
                 "item": {
                     "document": {"type": "docsubtype_other_book"},
                     "library_pid": lib_martigny.pid,
-                    "holding": {"location_name": loc_public_martigny["name"]},
+                    "holding": {
+                        "location_pid": loc_public_martigny.pid,
+                        "location_name": loc_public_martigny["name"],
+                    },
                 },
                 "transaction_location": {"pid": loc_public_martigny.pid},
                 "transaction_channel": "sip2",
@@ -159,7 +162,10 @@ def test_stats_report_number_of_checkins(
                 "item": {
                     "document": {"type": "ebook"},
                     "library_pid": lib_martigny_bourg.pid,
-                    "holding": {"location_name": loc_public_martigny_bourg["name"]},
+                    "holding": {
+                        "location_pid": loc_public_martigny_bourg.pid,
+                        "location_name": loc_public_martigny_bourg["name"],
+                    },
                 },
                 "transaction_location": {"pid": loc_public_martigny_bourg.pid},
                 "transaction_channel": "system",
@@ -388,7 +394,7 @@ def test_stats_report_number_of_checkins(
         ["Usager.ère plus de 18 ans", 1],
     ]
 
-    # patron type
+    # document type
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
@@ -430,7 +436,7 @@ def test_stats_report_number_of_checkins(
         [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 1],
     ]
 
-    # owning location
+    # owning location — PID-based (new logs carry location_pid)
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
@@ -441,8 +447,70 @@ def test_stats_report_number_of_checkins(
             }
         },
     }
+    label_owning_martigny = f"{lib_martigny['name']} / {loc_public_martigny['name']}"
+    label_owning_martigny_bourg = f"{lib_martigny_bourg['name']} / {loc_public_martigny_bourg['name']}"
     assert StatsReport(cfg).collect() == [
-        [loc_public_martigny_bourg["name"], 1],
+        [label_owning_martigny_bourg, 1],
+        [label_owning_martigny, 1],
+    ]
+
+    # owning location — label resolved from the location PID, not from the name
+    # denormalised in the log: a stale/wrong log name still resolves to the
+    # current label, and both buckets merge under the same location.
+    es.index(
+        index="operation_logs-2020",
+        id="6",
+        body={
+            "date": "2023-01-01",
+            "loan": {
+                "trigger": "checkin",
+                "item": {
+                    "document": {"type": "docsubtype_other_book"},
+                    "library_pid": lib_martigny.pid,
+                    "holding": {
+                        "location_pid": loc_public_martigny.pid,
+                        "location_name": "Stale name kept in the log",
+                    },
+                },
+                "transaction_location": {"pid": loc_public_martigny.pid},
+                "transaction_channel": "sip2",
+                "patron": {"age": 13, "type": "Usager.ère moins de 14 ans", "postal_code": "1920"},
+            },
+            "record": {"type": "loan"},
+        },
+        refresh=True,
+    )
+    assert StatsReport(cfg).collect() == [
+        [label_owning_martigny_bourg, 1],
+        [label_owning_martigny, 2],
+    ]
+
+    # owning location — name-only fallback (historical logs without
+    # location_pid): the name cannot be tied to a library (names are not
+    # unique), so it stays a separate row labelled with the raw name.
+    es.index(
+        index="operation_logs-2020",
+        id="7",
+        body={
+            "date": "2023-01-01",
+            "loan": {
+                "trigger": "checkin",
+                "item": {
+                    "document": {"type": "docsubtype_other_book"},
+                    "library_pid": lib_martigny.pid,
+                    "holding": {"location_name": loc_public_martigny["name"]},
+                },
+                "transaction_location": {"pid": loc_public_martigny.pid},
+                "transaction_channel": "sip2",
+                "patron": {"age": 13, "type": "Usager.ère moins de 14 ans", "postal_code": "1920"},
+            },
+            "record": {"type": "loan"},
+        },
+        refresh=True,
+    )
+    assert StatsReport(cfg).collect() == [
+        [label_owning_martigny_bourg, 1],
+        [label_owning_martigny, 2],
         [loc_public_martigny["name"], 1],
     ]
 
@@ -467,7 +535,10 @@ def test_stats_report_number_of_requests(
                 "item": {
                     "document": {"type": "docsubtype_other_book"},
                     "library_pid": lib_martigny.pid,
-                    "holding": {"location_name": loc_public_martigny["name"]},
+                    "holding": {
+                        "location_pid": loc_public_martigny.pid,
+                        "location_name": loc_public_martigny["name"],
+                    },
                 },
                 "transaction_location": {"pid": loc_public_martigny.pid},
                 "pickup_location": {"pid": loc_public_martigny.pid},
@@ -495,7 +566,10 @@ def test_stats_report_number_of_requests(
                 "item": {
                     "document": {"type": "ebook"},
                     "library_pid": lib_martigny_bourg.pid,
-                    "holding": {"location_name": loc_public_martigny_bourg["name"]},
+                    "holding": {
+                        "location_pid": loc_public_martigny_bourg.pid,
+                        "location_name": loc_public_martigny_bourg["name"],
+                    },
                 },
                 "transaction_location": {"pid": loc_public_martigny_bourg.pid},
                 "pickup_location": {"pid": loc_public_martigny_bourg.pid},
