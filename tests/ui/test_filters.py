@@ -25,6 +25,7 @@ from rero_ils.filter import (
     jsondumps,
     text_to_id,
     to_pretty_json,
+    translate,
 )
 
 
@@ -134,3 +135,11 @@ def test_address_block_filter(lib_martigny):
     assert "E-mail:" in tmp_data
     assert "Email:" in address_block(address, "eng")
     assert "Email:" in address_block(address, "dummy")
+
+
+def test_translate(app):
+    """Test translate string."""
+    assert "English" in translate("eng", "lang_")
+    assert "French" in translate(["fre"], "lang_")
+    assert "English, French" in translate(["eng", "fre"], "lang_")
+    assert "English; French" in translate(["eng", "fre"], "lang_", "; ")
