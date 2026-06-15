@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Fondation RERO+
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # ---------------------------------------------------------------------------
 # Build system
 # ---------------------------------------------------------------------------
@@ -473,6 +476,7 @@ help = "Generate changelog and bump version locally (does not push, tag, or comm
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
+version_variables = ["rero_ils/version.py:__version__"]
 tag_format = "v{version}"
 commit_message = "chore(release): v{version}"
 build_command = """
@@ -511,7 +515,7 @@ line-length = 120
 
 [tool.ruff.lint]
 extend-select = ["A", "C4", "INT", "ISC", "T20", "PIE", "Q", "RET", "SIM", "I", "N", "PERF", "W", "D", "F", "UP", "RUF"]
-ignore = ["A001", "A002", "D100", "D101", "D103", "D200", "D202", "D205", "D400", "D401", "F403", "F405", "F841", "INT001", "N801", "N802", "N803", "N806", "N811", "N818", "PERF203", "PERF401", "PERF402", "RUF001", "RUF012", "RUF018", "RUF059", "SIM102", "SIM113", "SIM115", "SIM117", "T201", "T203", "UP009"]
+ignore = ["A001", "A002", "D100", "D101", "D103", "D200", "D202", "D205", "D400", "D401", "F403", "F405", "F841", "INT001", "N801", "N802", "N803", "N806", "N811", "N818", "PERF203", "PERF401", "PERF402", "RUF001", "RUF012", "RUF018", "RUF059", "SIM102", "SIM113", "SIM115", "SIM117", "T201", "T203"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257"

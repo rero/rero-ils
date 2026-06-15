@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Fondation RERO+
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 /// <reference types="Cypress" />
 // ***********************************************
 // For more comprehensive examples of custom

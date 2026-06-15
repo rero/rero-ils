@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Fondation RERO+
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 @layer bootstrap {
   body#view-fictive nav.rero-ils-header {
     background-color: #4f009e !important;

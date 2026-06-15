@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-#
+# SPDX-FileCopyrightText: Fondation RERO+
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # russian_dolls: packages ng-core into rero-ils-ui then packages
 # rero-ils-ui to include it into rero-ils (in static directory).
 #

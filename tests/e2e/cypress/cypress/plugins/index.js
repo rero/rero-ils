@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Fondation RERO+
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 /// <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins

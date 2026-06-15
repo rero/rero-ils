@@ -1,29 +1,13 @@
-# -*- coding: utf-8 -*-
-#
-# RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, version 3 of the License.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# SPDX-FileCopyrightText: Fondation RERO+
+# SPDX-FileCopyrightText: UCLouvain
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 """Click command-line utilities."""
 
 import contextlib
-import difflib
 import itertools
 import json
 import os
-import re
 import sys
 import traceback
 from collections import OrderedDict
@@ -31,7 +15,6 @@ from glob import glob
 from time import sleep
 
 import click
-import yaml
 from celery import current_app as current_celery
 from flask import current_app
 from flask.cli import with_appcontext
@@ -213,166 +196,6 @@ def schedules():
     for key, value in celery_ext.celery.conf.beat_schedule.items():
         click.echo(key + "\t", nl=False)
         click.echo(value)
-
-
-@utils.command("check_license")
-@click.argument("configfile", type=click.File("r"), default=sys.stdin)
-@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
-@click.option("-p", "--progress", "progress", is_flag=True, default=False)
-def check_license(configfile, verbose, progress):
-    """Check licenses."""
-    click.secho("Testing licenses in files.", fg="green")
-
-    def get_files(paths, extensions, recursive=True):
-        """Get files from paths."""
-        files_list = []
-        for path in paths:
-            if os.path.isfile(path):
-                files_list.append(path)
-            elif os.path.isdir(path):
-                for extension in extensions:
-                    files_list += glob(os.path.join(path, f"**/*.{extension}"), recursive=recursive)
-        return files_list
-
-    def delete_prefix(prefix, line):
-        """Delete prefix from line."""
-        if prefix:
-            line = line.replace(prefix, "")
-        return line.strip()
-
-    def is_copyright(line):
-        """Line is copyright."""
-        return bool(line.startswith("Copyright (C)"))
-
-    def get_line(lines, index, prefix):
-        """Get line on index."""
-        line = delete_prefix(prefix, lines[index])
-        return line, index + 1
-
-    def show_diff(linenbr, text, n_text):
-        """Show string diffs."""
-        seqm = difflib.SequenceMatcher(None, text.replace(" ", "◼︎"), n_text.replace(" ", "◼︎"))
-        click.echo(f"{linenbr}: ", nl=False)
-        for opcode, a0, a1, b0, b1 in seqm.get_opcodes():
-            if opcode == "equal":
-                click.echo(seqm.a[a0:a1], nl=False)
-            elif opcode == "insert":
-                click.secho(seqm.b[b0:b1], fg="red", nl=False)
-            elif opcode == "delete":
-                click.secho(seqm.a[a0:a1], fg="blue", nl=False)
-            elif opcode == "replace":
-                # seqm.a[a0:a1] -> seqm.b[b0:b1]
-                click.secho(seqm.b[b0:b1], fg="green", nl=False)
-        click.echo()
-
-    def test_file(file_name, extensions, extension, license_lines, verbose, progress):
-        """Test the license in file."""
-        if progress:
-            click.secho("License test: ", fg="green", nl=False)
-            click.echo(file_name)
-        with open(file_name) as file:
-            result = test_license(
-                file=file,
-                extension=extensions[extension],
-                license_lines=license_lines,
-                verbose=verbose,
-            )
-            if result != []:
-                click.secho(f"License error in {file_name} in lines {result}", fg="red")
-                # We have an error
-                return 1
-        # No error found
-        return 0
-
-    def is_slash_directive(file, line):
-        is_js_file = file.name.split(".")[-1] == "js"
-        return bool(is_js_file and re.search(triple_slash, line))
-
-    def test_license(file, extension, license_lines, verbose):
-        """Test the license in file."""
-        lines_with_errors = []
-        lines = [line.rstrip() for line in file]
-        linenbr = 0
-        linemaxnbr = len(lines)
-        prefix = extension.get("prefix")
-        line, linenbr = get_line(lines, linenbr, prefix)
-        # Get over Shebang lines or Triple-Slash Directives (for Javascript
-        # files)
-        while lines[linenbr - 1].startswith("#!") or is_slash_directive(file, lines[linenbr - 1]):
-            # get over Shebang
-            line, linenbr = get_line(lines, linenbr, prefix)
-        if extension.get("top") and line not in extension.get("top"):
-            if verbose:
-                for t in extension["top"]:
-                    show_diff(linenbr, t, line)
-            lines_with_errors.append(linenbr + 1)
-        line, linenbr = get_line(lines, linenbr, prefix)
-        for license_line in license_lines:
-            # compare the license lines
-            if is_copyright(license_line):
-                while is_copyright(line):
-                    line, linenbr = get_line(lines, linenbr, prefix)
-                linenbr -= 1
-                line = "Copyright (C)"
-            if license_line != line:
-                if verbose:
-                    show_diff(linenbr, license_line, line)
-                lines_with_errors.append(linenbr)
-            # Fix crash while testing a file with only comments.
-            if linenbr >= linemaxnbr:
-                continue
-            line, linenbr = get_line(lines, linenbr, prefix)
-        return lines_with_errors
-
-    config = yaml.safe_load(configfile)
-    file_extensions = config["file_extensions"]
-    extensions = {}
-    for file_extension in file_extensions:
-        for ext in file_extension.split(","):
-            extensions.setdefault(ext.strip(), file_extensions[file_extension])
-    # create recursive file list
-    files_list = get_files(paths=config["directories"]["recursive"], extensions=extensions, recursive=True)
-    # add flat file list
-    files_list += get_files(paths=config["directories"]["flat"], extensions=extensions, recursive=False)
-    # remove excluded files
-    exclude_list = []
-    for ext in config["directories"]["exclude"]:
-        exclude_list += get_files(
-            paths=config["directories"]["exclude"][ext],
-            extensions=[ext],
-            recursive=True,
-        )
-    files_list = list(set(files_list) - set(exclude_list))
-
-    # set regexp expression for Triple-Slash directives
-    triple_slash = r"^/// <reference \w*=\"\w*\" />$"
-
-    license_lines = config["license_text"].split("\n")
-    tot_error_cnt = 0
-    for file_name in files_list:
-        # test every file
-        extension = os.path.splitext(file_name)[1][1:]
-        tot_error_cnt += test_file(
-            file_name=file_name,
-            extensions=extensions,
-            extension=extension,
-            license_lines=license_lines,
-            verbose=verbose,
-            progress=progress,
-        )
-    for extension in config["files"]:
-        # test every files
-        for file_name in config["files"][extension]:
-            tot_error_cnt += test_file(
-                file_name=file_name,
-                extensions=extensions,
-                extension=extension,
-                license_lines=license_lines,
-                verbose=verbose,
-                progress=progress,
-            )
-
-    sys.exit(tot_error_cnt)
 
 
 @utils.command("validate")
