@@ -93,13 +93,29 @@
           "title": "Expiration threshold (years)",
           "description": "Only delete patrons whose expiration_date is older than this many years ago.",
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "widget": {
+            "formlyConfig": {
+              "type": "number",
+              "props": {
+                "step": 1
+              }
+            }
+          }
         },
         "inactivity_years": {
           "title": "Inactivity threshold (years)",
           "description": "Only delete patrons whose user last logged in more than this many years ago.",
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "widget": {
+            "formlyConfig": {
+              "type": "number",
+              "props": {
+                "step": 1
+              }
+            }
+          }
         },
         "excluded_patron_types": {
           "title": "Excluded patron types",
