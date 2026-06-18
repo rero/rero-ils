@@ -3,6 +3,7 @@
 
 """ILL Request serialization."""
 
+from flask_babel import gettext as _
 from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.libraries.api import LibrariesSearch
@@ -20,11 +21,10 @@ class ILLRequestJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
 
     def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""
-        metadata = hit.get("metadata", {})
-        if pid := metadata.get("pickup_location", {}).get("pid"):
-            location = self.get_resource(LocationsSearch(), pid)
-            pickup_name = location.get("ill_pickup_name", location.get("name"))
-            metadata["pickup_location"]["name"] = pickup_name
+        pickup_location = hit.get("metadata", {}).setdefault("pickup_location", {})
+        pickup_location["name"] = _("Unknown")
+        if (pid := pickup_location.get("pid")) and (location := self.get_resource(LocationsSearch(), pid)):
+            pickup_location["name"] = location.get("ill_pickup_name") or location.get("name") or pickup_location["name"]
         super()._postprocess_search_hit(hit)
 
     def _postprocess_search_aggregations(self, aggregations):

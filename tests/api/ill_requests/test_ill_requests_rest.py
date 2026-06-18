@@ -51,7 +51,7 @@ def test_ill_requests_facets(client, ill_request_martigny, rero_json_header):
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_ill_requests_get(client, ill_request_martigny):
+def test_ill_requests_get(client, ill_request_martigny, loc_public_martigny, rero_json_header):
     """Test record retrieval."""
     ill_request = ill_request_martigny
     item_url = url_for("invenio_records_rest.illr_item", pid_value="illr1")
@@ -72,16 +72,36 @@ def test_ill_requests_get(client, ill_request_martigny):
     assert data == get_json(res)
     assert ill_request.dumps() == data["metadata"]
 
-    list_url = url_for("invenio_records_rest.illr_list", pid="illr1")
-    res = client.get(list_url)
+    list_url = url_for("invenio_records_rest.illr_list", q="pid:illr1")
+    res = client.get(list_url, headers=rero_json_header)
     assert res.status_code == 200
     data = get_json(res)
 
     metadata = data["hits"]["hits"][0]["metadata"]
+    expected_name = loc_public_martigny.get("ill_pickup_name", loc_public_martigny.get("name"))
+    assert metadata.get("pickup_location", {}).get("name") == expected_name
     del metadata["organisation"]  # organisation is added only for indexation
     del metadata["library"]  # library is added only for indexation
     del metadata["patron"]["name"]  # patron name is added only for indexation
+    del metadata["pickup_location"]["name"]
     assert metadata == ill_request.replace_refs()
+
+
+@mock.patch(
+    "invenio_records_rest.views.verify_record_permission",
+    mock.MagicMock(return_value=VerifyRecordPermissionPatch),
+)
+@mock.patch(
+    "rero_ils.modules.ill_requests.serializers.ILLRequestJSONSerializer.get_resource",
+    mock.MagicMock(return_value=None),
+)
+def test_ill_requests_get_unknown_location(client, ill_request_martigny, rero_json_header):
+    """Test that pickup_location.name falls back to 'Unknow' when location is not found."""
+    list_url = url_for("invenio_records_rest.illr_list", q="pid:illr1")
+    res = client.get(list_url, headers=rero_json_header)
+    assert res.status_code == 200
+    metadata = get_json(res)["hits"]["hits"][0]["metadata"]
+    assert metadata["pickup_location"]["name"] == "Unknown"
 
 
 @mock.patch(

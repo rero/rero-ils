@@ -24,5 +24,5 @@ def enrich_ill_request_data(sender, json=None, record=None, index=None, doc_type
         patron = extracted_data_from_ref(record.get("patron").get("$ref"), "record")
         json["patron"]["name"] = patron.formatted_name
         if loc_pid := json.get("pickup_location", {}).get("pid"):
-            parent_lib = Location.get_record_by_pid(loc_pid).get_library()
-            json["library"] = {"pid": parent_lib.pid}
+            if location := Location.get_record_by_pid(loc_pid):
+                json["library"] = {"pid": location.get_library().pid}
