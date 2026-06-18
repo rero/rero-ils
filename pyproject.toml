@@ -111,6 +111,7 @@ dev = [
     "pip-audit>=2.8.0",
     "ruff>=0.12.8",
     "pytest-ruff>=0.5",
+    "python-semantic-release>=10.5.3",
 ]
 prod = [
     "uwsgi>=2.0.30",
@@ -456,6 +457,47 @@ compile_catalog = {cmd = "pybabel compile -d rero_ils/translations/", help = "co
 extract_messages = {cmd = "pybabel extract rero_ils/ -F babel.ini --project --copyright-holder=RERO --project=RERO_ILS --msgid-bugs-address=software@rero.ch -o rero_ils/translations/messages.pot -c NOTE", help = "extract messages from source files and generate a POT file"}
 init_catalog = {cmd = "pybabel init -i rero_ils/translations/messages.pot -d rero_ils/translations/", help = "create new message catalogs from a POT file"}
 update_catalog = {cmd = "pybabel update -i rero_ils/translations/messages.pot -d rero_ils/translations", help = "update existing message catalogs from a POT file"}
+
+# Release management
+[tool.poe.tasks.changelog]
+cmd = "semantic-release changelog"
+help = "Preview the next changelog without making changes"
+
+[tool.poe.tasks.version]
+cmd = "semantic-release version --print"
+help = "Print the next version number without making changes"
+
+[tool.poe.tasks.release]
+cmd = "semantic-release version --no-push --no-tag --no-commit"
+help = "Generate changelog and bump version locally (does not push, tag, or commit - for local testing only)"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+tag_format = "v{version}"
+commit_message = "chore(release): v{version}"
+build_command = """
+    uv lock --upgrade-package rero-ils
+    git add uv.lock
+"""
+
+[tool.semantic_release.commit_author]
+env = "GIT_COMMIT_AUTHOR"
+default = "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = ["feat", "fix", "docs", "style", "refactor", "perf", "test", "build", "ci", "chore"]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf", "chore", "docs", "style", "refactor", "test", "build", "ci"]
+
+[tool.semantic_release.changelog]
+exclude_commit_patterns = [
+    "chore\\(release\\):.*",
+]
+mode = "update"
+
+[tool.semantic_release.branches.staging]
+match = "staging"
+prerelease = false
 
 [tool.pytest.ini_options]
 addopts = "--color=yes --ruff --exclude-warning-annotations --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=rero_ils/config.py -m \"not external\""

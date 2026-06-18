@@ -1,5 +1,7 @@
 # Changelog
 
+<!-- version list -->
+
 ## [v1.28.0](https://github.com/rero/rero-ils/tree/v1.28.0) (2026-04-23)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.27.1...v1.28.0)

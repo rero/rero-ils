@@ -1,0 +1,69 @@
+# Cuts a release with python-semantic-release. Run it from `staging` (our
+# active branch): it reads the conventional commits since the last tag,
+# computes the next version, updates the version, the lock file and the
+# changelog, commits, tags and publishes a GitHub Release on `staging`. It then
+# fast-forwards `master` and force-pushes `bib-latest` to that commit.
+# rero-ils is not published to PyPI, so there is no publish step.
+
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+    concurrency: release
+
+    steps:
+      - name: Generate a token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Set up Python
+        run: uv python install 3.14
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Python Semantic Release
+        id: release
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          uv run semantic-release version
+
+          # A release was made if HEAD now points exactly at a tag.
+          if git describe --exact-match HEAD 2>/dev/null; then
+            echo "released=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "released=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Fast-forward master and update bib-latest
+        if: steps.release.outputs.released == 'true'
+        run: |
+          git push origin HEAD:master
+          git push --force origin HEAD:bib-latest
