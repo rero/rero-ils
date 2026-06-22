@@ -27,12 +27,17 @@ def test_patrons_logged_user(client, librarian_martigny):
     res = client.get(url_for("patrons.logged_user", resolve=1))
     assert res.status_code == 200
     data = get_json(res)
-    assert data.get("first_name")
-    assert data.get("last_name")
+    assert data.get("user")
+    assert data.get("user", {}).get("id")
+    assert data.get("user", {}).get("first_name")
+    assert data.get("user", {}).get("last_name")
     assert data.get("patrons")
     assert data.get("settings")
     assert data.get("permissions")
     assert data.get("patrons")[0].get("organisation")
+    available_languages = data.get("settings").get("availableLanguages")
+    assert available_languages[0] == {"code": "en", "name": "English"}
+    assert {"code": "fr", "name": "French"} in available_languages
 
     class current_i18n:
         class locale:

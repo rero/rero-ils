@@ -72,7 +72,25 @@ Each module has a `permissions.py` using `invenio-records-permissions`. Access i
 
 - Be clear and concise in the docstrings and do not over-comment the code.
 - Do not use Python type annotations (no `-> str`, `: str`, etc. in signatures).
-- Commit messages follow [Conventional Commits](https://www.conventionalcommits.org)
+
+### Commit Messages
+
+Commit messages follow [Conventional Commits](https://www.conventionalcommits.org).
+
+Format: `<type>(<scope>): <subject>`
+
+Rules:
+- The subject line must not exceed 50 characters.
+- Body lines must not exceed 72 characters.
+- Use `*` for bullet points in the body, not `-`.
+- Use the imperative mood in the subject ("add", not "adds").
+- Do not end the subject line with a period.
+
+Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `style`,
+`perf`, `build`, `ci`
+
+Scope corresponds to the affected module under `rero_ils/modules/`
+(e.g. `patrons`, `items`, `loans`, `documents`).
 
 ### Translations
 
