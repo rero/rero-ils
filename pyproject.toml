@@ -511,6 +511,7 @@ markers = ["external: mark a test as dealing with external services."]
 filterwarnings = "ignore::PendingDeprecationWarning"
 
 [tool.ruff]
+target-version = "py314"
 extend-exclude = ["config.py"]
 line-length = 120
 
