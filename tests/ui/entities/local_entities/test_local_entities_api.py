@@ -4,9 +4,6 @@
 
 """Local entities record tests."""
 
-import time
-from datetime import timedelta
-
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -33,12 +30,7 @@ def test_local_entity_indexing(app, local_entity_person, document_data_tmp):
     original_access_point = entity["authorized_access_point"]
     entity["name"] = "my_local_access_point"
     entity = entity.update(entity, dbcommit=True, reindex=True, commit=True)
-    # updating related resource is an asynchronous task (to not block app if
-    # there are a lot of related resource). We need to wait to the end of the
-    # task to check id related resources are up-to-date.
-    delay = app.config.get("RERO_ILS_INDEXER_TASK_DELAY", 0) + timedelta(seconds=2)
-    time.sleep(delay.seconds)  # find a better way to detect task is finished.
-
+    # index_referenced_records runs synchronously via CELERY_TASK_ALWAYS_EAGER
     DocumentsSearch.flush_and_refresh()
     hit = DocumentsSearch().get_record_by_pid(doc.pid)
     assert any(

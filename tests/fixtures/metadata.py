@@ -211,7 +211,7 @@ def export_document_data(data):
 
 
 @pytest.fixture(scope="module")
-def export_document(app, export_document_data):
+def export_document(app, entity_topic, export_document_data):
     """Load document record."""
     doc = Document.create(data=export_document_data, delete_pid=False, dbcommit=True, reindex=True)
     DocumentsSearch.flush_and_refresh()

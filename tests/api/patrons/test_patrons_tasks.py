@@ -70,7 +70,7 @@ def _clear_user_login(user):
     db.session.commit()
 
 
-def _create_throwaway_patron(app, data_tmp, suffix="1"):
+def _create_throwaway_patron(data_tmp, suffix="1"):
     """Create a throwaway patron for deletion tests.
 
     :param suffix: unique suffix for email/username/barcode.
@@ -246,7 +246,7 @@ def test_patron_meeting_all_criteria_is_deleted(
     app, org_martigny, roles, lib_martigny, patron_type_children_martigny, patron_martigny_data_tmp
 ):
     """Test that a patron meeting all deletion criteria is actually deleted."""
-    patron, user_id = _create_throwaway_patron(app, patron_martigny_data_tmp)
+    patron, user_id = _create_throwaway_patron(patron_martigny_data_tmp)
     pid = patron.pid
     config = {"expiration_years": 3, "inactivity_years": 3}
     _set_patron_cleanup_config(org_martigny, config)
@@ -266,7 +266,7 @@ def test_patron_with_never_logged_in_user_is_deleted(
     app, org_martigny, roles, lib_martigny, patron_type_children_martigny, patron_martigny_data_tmp
 ):
     """Test that patron with never-logged-in user is deleted (None login)."""
-    patron, user_id = _create_throwaway_patron(app, patron_martigny_data_tmp, suffix="2")
+    patron, user_id = _create_throwaway_patron(patron_martigny_data_tmp, suffix="2")
     pid = patron.pid
     config = {"expiration_years": 3, "inactivity_years": 3}
     _set_patron_cleanup_config(org_martigny, config)
@@ -286,7 +286,7 @@ def test_full_task_end_to_end(
     app, org_martigny, roles, lib_martigny, patron_type_children_martigny, patron_martigny_data_tmp
 ):
     """Test the full task_delete_inactive_patrons end-to-end."""
-    patron, user_id = _create_throwaway_patron(app, patron_martigny_data_tmp, suffix="3")
+    patron, user_id = _create_throwaway_patron(patron_martigny_data_tmp, suffix="3")
     pid = patron.pid
     config = {"expiration_years": 3, "inactivity_years": 3}
     _set_patron_cleanup_config(org_martigny, config)

@@ -3527,8 +3527,8 @@
       },
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/concepts/idref/050394460",
-          "pid": "14650374"
+          "$ref": "https://mef.rero.ch/api/concepts/idref/030752787",
+          "pid": "14613205"
         }
       }
     ]

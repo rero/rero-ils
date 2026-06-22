@@ -60,26 +60,39 @@ def search(appctx):
     should used the function-scoped :py:data:`search_clear` fixture to leave the
     indexes clean for the following tests.
     """
+    from elasticsearch.exceptions import NotFoundError as ESNotFoundError
+    from elasticsearch.exceptions import RequestError as ESRequestError
     from invenio_search import current_search, current_search_client
     from invenio_search.errors import IndexAlreadyExistsError
 
     try:
-        list(current_search.put_templates())
+        list(current_search.put_templates(ignore=[400]))
     except IndexAlreadyExistsError:
         current_search_client.indices.delete_template("*")
-        list(current_search.put_templates())
+        list(current_search.put_templates(ignore=[400]))
 
     try:
         list(current_search.create())
-    except IndexAlreadyExistsError:
+    except (IndexAlreadyExistsError, ESRequestError, ESNotFoundError) as error:
+        # Indices already exist from a previous interrupted run — wipe everything
+        # and recreate from scratch.
+        # current_search.delete() removes indices known to Invenio's registry;
+        # indices.delete(index="*") catches any leftover indices that were created
+        # outside the registry (e.g. by direct ES calls during a previous test run).
         list(current_search.delete(ignore=[404]))
+        current_search_client.indices.delete(index="*", ignore=[404])
+        current_search_client.indices.delete_template("*")
+        list(current_search.put_templates(ignore=[400]))
         list(current_search.create())
     current_search_client.indices.refresh()
 
     try:
         yield current_search_client
     finally:
-        current_search_client.indices.delete(index="*")
+        # Same two-step teardown: registry-aware delete first, then wildcard
+        # to ensure no stray indices leak between test modules.
+        list(current_search.delete(ignore=[404]))
+        current_search_client.indices.delete(index="*", ignore=[404])
         current_search_client.indices.delete_template("*")
 
 

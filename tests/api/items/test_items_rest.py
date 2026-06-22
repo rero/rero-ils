@@ -365,7 +365,6 @@ def test_items_receive(
     item_pid = item.pid
     patron_pid = patron_martigny.pid
     assert not item.patron_has_an_active_loan_on_item(patron_martigny)
-    location = loc_public_martigny
     # checkout
     res, data = postdata(
         client,
@@ -418,7 +417,6 @@ def test_items_no_extend(
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
-    location = loc_public_martigny
 
     # checkout
     res, data = postdata(

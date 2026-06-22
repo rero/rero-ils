@@ -497,7 +497,6 @@ def test_documents_post_put_delete(client, document_chinese_data, json_header, r
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for("invenio_records_rest.doc_item", pid_value="4")
-    list_url = url_for("invenio_records_rest.doc_list", q="pid:4")
 
     document_chinese_data["pid"] = "4"
     res, data = postdata(client, "invenio_records_rest.doc_list", document_chinese_data)

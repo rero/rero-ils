@@ -56,7 +56,6 @@ def test_document_create_with_mef(
     mock_contributions_mef_get,
     app,
     document_data_ref,
-    document_data,
     entity_person_data,
     entity_person_response_data,
 ):
@@ -325,7 +324,7 @@ def test_document_indexing(document, export_document):
     document.update(document, dbcommit=True, reindex=True)
 
 
-def test_document_replace_refs(document, mef_agents_url):
+def test_document_replace_refs(document, entity_person, mef_agents_url):
     """Test document replace refs."""
     orig = deepcopy(document)
     data = document.replace_refs()
