@@ -73,7 +73,7 @@
     },
     "patron_cleanup": {
       "title": "Patron cleanup configuration",
-      "description": "Configuration for the automatic deletion of inactive patron profiles.",
+      "description": "Configuration for the automatic deletion of inactive patron profiles. Delete the field if you never want the patrons to be deleted automatically.",
       "type": "object",
       "additionalProperties": false,
       "propertiesOrder": [
@@ -106,6 +106,16 @@
           "items": {
             "type": "string",
             "minLength": 1
+          }
+        }
+      },
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
         }
       }
