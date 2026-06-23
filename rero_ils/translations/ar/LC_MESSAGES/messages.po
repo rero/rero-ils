@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2026-06-23 12:26+0200\n"
+"POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2025-03-31 15:43+0000\n"
 "Last-Translator: Maher Asaad Baker <maher.asaad.baker@gmail.com>\n"
 "Language: ar\n"
@@ -11751,8 +11751,8 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:272
 msgid ""
-"HTML content displayed in the left homepage block. Will also be the "
-"second block displayed on mobile."
+"HTML content displayed in the left homepage block. Will also be the first"
+" block displayed on mobile."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:291
@@ -11769,7 +11769,7 @@ msgstr ""
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:335
 msgid ""
 "HTML content displayed in the center homepage block. Will also be the "
-"first block displayed on mobile."
+"second block displayed on mobile."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:396
@@ -12982,6 +12982,11 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa fa-user\"></i>"
+msgstr ""
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa fa-globe\"></i>"
 msgstr ""
 
@@ -12990,21 +12995,12 @@ msgstr ""
 msgid "<i class=\"fa fa-phone\"></i>"
 msgstr ""
 
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa fa-user\"></i>"
-msgstr ""
-
 #: rero_ils/theme/menus.py:38
 msgid "My Account"
 msgstr "حسابي"
 
 #: rero_ils/theme/views.py:86 rero_ils/theme/views.py:113
 msgid "THEME_SITENAME"
-msgstr ""
-
-#: rero_ils/theme/views.py:113
-msgid "name"
 msgstr ""
 
 #: rero_ils/theme/templates/rero_ils/_editor_button_actions.html:7
@@ -13227,4 +13223,19 @@ msgstr ""
 #: rero_ils/theme/templates/security/email/reset_notice.html:9
 msgid "Your password has been successfully reset."
 msgstr "تمت إعادة تعيين كلمتك السرية بنجاح."
+
+#~ msgid ""
+#~ "HTML content displayed in the left "
+#~ "homepage block. Will also be the "
+#~ "second block displayed on mobile."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "HTML content displayed in the center "
+#~ "homepage block. Will also be the "
+#~ "first block displayed on mobile."
+#~ msgstr ""
+
+#~ msgid "name"
+#~ msgstr ""
 
