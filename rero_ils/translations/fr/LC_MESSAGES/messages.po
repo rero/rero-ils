@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2026-06-23 11:45+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/fr/>\n"
 "Language: fr\n"
@@ -5608,8 +5608,7 @@ msgstr "Brouillon"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:343
 msgid "Document is a draft record or not, will disable record validation."
 msgstr ""
-"Si le document est un brouillon, la validation des données sera "
-"désactivée."
+"Si le document est un brouillon, la validation des données sera désactivée."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:354
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1103
@@ -5902,8 +5901,8 @@ msgid ""
 "Type of intermediation device required to view, play, run, etc., the "
 "content of a manifestation (MARC 337)."
 msgstr ""
-"Type de dispositif de médiation requis pour visionner, faire fonctionner,"
-" faire défiler, etc. le contenu d’une manifestation (MARC 337)."
+"Type de dispositif de médiation requis pour visionner, faire fonctionner, "
+"faire défiler, etc. le contenu d’une manifestation (MARC 337)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:155
@@ -5931,10 +5930,9 @@ msgid ""
 " the type of intermediation device required to view, play, run, etc., the"
 " content of a manifestation (MARC 338)."
 msgstr ""
-"Format du support de stockage et du contenant d’un support matériel "
-"combiné avec le type de dispositif de médiation requis pour visionner, "
-"faire fonctionner, faire défiler, etc. le contenu d’une manifestation "
-"(MARC 338)."
+"Format du support de stockage et du contenant d’un support matériel combiné "
+"avec le type de dispositif de médiation requis pour visionner, faire "
+"fonctionner, faire défiler, etc. le contenu d’une manifestation (MARC 338)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:80
 msgid "rdact:1002"
@@ -6188,8 +6186,8 @@ msgid ""
 "Fundamental form of communication in which the content is expressed and "
 "the human sense through which it is intended to be perceived (MARC 336)."
 msgstr ""
-"Forme fondamentale de communication sous laquelle le contenu est exprimé "
-"et le sens humain par lequel il est destiné à être perçu (MARC 336)."
+"Forme fondamentale de communication sous laquelle le contenu est exprimé et "
+"le sens humain par lequel il est destiné à être perçu (MARC 336)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:822
 msgid "rdaco:1002"
@@ -6414,8 +6412,8 @@ msgid ""
 "Mark as conference if the access point is directly at the conference name"
 " and not at the corporate body name"
 msgstr ""
-"Indiquer comme congrès si le point d'accès se trouve directement au nom "
-"de la conférence et non au nom de la collectivité"
+"Indiquer comme congrès si le point d'accès se trouve directement au nom de "
+"la conférence et non au nom de la collectivité"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:87
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:131
@@ -7177,9 +7175,9 @@ msgid ""
 "A statement that identifies an academic institution, degree, or year for "
 "which a work was presented (MARC 502)."
 msgstr ""
-"Mention qui identifie une institution universitaire à laquelle une œuvre "
-"a été présentée, un diplôme universitaire obtenu et une année d’obtention"
-" de diplôme (MARC 502)."
+"Mention qui identifie une institution universitaire à laquelle une œuvre a "
+"été présentée, un diplôme universitaire obtenu et une année d’obtention de "
+"diplôme (MARC 502)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:18
 #: rero_ils/modules/documents/jsonschemas/documents/document_edition_statement-v0.0.1.json:16
@@ -7200,8 +7198,8 @@ msgid ""
 "A document that updates or otherwise complements the predominant document"
 " (MARC 770)."
 msgstr ""
-"Œuvre qui met à jour ou complète d’une autre façon une œuvre prédominante"
-" (MARC 770)."
+"Œuvre qui met à jour ou complète d’une autre façon une œuvre prédominante "
+"(MARC 770)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:28
 msgid "Supplements to"
@@ -7233,8 +7231,8 @@ msgid ""
 "Other available editions, for example simultaneously published language "
 "editions or reprints (MARC 775)."
 msgstr ""
-"Autres éditions disponibles, par exemple des éditions en d'autres langues"
-" publiées simultanément ou des réimpressions (MARC 775)."
+"Autres éditions disponibles, par exemple des éditions en d'autres langues "
+"publiées simultanément ou des réimpressions (MARC 775)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:78
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:82
@@ -7274,8 +7272,8 @@ msgid ""
 "A document that precedes the succeeding document (earlier in time or "
 "before in a narrative) (MARC 780)."
 msgstr ""
-"Document qui précède un document suivant (antérieur dans le temps ou dans"
-" un récit) (MARC 780)."
+"Document qui précède un document suivant (antérieur dans le temps ou dans un "
+"récit) (MARC 780)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:153
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:157
@@ -9646,8 +9644,8 @@ msgid ""
 "the corresponding pattern and level name."
 msgstr ""
 "Ce modèle définit le format d'affichage d'une prédiction (par exemple : "
-"2020; vol.1, no.4). Il doit contenir les champs de variables entre {{}} "
-"avec les nom et niveau de schéma correspondants."
+"2020; vol.1, no.4). Il doit contenir les champs de variables entre {{}} avec "
+"les nom et niveau de schéma correspondants."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:237
 msgid "Should contains at least one variable between {{ }}."
@@ -9818,15 +9816,16 @@ msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Use a value instead of a number. i.e. january, 2nd, quarter."
-msgstr "Utilisez une valeur plutôt qu'un nombre, par ex. janvier, 2e, printemps."
+msgstr ""
+"Utilisez une valeur plutôt qu'un nombre, par ex. janvier, 2e, printemps."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:493
 msgid ""
 "Can be used to correct the next current prediction. The value is the "
 "current position of the value in the list."
 msgstr ""
-"Peut être utilisée pour corriger la prochaine prédiction affichée. La "
-"valeur est la position de la valeur dans la liste."
+"Peut être utilisée pour corriger la prochaine prédiction affichée. La valeur "
+"est la position de la valeur dans la liste."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:506
 msgid "Maximum number of claims"
@@ -11272,8 +11271,7 @@ msgstr "Autoriser la demande"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:233
 msgid "If enabled, it allows requests for items linked to this location."
 msgstr ""
-"Activer pour autoriser les demandes d'exemplaires liés à cette "
-"localisation."
+"Activer pour autoriser les demandes d'exemplaires liés à cette localisation."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:237
 msgid "Send notification"
@@ -11282,8 +11280,8 @@ msgstr "Envoyer une notification"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:238
 msgid "Send a email notification when an item of the location has been requested."
 msgstr ""
-"Envoyer un e-mail de notification lorsqu'un exemplaire de la localisation"
-" est demandé."
+"Envoyer un e-mail de notification lorsqu'un exemplaire de la localisation "
+"est demandé."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:251
 msgid "Notification email"
@@ -12060,9 +12058,9 @@ msgid ""
 "the patron for items of the same owning library. This is the same limit "
 "for all libraries."
 msgstr ""
-"Le prêt est bloqué lorsque le nombre spécifié de prêts est atteint par le"
-" lecteur pour des exemplaires de la même bibliothèque propriétaire. La "
-"limite est la même pour toutes les bibliothèques."
+"Le prêt est bloqué lorsque le nombre spécifié de prêts est atteint par le "
+"lecteur pour des exemplaires de la même bibliothèque propriétaire. La limite "
+"est la même pour toutes les bibliothèques."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:125
 msgid "Library checkout limit exceptions"
@@ -12902,8 +12900,7 @@ msgstr "Numéro de téléphone professionnel"
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:200
 msgid "Business phone number with the international prefix, without spaces."
 msgstr ""
-"Numéro de téléphone professionnel avec indicatif international, sans "
-"espaces."
+"Numéro de téléphone professionnel avec indicatif international, sans espaces."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:219
 msgid "Mobile phone number"
@@ -13077,7 +13074,8 @@ msgstr "version"
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:31
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:34
 msgid "Link to the RERO ILS code source on GitHub, current used version"
-msgstr "Lien vers le code source de RERO ILS sur GitHub, version actuelle utilisée"
+msgstr ""
+"Lien vers le code source de RERO ILS sur GitHub, version actuelle utilisée"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:38
 msgid "Link to the RERO ILS UI code source on GitHub, current used version"
