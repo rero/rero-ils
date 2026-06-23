@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2026-06-23 11:40+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Last-Translator: Ambros Gattlen <ambros.gattlen@admin.vs.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/de/>\n"
 "Language: de\n"
@@ -5227,8 +5227,8 @@ msgid ""
 "reminders, sent after the due date."
 msgstr ""
 "Dazu gehören die Erinnerungen zum Ablauf der Ausleihfrist (vor dem "
-"Rückgabetermin gesendet) und die Mahnungen (nach dem Rückgabetermin "
-"gesendet)."
+"Rückgabetermin gesendet) und die Mahnungen (nach dem Rückgabetermin gesendet)"
+"."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:124
 msgid "Reminders"
@@ -5296,8 +5296,8 @@ msgid ""
 "During an interval, the specified amount will be incremented for each "
 "overdue open day."
 msgstr ""
-"Während eines Intervalls wird der angegebene Betrag für jeden offenen Tag"
-" der Verspätung erhöht."
+"Während eines Intervalls wird der angegebene Betrag für jeden offenen Tag "
+"der Verspätung erhöht."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:279
 msgid "From"
@@ -5367,8 +5367,8 @@ msgid ""
 "This defines which item categories and patron types this circulation "
 "policy applies to."
 msgstr ""
-"Dies definiert für welche Exemplartypen und Kundentypen diese "
-"Ausleihpolitik zutrifft."
+"Dies definiert für welche Exemplartypen und Kundentypen diese Ausleihpolitik "
+"zutrifft."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:459
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
@@ -5619,8 +5619,8 @@ msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
 msgstr ""
-"Ein ausgeblendetes Dokument ist in der professionellen Oberfläche "
-"sichtbar, aber nicht in der öffentlichen Oberfläche."
+"Ein ausgeblendetes Dokument ist in der professionellen Oberfläche sichtbar, "
+"aber nicht in der öffentlichen Oberfläche."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
@@ -5629,8 +5629,8 @@ msgstr "Bezugsbedingungen"
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:4
 msgid "A condition under which the document is supplied. This includes the price."
 msgstr ""
-"Eine Bedingung, unter der das Dokument geliefert wird. Dazu gehört auch "
-"der Preis."
+"Eine Bedingung, unter der das Dokument geliefert wird. Dazu gehört auch der "
+"Preis."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
 msgid "Term of availability"
@@ -10047,8 +10047,8 @@ msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
-"Angabe einer Stornierungsabsicht, des effektiven Stornierungsdatums, oder"
-" des Datums des letzten erwarteten Teils einer fortlaufenden Publikation."
+"Angabe einer Stornierungsabsicht, des effektiven Stornierungsdatums, oder "
+"des Datums des letzten erwarteten Teils einer fortlaufenden Publikation."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:961
 msgid "General retention policy"
@@ -10764,8 +10764,8 @@ msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
 msgstr ""
-"Ein ausgeblendetes Exemplar ist in der professionellen Oberfläche "
-"sichtbar, aber nicht in der öffentlichen Oberfläche."
+"Ein ausgeblendetes Exemplar ist in der professionellen Oberfläche sichtbar, "
+"aber nicht in der öffentlichen Oberfläche."
 
 #: rero_ils/modules/libraries/api.py:85
 msgid "Opening times must be specified for an open exception date."
@@ -12029,8 +12029,7 @@ msgstr "Jährliches Abonnement"
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:83
 msgid "Yearly amount due by patrons linked to this patron type."
 msgstr ""
-"Jährlich fälliger Betrag für Kunden, die mit diesem Kundentyp verbunden "
-"sind."
+"Jährlich fälliger Betrag für Kunden, die mit diesem Kundentyp verbunden sind."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:88
 msgid "Limits"
@@ -12297,7 +12296,8 @@ msgstr "Startdatum des Abonnements"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:363
 msgid "The subscription start date (selected date included)."
-msgstr "Das Startdatum des Abonnements (einschliesslich des ausgewählten Datums)."
+msgstr ""
+"Das Startdatum des Abonnements (einschliesslich des ausgewählten Datums)."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:369
 msgid "Subscription end date"
@@ -12314,16 +12314,16 @@ msgstr "Sperrung"
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:407
 msgid "A patron with a blocked account cannot extend, request and borrow items."
 msgstr ""
-"Ein Kunde mit gesperrtem Konto kann keine Exemplare ausleihen, verlängern"
-" oder bestellen."
+"Ein Kunde mit gesperrtem Konto kann keine Exemplare ausleihen, verlängern "
+"oder bestellen."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:413
 msgid ""
 "The reason is displayed in the circulation module and is visible by the "
 "patron in his account."
 msgstr ""
-"Der Grund wird im Ausleihmodul angezeigt und ist für den Kunden in seinem"
-" Konto sichtbar."
+"Der Grund wird im Ausleihmodul angezeigt und ist für den Kunden in seinem "
+"Konto sichtbar."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:435
 msgid "libraries"
