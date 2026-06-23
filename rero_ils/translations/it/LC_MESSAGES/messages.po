@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
-"PO-Revision-Date: 2026-06-23 11:31+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2026-06-23 11:38+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/it/>\n"
 "Language: it\n"
@@ -4959,7 +4959,8 @@ msgstr "URI del documento"
 msgid ""
 "Should be in the following format: "
 "https://bib.rero.ch/api/documents/<PID>."
-msgstr "Deve essere nel formato seguente: https://bib.rero.ch/api/documents/<PID>."
+msgstr ""
+"Deve essere nel formato seguente: https://bib.rero.ch/api/documents/<PID>."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:290
 msgid "Cancelled"
@@ -5730,10 +5731,9 @@ msgid ""
 "manuscript resource, and the individual leaves that result if that sheet "
 "is left full, cut, or folded."
 msgstr ""
-"Il risultato della piegatura di un foglio stampato per formare un "
-"fascicolo (per esempio, un foglio piegato una volta per formare un in "
-"folio, due volte per formare un in quarto, tre volte per formare un in "
-"ottavo)."
+"Il risultato della piegatura di un foglio stampato per formare un fascicolo "
+"(per esempio, un foglio piegato una volta per formare un in folio, due volte "
+"per formare un in quarto, tre volte per formare un in ottavo)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:8
 msgid "Bibliographic format"
@@ -7362,8 +7362,7 @@ msgstr "Uniform Resource Locators"
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:4
 msgid "Information needed to locate and access an electronic resource."
 msgstr ""
-"Informazioni necessarie per localizzare una risorsa elettronica e "
-"accedervi."
+"Informazioni necessarie per localizzare una risorsa elettronica e accedervi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:9
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:160
@@ -7603,8 +7602,8 @@ msgid ""
 "Record the number of units and the type of unit. For the type of unit, "
 "use RDA recommended terms."
 msgstr ""
-"Si registra il numero e il tipo di unità. Per il tipo di unità, si "
-"utilizza i termini raccomandati da RDA."
+"Si registra il numero e il tipo di unità. Per il tipo di unità, si utilizza "
+"i termini raccomandati da RDA."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:15
 msgid "Example: 355 pages"
@@ -7838,8 +7837,8 @@ msgid ""
 "more RDA recommended terms, in the singular or plural (MARC 300$b)."
 msgstr ""
 "Si registra ogni differente contenuto illustrativo in un nuovo campo. Si "
-"utilizza uno o più termini raccomandati da RDA, al singolare o al plurale"
-" (MARC 300$b)."
+"utilizza uno o più termini raccomandati da RDA, al singolare o al plurale "
+"(MARC 300$b)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:8
 msgid "Illustrative content"
@@ -7848,8 +7847,8 @@ msgstr "Contenuto illustrativo"
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:14
 msgid "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
 msgstr ""
-"Termini raccomandati da RDA: illustrazioni, carte geografiche, "
-"fotografie, ritratti, ..."
+"Termini raccomandati da RDA: illustrazioni, carte geografiche, fotografie, "
+"ritratti, ..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:3
 msgid "Intended audiences"
@@ -9720,8 +9719,8 @@ msgstr "Modello di previsione"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:375
 msgid "It should be used in the display template. i.e. chronology, enumeration."
 msgstr ""
-"Deve essere utilizzato nel modello di visualizzazione, per es. "
-"chronology, numbering."
+"Deve essere utilizzato nel modello di visualizzazione, per es. chronology, "
+"numbering."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:380
 msgid "Example: numbering"
@@ -10257,7 +10256,8 @@ msgstr "URI del lettore"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:100
 msgid "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
-msgstr "Deve essere nel formato seguente: https://bib.rero.ch/api/patrons/<PID>."
+msgstr ""
+"Deve essere nel formato seguente: https://bib.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:114
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:175
@@ -11083,7 +11083,8 @@ msgstr "in transito (ritorno allo scaffale)"
 msgid ""
 "The name of the explicit action that triggered the transition to current "
 "state"
-msgstr "Il nome dell'azione che ha innescato la transizione verso lo stato attuale"
+msgstr ""
+"Il nome dell'azione che ha innescato la transizione verso lo stato attuale"
 
 #: rero_ils/modules/local_fields/api.py:73
 msgid "Parent record doesn't exists."
