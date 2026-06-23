@@ -48,6 +48,10 @@
           }
         }
       },
+      "homepage": {
+        "type": "object",
+        "enabled": false
+      },
       "_created": {
         "type": "date"
       },
