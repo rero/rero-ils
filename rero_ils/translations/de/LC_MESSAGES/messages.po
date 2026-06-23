@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
-"PO-Revision-Date: 2026-06-23 11:40+0000\n"
-"Last-Translator: Ambros Gattlen <ambros.gattlen@admin.vs.ch>\n"
+"PO-Revision-Date: 2026-06-23 11:41+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/de/>\n"
 "Language: de\n"
@@ -5202,8 +5202,8 @@ msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
-"Dieses Feld entfernen, um die Ausleihe zu deaktivieren. 0 eingeben, um "
-"die Ausleihe bis zum Ende des Tages zu erlauben."
+"Dieses Feld entfernen, um die Ausleihe zu deaktivieren. 0 eingeben, um die "
+"Ausleihe bis zum Ende des Tages zu erlauben."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:99
 msgid "Allow patron requests"
@@ -5571,8 +5571,8 @@ msgstr "Gesammelt"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:305
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
-"Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der"
-" Ressource."
+"Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der "
+"Ressource."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:309
 msgid "Fiction statement"
@@ -5606,7 +5606,8 @@ msgstr "Entwurf"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:343
 msgid "Document is a draft record or not, will disable record validation."
-msgstr "Wenn das Dokument ein Entwurf ist, wird die Datenvalidierung deaktiviert."
+msgstr ""
+"Wenn das Dokument ein Entwurf ist, wird die Datenvalidierung deaktiviert."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:354
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1103
@@ -5740,9 +5741,9 @@ msgid ""
 "is left full, cut, or folded."
 msgstr ""
 "Ein proportionales Verhältnis zwischen einem ganzen Bogen in einer "
-"gedruckten oder handschriftlichen Ressource und den einzelnen Blättern, "
-"die resultieren, wenn der Bogen im Ganzen gelassen, geschnitten oder "
-"gefaltet wird."
+"gedruckten oder handschriftlichen Ressource und den einzelnen Blättern, die "
+"resultieren, wenn der Bogen im Ganzen gelassen, geschnitten oder gefaltet "
+"wird."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:8
 msgid "Bibliographic format"
@@ -5793,8 +5794,8 @@ msgstr "Notation"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:426
 msgid "Short alphanumeric string that serves as an identifier for a class."
 msgstr ""
-"Kurze alphanumerische Zeichenkette, die als Identifikator für eine Klasse"
-" dient."
+"Kurze alphanumerische Zeichenkette, die als Identifikator für eine Klasse "
+"dient."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:343
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:432
@@ -5812,9 +5813,9 @@ msgid ""
 "Used for imported records only. Edition of the classification, identified"
 " by a number, a date, or another textual designation."
 msgstr ""
-"Wird nur für importierte Ressourcen verwendet. Ausgabe der "
-"Klassifikation, gekennzeichnet durch eine Nummer, ein Datum oder eine "
-"andere textliche Bezeichnung."
+"Wird nur für importierte Ressourcen verwendet. Ausgabe der Klassifikation, "
+"gekennzeichnet durch eine Nummer, ein Datum oder eine andere textliche "
+"Bezeichnung."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:359
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:455
@@ -5905,8 +5906,7 @@ msgid ""
 "content of a manifestation (MARC 337)."
 msgstr ""
 "Art des Hilfsmittels, das erforderlich ist, um den Inhalt einer "
-"Manifestation anzuschauen, abzuspielen oder laufen zu lassen usw. (MARC "
-"337)."
+"Manifestation anzuschauen, abzuspielen oder laufen zu lassen usw. (MARC 337)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:155
@@ -5934,10 +5934,9 @@ msgid ""
 " the type of intermediation device required to view, play, run, etc., the"
 " content of a manifestation (MARC 338)."
 msgstr ""
-"Format des Speichermediums und Gehäuse eines Datenträgers, in Kombination"
-" mit der Art des Hilfsmittels, das benötigt wird, um den Inhalt einer "
-"Manifestation anzuschauen, abzuspielen oder laufen zu lassen usw. (MARC "
-"338)."
+"Format des Speichermediums und Gehäuse eines Datenträgers, in Kombination "
+"mit der Art des Hilfsmittels, das benötigt wird, um den Inhalt einer "
+"Manifestation anzuschauen, abzuspielen oder laufen zu lassen usw. (MARC 338)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:80
 msgid "rdact:1002"
@@ -6191,9 +6190,8 @@ msgid ""
 "Fundamental form of communication in which the content is expressed and "
 "the human sense through which it is intended to be perceived (MARC 336)."
 msgstr ""
-"Grundlegende Form der Kommunikation, in der der Inhalt ausgedrückt wird, "
-"und menschlicher Sinn, durch den diese wahrgenommen werden soll (MARC "
-"336)."
+"Grundlegende Form der Kommunikation, in der der Inhalt ausgedrückt wird, und "
+"menschlicher Sinn, durch den diese wahrgenommen werden soll (MARC 336)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:822
 msgid "rdaco:1002"
@@ -6418,8 +6416,8 @@ msgid ""
 "Mark as conference if the access point is directly at the conference name"
 " and not at the corporate body name"
 msgstr ""
-"Als Konferenz markieren, wenn der Sucheinstieg mit dem Konferenznamen, "
-"und nicht mit dem Körperschaftnamen, startet"
+"Als Konferenz markieren, wenn der Sucheinstieg mit dem Konferenznamen, und "
+"nicht mit dem Körperschaftnamen, startet"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:87
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:131
@@ -6520,10 +6518,9 @@ msgid ""
 "initial, abbreviation, or other variant not included in the form chosen "
 "as the preferred name"
 msgstr ""
-"Verwendet nur beim Import. Vollständigere Form eines Namens, der nur "
-"durch eine Initiale, eine Abkürzung oder sonst irgendwie gekürzte oder "
-"veränderte Version in der als bevorzugter Name gewählten Form "
-"repräsentiert wird"
+"Verwendet nur beim Import. Vollständigere Form eines Namens, der nur durch "
+"eine Initiale, eine Abkürzung oder sonst irgendwie gekürzte oder veränderte "
+"Version in der als bevorzugter Name gewählten Form repräsentiert wird"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:2
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:473
@@ -7143,9 +7140,9 @@ msgid ""
 "Note used for agents not named in the statement of responsibility, or for"
 " other information about the statement of responsibility (MARC 508, 511)."
 msgstr ""
-"Anmerkung für Akteure, die nicht in der Verantwortlichkeitsangabe genannt"
-" sind, oder für andere Informationen zur Verantwortlichkeitsangabe (MARC "
-"508, 511)."
+"Anmerkung für Akteure, die nicht in der Verantwortlichkeitsangabe genannt "
+"sind, oder für andere Informationen zur Verantwortlichkeitsangabe (MARC 508, "
+"511)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:8
 msgid "Note on statement of responsibility"
@@ -7182,8 +7179,8 @@ msgid ""
 "A statement that identifies an academic institution, degree, or year for "
 "which a work was presented (MARC 502)."
 msgstr ""
-"Eine Angabe, welche eine akademische Institution, einen Grad und ein "
-"Jahr, in dem eine Arbeit präsentiert wurde, bezeichnet (MARC 502)."
+"Eine Angabe, welche eine akademische Institution, einen Grad und ein Jahr, "
+"in dem eine Arbeit präsentiert wurde, bezeichnet (MARC 502)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:18
 #: rero_ils/modules/documents/jsonschemas/documents/document_edition_statement-v0.0.1.json:16
@@ -7221,8 +7218,8 @@ msgid ""
 "A document that is updated or otherwise complemented by the augmenting "
 "document (MARC 772)."
 msgstr ""
-"Ein Werk, das durch ein erweiterte Werk aktualisiert oder in anderer "
-"Weise vervollständigt wird (MARC 772)."
+"Ein Werk, das durch ein erweiterte Werk aktualisiert oder in anderer Weise "
+"vervollständigt wird (MARC 772)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:53
 msgid "Other editions"
@@ -7250,8 +7247,8 @@ msgid ""
 "A document that embodies the same expression of a work in a different "
 "format (MARC 776)."
 msgstr ""
-"Ein Dokument, das den gleichen Ausdruck eines Werkes in einem anderen "
-"Format verkörpert (MARC 776)."
+"Ein Dokument, das den gleichen Ausdruck eines Werkes in einem anderen Format "
+"verkörpert (MARC 776)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:103
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:107
@@ -7278,8 +7275,8 @@ msgid ""
 "A document that precedes the succeeding document (earlier in time or "
 "before in a narrative) (MARC 780)."
 msgstr ""
-"Ein Dokument, das einem nachfolgenden Dokument vorangegangen ist "
-"(zeitlich früher oder früher im Erzählstrang) (MARC 780)."
+"Ein Dokument, das einem nachfolgenden Dokument vorangegangen ist (zeitlich "
+"früher oder früher im Erzählstrang) (MARC 780)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:153
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:157
@@ -7292,8 +7289,8 @@ msgid ""
 "A document that succeeds, that is, is later in time or after in a "
 "narrative, etc., the preceding work (MARC 785)."
 msgstr ""
-"Ein Dokument, das einem vorangehenden Dokument folgt, zeitlich später "
-"oder dem Erzählstrang nachgelagert (MARC 785)."
+"Ein Dokument, das einem vorangehenden Dokument folgt, zeitlich später oder "
+"dem Erzählstrang nachgelagert (MARC 785)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:178
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:182
@@ -7638,8 +7635,8 @@ msgid ""
 msgstr ""
 "Ein Intervall, in dem die Lieferungen oder die Teile einer fortlaufenden "
 "Ressource oder die Aktualisierungen einer integrierenden Ressource "
-"erscheinen. Für frühere Frequenzen wiederholen Sie das Feld und geben "
-"Daten an (MARC 310, 321)."
+"erscheinen. Für frühere Frequenzen wiederholen Sie das Feld und geben Daten "
+"an (MARC 310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:83
@@ -7713,8 +7710,8 @@ msgid ""
 "Other identifier types are entered as local identifiers with indication "
 "of the source."
 msgstr ""
-"Andere Identifikatortypen werden als lokale Identifikatoren mit Angabe "
-"der Quelle erfasst."
+"Andere Identifikatortypen werden als lokale Identifikatoren mit Angabe der "
+"Quelle erfasst."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:59
 msgid "bf:AudioIssueNumber"
@@ -7817,9 +7814,8 @@ msgid ""
 "Qualification if the resource has more than one identifier of the same, "
 "to enter if considered important for identification."
 msgstr ""
-"Erläuterung, wenn die Ressource mehr als einen Identifikator desselben "
-"hat. Zu erfassen, wenn dies für die Identifizierung als wichtig erachtet "
-"wird."
+"Erläuterung, wenn die Ressource mehr als einen Identifikator desselben hat. "
+"Zu erfassen, wenn dies für die Identifizierung als wichtig erachtet wird."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:191
 msgid "Example: volume 1"
@@ -7830,8 +7826,8 @@ msgid ""
 "The source is entered only for local identifiers, it indicates the system"
 " or agency responsible for the identifier."
 msgstr ""
-"Die Quelle wird nur für lokale Bezeichner erfasst, sie gibt das System "
-"oder die Agentur an, die für den Identifikator verantwortlich ist."
+"Die Quelle wird nur für lokale Bezeichner erfasst, sie gibt das System oder "
+"die Agentur an, die für den Identifikator verantwortlich ist."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:209
 msgid "Examples: LCCN, PMID, DNB"
@@ -8292,8 +8288,8 @@ msgstr "Enthalten in (Übergeordnetes Dokument)"
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:4
 msgid "Host document, for example a journal or a series (MARC 773, 800, 830)."
 msgstr ""
-"Übergeordnetes Dokument, zum Beispiel eine Zeitschrift oder eine Reihe "
-"(MARC 773, 800, 830)."
+"Übergeordnetes Dokument, zum Beispiel eine Zeitschrift oder eine Reihe (MARC "
+"773, 800, 830)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:9
 msgid "Part of"
@@ -8312,8 +8308,8 @@ msgid ""
 "For series, record only the volume. For journals, record every available "
 "information."
 msgstr ""
-"Für Reihen, erfassen Sie nur das Band. Für Zeitschriften, erfassen Sie "
-"alle verfügbaren Informationen."
+"Für Reihen, erfassen Sie nur das Band. Für Zeitschriften, erfassen Sie alle "
+"verfügbaren Informationen."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:60
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:31
@@ -8534,9 +8530,9 @@ msgid ""
 "Ratio of the dimensions of an image or three-dimensional form to the "
 "dimensions of the thing that is represented. (MARC 034, 255)"
 msgstr ""
-"Verhältnis der Abmessungen eines Bildes oder einer dreidimensionalen "
-"Form, das/die in einer Ressource enthalten oder verkörpert ist, zu den "
-"Abmessungen der Sache, die es/sie repräsentiert (MARC 034, 255)"
+"Verhältnis der Abmessungen eines Bildes oder einer dreidimensionalen Form, "
+"das/die in einer Ressource enthalten oder verkörpert ist, zu den Abmessungen "
+"der Sache, die es/sie repräsentiert (MARC 034, 255)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:8
 msgid "Scale"
@@ -8601,8 +8597,8 @@ msgid ""
 "Enter one value, or two values (westernmost then easternmost) separated "
 "by a space."
 msgstr ""
-"Einen Wert oder zwei Werte (westlichster und östlichster) eingeben, "
-"getrennt durch ein Leerzeichen."
+"Einen Wert oder zwei Werte (westlichster und östlichster) eingeben, getrennt "
+"durch ein Leerzeichen."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:134
 msgid "Example: W1800000 E1800000"
@@ -8617,8 +8613,8 @@ msgid ""
 "Enter one value, or two values (northernmost then southernmost) separated"
 " by a space."
 msgstr ""
-"Einen Wert oder zwei Werte (nördlichster und südlichster) eingeben, "
-"getrennt durch ein Leerzeichen."
+"Einen Wert oder zwei Werte (nördlichster und südlichster) eingeben, getrennt "
+"durch ein Leerzeichen."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:147
 msgid "Example: N0251500 N0221000"
@@ -8649,8 +8645,8 @@ msgid ""
 "Use the format hhmmss (hour-minute-seconds). Enter one value, or two "
 "values separated by a space."
 msgstr ""
-"Das Format hhmmss (Stunden-Minuten-Sekunden) verwenden. Einen Wert "
-"eingeben, oder zwei Werte durch ein Leerzeichen getrennt."
+"Das Format hhmmss (Stunden-Minuten-Sekunden) verwenden. Einen Wert eingeben, "
+"oder zwei Werte durch ein Leerzeichen getrennt."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:173
 msgid "Example: 021800"
@@ -8778,8 +8774,8 @@ msgid ""
 "like an index, a bibliography or an appendix (MARC 504)."
 msgstr ""
 "Angabe über den Inhalt, der den primären Inhalt aktualisiert oder "
-"vervollständigt, z. B. ein Register, eine Bibliografie oder ein Anhang "
-"sein (MARC 504)."
+"vervollständigt, z. B. ein Register, eine Bibliografie oder ein Anhang sein "
+"(MARC 504)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:8
 msgid "Supplementary content"
@@ -8798,8 +8794,8 @@ msgid ""
 "Titles of the works or parts of the manifestation. Enter one title per "
 "field (MARC 505)."
 msgstr ""
-"Titel der Werke oder Teile der Manifestation. Einen Titel pro Feld "
-"eingeben (MARC 505)."
+"Titel der Werke oder Teile der Manifestation. Einen Titel pro Feld eingeben "
+"(MARC 505)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:13
 msgid "Example: 1. Fundamentals / ed. by A. Miller"
@@ -8828,8 +8824,8 @@ msgid ""
 "Enter a date in the format (+/-)yyyy. You can add the month, day or time "
 "as follows: (+/-)yyyy-mm-ddTHH-MM-SS."
 msgstr ""
-"Datum im Format (+/-)jjjj eingeben. Sie können den Monat, den Tag oder "
-"die Uhrzeit wie folgt hinzufügen: (+/-)jjjj-mm-ttThh-mm-ss."
+"Datum im Format (+/-)jjjj eingeben. Sie können den Monat, den Tag oder die "
+"Uhrzeit wie folgt hinzufügen: (+/-)jjjj-mm-ttThh-mm-ss."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:47
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:94
@@ -9194,8 +9190,8 @@ msgid ""
 "lending (MARC 506, 540)."
 msgstr ""
 "Informationen über Beschränkungen des Zugangs zu den beschriebenen "
-"Materialien, einschliesslich Aufbewahrung, Reproduktion, Zugang und "
-"Ausleihe (MARC 506, 540)."
+"Materialien, einschliesslich Aufbewahrung, Reproduktion, Zugang und Ausleihe "
+"(MARC 506, 540)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:9
 msgid "Usage and access policy"
@@ -9856,8 +9852,8 @@ msgid ""
 "If the item is not received, this defines the number of days from the "
 "expected date after which it is claimed."
 msgstr ""
-"Wenn das Exemplar nicht empfangen wird, definiert dies die Anzahl der "
-"Tage zwischen dem erwarteten Datum und dem Versand des Anspruches."
+"Wenn das Exemplar nicht empfangen wird, definiert dies die Anzahl der Tage "
+"zwischen dem erwarteten Datum und dem Versand des Anspruches."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:518
 msgid "Number of days before next claims"
@@ -9868,8 +9864,8 @@ msgid ""
 "If the item is not received, this defines the number of days from the "
 "last claim date after which it is claimed again."
 msgstr ""
-"Wenn das Exemplar nicht empfangen wurde, definiert dies die Anzahl der "
-"Tage zwischen dem letzten Anspruch und dem nächsten."
+"Wenn das Exemplar nicht empfangen wurde, definiert dies die Anzahl der Tage "
+"zwischen dem letzten Anspruch und dem nächsten."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:555
 msgid "Choose a vendor"
@@ -10122,9 +10118,9 @@ msgid ""
 "copy/subscription of a serial. If the holdings describes more than one "
 "copy/subscription, choose composite."
 msgstr ""
-"Ein separater Bericht enthält Bestandsinformationen für ein "
-"Exemplar/Abonnement der fortlaufenden Ressource. Wenn der Bestand mehr "
-"als ein Exemplar/Abonnement beschreibt, wählen Sie zusammengesetzt."
+"Ein separater Bericht enthält Bestandsinformationen für ein Exemplar/"
+"Abonnement der fortlaufenden Ressource. Wenn der Bestand mehr als ein "
+"Exemplar/Abonnement beschreibt, wählen Sie zusammengesetzt."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1086
 msgid "separate"
@@ -10429,7 +10425,8 @@ msgstr "Standard"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:99
 msgid "Another online item type exists in this organisation."
-msgstr "Ein anderer Online-Exemplartyp existiert bereits in dieser Organisation."
+msgstr ""
+"Ein anderer Online-Exemplartyp existiert bereits in dieser Organisation."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:107
 msgid "Mark the items of this category as not available"
@@ -11950,14 +11947,14 @@ msgstr "Berechneter Gesamtbetrag der Kunden Transaktion"
 #: rero_ils/modules/patron_types/api.py:102
 msgid "Library limit cannot be higher than global limit."
 msgstr ""
-"Die Begrenzung pro Bibliothek darf nicht höher als die globale Begrenzung"
-" sein."
+"Die Begrenzung pro Bibliothek darf nicht höher als die globale Begrenzung "
+"sein."
 
 #: rero_ils/modules/patron_types/api.py:91
 msgid "Exception limit cannot have same value than library limit"
 msgstr ""
-"Eine Ausnahme der Begrenzung darf nicht denselben Wert wie die Begrenzung"
-" pro Bibliothek haben"
+"Eine Ausnahme der Begrenzung darf nicht denselben Wert wie die Begrenzung "
+"pro Bibliothek haben"
 
 #: rero_ils/modules/patron_types/api.py:94
 #: rero_ils/modules/patron_types/api.py:112
@@ -12048,8 +12045,8 @@ msgid ""
 "The checkout is blocked once the specified checkout number is reached by "
 "the patron. This is a global checkout limit."
 msgstr ""
-"Die Ausleihe wird gesperrt, sobald der Benutzer die angegebene Anzahl von"
-" Ausleihen erreicht hat. Dies ist eine globale Begrenzung der Ausleihen."
+"Die Ausleihe wird gesperrt, sobald der Benutzer die angegebene Anzahl von "
+"Ausleihen erreicht hat. Dies ist eine globale Begrenzung der Ausleihen."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:118
 msgid "Number of checkouts by library"
@@ -12061,9 +12058,9 @@ msgid ""
 "the patron for items of the same owning library. This is the same limit "
 "for all libraries."
 msgstr ""
-"Die Ausleihe wird gesperrt, sobald der Benutzer die angegebene Anzahl von"
-" Ausleihen von Exemplaren aus derselben besitzenden Bibliothek erreicht "
-"hat. Dies ist für alle Bibliotheken dieselbe Begrenzung."
+"Die Ausleihe wird gesperrt, sobald der Benutzer die angegebene Anzahl von "
+"Ausleihen von Exemplaren aus derselben besitzenden Bibliothek erreicht hat. "
+"Dies ist für alle Bibliotheken dieselbe Begrenzung."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:125
 msgid "Library checkout limit exceptions"
@@ -12130,8 +12127,8 @@ msgid ""
 "overdue fee amount is reached by the patron."
 msgstr ""
 "Ausleihen, Verlängerungen und Bestellungen werden gesperrt, sobald der "
-"Benutzer den angegebenen Gebührenbetrag für überfällige Exemplare "
-"erreicht hat."
+"Benutzer den angegebenen Gebührenbetrag für überfällige Exemplare erreicht "
+"hat."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:262
 msgid "Limit by overdue items"
@@ -12270,8 +12267,8 @@ msgid ""
 "For the email channel, the user must have an e-mail or an additional "
 "e-mail."
 msgstr ""
-"Für den E-Mail-Kanal muss der Benutzer eine E-Mail oder eine zusätzliche "
-"E-Mail haben."
+"Für den E-Mail-Kanal muss der Benutzer eine E-Mail oder eine zusätzliche E-"
+"Mail haben."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:287
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:26
@@ -12383,7 +12380,8 @@ msgstr "professionell: Statistikverwaltung"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:549
 msgid "The public note is visible for the patron in his/her account."
-msgstr "Die öffentliche Anmerkung ist für den Benutzer in seinem Konto sichtbar."
+msgstr ""
+"Die öffentliche Anmerkung ist für den Benutzer in seinem Konto sichtbar."
 
 #: rero_ils/modules/selfcheck/admin.py:111
 msgid "Selfcheck Terminal Management"
@@ -13143,8 +13141,8 @@ msgid ""
 "Enter your email address below and we will send you a link to reset your "
 "password."
 msgstr ""
-"Geben Sie bitte unten Ihre E-Mail-Adresse ein, und wir werden Ihnen einen"
-" Link senden, um Ihr Passwort zurückzusetzen."
+"Geben Sie bitte unten Ihre E-Mail-Adresse ein, und wir werden Ihnen einen "
+"Link senden, um Ihr Passwort zurückzusetzen."
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:22
 msgid "If you are registered without email, please contact your library."
@@ -13247,7 +13245,8 @@ msgstr "Liebe(r) Kunde(in)"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:9
 msgid "Someone requested that the password for your RERO ID account be reset."
-msgstr "Es wurde eine Anfrage zum Zurücksetzen Ihres RERO ID-Passworts gestellt."
+msgstr ""
+"Es wurde eine Anfrage zum Zurücksetzen Ihres RERO ID-Passworts gestellt."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:10
 msgid "Reset my password"
@@ -13258,9 +13257,8 @@ msgid ""
 "If you didn't request this, you can ignore this e-mail. Your password "
 "won't change until you create a new password."
 msgstr ""
-"Wenn Sie dies nicht angefordert haben, können Sie diese E-Mail "
-"ignorieren. Ihr Passwort wird nicht geändert, bis Sie ein neues Passwort "
-"erstellen."
+"Wenn Sie dies nicht angefordert haben, können Sie diese E-Mail ignorieren. "
+"Ihr Passwort wird nicht geändert, bis Sie ein neues Passwort erstellen."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:12
 #: rero_ils/theme/templates/security/email/reset_notice.html:10
