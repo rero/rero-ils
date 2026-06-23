@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: RERO_ILS VERSION\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
-"PO-Revision-Date: 2026-04-08 08:09+0000\n"
+"PO-Revision-Date: 2026-06-23 11:41+0000\n"
 "Last-Translator: Галина Нежурбіда <nezhga29@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/rero_plus/rero-"
+"ils/uk/>\n"
 "Language: uk\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/uk/>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: rero_ils/accounts_views.py:48
@@ -73,8 +74,8 @@ msgid ""
 "underscores."
 msgstr ""
 "Ім'я користувача повинно починатися з літери або цифри, складатися "
-"щонайменше з трьох символів і містити лише літери, цифри, дефіси або "
-"символи підкреслення."
+"щонайменше з трьох символів і містити лише літери, цифри, дефіси або символи "
+"підкреслення."
 
 #: rero_ils/config.py:2002
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:17
@@ -4945,8 +4946,7 @@ msgstr "Неможливо зберегти активний рядок замо
 #, fuzzy
 msgid "Cannot create an order line with an order with a wrong status."
 msgstr ""
-"Неможливо створити рядок замовлення якщо замовлення із неправильним "
-"статусом."
+"Неможливо створити рядок замовлення якщо замовлення із неправильним статусом."
 
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:56
 #, fuzzy
@@ -5134,8 +5134,8 @@ msgstr "Якщо цей рядок замовлення позначено, йо
 #, fuzzy
 msgid "Enquiry sent to a vendor, consisting of lines referring to documents."
 msgstr ""
-"Запит, надісланий постачальнику, що складається з рядків, що посилаються "
-"на документи."
+"Запит, надісланий постачальнику, що складається з рядків, що посилаються на "
+"документи."
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:27
 msgid "AcqOrder ID"
@@ -5352,8 +5352,8 @@ msgid ""
 "Set of circulation rules applying to a loan resource and depending on a "
 "patron type and an item type."
 msgstr ""
-"Правила книговидачі, що застосовуються до позиченого ресурсу та залежать "
-"від типу читача та типу документа."
+"Правила книговидачі, що застосовуються до позиченого ресурсу та залежать від "
+"типу читача та типу документа."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:40
 #, fuzzy
@@ -5399,8 +5399,8 @@ msgid ""
 "Number of day(s) after which a not-picked up validated request will be "
 "cancelled. Keep empty to specify infinite duration."
 msgstr ""
-"Кількість днів, після яких необроблений підтверджений запит буде "
-"скасовано. Залиште поле порожнім, щоб вказати необмежену тривалість."
+"Кількість днів, після яких необроблений підтверджений запит буде скасовано. "
+"Залиште поле порожнім, щоб вказати необмежену тривалість."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:123
 #, fuzzy
@@ -5408,9 +5408,9 @@ msgid ""
 "They include the loan expiry notices, sent before the due date, and the "
 "reminders, sent after the due date."
 msgstr ""
-"До них належать нагадування про закінчення терміну позики (надсилаються "
-"до дати повернення) та повідомлення про прострочення (надсилаються після "
-"дати повернення)."
+"До них належать нагадування про закінчення терміну позики (надсилаються до "
+"дати повернення) та повідомлення про прострочення (надсилаються після дати "
+"повернення)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:124
 msgid "Reminders"
@@ -5441,8 +5441,8 @@ msgid ""
 " due date (for reminders). This number defines when the notification is "
 "sent."
 msgstr ""
-"Кількість днів до дати повернення (для нагадувань про позику) або після "
-"дати повернення (для прострочених повідомлень). Це число визначає, коли "
+"Кількість днів до дати повернення (для нагадувань про позику) або після дати "
+"повернення (для прострочених повідомлень). Це число визначає, коли "
 "надсилається сповіщення."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:172
@@ -5486,8 +5486,8 @@ msgid ""
 "During an interval, the specified amount will be incremented for each "
 "overdue open day."
 msgstr ""
-"Протягом інтервалу зазначена сума буде збільшуватися за кожен "
-"прострочений день."
+"Протягом інтервалу зазначена сума буде збільшуватися за кожен прострочений "
+"день."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:279
 #, fuzzy
@@ -5505,8 +5505,8 @@ msgid ""
 "This defines the maximum fee amount per document, without considering the"
 " reminder fees."
 msgstr ""
-"Це визначає максимальну суму плати за документ, без урахування комісії за"
-" нагадування."
+"Це визначає максимальну суму плати за документ, без урахування комісії за "
+"нагадування."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:328
 msgid "Maximum total amount"
@@ -5538,10 +5538,9 @@ msgid ""
 "reach their due date. Automatic renewal only renews loans that are also "
 "renewable manually (taking into account existing limits and blocks)."
 msgstr ""
-"Визначає, чи система автоматично продовжує позики після досягнення "
-"терміну їх погашення. Автоматичне продовження поновлює лише ті позики, "
-"які також можна продовжувати вручну (з урахуванням існуючих лімітів та "
-"блокувань)."
+"Визначає, чи система автоматично продовжує позики після досягнення терміну "
+"їх погашення. Автоматичне продовження поновлює лише ті позики, які також "
+"можна продовжувати вручну (з урахуванням існуючих лімітів та блокувань)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:396
 #, fuzzy
@@ -5623,8 +5622,7 @@ msgstr "Внутрішній PID фонду/колекції"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:53
 msgid "Identifier or code used locally for this collection"
 msgstr ""
-"Ідентифікатор або код, що використовується локально для цього "
-"фонду/колекції"
+"Ідентифікатор або код, що використовується локально для цього фонду/колекції"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:91
 msgid "course"
@@ -5787,8 +5785,8 @@ msgstr "Жанри, форми (імпортовані)"
 #, fuzzy
 msgid "Imported genre or form, used for information. Do not enter data manually."
 msgstr ""
-"Імпортований жанр або форма, що використовується для інформації. Не "
-"вводьте дані вручну."
+"Імпортований жанр або форма, що використовується для інформації. Не вводьте "
+"дані вручну."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:304
 #, fuzzy
@@ -5799,8 +5797,8 @@ msgstr "Зібрано/Зібраний/Агрегований"
 #, fuzzy
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
-"Незалежно від того, чи зібрано документ, редагування запису або подібне "
-"буде скасовано."
+"Незалежно від того, чи зібрано документ, редагування запису або подібне буде "
+"скасовано."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:309
 #, fuzzy
@@ -5813,9 +5811,8 @@ msgid ""
 "Defines whether the document is fiction or non-fiction (documentary). If "
 "irrelevant (image, object, score, etc.), use unspecified."
 msgstr ""
-"Визначає, чи це художня література, чи нехудожня (документальна). Якщо не"
-" має значення (зображення, об'єкт, ноти тощо), використовуйте - "
-"невказане."
+"Визначає, чи це художня література, чи нехудожня (документальна). Якщо не "
+"має значення (зображення, об'єкт, ноти тощо), використовуйте - невказане."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:325
 msgid "fiction"
@@ -5841,8 +5838,7 @@ msgstr ""
 #, fuzzy
 msgid "Document is a draft record or not, will disable record validation."
 msgstr ""
-"Незалежно від того, чи є документ чернеткою, перевірка запису буде "
-"вимкнена."
+"Незалежно від того, чи є документ чернеткою, перевірка запису буде вимкнена."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:354
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1103
@@ -5855,7 +5851,8 @@ msgstr "Прихований"
 msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
-msgstr "Прихований документ видно в професійному інтерфейсі, але не в публічному."
+msgstr ""
+"Прихований документ видно в професійному інтерфейсі, але не в публічному."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
@@ -7031,7 +7028,8 @@ msgstr "гравер"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:449
 #, fuzzy
 msgid "enj"
-msgstr "Особа, яка здійснює правосуддя/судочинство / Суб'єкт владних повноважень"
+msgstr ""
+"Особа, яка здійснює правосуддя/судочинство / Суб'єкт владних повноважень"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:453
 #, fuzzy
@@ -7789,8 +7787,8 @@ msgid ""
 "conferences), place, temporal or work. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
-"Текстовий опис теми, особи, організації (включно з конференціями), місця,"
-" часу або роботи. Зазвичай використовується тимчасово, доки не буде "
+"Текстовий опис теми, особи, організації (включно з конференціями), місця, "
+"часу або роботи. Зазвичай використовується тимчасово, доки не буде "
 "встановлено зв'язок з об'єктом."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:47
@@ -7817,8 +7815,8 @@ msgid ""
 "Textual description of a topic (including genre and forms), person, "
 "organisation (including conferences), place, temporal or work."
 msgstr ""
-"Текстовий опис теми (включаючи жанр та форми), особи, організації "
-"(включаючи конференції), місця, час/період або твір."
+"Текстовий опис теми (включаючи жанр та форми), особи, організації (включаючи "
+"конференції), місця, час/період або твір."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:131
 msgid "Is this entity a genre, form ?"
@@ -7834,8 +7832,8 @@ msgid ""
 "Record the number of units and the type of unit. For the type of unit, "
 "use RDA recommended terms."
 msgstr ""
-"Запишіть кількість одиниць та тип одиниці. Для типу одиниці "
-"використовуйте терміни, рекомендовані RDA."
+"Запишіть кількість одиниць та тип одиниці. Для типу одиниці використовуйте "
+"терміни, рекомендовані RDA."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:15
 #, fuzzy
@@ -7853,9 +7851,9 @@ msgid ""
 "integrating resource is issued. For former frequencies, repeat the field "
 "and specify dates (MARC 310, 321)."
 msgstr ""
-"Інтервал, через який виходить випуск або частина серіального видання, або"
-" оновлення інтегруючого(?) ресурсу. Для попередніх періодичностей "
-"повторіть поле та вкажіть дати (MARC 310, 321)."
+"Інтервал, через який виходить випуск або частина серіального видання, або "
+"оновлення інтегруючого(?) ресурсу. Для попередніх періодичностей повторіть "
+"поле та вкажіть дати (MARC 310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:83
@@ -7897,8 +7895,8 @@ msgid ""
 "Link to a remote or local entity of type topic accepted as a 'genre, "
 "form'."
 msgstr ""
-"Посилання на віддалену або локальну сутність типу topic, прийняту як "
-"«жанр, форма»."
+"Посилання на віддалену або локальну сутність типу topic, прийняту як «жанр, "
+"форма»."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:31
 #, fuzzy
@@ -7906,8 +7904,8 @@ msgid ""
 "Textual description of a genre or form. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
-"Текстовий опис жанру або форми. Зазвичай використовується тимчасово, доки"
-" не буде встановлено зв'язок з сутністю."
+"Текстовий опис жанру або форми. Зазвичай використовується тимчасово, доки не "
+"буде встановлено зв'язок з сутністю."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:3
 msgid "Link to a genre, form"
@@ -7936,8 +7934,8 @@ msgid ""
 "Other identifier types are entered as local identifiers with indication "
 "of the source."
 msgstr ""
-"Інші типи ідентифікаторів вводяться як локальні ідентифікатори/контрольні"
-" номери із зазначенням джерела."
+"Інші типи ідентифікаторів вводяться як локальні ідентифікатори/контрольні "
+"номери із зазначенням джерела."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:59
 #, fuzzy
@@ -7964,8 +7962,8 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:75
 msgid "bf:Identifier"
 msgstr ""
-"bf:Identifier (Рядок символів, пов'язаний з ресурсом, який відрізняє його"
-" від інших ресурсів, тобто який однозначно ідентифікує сутність)"
+"bf:Identifier (Рядок символів, пов'язаний з ресурсом, який відрізняє його "
+"від інших ресурсів, тобто який однозначно ідентифікує сутність)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:79
 msgid "bf:Isan"
@@ -8019,8 +8017,8 @@ msgstr "bf:MusicPublisherNumber"
 #, fuzzy
 msgid "bf:PublisherNumber"
 msgstr ""
-"bf:PublisherNumber (Номер, призначений видавцем, який не належить до "
-"одного з визначених типів)"
+"bf:PublisherNumber (Номер, призначений видавцем, який не належить до одного "
+"з визначених типів)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:131
 msgid "bf:Upc"
@@ -8068,8 +8066,8 @@ msgid ""
 "The source is entered only for local identifiers, it indicates the system"
 " or agency responsible for the identifier."
 msgstr ""
-"Джерело вводиться лише для локальних ідентифікаторів, воно вказує на "
-"систему або агентство, відповідальне за ідентифікатор."
+"Джерело вводиться лише для локальних ідентифікаторів, воно вказує на систему "
+"або агентство, відповідальне за ідентифікатор."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:209
 msgid "Examples: LCCN, PMID, DNB"
@@ -8093,9 +8091,9 @@ msgid ""
 "Record every different illustrative content in a new field. Use one or "
 "more RDA recommended terms, in the singular or plural (MARC 300$b)."
 msgstr ""
-"Запишіть кожен різний ілюстративний контент у новому полі. Використовуйте"
-" один або декілька термінів, рекомендованих RDA, в однині або множині "
-"(MARC 300$b)."
+"Запишіть кожен різний ілюстративний контент у новому полі. Використовуйте "
+"один або декілька термінів, рекомендованих RDA, в однині або множині (MARC "
+"300$b)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:8
 #, fuzzy
@@ -8591,8 +8589,7 @@ msgid ""
 "For series, record only the volume. For journals, record every available "
 "information."
 msgstr ""
-"Для серій записуйте лише том. Для журналів записуйте всю доступну "
-"інформацію."
+"Для серій записуйте лише том. Для журналів записуйте всю доступну інформацію."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:60
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:31
@@ -9121,8 +9118,8 @@ msgstr "bf:ParallelTitle (Назва іншою мовою та/або пись�
 #, fuzzy
 msgid "bf:VariantTitle"
 msgstr ""
-"bf:VariantTitle (Назва, пов’язана з ресурсом, яка відрізняється від назви"
-" твору або Instance)"
+"bf:VariantTitle (Назва, пов’язана з ресурсом, яка відрізняється від назви "
+"твору або Instance)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:52
 #, fuzzy
@@ -9135,8 +9132,8 @@ msgstr ""
 #, fuzzy
 msgid "bf:KeyTitle"
 msgstr ""
-"bf:KeyTitle (Унікальна назва для продовжуваного ресурсу, яка присвоюється"
-" Міжнародним центром ISSN разом з ISSN)"
+"bf:KeyTitle (Унікальна назва для продовжуваного ресурсу, яка присвоюється "
+"Міжнародним центром ISSN разом з ISSN)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:65
 msgid "Main titles"
@@ -9581,8 +9578,8 @@ msgid ""
 "Entity (person, corporate body, topic, place, temporal, etc.) catalogued "
 "directly in RERO ILS."
 msgstr ""
-"Сутність (особа, колективний автор, тема, місце, час тощо), "
-"каталогізована безпосередньо в RERO ILS."
+"Сутність (особа, колективний автор, тема, місце, час тощо), каталогізована "
+"безпосередньо в RERO ILS."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:49
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:47
@@ -9682,8 +9679,8 @@ msgstr "Альтернативна назва"
 #, fuzzy
 msgid "Source catalog"
 msgstr ""
-"Каталог-джерело (основне джерело для копіювання бібліографічних записів в"
-" інший каталог чи систему?)"
+"Каталог-джерело (основне джерело для копіювання бібліографічних записів в "
+"інший каталог чи систему?)"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:184
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:194
@@ -9903,8 +9900,7 @@ msgstr "Джерело(а)"
 #, fuzzy
 msgid "Container linking one or more files to a document and a library."
 msgstr ""
-"Контейнер, що пов'язує один або декілька файлів з документом та "
-"бібліотекою."
+"Контейнер, що пов'язує один або декілька файлів з документом та бібліотекою."
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:21
 #, fuzzy
@@ -13256,8 +13252,8 @@ msgstr ""
 #, fuzzy
 msgid "Link to the RERO ILS UI code source on GitHub, current used version"
 msgstr ""
-"Посилання на вихідний код інтерфейсу користувача RERO ILS на GitHub, "
-"поточна версія, що використовується"
+"Посилання на вихідний код інтерфейсу користувача RERO ILS на GitHub, поточна "
+"версія, що використовується"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:49
 #, fuzzy
@@ -13329,8 +13325,8 @@ msgid ""
 "Enter your email address below and we will send you a link to reset your "
 "password."
 msgstr ""
-"Введіть свою адресу електронної пошти нижче, і ми надішлемо Вам посилання"
-" для скидання пароля."
+"Введіть свою адресу електронної пошти нижче, і ми надішлемо Вам посилання "
+"для скидання пароля."
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:22
 #, fuzzy
@@ -13457,8 +13453,8 @@ msgid ""
 "If you didn't request this, you can ignore this e-mail. Your password "
 "won't change until you create a new password."
 msgstr ""
-"Якщо ви не надсилали цей запит, можете проігнорувати цей лист. Ваш пароль"
-" не зміниться, доки Ви не створите новий пароль."
+"Якщо ви не надсилали цей запит, можете проігнорувати цей лист. Ваш пароль не "
+"зміниться, доки Ви не створите новий пароль."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:12
 #: rero_ils/theme/templates/security/email/reset_notice.html:10
@@ -13490,4 +13486,3 @@ msgstr "Ваш пароль успішно скинуто."
 
 #~ msgid "name"
 #~ msgstr ""
-
