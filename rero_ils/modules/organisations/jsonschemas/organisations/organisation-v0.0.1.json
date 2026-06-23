@@ -269,7 +269,7 @@
             "left": {
               "title": "Left block",
               "type": "array",
-              "description": "HTML content displayed in the left homepage block. Will also be the second block displayed on mobile.",
+              "description": "HTML content displayed in the left homepage block. Will also be the first block displayed on mobile.",
               "minItems": 0,
               "items": {
                 "type": "object",
@@ -332,7 +332,7 @@
             "center": {
               "title": "Center block",
               "type": "array",
-              "description": "HTML content displayed in the center homepage block. Will also be the first block displayed on mobile.",
+              "description": "HTML content displayed in the center homepage block. Will also be the second block displayed on mobile.",
               "minItems": 0,
               "items": {
                 "type": "object",

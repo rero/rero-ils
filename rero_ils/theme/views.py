@@ -110,7 +110,7 @@ def index_with_view_code(viewcode):
         organisations=Organisation.get_all(),
         view_organisation=organisation,
         viewcode=viewcode,
-        title=_(organisation["name"]) + " | " + _(current_app.config["THEME_SITENAME"]),
+        title=organisation["name"] + " | " + _(current_app.config["THEME_SITENAME"]),
     )
 
 
