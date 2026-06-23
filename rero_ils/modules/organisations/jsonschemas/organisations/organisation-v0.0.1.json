@@ -12,7 +12,10 @@
     "patron_cleanup"
   ],
   "required": [
+    "$schema",
+    "pid",
     "name",
+    "code",
     "default_currency"
   ],
   "properties": {
@@ -130,12 +133,21 @@
         "placeholder",
         "blocks"
       ],
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "navigation": {
+              "essential": true
+            }
+          }
+        }
+      },
       "properties": {
         "slogan": {
           "title": "Slogan",
           "type": "array",
+          "minItems": 1,
           "description": "Text displayed on the public homepage banner.",
-          "minItems": 0,
           "items": {
             "type": "object",
             "title": "Slogan",
@@ -196,8 +208,8 @@
         "placeholder": {
           "title": "Placeholder",
           "type": "array",
+          "minItems": 1,
           "description": "Placeholder text displayed in the public homepage search box.",
-          "minItems": 0,
           "items": {
             "type": "object",
             "title": "Placeholder",
@@ -269,8 +281,8 @@
             "left": {
               "title": "Left block",
               "type": "array",
+              "minItems": 1,
               "description": "HTML content displayed in the left homepage block. Will also be the first block displayed on mobile.",
-              "minItems": 0,
               "items": {
                 "type": "object",
                 "title": "Left block",
@@ -332,8 +344,8 @@
             "center": {
               "title": "Center block",
               "type": "array",
+              "minItems": 1,
               "description": "HTML content displayed in the center homepage block. Will also be the second block displayed on mobile.",
-              "minItems": 0,
               "items": {
                 "type": "object",
                 "title": "Center block",
@@ -395,8 +407,8 @@
             "right": {
               "title": "Right block",
               "type": "array",
+              "minItems": 1,
               "description": "HTML content displayed in the right homepage block. Will also be the third block displayed on mobile.",
-              "minItems": 0,
               "items": {
                 "type": "object",
                 "title": "Right block",

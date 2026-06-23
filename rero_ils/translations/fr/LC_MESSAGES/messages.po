@@ -11713,8 +11713,7 @@ msgstr ""
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:96
 msgid "Inactivity threshold (years)"
 msgstr ""
-"Nur Kunden, deren Ablaufdatum älter als die angegebene Jahresanzahl ist, "
-"werden gelöscht."
+"Limite d'inactivité (années)"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:97
 msgid ""
