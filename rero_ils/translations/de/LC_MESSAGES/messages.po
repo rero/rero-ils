@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2026-06-23 11:40+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/de/>\n"
 "Language: de\n"
@@ -5008,8 +5008,8 @@ msgstr "Vorherige Version"
 #: rero_ils/modules/acquisition/acq_receipts/api.py:140
 msgid "Cannot create a receipt with an order with a wrong status."
 msgstr ""
-"Es ist nicht möglich, einen Empfang zu erstellen: Der Status der "
-"Bestellung ist nicht korrekt."
+"Es ist nicht möglich, einen Empfang zu erstellen: Der Status der Bestellung "
+"ist nicht korrekt."
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/extensions.py:50
 msgid "Received quantity is grower than ordered quantity"
@@ -5342,9 +5342,9 @@ msgid ""
 "renewable manually (taking into account existing limits and blocks)."
 msgstr ""
 "Legt fest, ob Ausleihen bei Erreichen des Fälligkeitsdatums automatisch "
-"durch das System verlängert werden. Die automatische Verlängerung "
-"erneuert nur Ausleihen, die auch manuell erneuert werden (unter "
-"Berücksichtigung bestehender Limits und Sperren)."
+"durch das System verlängert werden. Die automatische Verlängerung erneuert "
+"nur Ausleihen, die auch manuell erneuert werden (unter Berücksichtigung "
+"bestehender Limits und Sperren)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:396
 msgid "Mark as default policy"
@@ -5547,8 +5547,8 @@ msgid ""
 "manually."
 msgstr ""
 "Importiertes Thema, Ort, Zeitraum, Person, Familie oder Körperschaft "
-"(einschließlich Konferenzen), die für Informationen verwendet werden. "
-"Geben Sie die Daten nicht manuell ein."
+"(einschließlich Konferenzen), die für Informationen verwendet werden. Geben "
+"Sie die Daten nicht manuell ein."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:268
 msgid "Genres, forms (imported)"
@@ -5561,8 +5561,8 @@ msgstr "Aus externen Daten importiertes Genre oder Form"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:275
 msgid "Imported genre or form, used for information. Do not enter data manually."
 msgstr ""
-"Importiertes Genre oder Form, das für Informationen verwendet wird. Geben"
-" Sie die Daten nicht manuell ein."
+"Importiertes Genre oder Form, das für Informationen verwendet wird. Geben "
+"Sie die Daten nicht manuell ein."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:304
 msgid "Harvested"
@@ -6311,8 +6311,8 @@ msgid ""
 "Link to a remote or local entity of type person, family or corporate body"
 " (including conferences)."
 msgstr ""
-"Link zu einer entfernten oder lokalen Entität des Typs Person, Familie "
-"oder Körperschaft (einschließlich Konferenzen)."
+"Link zu einer entfernten oder lokalen Entität des Typs Person, Familie oder "
+"Körperschaft (einschließlich Konferenzen)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:43
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:3
@@ -7165,9 +7165,9 @@ msgid ""
 "Dimensions include measurements of height, width, depth, length, gauge, "
 "and diameter. For oblong volumes, record the height x width."
 msgstr ""
-"Zu den Massen gehören Abmessungen der Höhe, Breite, Tiefe, Länge, "
-"Spurbreite und des Durchmessers. Wenn die Breite des Bandes grösser als "
-"die Höhe, erfassen Sie Höhe x Breite."
+"Zu den Massen gehören Abmessungen der Höhe, Breite, Tiefe, Länge, Spurbreite "
+"und des Durchmessers. Wenn die Breite des Bandes grösser als die Höhe, "
+"erfassen Sie Höhe x Breite."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:15
 msgid "Example: 22 cm"
@@ -7575,9 +7575,9 @@ msgid ""
 "link to an entity can be established."
 msgstr ""
 "Textliche Beschreibung eines Themas, einer Person, einer Körperschaft "
-"(einschließlich Konferenzen), eines Ortes, eines Zeitraums oder eines "
-"Werks. Wird in der Regel temporär verwendet, bis einer Link zu einer "
-"Entität hergestellt werden kann."
+"(einschließlich Konferenzen), eines Ortes, eines Zeitraums oder eines Werks. "
+"Wird in der Regel temporär verwendet, bis einer Link zu einer Entität "
+"hergestellt werden kann."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:47
 msgid "bf:Work"
@@ -7602,9 +7602,9 @@ msgid ""
 "Textual description of a topic (including genre and forms), person, "
 "organisation (including conferences), place, temporal or work."
 msgstr ""
-"Textliche Beschreibung eines Themas (einschließlich Genre und Form), "
-"einer Person, einer Körperschaft (einschließlich Konferenzen), eines "
-"Ortes, einer Zeitraum oder eines Werks."
+"Textliche Beschreibung eines Themas (einschließlich Genre und Form), einer "
+"Person, einer Körperschaft (einschließlich Konferenzen), eines Ortes, einer "
+"Zeitraum oder eines Werks."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:131
 msgid "Is this entity a genre, form ?"
@@ -7685,8 +7685,8 @@ msgid ""
 "Textual description of a genre or form. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
-"Textliche Beschreibung eines Genres oder Form. Wird in der Regel temporär"
-" verwendet, bis einer Link zu einer Entität hergestellt werden kann."
+"Textliche Beschreibung eines Genres oder Form. Wird in der Regel temporär "
+"verwendet, bis einer Link zu einer Entität hergestellt werden kann."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:3
 msgid "Link to a genre, form"
@@ -8717,8 +8717,8 @@ msgid ""
 "Topic, person, organisation (including conferences), place, temporal or "
 "work that is a subject of the document."
 msgstr ""
-"Thema, Person, Organisation (einschließlich Konferenzen), Ort, Zeitraum "
-"oder Werk, das Gegenstand des Dokuments ist."
+"Thema, Person, Organisation (einschließlich Konferenzen), Ort, Zeitraum oder "
+"Werk, das Gegenstand des Dokuments ist."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:5
@@ -9294,8 +9294,7 @@ msgid ""
 "Entity (person, corporate body, topic, place, temporal, etc.) catalogued "
 "directly in RERO ILS."
 msgstr ""
-"Entität (Person, Körperschaft, Subjekt, etc.) von MEF indexiert in RERO "
-"ILS."
+"Entität (Person, Körperschaft, Subjekt, etc.) von MEF indexiert in RERO ILS."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:49
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:47
@@ -9605,8 +9604,8 @@ msgstr "Bestand"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:5
 msgid "Describes a set of items linked to a document and belonging to a library."
 msgstr ""
-"Beschreibt eine Reihe von Exemplaren, der mit einem Dokument verknüpft "
-"sind und einer Bibliothek gehören."
+"Beschreibt eine Reihe von Exemplaren, der mit einem Dokument verknüpft sind "
+"und einer Bibliothek gehören."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:49
 msgid "Persistant identifier"
@@ -10363,7 +10362,8 @@ msgstr ""
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:68
 msgid "The requested document does not exist in your library network."
-msgstr "Das angeforderte Dokument ist in Ihrem Bibliotheksverbund nicht vorhanden."
+msgstr ""
+"Das angeforderte Dokument ist in Ihrem Bibliotheksverbund nicht vorhanden."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:69
 msgid "Costs may apply."
@@ -10384,12 +10384,12 @@ msgstr "Dokument ist verfügbar"
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:90
 msgid "The document you are requesting exists in the catalog at your institution."
 msgstr ""
-"Das Dokument, das Sie anfordern, ist im Katalog Ihrer Institution "
-"vorhanden."
+"Das Dokument, das Sie anfordern, ist im Katalog Ihrer Institution vorhanden."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:91
 msgid "Are you sure you want to continue with your ILL request?"
-msgstr "Sind Sie sicher, dass Sie mit Ihrer Fernleihbestellung fortfahren möchten?"
+msgstr ""
+"Sind Sie sicher, dass Sie mit Ihrer Fernleihbestellung fortfahren möchten?"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:94
 msgid "No"
@@ -10452,8 +10452,8 @@ msgid ""
 "Short text displayed in the interface, for instance 'in acquisition' or "
 "'missing'."
 msgstr ""
-"Kurzer Text, der in der Oberfläche angezeigt wird, z. B. \"in Erfassung\""
-" oder \"fehlt\"."
+"Kurzer Text, der in der Oberfläche angezeigt wird, z. B. \"in Erfassung\" "
+"oder \"fehlt\"."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:171
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:233
@@ -10469,8 +10469,8 @@ msgid ""
 "This optional text is displayed in the public interface, for instance "
 "'On-site consultation'"
 msgstr ""
-"Dieser optionale Text wird in der öffentlichen Oberfläche angezeigt, z. "
-"B. \" Konsultation vor Ort\""
+"Dieser optionale Text wird in der öffentlichen Oberfläche angezeigt, z. B. "
+"\" Konsultation vor Ort\""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:185
 msgid "Information"
@@ -10485,9 +10485,8 @@ msgid ""
 "If enabled, scanning (in the circulation module) an item with this "
 "temporary item type will remove the temporary item type from the item."
 msgstr ""
-"Wenn diese Option aktiviert ist, wird einem Exemplar mit diesem "
-"temporären Typ beim Scannen (im Ausleih-/Rückgabemodul) dieser Typ "
-"entzogen."
+"Wenn diese Option aktiviert ist, wird einem Exemplar mit diesem temporären "
+"Typ beim Scannen (im Ausleih-/Rückgabemodul) dieser Typ entzogen."
 
 #: rero_ils/modules/items/api/circulation.py:83
 msgid "No circulation action performed: validate impossible"
@@ -10601,8 +10600,8 @@ msgid ""
 "Numbering or other enumeration and dates associated with the issue or "
 "item."
 msgstr ""
-"Nummerierung oder andere Aufzählung und Termine, die mit der Lieferung "
-"oder dem Exemplar verbunden sind."
+"Nummerierung oder andere Aufzählung und Termine, die mit der Lieferung oder "
+"dem Exemplar verbunden sind."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:117
 msgid "Example: Volume 1"
@@ -10675,8 +10674,8 @@ msgid ""
 "Date used to sort the issue from the holdings item list. If empty, the "
 "issue expected date will be used as sort key."
 msgstr ""
-"Datum, um die Ausgabe aus der Bestandsliste zu sortieren. Wenn leer, wird"
-" das voraussichtliche Ausgabedatum verwendet."
+"Datum, um die Ausgabe aus der Bestandsliste zu sortieren. Wenn leer, wird "
+"das voraussichtliche Ausgabedatum verwendet."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:453
 msgid "Regularity"
@@ -10990,11 +10989,10 @@ msgid ""
 "ITEM_ON_LOAN, etc."
 msgstr ""
 "Beschreibt den Status eines Ausliehvorgangs, d. h. einer Interaktion "
-"zwischen einem Kunden und einem Exemplar. Wenn beispielsweise ein Kunde "
-"ein Exemplar anfordert, wird eine Ressource loan erstellt. Sie verbindet "
-"den Kunde mit dem Exemplar und ändert ihren Status je nach den "
-"durchgeführten Vorgängen: warten (PENDING), ausleihen (ITEM_ON_LOAN), "
-"etc."
+"zwischen einem Kunden und einem Exemplar. Wenn beispielsweise ein Kunde ein "
+"Exemplar anfordert, wird eine Ressource loan erstellt. Sie verbindet den "
+"Kunde mit dem Exemplar und ändert ihren Status je nach den durchgeführten "
+"Vorgängen: warten (PENDING), ausleihen (ITEM_ON_LOAN), etc."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:22
 msgid "Item URI"
@@ -11003,7 +11001,8 @@ msgstr "URI des Exemplars"
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:55
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:310
 msgid "Defines if the latest renewal was automatic or manual."
-msgstr "Legt fest, ob die letzte Erneuerung automatisch oder manuell erfolgt ist."
+msgstr ""
+"Legt fest, ob die letzte Erneuerung automatisch oder manuell erfolgt ist."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:59
 msgid "Loan extension count"
@@ -11119,9 +11118,8 @@ msgid ""
 "Data that is specific to an organization or library and related to a "
 "document, holdings or item."
 msgstr ""
-"Daten, die sich auf ein Dokument, einen Bestand oder ein Exemplar "
-"beziehen, aber spezifisch für eine Bibliothek oder eine Organisation "
-"sind."
+"Daten, die sich auf ein Dokument, einen Bestand oder ein Exemplar beziehen, "
+"aber spezifisch für eine Bibliothek oder eine Organisation sind."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:23
 msgid "Local field PID"
@@ -11209,7 +11207,8 @@ msgstr "Name des Standortes."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:72
 msgid "A short note displayed to the public about this location."
-msgstr "Eine kurze Anmerkung zu diesem Standort, die für die Kunden sichtbar ist."
+msgstr ""
+"Eine kurze Anmerkung zu diesem Standort, die für die Kunden sichtbar ist."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:98
 msgid "Example: Request delay 24h"
@@ -11639,8 +11638,8 @@ msgid ""
 "Usually a network of several libraries sharing data for patrons, items, "
 "etc."
 msgstr ""
-"Ein Netzwerk, in dem mehrere Bibliotheken zusammenarbeiten und Daten über"
-" Kunden, Exemplare usw. teilen."
+"Ein Netzwerk, in dem mehrere Bibliotheken zusammenarbeiten und Daten über "
+"Kunden, Exemplare usw. teilen."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:26
 msgid "Organisation ID"
@@ -11905,8 +11904,7 @@ msgid ""
 "Amount to be charged to a patron, generated manually or by a circulation "
 "operation."
 msgstr ""
-"Der Betrag, den ein Kunde nach einer oder mehreren Transaktionen zahlen "
-"muss."
+"Der Betrag, den ein Kunde nach einer oder mehreren Transaktionen zahlen muss."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:23
 msgid "Patron transaction ID"
@@ -12001,8 +11999,8 @@ msgid ""
 "Checkout denied: maximum number of checked out items for this library "
 "reached"
 msgstr ""
-"Ausleihen verweigert: maximale ausstehende Ausleihungen für diese "
-"Bibliothek erreicht"
+"Ausleihen verweigert: maximale ausstehende Ausleihungen für diese Bibliothek "
+"erreicht"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:5
 msgid "Categorization of patrons."
@@ -12108,8 +12106,8 @@ msgid ""
 "for all libraries."
 msgstr ""
 "Bestellungen werden gesperrt, wenn der Kunde eine bestimmte Anzahl "
-"ausstehender Anfragen für Exemplare derselben Bibliothek erreicht hat. "
-"Diese Begrenzung gilt für jede Bibliothek gleichermassen."
+"ausstehender Anfragen für Exemplare derselben Bibliothek erreicht hat. Diese "
+"Begrenzung gilt für jede Bibliothek gleichermassen."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:195
 msgid "Exceptions by library to the requests limits"
@@ -12201,8 +12199,8 @@ msgid ""
 msgstr ""
 "Eine Kundin oder einen Kunden, d. h. eine Person, die innerhalb einer "
 "Organisation registriert ist. Sie ist also mit einer user-Ressource "
-"verknüpft und enthält die für Bibliotheken nützlichen Kundendaten (Rolle,"
-" Kartennummer, spezifische Adresse usw.)."
+"verknüpft und enthält die für Bibliotheken nützlichen Kundendaten (Rolle, "
+"Kartennummer, spezifische Adresse usw.)."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:31
 msgid "Patron ID"
@@ -12422,8 +12420,8 @@ msgid ""
 "Indicator of the system use collected at a given time, or for a specified"
 " period."
 msgstr ""
-"Ein Indikator für die Nutzung des Systems, der zu einem bestimmten "
-"Zeitpunkt oder für einen bestimmten Zeitraum erhoben wird."
+"Ein Indikator für die Nutzung des Systems, der zu einem bestimmten Zeitpunkt "
+"oder für einen bestimmten Zeitraum erhoben wird."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:20
 msgid "Statistics type"
@@ -12491,9 +12489,9 @@ msgid ""
 "Set of parameters that manages the production of statistical reports at "
 "regular intervals to analyze an institution's activity."
 msgstr ""
-"Eine Reihe von Parametern, die die Erstellung von statistischen Berichten"
-" in regelmäßigen Abständen steuert, um die Aktivitäten der Institution zu"
-" analysieren."
+"Eine Reihe von Parametern, die die Erstellung von statistischen Berichten in "
+"regelmäßigen Abständen steuert, um die Aktivitäten der Institution zu "
+"analysieren."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:32
 msgid "Configuration ID"
@@ -12537,9 +12535,9 @@ msgid ""
 " calculate stats only for the resources belonging to the selected "
 "libraries."
 msgstr ""
-"Wenn aktiviert, werden die Statistiken berechnet nur für die Ressourcen, "
-"die zu den ausgewählten Bibliotheken gehören. Andernfalls werden sie für "
-"die gesamte Organisation berechnet."
+"Wenn aktiviert, werden die Statistiken berechnet nur für die Ressourcen, die "
+"zu den ausgewählten Bibliotheken gehören. Andernfalls werden sie für die "
+"gesamte Organisation berechnet."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:145
 msgid "Category of the configuration."
@@ -12682,8 +12680,8 @@ msgid ""
 "Up to 2 filters by which to distribute the data in the generated tables. "
 "The first value is the lines; the second value is the columns."
 msgstr ""
-"Bis zu zwei Filter, um die Daten in der erzeugten Tabelle zu verteilen. "
-"Der erste Wert verteilt nach Zeilen, der zweite nach Spalten."
+"Bis zu zwei Filter, um die Daten in der erzeugten Tabelle zu verteilen. Der "
+"erste Wert verteilt nach Zeilen, der zweite nach Spalten."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:858
 msgid "Period"
@@ -12697,8 +12695,8 @@ msgid ""
 msgstr ""
 "Das Zeitintervall, um Daten zu filtern, die sich auf einen bestimmten "
 "Zeitraum beziehen: den letzten Monat oder das letzte Jahr. Lassen Sie es "
-"leer, um die Daten nicht zu filtern. Beispiel: Bearbeiten Sie die Anzahl "
-"der Ausleihen, die im letzten Monat vergeben wurden."
+"leer, um die Daten nicht zu filtern. Beispiel: Bearbeiten Sie die Anzahl der "
+"Ausleihen, die im letzten Monat vergeben wurden."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:871
 msgid "month"
@@ -12759,8 +12757,8 @@ msgid ""
 "Standard data with pre-filled values used for the quick creation of a "
 "document, holdings, item or patron."
 msgstr ""
-"Datenmodell, das die schnelle Erstellung eines Dokuments, einer Bestand "
-"oder eines Exemplars mit vorausgefüllten Werten ermöglicht."
+"Datenmodell, das die schnelle Erstellung eines Dokuments, einer Bestand oder "
+"eines Exemplars mit vorausgefüllten Werten ermöglicht."
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:31
 msgid "Template ID"
@@ -12828,10 +12826,10 @@ msgid ""
 "shared by the various RERO ILS organisations, enabling the data of people"
 " registered with several organizations to be shared."
 msgstr ""
-"Daten einer Person (Vorname, Name, Adressen). Diese Ressource wird von "
-"den verschiedenen Organisationen von RERO ILS gemeinsam genutzt, so dass "
-"die Daten von Personen, die bei mehreren Organisationen eingeschrieben "
-"sind, gemeinsam genutzt werden können."
+"Daten einer Person (Vorname, Name, Adressen). Diese Ressource wird von den "
+"verschiedenen Organisationen von RERO ILS gemeinsam genutzt, so dass die "
+"Daten von Personen, die bei mehreren Organisationen eingeschrieben sind, "
+"gemeinsam genutzt werden können."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:39
 msgid "User ID"
@@ -12932,9 +12930,9 @@ msgid ""
 "If enabled, the loan history is visible in the patron account. Loan data "
 "is always anonymised after a certain period."
 msgstr ""
-"Wenn diese Funktion aktiviert ist, ist die Ausleihhistorie im "
-"Benutzerkonto einsehbar. Die Ausleihdaten werden nach einer bestimmten "
-"Zeit stets anonymisiert."
+"Wenn diese Funktion aktiviert ist, ist die Ausleihhistorie im Benutzerkonto "
+"einsehbar. Die Ausleihdaten werden nach einer bestimmten Zeit stets "
+"anonymisiert."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:273
 msgid "This email is already taken."
@@ -13118,8 +13116,8 @@ msgstr "Ihr Konto ist abgelaufen."
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:9
 msgid "Please contact your library."
 msgstr ""
-"Bitte wenden Sie sich an Ihre Bibliothek, um deren Dienste weiterhin "
-"nutzen zu können."
+"Bitte wenden Sie sich an Ihre Bibliothek, um deren Dienste weiterhin nutzen "
+"zu können."
 
 #: rero_ils/theme/templates/rero_ils/footer.html:7
 msgid "Powered by"
