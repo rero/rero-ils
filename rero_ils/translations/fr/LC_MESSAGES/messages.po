@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2026-06-23 11:45+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/fr/>\n"
 "Language: fr\n"
@@ -11950,8 +11950,7 @@ msgstr "Montant total calculé des frais"
 #: rero_ils/modules/patron_types/api.py:102
 msgid "Library limit cannot be higher than global limit."
 msgstr ""
-"La limite de la bibliothèque ne peut pas être supérieure à la limite "
-"globale."
+"La limite de la bibliothèque ne peut pas être supérieure à la limite globale."
 
 #: rero_ils/modules/patron_types/api.py:91
 msgid "Exception limit cannot have same value than library limit"
