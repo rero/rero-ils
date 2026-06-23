@@ -52,6 +52,7 @@ def test_operation_logs_permissions(
 ):
     """Test operation logs permissions."""
     item_list = url_for("invenio_records_rest.oplg_list")
+    OperationLogsSearch.flush_and_refresh()
 
     # Check access for librarian role
     login_user_via_session(client, librarian_martigny.user)
