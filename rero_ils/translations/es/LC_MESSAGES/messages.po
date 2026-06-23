@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2026-06-23 11:49+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/es/>\n"
 "Language: es\n"
@@ -5526,8 +5526,8 @@ msgid ""
 "manually."
 msgstr ""
 "Tema, lugar, temporal, persona, familia u entidad corporativa importado "
-"(incluidas conferencias), utilizado para información. No introduzca datos"
-" manualmente."
+"(incluidas conferencias), utilizado para información. No introduzca datos "
+"manualmente."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:268
 msgid "Genres, forms (imported)"
@@ -5540,8 +5540,8 @@ msgstr "Género o forma importada de datos externos"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:275
 msgid "Imported genre or form, used for information. Do not enter data manually."
 msgstr ""
-"Género o forma importada, utilizada para información. No introduzca datos"
-" manualmente."
+"Género o forma importada, utilizada para información. No introduzca datos "
+"manualmente."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:304
 msgid "Harvested"
@@ -7129,9 +7129,8 @@ msgid ""
 "Dimensions include measurements of height, width, depth, length, gauge, "
 "and diameter. For oblong volumes, record the height x width."
 msgstr ""
-"Las dimensiones incluyen medidas de altura, anchura, profundidad, "
-"longitud, calibre y diámetro. Para los volúmenes oblongos, registrar la "
-"altura x ancho."
+"Las dimensiones incluyen medidas de altura, anchura, profundidad, longitud, "
+"calibre y diámetro. Para los volúmenes oblongos, registrar la altura x ancho."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:15
 msgid "Example: 22 cm"
@@ -11197,8 +11196,8 @@ msgstr "Nombre del lugar de recogida de préstamo interbibliotecario"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:197
 msgid "Displayed ILL pickup location name, if different from the location name."
 msgstr ""
-"Nombre del lugar de recogida de préstamo interbibliotecario expuesto si "
-"es diferente del nombre del depósito."
+"Nombre del lugar de recogida de préstamo interbibliotecario expuesto si es "
+"diferente del nombre del depósito."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:231
 msgid "Allow request"
