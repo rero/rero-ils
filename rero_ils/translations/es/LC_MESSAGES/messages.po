@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
-"PO-Revision-Date: 2024-03-26 11:02+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2026-06-23 11:48+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/rero-"
+"ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: rero_ils/accounts_views.py:48
@@ -4948,8 +4949,8 @@ msgid ""
 "Should be in the following format: "
 "https://bib.rero.ch/api/documents/<PID>."
 msgstr ""
-"Debería estar en el siguiente formato: "
-"https://bib.rero.ch/api/documents/<PID>."
+"Debería estar en el siguiente formato: https://bib.rero.ch/api/documents/"
+"<PID>."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:290
 msgid "Cancelled"
@@ -5711,8 +5712,8 @@ msgid ""
 "is left full, cut, or folded."
 msgstr ""
 "Una relación proporcional entre una hoja entera en un recurso impreso o "
-"manuscrito, y las hojas individuales que resultan si esa hoja se deja "
-"llena, cortada o doblada."
+"manuscrito, y las hojas individuales que resultan si esa hoja se deja llena, "
+"cortada o doblada."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:8
 msgid "Bibliographic format"
@@ -7344,7 +7345,8 @@ msgstr "Localizaciones electrónicas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:4
 msgid "Information needed to locate and access an electronic resource."
-msgstr "Información necesaria para localizar y acceder a un recurso electrónico."
+msgstr ""
+"Información necesaria para localizar y acceder a un recurso electrónico."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:9
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:160
@@ -7582,8 +7584,8 @@ msgid ""
 "Record the number of units and the type of unit. For the type of unit, "
 "use RDA recommended terms."
 msgstr ""
-"Registre el número de unidades de unidades y el tipo de unidad. Para el "
-"tipo de unidad, utilice los términos recomendados por RDA."
+"Registre el número de unidades de unidades y el tipo de unidad. Para el tipo "
+"de unidad, utilice los términos recomendados por RDA."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:15
 msgid "Example: 355 pages"
@@ -7815,8 +7817,8 @@ msgid ""
 "Record every different illustrative content in a new field. Use one or "
 "more RDA recommended terms, in the singular or plural (MARC 300$b)."
 msgstr ""
-"Registrar cada contenido ilustrativo diferente en un nuevo campo. Utilice"
-" términos recomendados por RDA, en singular o plural (300$b)."
+"Registrar cada contenido ilustrativo diferente en un nuevo campo. Utilice "
+"términos recomendados por RDA, en singular o plural (300$b)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:8
 msgid "Illustrative content"
@@ -9586,7 +9588,8 @@ msgstr "URI del depósito"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:156
 msgid "Information needed to locate and access to an electronic resource."
-msgstr "Información necesaria para localizar y acceder a un recurso electrónico."
+msgstr ""
+"Información necesaria para localizar y acceder a un recurso electrónico."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:168
 msgid "URI"
@@ -9602,9 +9605,9 @@ msgid ""
 "vol.1, iss. 4. It should contains the variable field between {{}} with "
 "the corresponding pattern and level name."
 msgstr ""
-"Este template define cómo se muestra una predicción, es decir, el año "
-"2020; vol.1, iss. 4. Debe contener el campo de la variable entre {{}} con"
-" el correspondiente nombre del patrón y del nivel."
+"Este template define cómo se muestra una predicción, es decir, el año 2020; "
+"vol.1, iss. 4. Debe contener el campo de la variable entre {{}} con el "
+"correspondiente nombre del patrón y del nivel."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:237
 msgid "Should contains at least one variable between {{ }}."
@@ -9713,8 +9716,8 @@ msgid ""
 "It should be used in the display template. i.e. year, month, volume, "
 "issue, etc."
 msgstr ""
-"Debe ser usado en la plantilla de visualización, es decir, el año, el "
-"mes, el volumen, el número, etc."
+"Debe ser usado en la plantilla de visualización, es decir, el año, el mes, "
+"el volumen, el número, etc."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:414
 msgid "Example: volume"
@@ -9764,16 +9767,15 @@ msgstr "Ejemplo: 3"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:461
 msgid "List based prediction (used for seasons, months...)"
 msgstr ""
-"Predicción basada en una lista (utilizada para las estaciones, los "
-"meses...)"
+"Predicción basada en una lista (utilizada para las estaciones, los meses...)"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:475
 msgid ""
 "It should be used in the display template. i.e. year, month, volume, "
 "issue."
 msgstr ""
-"Debe ser usado en la plantilla de visualización, es decir, el año, el "
-"mes, el volumen, el número, etc."
+"Debe ser usado en la plantilla de visualización, es decir, el año, el mes, "
+"el volumen, el número, etc."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Use a value instead of a number. i.e. january, 2nd, quarter."
@@ -10223,8 +10225,7 @@ msgstr "Usuario URI"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:100
 msgid "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
 msgstr ""
-"Debería estar en el siguiente formato: "
-"https://bib.rero.ch/api/patrons/<PID>."
+"Debería estar en el siguiente formato: https://bib.rero.ch/api/patrons/<PID>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:114
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:175
@@ -11224,8 +11225,8 @@ msgstr "Enviar notificaciones"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:238
 msgid "Send a email notification when an item of the location has been requested."
 msgstr ""
-"Envíe una notificación por correo electrónico cuando se haya reservado un"
-" ejemplar de esta localización."
+"Envíe una notificación por correo electrónico cuando se haya reservado un "
+"ejemplar de esta localización."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:251
 msgid "Notification email"
@@ -11234,8 +11235,8 @@ msgstr "Email de notificación"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:252
 msgid "Specify a generic email address used for notification."
 msgstr ""
-"Especifique una dirección de correo electrónico genérica utilizada para "
-"la notificación."
+"Especifique una dirección de correo electrónico genérica utilizada para la "
+"notificación."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:270
 msgid "Restrict pickup to"
@@ -12227,8 +12228,8 @@ msgid ""
 "The reason is displayed in the circulation module and is visible by the "
 "patron in his account."
 msgstr ""
-"La razón se muestra en el módulo de circulación y es visible por el "
-"patrón en su cuenta."
+"La razón se muestra en el módulo de circulación y es visible por el patrón "
+"en su cuenta."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:435
 msgid "libraries"
@@ -12782,8 +12783,8 @@ msgid ""
 "Phone number with the international prefix, without spaces, ie "
 "+41221234567."
 msgstr ""
-"Número de teléfono con el prefijo internacional, sin espacios. Por "
-"ejemplo +41221234567."
+"Número de teléfono con el prefijo internacional, sin espacios. Por ejemplo "
+"+41221234567."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:193
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:213
@@ -12973,7 +12974,8 @@ msgstr "Enlace al código fuente de RERO ILS en GitHub, versión actual utilizad
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:38
 msgid "Link to the RERO ILS UI code source on GitHub, current used version"
-msgstr "Enlace al código fuente de RERO ILS UI en GitHub, versión actual utilizada"
+msgstr ""
+"Enlace al código fuente de RERO ILS UI en GitHub, versión actual utilizada"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:49
 msgid "More test logins and documentation are available on the"
@@ -13033,8 +13035,8 @@ msgid ""
 "Enter your email address below and we will send you a link to reset your "
 "password."
 msgstr ""
-"Introduce su dirección de correo electrónico a continuación y le "
-"enviaremos un enlace para restablecer su contraseña."
+"Introduce su dirección de correo electrónico a continuación y le enviaremos "
+"un enlace para restablecer su contraseña."
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:22
 msgid "If you are registered without email, please contact your library."
@@ -13181,4 +13183,3 @@ msgstr "Se ha restablecido su contraseña correctamente."
 
 #~ msgid "name"
 #~ msgstr ""
-
