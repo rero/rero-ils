@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
-"PO-Revision-Date: 2026-06-23 11:31+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2026-06-23 11:45+0000\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/fr/>\n"
 "Language: fr\n"
@@ -5203,8 +5203,8 @@ msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
-"Supprimez ce champ pour désactiver le prêt. Entrez 0 pour autoriser le "
-"prêt à un jour."
+"Supprimez ce champ pour désactiver le prêt. Entrez 0 pour autoriser le prêt "
+"à un jour."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:99
 msgid "Allow patron requests"
@@ -7139,9 +7139,9 @@ msgid ""
 "Note used for agents not named in the statement of responsibility, or for"
 " other information about the statement of responsibility (MARC 508, 511)."
 msgstr ""
-"Note utilisée pour les agents non nommés dans la mention de "
-"responsabilité, ou pour d'autres informations concernant la mention de "
-"responsabilité (MARC 508, 511)."
+"Note utilisée pour les agents non nommés dans la mention de responsabilité, "
+"ou pour d'autres informations concernant la mention de responsabilité (MARC "
+"508, 511)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:8
 msgid "Note on statement of responsibility"
@@ -7852,8 +7852,8 @@ msgid ""
 "more RDA recommended terms, in the singular or plural (MARC 300$b)."
 msgstr ""
 "Enregistrer chaque contenu illustratif différent dans un nouveau champ. "
-"Utilisez un ou plusieurs des termes recommandés par RDA, au singulier ou "
-"au pluriel (MARC 300$b)."
+"Utilisez un ou plusieurs des termes recommandés par RDA, au singulier ou au "
+"pluriel (MARC 300$b)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:8
 msgid "Illustrative content"
@@ -7862,8 +7862,7 @@ msgstr "Contenu illustratif"
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:14
 msgid "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
 msgstr ""
-"Termes recommandés par RDA : illustrations, cartes, photographies, "
-"portraits…"
+"Termes recommandés par RDA : illustrations, cartes, photographies, portraits…"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:3
 msgid "Intended audiences"
@@ -8289,8 +8288,8 @@ msgstr "Contenu dans (document hôte)"
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:4
 msgid "Host document, for example a journal or a series (MARC 773, 800, 830)."
 msgstr ""
-"Document hôte, par exemple un périodique ou une collection (MARC 773, "
-"800, 830)."
+"Document hôte, par exemple un périodique ou une collection (MARC 773, 800, "
+"830)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:9
 msgid "Part of"
@@ -8680,8 +8679,8 @@ msgid ""
 "First and last designations of a sequence for a document is issued in two"
 " or more units (MARC 362)"
 msgstr ""
-"Premier et dernier éléments d'une séquence pour un document publié en "
-"deux unités ou plus (MARC362)."
+"Premier et dernier éléments d'une séquence pour un document publié en deux "
+"unités ou plus (MARC362)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:11
 msgid "Example: Volume 1(2006)-volume 9(2014)"
@@ -8794,8 +8793,8 @@ msgid ""
 "Titles of the works or parts of the manifestation. Enter one title per "
 "field (MARC 505)."
 msgstr ""
-"Titres des œuvres ou des parties de la manifestation. Entrer un titre par"
-" champ (MARC 505)."
+"Titres des œuvres ou des parties de la manifestation. Entrer un titre par "
+"champ (MARC 505)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:13
 msgid "Example: 1. Fundamentals / ed. by A. Miller"
@@ -9189,9 +9188,8 @@ msgid ""
 "described materials, including retention, reproduction, access, and "
 "lending (MARC 506, 540)."
 msgstr ""
-"Information sur les restrictions d'accès imposées aux matériels décrits, "
-"y compris la conservation, la reproduction, l'accès et le prêt (MARC 506,"
-" 540)."
+"Information sur les restrictions d'accès imposées aux matériels décrits, y "
+"compris la conservation, la reproduction, l'accès et le prêt (MARC 506, 540)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:9
 msgid "Usage and access policy"
@@ -9635,8 +9633,7 @@ msgstr "URI de la localisation"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:156
 msgid "Information needed to locate and access to an electronic resource."
 msgstr ""
-"Information requise pour localiser et accéder à une ressource "
-"électronique."
+"Information requise pour localiser et accéder à une ressource électronique."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:168
 msgid "URI"
@@ -9820,8 +9817,8 @@ msgid ""
 "It should be used in the display template. i.e. year, month, volume, "
 "issue."
 msgstr ""
-"Doit être utilisé dans le modèle d'affichage, par ex. année, mois, "
-"volume, fascicule."
+"Doit être utilisé dans le modèle d'affichage, par ex. année, mois, volume, "
+"fascicule."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Use a value instead of a number. i.e. january, 2nd, quarter."
@@ -9904,8 +9901,7 @@ msgstr ""
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:623
 msgid "Textual description of supplementary contents (special issues, etc.)."
 msgstr ""
-"Description textuelle de contenu supplémentaire (éditions spéciales, "
-"etc.)."
+"Description textuelle de contenu supplémentaire (éditions spéciales, etc.)."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:638
 msgid "Indexes"
@@ -10051,8 +10047,8 @@ msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
-"Indique une intention d'annulation, la date effective de l'annulation, ou"
-" la dernière date attendue d'une série."
+"Indique une intention d'annulation, la date effective de l'annulation, ou la "
+"dernière date attendue d'une série."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:961
 msgid "General retention policy"
@@ -10077,8 +10073,7 @@ msgstr "conservé jusqu'au remplacement par microforme"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1001
 msgid "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
 msgstr ""
-"conservé jusqu'au remplacement par une cumulation, un volume ou une "
-"révision"
+"conservé jusqu'au remplacement par une cumulation, un volume ou une révision"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1005
 msgid "retained_for_a_limited_period"
@@ -10126,9 +10121,9 @@ msgid ""
 "copy/subscription of a serial. If the holdings describes more than one "
 "copy/subscription, choose composite."
 msgstr ""
-"Un rapport en copie séparée contient des informations de collection pour "
-"un exemplaire/abonnement à une publication en série. Si la collection "
-"décrit plus qu'un exemplaire/abonnement, choisir le rapport composite."
+"Un rapport en copie séparée contient des informations de collection pour un "
+"exemplaire/abonnement à une publication en série. Si la collection décrit "
+"plus qu'un exemplaire/abonnement, choisir le rapport composite."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1086
 msgid "separate"
@@ -10445,8 +10440,8 @@ msgid ""
 "If enabled, all items of this circulation category will be displayed as "
 "not available, with the red availability symbol."
 msgstr ""
-"Si activé, tous les exemplaires de cette catégorie de prêt seront "
-"affichés comme non disponibles, avec le symbole de disponibilité rouge."
+"Si activé, tous les exemplaires de cette catégorie de prêt seront affichés "
+"comme non disponibles, avec le symbole de disponibilité rouge."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:113
 msgid "Displayed status"
@@ -10571,12 +10566,13 @@ msgid ""
 "Temporary circulation category cannot be the same than default "
 "circulation category."
 msgstr ""
-"La catégorie de prêt temporaire ne peut pas être identique à la catégorie"
-" de prêt par défaut."
+"La catégorie de prêt temporaire ne peut pas être identique à la catégorie de "
+"prêt par défaut."
 
 #: rero_ils/modules/items/api/record.py:101
 msgid "Temporary circulation category end date must be a date in the future."
-msgstr "La date de fin de la catégorie de prêt temporaire doit être dans le futur."
+msgstr ""
+"La date de fin de la catégorie de prêt temporaire doit être dans le futur."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:5
 msgid "Describes a physical or online object linked to a holdings/document."
@@ -11262,8 +11258,7 @@ msgstr "Nom du lieu de retrait"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:172
 msgid "Displayed pickup location name, if different from the location name."
 msgstr ""
-"Nom du lieu de retrait affiché s'il est différent du nom de la "
-"localisation."
+"Nom du lieu de retrait affiché s'il est différent du nom de la localisation."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:195
 msgid "ILL Pickup location name"
@@ -12328,8 +12323,8 @@ msgid ""
 "The reason is displayed in the circulation module and is visible by the "
 "patron in his account."
 msgstr ""
-"Le motif est affiché dans le module de prêt et est visible par le lecteur"
-" dans son compte."
+"Le motif est affiché dans le module de prêt et est visible par le lecteur "
+"dans son compte."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:435
 msgid "libraries"
@@ -12784,8 +12779,8 @@ msgid ""
 "templates are visible only by its creator (you)."
 msgstr ""
 "Les modèles publics sont visibles par tous les utilisateurs d'une "
-"organisation. Les modèles privés sont visibles seulement par leur "
-"créateur (vous)."
+"organisation. Les modèles privés sont visibles seulement par leur créateur "
+"(vous)."
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:95
 msgid "public"
@@ -13092,8 +13087,7 @@ msgstr "Lien vers le code source de RERO ILS sur GitHub, version actuelle utilis
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:38
 msgid "Link to the RERO ILS UI code source on GitHub, current used version"
 msgstr ""
-"Lien vers le code source de RERO ILS UI sur GitHub, version actuelle "
-"utilisée"
+"Lien vers le code source de RERO ILS UI sur GitHub, version actuelle utilisée"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:49
 msgid "More test logins and documentation are available on the"
@@ -13155,8 +13149,8 @@ msgid ""
 "Enter your email address below and we will send you a link to reset your "
 "password."
 msgstr ""
-"Entrez votre adresse e-mail ci-dessous et nous vous enverrons un lien "
-"pour réinitialiser votre mot de passe."
+"Entrez votre adresse e-mail ci-dessous et nous vous enverrons un lien pour "
+"réinitialiser votre mot de passe."
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:22
 msgid "If you are registered without email, please contact your library."
@@ -13272,9 +13266,8 @@ msgid ""
 "If you didn't request this, you can ignore this e-mail. Your password "
 "won't change until you create a new password."
 msgstr ""
-"Si vous n'avez pas fait cette demande, vous pouvez ignorer cet e-mail. "
-"Votre mot de passe ne changera tant que vous ne créez pas de nouveau mot "
-"de passe."
+"Si vous n'avez pas fait cette demande, vous pouvez ignorer cet e-mail. Votre "
+"mot de passe ne changera tant que vous ne créez pas de nouveau mot de passe."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:12
 #: rero_ils/theme/templates/security/email/reset_notice.html:10
