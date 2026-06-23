@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2026-06-23 11:45+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/fr/>\n"
 "Language: fr\n"
@@ -76,9 +76,9 @@ msgid ""
 "characters long and only contain alphanumeric characters, dashes and "
 "underscores."
 msgstr ""
-"Le nom d'utilisateur doit commencer par une lettre ou un chiffre, "
-"comporter au moins trois caractères et ne contenir que des caractères "
-"alphanumériques, des tirets et des traits de soulignement."
+"Le nom d'utilisateur doit commencer par une lettre ou un chiffre, comporter "
+"au moins trois caractères et ne contenir que des caractères alphanumériques, "
+"des tirets et des traits de soulignement."
 
 #: rero_ils/config.py:2002
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:17
@@ -4799,7 +4799,8 @@ msgstr ""
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:98
 msgid "Cannot create an order line with an order with a wrong status."
-msgstr "Impossible d'ajouter une ligne sur une commande ayant le mauvais statut."
+msgstr ""
+"Impossible d'ajouter une ligne sur une commande ayant le mauvais statut."
 
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:56
 msgid "Cannot link to an harvested document"
@@ -4970,8 +4971,7 @@ msgstr "Annulé"
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:291
 msgid "If checked this order line should be considered as cancelled."
 msgstr ""
-"Si cette case est cochée, la ligne de commande est considérée comme "
-"annulée."
+"Si cette case est cochée, la ligne de commande est considérée comme annulée."
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "Enquiry sent to a vendor, consisting of lines referring to documents."
@@ -5177,8 +5177,8 @@ msgid ""
 "Set of circulation rules applying to a loan resource and depending on a "
 "patron type and an item type."
 msgstr ""
-"Ensemble de règles de circulation s'appliquant à un prêt en cours selon "
-"un type de lecteur et un type d'exemplaire."
+"Ensemble de règles de circulation s'appliquant à un prêt en cours selon un "
+"type de lecteur et un type d'exemplaire."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:40
 msgid "Circulation policy ID"
@@ -5227,8 +5227,8 @@ msgid ""
 "They include the loan expiry notices, sent before the due date, and the "
 "reminders, sent after the due date."
 msgstr ""
-"Il s'agit des avis d'expiration du prêt, envoyés avant la date "
-"d'échéance, et des rappels, envoyés après la date d'échéance."
+"Il s'agit des avis d'expiration du prêt, envoyés avant la date d'échéance, "
+"et des rappels, envoyés après la date d'échéance."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:124
 msgid "Reminders"
@@ -5296,8 +5296,8 @@ msgid ""
 "During an interval, the specified amount will be incremented for each "
 "overdue open day."
 msgstr ""
-"Pendant un intervalle, le montant spécifié sera incrémenté pour chaque "
-"jour en retard."
+"Pendant un intervalle, le montant spécifié sera incrémenté pour chaque jour "
+"en retard."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:279
 msgid "From"
@@ -5342,9 +5342,9 @@ msgid ""
 "renewable manually (taking into account existing limits and blocks)."
 msgstr ""
 "Définit si les prêts sont automatiquement prolongés par le système "
-"lorsqu'ils atteignent leur date d'échéance. La prolongation automatique "
-"ne renouvelle que les prêts qui seraient prolongeables manuellement (en "
-"tenant compte des limites et des blocages existants)."
+"lorsqu'ils atteignent leur date d'échéance. La prolongation automatique ne "
+"renouvelle que les prêts qui seraient prolongeables manuellement (en tenant "
+"compte des limites et des blocages existants)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:396
 msgid "Mark as default policy"
@@ -5472,8 +5472,7 @@ msgstr "Publié"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:320
 msgid "'Published' indicates that the collection appears in the public interface."
 msgstr ""
-"'Publié' indique que l'exposition/cours apparaît dans l'interface "
-"publique."
+"'Publié' indique que l'exposition/cours apparaît dans l'interface publique."
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:23
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:32
@@ -5550,9 +5549,9 @@ msgid ""
 "(including conferences), used for information. Do not enter data "
 "manually."
 msgstr ""
-"Thème, lieu, laps de temps, personne, famille ou collectivité (y compris "
-"les conférences) importés, utilisé à des fins d'information. Ne pas "
-"saisir de données manuellement."
+"Thème, lieu, laps de temps, personne, famille ou collectivité (y compris les "
+"conférences) importés, utilisé à des fins d'information. Ne pas saisir de "
+"données manuellement."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:268
 msgid "Genres, forms (imported)"
@@ -5585,9 +5584,9 @@ msgid ""
 "Defines whether the document is fiction or non-fiction (documentary). If "
 "irrelevant (image, object, score, etc.), use unspecified."
 msgstr ""
-"Définit si le document est une fiction ou une non-fiction/documentaire. "
-"Si ce n'est pas pertinent (image, objet, partition, etc.), utiliser \"non"
-" spécifié\"."
+"Définit si le document est une fiction ou une non-fiction/documentaire. Si "
+"ce n'est pas pertinent (image, objet, partition, etc.), utiliser \"non "
+"spécifié\"."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:325
 msgid "fiction"
@@ -5623,8 +5622,8 @@ msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
 msgstr ""
-"Un document masqué est visible dans l'interface professionnelle, mais pas"
-" dans l'interface publique."
+"Un document masqué est visible dans l'interface professionnelle, mais pas "
+"dans l'interface publique."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
@@ -5632,7 +5631,8 @@ msgstr "Modalités d'acquisition"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:4
 msgid "A condition under which the document is supplied. This includes the price."
-msgstr "Une condition sous laquelle le document est fourni. Cela inclut le prix."
+msgstr ""
+"Une condition sous laquelle le document est fourni. Cela inclut le prix."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
 msgid "Term of availability"
@@ -5728,8 +5728,7 @@ msgstr "Conventions de description"
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:157
 msgid "Rules used for the descriptive content of the resource description"
 msgstr ""
-"Règles utilisées pour le contenu descriptif de la description de la "
-"ressource"
+"Règles utilisées pour le contenu descriptif de la description de la ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:3
 msgid "Bibliographic formats"
@@ -5812,8 +5811,8 @@ msgid ""
 " by a number, a date, or another textual designation."
 msgstr ""
 "Utilisé uniquement pour les documents importés. Édition de la "
-"classification, identifiée par un numéro, une date ou une autre "
-"désignation textuelle."
+"classification, identifiée par un numéro, une date ou une autre désignation "
+"textuelle."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:359
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:455
@@ -6293,8 +6292,8 @@ msgid ""
 "Person, family or corporate body (including conferences) and their "
 "contributing role for the document."
 msgstr ""
-"Personne, famille ou collectivité (y compris les conférences) et son rôle"
-" de contribution au document."
+"Personne, famille ou collectivité (y compris les conférences) et son rôle de "
+"contribution au document."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:14
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
@@ -6326,9 +6325,9 @@ msgid ""
 "conferences). Usually used temporarily until a link to an entity can be "
 "established."
 msgstr ""
-"Description textuelle d'une personne, d'une famille ou d'une collectivité"
-" (y compris conférences). Généralement temporaire, jusqu'à ce qu'un lien "
-"à une entité puisse être établi."
+"Description textuelle d'une personne, d'une famille ou d'une collectivité (y "
+"compris conférences). Généralement temporaire, jusqu'à ce qu'un lien à une "
+"entité puisse être établi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:3
 msgid "Link to an agent"
@@ -7162,9 +7161,8 @@ msgid ""
 "and diameter. For oblong volumes, record the height x width."
 msgstr ""
 "Les dimensions comprennent les mesures de hauteur, de largeur, de "
-"profondeur, de longueur et de diamètre ainsi que le format. Si la largeur"
-" du volume est supérieure à la hauteur, enregistrer la hauteur x la "
-"largeur."
+"profondeur, de longueur et de diamètre ainsi que le format. Si la largeur du "
+"volume est supérieure à la hauteur, enregistrer la hauteur x la largeur."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:15
 msgid "Example: 22 cm"
@@ -7601,8 +7599,8 @@ msgid ""
 "organisation (including conferences), place, temporal or work."
 msgstr ""
 "Description textuelle d'un thème (y compris genre et formes), d'une "
-"personne, d'une collectivité (y compris conférences), d'un lieu, d'un "
-"laps de temps ou d'une œuvre."
+"personne, d'une collectivité (y compris conférences), d'un lieu, d'un laps "
+"de temps ou d'une œuvre."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:131
 msgid "Is this entity a genre, form ?"
@@ -7634,10 +7632,10 @@ msgid ""
 "integrating resource is issued. For former frequencies, repeat the field "
 "and specify dates (MARC 310, 321)."
 msgstr ""
-"Intervalle de temps suivant lequel un fascicule ou partie d’une "
-"publication en série ou une mise à jour d’une ressource intégratrice est "
-"publié. Pour les anciennes périodicités, répéter le champ et préciser les"
-" dates (MARC 310, 321)."
+"Intervalle de temps suivant lequel un fascicule ou partie d’une publication "
+"en série ou une mise à jour d’une ressource intégratrice est publié. Pour "
+"les anciennes périodicités, répéter le champ et préciser les dates (MARC "
+"310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:83
@@ -7675,16 +7673,16 @@ msgid ""
 "Link to a remote or local entity of type topic accepted as a 'genre, "
 "form'."
 msgstr ""
-"Lien vers une entité distante ou locale de type thème acceptée comme "
-"'genre, forme'."
+"Lien vers une entité distante ou locale de type thème acceptée comme 'genre, "
+"forme'."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:31
 msgid ""
 "Textual description of a genre or form. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
-"Description textuelle d'un genre ou forme. Généralement temporaire, "
-"jusqu'à ce qu'un lien à une entité puisse être établi."
+"Description textuelle d'un genre ou forme. Généralement temporaire, jusqu'à "
+"ce qu'un lien à une entité puisse être établi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:3
 msgid "Link to a genre, form"
@@ -7711,8 +7709,8 @@ msgid ""
 "Other identifier types are entered as local identifiers with indication "
 "of the source."
 msgstr ""
-"Les autres types d'identifiants sont encodés comme identifiants locaux "
-"avec indication de la source."
+"Les autres types d'identifiants sont encodés comme identifiants locaux avec "
+"indication de la source."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:59
 msgid "bf:AudioIssueNumber"
@@ -7815,8 +7813,8 @@ msgid ""
 "Qualification if the resource has more than one identifier of the same, "
 "to enter if considered important for identification."
 msgstr ""
-"Qualificatif lorsque la ressource a plus d'un identifiant du même type. À"
-" renseigner si cela est considéré important pour l'identification."
+"Qualificatif lorsque la ressource a plus d'un identifiant du même type. À "
+"renseigner si cela est considéré important pour l'identification."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:191
 msgid "Example: volume 1"
@@ -7827,8 +7825,8 @@ msgid ""
 "The source is entered only for local identifiers, it indicates the system"
 " or agency responsible for the identifier."
 msgstr ""
-"La source est encodée seulement pour les identifiants locaux, elle "
-"indique le système ou l'agence responsable de l'identifiant."
+"La source est encodée seulement pour les identifiants locaux, elle indique "
+"le système ou l'agence responsable de l'identifiant."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:209
 msgid "Examples: LCCN, PMID, DNB"
@@ -8493,9 +8491,9 @@ msgid ""
 "Normalised date used for sorting and filtering options (MARC 008). A free"
 " text date (transcripted) can be added in the field Statements."
 msgstr ""
-"Date normalisée utilisée pour les options de tri et de filtrage (MARC "
-"008). Une date en texte libre (transcrite) peut être ajoutée dans le "
-"champ Mentions."
+"Date normalisée utilisée pour les options de tri et de filtrage (MARC 008). "
+"Une date en texte libre (transcrite) peut être ajoutée dans le champ "
+"Mentions."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:264
 msgid "Date 2"
@@ -8508,8 +8506,8 @@ msgid ""
 "(transcripted) can be added in the field Statements"
 msgstr ""
 "Date de fin normalisée si le document couvre plus d'une année. Elle est "
-"utilisée pour les options de tri et de filtre (MARC 008). Une date en "
-"texte libre (transcrite) peut être ajoutée dans le champ « Mentions »."
+"utilisée pour les options de tri et de filtre (MARC 008). Une date en texte "
+"libre (transcrite) peut être ajoutée dans le champ « Mentions »."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:279
 msgid "Date of the original"
@@ -8529,8 +8527,7 @@ msgid ""
 "dimensions of the thing that is represented. (MARC 034, 255)"
 msgstr ""
 "Rapport entre les dimensions du contenu d’une image ou d’une forme "
-"tridimensionnelle et les dimensions de la chose représentée (MARC 034, "
-"255)"
+"tridimensionnelle et les dimensions de la chose représentée (MARC 034, 255)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:8
 msgid "Scale"
@@ -8595,8 +8592,8 @@ msgid ""
 "Enter one value, or two values (westernmost then easternmost) separated "
 "by a space."
 msgstr ""
-"Entrez une valeur, ou deux valeurs (la plus à l'ouest puis la plus à "
-"l'est) séparées par un espace."
+"Entrez une valeur, ou deux valeurs (la plus à l'ouest puis la plus à l'est) "
+"séparées par un espace."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:134
 msgid "Example: W1800000 E1800000"
@@ -8627,8 +8624,8 @@ msgid ""
 "Use the format hdddmmss (hemisphere-degrees-minutes-seconds). Enter one "
 "value, or two values separated by a space."
 msgstr ""
-"Utilisez le format hdddmmss (hemisphere-degrees-minutes-seconds). "
-"Saisissez une valeur, ou deux valeurs séparées par un espace."
+"Utilisez le format hdddmmss (hemisphere-degrees-minutes-seconds). Saisissez "
+"une valeur, ou deux valeurs séparées par un espace."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:160
 msgid "Example: N0300000"
@@ -8643,8 +8640,8 @@ msgid ""
 "Use the format hhmmss (hour-minute-seconds). Enter one value, or two "
 "values separated by a space."
 msgstr ""
-"Utilisez le format hhmmss (heure-minute-seconde). Saisissez une valeur, "
-"ou deux valeurs séparées par un espace."
+"Utilisez le format hhmmss (heure-minute-seconde). Saisissez une valeur, ou "
+"deux valeurs séparées par un espace."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:173
 msgid "Example: 021800"
@@ -8713,8 +8710,8 @@ msgid ""
 "Topic, person, organisation (including conferences), place, temporal or "
 "work that is a subject of the document."
 msgstr ""
-"Thème, personne, collectivité (y compris conférences), lieu, laps de "
-"temps ou œuvre qui est un sujet du document."
+"Thème, personne, collectivité (y compris conférences), lieu, laps de temps "
+"ou œuvre qui est un sujet du document."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:5
@@ -9288,8 +9285,8 @@ msgid ""
 "Entity (person, corporate body, topic, place, temporal, etc.) catalogued "
 "directly in RERO ILS."
 msgstr ""
-"Entité (personne, collectivité, thème, lieu, laps de temps, etc.) "
-"cataloguée directement dans RERO ILS."
+"Entité (personne, collectivité, thème, lieu, laps de temps, etc.) cataloguée "
+"directement dans RERO ILS."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:49
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:47
@@ -9461,8 +9458,8 @@ msgid ""
 "Entity (person, corporate body, topic, place, temporal, etc.) from MEF "
 "and indexed in RERO ILS."
 msgstr ""
-"Entité (personne, collectivité, thème, lieu, laps de temps, etc.) "
-"provenant de MEF et indexée dans RERO ILS."
+"Entité (personne, collectivité, thème, lieu, laps de temps, etc.) provenant "
+"de MEF et indexée dans RERO ILS."
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:20
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:24
@@ -9567,8 +9564,7 @@ msgstr "Source(s)"
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:3
 msgid "Container linking one or more files to a document and a library."
 msgstr ""
-"Conteneur reliant un ou plusieurs fichiers à un document et une "
-"bibliothèque."
+"Conteneur reliant un ou plusieurs fichiers à un document et une bibliothèque."
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:21
 msgid "Collections"
@@ -10222,8 +10218,8 @@ msgstr "Demande de PEB"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:5
 msgid "Request data, including references to a patron and to a pick-up location."
 msgstr ""
-"Données d'une demande de PEB (prêt entre bibliothèques), incluant "
-"notamment des références à un lecteur et à un lieu de retrait."
+"Données d'une demande de PEB (prêt entre bibliothèques), incluant notamment "
+"des références à un lecteur et à un lieu de retrait."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:37
 msgid "ILL request ID"
@@ -10235,7 +10231,8 @@ msgstr "Statut de la demande"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:43
 msgid "Request processing info for professionnals."
-msgstr "Information sur le traitement de la demande (destinée aux professionnels)."
+msgstr ""
+"Information sur le traitement de la demande (destinée aux professionnels)."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:61
 msgid "validated"
@@ -10332,8 +10329,8 @@ msgid ""
 "Please make sure that the requested document does not exist in your "
 "library network."
 msgstr ""
-"Veuillez vous assurer que le document demandé n’existe pas dans votre "
-"réseau de bibliothèques."
+"Veuillez vous assurer que le document demandé n’existe pas dans votre réseau "
+"de bibliothèques."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:20
 msgid "You have submitted an invalid CSRF token"
@@ -10382,14 +10379,12 @@ msgstr "Le document est disponible"
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:90
 msgid "The document you are requesting exists in the catalog at your institution."
 msgstr ""
-"Le document que vous demandez existe dans le catalogue de votre "
-"institution."
+"Le document que vous demandez existe dans le catalogue de votre institution."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:91
 msgid "Are you sure you want to continue with your ILL request?"
 msgstr ""
-"Voulez-vous vraiment poursuivre votre demande de prêt entre bibliothèques"
-" ?"
+"Voulez-vous vraiment poursuivre votre demande de prêt entre bibliothèques ?"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:94
 msgid "No"
@@ -10485,8 +10480,8 @@ msgid ""
 "If enabled, scanning (in the circulation module) an item with this "
 "temporary item type will remove the temporary item type from the item."
 msgstr ""
-"Si activé, le scan (dans le module de prêt/retour) d'un exemplaire avec "
-"ce type temporaire le lui retirera."
+"Si activé, le scan (dans le module de prêt/retour) d'un exemplaire avec ce "
+"type temporaire le lui retirera."
 
 #: rero_ils/modules/items/api/circulation.py:83
 msgid "No circulation action performed: validate impossible"
@@ -10499,8 +10494,7 @@ msgstr "Aucune action de prêt effectuée : prolongation impossible"
 #: rero_ils/modules/items/api/circulation.py:229
 msgid "No circulation action performed: item returned at owning library"
 msgstr ""
-"Aucune action de prêt effectuée : exemplaire de retour dans sa "
-"bibliothèque"
+"Aucune action de prêt effectuée : exemplaire de retour dans sa bibliothèque"
 
 #: rero_ils/modules/items/api/circulation.py:233
 msgid "No circulation action performed: on shelf"
@@ -10519,8 +10513,7 @@ msgstr "Aucune action de prêt effectuée : exemplaire à retirer"
 #: rero_ils/modules/items/api/circulation.py:328
 msgid "No circulation action performed: in transit to house"
 msgstr ""
-"Aucune action de prêt effectuée : en transit vers bibliothèque "
-"propriétaire"
+"Aucune action de prêt effectuée : en transit vers bibliothèque propriétaire"
 
 #: rero_ils/modules/items/api/circulation.py:377
 msgid "No circulation action performed: in transit"
@@ -10679,8 +10672,8 @@ msgid ""
 "Date used to sort the issue from the holdings item list. If empty, the "
 "issue expected date will be used as sort key."
 msgstr ""
-"Date utilisée pour forcer le tri des fascicules de l'état de collection. "
-"Si elle est vide, la date prévue sera utilisée pour le tri."
+"Date utilisée pour forcer le tri des fascicules de l'état de collection. Si "
+"elle est vide, la date prévue sera utilisée pour le tri."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:453
 msgid "Regularity"
@@ -10769,8 +10762,8 @@ msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
 msgstr ""
-"Un exemplaire masqué est visible dans l'interface professionnelle, mais "
-"pas dans l'interface publique."
+"Un exemplaire masqué est visible dans l'interface professionnelle, mais pas "
+"dans l'interface publique."
 
 #: rero_ils/modules/libraries/api.py:85
 msgid "Opening times must be specified for an open exception date."
@@ -10790,7 +10783,8 @@ msgstr "E-mail"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:39
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:61
 msgid "The notifications for patrons without e-mail are sent to this address."
-msgstr "Les notifications aux lecteurs sans e-mail sont envoyées à cette adresse."
+msgstr ""
+"Les notifications aux lecteurs sans e-mail sont envoyées à cette adresse."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:66
 msgid "Delay in minutes"
@@ -10799,8 +10793,8 @@ msgstr "Délai en minutes"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:67
 msgid "Sending how many minutes after the item is available."
 msgstr ""
-"Nombre de minutes entre l'arrivée de l'exemplaire est au bureau de prêt "
-"et l'envoi de la notification."
+"Nombre de minutes entre l'arrivée de l'exemplaire est au bureau de prêt et "
+"l'envoi de la notification."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:86
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:84
@@ -10958,8 +10952,8 @@ msgid ""
 "This defines if and how the accounts are transferred into the next fiscal"
 " year."
 msgstr ""
-"Définit si et comment les comptes sont transférés vers le prochain "
-"exercice fiscal (lors du rollover)."
+"Définit si et comment les comptes sont transférés vers le prochain exercice "
+"fiscal (lors du rollover)."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:549
 msgid "rollover_no_transfer"
@@ -11000,8 +10994,8 @@ msgstr ""
 "Décrit le statut d'une opération de circulation, c'est-à-dire, d'une "
 "interaction entre un lecteur et un exemplaire. Par exemple, lorsqu'un "
 "lecteur demande un exemplaire, une ressource loan est créée. Elle lie le "
-"lecteur à l'exemplaire et change de statut selon les opérations "
-"effectuées : en attente (PENDING), en prêt (ITEM_ON_LOAN), etc."
+"lecteur à l'exemplaire et change de statut selon les opérations effectuées : "
+"en attente (PENDING), en prêt (ITEM_ON_LOAN), etc."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:22
 msgid "Item URI"
@@ -11193,7 +11187,8 @@ msgstr "La localisation de la ressource ne permet pas les demandes."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:5
 msgid "A subsection of a library in which items are stored."
-msgstr "Subdivision d'une bibliothèque dans laquelle se trouvent des exemplaires."
+msgstr ""
+"Subdivision d'une bibliothèque dans laquelle se trouvent des exemplaires."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:37
 msgid "Location ID"
@@ -11267,8 +11262,8 @@ msgstr "Nom du lieu de retrait pour le PEB"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:197
 msgid "Displayed ILL pickup location name, if different from the location name."
 msgstr ""
-"Nom dans l'interface du lieu de retrait pour le PEB, s'il est différent "
-"du nom de la localisation."
+"Nom dans l'interface du lieu de retrait pour le PEB, s'il est différent du "
+"nom de la localisation."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:231
 msgid "Allow request"
@@ -11450,7 +11445,8 @@ msgstr "Journal des opérations"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:5
 msgid "An action of edition performed on another resource."
-msgstr "Enregistre une action de modification effectuée sur une autre ressource."
+msgstr ""
+"Enregistre une action de modification effectuée sur une autre ressource."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:21
 msgid "Operation log PID"
@@ -11641,8 +11637,8 @@ msgid ""
 "Usually a network of several libraries sharing data for patrons, items, "
 "etc."
 msgstr ""
-"Habituellement un réseau regroupant plusieurs bibliothèques et partageant"
-" des données de lecteurs, d'exemplaires, etc."
+"Habituellement un réseau regroupant plusieurs bibliothèques et partageant "
+"des données de lecteurs, d'exemplaires, etc."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:26
 msgid "Organisation ID"
@@ -11973,8 +11969,8 @@ msgstr "Une seule limite spécifique par bibliothèque autorisée."
 #: rero_ils/modules/patron_types/api.py:109
 msgid "Exception limit cannot have same value as library limit"
 msgstr ""
-"La limite d'une exception ne peut pas avoir la même valeur que la limite "
-"par bibliothèque"
+"La limite d'une exception ne peut pas avoir la même valeur que la limite par "
+"bibliothèque"
 
 #: rero_ils/modules/patron_types/api.py:203
 msgid "Maximum number of overdue items reached"
@@ -12051,8 +12047,8 @@ msgid ""
 "The checkout is blocked once the specified checkout number is reached by "
 "the patron. This is a global checkout limit."
 msgstr ""
-"Le prêt est bloqué une fois que le nombre spécifié de prêts est atteint "
-"par le lecteur. Il s'agit d'une limite globale des prêts."
+"Le prêt est bloqué une fois que le nombre spécifié de prêts est atteint par "
+"le lecteur. Il s'agit d'une limite globale des prêts."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:118
 msgid "Number of checkouts by library"
@@ -12198,10 +12194,10 @@ msgid ""
 "It is linked to a user resource and contains patron data useful to "
 "libraries (role, card number, specific address, etc.)."
 msgstr ""
-"Décrit une usagère ou un usager, c'est-à-dire une personne qui est "
-"inscrite au sein d'une organisation. Elle est donc liée à une ressource "
-"user et contient les données de lecteur utiles aux bibliothèques (rôle, "
-"numéro de carte, adresse spécifique, etc.)."
+"Décrit une usagère ou un usager, c'est-à-dire une personne qui est inscrite "
+"au sein d'une organisation. Elle est donc liée à une ressource user et "
+"contient les données de lecteur utiles aux bibliothèques (rôle, numéro de "
+"carte, adresse spécifique, etc.)."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:31
 msgid "Patron ID"
@@ -12272,8 +12268,8 @@ msgid ""
 "For the email channel, the user must have an e-mail or an additional "
 "e-mail."
 msgstr ""
-"Pour le canal de communication par e-mail, l'utilisateur doit avoir un "
-"e-mail ou un e-mail supplémentaire."
+"Pour le canal de communication par e-mail, l'utilisateur doit avoir un e-"
+"mail ou un e-mail supplémentaire."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:287
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:26
@@ -12315,8 +12311,8 @@ msgstr "Blocage"
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:407
 msgid "A patron with a blocked account cannot extend, request and borrow items."
 msgstr ""
-"Un lecteur dont le compte est bloqué ne peut plus prolonger ou emprunter "
-"des exemplaires, ni effectuer de demandes."
+"Un lecteur dont le compte est bloqué ne peut plus prolonger ou emprunter des "
+"exemplaires, ni effectuer de demandes."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:413
 msgid ""
@@ -12421,8 +12417,8 @@ msgid ""
 "Indicator of the system use collected at a given time, or for a specified"
 " period."
 msgstr ""
-"Indicateur de l'utilisation du système collecté à un moment donné, ou "
-"pour une période spécifiée."
+"Indicateur de l'utilisation du système collecté à un moment donné, ou pour "
+"une période spécifiée."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:20
 msgid "Statistics type"
@@ -12694,9 +12690,9 @@ msgid ""
 "process the number of checkouts performed in the last month."
 msgstr ""
 "L'intervalle de temps pour filtrer les données relatives à une période "
-"spécifique : le mois dernier ou l'année dernière. Laisser vide pour ne "
-"pas filtrer les données. Exemple : traiter le nombre de prêts effectués "
-"au cours du dernier mois."
+"spécifique : le mois dernier ou l'année dernière. Laisser vide pour ne pas "
+"filtrer les données. Exemple : traiter le nombre de prêts effectués au cours "
+"du dernier mois."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:871
 msgid "month"
@@ -12757,8 +12753,8 @@ msgid ""
 "Standard data with pre-filled values used for the quick creation of a "
 "document, holdings, item or patron."
 msgstr ""
-"Données standard avec des valeurs pré-remplies utilisées pour la création"
-" rapide d'un document, d'un état de collection, d'un exemplaire ou d'un "
+"Données standard avec des valeurs pré-remplies utilisées pour la création "
+"rapide d'un document, d'un état de collection, d'un exemplaire ou d'un "
 "lecteur."
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:31
@@ -12828,9 +12824,9 @@ msgid ""
 "shared by the various RERO ILS organisations, enabling the data of people"
 " registered with several organizations to be shared."
 msgstr ""
-"Données relatives à une personne (prénom, nom, adresses). Cette ressource"
-" est partagée par les différentes organisations RERO ILS, ce qui permet "
-"de partager les données des personnes enregistrées auprès de plusieurs "
+"Données relatives à une personne (prénom, nom, adresses). Cette ressource "
+"est partagée par les différentes organisations RERO ILS, ce qui permet de "
+"partager les données des personnes enregistrées auprès de plusieurs "
 "organisations."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:39
@@ -12956,8 +12952,7 @@ msgstr "Impossible d'avoir plusieurs notes du même type."
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "Agent who can receive and fulfill document/acquisition orders."
 msgstr ""
-"Agent qui peut recevoir et exécuter des commandes d'acquisition/de "
-"documents."
+"Agent qui peut recevoir et exécuter des commandes d'acquisition/de documents."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:33
 msgid "Vendor ID"
@@ -12994,8 +12989,8 @@ msgstr "Une seule note par type est autorisée."
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:204
 msgid "Selected language will be used in all notifications sent to this vendor."
 msgstr ""
-"La langue sélectionnée sera utilisée pour toutes les notifications "
-"envoyées à ce fournisseur."
+"La langue sélectionnée sera utilisée pour toutes les notifications envoyées "
+"à ce fournisseur."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:246
 msgid "Contacts"
@@ -13122,8 +13117,7 @@ msgstr "Votre compte est arrivé à échéance."
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:9
 msgid "Please contact your library."
 msgstr ""
-"Veuillez contacter votre bibliothèque pour continuer à utiliser ses "
-"services."
+"Veuillez contacter votre bibliothèque pour continuer à utiliser ses services."
 
 #: rero_ils/theme/templates/rero_ils/footer.html:7
 msgid "Powered by"
