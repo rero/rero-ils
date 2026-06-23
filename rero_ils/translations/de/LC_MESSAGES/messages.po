@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2026-06-23 11:40+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/de/>\n"
 "Language: de\n"
@@ -7619,8 +7619,8 @@ msgid ""
 "Record the number of units and the type of unit. For the type of unit, "
 "use RDA recommended terms."
 msgstr ""
-"Erfassen Sie die Anzahl der Einheiten und die Art der Einheit. Verwenden "
-"Sie die von RDA empfohlenen Begriffe."
+"Erfassen Sie die Anzahl der Einheiten und die Art der Einheit. Verwenden Sie "
+"die von RDA empfohlenen Begriffe."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:15
 msgid "Example: 355 pages"
@@ -7854,9 +7854,9 @@ msgid ""
 "Record every different illustrative content in a new field. Use one or "
 "more RDA recommended terms, in the singular or plural (MARC 300$b)."
 msgstr ""
-"Erfassen Sie jeden unterschiedlichen illustrierenden Inhalt in einem "
-"neuen Feld. Verwenden Sie einen oder mehrere der von RDA empfohlenen "
-"Begriffe, im Singular oder Plural (MARC 300$b)."
+"Erfassen Sie jeden unterschiedlichen illustrierenden Inhalt in einem neuen "
+"Feld. Verwenden Sie einen oder mehrere der von RDA empfohlenen Begriffe, im "
+"Singular oder Plural (MARC 300$b)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:8
 msgid "Illustrative content"
@@ -7865,8 +7865,8 @@ msgstr "Illustrierender Inhalt"
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:14
 msgid "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
 msgstr ""
-"Von RDA empfohlene Begriffe: Illustrationen, Karten, Fotografien, "
-"Porträts, ..."
+"Von RDA empfohlene Begriffe: Illustrationen, Karten, Fotografien, Porträts, "
+"..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:3
 msgid "Intended audiences"
@@ -9654,9 +9654,9 @@ msgid ""
 "vol.1, iss. 4. It should contains the variable field between {{}} with "
 "the corresponding pattern and level name."
 msgstr ""
-"Diese Vorlage definiert, wie eine Vorhersage angezeigt wird, z.B. Jahr "
-"2020; Band 1, iss. 4. Sie sollte die Variable field zwischen {{}} mit dem"
-" entsprechenden Muster und Ebenennamen enthalten."
+"Diese Vorlage definiert, wie eine Vorhersage angezeigt wird, z.B. Jahr 2020; "
+"Band 1, iss. 4. Sie sollte die Variable field zwischen {{}} mit dem "
+"entsprechenden Muster und Ebenennamen enthalten."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:237
 msgid "Should contains at least one variable between {{ }}."
@@ -9741,8 +9741,7 @@ msgstr "Vorhersage-Muster"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:375
 msgid "It should be used in the display template. i.e. chronology, enumeration."
 msgstr ""
-"Sollte in der Anzeigevorlage verwendet werden, d.h. Chronologie, "
-"Aufzählung."
+"Sollte in der Anzeigevorlage verwendet werden, d.h. Chronologie, Aufzählung."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:380
 msgid "Example: numbering"
@@ -9793,8 +9792,8 @@ msgid ""
 "Last value of the sequence. If it is not defined the sequence will "
 "continue until the infinity."
 msgstr ""
-"Letzter Wert der Sequenz. Wenn er nicht definiert ist, wird die Sequenz "
-"bis zur Unendlichkeit fortgesetzt."
+"Letzter Wert der Sequenz. Wenn er nicht definiert ist, wird die Sequenz bis "
+"zur Unendlichkeit fortgesetzt."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:440
 msgid "Example: 12"
@@ -9822,8 +9821,8 @@ msgid ""
 "It should be used in the display template. i.e. year, month, volume, "
 "issue."
 msgstr ""
-"Sollte in der Anzeigevorlage verwendet werden, d.h. Jahr, Monat, Volumen,"
-" Ausgabe."
+"Sollte in der Anzeigevorlage verwendet werden, d.h. Jahr, Monat, Volumen, "
+"Ausgabe."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Use a value instead of a number. i.e. january, 2nd, quarter."
@@ -9834,8 +9833,8 @@ msgid ""
 "Can be used to correct the next current prediction. The value is the "
 "current position of the value in the list."
 msgstr ""
-"Kann zur Korrektur der nächsten aktuellen Vorhersage verwendet werden. "
-"Der Wert ist die aktuelle Position des Wertes in der Liste."
+"Kann zur Korrektur der nächsten aktuellen Vorhersage verwendet werden. Der "
+"Wert ist die aktuelle Position des Wertes in der Liste."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:506
 msgid "Maximum number of claims"
@@ -11254,7 +11253,8 @@ msgstr "Name des Abholorts"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:172
 msgid "Displayed pickup location name, if different from the location name."
-msgstr "Angezeigter Abholortname, falls vom Namen des Standortes unterschiedlich."
+msgstr ""
+"Angezeigter Abholortname, falls vom Namen des Standortes unterschiedlich."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:195
 msgid "ILL Pickup location name"
