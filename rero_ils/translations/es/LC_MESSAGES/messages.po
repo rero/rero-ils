@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 13:08+0200\n"
 "PO-Revision-Date: 2026-06-23 11:49+0000\n"
-"Last-Translator: Deleted User <noreply+48943@weblate.org>\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/es/>\n"
 "Language: es\n"
@@ -5240,9 +5240,9 @@ msgid ""
 " due date (for reminders). This number defines when the notification is "
 "sent."
 msgstr ""
-"Número de días antes de la fecha de vencimiento (para avisos de "
-"vencimiento de préstamos) o después de la fecha de vencimiento (para "
-"recordatorios). Este número define cuándo se envía la notificación."
+"Número de días antes de la fecha de vencimiento (para avisos de vencimiento "
+"de préstamos) o después de la fecha de vencimiento (para recordatorios). "
+"Este número define cuándo se envía la notificación."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:172
 msgid "Delay"
@@ -6486,8 +6486,8 @@ msgid ""
 "as the preferred name"
 msgstr ""
 "Se utiliza solo para la importación. Forma más completa de un nombre "
-"representado sólo por una inicial, abreviatura u otra variante no "
-"incluida en el formulario elegido como el nombre preferido"
+"representado sólo por una inicial, abreviatura u otra variante no incluida "
+"en el formulario elegido como el nombre preferido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:2
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:473
@@ -13129,8 +13129,7 @@ msgstr "Querido usuario"
 #: rero_ils/theme/templates/security/email/reset_instructions.html:9
 msgid "Someone requested that the password for your RERO ID account be reset."
 msgstr ""
-"Alguien ha solicitado que la contraseña de su cuenta RERO ID se "
-"restablezca."
+"Alguien ha solicitado que la contraseña de su cuenta RERO ID se restablezca."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:10
 msgid "Reset my password"
@@ -13141,8 +13140,8 @@ msgid ""
 "If you didn't request this, you can ignore this e-mail. Your password "
 "won't change until you create a new password."
 msgstr ""
-"Si no ha efectuado esta solicitud, puede ignorar este mensaje. Su "
-"contraseña no cambiará a menos que usted cree una nueva."
+"Si no ha efectuado esta solicitud, puede ignorar este mensaje. Su contraseña "
+"no cambiará a menos que usted cree una nueva."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:12
 #: rero_ils/theme/templates/security/email/reset_notice.html:10
