@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-06-23 12:26+0200\n"
-"PO-Revision-Date: 2026-04-20 06:45+0000\n"
+"PO-Revision-Date: 2026-06-23 11:10+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/rero-"
+"ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: rero_ils/accounts_views.py:48
@@ -11604,7 +11605,7 @@ msgstr "Collection enabled on public view"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:75
 msgid "Patron cleanup configuration"
-msgstr ""
+msgstr "Patron cleanup configuration"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:76
 msgid ""
@@ -11612,51 +11613,55 @@ msgid ""
 "Delete the field if you never want the patrons to be deleted "
 "automatically."
 msgstr ""
+"Configuration for the automatic deletion of inactive patron profiles. Delete "
+"the field if you never want the patrons to be deleted automatically."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:90
 msgid "Expiration threshold (years)"
-msgstr ""
+msgstr "Expiration threshold (years)"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:91
 msgid ""
 "Only delete patrons whose expiration_date is older than this many years "
 "ago."
 msgstr ""
+"Only delete patrons whose expiration_date is older than this many years ago."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:96
 msgid "Inactivity threshold (years)"
-msgstr ""
+msgstr "Inactivity threshold (years)"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:97
 msgid ""
 "Only delete patrons whose user last logged in more than this many years "
 "ago."
 msgstr ""
+"Only delete patrons whose user last logged in more than this many years ago."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:102
 msgid "Excluded patron types"
-msgstr ""
+msgstr "Excluded patron types"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:103
 msgid "List of patron type PIDs to exclude from automatic deletion."
-msgstr ""
+msgstr "List of patron type PIDs to exclude from automatic deletion."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:124
 msgid "Homepage"
-msgstr ""
+msgstr "Homepage"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:126
 msgid "Configuration for the public homepage."
-msgstr ""
+msgstr "Configuration for the public homepage."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:135
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:141
 msgid "Slogan"
-msgstr ""
+msgstr "Slogan"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:137
 msgid "Text displayed on the public homepage banner."
-msgstr ""
+msgstr "Text displayed on the public homepage banner."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:189
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:251
@@ -11664,63 +11669,69 @@ msgstr ""
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:388
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:451
 msgid "Only one value per language is allowed."
-msgstr ""
+msgstr "Only one value per language is allowed."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:197
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:203
 msgid "Placeholder"
-msgstr ""
+msgstr "Placeholder"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:199
 msgid "Placeholder text displayed in the public homepage search box."
-msgstr ""
+msgstr "Placeholder text displayed in the public homepage search box."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:259
 msgid "Blocks"
-msgstr ""
+msgstr "Blocks"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:261
 msgid "HTML content displayed in the homepage blocks."
-msgstr ""
+msgstr "HTML content displayed in the homepage blocks."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:270
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:276
 msgid "Left block"
-msgstr ""
+msgstr "Left block"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:272
 msgid ""
 "HTML content displayed in the left homepage block. Will also be the "
 "second block displayed on mobile."
 msgstr ""
+"HTML content displayed in the left homepage block. Will also be the second "
+"block displayed on mobile."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:291
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:354
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:417
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:333
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:339
 msgid "Center block"
-msgstr ""
+msgstr "Center block"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:335
 msgid ""
 "HTML content displayed in the center homepage block. Will also be the "
 "first block displayed on mobile."
 msgstr ""
+"HTML content displayed in the center homepage block. Will also be the first "
+"block displayed on mobile."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:396
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:402
 msgid "Right block"
-msgstr ""
+msgstr "Right block"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:398
 msgid ""
 "HTML content displayed in the right homepage block. Will also be the "
 "third block displayed on mobile."
 msgstr ""
+"HTML content displayed in the right homepage block. Will also be the third "
+"block displayed on mobile."
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:4
 msgid "Patron transaction event"
@@ -12945,7 +12956,7 @@ msgstr "THEME_SITENAME"
 
 #: rero_ils/theme/views.py:113
 msgid "name"
-msgstr ""
+msgstr "name"
 
 #: rero_ils/theme/templates/rero_ils/_editor_button_actions.html:7
 msgid "JSON"
@@ -13166,4 +13177,3 @@ msgstr "Your library"
 #: rero_ils/theme/templates/security/email/reset_notice.html:9
 msgid "Your password has been successfully reset."
 msgstr "Your password has been successfully reset."
-
