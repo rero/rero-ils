@@ -167,7 +167,6 @@ def _(x):
 
 # Personalized homepage
 RERO_ILS_PERSONALIZED_CSS_BY_VIEW = True
-RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW = False
 RERO_ILS_HOMEPAGE_GENERAL_BLOCK = "rero_ils/_frontpage_block_test.html"
 RERO_ILS_HOMEPAGE_GENERAL_SLOGAN = "rero_ils/_frontpage_slogan_test.html"
 #: Link to privacy and data protection policy for the instance

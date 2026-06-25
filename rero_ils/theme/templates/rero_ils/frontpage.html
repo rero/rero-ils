@@ -25,7 +25,7 @@
           <h1>{{ slogan }}</h1>
         </div>
       </div>
-    {% elif not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
+    {% elif not view_organisation %}
       {%- include config.RERO_ILS_HOMEPAGE_GENERAL_SLOGAN %}
     {% endif %}
 
@@ -33,7 +33,7 @@
     <div class="rero-search-bar">
       <div class="container">
         <main-search-bar
-          placeholder="{{ placeholder or _('What are you looking for?') }}"
+          placeholder="{{ (_('What are you looking for?') if not view_organisation else placeholder) }}"
           viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
           inputstyleclass="ui:md:text-xl ui:w-full"
           styleclass="ui:w-full"
@@ -69,7 +69,7 @@
             {{ block_right|safe }}
           {% endif %}
         </section>
-      {% elif not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
+      {% elif not view_organisation %}
         {%- include config.RERO_ILS_HOMEPAGE_GENERAL_BLOCK %}
       {% endif %}
     </article>
