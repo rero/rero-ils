@@ -31,7 +31,7 @@
       "placeholder": [
         {
           "language": "fr",
-          "value": "Rechercher dans les bibliotheques d'Aoste"
+          "value": "Rechercher dans les biblioth\u00e8ques d'Aoste"
         },
         {
           "language": "en",
@@ -50,55 +50,55 @@
         "left": [
           {
             "language": "fr",
-            "value": "<h3>Decouvrir</h3><p>Explorez les collections du reseau.</p>"
+            "value": "<h3>D\u00e9couvrir</h3><p>Explorez les collections des biblioth\u00e8ques du Val d'Aoste, du patrimoine alpin aux derni\u00e8res nouveaut\u00e9s.</p>"
           },
           {
             "language": "en",
-            "value": "<h3>Discover</h3><p>Explore the network collections.</p>"
+            "value": "<h3>Discover</h3><p>Explore the collections of the Aosta Valley libraries, from Alpine heritage to the latest titles.</p>"
           },
           {
             "language": "de",
-            "value": "<h3>Entdecken</h3><p>Entdecken Sie die Sammlungen des Netzwerks.</p>"
+            "value": "<h3>Entdecken</h3><p>Entdecken Sie die Sammlungen der Bibliotheken des Aostatals, vom alpinen Erbe bis zu den neuesten Titeln.</p>"
           },
           {
             "language": "it",
-            "value": "<h3>Scoprire</h3><p>Esplora le collezioni della rete.</p>"
+            "value": "<h3>Scoprire</h3><p>Esplora le collezioni delle biblioteche della Valle d'Aosta, dal patrimonio alpino alle ultime novit\u00e0.</p>"
           }
         ],
         "center": [
           {
             "language": "fr",
-            "value": "<h3>Services</h3><p>Consultez les informations pratiques de votre bibliotheque.</p>"
+            "value": "<h3>Testez RERO ILS</h3><p>En tant qu'utilisateur anonyme</p><p>En tant que lecteur, connectez-vous avec :<br>reroilstest+giulia@gmail.com / Pw123456</p><p>En tant que biblioth\u00e9caire syst\u00e8me :<br>reroilstest@gmail.com / Pw123456</p><h4>Aide</h4><p>Plus de logins test et la documentation sont disponibles sous <a href=\"/help/demo\">page d'aide</a></p>"
           },
           {
             "language": "en",
-            "value": "<h3>Services</h3><p>Find practical information about your library.</p>"
+            "value": "<h3>Test RERO ILS</h3><p>As an anonymous user</p><p>As a patron, login with:<br>reroilstest+giulia@gmail.com / Pw123456</p><p>As a system librarian:<br>reroilstest@gmail.com / Pw123456</p><h4>Help</h4><p>More test logins and documentation are available on the <a href=\"/help/demo\">help page</a></p>"
           },
           {
             "language": "de",
-            "value": "<h3>Dienste</h3><p>Finden Sie praktische Informationen zu Ihrer Bibliothek.</p>"
+            "value": "<h3>Testen Sie RERO ILS</h3><p>Als anonymer Benutzer</p><p>Melden Sie sich als Benutzer an mit:<br>reroilstest+giulia@gmail.com / Pw123456</p><p>Als Systembibliothekar:<br>reroilstest@gmail.com / Pw123456</p><h4>Hilfe</h4><p>Weitere Test-Logins und Dokumentation finden Sie auf der <a href=\"/help/demo\">Hilfe-Seite</a></p>"
           },
           {
             "language": "it",
-            "value": "<h3>Servizi</h3><p>Trova informazioni pratiche sulla tua biblioteca.</p>"
+            "value": "<h3>Testare il progetto</h3><p>Come utente anonimo</p><p>Come utente, accedi con:<br>reroilstest+giulia@gmail.com / Pw123456</p><p>Come bibliotecario di sistema:<br>reroilstest@gmail.com / Pw123456</p><h4>Aiuto</h4><p>Ulteriori login di prova e documentazione sono disponibili su <a href=\"/help/demo\">pagina d'aiuto</a></p>"
           }
         ],
         "right": [
           {
             "language": "fr",
-            "value": "<h3>Aide</h3><p>Contactez votre bibliotheque pour toute question.</p>"
+            "value": "<h3>Catalogue collectif</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Catalogue global</a></li></ul>"
           },
           {
             "language": "en",
-            "value": "<h3>Help</h3><p>Contact your library for any question.</p>"
+            "value": "<h3>Union catalogue</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Global catalog</a></li></ul>"
           },
           {
             "language": "de",
-            "value": "<h3>Hilfe</h3><p>Kontaktieren Sie Ihre Bibliothek bei Fragen.</p>"
+            "value": "<h3>Gesamtkatalog</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Globaler Katalog</a></li></ul>"
           },
           {
             "language": "it",
-            "value": "<h3>Aiuto</h3><p>Contatta la tua biblioteca per qualsiasi domanda.</p>"
+            "value": "<h3>Catalogo collectivo</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Catalogo globale</a></li></ul>"
           }
         ]
       }
@@ -119,92 +119,92 @@
       "slogan": [
         {
           "language": "fr",
-          "value": "Bienvenue dans les bibliotheques des Highlands"
+          "value": "Bienvenue dans les biblioth\u00e8ques du Minist\u00e8re de la Magie"
         },
         {
           "language": "en",
-          "value": "Welcome to the Highlands libraries"
+          "value": "Welcome to the Ministry of Magic libraries"
         },
         {
           "language": "de",
-          "value": "Willkommen in den Highlands-Bibliotheken"
+          "value": "Willkommen in den Bibliotheken des Zaubereiministeriums"
         },
         {
           "language": "it",
-          "value": "Benvenuti nelle biblioteche delle Highlands"
+          "value": "Benvenuti nelle biblioteche del Ministero della Magia"
         }
       ],
       "placeholder": [
         {
           "language": "fr",
-          "value": "Rechercher dans les collections des Highlands"
+          "value": "Rechercher dans les collections du Minist\u00e8re de la Magie"
         },
         {
           "language": "en",
-          "value": "Search the Highlands collections"
+          "value": "Search the Ministry of Magic collections"
         },
         {
           "language": "de",
-          "value": "In den Highlands-Sammlungen suchen"
+          "value": "In den Sammlungen des Zaubereiministeriums suchen"
         },
         {
           "language": "it",
-          "value": "Cerca nelle collezioni delle Highlands"
+          "value": "Cerca nelle collezioni del Ministero della Magia"
         }
       ],
       "blocks": {
         "left": [
           {
             "language": "fr",
-            "value": "<h3>Collections</h3><p>Parcourez les documents disponibles.</p>"
+            "value": "<h3>Explorer</h3><p>Parcourez grimoires, manuscrits et ouvrages enchant\u00e9s des biblioth\u00e8ques du Minist\u00e8re de la Magie.</p>"
           },
           {
             "language": "en",
-            "value": "<h3>Collections</h3><p>Browse available documents.</p>"
+            "value": "<h3>Explore</h3><p>Browse spellbooks, manuscripts and enchanted works from the Ministry of Magic libraries.</p>"
           },
           {
             "language": "de",
-            "value": "<h3>Sammlungen</h3><p>Durchsuchen Sie verfuegbare Dokumente.</p>"
+            "value": "<h3>Erkunden</h3><p>Durchst\u00f6bern Sie Zauberb\u00fccher, Manuskripte und verzauberte Werke der Bibliotheken des Zaubereiministeriums.</p>"
           },
           {
             "language": "it",
-            "value": "<h3>Collezioni</h3><p>Sfoglia i documenti disponibili.</p>"
+            "value": "<h3>Esplorare</h3><p>Sfoglia grimori, manoscritti e opere incantate delle biblioteche del Ministero della Magia.</p>"
           }
         ],
         "center": [
           {
             "language": "fr",
-            "value": "<h3>Compte lecteur</h3><p>Connectez-vous pour suivre vos prets.</p>"
+            "value": "<h3>Testez RERO ILS</h3><p>En tant qu'utilisateur anonyme</p><p>En tant que lecteur, connectez-vous avec :<br>reroilstest+harry@gmail.com / Pw123456</p><p>En tant que biblioth\u00e9caire syst\u00e8me :<br>reroilstest+irma@gmail.com / Pw123456</p><h4>Aide</h4><p>Plus de logins test et la documentation sont disponibles sous <a href=\"/help/demo\">page d'aide</a></p>"
           },
           {
             "language": "en",
-            "value": "<h3>Reader account</h3><p>Sign in to follow your loans.</p>"
+            "value": "<h3>Test RERO ILS</h3><p>As an anonymous user</p><p>As a patron, login with:<br>reroilstest+harry@gmail.com / Pw123456</p><p>As a system librarian:<br>reroilstest+irma@gmail.com / Pw123456</p><h4>Help</h4><p>More test logins and documentation are available on the <a href=\"/help/demo\">help page</a></p>"
           },
           {
             "language": "de",
-            "value": "<h3>Leserkonto</h3><p>Melden Sie sich an, um Ihre Ausleihen zu verfolgen.</p>"
+            "value": "<h3>Testen Sie RERO ILS</h3><p>Als anonymer Benutzer</p><p>Melden Sie sich als Benutzer an mit:<br>reroilstest+harry@gmail.com / Pw123456</p><p>Als Systembibliothekar:<br>reroilstest+irma@gmail.com / Pw123456</p><h4>Hilfe</h4><p>Weitere Test-Logins und Dokumentation finden Sie auf der <a href=\"/help/demo\">Hilfe-Seite</a></p>"
           },
           {
             "language": "it",
-            "value": "<h3>Account lettore</h3><p>Accedi per seguire i tuoi prestiti.</p>"
+            "value": "<h3>Testare il progetto</h3><p>Come utente anonimo</p><p>Come utente, accedi con:<br>reroilstest+harry@gmail.com / Pw123456</p><p>Come bibliotecario di sistema:<br>reroilstest+irma@gmail.com / Pw123456</p><h4>Aiuto</h4><p>Ulteriori login di prova e documentazione sono disponibili su <a href=\"/help/demo\">pagina d'aiuto</a></p>"
           }
         ],
         "right": [
           {
             "language": "fr",
-            "value": "<h3>Informations</h3><p>Retrouvez les horaires et les contacts.</p>"
+            "value": "<h3>Catalogue collectif</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Catalogue global</a></li></ul>"
           },
           {
             "language": "en",
-            "value": "<h3>Information</h3><p>Find opening hours and contacts.</p>"
+            "value": "<h3>Union catalogue</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Global catalog</a></li></ul>"
           },
           {
             "language": "de",
-            "value": "<h3>Informationen</h3><p>Finden Sie Oeffnungszeiten und Kontakte.</p>"
+            "value": "<h3>Gesamtkatalog</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Globaler Katalog</a></li></ul>"
           },
           {
             "language": "it",
-            "value": "<h3>Informazioni</h3><p>Trova orari e contatti.</p>"
+            "value": "<h3>Catalogo collectivo</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Catalogo globale</a></li></ul>"
           }
         ]
       }
@@ -222,7 +222,7 @@
       "slogan": [
         {
           "language": "fr",
-          "value": "Bienvenue dans le reseau des bibliotheques fictives"
+          "value": "Bienvenue dans le r\u00e9seau des biblioth\u00e8ques fictives"
         },
         {
           "language": "en",
@@ -240,7 +240,7 @@
       "placeholder": [
         {
           "language": "fr",
-          "value": "Rechercher dans les bibliotheques fictives"
+          "value": "Rechercher dans les biblioth\u00e8ques fictives"
         },
         {
           "language": "en",
@@ -259,55 +259,55 @@
         "left": [
           {
             "language": "fr",
-            "value": "<h3>Nouveautes</h3><p>Decouvrez les derniers documents ajoutes.</p>"
+            "value": "<h3>Nouveaut\u00e9s</h3><p>D\u00e9couvrez les derniers documents ajout\u00e9s aux collections du r\u00e9seau.</p>"
           },
           {
             "language": "en",
-            "value": "<h3>New items</h3><p>Discover recently added documents.</p>"
+            "value": "<h3>New items</h3><p>Discover the latest documents added to the network collections.</p>"
           },
           {
             "language": "de",
-            "value": "<h3>Neuheiten</h3><p>Entdecken Sie neu hinzugefuegte Dokumente.</p>"
+            "value": "<h3>Neuheiten</h3><p>Entdecken Sie die neuesten Dokumente in den Sammlungen des Netzwerks.</p>"
           },
           {
             "language": "it",
-            "value": "<h3>Novita</h3><p>Scopri i documenti aggiunti di recente.</p>"
+            "value": "<h3>Novit\u00e0</h3><p>Scopri gli ultimi documenti aggiunti alle collezioni della rete.</p>"
           }
         ],
         "center": [
           {
             "language": "fr",
-            "value": "<h3>Recherche</h3><p>Trouvez facilement livres, articles et ressources.</p>"
+            "value": "<h3>Testez RERO ILS</h3><p>En tant qu'utilisateur anonyme</p><p>En tant que lecteur, connectez-vous avec :<br>reroilstest+920001@gmail.com / Pw123456</p><p>En tant que biblioth\u00e9caire syst\u00e8me :<br>reroilstest+imagination@gmail.com / Pw123456</p><h4>Aide</h4><p>Plus de logins test et la documentation sont disponibles sous <a href=\"/help/demo\">page d'aide</a></p>"
           },
           {
             "language": "en",
-            "value": "<h3>Search</h3><p>Find books, articles and resources easily.</p>"
+            "value": "<h3>Test RERO ILS</h3><p>As an anonymous user</p><p>As a patron, login with:<br>reroilstest+920001@gmail.com / Pw123456</p><p>As a system librarian:<br>reroilstest+imagination@gmail.com / Pw123456</p><h4>Help</h4><p>More test logins and documentation are available on the <a href=\"/help/demo\">help page</a></p>"
           },
           {
             "language": "de",
-            "value": "<h3>Suche</h3><p>Finden Sie Buecher, Artikel und Ressourcen einfach.</p>"
+            "value": "<h3>Testen Sie RERO ILS</h3><p>Als anonymer Benutzer</p><p>Melden Sie sich als Benutzer an mit:<br>reroilstest+920001@gmail.com / Pw123456</p><p>Als Systembibliothekar:<br>reroilstest+imagination@gmail.com / Pw123456</p><h4>Hilfe</h4><p>Weitere Test-Logins und Dokumentation finden Sie auf der <a href=\"/help/demo\">Hilfe-Seite</a></p>"
           },
           {
             "language": "it",
-            "value": "<h3>Ricerca</h3><p>Trova facilmente libri, articoli e risorse.</p>"
+            "value": "<h3>Testare il progetto</h3><p>Come utente anonimo</p><p>Come utente, accedi con:<br>reroilstest+920001@gmail.com / Pw123456</p><p>Come bibliotecario di sistema:<br>reroilstest+imagination@gmail.com / Pw123456</p><h4>Aiuto</h4><p>Ulteriori login di prova e documentazione sono disponibili su <a href=\"/help/demo\">pagina d'aiuto</a></p>"
           }
         ],
         "right": [
           {
             "language": "fr",
-            "value": "<h3>Besoin d'aide</h3><p>L'equipe de la bibliotheque vous accompagne.</p>"
+            "value": "<h3>Catalogue collectif</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Catalogue global</a></li></ul>"
           },
           {
             "language": "en",
-            "value": "<h3>Need help</h3><p>The library team is here to help.</p>"
+            "value": "<h3>Union catalogue</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Global catalog</a></li></ul>"
           },
           {
             "language": "de",
-            "value": "<h3>Hilfe benoetigt</h3><p>Das Bibliotheksteam hilft Ihnen gerne.</p>"
+            "value": "<h3>Gesamtkatalog</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Globaler Katalog</a></li></ul>"
           },
           {
             "language": "it",
-            "value": "<h3>Hai bisogno di aiuto</h3><p>Il team della biblioteca e qui per aiutarti.</p>"
+            "value": "<h3>Catalogo collectivo</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Catalogo globale</a></li></ul>"
           }
         ]
       }
@@ -362,55 +362,55 @@
         "left": [
           {
             "language": "fr",
-            "value": "<h3>Tests</h3><p>Contenu utilise pour verifier l'interface.</p>"
+            "value": "<h3>Tests</h3><p>Contenu utilis\u00e9 pour v\u00e9rifier l'interface utilisateur lors des tests automatis\u00e9s.</p>"
           },
           {
             "language": "en",
-            "value": "<h3>Tests</h3><p>Content used to check the interface.</p>"
+            "value": "<h3>Tests</h3><p>Content used to verify the user interface during automated tests.</p>"
           },
           {
             "language": "de",
-            "value": "<h3>Tests</h3><p>Inhalt zur Pruefung der Oberflaeche.</p>"
+            "value": "<h3>Tests</h3><p>Inhalt zur \u00dcberpr\u00fcfung der Benutzeroberfl\u00e4che bei automatisierten Tests.</p>"
           },
           {
             "language": "it",
-            "value": "<h3>Test</h3><p>Contenuto usato per verificare l'interfaccia.</p>"
+            "value": "<h3>Test</h3><p>Contenuto usato per verificare l'interfaccia utente durante i test automatici.</p>"
           }
         ],
         "center": [
           {
             "language": "fr",
-            "value": "<h3>Parcours</h3><p>Utilisez ce catalogue pour les scenarios de test.</p>"
+            "value": "<h3>Testez RERO ILS</h3><p>En tant qu'utilisateur anonyme</p><p>En tant que lecteur, connectez-vous avec :<br>reroilstest+james@gmail.com / Pw123456</p><p>En tant que biblioth\u00e9caire syst\u00e8me :<br>reroilstest+leonard@gmail.com / Pw123456</p><h4>Aide</h4><p>Plus de logins test et la documentation sont disponibles sous <a href=\"/help/demo\">page d'aide</a></p>"
           },
           {
             "language": "en",
-            "value": "<h3>Flows</h3><p>Use this catalogue for test scenarios.</p>"
+            "value": "<h3>Test RERO ILS</h3><p>As an anonymous user</p><p>As a patron, login with:<br>reroilstest+james@gmail.com / Pw123456</p><p>As a system librarian:<br>reroilstest+leonard@gmail.com / Pw123456</p><h4>Help</h4><p>More test logins and documentation are available on the <a href=\"/help/demo\">help page</a></p>"
           },
           {
             "language": "de",
-            "value": "<h3>Ablaufe</h3><p>Nutzen Sie diesen Katalog fuer Testszenarien.</p>"
+            "value": "<h3>Testen Sie RERO ILS</h3><p>Als anonymer Benutzer</p><p>Melden Sie sich als Benutzer an mit:<br>reroilstest+james@gmail.com / Pw123456</p><p>Als Systembibliothekar:<br>reroilstest+leonard@gmail.com / Pw123456</p><h4>Hilfe</h4><p>Weitere Test-Logins und Dokumentation finden Sie auf der <a href=\"/help/demo\">Hilfe-Seite</a></p>"
           },
           {
             "language": "it",
-            "value": "<h3>Percorsi</h3><p>Usa questo catalogo per gli scenari di test.</p>"
+            "value": "<h3>Testare il progetto</h3><p>Come utente anonimo</p><p>Come utente, accedi con:<br>reroilstest+james@gmail.com / Pw123456</p><p>Come bibliotecario di sistema:<br>reroilstest+leonard@gmail.com / Pw123456</p><h4>Aiuto</h4><p>Ulteriori login di prova e documentazione sono disponibili su <a href=\"/help/demo\">pagina d'aiuto</a></p>"
           }
         ],
         "right": [
           {
             "language": "fr",
-            "value": "<h3>Support</h3><p>Les donnees peuvent etre adaptees aux besoins de test.</p>"
+            "value": "<h3>Catalogue collectif</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Catalogue global</a></li></ul>"
           },
           {
             "language": "en",
-            "value": "<h3>Support</h3><p>The data can be adapted for testing needs.</p>"
+            "value": "<h3>Union catalogue</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Global catalog</a></li></ul>"
           },
           {
             "language": "de",
-            "value": "<h3>Support</h3><p>Die Daten koennen fuer Tests angepasst werden.</p>"
+            "value": "<h3>Gesamtkatalog</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Globaler Katalog</a></li></ul>"
           },
           {
             "language": "it",
-            "value": "<h3>Supporto</h3><p>I dati possono essere adattati alle esigenze di test.</p>"
+            "value": "<h3>Catalogo collectivo</h3><ul class=\"list-unstyled\"><li><a href=\"/global\">Catalogo globale</a></li></ul>"
           }
         ]
       }

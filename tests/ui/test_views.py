@@ -49,18 +49,34 @@ def test_schemaform(client):
     assert result.status_code == 404
 
 
-def test_organisation_link_on_homepage(client):
-    """Test Organisation link on homepage."""
+def test_homepage_global_view(client):
+    """The global view falls back to the general (hardcoded) homepage."""
     result = client.get(url_for("rero_ils.index"))
     assert result.status_code == 200
-    assert str(result.data).find("RERO+ catalogue") > -1
+    # general slogan and block are rendered from the config templates
+    assert "Get into your library" in result.text
+    assert "RERO+ catalogue" in result.text
 
 
-def test_global_link_on_institution_homepage(client, org_martigny):
-    """Test global link on institution homepage."""
+def test_homepage_organisation_with_data(client, org_sion):
+    """An organisation view renders its own homepage from the database."""
+    result = client.get(url_for("rero_ils.index_with_view_code", viewcode="org2"))
+    assert result.status_code == 200
+    assert "Welcome to the Sion libraries" in result.text
+    assert "Search the Sion libraries" in result.text
+    assert "Global catalogue" in result.text
+    # the general homepage must not leak into a personalized view
+    assert "Get into your library" not in result.text
+    assert "RERO+ catalogue" not in result.text
+
+
+def test_homepage_organisation_without_data(client, org_martigny):
+    """An organisation view without homepage data shows no fallback."""
     result = client.get(url_for("rero_ils.index_with_view_code", viewcode="org1"))
     assert result.status_code == 200
-    assert str(result.data).find("Global") > -1
+    # organisation views never fall back to the general homepage
+    assert "Get into your library" not in result.text
+    assert "RERO+ catalogue" not in result.text
 
 
 def test_view_parameter_exists(client):
