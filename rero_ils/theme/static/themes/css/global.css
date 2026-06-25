@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: Fondation RERO+
-// SPDX-License-Identifier: AGPL-3.0-or-later
+/* SPDX-FileCopyrightText: Fondation RERO+ */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
 
 @layer bootstrap {
   body#view-global nav.rero-ils-header {
@@ -11,7 +11,7 @@
   }
   
   div#global-logo {
-    content: url('https://resources.rero.ch/bib/test/images/logo-global.svg');
+    content: url('/static/themes/images/logo-global.svg');
     min-height: 44px;
     max-height: 44px;
     min-width: 58px;
