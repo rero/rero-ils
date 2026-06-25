@@ -349,6 +349,7 @@
                               "created_year",
                               "document_type",
                               "document_subtype",
+                              "item_type",
                               "owning_library",
                               "owning_location",
                               "type"
@@ -375,6 +376,10 @@
                                   {
                                     "value": "document_subtype",
                                     "label": "document_subtype"
+                                  },
+                                  {
+                                    "value": "item_type",
+                                    "label": "item_type"
                                   },
                                   {
                                     "value": "owning_library",

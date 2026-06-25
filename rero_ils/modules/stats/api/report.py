@@ -8,6 +8,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
+from rero_ils.modules.item_types.api import ItemTypesSearch
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.patron_types.api import PatronTypesSearch
@@ -59,6 +60,10 @@ class StatsReport:
         self.patron_types = {
             hit.pid: hit.name
             for hit in PatronTypesSearch().by_organisation_pid(self.org_pid).source(["pid", "name"]).scan()
+        }
+        self.item_types = {
+            hit.pid: hit.name
+            for hit in ItemTypesSearch().by_organisation_pid(self.org_pid).source(["pid", "name"]).scan()
         }
 
         self.loc_pids = list(self.locations.keys())

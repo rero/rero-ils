@@ -85,6 +85,7 @@ def test_valid_circulation_n_items(stats_cfg_schema):
         "document_type",
         "document_subtype",
         "type",
+        "item_type",
     ]:
         data["category"]["indicator"]["distributions"] = [dist]
         validate(data, stats_cfg_schema)
@@ -113,6 +114,7 @@ def test_valid_circulation_n_patrons(stats_cfg_schema):
         "created_month",
         "created_year",
         "postal_code",
+        "local_codes",
         "type",
         "gender",
         "birth_year",
@@ -147,6 +149,7 @@ def test_valid_circulation_n_active_patrons(stats_cfg_schema):
             "created_month",
             "created_year",
             "postal_code",
+            "local_codes",
             "type",
             "gender",
             "birth_year",
@@ -242,6 +245,7 @@ def test_valid_circulation_n_circulations(stats_cfg_schema):
                 "patron_type",
                 "patron_age",
                 "patron_postal_code",
+                "patron_local_codes",
                 "document_type",
                 "transaction_channel",
                 "owning_library",
@@ -281,6 +285,7 @@ def test_valid_circulation_n_requests(stats_cfg_schema):
                 "patron_type",
                 "patron_age",
                 "patron_postal_code",
+                "patron_local_codes",
                 "document_type",
                 "transaction_channel",
                 "owning_library",
