@@ -33,7 +33,7 @@
     <div class="rero-search-bar">
       <div class="container">
         <main-search-bar
-          placeholder="{{ (_('What are you looking for?') if not view_organisation else placeholder) }}"
+          placeholder="{{ (_('What are you looking for?') if not view_organisation else placeholder if placeholder) }}"
           viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
           inputstyleclass="ui:md:text-xl ui:w-full"
           styleclass="ui:w-full"
