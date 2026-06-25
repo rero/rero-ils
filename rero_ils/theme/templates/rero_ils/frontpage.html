@@ -27,8 +27,6 @@
       </div>
     {% elif not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
       {%- include config.RERO_ILS_HOMEPAGE_GENERAL_SLOGAN %}
-    {% else %}
-      {%- include "rero_ils/_frontpage_slogan_" + viewcode + ".html" %}
     {% endif %}
 
     <!-- Search bar -->
@@ -44,6 +42,7 @@
     </div>
   </header>
   {% if viewcode == 'bulle' %}
+  <!-- Display a copyright notice for the Bulle banner image -->
   <div class="w-100 text-right">
     <small class="mr-1 text-secondary">© Vincent Levrat</small>
   </div>
@@ -72,8 +71,6 @@
         </section>
       {% elif not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
         {%- include config.RERO_ILS_HOMEPAGE_GENERAL_BLOCK %}
-      {% else %}
-        {%- include "rero_ils/_frontpage_block_" + viewcode + ".html" %}
       {% endif %}
     </article>
   </div>
