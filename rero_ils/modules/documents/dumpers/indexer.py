@@ -225,7 +225,7 @@ class IndexerDumper(Dumper):
                     continue
                 if metadata.get("type") == "fulltext":
                     # get the fulltext
-                    full_text = file.get_stream("r").read()
+                    full_text = file.get_stream("rb").read().decode("utf-8")
                     full_text_size += len(full_text)
                     if full_text_size < full_text_size_max:
                         record_files_information.setdefault(metadata["fulltext_for"], {})["text"] = full_text
