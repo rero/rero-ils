@@ -52,3 +52,4 @@ jobs:
       uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2.3.7
       with:
         format: cobertura
+        fail-on-error: false

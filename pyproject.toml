@@ -68,9 +68,9 @@ dependencies = [
     "sentry-sdk",
     "dojson>=1.4.0",
     ## RERO specific python modules
-    "rero-invenio-base>=0.3.0",
+    "rero-invenio-base>=1.1.1",
     "rero-invenio-files>=1.0.0",
-    "rero-invenio-thumbnails>=1.0.0",
+    "rero-invenio-thumbnails>=2.0.0",
     "flask-wiki>=1.0.0",
     ## RERO ILS specific python modules
     "PyYAML>=5.3.1",
@@ -89,6 +89,7 @@ dependencies = [
     "dcxml>=0.1.2",
     "DeepDiff>=5.5.0",
     "jsonresolver",
+    "click>=8.3.3",
     # needed for elasticsearch 7.13.4
     "urllib3<2.0.0",
     "dnspython>=2.4.2",
