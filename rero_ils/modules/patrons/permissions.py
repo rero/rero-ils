@@ -48,14 +48,26 @@ class AllowedByActionRestrictStaffByManageableLibrary(AllowedByActionRestrictByO
         if not isinstance(record, Patron):
             record = Patron(record)
 
-        record_roles = record.get("roles", [])
+        record_roles = set(record.get("roles", []))
+        professional_roles = set(UserRole.PROFESSIONAL_ROLES)
+
+        # If the updated user is not a staff member, use the standard organisation
+        # and action permission checks.
+        if not professional_roles.intersection(record_roles):
+            return super().needs(record, *args, **kwargs)
+
         # If updated user is a staff member, only user related to the same
         # library (so only staff members because simple patron are not
         # related to any library) can perform operation on this user.
-        if set(UserRole.PROFESSIONAL_ROLES).intersection(record_roles):
-            required_needs = [LibraryNeed(pid) for pid in record.library_pids]
-            if not g.identity.provides.intersection(required_needs):
-                return []
+        library_pids = record.library_pids or []
+        if not library_pids:
+            # Missing libraries is a validation error, not a permission error.
+            return AllowedByAction.needs(self, record, *args, **kwargs)
+
+        required_needs = [LibraryNeed(pid) for pid in library_pids]
+        if not g.identity.provides.intersection(required_needs):
+            return []
+
         return super().needs(record, *args, **kwargs)
 
 
