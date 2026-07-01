@@ -14,6 +14,7 @@ from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
 
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -303,6 +304,7 @@ class Document(IlsRecord):
         )
         file_query = self.get_records_files_query().source()
 
+        # Order lines block a document deletion only if their status is open AND the linked budget is active.
         acq_order_lines_query = (
             AcqOrderLinesSearch()
             .filter("term", document__pid=self.pid)
@@ -311,6 +313,21 @@ class Document(IlsRecord):
                 status=[AcqOrderLineStatus.APPROVED, AcqOrderLineStatus.ORDERED, AcqOrderLineStatus.PARTIALLY_RECEIVED],
             )
         )
+        # keep only order lines whose related budget is still active
+        account_pids = {hit.acq_account.pid for hit in acq_order_lines_query.source(["acq_account"]).scan()}
+        active_account_pids = (
+            [
+                hit.pid
+                for hit in AcqAccountsSearch()
+                .filter("terms", pid=list(account_pids))
+                .filter("term", is_active=True)
+                .source(["pid"])
+                .scan()
+            ]
+            if account_pids
+            else []
+        )
+        acq_order_lines_query = acq_order_lines_query.filter("terms", acq_account__pid=active_account_pids)
         local_fields_query = LocalFieldsSearch().get_local_fields(self.provider.pid_type, self.pid)
 
         relation_types = {

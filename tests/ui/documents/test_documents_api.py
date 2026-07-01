@@ -10,6 +10,8 @@ import pytest
 from invenio_db import db
 from jsonschema.exceptions import ValidationError
 
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
+from rero_ils.modules.acquisition.budgets.api import Budget
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.documents.api import (
     Document,
@@ -219,6 +221,40 @@ def test_document_can_delete_with_loans(client, item_lib_martigny, loan_pending_
     assert not can
     assert reasons["links"]["items"]
     assert reasons["links"]["loans"]
+
+
+def test_document_can_delete_with_rolled_over_order_line(
+    document,
+    acq_order_line_fiction_martigny,
+    acq_account_fiction_martigny,
+    budget_2020_martigny,
+):
+    """Test an inactive budget order line does not block document deletion."""
+    # while the budget is active, the open order line blocks the deletion
+    assert budget_2020_martigny.is_active
+    can, reasons = document.can_delete
+    assert not can
+    assert reasons["links"]["acq_order_lines"]
+
+    # simulate a rollover: deactivate the budget. The order line keeps its
+    # open status but must no longer be a reason to keep the document.
+    budget = Budget.get_record_by_pid(budget_2020_martigny.pid)
+    budget_data = deepcopy(budget)
+    try:
+        budget_data["is_active"] = False
+        budget.update(budget_data, dbcommit=True, reindex=True)
+        acq_account_fiction_martigny.reindex()
+        AcqAccountsSearch.flush_and_refresh()
+
+        assert "acq_order_lines" not in document.get_links_to_me()
+        assert "acq_order_lines" not in document.get_links_to_me(get_pids=True)
+    finally:
+        # restore the budget active state for the following tests
+        budget_data["is_active"] = True
+        budget.update(budget_data, dbcommit=True, reindex=True)
+        acq_account_fiction_martigny.reindex()
+        AcqAccountsSearch.flush_and_refresh()
+    assert document.get_links_to_me()["acq_order_lines"] == reasons["links"]["acq_order_lines"]
 
 
 def test_document_contribution_resolve_exception(search_clear, db, mef_agents_url, document_data_ref):
