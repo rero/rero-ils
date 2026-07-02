@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RERO_ILS VERSION\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2026-06-23 13:57+0200\n"
+"POT-Creation-Date: 2026-07-02 12:17+0200\n"
 "PO-Revision-Date: 2026-04-08 08:09+0000\n"
 "Last-Translator: Галина Нежурбіда <nezhga29@gmail.com>\n"
 "Language: uk\n"
@@ -29,42 +29,42 @@ msgstr "Ці два паролі не однакові."
 msgid "INVALID_USER_OR_PASSWORD"
 msgstr "НЕДІЙСНИЙ_КОРИСТУВАЧ_АБО_ПАРОЛЬ"
 
-#: rero_ils/config.py:202
+#: rero_ils/config.py:201
 #, fuzzy
 msgid "French"
 msgstr "Французька"
 
-#: rero_ils/config.py:203
+#: rero_ils/config.py:202
 #, fuzzy
 msgid "German"
 msgstr "Німецька"
 
-#: rero_ils/config.py:204
+#: rero_ils/config.py:203
 #, fuzzy
 msgid "Italian"
 msgstr "Італійська"
 
-#: rero_ils/config.py:245 rero_ils/config.py:249
+#: rero_ils/config.py:244 rero_ils/config.py:248
 #, fuzzy
 msgid "rero-ils"
 msgstr "RERO ILS"
 
-#: rero_ils/config.py:290
+#: rero_ils/config.py:289
 #, fuzzy
 msgid "Welcome"
 msgstr "Ласкаво просимо"
 
-#: rero_ils/config.py:292
+#: rero_ils/config.py:291
 #, fuzzy
 msgid "RERO ID password reset"
 msgstr "Скидання пароля RERO ID"
 
-#: rero_ils/config.py:293
+#: rero_ils/config.py:292
 #, fuzzy
 msgid "Your RERO ID password has been reset"
 msgstr "Ваш пароль RERO ID скинуто"
 
-#: rero_ils/config.py:319
+#: rero_ils/config.py:318
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:128
 #, fuzzy
 msgid ""
@@ -76,329 +76,330 @@ msgstr ""
 "щонайменше з трьох символів і містити лише літери, цифри, дефіси або "
 "символи підкреслення."
 
-#: rero_ils/config.py:2002
+#: rero_ils/config.py:2001
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:17
 #, fuzzy
 msgid "Global catalog"
 msgstr "Глобальний каталог"
 
-#: rero_ils/config.py:2189
+#: rero_ils/config.py:2188
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:86
 #, fuzzy
 msgid "online"
 msgstr "онлайн"
 
-#: rero_ils/config.py:2196
+#: rero_ils/config.py:2195
 #, fuzzy
 msgid "not_online"
 msgstr "not_online"
 
-#: rero_ils/config.py:2199
+#: rero_ils/config.py:2198
 #, fuzzy
 msgid "author"
 msgstr "автор"
 
-#: rero_ils/config.py:2200 rero_ils/config.py:2617
+#: rero_ils/config.py:2199 rero_ils/config.py:2616
 #, fuzzy
 msgid "subject"
 msgstr "предмет"
 
-#: rero_ils/config.py:2202
+#: rero_ils/config.py:2201
 #, fuzzy
 msgid "acquisition"
 msgstr "комплектування"
 
-#: rero_ils/config.py:2205
+#: rero_ils/config.py:2204
 msgid "new_acquisition"
 msgstr ""
 
-#: rero_ils/config.py:2206
+#: rero_ils/config.py:2205
 #, fuzzy
 msgid "identifiers"
 msgstr "ідентифікатори"
 
-#: rero_ils/config.py:2209 rero_ils/config.py:2210 rero_ils/config.py:2286
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:373
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:949
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1025
+#: rero_ils/config.py:2208 rero_ils/config.py:2209 rero_ils/config.py:2285
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:374
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:954
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1030
 #, fuzzy
 msgid "document_type"
 msgstr "тип_документа"
 
-#: rero_ils/config.py:2211 rero_ils/config.py:2287
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:377
+#: rero_ils/config.py:2210 rero_ils/config.py:2286
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:378
 #, fuzzy
 msgid "document_subtype"
 msgstr "підтип_документа"
 
-#: rero_ils/config.py:2213
+#: rero_ils/config.py:2212
 #, fuzzy
 msgid "language"
 msgstr "мова"
 
-#: rero_ils/config.py:2214 rero_ils/config.py:2215
+#: rero_ils/config.py:2213 rero_ils/config.py:2214
 msgid "organisation"
 msgstr "організація"
 
-#: rero_ils/config.py:2216 rero_ils/config.py:2288 rero_ils/config.py:2451
-#: rero_ils/config.py:2488 rero_ils/config.py:2616 rero_ils/config.py:2660
-#: rero_ils/config.py:2766
+#: rero_ils/config.py:2215 rero_ils/config.py:2287 rero_ils/config.py:2450
+#: rero_ils/config.py:2487 rero_ils/config.py:2615 rero_ils/config.py:2659
+#: rero_ils/config.py:2765
 #, fuzzy
 msgid "library"
 msgstr "бібліотека"
 
-#: rero_ils/config.py:2217 rero_ils/config.py:2289
+#: rero_ils/config.py:2216 rero_ils/config.py:2288
 #, fuzzy
 msgid "location"
 msgstr "місце знаходження"
 
-#: rero_ils/config.py:2219 rero_ils/config.py:2293 rero_ils/config.py:2375
-#: rero_ils/config.py:2502 rero_ils/modules/migrations/views.py:74
+#: rero_ils/config.py:2218 rero_ils/config.py:2292 rero_ils/config.py:2374
+#: rero_ils/config.py:2501 rero_ils/modules/migrations/views.py:74
 #, fuzzy
 msgid "status"
 msgstr "статус"
 
-#: rero_ils/config.py:2220
+#: rero_ils/config.py:2219
 #, fuzzy
 msgid "genreForm"
 msgstr "genreForm"
 
-#: rero_ils/config.py:2221
+#: rero_ils/config.py:2220
 #, fuzzy
 msgid "intendedAudience"
 msgstr "цільоваАудиторія"
 
-#: rero_ils/config.py:2222
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:875
+#: rero_ils/config.py:2221
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:880
 #, fuzzy
 msgid "year"
 msgstr "рік"
 
-#: rero_ils/config.py:2223
+#: rero_ils/config.py:2222
 #, fuzzy
 msgid "fiction_statement"
 msgstr "fiction_statement"
 
-#: rero_ils/config.py:2290
+#: rero_ils/config.py:2289
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:382
 #, fuzzy
 msgid "item_type"
 msgstr "item_type"
 
-#: rero_ils/config.py:2291
+#: rero_ils/config.py:2290
 #, fuzzy
 msgid "temporary_item_type"
 msgstr "temporary_item_type"
 
-#: rero_ils/config.py:2292
+#: rero_ils/config.py:2291
 #, fuzzy
 msgid "temporary_location"
 msgstr "тимчасове_місцезнаходження"
 
-#: rero_ils/config.py:2294 rero_ils/config.py:2489
+#: rero_ils/config.py:2293 rero_ils/config.py:2488
 #, fuzzy
 msgid "vendor"
 msgstr "постачальник"
 
-#: rero_ils/config.py:2295
+#: rero_ils/config.py:2294
 #, fuzzy
 msgid "or_issue_status"
 msgstr "or_issue_status"
 
-#: rero_ils/config.py:2298
+#: rero_ils/config.py:2297
 #, fuzzy
 msgid "claims_count"
 msgstr "claims_count"
 
-#: rero_ils/config.py:2299
+#: rero_ils/config.py:2298
 #, fuzzy
 msgid "claims_date"
 msgstr "дата_претензій"
 
-#: rero_ils/config.py:2303
+#: rero_ils/config.py:2302
 msgid "current_requests"
 msgstr "поточні_запити"
 
-#: rero_ils/config.py:2369
+#: rero_ils/config.py:2368
 #, fuzzy
 msgid "owner_library"
 msgstr "owner_library"
 
-#: rero_ils/config.py:2370
+#: rero_ils/config.py:2369
 #, fuzzy
 msgid "owner_location"
 msgstr "owner_location"
 
-#: rero_ils/config.py:2371
+#: rero_ils/config.py:2370
 #, fuzzy
 msgid "pickup_library"
 msgstr "пункт_видачі"
 
-#: rero_ils/config.py:2372
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:564
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1033
+#: rero_ils/config.py:2371
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:569
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1038
 msgid "pickup_location"
 msgstr "місце_отримання"
 
-#: rero_ils/config.py:2373
+#: rero_ils/config.py:2372
 #, fuzzy
 msgid "transaction_library"
 msgstr "transaction_library"
 
-#: rero_ils/config.py:2374
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:929
+#: rero_ils/config.py:2373
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:934
 #, fuzzy
 msgid "transaction_location"
 msgstr "transaction_location"
 
-#: rero_ils/config.py:2376
+#: rero_ils/config.py:2375
 #, fuzzy
 msgid "misc_status"
 msgstr "стан_виконання"
 
-#: rero_ils/config.py:2377 rero_ils/config.py:2425
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:933
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1009
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1082
+#: rero_ils/config.py:2376 rero_ils/config.py:2424
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:938
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1014
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1087
 #, fuzzy
 msgid "patron_type"
 msgstr "категорія_читачів"
 
-#: rero_ils/config.py:2378
+#: rero_ils/config.py:2377
 msgid "request_expire_date"
 msgstr "термін дії запиту/Дата замовлення/кінцева дата бронювання"
 
-#: rero_ils/config.py:2382
+#: rero_ils/config.py:2381
 msgid "end_date"
 msgstr "кінцева_дата"
 
-#: rero_ils/config.py:2386
+#: rero_ils/config.py:2385
 #, fuzzy
 msgid "exclude_status"
 msgstr "статус_виключення"
 
-#: rero_ils/config.py:2423
+#: rero_ils/config.py:2422
 msgid "roles"
 msgstr "ролі/функції"
 
-#: rero_ils/config.py:2424
+#: rero_ils/config.py:2423
 msgid "city"
 msgstr "місто"
 
-#: rero_ils/config.py:2426
+#: rero_ils/config.py:2425
 #, fuzzy
 msgid "blocked"
 msgstr "заблоковано"
 
-#: rero_ils/config.py:2427
+#: rero_ils/config.py:2426
 #, fuzzy
 msgid "expired"
 msgstr "закінчився"
 
-#: rero_ils/config.py:2428
+#: rero_ils/config.py:2427
 msgid "not_expired"
 msgstr "термін дії не закінчився"
 
-#: rero_ils/config.py:2452 rero_ils/config.py:2491
+#: rero_ils/config.py:2451 rero_ils/config.py:2490
 msgid "budget"
 msgstr "бюджет"
 
-#: rero_ils/config.py:2490
+#: rero_ils/config.py:2489
 #, fuzzy
 msgid "account"
 msgstr "обліковий запис"
 
-#: rero_ils/config.py:2492
+#: rero_ils/config.py:2491
 msgid "order_date"
 msgstr "дата_замовлення"
 
-#: rero_ils/config.py:2496
+#: rero_ils/config.py:2495
 #, fuzzy
 msgid "receipt_date"
 msgstr "дата _отримання"
 
-#: rero_ils/config.py:2516
+#: rero_ils/config.py:2515
 msgid "resource_type"
 msgstr "тип_ресурсів"
 
-#: rero_ils/config.py:2517 rero_ils/config.py:2528 rero_ils/config.py:2540
-#: rero_ils/config.py:2567 rero_ils/config.py:2615
+#: rero_ils/config.py:2516 rero_ils/config.py:2527 rero_ils/config.py:2539
+#: rero_ils/config.py:2566 rero_ils/config.py:2614
 msgid "type"
 msgstr "тип"
 
-#: rero_ils/config.py:2518
+#: rero_ils/config.py:2517
 msgid "source_catalog"
 msgstr "source_каталог"
 
-#: rero_ils/config.py:2527 rero_ils/config.py:2539
+#: rero_ils/config.py:2526 rero_ils/config.py:2538
 #, fuzzy
 msgid "sources"
 msgstr "джерела"
 
-#: rero_ils/config.py:2568
+#: rero_ils/config.py:2567
 #, fuzzy
 msgid "visibility"
 msgstr "видимість"
 
-#: rero_ils/config.py:2618
+#: rero_ils/config.py:2617
 msgid "teacher"
 msgstr "вчитель"
 
-#: rero_ils/config.py:2657
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:568
+#: rero_ils/config.py:2656
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:573
 #, fuzzy
 msgid "request_status"
 msgstr "статус_запиту"
 
-#: rero_ils/config.py:2658
+#: rero_ils/config.py:2657
 msgid "loan_status"
 msgstr "статус_виданого_документа/статус_позики"
 
-#: rero_ils/config.py:2659
+#: rero_ils/config.py:2658
 #, fuzzy
 msgid "requester"
 msgstr "запитувач/читач"
 
-#: rero_ils/config.py:2763
+#: rero_ils/config.py:2762
 msgid "category"
 msgstr "категорія"
 
-#: rero_ils/config.py:2764
+#: rero_ils/config.py:2763
 #, fuzzy
 msgid "indicator"
 msgstr "індикатор"
 
-#: rero_ils/config.py:2765
+#: rero_ils/config.py:2764
 #, fuzzy
 msgid "frequency"
 msgstr "періодичність"
 
-#: rero_ils/config.py:2767
+#: rero_ils/config.py:2766
 #, fuzzy
 msgid "active"
 msgstr "дійсний"
 
-#: rero_ils/config.py:3503 rero_ils/manual_translations.txt:69
+#: rero_ils/config.py:3502 rero_ils/manual_translations.txt:69
 #: rero_ils/theme/templates/rero_ils/header.html:89
 #, fuzzy
 msgid "This is a TEST VERSION."
 msgstr "Це ТЕСТОВА ВЕРСІЯ."
 
-#: rero_ils/config.py:3504 rero_ils/manual_translations.txt:70
+#: rero_ils/config.py:3503 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:91
 #, fuzzy
 msgid "Go to the production site."
 msgstr "Перейдіть на сайт продукту."
 
-#: rero_ils/config.py:4231
+#: rero_ils/config.py:4230
 msgid "contains"
 msgstr "містить"
 
-#: rero_ils/config.py:4233
+#: rero_ils/config.py:4232
 #, fuzzy
 msgid "phrase"
 msgstr "фраза"
 
-#: rero_ils/config.py:4239
+#: rero_ils/config.py:4238
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:26
@@ -418,36 +419,36 @@ msgstr "фраза"
 msgid "Title"
 msgstr "Назва"
 
-#: rero_ils/config.py:4245
+#: rero_ils/config.py:4244
 msgid "Responsibility statement"
 msgstr "Застереження/Заява про відповідальність"
 
-#: rero_ils/config.py:4251
+#: rero_ils/config.py:4250
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:8
 msgid "Contribution"
 msgstr "Внесок"
 
-#: rero_ils/config.py:4257 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
+#: rero_ils/config.py:4256 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:354
 msgid "Country"
 msgstr "Країна"
 
-#: rero_ils/config.py:4263
+#: rero_ils/config.py:4262
 #, fuzzy
 msgid "Canton"
 msgstr "Кантон"
 
-#: rero_ils/config.py:4269
+#: rero_ils/config.py:4268
 msgid "Provision activity statement"
 msgstr "Повідомлення про публікацію/Звіт про діяльність з надання послуг"
 
-#: rero_ils/config.py:4275
+#: rero_ils/config.py:4274
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 msgid "Series statement"
 msgstr "Відомості про серію"
 
-#: rero_ils/config.py:4281 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
+#: rero_ils/config.py:4280 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:52
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:43
@@ -456,15 +457,15 @@ msgstr "Відомості про серію"
 msgid "Identifier"
 msgstr "Ідентифікатор"
 
-#: rero_ils/config.py:4287
+#: rero_ils/config.py:4286
 msgid "ISBN"
 msgstr "ISBN"
 
-#: rero_ils/config.py:4293
+#: rero_ils/config.py:4292
 msgid "ISSN"
 msgstr "ISSN"
 
-#: rero_ils/config.py:4299
+#: rero_ils/config.py:4298
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:130
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:14
@@ -473,7 +474,7 @@ msgstr "ISSN"
 msgid "Genre, form"
 msgstr "Жанр, форма"
 
-#: rero_ils/config.py:4305
+#: rero_ils/config.py:4304
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:141
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:15
@@ -481,7 +482,7 @@ msgstr "Жанр, форма"
 msgid "Subject"
 msgstr "Предмет/тема"
 
-#: rero_ils/config.py:4311
+#: rero_ils/config.py:4310
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:78
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:54
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
@@ -491,32 +492,32 @@ msgstr "Предмет/тема"
 msgid "Call number"
 msgstr "Телефон"
 
-#: rero_ils/config.py:4317
+#: rero_ils/config.py:4316
 msgid "Local fields (document)"
 msgstr "Локальні поля (документ)"
 
-#: rero_ils/config.py:4323
+#: rero_ils/config.py:4322
 msgid "Local fields (holdings)"
 msgstr "Локальні поля (фонди)"
 
-#: rero_ils/config.py:4329
+#: rero_ils/config.py:4328
 msgid "Local fields (items)"
 msgstr "Локальні поля (примірники)"
 
-#: rero_ils/config.py:4335
+#: rero_ils/config.py:4334
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 msgid "Classification"
 msgstr "Класифікація"
 
-#: rero_ils/config.py:4341
+#: rero_ils/config.py:4340
 msgid "RDA content type"
 msgstr "Тип вмісту RDA"
 
-#: rero_ils/config.py:4347
+#: rero_ils/config.py:4346
 msgid "RDA media type"
 msgstr "Медіатип RDA"
 
-#: rero_ils/config.py:4353
+#: rero_ils/config.py:4352
 msgid "RDA carrier type"
 msgstr "Тип фізичного носія RDA"
 
@@ -2588,17 +2589,17 @@ msgstr "Валюта"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:189
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:260
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:326
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:413
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:492
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:520
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:592
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:625
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:658
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:691
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:724
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:761
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:789
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:820
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:418
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:497
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:525
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:597
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:630
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:663
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:696
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:729
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:766
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:794
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:825
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:98
 msgid "Type"
 msgstr "Тип"
@@ -4712,7 +4713,7 @@ msgstr ""
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:133
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:15
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:20
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:23
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:16
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:17
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:22
@@ -4755,7 +4756,7 @@ msgstr ""
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:219
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:60
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:419
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:30
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:33
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:33
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:37
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:36
@@ -4929,21 +4930,21 @@ msgstr "URI організації"
 msgid "%"
 msgstr "%"
 
-#: rero_ils/modules/acquisition/acq_order_lines/api.py:77
+#: rero_ils/modules/acquisition/acq_order_lines/api.py:81
 #: rero_ils/modules/acquisition/acq_orders/api.py:88
 #: rero_ils/modules/holdings/api.py:173 rero_ils/modules/ill_requests/api.py:89
 #: rero_ils/modules/items/api/record.py:92
 msgid "Cannot have multiple notes of the same type."
 msgstr "Не можна мати кілька нотаток одного типу."
 
-#: rero_ils/modules/acquisition/acq_order_lines/api.py:83
+#: rero_ils/modules/acquisition/acq_order_lines/api.py:87
 #, fuzzy
 msgid "Cannot save an active order line for a deleted document."
 msgstr "Неможливо зберегти активний рядок замовлення для видаленого документа."
 
-#: rero_ils/modules/acquisition/acq_order_lines/api.py:98
+#: rero_ils/modules/acquisition/acq_order_lines/api.py:111
 #, fuzzy
-msgid "Cannot create an order line with an order with a wrong status."
+msgid "Cannot save an order line for an order with a wrong status."
 msgstr ""
 "Неможливо створити рядок замовлення якщо замовлення із неправильним "
 "статусом."
@@ -8133,8 +8134,8 @@ msgstr "рівень_розуміння"
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:405
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:490
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:32
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:156
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:218
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:168
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:230
 #, fuzzy
 msgid "value"
 msgstr "значення"
@@ -10694,7 +10695,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: rero_ils/modules/item_types/api.py:63
+#: rero_ils/modules/item_types/api.py:72
 msgid "Another online item type exists in this organisation"
 msgstr ""
 
@@ -11125,7 +11126,7 @@ msgstr ""
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:214
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:41
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:42
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:45
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:61
 msgid "Code"
 msgstr ""
@@ -11139,7 +11140,7 @@ msgid "Name of the library."
 msgstr ""
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:225
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:36
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:39
 msgid "Address"
 msgstr ""
 
@@ -11196,12 +11197,12 @@ msgid "Communication language"
 msgstr ""
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:497
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:59
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:62
 msgid "Online harvested sources"
 msgstr ""
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:498
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:60
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:63
 msgid "Online harvested sources as configured in ebooks server."
 msgstr ""
 
@@ -11888,157 +11889,157 @@ msgid ""
 "etc."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:26
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:29
 msgid "Organisation ID"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:31
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:34
 msgid "Name of the organisation."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:37
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:40
 msgid "Address of the organisation."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:43
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:46
 msgid "Code of the organisation."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:48
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:51
 msgid "Current ID of the budget"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:49
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:52
 msgid "The ID of the current budget of the organisation"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:53
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:56
 msgid "Default currency"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:54
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:57
 msgid "The default currency of the organisation"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:70
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:73
 msgid "Collection enabled on public view"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:75
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:78
 msgid "Patron cleanup configuration"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:76
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:79
 msgid ""
 "Configuration for the automatic deletion of inactive patron profiles. "
 "Delete the field if you never want the patrons to be deleted "
 "automatically."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:90
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:93
 msgid "Expiration threshold (years)"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:91
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:94
 msgid ""
 "Only delete patrons whose expiration_date is older than this many years "
 "ago."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:96
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:99
 msgid "Inactivity threshold (years)"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:97
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:100
 msgid ""
 "Only delete patrons whose user last logged in more than this many years "
 "ago."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:102
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:105
 msgid "Excluded patron types"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:103
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:106
 msgid "List of patron type PIDs to exclude from automatic deletion."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:124
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:127
 msgid "Homepage"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:126
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:129
 msgid "Configuration for the public homepage."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:135
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:141
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:147
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:153
 msgid "Slogan"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:137
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:150
 msgid "Text displayed on the public homepage banner."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:189
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:251
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:325
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:388
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:451
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:201
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:263
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:337
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:400
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:463
 msgid "Only one value per language is allowed."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:197
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:203
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:209
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:215
 msgid "Placeholder"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:199
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:212
 msgid "Placeholder text displayed in the public homepage search box."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:259
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:271
 msgid "Blocks"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:261
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:273
 msgid "HTML content displayed in the homepage blocks."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:270
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:276
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:282
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:288
 msgid "Left block"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:272
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:285
 msgid ""
 "HTML content displayed in the left homepage block. Will also be the first"
 " block displayed on mobile."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:291
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:354
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:417
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:303
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:366
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:429
 msgid "HTML"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:333
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:339
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:345
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:351
 msgid "Center block"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:335
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:348
 msgid ""
 "HTML content displayed in the center homepage block. Will also be the "
 "second block displayed on mobile."
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:396
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:402
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:408
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:414
 msgid "Right block"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:398
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:411
 msgid ""
 "HTML content displayed in the right homepage block. Will also be the "
 "third block displayed on mobile."
@@ -12733,8 +12734,8 @@ msgid "Catalog"
 msgstr ""
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:174
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:505
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:774
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:510
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:779
 msgid "Indicator"
 msgstr ""
 
@@ -12745,36 +12746,36 @@ msgstr ""
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:208
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:279
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:345
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:432
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:539
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:889
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:969
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1049
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:437
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:544
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:894
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:974
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1054
 msgid "distributions"
 msgstr ""
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:225
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:295
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:365
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:556
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1070
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:366
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:561
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1075
 msgid "created_month"
 msgstr ""
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:229
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:299
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:369
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:560
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1074
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:370
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:565
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1079
 msgid "created_year"
 msgstr ""
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:233
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:303
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:381
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:457
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:921
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1001
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:386
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:462
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:926
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1006
 msgid "owning_library"
 msgstr ""
 
@@ -12790,144 +12791,144 @@ msgstr ""
 msgid "Number of items"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:385
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:925
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1005
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:390
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:930
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1010
 msgid "owning_location"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:389
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:394
 msgid "type (standard/issue)"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:410
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:415
 msgid "Number of deleted items"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:449
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:454
 msgid "action_month"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:453
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:458
 msgid "action_year"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:461
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:466
 msgid "operator_library"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:489
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:494
 msgid "Circulation"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:517
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:522
 msgid "Number of ill requests"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:589
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:594
 msgid "Number of checkins"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:622
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:627
 msgid "Number of checkouts"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:655
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:660
 msgid "Number of renewals"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:688
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:693
 msgid "Number of requests"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:721
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:726
 msgid "Number of validated requests"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:758
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:763
 msgid "User management"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:786
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:791
 msgid "Number of patrons"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:817
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:822
 msgid "Number of active patrons"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:849
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:854
 msgid "Distributions"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:850
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:855
 msgid ""
 "Up to 2 filters by which to distribute the data in the generated tables. "
 "The first value is the lines; the second value is the columns."
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:858
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:863
 msgid "Period"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:859
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:864
 msgid ""
 "The time range to filter the data relevant to a specific period: latest "
 "month or latest year. Leave empty to not filter the data. Example: "
 "process the number of checkouts performed in the last month."
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:871
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:876
 msgid "month"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:913
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:993
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:918
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:998
 msgid "transaction_month"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:917
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:997
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:922
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1002
 msgid "transaction_year"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:937
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1013
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:942
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1018
 msgid "patron_age"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:941
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1017
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:946
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1022
 msgid "patron_postal_code"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:945
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1021
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:950
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1026
 msgid "patron_local_codes"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:953
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1029
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:958
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1034
 msgid "transaction_channel"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1078
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1083
 msgid "gender"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1086
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1091
 msgid "postal_code"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1090
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1095
 msgid "local_codes"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1094
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1099
 msgid "birth_year"
 msgstr ""
 
-#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1098
+#: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1103
 msgid "role"
 msgstr ""
 
@@ -13198,7 +13199,7 @@ msgstr "Дозволено лише один контакт для кожног�
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa fa-globe\"></i>"
+msgid "<i class=\"fa fa-phone\"></i>"
 msgstr ""
 
 #. Line unknown
@@ -13208,7 +13209,7 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa fa-phone\"></i>"
+msgid "<i class=\"fa fa-globe\"></i>"
 msgstr ""
 
 #: rero_ils/theme/menus.py:38
@@ -13352,7 +13353,7 @@ msgstr "Увійти в систему"
 msgid "or"
 msgstr "або"
 
-#: rero_ils/theme/templates/rero_ils/frontpage.html:38
+#: rero_ils/theme/templates/rero_ils/frontpage.html:36
 #, fuzzy
 msgid "What are you looking for?"
 msgstr "Що Ви шукаєте?"

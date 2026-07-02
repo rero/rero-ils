@@ -66,10 +66,14 @@ class AcqOrderLine(AcquisitionIlsRecord):
     def extended_validation(self, **kwargs):
         """Add additional record validation.
 
-        :return: False if
-            - notes array has multiple notes with same type
-            - an update would leave the line non-cancelled while its document
-              has been deleted
+        :return: ``True`` if valid, otherwise an error message string when:
+            - the notes array has several notes of the same type;
+            - an update leaves the line active (not cancelled) while its
+              document has been deleted;
+            - the related order status forbids the operation: a line may be
+              created only on a PENDING or CANCELLED order, and updated also on
+              an ORDERED or PARTIALLY_RECEIVED one (plus RECEIVED when the
+              update cancels the line).
         """
         # NOTES fields testing
         note_types = [note.get("type") for note in self.get("notes", [])]
@@ -94,8 +98,17 @@ class AcqOrderLine(AcquisitionIlsRecord):
                 AcqOrderStatus.ORDERED,
                 AcqOrderStatus.PARTIALLY_RECEIVED,
             ]
+            # Cancelling a line is always valid, even when it makes the order
+            # fully received (e.g. cancelling its last non-received line). The
+            # REST layer commits and reindexes the record, then re-validates it,
+            # so the order may already report RECEIVED by the time we get here.
+            # The permission (checked once, on the prior status) is the real
+            # gate; a direct cancel on an already-received order is blocked there.
+            # This overlap between validators/permissions will be addressed in a future refactor.
+            if self.get("is_cancelled"):
+                valid_statuses.append(AcqOrderStatus.RECEIVED)
         if order_status not in valid_statuses:
-            return _("Cannot create an order line with an order with a wrong status.")
+            return _("Cannot save an order line for an order with a wrong status.")
         return True
 
     @classmethod
