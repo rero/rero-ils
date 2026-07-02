@@ -278,6 +278,26 @@ class REROILSAPP:
                 ), 409
             return e.get_response()
 
+        # Acquisition item responses can't be safely browser-cached: their ETag/Last-Modified track only the record's
+        # own `revision_id`/`updated`, but the response also depends on *related* records. Serialized fields computed
+        # at dump time (an order's `account_statement`/`status`, a receipt's totals, an account's balances) go stale
+        # without the ETag changing, so a conditional GET returns 304 with an outdated body (e.g. a provisional total
+        # stuck at 0, greying out the "Place order" button). The stale ETag also breaks editing: the editor reuses it
+        # as the `If-Match` precondition on save, so a line loaded from cache fails to save once its revision moved.
+        # Send `Cache-Control: no-store` so the browser always refetches a fresh body and ETag.
+        @app.after_request
+        def prevent_stale_computed_record_cache(response):
+            """Disable browser caching for acquisition records with related data."""
+            if request.endpoint in {
+                "invenio_records_rest.acor_item",  # acquisition orders
+                "invenio_records_rest.acol_item",  # acquisition order lines
+                "invenio_records_rest.acre_item",  # acquisition receipts
+                "invenio_records_rest.acrl_item",  # acquisition receipt lines
+                "invenio_records_rest.acac_item",  # acquisition accounts
+            }:
+                response.headers["Cache-Control"] = "no-store"
+            return response
+
     @staticmethod
     def register_import_api_blueprint(app):
         """Imports blueprints initialization."""
