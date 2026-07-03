@@ -39,7 +39,7 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         cfg = {
             "owning_library": A(
                 "terms",
-                field="holdings.organisation.library_pid",
+                field="library_pid",
                 size=self.cfg.aggs_size,
                 include=self.cfg.lib_pids,
             ),
