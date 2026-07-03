@@ -17,7 +17,7 @@
 
 {%- block body %}
 <header class="row py-2">
-    <a href="javascript:history.back()" class="col-12"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
+    <a href="javascript:history.back()" class="col-12"><i class="fa-solid fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
 <div class="row">
   {%- set icon_name = record | document_main_type(false) %}
@@ -146,7 +146,7 @@
         {% for resource in resources %}
           <li>
             <a target="_blank" href="{{ resource.url }}">
-              <i class="fa fa-link"></i> {{ _(resource.type) }}
+              <i class="fa-solid fa-link"></i> {{ _(resource.type) }}
               {% if resource.content %}
                 : {{ resource.content }}
               {% endif %}
@@ -195,7 +195,7 @@
             {% elif type in ['local', 'remote'] %}
               {% set query = 'subjects.entity.pids.' ~ type ~ ':' ~ value %}
             {% endif %}
-            <i class="fa fa-tag"></i>
+            <i class="fa-solid fa-tag"></i>
             {% if query %}
               <a class="text-white" href="{{ url_for('rero_ils.search', viewcode=viewcode, recordType='documents', q=query, simple=0) }}">{{ label }}</a>
             {% else %}
@@ -219,7 +219,7 @@
             {% set query = 'genreForm.entity.pids.' ~ type ~ ':' ~ value %}
           {% endif %}
           <span class="mr-1">
-            <i class="fa fa-tag"></i>
+            <i class="fa-solid fa-tag"></i>
             {% if query %}
               <a href="{{ url_for('rero_ils.search', viewcode=viewcode, recordType='documents', q=query, simple=0) }}">{{ label }}</a>
             {% else %}
@@ -237,7 +237,7 @@
         class="btn btn-sm btn-outline-primary mt-3"
         href="{{ url_for('rero_ils.search', viewcode=viewcode, recordType='documents', q='partOf.document.pid:' ~ record.pid, simple=0) }}"
       >
-        <i class="fa fa-list" aria-hidden="true"></i>
+        <i class="fa-solid fa-list" aria-hidden="true"></i>
         {{ linked_documents_count }}
         {% if linked_documents_count < 2 %}
         {{ _('article/volume') }}

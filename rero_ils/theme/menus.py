@@ -41,7 +41,7 @@ class UserName:
         # TODO: fix the unclosed span tag
         return f"""
 <span class="btn btn-sm btn-success">
-    <i class="fa fa-user"></i>
+    <i class="fa-solid fa-user"></i>
     <span>{account}</span>
 """
 
@@ -52,7 +52,7 @@ class CurrentLanguage:
     def __html__(self):
         """Jinja call this method during the rendering."""
         ui_language = f"ui_language_{current_i18n.language}"
-        return f'<i class="fa fa-language"></i> {_(ui_language)}'
+        return f'<i class="fa-solid fa-language"></i> {_(ui_language)}'
 
 
 def rero_register(
@@ -97,7 +97,7 @@ def init_menu_tools(app):
     rero_register(
         item,
         endpoint=None,
-        text=TextWithIcon(icon='<i class="fa fa-wrench"></i>', text="Tools"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-wrench"></i>', text="Tools"),
         order=0,
         id="tools-menu",
     )
@@ -111,7 +111,7 @@ def init_menu_tools(app):
         },
         visible_when=lambda: bool(current_patrons),
         text=TextWithIcon(
-            icon='<i class="fa fa-shopping-basket"></i>',
+            icon='<i class="fa-solid fa-basket-shopping"></i>',
             text="Interlibrary loan request",
         ),
         order=10,
@@ -123,7 +123,7 @@ def init_menu_tools(app):
         item,
         endpoint="stats.stats_billing",
         visible_when=lambda: admin_permission.require().can(),
-        text=TextWithIcon(icon='<i class="fa fa-money"></i>', text="Statistics billing"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-money-bill-wave"></i>', text="Statistics billing"),
         order=20,
         id="stats-menu-billing",
     )
@@ -133,7 +133,7 @@ def init_menu_tools(app):
         item,
         endpoint="stats.stats_librarian",
         visible_when=lambda: librarian_permission.require().can(),
-        text=TextWithIcon(icon='<i class="fa fa-bar-chart"></i>', text="Statistics"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-chart-line"></i>', text="Statistics"),
         order=20,
         id="stats-menu-librarian",
     )
@@ -150,7 +150,7 @@ def init_menu_tools(app):
             app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             != request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
         ),
-        text=TextWithIcon(icon='<i class="fa fa-graduation-cap"></i>', text="Exhibition/course"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-graduation-cap"></i>', text="Exhibition/course"),
         order=2,
         id="collections-menu",
     )
@@ -160,7 +160,7 @@ def init_menu_tools(app):
         item,
         endpoint="wiki.page",
         endpoint_arguments_constructor=lambda: {"url": "public"},
-        text=TextWithIcon(icon='<i class="fa fa-info"></i>', text="Help"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-circle-question"></i>', text="Help"),
         order=100,
         id="help-menu",
     )
@@ -190,7 +190,7 @@ def init_menu_lang(app):
             item,
             endpoint="invenio_i18n.set_lang",
             endpoint_arguments_constructor=partial(return_language, language_item.language),
-            text=TextWithIcon(icon='<i class="fa fa-language"></i>', text=ui_language),
+            text=TextWithIcon(icon='<i class="fa-solid fa-language"></i>', text=ui_language),
             visible_when=partial(hide_language, language_item.language),
             order=order,
             id=f"language-menu-{language_item.language}",
@@ -221,7 +221,7 @@ def init_menu_profile(app):
         endpoint="security.login",
         endpoint_arguments_constructor=lambda: {"next": request.full_path},
         visible_when=lambda: not current_user.is_authenticated,
-        text=TextWithIcon(icon='<i class="fa fa-sign-in"></i>', text="Login"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-right-to-bracket"></i>', text="Login"),
         order=1,
         id="login-menu",
     )
@@ -231,7 +231,7 @@ def init_menu_profile(app):
         item,
         endpoint="rero_ils.professional",
         visible_when=lambda: current_librarian,
-        text=TextWithIcon(icon='<i class="fa fa-briefcase"></i>', text="Professional interface"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-briefcase"></i>', text="Professional interface"),
         order=1,
         id="professional-interface-menu",
     )
@@ -245,7 +245,7 @@ def init_menu_profile(app):
             "next": f"/{request.view_args.get('viewcode', app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))}"
         },
         visible_when=lambda: current_user.is_authenticated,
-        text=TextWithIcon(icon='<i class="fa fa-sign-out"></i>', text="Logout"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-right-from-bracket"></i>', text="Logout"),
         order=2,
         id="logout-menu",
     )
@@ -259,7 +259,7 @@ def init_menu_profile(app):
             "viewcode": request.view_args.get("viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
         },
         visible_when=lambda: len(current_patrons) > 0,
-        text=TextWithIcon(icon='<i class="fa fa-book"></i>', text="My Account"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-book-open-reader"></i>', text="My Account"),
         order=1,
         id="profile-menu",
     )
@@ -273,7 +273,7 @@ def init_menu_profile(app):
             "path": "user/edit",
         },
         visible_when=lambda: is_not_read_only(),
-        text=TextWithIcon(icon='<i class="fa fa-user"></i>', text="Edit my profile"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-address-card"></i>', text="Edit my profile"),
         order=1,
         id="profile-menu",
     )
@@ -287,7 +287,7 @@ def init_menu_profile(app):
             "path": "password/edit",
         },
         visible_when=lambda: is_not_read_only(),
-        text=TextWithIcon(icon='<i class="fa fa-lock"></i>', text="Change password"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-lock"></i>', text="Change password"),
         order=1,
         id="profile-menu",
     )
@@ -302,7 +302,7 @@ def init_menu_profile(app):
         visible_when=lambda: (
             not app.config.get("RERO_ILS_PUBLIC_USERPROFILES_READONLY", False) and not current_user.is_authenticated
         ),
-        text=TextWithIcon(icon='<i class="fa fa-user-plus"></i>', text="Sign Up"),
+        text=TextWithIcon(icon='<i class="fa-solid fa-user-plus"></i>', text="Sign Up"),
         order=2,
         id="signup-menu",
     )

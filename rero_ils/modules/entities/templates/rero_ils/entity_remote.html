@@ -14,7 +14,7 @@
 <header class="row">
   <div class="col-10">
     <h1 class="mb-0">
-      <i class="fa {{ record['type'] | entity_icon }}" title="{{ _(record['type']) }}" aria-hidden="true"></i>
+      <i class="{{ record['type'] | entity_icon }}" title="{{ _(record['type']) }}" aria-hidden="true"></i>
       {{ record | entity_label(current_i18n.language) }}
     </h1>
     <small>MEF ID: {{ pid }}</small>

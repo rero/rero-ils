@@ -1,6 +1,13 @@
 // SPDX-FileCopyrightText: Fondation RERO+
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+@use "@fortawesome/fontawesome-free/scss/variables" with (
+  $font-path: "~@fortawesome/fontawesome-free/webfonts"
+);
+@use "@fortawesome/fontawesome-free/scss/fontawesome";
+@use "@fortawesome/fontawesome-free/scss/solid";
+@use "@fortawesome/fontawesome-free/scss/regular";
+
 :root {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -9,9 +16,7 @@
   font-size: 1rem;
 }
 
-$fa-font-path: "~font-awesome/fonts";
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-@import "~font-awesome/scss/font-awesome";
 
 @layer bootstrap {
   @import "variables";
@@ -89,10 +94,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 */
 
   .rero-ils-external-link:after {
-    font-family: "FontAwesome";
     font-size: $font-size-very-small;
     vertical-align: top;
-    content: " \f08e";
+    content: " \2197"; // ↗ external link indicator
   }
 
   .required::after {
@@ -112,13 +116,6 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
   div.tooltip div.tooltip-inner {
     text-align: left;
     max-width: 400px;
-  }
-
-  .rero-ils-external-link:after {
-    font-family: "FontAwesome";
-    font-size: $font-size-very-small;
-    vertical-align: top;
-    content: " \f08e";
   }
 
   /*

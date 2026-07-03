@@ -21,7 +21,7 @@ ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
 # If not uses:
 # ~/rero/frontend for FRONTEND_DIR
 # ~/rero/ng-core for NG_DIR
-FRONTEND_DIR=$(cd "${CURRENT_DIR}/../frontend" &>/dev/null && pwd || echo "${HOME}/rero/frontend")
+FRONTEND_DIR=$(cd "${CURRENT_DIR}/../rero-ils-ui" &>/dev/null && pwd || echo "${HOME}/rero/rero-ils-ui")
 NG_DIR=$(cd "${CURRENT_DIR}/../ng-core" &>/dev/null && pwd || echo "${HOME}/rero/ng-core")
 
 # MESSAGES

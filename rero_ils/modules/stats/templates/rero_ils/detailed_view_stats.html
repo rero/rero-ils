@@ -9,7 +9,7 @@
     {% set values = record['values']|sort_dict_by_library %}
     <div class="ml-5 mr-5 mt-2 mb-4">
       {%- if record.pid %}
-        <a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+        <a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa-solid fa-download"></i></a>
       {%- endif %}
       {%- if 'date_range' in record and 'from' in record.date_range %}
         {% set stat_name = record.date_range.to|yearmonthfilter+
@@ -56,7 +56,7 @@
   {%- else %}
     <div class="ml-5 mr-5 mt-2 mb-4">
       {%- if record.pid %}
-        <a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa fa-download"></i></a>
+        <a class="btn btn-primary float-right" href="/api/stats/{{record.pid}}?format=csv" role="button"><i class="fa-solid fa-download"></i></a>
       {%- endif %}
       {%- if 'date_range' in record and 'from' in record.date_range %}
         {% set stat_name = record.date_range.to|yearmonthfilter+

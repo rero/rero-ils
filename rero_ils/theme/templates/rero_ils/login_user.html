@@ -37,9 +37,9 @@
     >
       {{form.hidden_tag()}}
       {{form_errors(form)}}
-      {{ render_field(form.email, icon="fa fa-user", autofocus=True, errormsg=False, placeholder=_("Username or e-mail")) }}
-      {{ render_field(form.password, icon="fa fa-lock", errormsg=False) }}
-      <button type="submit" class="btn btn-primary btn-lg btn-block mb-2"><i class="fa fa-sign-in"></i>
+      {{ render_field(form.email, icon="fa-solid fa-user", autofocus=True, errormsg=False, placeholder=_("Username or e-mail")) }}
+      {{ render_field(form.password, icon="fa-solid fa-lock", errormsg=False) }}
+      <button type="submit" class="btn btn-primary btn-lg btn-block mb-2"><i class="fa-solid fa-right-to-bracket"></i>
         {{_('Log In')}}</button>
     </form>
     {%- endwith %}

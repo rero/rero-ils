@@ -31,7 +31,7 @@
           <button class="navbar-toggler ml-2" type="button"
                   data-toggle="collapse" data-target="#mobileHide"
                   aria-controls="mobileHide" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span>
+            <span class="fa-solid fa-bars"></span>
           </button>
         {%- endblock navbar_menus %}
       </div>
@@ -49,7 +49,7 @@
              {{ "id={}".format(item.id) if item.id }}
           >
            {{ item.text|safe }}
-          <i class="fa fa-caret-down" aria-hidden="true"></i>
+          <i class="fa-solid fa-caret-down" aria-hidden="true"></i>
           </a>
         </li>
         {%- else %}
@@ -100,7 +100,7 @@
         {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
           {%- if item.children %}
             <li class="nav-item{{ ' active' if item.active else ''}} w-100 list-group-item bg-light">
-              <a class="nav-link collapsed" href="#{{ item.name }}" data-toggle="collapse" role="button" aria-controls="collapseExample" aria-expanded="false" {{ "id={}".format(item.id) if item.id }}>{{ item.text|safe }} <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+              <a class="nav-link collapsed" href="#{{ item.name }}" data-toggle="collapse" role="button" aria-controls="collapseExample" aria-expanded="false" {{ "id={}".format(item.id) if item.id }}>{{ item.text|safe }} <i class="fa-solid fa-caret-down" aria-hidden="true"></i></a>
               <ul class="nav collapse pl-2" id="{{ item.name }}" data-parent="#mobileHide">
                 {%- for child in item.children if child.visible %}
                   <li class="nav-item {{class_name if class_name}} w-100">

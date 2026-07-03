@@ -21,7 +21,7 @@
     {%- if field.errors %}
     <ul class="list-unstyled invalid-feedback">
       {%- for error in field.errors %}
-        <li><i class="fa fa-exclamation-circle"></i> {{ _(error) }}</li>
+        <li><i class="fa-solid fa-circle-exclamation"></i> {{ _(error) }}</li>
       {%- endfor %}
     </ul>
     {%- endif %}

@@ -141,7 +141,7 @@
 {% macro div_json(title, data) %}
 <div class="align-self-end">
   <a href="#source-{{ data.id }}" data-toggle="collapse" type="button" role="button" class="btn btn-info" aria-expanded="false" aria-controls="JSON display">
-    <i class="fa fa-search-plus fa-fw"></i> {{ title }}
+    <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i> {{ title }}
   </a>
 </div>
 
@@ -166,7 +166,7 @@
     {% if field.id == 'password' %}
     <div class="input-group-append">
       <span id="password-show-hide" class="input-group-text">
-        <small><i id="password-show-hide-icon" class="fa fa-eye form-control-feedback" aria-hidden="true" title="{{ _('Show password') }}"></i></small>
+        <small><i id="password-show-hide-icon" class="fa-solid fa-eye form-control-feedback" aria-hidden="true" title="{{ _('Show password') }}"></i></small>
       </span>
     </div>
     {% endif %}

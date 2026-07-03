@@ -52,9 +52,9 @@ def test_view(client, entity_person, local_entity_person):
 
 def test_entity_icon():
     """Entity icon test."""
-    assert entity_icon(EntityType.ORGANISATION) == "fa-building-o"
+    assert entity_icon(EntityType.ORGANISATION) == "fa-regular fa-building"
     # Default icon if type not found
-    assert entity_icon("foo") == "fa-question-circle-o"
+    assert entity_icon("foo") == "fa-solid fa-circle-question"
 
 
 def test_extract_data_from_record(app):

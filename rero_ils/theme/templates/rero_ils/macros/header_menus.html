@@ -6,7 +6,7 @@
     {%- if icon_type %}
       {% set icon_value = item.get_icon_value() %}
       {% if icon_type == 'fa' %}
-        <i class="fa {{ icon_value }}"></i>
+        <i class="fa-solid {{ icon_value }}"></i>
       {% elif icon_type == 'image' %}
         <img src="{{ url_for('static', filename=icon_value) }}" alt="menu image">
       {% elif icon_type == 'image-url' %}
@@ -31,7 +31,7 @@
                  aria-controls="collapseExample"
                  aria-expanded="false">
                 {{ menu_icon(item) }} {{ _(item.name) }}
-                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                <i class="fa-solid fa-caret-down" aria-hidden="true"></i>
               </a>
             </li>
           {% endif %}
