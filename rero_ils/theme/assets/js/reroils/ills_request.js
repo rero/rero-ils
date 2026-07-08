@@ -6,6 +6,11 @@ import $ from 'jquery';
 $(function() {
   $('#submit-btn').on('click', function(e) {
     e.preventDefault();
+    const form = document.getElementById('ill-public-form');
+    if (!form.checkValidity()) {
+      form.submit();
+      return;
+    }
     const url = $('#source-url').val();
     if (url) {
       const wHost = window.location.host;
