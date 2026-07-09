@@ -8,7 +8,7 @@ import re
 from datetime import datetime
 
 from elasticsearch_dsl import Q
-from flask import request
+from flask import abort, request
 
 
 def acquisition_filter():
@@ -45,10 +45,13 @@ def acquisition_filter():
             # NG-Core's widget for a date range sends timestamps
             # We transform the timestamp into a date
             values = dict(zip(["from", "to"], range_values.split("--")))
-            if "from" in values:
-                values["from"] = datetime.fromtimestamp(float(values["from"]) / 1000).strftime("%Y-%m-%d")
-            if "to" in values:
-                values["to"] = datetime.fromtimestamp(float(values["to"]) / 1000).strftime("%Y-%m-%d")
+            try:
+                if "from" in values:
+                    values["from"] = datetime.fromtimestamp(float(values["from"]) / 1000).strftime("%Y-%m-%d")
+                if "to" in values:
+                    values["to"] = datetime.fromtimestamp(float(values["to"]) / 1000).strftime("%Y-%m-%d")
+            except ValueError, OverflowError, OSError:
+                abort(400, description="Invalid 'new_acquisition' timestamp range")
         else:
             values = dict(zip(["from", "to"], range_values.split(":")))
         range_acquisition_dates = {"lte": values.get("to") or "now/d"}

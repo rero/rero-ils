@@ -227,6 +227,15 @@ def test_documents_newacq_filters(
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
 
+    # malformed timestamp range must return a clean 400 Bad Request
+    doc_list = url_for(
+        "invenio_records_rest.doc_list",
+        view="global",
+        new_acquisition="foo--bar",
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    assert res.status_code == 400
+
 
 @mock.patch(
     "invenio_records_rest.views.verify_record_permission",

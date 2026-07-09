@@ -8,7 +8,7 @@ from datetime import UTC, datetime
 
 from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl.query import Q
-from flask import current_app, request
+from flask import abort, current_app, request
 from flask import request as flask_request
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError
@@ -268,7 +268,11 @@ def view_search_collection_factory(self, search, query_parser=None):
         org = Organisation.get_record_by_viewcode(view)
         search = search.filter("term", organisation__pid=org["pid"])
     if published := request.args.get("published"):
-        search = search.filter("term", published=bool(int(published)))
+        try:
+            published = bool(int(published))
+        except ValueError:
+            abort(400, description="Invalid 'published' value")
+        search = search.filter("term", published=published)
 
     return search, urlkwargs
 

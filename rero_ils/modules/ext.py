@@ -203,7 +203,9 @@ class REROILSAPP:
     def init_app(self, app):
         """Flask application initialization."""
         Bootstrap4(app)
-        Wiki(app)
+        # Only register the wiki on the UI app to avoid ``BuildError`` when trying to reach it from the API.
+        if app.static_folder is not None:
+            Wiki(app)
         NormalizerStopWords(app)
         self.init_config(app)
         app.extensions["rero-ils"] = self

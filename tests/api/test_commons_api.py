@@ -203,6 +203,12 @@ def test_proxy(mock_get, client):
     assert response.status_code == 418
 
 
+def test_wiki_not_registered_on_api_app(app, client):
+    """Test the wiki is not served by the API app."""
+    assert "wiki.page" not in app.view_functions
+    assert client.get("/help/home/").status_code == 404
+
+
 def test_boosting_fields(app):
     """Test the boosting configuration."""
     # the configuration should exists

@@ -52,6 +52,11 @@ def test_collections_facets(client, rero_json_header, coll_martigny_1):
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
 
+    # malformed 'published' value must return a clean 400, not a 500
+    list_url = url_for("invenio_records_rest.coll_list", published="foo")
+    res = client.get(list_url, headers=rero_json_header)
+    assert res.status_code == 400
+
 
 def test_collection_enrich_data(
     client,
