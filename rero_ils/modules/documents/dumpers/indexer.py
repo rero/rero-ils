@@ -211,6 +211,7 @@ class IndexerDumper(Dumper):
         files = []
         full_text_size = 0
         full_text_size_max = current_app.config.get("RERO_ILS_FILES_FULL_TEXT_MAX", 10 * 1024 * 1024)
+        fulltext_indexing_incomplete = False
         for record_file in record.get_records_files():
             record_files_information = {}
             collections = record_file.get("metadata", {}).get("collections")
@@ -229,6 +230,8 @@ class IndexerDumper(Dumper):
                     full_text_size += len(full_text)
                     if full_text_size < full_text_size_max:
                         record_files_information.setdefault(metadata["fulltext_for"], {})["text"] = full_text
+                    else:
+                        fulltext_indexing_incomplete = True
                     continue
                 # other information from the main file
                 record_files_information.setdefault(file_name, {})["file_name"] = file_name
@@ -241,6 +244,7 @@ class IndexerDumper(Dumper):
             files += list(record_files_information.values())
         if files:
             data["files"] = files
+        data["fulltext_indexing_incomplete"] = fulltext_indexing_incomplete
 
     def dump(self, record, data):
         """Dump a document instance with basic document information's.

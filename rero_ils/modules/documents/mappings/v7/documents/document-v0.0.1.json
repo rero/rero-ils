@@ -2397,6 +2397,9 @@
       "harvested": {
         "type": "boolean"
       },
+      "fulltext_indexing_incomplete": {
+        "type": "boolean"
+      },
       "isbn": {
         "type": "text",
         "analyzer": "identifier-analyzer",

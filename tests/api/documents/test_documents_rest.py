@@ -13,6 +13,7 @@ from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.documents.dumpers import document_indexer_dumper
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
@@ -55,6 +56,7 @@ def test_documents_get(client, document_with_files):
         metadata.pop("nested_identifiers", None)
         metadata.pop("identifiedBy", None)
         metadata.pop("files", None)
+        metadata.pop("fulltext_indexing_incomplete", None)
         return metadata
 
     item_url = url_for("invenio_records_rest.doc_item", pid_value="doc1")
@@ -1050,6 +1052,7 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     assert hits["total"]["value"] == 1
     data = hits["hits"][0]["metadata"]
     assert data["pid"] == document_with_files.pid
+    assert data["fulltext_indexing_incomplete"] is False
     # the document index should contains files informations
     metadata_files = data["files"]
     # required fields
@@ -1095,3 +1098,15 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] == 1
+
+
+def test_document_fulltext_indexing_incomplete(app, document_with_files):
+    """Test the indicator for incomplete full-text indexing."""
+    full_text_size_max = app.config["RERO_ILS_FILES_FULL_TEXT_MAX"]
+    app.config["RERO_ILS_FILES_FULL_TEXT_MAX"] = 1
+    try:
+        data = document_with_files.dumps(document_indexer_dumper)
+        assert data["fulltext_indexing_incomplete"] is True
+        assert not [file["text"] for file in data["files"] if file.get("text")]
+    finally:
+        app.config["RERO_ILS_FILES_FULL_TEXT_MAX"] = full_text_size_max
