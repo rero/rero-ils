@@ -67,6 +67,15 @@ def default_facets_factory(search, index):
             (facet_body.get(k)["field"] for k in ["terms", "date_histogram"] if k in facet_body),
             None,
         )
+        if not facet_field and index == "documents" and facet_name == "organisation":
+            facet_field = next(
+                (
+                    body.get("terms", {}).get("field")
+                    for body in facet_body.get("aggs", {}).values()
+                    if body.get("terms", {}).get("field")
+                ),
+                None,
+            )
         facet_filter = None
         if facet_field:
             # get DSL expression of post_filters,
@@ -77,7 +86,13 @@ def default_facets_factory(search, index):
 
         # Check if 'filter' is defined into the facet configuration. If yes,
         # then add this filter to the facet filter previously created.
-        if "filter" in facet_body:
+        if index == "documents" and facet_name == "organisation" and "filter" in facet_body:
+            agg_filter = obj_or_import_string(facet_body["filter"])
+            if callable(agg_filter):
+                agg_filter = agg_filter(search, urlkwargs)
+            facet_body["filter"] = (facet_filter & Q(agg_filter) if facet_filter else Q(agg_filter)).to_dict()
+            facet_filter = None
+        elif "filter" in facet_body:
             agg_filter = obj_or_import_string(facet_body.pop("filter"))
             if callable(agg_filter):
                 agg_filter = agg_filter(search, urlkwargs)

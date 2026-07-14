@@ -52,6 +52,20 @@
       "location_pid": {
         "type": "keyword"
       },
+      "organisation_library_location": {
+        "type": "object",
+        "properties": {
+          "organisation": {
+            "type": "keyword"
+          },
+          "library": {
+            "type": "keyword"
+          },
+          "location": {
+            "type": "keyword"
+          }
+        }
+      },
       "files": {
         "type": "object",
         "properties": {

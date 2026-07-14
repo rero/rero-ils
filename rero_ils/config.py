@@ -2114,38 +2114,27 @@ RECORDS_REST_FACETS = dict(
                     bool=dict()
                 ),
                 aggs=dict(
-                    nested_holdings=dict(
-                        nested=dict(
-                            path="nested_holdings"
-                        ),
-                        aggs=dict(
-                            organisation=dict(
-                                terms=dict(
-                                    field="nested_holdings.organisation.organisation_pid",
-                                    size=DOCUMENTS_AGGREGATION_SIZE,
-                                    min_doc_count=0,
-                                ),
-                                aggs=dict(
-                                    library=dict(
-                                        terms=dict(
-                                            field="nested_holdings.organisation.library_pid",
-                                            size=50,
-                                            min_doc_count=0,
-                                        ),
-                                        aggs=dict(
-                                            location=dict(
-                                                terms=dict(
-                                                    field="nested_holdings.location.pid",
-                                                    size=100,
-                                                    min_doc_count=0,
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
+                    organisation=dict(
+                        terms=dict(
+                            field="organisation_library_location.organisation",
+                            size=DOCUMENTS_AGGREGATION_SIZE,
+                            min_doc_count=0,
                         )
-                    )
+                    ),
+                    library=dict(
+                        terms=dict(
+                            field="organisation_library_location.library",
+                            size=50,
+                            min_doc_count=0,
+                        )
+                    ),
+                    location=dict(
+                        terms=dict(
+                            field="organisation_library_location.location",
+                            size=100,
+                            min_doc_count=0,
+                        )
+                    ),
                 )
             ),
             status=dict(

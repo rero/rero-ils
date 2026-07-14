@@ -32,6 +32,50 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `Document` records as JSON."""
 
     @staticmethod
+    def _new_terms_aggregation(buckets=None):
+        """Build a terms aggregation result."""
+        return {
+            "buckets": buckets or [],
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+        }
+
+    @classmethod
+    def _build_organisation_aggregation(cls, aggregation):
+        """Build the organisation aggregation from indexed location paths."""
+        organisations = {
+            bucket["key"]: {
+                **bucket,
+                "library": cls._new_terms_aggregation(),
+            }
+            for bucket in aggregation.get("organisation", {}).get("buckets", [])
+        }
+        libraries = {}
+        for bucket in aggregation.get("library", {}).get("buckets", []):
+            org_pid, library_pid = bucket["key"].split("|", 1)
+            if org_pid not in organisations:
+                continue
+            library_bucket = {
+                **bucket,
+                "key": library_pid,
+                "location": cls._new_terms_aggregation(),
+            }
+            organisations[org_pid]["library"]["buckets"].append(library_bucket)
+            libraries[(org_pid, library_pid)] = library_bucket
+
+        for bucket in aggregation.get("location", {}).get("buckets", []):
+            org_pid, library_pid, location_pid = bucket["key"].split("|", 2)
+            if library_bucket := libraries.get((org_pid, library_pid)):
+                library_bucket["location"]["buckets"].append(
+                    {
+                        **bucket,
+                        "key": location_pid,
+                    }
+                )
+
+        return cls._new_terms_aggregation(list(organisations.values()))
+
+    @staticmethod
     def _get_view_information():
         """Get the `view_id` and `view_code` to use to build response."""
         view_id = None
@@ -41,7 +85,7 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         return view_id, view_code
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
-        """Prepare a record and persistent identifier for serialization."""
+        """Prepare a record and persistent identifier for serialization"""
         rec = record
 
         # TODO: uses dumpers
@@ -144,17 +188,19 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                     "max": extract_acquisition_date("date_max", datetime.now().strftime("%Y-%m-%d")),
                 },
             }
-        # organisation aggregation is a nested aggregation, we need to
-        # remove this useless level.
+        # Build the public organisation/library/location facet shape from the
+        # internal aggregation representation.
         if aggr_by_org := aggregations.pop("organisation", None):
             if aggr_by_org.get("nested_holdings"):
                 aggregations["organisation"] = aggr_by_org["nested_holdings"]["organisation"]
+            elif "organisation" in aggr_by_org:
+                aggregations["organisation"] = self._build_organisation_aggregation(aggr_by_org)
             else:
                 aggregations["organisation"] = aggr_by_org
 
         if aggr_org := aggregations.get("organisation", {}).get("buckets", []):
-            # nested aggregation, we need to filter empty buckets
-            aggr_org = filter(lambda agg: agg["doc_count"] > 0, aggr_org)
+            aggr_org = list(filter(lambda agg: agg["doc_count"] > 0, aggr_org))
+            aggregations["organisation"]["buckets"] = aggr_org
             # load all organisations, libraries and locations in cache
             # to avoid multiple queries
             self.load_all(
@@ -166,7 +212,6 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             # organisation. We can filter the organisation aggregation to keep
             # only this value
             if view_code != GLOBAL_VIEW_CODE:
-                # nested aggregation, we need to filter empty buckets
                 aggr_org = list(filter(lambda term: term["key"] == view_id, aggr_org))
                 aggregations["organisation"]["buckets"] = aggr_org
             for org in aggr_org:
@@ -176,7 +221,6 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                 for lib_term in org["library"].get("buckets", []):
                     # add aggregation name
                     lib_term["name"] = self.get_resource(LibrariesSearch(), lib_term["key"])["name"]
-                    # nested aggregation, we need to filter empty buckets
                     lib_term["location"]["buckets"] = list(
                         filter(lambda agg: agg["doc_count"] > 0, lib_term["location"]["buckets"])
                     )

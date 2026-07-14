@@ -25,13 +25,22 @@ class IndexerDumper(Dumper):
         from rero_ils.modules.items.models import ItemNoteTypes
 
         holdings = []
+        organisations = set()
+        libraries = set()
+        locations = set()
         search_holdings = HoldingsSearch().filter("term", document__pid=record["pid"]).source().scan()
         for holding in search_holdings:
             holding = holding.to_dict()
+            organisation_pid = holding["organisation"]["pid"]
+            library_pid = holding["library"]["pid"]
+            location_pid = holding["location"]["pid"]
+            organisations.add(organisation_pid)
+            libraries.add(f"{organisation_pid}|{library_pid}")
+            locations.add(f"{organisation_pid}|{library_pid}|{location_pid}")
             hold_data = {
                 "pid": holding["pid"],
                 "location": {
-                    "pid": holding["location"]["pid"],
+                    "pid": location_pid,
                 },
                 "circulation_category": [
                     {
@@ -39,8 +48,8 @@ class IndexerDumper(Dumper):
                     }
                 ],
                 "organisation": {
-                    "organisation_pid": holding["organisation"]["pid"],
-                    "library_pid": holding["library"]["pid"],
+                    "organisation_pid": organisation_pid,
+                    "library_pid": library_pid,
                 },
                 "holdings_type": holding["holdings_type"],
             }
@@ -86,9 +95,9 @@ class IndexerDumper(Dumper):
                 #   'nested' structure.
                 if acq_date := item.get("acquisition_date"):
                     item_data["acquisition"] = {
-                        "organisation_pid": holding["organisation"]["pid"],
-                        "library_pid": holding["library"]["pid"],
-                        "location_pid": holding["location"]["pid"],
+                        "organisation_pid": organisation_pid,
+                        "library_pid": library_pid,
+                        "location_pid": location_pid,
                         "date": acq_date,
                     }
                 if public_notes_content := [
@@ -101,6 +110,11 @@ class IndexerDumper(Dumper):
         if holdings:
             data["holdings"] = holdings
             data["nested_holdings"] = holdings
+            data["organisation_library_location"] = {
+                "organisation": sorted(organisations),
+                "library": sorted(libraries),
+                "location": sorted(locations),
+            }
 
     @staticmethod
     def _process_identifiers(record, data):

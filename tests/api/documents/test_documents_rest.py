@@ -343,7 +343,7 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
 
     assert aggs["organisation"]["buckets"] == [
         {
-            "doc_count": 2,
+            "doc_count": 1,
             "key": "org1",
             "library": {
                 "buckets": [
@@ -384,7 +384,7 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
 
     assert aggs["organisation"]["buckets"] == [
         {
-            "doc_count": 2,
+            "doc_count": 1,
             "key": "org1",
             "library": {
                 "buckets": [
@@ -423,51 +423,7 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
     data = get_json(res)
     aggs = data["aggregations"]
 
-    assert aggs["organisation"]["buckets"] == [
-        {
-            "doc_count": 0,
-            "key": "org1",
-            "library": {
-                "buckets": [
-                    {
-                        "doc_count": 0,
-                        "key": "lib1",
-                        "location": {
-                            "buckets": [
-                                {"doc_count": 0, "key": "loc1"},
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc3",
-                                },
-                            ],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
-                        },
-                    },
-                    {
-                        "doc_count": 0,
-                        "key": "lib2",
-                        "location": {
-                            "buckets": [
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc1",
-                                },
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc3",
-                                },
-                            ],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
-                        },
-                    },
-                ],
-                "doc_count_error_upper_bound": 0,
-                "sum_other_doc_count": 0,
-            },
-        }
-    ]
+    assert aggs["organisation"]["buckets"] == []
 
 
 @mock.patch(
