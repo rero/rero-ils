@@ -3047,6 +3047,19 @@ RECORDS_REST_SORT_OPTIONS["locations"]["pickup_name"] = dict(
 )
 RECORDS_REST_DEFAULT_SORT["locations"] = dict(query="bestmatch", noquery="name")
 
+# ------ OPERATION LOGS
+RECORDS_REST_SORT_OPTIONS["operation_logs"]["operation_date_mostrecent"] = dict(
+    fields=["-operation", "-date"],
+    title="Operation date mostrecent",
+    default_order="asc"
+)
+RECORDS_REST_SORT_OPTIONS["operation_logs"]["operation_date_created"] = dict(
+    fields=["operation", "date"],
+    title="Operation date create",
+    default_order="asc"
+)
+RECORDS_REST_DEFAULT_SORT["operation_logs"] = dict(query="bestmatch", noquery="operation_date_mostrecent")
+
 # ------ PATRONS SORT
 RECORDS_REST_SORT_OPTIONS["patrons"]["full_name"] = dict(
     fields=["last_name_sort", "first_name_sort"],
