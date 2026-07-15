@@ -105,7 +105,12 @@ def get_mef_data_by_type(
             json_data = request.json()
             if hits := json_data.get("hits", {}):
                 # we got an search response
-                data = hits.get("hits", [None])[0].get("metadata", {})
+                if not (hit_list := hits.get("hits", [])):
+                    msg = f"MEF resolver: no result for {mef_url}"
+                    if verbose:
+                        current_app.logger.warning(msg)
+                    raise ValueError(msg)
+                data = hit_list[0].get("metadata", {})
             else:
                 # we got an DB response
                 data = json_data

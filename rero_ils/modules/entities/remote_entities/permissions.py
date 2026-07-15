@@ -13,7 +13,7 @@ class RemoteEntityPermissionPolicy(RecordPermissionPolicy):
     """Entity Permission Policy used by the CRUD operations.
 
     Only search and read is allowed for all users.
-    Other operations are denied far anybody.
+    Other operations are denied for anybody.
     """
 
     can_search = [AnyUser()]
