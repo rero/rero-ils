@@ -101,22 +101,42 @@ def sync_errors(clear, verbose):
 @click.option("-l", "--log-dir", default=None)
 @with_appcontext
 def replace_identified_by_cli(field, dry_run, verbose, log_dir):
-    """Replace identifiedBy with $ref."""
+    """Replace local identifiedBy entities with MEF $ref links.
+
+    Runs :class:`ReplaceIdentifiedBy` over each requested field (all fields by
+    default) and prints a per-field summary: changed, not found, RERO only,
+    type mismatch and type-not-allowed counts. With -v, also lists the
+    offending identifiers.
+    Use -n/--dry-run to report without modifying any document.
+    """
     for parent in field or ReplaceIdentifiedBy.fields:
         replace_identified_by = ReplaceIdentifiedBy(field=parent, verbose=verbose, dry_run=dry_run, log_dir=log_dir)
         changed, not_found, rero_only = replace_identified_by.run()
+        type_mismatch = sum(len(values) for values in replace_identified_by.type_mismatch.values())
+        type_not_allowed = sum(len(values) for values in replace_identified_by.type_not_allowed.values())
         click.secho(
-            f"{parent:<12} | Changed: {changed} | Not found: {not_found} | RERO only: {rero_only}",
+            f"{parent:<12} | Changed: {changed} | Not found: {not_found} | RERO only: {rero_only} | "
+            f"Type mismatch: {type_mismatch} | Type not allowed: {type_not_allowed}",
             fg="green",
         )
         if verbose:
-            if replace_identified_by._error_count(replace_identified_by.not_found):
+            if replace_identified_by.not_found:
                 click.secho("Not found:", fg="yellow")
                 for etype, values in replace_identified_by.not_found.items():
                     for pid, data in values.items():
                         click.echo(f"\t{etype} {pid}: {data}")
-            if replace_identified_by._error_count(replace_identified_by.rero_only):
+            if replace_identified_by.rero_only:
                 click.secho("RERO only:", fg="yellow")
                 for etype, values in replace_identified_by.rero_only.items():
                     for pid, data in values.items():
-                        click.echo(f"\t{pid}: {data}")
+                        click.echo(f"\t{etype} {pid}: {data}")
+            if replace_identified_by.type_mismatch:
+                click.secho("Type mismatch:", fg="yellow")
+                for etype, values in replace_identified_by.type_mismatch.items():
+                    for pid, data in values.items():
+                        click.echo(f"\t{etype} {pid}: {data}")
+            if replace_identified_by.type_not_allowed:
+                click.secho("Type not allowed:", fg="red")
+                for etype, values in replace_identified_by.type_not_allowed.items():
+                    for pid, data in values.items():
+                        click.echo(f"\t{etype} {pid}: {data}")
