@@ -38,6 +38,12 @@ def acquisition_filter():
         #     * ?location=17&library=2&new_acquisition=:2019-12-31
         #       --> all new acq for (location with pid=17 and library with
         #           pid=2) until Jan, 1 2020
+        #     * ?new_acquisition=2020-01-01&location=17&location=18
+        #       --> all new acq for (location with pid=17 or pid=18) from
+        #           2020-01-01 to now
+        #     * ?new_acquisition=2020-01-01&library=2&library=3
+        #       --> all new acq for (library with pid=2 or pid=3) from
+        #           2020-01-01 to now
 
         # build acquisition date range query
         range_values = values.pop()
@@ -63,9 +69,9 @@ def acquisition_filter():
         # Check others filters from command line and add them to the query if
         # needed
         for level in ["location", "library", "organisation"]:
-            if arg := request.args.get(level):
+            if args := request.args.getlist(level):
                 field = f"holdings__items__acquisition__{level}_pid"
-                must_queries.append(Q("match", **{field: arg}))
+                must_queries.append(Q("terms", **{field: args}))
 
         return Q(
             "nested",

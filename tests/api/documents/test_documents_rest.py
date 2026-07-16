@@ -111,6 +111,8 @@ def test_documents_newacq_filters(
     system_librarian_martigny,
     rero_json_header,
     document,
+    document_sion_items,
+    export_document,
     holding_lib_martigny,
     holding_lib_saxon,
     loc_public_saxon,
@@ -150,7 +152,7 @@ def test_documents_newacq_filters(
     assert res.status_code == 201
 
     # check item creation and indexation
-    doc_list = url_for("invenio_records_rest.doc_list", view="global", pid="doc1")
+    doc_list = url_for("invenio_records_rest.doc_list", view="global", q="pid:doc1")
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
     assert len(data["hits"]["hits"]) == 1
@@ -216,6 +218,19 @@ def test_documents_newacq_filters(
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 0
 
+    #   --> for loc1 or loc3, there is 1 document with 2 new acquisition
+    #       items (multiple `location` values are combined with OR)
+    doc_list = url_for(
+        "invenio_records_rest.doc_list",
+        view="global",
+        new_acquisition=f"{past}:{future_1}",
+        location=["loc1", "loc3"],
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 1
+    assert len(data["hits"]["hits"][0]["metadata"]["holdings"]) == 2
+
     # check new_acquisition filters with -- separator and timestamp
     # Ex: 1696111200000--1700089200000
     doc_list = url_for(
@@ -226,6 +241,44 @@ def test_documents_newacq_filters(
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
+
+    # check that several `location` filter values are combined with OR
+    # across DIFFERENT documents, not just within a single document.
+    #   --> document_sion_items has a new acquisition in loc1 only ;
+    #       export_document has a new acquisition in loc3 only.
+    far_past = datetime_delta(days=-100).strftime("%Y-%m-%d")
+    far_future = datetime_delta(days=100).strftime("%Y-%m-%d")
+
+    new_acq_sion = deepcopy(item_lib_martigny_data)
+    new_acq_sion["pid"] = "itemacqsion"
+    new_acq_sion["document"]["$ref"] = get_ref_for_pid("doc", document_sion_items.pid)
+    new_acq_sion["acquisition_date"] = today
+    res, data = postdata(client, "invenio_records_rest.item_list", new_acq_sion)
+    assert res.status_code == 201
+
+    new_acq_export = deepcopy(item_lib_martigny_data)
+    new_acq_export["pid"] = "itemacqexport"
+    new_acq_export["document"]["$ref"] = get_ref_for_pid("doc", export_document.pid)
+    new_acq_export["location"]["$ref"] = get_ref_for_pid("loc", loc_public_saxon.pid)
+    new_acq_export["acquisition_date"] = today
+    res, data = postdata(client, "invenio_records_rest.item_list", new_acq_export)
+    assert res.status_code == 201
+
+    #   --> for loc1 or loc3, both document_sion_items and export_document
+    #       are returned, even though neither matches both locations on
+    #       its own. This would fail without combining repeated
+    #       `location` values with OR (see acquisition_filter in
+    #       rero_ils/modules/documents/query.py)
+    doc_list = url_for(
+        "invenio_records_rest.doc_list",
+        view="global",
+        new_acquisition=f"{far_past}:{far_future}",
+        location=["loc1", "loc3"],
+        q="pid:doc3 OR pid:doc8",
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 2
 
     # malformed timestamp range must return a clean 400 Bad Request
     doc_list = url_for(
@@ -319,8 +372,8 @@ def test_documents_facets(
             0,
         ),
         ({"view": "global", "author": "Nebehay, Christian Michael", "lang": "thl"}, 1),
-        ({"view": "global", "online": "true"}, 1),
-        ({"view": "global", "organisation": "org1"}, 1),
+        ({"view": "global", "online": "true"}, 2),
+        ({"view": "global", "organisation": "org1"}, 3),
     ]
     for params, value in checks:
         url = url_for("invenio_records_rest.doc_list", **params)
@@ -343,25 +396,25 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
 
     assert aggs["organisation"]["buckets"] == [
         {
-            "doc_count": 2,
+            "doc_count": 4,
             "key": "org1",
             "library": {
                 "buckets": [
                     {
-                        "doc_count": 1,
+                        "doc_count": 2,
                         "key": "lib1",
                         "location": {
-                            "buckets": [{"doc_count": 1, "key": "loc1", "name": "Martigny Library Public Space"}],
+                            "buckets": [{"doc_count": 2, "key": "loc1", "name": "Martigny Library Public Space"}],
                             "doc_count_error_upper_bound": 0,
                             "sum_other_doc_count": 0,
                         },
                         "name": "Library of Martigny-ville",
                     },
                     {
-                        "doc_count": 1,
+                        "doc_count": 2,
                         "key": "lib2",
                         "location": {
-                            "buckets": [{"doc_count": 1, "key": "loc3", "name": "Saxon Library Public Space"}],
+                            "buckets": [{"doc_count": 2, "key": "loc3", "name": "Saxon Library Public Space"}],
                             "doc_count_error_upper_bound": 0,
                             "sum_other_doc_count": 0,
                         },
@@ -384,25 +437,25 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
 
     assert aggs["organisation"]["buckets"] == [
         {
-            "doc_count": 2,
+            "doc_count": 4,
             "key": "org1",
             "library": {
                 "buckets": [
                     {
-                        "doc_count": 1,
+                        "doc_count": 2,
                         "key": "lib1",
                         "location": {
-                            "buckets": [{"doc_count": 1, "key": "loc1", "name": "Martigny Library Public Space"}],
+                            "buckets": [{"doc_count": 2, "key": "loc1", "name": "Martigny Library Public Space"}],
                             "doc_count_error_upper_bound": 0,
                             "sum_other_doc_count": 0,
                         },
                         "name": "Library of Martigny-ville",
                     },
                     {
-                        "doc_count": 1,
+                        "doc_count": 2,
                         "key": "lib2",
                         "location": {
-                            "buckets": [{"doc_count": 1, "key": "loc3", "name": "Saxon Library Public Space"}],
+                            "buckets": [{"doc_count": 2, "key": "loc3", "name": "Saxon Library Public Space"}],
                             "doc_count_error_upper_bound": 0,
                             "sum_other_doc_count": 0,
                         },
