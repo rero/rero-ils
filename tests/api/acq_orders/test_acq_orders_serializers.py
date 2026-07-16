@@ -4,9 +4,13 @@
 
 """Tests Serializers."""
 
+import csv
+from io import StringIO
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
+from rero_ils.modules.documents.api import DocumentsSearch
 from tests.utils import get_csv
 
 
@@ -42,3 +46,45 @@ def test_csv_serializer(
         '"receipt_reference","received_quantity","received_amount",'
         '"receipt_date"' in data
     )
+
+
+def test_csv_serializer_missing_document(
+    client,
+    csv_header,
+    librarian_martigny,
+    acq_account_fiction_martigny,
+    vendor_martigny,
+    acq_order_fiction_martigny,
+    acq_order_line_fiction_martigny,
+    acq_order_line2_fiction_martigny,
+    document,
+):
+    """Test CSV export keeps streaming when a linked document is missing.
+
+    A document may be deleted from the search index while still referenced by
+    a terminal order line. The export must export every order line instead of
+    crashing the stream, and display a placeholder for the missing document.
+    """
+    login_user_via_session(client, librarian_martigny.user)
+    order = acq_order_fiction_martigny
+
+    # Remove the document from the search index.
+    document.delete_from_index()
+    DocumentsSearch.flush_and_refresh()
+
+    try:
+        list_url = url_for("api_exports.acq_order_export", q=f"pid:{order.pid}")
+        response = client.get(list_url, headers=csv_header)
+        assert response.status_code == 200
+        rows = list(csv.DictReader(StringIO(get_csv(response))))
+    finally:
+        # Restore the shared module-scoped fixture for the other tests.
+        document.reindex()
+        DocumentsSearch.flush_and_refresh()
+
+    # Both order lines are still exported: the stream was not truncated.
+    order_rows = [row for row in rows if row["order_pid"] == order.pid]
+    assert len(order_rows) >= 2
+    for row in order_rows:
+        assert row["document_pid"] == document.pid
+        assert row["document_title"] == "unknown"
