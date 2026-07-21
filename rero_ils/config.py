@@ -4074,6 +4074,17 @@ SIP2_SUMMARY_FIELDS = {
 # OAuth base template
 OAUTH2SERVER_COVER_TEMPLATE = "rero_ils/oauth/base.html"
 
+# Extend the oauthlib allowed character set for Lucene query syntax.
+# Characters that commonly appear unencoded in query strings:
+#   $  - MARC subfield codes ($a, $b, ...)
+#   [] - inclusive range queries (date:[x TO y])
+#   {} - exclusive range queries (date:{x TO y})
+#   ^  - boost factor (term^2)
+#   "  - phrase queries ("exact phrase")
+#   |  - OR operator (||)
+#   '  - apostrophe in text queries (O'Brien); also in oauthlib's own default
+OAUTH2SERVER_ALLOWED_URLENCODE_CHARACTERS = "=&;:%+~,*@!()/?$'[]{}^\"|"
+
 # STOP WORDS
 # Disregarded articles for sorting processes
 # ==========
