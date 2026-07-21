@@ -225,3 +225,45 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     assert hits["total"]["value"] != 0
+
+
+@mock.patch(
+    "invenio_records_rest.views.verify_record_permission",
+    mock.MagicMock(return_value=VerifyRecordPermissionPatch),
+)
+def test_search_special_chars_not_rejected(client):
+    """Test that Lucene and MARC special chars in query strings return 200.
+
+    OAUTH2SERVER_ALLOWED_URLENCODE_CHARACTERS extends the oauthlib default so
+    that characters valid per RFC 3986 in query strings are not rejected with
+    a 400 by the OAuth middleware.  Spaces must still be encoded as %20.
+    """
+    base_url = url_for("invenio_records_rest.doc_list")
+
+    # $ — MARC subfield codes ($a, $b, $c); unencoded by Angular's HttpClient
+    res = client.get(f"{base_url}?q=local_fields.fields.field_1:$a%20test%20$b%202026")
+    assert res.status_code == 200
+
+    # [] — Lucene inclusive range query
+    res = client.get(f"{base_url}?q=date:[2024-01-01%20TO%202024-12-31]")
+    assert res.status_code == 200
+
+    # {{}} — Lucene exclusive range query
+    res = client.get(f"{base_url}?q=date:{{2024-01-01%20TO%202024-12-31}}")
+    assert res.status_code == 200
+
+    # ^ — Lucene boost factor
+    res = client.get(f"{base_url}?q=title:test^2")
+    assert res.status_code == 200
+
+    # " — Lucene phrase query (unencoded double quote)
+    res = client.get(f'{base_url}?q=title:"exact%20phrase"')
+    assert res.status_code == 200
+
+    # || — Lucene OR operator
+    res = client.get(f"{base_url}?q=(title:foo)||(title:bar)")
+    assert res.status_code == 200
+
+    # ' — apostrophe in text values (e.g. O'Brien)
+    res = client.get(f"{base_url}?q=author:O'Brien")
+    assert res.status_code == 200
