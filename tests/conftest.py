@@ -9,8 +9,10 @@ import shutil
 import sys
 import tempfile
 from os.path import dirname, join
+from urllib.parse import urlparse
 
 import pytest
+import requests
 import rero_invenio_thumbnails.api as _thumbnails_api
 from dotenv import load_dotenv
 
@@ -42,6 +44,36 @@ def clear_test_thumbnail_covers():
     TestThumbnailProvider.covers = {}
     yield
     TestThumbnailProvider.covers = {}
+
+
+@pytest.fixture(autouse=True)
+def block_mef_http(monkeypatch):
+    """Prevent any test from making a real HTTP call to the MEF server.
+
+    Every MEF lookup (``get_mef_link``, ``get_mef_data_by_type``, entity
+    resolution, sync, proxy) ultimately issues a ``requests.Session`` request
+    to the MEF host. This intercepts them at ``Session.send`` — the single
+    point every request funnels through — and returns a 404 so callers resolve
+    to "no data" instead of hitting the network, keeping the whole suite
+    hermetic and deterministic.
+
+    Tests that need specific MEF data keep patching ``get_mef_link`` /
+    ``get_mef_data_by_type`` at a higher level; those never reach the session,
+    so this fixture does not interfere with them.
+    """
+    original_send = requests.sessions.Session.send
+
+    def guarded_send(self, request, **kwargs):
+        if (urlparse(request.url).hostname or "").startswith("mef."):
+            response = requests.models.Response()
+            response.status_code = 404
+            response._content = b"{}"
+            response.url = request.url
+            response.request = request
+            return response
+        return original_send(self, request, **kwargs)
+
+    monkeypatch.setattr(requests.sessions.Session, "send", guarded_send)
 
 
 @pytest.fixture
