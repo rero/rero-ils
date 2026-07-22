@@ -11,6 +11,7 @@ from rero_ils.modules.serializers import (
     search_responsify,
     search_responsify_file,
 )
+from rero_ils.modules.serializers.utils import csv_to_xlsx
 
 from .csv import AcqAccountCSVSerializer
 from .json import AcqAccountJSONSerializer
@@ -19,6 +20,7 @@ __all__ = [
     "csv_acq_account_search",
     "json_acq_account_response",
     "json_acq_account_search",
+    "xlsx_acq_account_search",
 ]
 
 """JSON v1 serializer."""
@@ -41,3 +43,10 @@ _csv = AcqAccountCSVSerializer(
 )
 
 csv_acq_account_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_prefix="export-accounts")
+xlsx_acq_account_search = search_responsify_file(
+    _csv,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    file_extension="xlsx",
+    file_prefix="export-accounts",
+    content_converter=csv_to_xlsx,
+)

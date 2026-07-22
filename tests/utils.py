@@ -7,7 +7,10 @@ import csv
 import json
 from copy import deepcopy
 from datetime import UTC, datetime, timedelta
+from io import BytesIO
 from unittest.mock import MagicMock, Mock
+from xml.etree import ElementTree
+from zipfile import ZipFile
 
 import jsonref
 import xmltodict
@@ -90,6 +93,64 @@ def parse_csv(raw_data):
     """Parse CSV raw data into a iterable raw file."""
     content = StringIO(raw_data)
     return csv.reader(content)
+
+
+def parse_xlsx(raw_data, worksheet_index=0):
+    """Validate and parse rows from an XLSX worksheet."""
+    with ZipFile(BytesIO(raw_data)) as workbook:
+        filenames = set(workbook.namelist())
+        # Validate XLSX structure
+        assert "[Content_Types].xml" in filenames
+        assert "xl/workbook.xml" in filenames
+        worksheets = sorted(
+            filename for filename in filenames if filename.startswith("xl/worksheets/") and filename.endswith(".xml")
+        )
+        assert worksheets
+
+        # XLSX XML elements use this namespace, which ElementTree requires
+        # when searching for worksheet rows, cells, and values.
+        namespace = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
+        shared_strings = []
+        if "xl/sharedStrings.xml" in filenames:
+            root = ElementTree.fromstring(workbook.read("xl/sharedStrings.xml"))
+            shared_strings = [
+                "".join(text.text or "" for text in item.iter(f"{namespace}t")) for item in root.iter(f"{namespace}si")
+            ]
+
+        # Parse the selected worksheet
+        root = ElementTree.fromstring(workbook.read(worksheets[worksheet_index]))
+        rows = []
+        for row in root.iter(f"{namespace}row"):
+            values = []
+            # Parse each cell in the row
+            for cell in row.findall(f"{namespace}c"):
+                column_name = cell.attrib["r"].rstrip("0123456789")
+                column_index = 0
+                # Convert column name (e.g., "A", "B", ..., "AA", "AB", ...) to a 1-based index
+                for character in column_name:
+                    column_index = column_index * 26 + ord(character) - ord("A") + 1
+                # Fill in missing values for empty cells
+                while len(values) < column_index - 1:
+                    values.append("")
+
+                if cell.attrib.get("t") == "inlineStr":
+                    value = "".join(text.text or "" for text in cell.iter(f"{namespace}t"))
+                else:
+                    value_node = cell.find(f"{namespace}v")
+                    value = value_node.text if value_node is not None else ""
+                    if cell.attrib.get("t") == "s":
+                        value = shared_strings[int(value)]
+                values.append(value)
+            rows.append(values)
+        return rows
+
+
+def assert_xlsx_response(response):
+    """Assert that a response contains a valid XLSX download."""
+    assert response.status_code == 200
+    assert response.mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    assert response.headers["Content-Disposition"].rstrip('"').endswith(".xlsx")
+    return parse_xlsx(response.data)
 
 
 def postdata(client, endpoint, data=None, headers=None, url_data=None, force_data_as_json=True):

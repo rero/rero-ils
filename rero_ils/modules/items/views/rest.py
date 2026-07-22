@@ -10,7 +10,7 @@ from invenio_rest import ContentNegotiatedMethodView
 
 from rero_ils.modules.decorators import check_logged_as_librarian
 from rero_ils.modules.items.api import ItemsSearch
-from rero_ils.modules.items.serializers import csv_item_search
+from rero_ils.modules.items.serializers import csv_item_search, xlsx_item_search
 from rero_ils.query import items_search_factory
 
 
@@ -25,10 +25,12 @@ class InventoryListResource(ContentNegotiatedMethodView):
             method_serializers={
                 "GET": {
                     "text/csv": csv_item_search,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": xlsx_item_search,
                 }
             },
             serializers_query_aliases={
                 "csv": "text/csv",
+                "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             },
             default_method_media_type={"GET": "text/csv"},
             default_media_type="text/csv",

@@ -13,6 +13,8 @@ import jinja2
 from elasticsearch_dsl import Q
 from flask import Blueprint, abort, make_response, render_template, request
 
+from rero_ils.modules.serializers.utils import csv_to_xlsx
+
 from .api.api import Stat, StatsSearch
 from .api.pricing import StatsForPricing
 from .models import StatType
@@ -80,13 +82,15 @@ def stats_librarian():
     return render_template("rero_ils/stats_list.html", records=hits["hits"]["hits"], type="librarian")
 
 
-@blueprint.route("/librarian/<record_pid>/csv")
+@blueprint.route("/librarian/<record_pid>/xlsx", defaults={"file_format": "xlsx"})
+@blueprint.route("/librarian/<record_pid>/csv", defaults={"file_format": "csv"})
 @check_logged_as_librarian
-def stats_librarian_queries(record_pid):
-    """Download specific statistic query into csv file.
+def stats_librarian_queries(record_pid, file_format):
+    """Download a specific statistic query as CSV or XLSX.
 
     :param record_pid: statistics pid
-    :return: response object, the csv file
+    :param file_format: output format
+    :return: response object containing the exported file
     """
     queries = ["loans_of_transaction_library_by_item_location"]
     query_id = request.args.get("query_id", None)
@@ -102,7 +106,7 @@ def stats_librarian_queries(record_pid):
 
     _from = record["date_range"]["from"].split("T")[0]
     _to = record["date_range"]["to"].split("T")[0]
-    filename = f"{query_id}_{_from}_{_to}.csv"
+    filename = f"{query_id}_{_from}_{_to}.{file_format}"
 
     data = StringIO()
     w = csv.writer(data)
@@ -136,9 +140,17 @@ def stats_librarian_queries(record_pid):
                         )
                     )
 
-    output = make_response(data.getvalue())
+    mimetype = "text/csv"
+    if file_format == "xlsx":
+        data.seek(0)
+        content = csv_to_xlsx(data)
+        mimetype = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    else:
+        content = data.getvalue()
+
+    output = make_response(content)
     output.headers["Content-Disposition"] = f"attachment; filename={filename}"
-    output.headers["Content-type"] = "text/csv"
+    output.headers["Content-type"] = mimetype
     return output
 
 

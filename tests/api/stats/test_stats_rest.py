@@ -8,7 +8,7 @@ from unittest import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
-from tests.utils import VerifyRecordPermissionPatch, get_csv, get_json, to_relative_url
+from tests.utils import VerifyRecordPermissionPatch, assert_xlsx_response, get_csv, get_json, parse_csv, to_relative_url
 
 
 @mock.patch(
@@ -48,6 +48,13 @@ def test_stats_get(client, stats, csv_header):
         "0,0,0,0,0,1,0,1,1,0,2,1,1,0,1,0,0\r\n"
         "0.000,lib4,Library of Sion,0,0,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0\r\n"
     )
+
+    params = {"pid_value": stats.pid, "format": "xlsx"}
+    item_url = url_for("invenio_records_rest.stat_item", **params)
+    xlsx_rows = assert_xlsx_response(client.get(item_url))
+    csv_rows = list(parse_csv(data))
+    assert xlsx_rows[0] == csv_rows[0]
+    assert xlsx_rows[1][csv_rows[0].index("library id")] == csv_rows[1][csv_rows[0].index("library id")]
 
     list_url = url_for("invenio_records_rest.stat_list")
     res = client.get(list_url)
@@ -118,6 +125,13 @@ def test_stats_report_get(client, stats_report_martigny, csv_header):
     assert res.status_code == 200
     data = get_csv(res)
     assert data
+
+    params = {"pid_value": stats_report_martigny.pid, "format": "xlsx"}
+    item_url = url_for("invenio_records_rest.stat_item", **params)
+    xlsx_rows = assert_xlsx_response(client.get(item_url))
+    csv_rows = list(parse_csv(data))
+    assert xlsx_rows[0] == csv_rows[0]
+    assert xlsx_rows[1][0] == csv_rows[1][0]
     list_url = url_for("invenio_records_rest.stat_list")
     res = client.get(list_url)
     assert res.status_code == 200

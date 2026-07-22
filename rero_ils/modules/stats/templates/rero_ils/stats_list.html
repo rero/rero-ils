@@ -30,7 +30,10 @@
           {{rec._source._created | format_date}}
         {% endif %}
       </a>
-      <a class="btn btn-outline-secondary" href="/api/stats/{{rec._source.pid}}?format=csv" role="button"><i class="fa-solid fa-download"></i></a>
+      <span>
+        <a class="btn btn-outline-secondary" href="/api/stats/{{rec._source.pid}}?format=csv" role="button">CSV</a>
+        <a class="btn btn-outline-secondary" href="/api/stats/{{rec._source.pid}}?format=xlsx" role="button">XLSX</a>
+      </span>
     </span>
     {%- endfor %}
   </div>
@@ -57,14 +60,18 @@
     <tr>
       <td class="col-xs-12">
         <a href="{{url_for('invenio_records_ui.stats', pid_value=rec._source.pid)}}">{{_('View statistics')}}</a>
-        <a class="btn btn-outline-secondary float-right" href="/api/stats/{{rec._source.pid}}?format=csv" role="button"><i class="fa-solid fa-download"></i></a>
+        <a class="btn btn-outline-secondary float-right" href="/api/stats/{{rec._source.pid}}?format=xlsx" role="button">XLSX</a>
+        <a class="btn btn-outline-secondary float-right mr-1" href="/api/stats/{{rec._source.pid}}?format=csv" role="button">CSV</a>
       </td>
     </tr>
     <tr>
       <td>{{_('Loans of the transaction library by item location')}}
         <a class="btn btn-outline-secondary float-right"
-        href="{{url_for('stats.stats_librarian_queries', record_pid=rec._source.pid, query_id='loans_of_transaction_library_by_item_location')}}"
-        role="button"><i class="fa-solid fa-download"></i></a>
+        href="{{url_for('stats.stats_librarian_queries', record_pid=rec._source.pid, file_format='xlsx', query_id='loans_of_transaction_library_by_item_location')}}"
+        role="button">XLSX</a>
+        <a class="btn btn-outline-secondary float-right mr-1"
+        href="{{url_for('stats.stats_librarian_queries', record_pid=rec._source.pid, file_format='csv', query_id='loans_of_transaction_library_by_item_location')}}"
+        role="button">CSV</a>
       </td>
     </tr>
     {%- endfor %}

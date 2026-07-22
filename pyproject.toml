@@ -102,6 +102,7 @@ dependencies = [
     "flask-admin>=1.6.1",
     "invenio-sip2>=0.6.25",
     "markdown-captions>=2.1.2",
+    "xlsxwriter>=3.2.9",
 ]
 
 [dependency-groups]

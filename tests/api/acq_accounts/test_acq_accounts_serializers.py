@@ -7,7 +7,7 @@
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
-from tests.utils import get_csv
+from tests.utils import assert_xlsx_response, get_csv, parse_csv
 
 
 def test_csv_serializer(
@@ -36,3 +36,30 @@ def test_csv_serializer(
         '"account_current_encumbrance","account_current_expenditure",'
         '"account_available_balance"' in data
     )
+
+
+def test_xlsx_serializer(
+    client,
+    csv_header,
+    librarian_martigny,
+    acq_account_fiction_martigny,
+):
+    """Test XLSX formatter."""
+    login_user_via_session(client, librarian_martigny.user)
+
+    csv_url = url_for(
+        "api_exports.acq_account_export",
+        q=f"pid:{acq_account_fiction_martigny.pid}",
+    )
+    csv_rows = list(parse_csv(get_csv(client.get(csv_url, headers=csv_header))))
+
+    list_url = url_for(
+        "api_exports.acq_account_export",
+        q=f"pid:{acq_account_fiction_martigny.pid}",
+        format="xlsx",
+    )
+    response = client.get(list_url)
+
+    xlsx_rows = assert_xlsx_response(response)
+    assert xlsx_rows[0] == csv_rows[0]
+    assert xlsx_rows[1][0] == csv_rows[1][0]

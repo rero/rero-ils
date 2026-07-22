@@ -9,7 +9,7 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 
 from rero_ils.modules.utils import get_ref_for_pid
-from tests.utils import get_csv, parse_csv
+from tests.utils import assert_xlsx_response, get_csv, parse_csv
 
 
 def test_loans_exports(app, client, librarian_martigny, loan_pending_martigny, loan2_validated_martigny):
@@ -46,6 +46,11 @@ def test_loans_exports(app, client, librarian_martigny, loan_pending_martigny, l
     ]
     assert all(field in header for field in header_columns)
     assert len(data) == 2
+
+    xlsx_url = url_for("api_exports.loan_export", format="xlsx")
+    xlsx_rows = assert_xlsx_response(client.get(xlsx_url))
+    assert xlsx_rows[0] == header
+    assert xlsx_rows[1][header.index("pid")] == data[0][header.index("pid")]
 
 
 def test_patron_transaction_events_exports(
@@ -113,3 +118,8 @@ def test_patron_transaction_events_exports(
     ]
     assert all(field in header for field in header_columns)
     assert len(data) == 1
+
+    xlsx_url = url_for("api_exports.patron_transaction_events_export", format="xlsx")
+    xlsx_rows = assert_xlsx_response(client.get(xlsx_url))
+    assert xlsx_rows[0] == header
+    assert xlsx_rows[1][header.index("category")] == data[0][header.index("category")]

@@ -9,6 +9,8 @@ from flask import current_app
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 from invenio_records_rest.serializers.response import add_link_header
 
+from rero_ils.modules.serializers.utils import csv_to_xlsx
+
 from .models import StatType
 
 
@@ -118,19 +120,26 @@ csv_v1 = StatCSVSerializer()
 """CSV serializer."""
 
 
-def record_responsify(serializer, mimetype):
+def record_responsify(serializer, mimetype, file_extension, content_converter=None):
     """Create a Records-REST response serializer.
 
     This function is the same as the `invenio-records-rest`, but it adds an
     header to change the download file name.
     :param serializer: Serializer instance.
     :param mimetype: MIME type of response.
+    :param file_extension: Extension of the downloaded file.
+    :param content_converter: Optional function used to convert the serialized
+        content before creating the response.
     :returns: Function that generates a record HTTP response.
     """
 
     def view(pid, record, code=200, headers=None, links_factory=None):
+        content = serializer.serialize(pid, record, links_factory=links_factory)
+        if content_converter:
+            content = content_converter(content)
+
         response = current_app.response_class(
-            serializer.serialize(pid, record, links_factory=links_factory),
+            content,
             mimetype=mimetype,
         )
         response.status_code = code
@@ -142,7 +151,7 @@ def record_responsify(serializer, mimetype):
 
         # set the output filename
         date = record.created.isoformat()
-        filename = f"stats-{date}.csv"
+        filename = f"stats-{date}.{file_extension}"
         if not response.headers.get("Content-Disposition"):
             response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
 
@@ -154,4 +163,10 @@ def record_responsify(serializer, mimetype):
     return view
 
 
-csv_v1_response = record_responsify(csv_v1, "text/csv")
+csv_v1_response = record_responsify(csv_v1, "text/csv", "csv")
+xlsx_v1_response = record_responsify(
+    csv_v1,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "xlsx",
+    content_converter=csv_to_xlsx,
+)

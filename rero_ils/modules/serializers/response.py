@@ -65,12 +65,16 @@ def search_responsify(serializer, mimetype):
     return view
 
 
-def search_responsify_file(serializer, mimetype, file_extension, file_prefix=None, file_suffix=None):
+def search_responsify_file(
+    serializer, mimetype, file_extension, file_prefix=None, file_suffix=None, content_converter=None
+):
     """Create a Records-REST search result response serializer.
 
     :param serializer: Serializer instance.
     :param mimetype: MIME type of response.
     :param file_extension: File extension.
+    :param content_converter: Optional function used to convert the serialized
+        content before creating the response.
     :returns: Function that generates a record HTTP response.
     """
 
@@ -82,13 +86,17 @@ def search_responsify_file(serializer, mimetype, file_extension, file_prefix=Non
         links=None,
         item_links_factory=None,
     ):
+        content = serializer.serialize_search(
+            pid_fetcher,
+            search_result,
+            links=links,
+            item_links_factory=item_links_factory,
+        )
+        if content_converter:
+            content = content_converter(content)
+
         response = current_app.response_class(
-            serializer.serialize_search(
-                pid_fetcher,
-                search_result,
-                links=links,
-                item_links_factory=item_links_factory,
-            ),
+            content,
             mimetype=mimetype,
         )
         response.status_code = code

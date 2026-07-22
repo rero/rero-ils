@@ -11,11 +11,12 @@ from rero_ils.modules.serializers import (
     search_responsify,
     search_responsify_file,
 )
+from rero_ils.modules.serializers.utils import csv_to_xlsx
 
 from .csv import AcqOrderCSVSerializer
 from .json import AcqOrderJSONSerializer
 
-__all__ = ["csv_acor_search", "json_acor_record", "json_acor_search"]
+__all__ = ["csv_acor_search", "json_acor_record", "json_acor_search", "xlsx_acor_search"]
 
 """JSON serializer."""
 _json = AcqOrderJSONSerializer(RecordSchemaJSONV1)
@@ -56,3 +57,10 @@ _csv = AcqOrderCSVSerializer(
 )
 
 csv_acor_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_prefix="export-orders")
+xlsx_acor_search = search_responsify_file(
+    _csv,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    file_extension="xlsx",
+    file_prefix="export-orders",
+    content_converter=csv_to_xlsx,
+)
