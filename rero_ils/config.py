@@ -2124,21 +2124,35 @@ RECORDS_REST_FACETS = dict(
                                     field="nested_holdings.organisation.organisation_pid",
                                     size=DOCUMENTS_AGGREGATION_SIZE,
                                     min_doc_count=0,
+                                    # count documents, not holdings, so the
+                                    # `size` cut keeps the buckets with the
+                                    # most documents (see `record_count` below)
+                                    order={"record_count": "desc"},
                                 ),
                                 aggs=dict(
+                                    # count documents, not holdings
+                                    record_count=dict(reverse_nested=dict()),
                                     library=dict(
                                         terms=dict(
                                             field="nested_holdings.organisation.library_pid",
-                                            size=50,
+                                            size=100,
                                             min_doc_count=0,
+                                            order={"record_count": "desc"},
                                         ),
                                         aggs=dict(
+                                            record_count=dict(reverse_nested=dict()),
                                             location=dict(
                                                 terms=dict(
                                                     field="nested_holdings.location.pid",
                                                     size=100,
                                                     min_doc_count=0,
-                                                )
+                                                    order={"record_count": "desc"},
+                                                ),
+                                                aggs=dict(
+                                                    record_count=dict(
+                                                        reverse_nested=dict()
+                                                    )
+                                                ),
                                             )
                                         )
                                     )

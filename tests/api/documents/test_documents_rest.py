@@ -12,7 +12,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.commons.identifiers import IdentifierType
-from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import (
@@ -395,9 +396,12 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
     data = get_json(res)
     aggs = data["aggregations"]
 
+    # the stale holdings-based terms metadata (`sum_other_doc_count`,
+    # `doc_count_error_upper_bound`) is dropped: it no longer matches the
+    # document counts exposed on the buckets.
     assert aggs["organisation"]["buckets"] == [
         {
-            "doc_count": 4,
+            "doc_count": 3,
             "key": "org1",
             "library": {
                 "buckets": [
@@ -406,8 +410,6 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
                         "key": "lib1",
                         "location": {
                             "buckets": [{"doc_count": 2, "key": "loc1", "name": "Martigny Library Public Space"}],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
                         },
                         "name": "Library of Martigny-ville",
                     },
@@ -416,14 +418,10 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
                         "key": "lib2",
                         "location": {
                             "buckets": [{"doc_count": 2, "key": "loc3", "name": "Saxon Library Public Space"}],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
                         },
                         "name": "Library of Saxon",
                     },
                 ],
-                "doc_count_error_upper_bound": 0,
-                "sum_other_doc_count": 0,
             },
             "name": "The district of Martigny Libraries",
         }
@@ -438,7 +436,7 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
 
     assert aggs["organisation"]["buckets"] == [
         {
-            "doc_count": 4,
+            "doc_count": 3,
             "key": "org1",
             "library": {
                 "buckets": [
@@ -447,8 +445,6 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
                         "key": "lib1",
                         "location": {
                             "buckets": [{"doc_count": 2, "key": "loc1", "name": "Martigny Library Public Space"}],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
                         },
                         "name": "Library of Martigny-ville",
                     },
@@ -457,14 +453,10 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
                         "key": "lib2",
                         "location": {
                             "buckets": [{"doc_count": 2, "key": "loc3", "name": "Saxon Library Public Space"}],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
                         },
                         "name": "Library of Saxon",
                     },
                 ],
-                "doc_count_error_upper_bound": 0,
-                "sum_other_doc_count": 0,
             },
             "name": "The district of Martigny Libraries",
         }
@@ -477,51 +469,118 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
     data = get_json(res)
     aggs = data["aggregations"]
 
-    assert aggs["organisation"]["buckets"] == [
-        {
-            "doc_count": 0,
-            "key": "org1",
-            "library": {
-                "buckets": [
-                    {
-                        "doc_count": 0,
-                        "key": "lib1",
-                        "location": {
-                            "buckets": [
-                                {"doc_count": 0, "key": "loc1"},
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc3",
-                                },
-                            ],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
-                        },
-                    },
-                    {
-                        "doc_count": 0,
-                        "key": "lib2",
-                        "location": {
-                            "buckets": [
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc1",
-                                },
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc3",
-                                },
-                            ],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
-                        },
-                    },
-                ],
-                "doc_count_error_upper_bound": 0,
-                "sum_other_doc_count": 0,
-            },
-        }
+    # no document matches `fiction`; every reverse_nested count is 0, so all
+    # buckets are pruned. `min_doc_count=0` still makes Elasticsearch emit the
+    # (empty) buckets, so the rewrite runs and drops the stale holdings-based
+    # terms metadata even for an empty result set.
+    assert aggs["organisation"]["buckets"] == []
+    assert "sum_other_doc_count" not in aggs["organisation"]
+    assert "doc_count_error_upper_bound" not in aggs["organisation"]
+
+
+def _facet_holding_data(document, location, item_type):
+    """Build minimal standard holding data (library/org come from location)."""
+    return {
+        "document": {"$ref": get_ref_for_pid("doc", document.pid)},
+        "circulation_category": {"$ref": get_ref_for_pid("itty", item_type.pid)},
+        "location": {"$ref": get_ref_for_pid("loc", location.pid)},
+        "holdings_type": "standard",
+    }
+
+
+@mock.patch(
+    "invenio_records_rest.views.verify_record_permission",
+    mock.MagicMock(return_value=VerifyRecordPermissionPatch),
+)
+def test_documents_organisation_facet_document_count_order(
+    client,
+    app,
+    rero_json_header,
+    org_sion,
+    lib_sion,
+    lib_aproz,
+    loc_public_sion,
+    loc_restricted_sion,
+    loc_online_sion,
+    loc_online_aproz,
+    item_type_internal_sion,
+    document_data,
+):
+    """Test the `size` cut keeps the buckets with the most documents.
+
+    The org/library/location facet runs on the `nested_holdings` nested field,
+    so Elasticsearch orders the terms buckets by holdings count. When the
+    number of buckets exceeds the aggregation `size`, a library (or location)
+    with many documents but few holdings could be dropped before the serializer
+    re-sorts. The terms aggregations must therefore order by `record_count`
+    (the document count) in the query itself.
+    """
+    # Two libraries of the same organisation:
+    #   * `lib_sion` gets 3 holdings, but all on a single document;
+    #   * `lib_aproz` gets 2 holdings, on two distinct documents.
+    # Elasticsearch orders terms by holdings count, so `lib_sion` (3 holdings)
+    # comes before `lib_aproz` (2 holdings) even though `lib_aproz` has more
+    # documents.
+    documents = [
+        Document.create(deepcopy(document_data), delete_pid=True, dbcommit=True, reindex=True) for _ in range(3)
     ]
+    doc_a, doc_b, doc_c = documents
+
+    holdings = [
+        Holding.create(
+            _facet_holding_data(doc_a, location, item_type_internal_sion), delete_pid=True, dbcommit=True, reindex=True
+        )
+        for location in (loc_public_sion, loc_restricted_sion, loc_online_sion)
+    ]
+    holdings += [
+        Holding.create(
+            _facet_holding_data(document, loc_online_aproz, item_type_internal_sion),
+            delete_pid=True,
+            dbcommit=True,
+            reindex=True,
+        )
+        for document in (doc_b, doc_c)
+    ]
+    HoldingsSearch.flush_and_refresh()
+    for document in documents:
+        document.reindex()
+    DocumentsSearch.flush_and_refresh()
+
+    try:
+        # Shrink the library `size` to 1: with two libraries, the size cut now
+        # keeps a single bucket, reproducing the "buckets exceed the limit"
+        # situation with a minimal dataset.
+        facets = deepcopy(app.config["RECORDS_REST_FACETS"])
+        library_agg = facets["documents"]["aggs"]["organisation"]["aggs"]["nested_holdings"]["aggs"]["organisation"][
+            "aggs"
+        ]["library"]
+        library_agg["terms"]["size"] = 1
+        with mock.patch.dict(app.config, {"RECORDS_REST_FACETS": facets}):
+            list_url = url_for("invenio_records_rest.doc_list", view="org2")
+            res = client.get(list_url, headers=rero_json_header)
+        aggs = get_json(res)["aggregations"]
+
+        # `lib_aproz` (2 documents) must survive the size cut; `lib_sion`
+        # (3 holdings but 1 document) must be dropped. Ordering by holdings
+        # count would keep `lib_sion` and lose `lib_aproz`.
+        library_buckets = aggs["library"]["buckets"]
+        assert [bucket["key"] for bucket in library_buckets] == [lib_aproz.pid]
+        assert library_buckets[0]["doc_count"] == 2
+        location_buckets = library_buckets[0]["location"]["buckets"]
+        assert [bucket["key"] for bucket in location_buckets] == [loc_online_aproz.pid]
+        assert location_buckets[0]["doc_count"] == 2
+        # the stale holdings-based terms metadata is dropped: here the size cut
+        # dropped `lib_sion`, so Elasticsearch reported a non-zero
+        # `sum_other_doc_count` (its 3 holdings) that no longer makes sense.
+        assert "sum_other_doc_count" not in aggs["library"]
+        assert "doc_count_error_upper_bound" not in aggs["library"]
+    finally:
+        for holding in holdings:
+            holding.delete(force=True, dbcommit=True, delindex=True)
+        HoldingsSearch.flush_and_refresh()
+        for document in documents:
+            document.delete(force=True, dbcommit=True, delindex=True)
+        DocumentsSearch.flush_and_refresh()
 
 
 @mock.patch(
