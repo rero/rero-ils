@@ -13,7 +13,7 @@ from rero_ils.modules.entities.api import Entity
 from rero_ils.modules.entities.helpers import get_entity_record_from_data
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patrons.api import current_patrons
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.utils import extracted_data_from_ref
 
 from .api import Document
@@ -75,6 +75,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         viewcode=viewcode,
         recordType="documents",
         current_patrons=current_patrons,
+        current_librarian=current_librarian,
         linked_documents_count=linked_documents_count,
     )
 

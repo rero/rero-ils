@@ -16,8 +16,23 @@
 {%- endblock css %}
 
 {%- block body %}
-<header class="row py-2">
-    <a href="javascript:history.back()" class="col-12"><i class="fa-solid fa-arrow-left"></i> {{ _('Back') }}</a>
+<header class="d-flex align-items-center py-2">
+    <div class="flex-grow-1">
+      <a href="javascript:history.back()">
+        <i class="fa-solid fa-arrow-left"></i> {{ _('Back') }}
+      </a>
+    </div>
+    {% if current_librarian %}
+    <div>
+      <a
+        class="btn btn-outline-secondary"
+        href="/professional/records/documents/detail/{{ record.pid }}"
+      >
+        <i class="fa-solid fa-file-lines"></i>
+        {{ _('See in pro interface') }}
+      </a>
+    </div>
+    {% endif %}
 </header>
 <div class="row">
   {%- set icon_name = record | document_main_type(false) %}
