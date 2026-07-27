@@ -15,7 +15,6 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 def test_loans_build_refs(item_lib_martigny, patron_martigny, document):
     """Test functions buildings refs."""
-
     # Create "virtual" Loan (not registered)
     loan = Loan(
         {

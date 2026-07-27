@@ -203,7 +203,7 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
             if filter_field != facet_field and _filter:
                 q &= _filter
 
-    for name_group, filters in filters_group.items():
-        if facet_name != name_group and filters:
-            q &= Q("bool", should=filters)
+    for name_group, group_filters in filters_group.items():
+        if facet_name != name_group and group_filters:
+            q &= Q("bool", should=group_filters)
     return q if q != Q() else None

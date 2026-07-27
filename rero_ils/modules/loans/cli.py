@@ -465,8 +465,8 @@ def get_random_librarian(patron):
         .source(["pid"])
         .scan()
     )
-    for patron in patrons:
-        return Patron.get_record_by_pid(patron.pid)
+    for professional in patrons:
+        return Patron.get_record_by_pid(professional.pid)
     return None
 
 

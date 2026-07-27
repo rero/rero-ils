@@ -26,7 +26,6 @@ def test_collections_permissions(
     org_martigny,
 ):
     """Test collection permissions class."""
-
     # Anonymous user & Patron user
     #  - search/read any items are allowed.
     #  - create/update/delete operations are disallowed.

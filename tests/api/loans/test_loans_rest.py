@@ -533,7 +533,6 @@ def test_timezone_due_date(
     lib_martigny,
 ):
     """Test that timezone affects due date regarding library location."""
-
     # Close the library all days. Except Monday.
     del lib_martigny["exception_dates"]
     lib_martigny["opening_hours"] = [

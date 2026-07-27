@@ -19,7 +19,6 @@ def test_document_files(
     librarian_martigny,
 ):
     """Test document files."""
-
     list_url = url_for("invenio_records_rest.doc_list", q="_exists_:files")
     res = client.get(list_url)
     hits = get_json(res)["hits"]

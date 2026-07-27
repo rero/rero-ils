@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests acquisition accounts permissions."""
+
 from unittest import mock
 
 from flask import current_app
@@ -27,7 +29,6 @@ def test_acq_accounts_permissions(
     acq_account_fiction_sion,
 ):
     """Test acq_account permissions class."""
-
     # Anonymous user & Patron :: None action allowed
     identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(

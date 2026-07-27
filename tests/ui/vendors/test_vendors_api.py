@@ -9,7 +9,6 @@ from rero_ils.modules.vendors.models import VendorContactType, VendorNoteType
 
 def test_vendors_properties(vendor_martigny, vendor_sion):
     """Test vendor properties."""
-
     # NOTES -------------------------------------------------------------------
     assert vendor_martigny.get_note(VendorNoteType.CLAIM) is not None
     assert vendor_martigny.get_note(VendorNoteType.GENERAL) is None

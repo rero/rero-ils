@@ -99,7 +99,6 @@ def test_reset_password_form(client, app):
     All validator tests are performed by the test_register_form (above).
     Here we only test that the validator is active on the field.
     """
-
     form_data = {"email": "foo@bar.com", "password": "123", "password_confirm": "123"}
     res = client.post(url_for("security.reset_password", token="123ab"), data=form_data)
     soup = BeautifulSoup(res.data, "html.parser")

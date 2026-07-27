@@ -32,7 +32,6 @@ def test_fees_after_extend(
     circulation_policies,
 ):
     """Test fees calculation after extend on different location."""
-
     # STEP#1 :: CREATE A SPECIAL CIPO FOR NEXT EXTEND OPERATION
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     checkout_cipo = get_circ_policy(loan)

@@ -43,6 +43,9 @@ from rero_ils.modules.providers import set_sequence
 # SEE: RECORDS_REFRESOLVER_STORE for more details
 refresolver_store = LocalProxy(lambda: current_app.extensions["rero-ils"].jsonschema_store)
 
+# Shared stateless decoder used as the default of `read_json_record`.
+_JSON_DECODER = JSONDecoder()
+
 
 def get_mef_url(entity_type):
     """Get the base MEF URL by entity type.
@@ -122,7 +125,7 @@ def date_string_to_utc(date):
     return parsed_date if parsed_date.tzinfo else parsed_date.replace(tzinfo=UTC)
 
 
-def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
+def read_json_record(json_file, buf_size=1024, decoder=_JSON_DECODER):
     """Read lasy json records from file.
 
     :param json_file: json file handle
@@ -837,8 +840,7 @@ def bulk_load_pids(pid_type, ids, bulk_count=0, verbose=True, reindex=False):
     with open(ids) as file:
         for line in file:
             pid = int(line)
-            if pid > max_pid:
-                max_pid = pid
+            max_pid = max(max_pid, pid)
     set_sequence(identifier)
 
 
@@ -887,13 +889,12 @@ def bulk_save_pidstore(pid_type, file_name, file_name_tmp, verbose=False):
             verbose=verbose,
         )
     # clean pid file
-    with open(file_name_tmp) as file_in:
-        with open(file_name, "w") as file_out:
-            count = 0
-            for line in file_in:
-                if pid_type in line:
-                    count += 1
-                    file_out.write(line)
+    with open(file_name_tmp) as file_in, open(file_name, "w") as file_out:
+        count = 0
+        for line in file_in:
+            if pid_type in line:
+                count += 1
+                file_out.write(line)
     return count
 
 
@@ -1065,7 +1066,7 @@ def truncate_string(str_input, max_length, ellipsis="..."):
     return str_input
 
 
-def draw_data_table(columns, rows=[], padding=""):
+def draw_data_table(columns, rows=None, padding=""):
     """Draw data as a table using ASCII characters.
 
     :param columns: the column headers. Each column is a tuple that must
@@ -1075,6 +1076,7 @@ def draw_data_table(columns, rows=[], padding=""):
         must define at most as much data as the number of columns.
     :param padding: the left padding to apply to each table line.
     """
+    rows = rows or []
 
     def table_header():
         column_lengths = [column[1] for column in columns]

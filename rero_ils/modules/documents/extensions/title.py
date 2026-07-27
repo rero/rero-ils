@@ -49,7 +49,9 @@ class TitleExtension(RecordExtension):
                             return True
                         lang, _ = value.split("-")
                         # remove the latin form if a vernacular form exists
-                        return not value.endswith("-latn") or sum(v.startswith(f"{lang}-") for v in languages) <= 1
+                        return (
+                            not value.endswith("-latn") or sum(v.startswith(f"{lang}-") for v in languages) <= 1  # noqa: B023
+                        )
 
                     # list of selected language
                     filtered_languages = list(filter(filter_list, languages))

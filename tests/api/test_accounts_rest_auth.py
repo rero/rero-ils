@@ -9,7 +9,6 @@ from invenio_accounts.testutils import login_user_via_session
 
 def test_disabled_endpoint(client, app, patron_martigny):
     """Test disabled endpoint."""
-
     ext = app.extensions["security"]
     ext.registerable = ext.changeable = ext.recoverable = ext.confirmable = True
 

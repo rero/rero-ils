@@ -411,7 +411,6 @@ def test_acquisition_order(
     document,
 ):
     """Scenario to test orders creation."""
-
     login_user_via_session(client, librarian_martigny.user)
 
     # STEP 0 :: Create the account tree
@@ -573,7 +572,6 @@ def test_acquisition_order_line_account_changes(
     document,
 ):
     """Test validation behavior on if related account of order line changes."""
-
     # We will create an order line related to a first account (acc#A) ; then
     # we updated the related account (acc#B). We need to check if :
     #  - the destination account has enough balance to accept this order_line

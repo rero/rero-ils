@@ -16,9 +16,9 @@ def resolve_json_refs(pid_type, pid):
     """
     try:
         persistent_id = PersistentIdentifier.get(pid_type, pid)
-    except Exception as error:
-        current_app.logger.error(f"Unable to resolve {pid_type} pid: {pid}")
-        raise error
+    except Exception:
+        current_app.logger.error("Unable to resolve %s pid: %s", pid_type, pid)
+        raise
 
     if persistent_id.is_redirected():
         persistent_id = persistent_id.get_redirect()

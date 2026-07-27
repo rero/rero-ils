@@ -858,7 +858,6 @@ def unimarc_description(self, key, value):
     215 [$e repetitive]: accompanying material note
     """
     unimarc.extract_description_from_marc_field(key, value, self)
-    return
 
 
 @unimarc.over("series", "^225..")
@@ -954,10 +953,10 @@ def unimarc_identifier_isbn(self, key, value):
         identifiers.append(isbn)
 
     if value.get("z"):
-        for value in utils.force_list(value.get("z")):
+        for isbn_value in utils.force_list(value.get("z")):
             isbn = {
                 "type": "bf:Isbn",
-                "value": value.replace("-", ""),
+                "value": isbn_value.replace("-", ""),
                 "status": "invalid or cancelled",
             }
             identifiers.append(isbn)
@@ -1052,8 +1051,6 @@ def unimarc_notes(self, key, value):
     note: [300$a repetitive]
     """
     add_note({"noteType": "general", "label": value.get("a", "")}, self)
-
-    return
 
 
 @unimarc.over("subjects_imported", "^6((0[0-9])|(1[0-7]))..")

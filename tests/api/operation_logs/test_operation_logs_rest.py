@@ -110,7 +110,6 @@ def test_operation_log_on_item(
     item_lib_martigny,
 ):
     """Test operation log on Item."""
-
     # STEP #1 : Create an item. This will generate an operation log
     item_data = deepcopy(item_lib_martigny_data_tmp)
     del item_data["pid"]
@@ -271,7 +270,6 @@ def test_operation_log_on_ill_request(client, ill_request_martigny, librarian_ma
 
 def test_operation_log_on_file(client, librarian_martigny, document, lib_martigny, file_location):
     """Test files operation log."""
-
     # get the op index
     fake_data = {"date": datetime.now().isoformat()}
     oplg_index = OperationLog.get_index(fake_data)

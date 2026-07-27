@@ -865,7 +865,9 @@ class ToMarc21Overdo(Underdo):
         try:
             order = current_app.config.get("RERO_ILS_AGENTS_LABEL_ORDER", {})
         except RuntimeError:
-            from rero_ils.config import RERO_ILS_AGENTS_LABEL_ORDER as order
+            from rero_ils.config import RERO_ILS_AGENTS_LABEL_ORDER
+
+            order = RERO_ILS_AGENTS_LABEL_ORDER
         self.source_order = order.get(self.language, order.get(order.get("fallback", "en"), []))
 
         if with_holdings_items:
@@ -1046,7 +1048,6 @@ def reverse_identified_by(self, key, value):
             result["__order__"].append("q")
             result["q"] = qualifier
         self.append(("020__", utils.GroupableOrderedDict(result)))
-    return
 
 
 @to_marc21.over("245", "^title_responsibility")
@@ -1194,8 +1195,8 @@ def reverse_provision_activity(self, key, value):
         elif provision_activity_type == "bf:Production":
             ind2 = "0"
         result = {"$ind2": ind2}
-        for key, value in data.items():
-            result = add_values(result, key, value)
+        for data_key, data_value in data.items():
+            result = add_values(result, data_key, data_value)
         result["__order__"] = order
         return result
     return None

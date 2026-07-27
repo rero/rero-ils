@@ -141,17 +141,17 @@ def loaded_resources_report():
         "holdings": Holding,
     }
     report = {}
-    for object in objects:
-        object_pids = objects[object].get_all_pids()
-        report[object] = len(list(object_pids))
+    for name, record_class in objects.items():
+        object_pids = record_class.get_all_pids()
+        report[name] = len(list(object_pids))
         item_details = []
-        if object == "items":
+        if name == "items":
             for item in object_pids:
                 item_details.append(
                     {
                         "item_pid": item,
-                        "item_status": objects[object].get_record_by_pid(item).status,
-                        "requests": objects[object].get_record_by_pid(item).number_of_requests(),
+                        "item_status": record_class.get_record_by_pid(item).status,
+                        "requests": record_class.get_record_by_pid(item).number_of_requests(),
                         "loans": get_loan_for_item(item_pid_to_object(item)),
                     }
                 )

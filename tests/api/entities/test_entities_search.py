@@ -16,7 +16,6 @@ from tests.utils import VerifyRecordPermissionPatch, get_json
 )
 def test_unified_entity_search(client, entity_person, local_entity_person, entity_organisation):
     """Test unified entity search queries."""
-
     # unified entity search
     list_url = url_for("invenio_records_rest.ent_list", q='"Loy, Georg"', simple="1")
     res = client.get(list_url)

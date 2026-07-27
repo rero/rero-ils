@@ -27,7 +27,6 @@ from tests.api.acquisition.acq_utils import _make_resource
 
 def test_rollover_cli(client, acq_full_structure_a, org_martigny):
     """Test rollover script using the CLI command."""
-
     origin_budget = acq_full_structure_a
     runner = CliRunner()
     with runner.isolated_filesystem():

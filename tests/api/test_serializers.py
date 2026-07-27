@@ -348,7 +348,6 @@ def test_cached_serializers(
     loc_public_martigny_data,
 ):
     """Test cached serializers."""
-
     # Ensure than cache used in some serializer is reset each time we request
     # a new search result serialization.
     #

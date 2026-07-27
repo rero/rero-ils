@@ -63,9 +63,7 @@ class MigrationDataListResource(ContentNegotiatedMethodView):
         """HTTP GET method."""
         from ..api import Migration
 
-        migration_id = flask_request.args.get("migration")
-
-        if migration_id:
+        if migration_id := flask_request.args.get("migration"):
             try:
                 migration = Migration.get(migration_id)
                 cls = migration.data_class
@@ -79,9 +77,9 @@ class MigrationDataListResource(ContentNegotiatedMethodView):
 
         # get request args
         size = int(flask_request.args.get("size", 10))
-        size = 0 if size < 0 else size
+        size = max(size, 0)
         page = int(flask_request.args.get("page", 1))
-        page = 1 if page < 1 else page
+        page = max(page, 1)
         query = flask_request.args.get("q")
 
         # base query and filter by organization
@@ -139,8 +137,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
         """Implement the GET."""
         from ..api import Migration
 
-        migration_id = flask_request.args.get("migration")
-        if migration_id:
+        if migration_id := flask_request.args.get("migration"):
             try:
                 migration = Migration.get(migration_id)
                 MigrationData = migration.data_class
@@ -181,10 +178,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
             migration_data = next(MigrationData.search(index="migration-data").filter("term", _id=id).scan())
             migration = Migration.get(migration_data.migration_id)
         migration_data.deduplication.ils_pid = ils_pid
-        if not ils_pid:
-            migration_data.deduplication.status = "no match"
-        else:
-            migration_data.deduplication.status = "match"
+        migration_data.deduplication.status = "match" if ils_pid else "no match"
         if candidates := body.get("candidates"):
             migration_data.deduplication.candidates = candidates
         if current_librarian:

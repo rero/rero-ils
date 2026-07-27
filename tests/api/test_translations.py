@@ -10,7 +10,6 @@ from tests.utils import get_json
 
 def test_translations(client, app):
     """Test translations API."""
-
     for ln in app.extensions.get("invenio-i18n").get_languages():
         res = client.get(url_for("api_blueprint.translations", ln=ln[0]))
         assert res.status_code == 200
@@ -19,7 +18,6 @@ def test_translations(client, app):
 
 def test_translations_exceptions(client, app):
     """Test exceptions raised by translations API."""
-
     # Note : usage of type()
     #   the usage of `type` allow to create on the fly a class with only
     #   necessary attributes for the mock. In the Below case, we could replace

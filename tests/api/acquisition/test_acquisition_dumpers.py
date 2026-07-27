@@ -13,7 +13,6 @@ def test_acquisition_dumpers(
     acq_order_line2_fiction_martigny,
 ):
     """Test acquisition dumpers."""
-
     # Test AcqOrderNotificationDumper. This will also test the
     #  * AcqOrderLineNotificationDumper
     #  * LibraryAcquisitionNotificationDumper

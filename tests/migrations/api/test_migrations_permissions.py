@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: Fondation RERO+
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests migrations permissions."""
+
 from unittest import mock
 
 from flask import current_app
@@ -20,7 +22,6 @@ def test_migration_permissions(
     migration,
 ):
     """Test library permissions class."""
-
     # Anonymous user
     identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(

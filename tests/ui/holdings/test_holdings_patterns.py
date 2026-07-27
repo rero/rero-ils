@@ -316,7 +316,7 @@ def test_holding_validate_next_expected_date(
     json_header,
     holding_lib_sion_w_patterns_data,
 ):
-    """Test create holding with regular frequency and missing
+    """Test create holding with regular frequency and missing.
 
     the next_expected_date.
     """
@@ -520,7 +520,6 @@ def test_intervals_and_expected_dates(holding_lib_martigny_w_patterns):
 
 def test_holding_notes(client, librarian_martigny, holding_lib_martigny_w_patterns, json_header):
     """Test holdings notes."""
-
     holding = holding_lib_martigny_w_patterns
     login_user_via_session(client, librarian_martigny.user)
 

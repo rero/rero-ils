@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests items permissions."""
+
 from unittest import mock
 
 from flask import current_app
@@ -24,7 +26,6 @@ def test_items_permissions(
     item_lib_martigny,
 ):
     """Test item permissions class."""
-
     # Anonymous user & Patron user
     #  - search/read any items are allowed.
     #  - create/update/delete operations are disallowed.

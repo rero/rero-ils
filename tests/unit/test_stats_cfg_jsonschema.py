@@ -10,7 +10,6 @@ from jsonschema.exceptions import ValidationError
 
 def test_required(stats_cfg_schema):
     """Test required for template jsonschema."""
-
     with pytest.raises(ValidationError):
         validate({}, stats_cfg_schema)
 

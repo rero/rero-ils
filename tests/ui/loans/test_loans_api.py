@@ -97,7 +97,6 @@ def test_item_loans_default_duration(
     lib_martigny,
 ):
     """Test default loan duration."""
-
     # create a loan with request is easy
     item, actions = item_lib_martigny.request(
         pickup_location_pid=loc_public_martigny.pid,

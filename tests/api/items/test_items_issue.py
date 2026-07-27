@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests items issue."""
+
 from unittest import mock
 
 from flask import url_for
@@ -44,7 +46,6 @@ def _receive_regular_issue(client, holding):
 )
 def test_issues_permissions(client, holding_lib_martigny_w_patterns, librarian_martigny):
     """Test specific items issues permissions."""
-
     # receive a regular issue
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)

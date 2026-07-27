@@ -56,6 +56,7 @@ def test_blocked_patron_cannot_request(
     patron3_martigny_blocked,
     circulation_policies,
 ):
+    """Test that a blocked patron cannot request an item."""
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(
         url_for(

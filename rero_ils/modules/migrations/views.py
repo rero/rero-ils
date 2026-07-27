@@ -61,9 +61,9 @@ class MigrationsListResource(ContentNegotiatedMethodView):
     def get(self, **kwargs):
         """HTTP GET method."""
         size = int(flask_request.args.get("size", 10))
-        size = 0 if size < 0 else size
+        size = max(size, 0)
         page = int(flask_request.args.get("page", 1))
-        page = 1 if page < 1 else page
+        page = max(page, 1)
         query = flask_request.args.get("q")
 
         search = Migration.search()[(page - 1) * size : page * size].filter(

@@ -16,7 +16,6 @@ def test_local_entities_authorized_access_point(
 
     dumped_record = local_entity_org.dumps()
     assert dumped_record["authorized_access_point"] == "Convegno internazionale di Italianistica"
-    #
     dumped_record = local_entity_org2.dumps()
     assert (
         dumped_record["authorized_access_point"] == "Catholic Church. Concilium Plenarium Americae "

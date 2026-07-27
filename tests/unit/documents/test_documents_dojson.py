@@ -45,7 +45,6 @@ def test_marc21_to_type():
     $a: main_type
     $b: subtype
     """
-
     marc21xml = """
     <record>
         <leader>00501nam a2200133 a 4500</leader>
@@ -82,10 +81,7 @@ def test_marc21_to_type():
 
 
 def test_marc21_to_admin_metadata():
-    """
-    Test dojson marc21_to_admin_metadata (L34, L37, 45).
-    """
-
+    """Test dojson marc21_to_admin_metadata (L34, L37, 45)."""
     marc21xml = """
     <record>
         <leader>00501naa a2200133 a 4500</leader>
@@ -219,10 +215,7 @@ def test_marc21_to_admin_metadata():
 
 
 def test_marc21_to_mode_of_issuance():
-    """
-    Test dojson marc21_to_mode_issuance.
-    """
-
+    """Test dojson marc21_to_mode_issuance."""
     marc21xml = """
     <record>
         <leader>00501naa a2200133 a 4500</leader>
@@ -389,7 +382,6 @@ def test_marc21_to_mode_of_issuance():
 # pid: 001
 def test_marc21_to_pid():
     """Test dojson marc21pid."""
-
     marc21xml = """
     <record>
       <controlfield tag="001">
@@ -420,7 +412,6 @@ def test_marc21_to_title_245_with_sufield_c_having_square_bracket():
     - subfields 245 $c with '[]'
     - field 246 is not present
     """
-
     marc21xml = """
     <record>
       <controlfield tag=
@@ -458,7 +449,6 @@ def test_marc21_to_title_245_with_two_246():
     - 2 fields 246 are present
     - field 880 exists for the field 245
     """
-
     marc21xml = """
     <record>
         <controlfield tag=
@@ -522,7 +512,6 @@ def test_marc21_to_title_245_without_246():
     - field 246 is not present
     - field 880 exists for the field 245
     """
-
     marc21xml = """
     <record>
       <controlfield tag=
@@ -572,7 +561,6 @@ def test_marc21_to_title_245_with_part_without_246():
     - field 246 is not present
     - field 880 exists for the field 245
     """
-
     marc21xml = """
     <record>
       <controlfield tag=
@@ -645,7 +633,6 @@ def test_marc21_to_title_with_multiple_parts():
     - subfields 245 $a without '='
     - field 246 is not present
     """
-
     marc21xml = """
     <record>
         <controlfield tag=
@@ -694,7 +681,6 @@ def test_marc21_to_title_245_and_246():
     - field 246 exists
     - field 880 exists for the field 245
     """
-
     marc21xml = """
     <record>
       <controlfield tag=
@@ -752,7 +738,6 @@ def test_marc21_to_title_245_and_246_with_multiple_responsibilities():
     - field 246 exists
     - field 880 exists for the field 245
     """
-
     marc21xml = """
     <record>
       <controlfield tag=
@@ -810,7 +795,6 @@ def test_marc21_to_title_with_variant_without_subtitle():
     - subfield 245 $a did not end with '='
     - field 246 with subfield $a $n $p
     """
-
     marc21xml = """
     <record>
       <controlfield tag=
@@ -952,7 +936,6 @@ def test_marc21_to_title_245_with_parallel_title_and_246():
     - field 246 exists
     - field 880 exists for the field 245
     """
-
     marc21xml = """
     <record>
       <controlfield tag=
@@ -1199,7 +1182,6 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
 # Copyright Date: [264 _4 $c non repetitive]
 def test_marc21copyrightdate():
     """Test dojson Copyright Date."""
-
     marc21xml = """
     <record>
       <datafield tag="264" ind1=" " ind2="4">
@@ -1225,9 +1207,9 @@ def test_marc21copyrightdate():
 
 def test_marc21_to_provision_activity_manufacture_date():
     """Test dojson publication statement.
-    - 1 manufacture place and 1 agent, 1 manufacture date
-    """
 
+    - 1 manufacture place and 1 agent, 1 manufacture date.
+    """
     marc21xml = """
       <record>
         <controlfield tag=
@@ -1316,7 +1298,8 @@ def test_marc21_provisionActivity_without_264_with_752():
 
 def test_marc21_provisionActivity_with_original_date():
     """Test dojson publication statement.
-    - get original_date from 008 pos 11-14 if pos 6 = r
+
+    - get original_date from 008 pos 11-14 if pos 6 = r.
     """
     marc21xml = """
     <record>
@@ -1338,10 +1321,10 @@ def test_marc21_provisionActivity_with_original_date():
 
 def test_marc21_to_provision_activity_canton():
     """Test dojson publication statement.
-    - get canton from field 044
-    - 3 publication places and 3 agents from one field 264
-    """
 
+    - get canton from field 044
+    - 3 publication places and 3 agents from one field 264.
+    """
     marc21xml = """
       <record>
         <controlfield tag=
@@ -1425,9 +1408,9 @@ def test_marc21_to_provision_activity_canton():
 
 def test_marc21_to_provision_activity_obsolete_countries():
     """Test dojson publication statement.
+
     - convert country to correct code if encountering an obsolete code.
     """
-
     marc21xml = """
       <record>
         <controlfield tag=
@@ -1630,9 +1613,9 @@ def test_marc21_to_provision_activity_obsolete_countries():
 
 def test_marc21_to_provision_activity_1_place_2_agents():
     """Test dojson publication statement.
-    - 1 publication place and 2 agents from one field 264
-    """
 
+    - 1 publication place and 2 agents from one field 264.
+    """
     marc21xml = """
       <record>
         <controlfield tag=
@@ -1664,10 +1647,10 @@ def test_marc21_to_provision_activity_1_place_2_agents():
 
 def test_marc21_to_provision_activity_1_place_2_agents_with_one_752():
     """Test dojson publication statement.
-    - 1 publication place and 2 agents from one field 264
-    - 1 field 752
-    """
 
+    - 1 publication place and 2 agents from one field 264
+    - 1 field 752.
+    """
     marc21xml = """
       <record>
         <controlfield tag=
@@ -1709,10 +1692,10 @@ def test_marc21_to_provision_activity_1_place_2_agents_with_one_752():
 
 def test_marc21_to_provision_activity_1_place_2_agents_with_two_752():
     """Test dojson publication statement.
-    - 1 publication place and 2 agents from one field 264
-    - 2 field 752
-    """
 
+    - 1 publication place and 2 agents from one field 264
+    - 2 field 752.
+    """
     marc21xml = """
       <record>
         <controlfield tag=
@@ -1763,7 +1746,8 @@ def test_marc21_to_provision_activity_1_place_2_agents_with_two_752():
 
 def test_marc21_to_provision_activity_unknown_place_2_agents():
     """Test dojson publication statement.
-    - unknown place and 2 agents from one field 264
+
+    - unknown place and 2 agents from one field 264.
     """
     marc21xml = """
       <record>
@@ -1802,8 +1786,9 @@ def test_marc21_to_provision_activity_unknown_place_2_agents():
 
 def test_marc21_to_provision_activity_3_places_dann_2_agents():
     """Test dojson publication statement.
+
     - 3 places and 2 agents from one field 264
-    - 2 places with [dann] prefix
+    - 2 places with [dann] prefix.
     """
     marc21xml = """
       <record>
@@ -1841,9 +1826,9 @@ def test_marc21_to_provision_activity_3_places_dann_2_agents():
 
 def test_marc21_to_provision_activity_2_places_1_agent():
     """Test dojson publication statement.
-    - 2 publication places and 1 agents from one field 264
-    """
 
+    - 2 publication places and 1 agents from one field 264.
+    """
     marc21xml = """
       <record>
       <controlfield tag=
@@ -1878,8 +1863,9 @@ def test_marc21_to_provision_activity_2_places_1_agent():
 
 def test_marc21_to_provision_activity_1_place_1_agent_reprint_date():
     """Test dojson publication statement.
+
     - 1 place and 1 agent from one field 264
-    - reprint date in 008
+    - reprint date in 008.
     """
     marc21xml = """
       <record>
@@ -1917,8 +1903,9 @@ def test_marc21_to_provision_activity_1_place_1_agent_reprint_date():
 
 def test_marc21_to_provision_activity_1_place_1_agent_uncertain_date():
     """Test dojson publication statement.
+
     - 1 place and 1 agent from one field 264
-    - uncertain date
+    - uncertain date.
     """
     marc21xml = """
       <record>
@@ -1951,8 +1938,9 @@ def test_marc21_to_provision_activity_1_place_1_agent_uncertain_date():
 
 def test_marc21_to_provision_activity_1_place_1_agent_chi_hani():
     """Test dojson publication statement.
+
     - 1 place and 1 agent from one field 264
-    - extract data from the linked 880 from 3 fields 880
+    - extract data from the linked 880 from 3 fields 880.
     """
     marc21xml = """
       <record>
@@ -2084,8 +2072,9 @@ def test_marc21_to_provision_activity_1_place_1_agent_chi_hani():
 
 def test_marc21_to_edition_statement_one_field_250():
     """Test dojson edition statement.
+
     - 1 edition designation and 1 responsibility from field 250
-    - extract data from the linked 880 from field 880
+    - extract data from the linked 880 from field 880.
     """
     marc21xml = """
       <record>
@@ -2121,8 +2110,9 @@ def test_marc21_to_edition_statement_one_field_250():
 
 def test_marc21_to_edition_statement_two_fields_250():
     """Test dojson edition statement.
+
     - 2 edition designations and 2 responsibility from fields 250
-    - extract data from the linked 880 from 1 field 880
+    - extract data from the linked 880 from 1 field 880.
     """
     marc21xml = """
       <record>
@@ -2166,8 +2156,9 @@ def test_marc21_to_edition_statement_two_fields_250():
 
 def test_marc21_to_edition_statement_with_two_subfield_a():
     """Test dojson edition statement.
+
     - 1 field 250 with 2 subfield_a
-    - extract data from the linked 880 from 1 field 880
+    - extract data from the linked 880 from 1 field 880.
     """
     marc21xml = """
       <record>
@@ -2206,9 +2197,10 @@ def test_marc21_to_edition_statement_with_two_subfield_a():
 
 def test_marc21_to_edition_statement_with_one_bad_field_250():
     """Test dojson edition statement.
+
     - 3 fields 250, and one of them as bad subdields $x, $y
       and one as only $b
-    - extract data from the linked 880 from 1 field 880
+    - extract data from the linked 880 from 1 field 880.
     """
     marc21xml = """
       <record>
@@ -2253,8 +2245,9 @@ def test_marc21_to_edition_statement_with_one_bad_field_250():
 
 def test_marc21_to_provision_activity_1_place_1_agent_ara_arab():
     """Test dojson publication statement.
+
     - 1 place and 1 agent from one field 264
-    - extract data from the linked 880
+    - extract data from the linked 880.
     """
     marc21xml = """
       <record>
@@ -2317,8 +2310,9 @@ def test_marc21_to_provision_activity_1_place_1_agent_ara_arab():
 
 def test_marc21_to_provision_activity_2_places_2_agents_rus_cyrl():
     """Test dojson publication statement.
+
     - 2 places and 2 agents from one field 264
-    - extract data from the linked 880 from 3 fields 880
+    - extract data from the linked 880 from 3 fields 880.
     """
     marc21xml = """
       <record>
@@ -2410,7 +2404,8 @@ def test_marc21_to_provision_activity_2_places_2_agents_rus_cyrl():
 
 def test_marc21_to_provision_activity_exceptions(capsys):
     """Test dojson publication statement.
-    - exceptions
+
+    - exceptions.
     """
     marc21xml = """
       <record>
@@ -2479,7 +2474,6 @@ def test_marc21_to_provision_activity_exceptions(capsys):
 
 def test_marc21_to_physical_description_plano():
     """Test dojson extent, productionMethod."""
-
     marc21xml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
@@ -2501,7 +2495,6 @@ def test_marc21_to_physical_description_plano():
 
 def test_marc21_to_physical_description_with_material_note():
     """Test dojson extent, productionMethod, material note."""
-
     marc21xml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
@@ -2527,7 +2520,6 @@ def test_marc21_to_physical_description_with_material_note():
 
 def test_marc21_to_physical_description_with_material_note_plus():
     """Test dojson extent, productionMethod, material note with +."""
-
     marc21xml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
@@ -2555,7 +2547,6 @@ def test_marc21_to_physical_description_with_material_note_plus():
 
 def test_marc21_to_physical_description_300_without_b():
     """Test dojson extent, productionMethod."""
-
     marc21xml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
@@ -2634,7 +2625,6 @@ def test_marc21_to_physical_description_multiple_300():
 # series.number: [490$v repetitive]
 def test_marc21_to_series_statement():
     """Test dojson seriesStatement."""
-
     marc21xml = """
     <record>
        <datafield tag="490" ind1="1" ind2=" ">
@@ -2669,7 +2659,6 @@ def test_marc21_to_series_statement():
 
 def test_marc21_to_series_statement_mutiple_490():
     """Test dojson seriesStatement."""
-
     marc21xml = """
     <record>
        <datafield tag="490" ind1="1" ind2=" ">
@@ -2728,7 +2717,6 @@ def test_marc21_to_series_statement_mutiple_490():
 # series.number: [490$v repetitive]
 def test_marc21_to_series_statement_with_alt_graphic():
     """Test dojson seriesStatement."""
-
     marc21xml = """
     <record>
         <controlfield tag=
@@ -2765,7 +2753,6 @@ def test_marc21_to_series_statement_with_alt_graphic():
 # series.number: [490$v repetitive]
 def test_marc21_to_series_statement_with_missig_subfield_v():
     """Test dojson seriesStatement."""
-
     marc21xml = """
     <record>
         <datafield tag="490" ind1="1" ind2=" ">
@@ -2796,7 +2783,6 @@ def test_marc21_to_series_statement_with_missig_subfield_v():
 # series.number: [490$v repetitive]
 def test_marc21_to_series_statement_with_missig_subfield_a():
     """Test dojson seriesStatement."""
-
     marc21xml = """
     <record>
        <controlfield tag="001">REROILS:123456789</controlfield>
@@ -2816,7 +2802,6 @@ def test_marc21_to_series_statement_with_missig_subfield_a():
 # series.number: [490$v repetitive]
 def test_marc21_to_series_statement_with_succesive_subfield_v():
     """Test dojson seriesStatement."""
-
     marc21xml = """
     <record>
         <leader>00501nam a2200133 a 4500</leader>
@@ -2849,7 +2834,6 @@ def test_marc21_to_series_statement_with_succesive_subfield_v():
 # summary: [520$a repetitive]
 def test_marc21_to_summary():
     """Test dojson summary (L27)."""
-
     marc21xml = """
     <record>
       <datafield tag="520" ind1=" " ind2=" ">
@@ -2890,7 +2874,6 @@ def test_marc21_to_summary():
 
 def test_marc21_to_intended_audience():
     """Test dojson intendedAudience from field 521 (L27)."""
-
     marc21xml = """
     <record>
         <datafield tag="521" ind1=" " ind2=" ">
@@ -2928,7 +2911,6 @@ def test_marc21_to_intended_audience():
 
 def test_marc21_to_original_title_from_500():
     """Test dojson original title from field 500, (L36)."""
-
     marc21xml = """
     <record>
       <datafield tag="500" ind1=" " ind2=" ">
@@ -2943,7 +2925,6 @@ def test_marc21_to_original_title_from_500():
 
 def test_marc21_to_notes_from_500():
     """Test dojson notes from field 500 (L35)."""
-
     marc21xml = """
     <record>
       <datafield tag="500" ind1=" " ind2=" ">
@@ -2964,7 +2945,6 @@ def test_marc21_to_notes_from_500():
 
 def test_marc21_to_notes_from_510():
     """Test dojson notes from field 510 (L35)."""
-
     marc21xml = """
     <record>
       <datafield tag="510" ind1=" " ind2=" ">
@@ -2988,7 +2968,6 @@ def test_marc21_to_notes_from_510():
 
 def test_marc21_to_notes_from_530_545_555_580():
     """Test dojson notes from field 530, 545, 555 and 580 (L35)."""
-
     marc21xml = """
     <record>
       <datafield tag="530" ind1=" " ind2=" ">
@@ -3017,7 +2996,6 @@ def test_marc21_to_notes_from_530_545_555_580():
 
 def test_marc21_to_classification_from_050():
     """Test dojson classification from 050 (L38)."""
-
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -3047,7 +3025,6 @@ def test_marc21_to_classification_from_050():
 
 def test_marc21_to_classification_from_060():
     """Test dojson classification from 060 (L38)."""
-
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -3075,7 +3052,6 @@ def test_marc21_to_classification_from_060():
 
 def test_marc21_to_classification_from_080():
     """Test dojson classification from 080 (L38)."""
-
     marc21xml = """
     <record>
       <datafield tag="080" ind1="0" ind2=" ">
@@ -3129,7 +3105,6 @@ def test_marc21_to_classification_from_080():
 
 def test_marc21_to_classification_from_082():
     """Test dojson classification from 082 (L38)."""
-
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -3181,9 +3156,9 @@ def test_marc21_to_classification_from_082():
 
 def test_marc21_to_subjects_from_980_2_factum():
     """Test dojson subjects from 980 2$ factum (L50).
-    - no classification to produce for $2 factum (38)
-    """
 
+    - no classification to produce for $2 factum (38).
+    """
     marc21xml = """
     <record>
       <datafield tag="980" ind1=" " ind2=" ">
@@ -3219,7 +3194,6 @@ def test_marc21_to_subjects_from_980_2_factum():
 
 def test_marc21_to_classification_from_980_2_musg_musi():
     """Test dojson classification from 980 2$ musg and $2 musi (L38)."""
-
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -3254,7 +3228,6 @@ def test_marc21_to_classification_from_980_2_musg_musi():
 
 def test_marc21_to_classification_from_980_2_brp_and_dr_sys():
     """Test dojson classification from 980 2$ brp and $2 dr_sys (L38)."""
-
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -3286,7 +3259,6 @@ def test_marc21_to_classification_from_980_2_brp_and_dr_sys():
 
 def test_marc21_to_frequency():
     """Test dojson frequency from field 310, 321 (L32)."""
-
     # field 310, 321 ok
     marc21xml = """
     <record>
@@ -3348,7 +3320,6 @@ def test_marc21_to_frequency():
 
 def test_marc21_to_sequence_numbering_from_one_362():
     """Test dojson sequence_numbering from 362 (L39)."""
-
     marc21xml = """
     <record>
       <datafield tag="362" ind1="0" ind2=" ">
@@ -3363,7 +3334,6 @@ def test_marc21_to_sequence_numbering_from_one_362():
 
 def test_marc21_to_sequence_numbering_from_two_362():
     """Test dojson sequence_numbering from 362 (L39)."""
-
     marc21xml = """
     <record>
       <datafield tag="362" ind1="0" ind2=" ">
@@ -3381,7 +3351,6 @@ def test_marc21_to_sequence_numbering_from_two_362():
 
 def test_marc21_to_table_of_contents_from_505():
     """Test dojson tableOfContents from 505 (L44)."""
-
     marc21xml = """
     <record>
       <datafield tag="505" ind1="0" ind2=" ">
@@ -3404,7 +3373,6 @@ def test_marc21_to_table_of_contents_from_505():
 
 def test_marc21_to_usage_and_access_policy():
     """Test dojson usageAndAccessPolicy from field 506, 540 (L74)."""
-
     marc21xml = """
     <record>
       <datafield tag="506" ind1=" " ind2=" ">
@@ -3457,7 +3425,6 @@ def test_marc21_to_usage_and_access_policy():
 
 def test_marc21_to_credits_from_508():
     """Test dojson credits from 508 (L41)."""
-
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -3476,7 +3443,6 @@ def test_marc21_to_credits_from_508():
 
 def test_marc21_to_credits_from_511():
     """Test dojson credits from 511 (L41)."""
-
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -3523,7 +3489,6 @@ def test_marc21_to_dissertation():
 
 def test_marc21_to_supplementary_content_from_504():
     """Test dojson supplementaryContent from 504 (L42)."""
-
     marc21xml = """
     <record>
       <datafield tag="504" ind1=" " ind2=" ">
@@ -3539,7 +3504,6 @@ def test_marc21_to_supplementary_content_from_504():
 # part_of 773, 800, 830
 def test_marc21_to_part_of():
     """Test dojson partOf."""
-
     marc21xml = """
     <record>
       <datafield tag="773" ind1="1" ind2=" ">
@@ -3667,7 +3631,6 @@ def test_marc21_to_part_of():
 
 def test_marc21_to_specific_document_relation():
     """Test dojson for generation the specific document relations."""
-
     # one 770 with link and one 770 without link
     marc21xml = """
     <record>
@@ -3772,7 +3735,6 @@ def test_marc21_to_part_of_without_link():
     for a field 773 if a field 580 exists
     and for the fields 800 and 830 if a field 490 exists
     """
-
     marc21xml = """
     <record>
       <datafield tag="773" ind1="1" ind2=" ">
@@ -4027,7 +3989,6 @@ def test_marc21_to_part_of_with_multiple_800():
 
 def test_marc21_to_identified_by_from_020():
     """Test dojson identifiedBy from 020."""
-
     marc21xml = """
     <record>
       <datafield tag="020" ind1=" " ind2=" ">
@@ -4054,7 +4015,6 @@ def test_marc21_to_identified_by_from_020():
 
 def test_marc21_to_identified_by_from_022():
     """Test dojson identifiedBy from 022."""
-
     marc21xml = """
     <record>
       <datafield tag="022" ind1=" " ind2=" ">
@@ -4125,7 +4085,6 @@ def test_marc21_to_identified_by_from_024_snl_bnf():
 
 def test_marc21_to_identified_by_from_024_with_subfield_2():
     """Test dojson identifiedBy from 024 field with subfield 2."""
-
     marc21xml = """
     <record>
       <datafield tag="024" ind1="7" ind2=" ">
@@ -4170,7 +4129,6 @@ def test_marc21_to_identified_by_from_024_with_subfield_2():
 
 def test_marc21_to_identified_by_from_024_without_subfield_2():
     """Test dojson identifiedBy from 024 field without subfield 2."""
-
     marc21xml = """
     <record>
       <datafield tag="024" ind1=" " ind2=" ">
@@ -4256,7 +4214,6 @@ def test_marc21_to_identified_by_from_024_without_subfield_2():
 
 def test_marc21_to_identified_by_from_028():
     """Test dojson identifiedBy from 035."""
-
     marc21xml = """
     <record>
       <datafield tag="028" ind1="3" ind2=" ">
@@ -4302,7 +4259,6 @@ def test_marc21_to_identified_by_from_028():
 
 def test_marc21_to_acquisition_terms():
     """Test dojson acquisition terms from 020, 024 et 037."""
-
     marc21xml = """
     <record>
       <datafield tag="020" ind1=" " ind2=" ">
@@ -4833,7 +4789,6 @@ def test_marc21_to_genreForm_imported():
 
 def test_marc21_to_identified_by_from_035():
     """Test dojson identifiedBy from 035."""
-
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -4860,7 +4815,6 @@ def test_marc21_to_identified_by_from_035():
 @mock.patch("requests.Session.get")
 def test_marc21_to_electronicLocator_from_856(mock_cover_get, app):
     """Test dojson electronicLocator from 856."""
-
     marc21xml = """
     <record>
       <datafield tag="856" ind1="4" ind2="1">
@@ -4970,7 +4924,6 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get, app):
 
 def test_marc21_to_identified_by_from_930():
     """Test dojson identifiedBy from 930."""
-
     # identifier with source in parenthesis
     marc21xml = """
     <record>
@@ -4997,8 +4950,7 @@ def test_marc21_to_identified_by_from_930():
 
 @mock.patch("requests.Session.get")
 def test_get_mef_link(mock_get, capsys, app):
-    """Test get mef contribution link"""
-
+    """Test get mef contribution link."""
     mock_get.return_value = mock_response(json_data={"pid": "test", "idref": {"pid": "003945843"}})
     mef_url = get_mef_link(
         bibid="1",
@@ -5077,7 +5029,6 @@ def test_marc21_to_masked():
 
 def test_marc21_to_content_media_carrier():
     """Test dojson contentMediaCarrier (L30)."""
-
     marc21xml = """
     <record>
       <leader>00501nam a2200133 a 4500</leader>
@@ -5136,7 +5087,6 @@ def test_marc21_to_content_media_carrier():
 
 def test_marc21_to_content_media_carrier_with_linked_fields():
     """Test dojson contentMediaCarrier (L30)."""
-
     marc21xml = """
     <record>
       <leader>00501nam a2200133 a 4500</leader>
@@ -5229,7 +5179,6 @@ def test_marc21_to_content_media_carrier_with_linked_fields():
 
 def test_marc21_to_original_language():
     """Test dojson original_language (L31)."""
-
     marc21xml = """
     <record>
       <leader>00501nam a2200133 a 4500</leader>
@@ -5401,7 +5350,6 @@ def test_temporal_coverage(app, marc21_record):
 
 def test_marc21_to_fiction_statement():
     """Test dojson marc21 fiction."""
-
     marc21xml = """
     <record>
       <controlfield tag=

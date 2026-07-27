@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests remote entities permissions."""
+
 from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security.utils import login_user

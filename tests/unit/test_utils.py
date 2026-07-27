@@ -35,7 +35,7 @@ def test_unique_list():
 
 
 def test_read_json_record(request):
-    """Test IlsRecord PID after validation failed"""
+    """Test IlsRecord PID after validation failed."""
     file_name = os.path.join(request.fspath.dirname, "..", "data", "documents.json")
     with open(file_name) as json_file:
         count = 0
@@ -135,6 +135,6 @@ def test_password_generator():
     assert len(password_generator()) == 8
     assert len(password_generator(length=12)) == 12
     assert password_validator(password_generator())
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         password_generator(length=2)
         password_generator(length=3, special_char=True)

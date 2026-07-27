@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests operation logs permissions."""
+
 from unittest import mock
 
 from flask import current_app
@@ -16,7 +18,6 @@ from tests.utils import check_permission
 @mock.patch.object(Patron, "_extensions", [])
 def test_operation_logs_permissions(patron_martigny, operation_log, librarian_martigny):
     """Test item permissions class."""
-
     # Anonymous user & Patron user
     #  - search/read any items are allowed.
     #  - create/update/delete operations are disallowed.

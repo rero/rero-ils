@@ -23,7 +23,6 @@ def clean_dict(data, keys=("$schema", "adminMetadata", "fiction_statement")):
 
 def test_trans_constants(app):
     """Test transformation constants."""
-
     data = {}
     transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_constants()

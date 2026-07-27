@@ -17,7 +17,6 @@ from rero_ils.modules.stats.api.pricing import StatsForPricing
 
 def test_stats_pricing_collect(stat_for_pricing):
     """Test the stat pricing collect keys."""
-
     assert set(stat_for_pricing.collect()[0].keys()) == {
         "library",
         "number_of_docs_with_files",
@@ -87,9 +86,7 @@ def test_stats_pricing_number_of_order_lines(stat_for_pricing, acq_order_line_fi
 
 
 def test_stats_pricing_number_of_circ_operations(stat_for_pricing, loan_due_soon_martigny, lib_martigny):
-    """Test the number of circulation operation  during the specified
-    timeframe.
-    """
+    """Test the number of circulation operation  during the specified timeframe."""
     assert stat_for_pricing.number_of_circ_operations("foo", ItemCirculationAction.CHECKOUT) == 0
     assert stat_for_pricing.number_of_circ_operations(lib_martigny.pid, ItemCirculationAction.EXTEND) == 0
     assert stat_for_pricing.number_of_circ_operations(lib_martigny.pid, ItemCirculationAction.CHECKOUT) == 1
@@ -143,9 +140,7 @@ def test_stats_pricing_number_of_patrons(stat_for_pricing, patron_martigny):
 
 
 def test_stats_pricing_number_of_new_patrons(stat_for_pricing, patron_martigny):
-    """Test the number of new patrons for an organisation during the specified
-    timeframe.
-    """
+    """Test the number of new patrons for an organisation during the specified timeframe."""
     assert stat_for_pricing.number_of_patrons("foo") == 0
     # loans used in previous tests can adds some items
     assert stat_for_pricing.number_of_patrons(patron_martigny.organisation_pid) >= 1

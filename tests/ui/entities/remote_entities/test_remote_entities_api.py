@@ -182,7 +182,6 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
 
 @mock.patch("requests.Session.get")
 def test_sync_concept(mock_get, app, mef_concepts_url, entity_topic_data, document_data_subject_ref):
-    #
     """Test MEF agent synchronization."""
     # === setup
     log_path = tempfile.mkdtemp()

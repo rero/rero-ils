@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests patron transaction events permissions."""
+
 from unittest import mock
 
 from flask import current_app
@@ -25,7 +27,6 @@ def test_ptre_permissions(
     patron_transaction_overdue_event_martigny,
 ):
     """Test patron transaction event permissions class."""
-
     ptre_martigny = patron_transaction_overdue_event_martigny
     ptre_saxon = patron_transaction_overdue_event_saxon
     ptre_sion = patron_transaction_overdue_event_sion

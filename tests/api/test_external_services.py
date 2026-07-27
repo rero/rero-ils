@@ -31,7 +31,6 @@ def test_documents_import_bnf_ean_no_permission(
     bnf_ean_any_123,
 ):
     """Test document import from bnf no permission."""
-
     mock_get.return_value = mock_response(content=bnf_ean_any_123)
     res = client.get(url_for("api_imports.import_bnf", q="ean:any:123", no_cache=1))
     assert res.status_code == 401
@@ -222,7 +221,6 @@ def test_documents_import_loc_isbn(
 @mock.patch("requests.get")
 def test_documents_import_loc_missing_id(mock_get, client, loc_without_010):
     """Test document import from LoC."""
-
     mock_get.return_value = mock_response(content=loc_without_010)
     results, status_code = LoCImport().search_records(
         what="test", relation="all", where="anywhere", max_results=100, no_cache=True

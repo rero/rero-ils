@@ -221,7 +221,7 @@ def test_pattern_validate_next_expected_date(
     json_header,
     holding_lib_sion_w_patterns_data,
 ):
-    """Test create holding with regular frequency and missing
+    """Test create holding with regular frequency and missing.
 
     the next_expected_date.
     """

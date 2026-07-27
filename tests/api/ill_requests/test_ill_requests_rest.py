@@ -8,7 +8,7 @@ from copy import deepcopy
 from datetime import datetime
 from unittest import mock
 
-from dateutil.relativedelta import *
+from dateutil.relativedelta import relativedelta
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
