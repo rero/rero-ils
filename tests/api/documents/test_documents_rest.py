@@ -34,7 +34,7 @@ def test_documents_get(client, document_with_files):
     document = document_with_files
 
     def clean_search_metadata(metadata):
-        """Clean contribution from authorized_access_point_"""
+        """Clean contribution from authorized_access_point_."""
         # Contributions, subject and genreForm are i18n indexed field, so it's
         # too complicated to compare it from original record. Just take the
         # data from original record ... not best, but not real alternatives.
@@ -118,6 +118,7 @@ def test_documents_newacq_filters(
     loc_public_saxon,
     item_lib_martigny_data,
 ):
+    """Test documents new acquisition filters."""
     login_user_via_session(client, system_librarian_martigny.user)
 
     def datetime_delta(**args):
@@ -654,10 +655,12 @@ def test_documents_post_put_delete(client, document_chinese_data, json_header, r
     assert data["metadata"]["title"] == expected_title
     assert data["metadata"]["ui_title_variants"] == ["Guojifa"]
     assert data["metadata"]["ui_title_altgr"] == [
-        "Guo ji fa : subtitle (Latin). Part Number (Latin), Part Name (Latin)"
-        " = International law (Latin) : Parallel Subtitle (Latin)."
-        " Parallel Part Number (Latin), Parallel Part Name (Latin)"
-        " = Parallel Title 2 (Latin) : Parallel Subtitle 2 (Latin)"
+        (
+            "Guo ji fa : subtitle (Latin). Part Number (Latin), Part Name (Latin)"
+            " = International law (Latin) : Parallel Subtitle (Latin)."
+            " Parallel Part Number (Latin), Parallel Part Name (Latin)"
+            " = Parallel Title 2 (Latin) : Parallel Subtitle 2 (Latin)"
+        )
     ]
     assert data["metadata"]["ui_responsibilities"] == [
         "梁西原著主编, 王献枢副主编",
@@ -864,9 +867,7 @@ def test_document_current_library_on_request_parameter(
     document,
     json_header,
 ):
-    """Test for library assignment if the current_library parameter
-    is present in the request.
-    """
+    """Test for library assignment if the current_library parameter is present in the request."""
     login_user_via_session(client, system_librarian_martigny.user)
 
     # Assign library pid with current_librarian information

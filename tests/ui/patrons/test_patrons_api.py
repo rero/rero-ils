@@ -156,7 +156,7 @@ def test_patron_extended_validation(
     patron_sion_data_tmp,
     loan_overdue_martigny,
 ):
-    """Test patron extended validation"""
+    """Test patron extended validation."""
     ds = app.extensions["invenio-accounts"].datastore
 
     # check that we cannot create a patron with an existing barcode
@@ -180,7 +180,8 @@ def test_patron_extended_validation(
     patron_sion_barcode = patron_sion["patron"]["barcode"]
     created_patron_sion = create_user_from_data(patron_sion_data_tmp)
     created_patron_sion["patron"]["barcode"] = [patron_martigny["patron"]["barcode"][0]]
-    assert (created_user := Patron.create(created_patron_sion, dbcommit=True, reindex=True, delete_pid=True))
+    created_user = Patron.create(created_patron_sion, dbcommit=True, reindex=True, delete_pid=True)
+    assert created_user
 
     # check that we can update a patron with existing barcode in another
     # organisation
@@ -315,7 +316,6 @@ def test_patron_properties(
     system_librarian_martigny,
 ):
     """Test patron properties methods."""
-
     # TEST `organisation.pid`
     search = PatronsSearch()
     librarian = next(search.filter("term", pid=librarian_martigny.pid).scan())
@@ -368,7 +368,6 @@ def test_user_librarian_can_delete(librarian_martigny):
 
 def test_get_patron_for_organisation(patron_martigny, patron_sion, org_martigny, org_sion):
     """Test get patron_pid for organisation."""
-
     pids = Patron.get_all_pids_for_organisation(org_martigny.pid)
     assert list(pids)
     pids = Patron.get_all_pids_for_organisation(org_sion.pid)

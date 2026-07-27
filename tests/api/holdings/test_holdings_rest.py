@@ -175,7 +175,7 @@ def test_holding_request(
     lib_martigny,
     circ_policy_short_martigny,
 ):
-    """Test holding can be requested"""
+    """Test holding can be requested."""
     # test patron can request holding
     login_user_via_session(client, patron_martigny.user)
     patron = patron_martigny

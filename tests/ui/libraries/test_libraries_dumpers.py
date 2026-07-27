@@ -15,7 +15,6 @@ from rero_ils.modules.libraries.dumpers import (
 
 def test_library_serial_dumpers(lib_martigny, lib_saxon):
     """Test serial library dumpers."""
-
     # Acquisition dumper
     dump_data = lib_martigny.dumps(LibraryAcquisitionNotificationDumper())
     assert dump_data["shipping_informations"]

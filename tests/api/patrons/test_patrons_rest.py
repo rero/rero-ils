@@ -436,7 +436,6 @@ def test_patron_messages(client, patron_martigny):
 
 def test_patron_info(app, client, patron_martigny, librarian_martigny):
     """Test patron info."""
-
     # All scopes
     scopes = [
         "fullname",

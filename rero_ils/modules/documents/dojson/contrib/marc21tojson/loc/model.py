@@ -363,7 +363,6 @@ def marc21_to_series(self, key, value):
                 series["seriesEnumeration"] = [{"value": "/".join(parts)}]
             self["seriesStatement"] = self.get("seriesStatement", [])
             self["seriesStatement"].append(series)
-    return
 
 
 @marc21.over("tableOfContents", "^505..")

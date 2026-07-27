@@ -28,7 +28,7 @@ def _make_resource(client, pid_type, input_data):
     res, data = postdata(client, url_alias, input_data)
     if res.status_code == 201:
         return record_class.get_record_by_pid(data["metadata"]["pid"])
-    raise Exception(data["message"])
+    raise AssertionError(data["message"])
 
 
 @mock.patch(

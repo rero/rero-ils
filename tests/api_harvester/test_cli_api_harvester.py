@@ -113,8 +113,10 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
         output = result.output.strip().split("\n")
         assert output == [
             "Harvest api: VS-CANTOOK",
-            "API page: 1 url: "
-            "https://mediatheque-valais.cantookstation.eu/v1/resources.json?start_at=1900-01-01T00:00:00&page=1",
+            (
+                "API page: 1 url: "
+                "https://mediatheque-valais.cantookstation.eu/v1/resources.json?start_at=1900-01-01T00:00:00&page=1"
+            ),
             "1: CANTOOK:mv-cantook cantook-immateriel.frO1109367 = CREATED",
             "2: CANTOOK:mv-cantook cantook-immateriel.frO1097420 = CREATED",
             "3: CANTOOK:mv-cantook cantook-feedhttps-www-feedbooks-com-item-6177668 = CREATED",
@@ -141,8 +143,10 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
         output = result.output.strip().split("\n")
         assert output == [
             "Harvest api: VS-CANTOOK",
-            "API page: 1 url: "
-            "https://mediatheque-valais.cantookstation.eu/v1/resources.json?start_at=1900-01-01T00:00:00&page=1",
+            (
+                "API page: 1 url: "
+                "https://mediatheque-valais.cantookstation.eu/v1/resources.json?start_at=1900-01-01T00:00:00&page=1"
+            ),
             "1: CANTOOK:mv-cantook cantook-immateriel.frO1109367 = DELETED",
             "2: CANTOOK:mv-cantook cantook-immateriel.frO1097420 = UPDATED",
             "3: CANTOOK:mv-cantook cantook-feedhttps-www-feedbooks-com-item-6177668 = DELETED",

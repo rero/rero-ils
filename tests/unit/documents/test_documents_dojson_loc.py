@@ -13,7 +13,6 @@ from rero_ils.modules.documents.dojson.contrib.marc21tojson.loc import marc21
 @mock.patch("rero_ils.modules.documents.dojson.contrib.marc21tojson.loc.model.get_mef_link")
 def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     """Test that GND subjects always go to subjects field, not subjects_imported."""
-
     # Test 1: GND subject WITHOUT MEF link should go to subjects
     marc21xml = """
     <record>

@@ -259,7 +259,7 @@ def test_document_can_delete_with_rolled_over_order_line(
 def test_document_contribution_resolve_exception(search_clear, db, mef_agents_url, document_data_ref):
     """Test document contribution resolve."""
     document_data_ref["contribution"] = ([{"$ref": f"{mef_agents_url}/rero/XXXXXX"}],)
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017 - either a $ref resolution or a validation error
         Document.create(data=document_data_ref, delete_pid=False, dbcommit=True, reindex=True)
 
 
@@ -269,7 +269,7 @@ def test_document_create_invalid_data(search_clear, db, document_data):
     n_pids = DocumentIdentifier.query.count()
     data.pop("type")
     data.pop("pid")
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017 - either a $ref resolution or a validation error
         Document.create(data=data, delete_pid=True, dbcommit=True, reindex=True)
     db.session.rollback()
     assert DocumentIdentifier.query.count() == n_pids

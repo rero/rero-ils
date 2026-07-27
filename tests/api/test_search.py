@@ -16,7 +16,6 @@ from tests.utils import VerifyRecordPermissionPatch, get_json
 )
 def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuses):
     """Test document search queries."""
-
     # phrase search
     list_url = url_for(
         "invenio_records_rest.doc_list",

@@ -61,7 +61,7 @@ def check_organisation_viewcode(fn):
 @blueprint.route("/error")
 def error():
     """Error to generate exception for test purposes."""
-    raise Exception("this is an error for test purposes")
+    raise RuntimeError("this is an error for test purposes")
 
 
 @blueprint.route("/robots.txt")

@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: Fondation RERO+
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests files permissions."""
+
 from unittest import mock
 
 from flask import current_app, url_for
@@ -99,7 +101,6 @@ def test_files_permissions(
     document_with_files,
 ):
     """Test files permissions."""
-
     # Anonymous user & Patron user
     #  - search/read any files are allowed.
     #  - create/update/delete operations are disallowed.

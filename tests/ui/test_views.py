@@ -36,7 +36,7 @@ def test_localized_label():
 
 def test_error(client):
     """Test error entrypoint."""
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         client.get(url_for("rero_ils.error"))
 
 
@@ -214,7 +214,6 @@ def test_google_analytics(client, app):
 
 def test_login(client, app, user_with_profile):
     """Testing the frontend login view."""
-
     ## bad password
     # be sure that no one is logged
     client.get(url_for_security("logout"))

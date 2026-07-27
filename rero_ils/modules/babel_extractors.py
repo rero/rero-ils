@@ -11,8 +11,10 @@ from flask_babel import gettext as _
 KEY_VAL_REGEX = re.compile(r'"(.*?)"\s*:\s*"(.*?)"')
 
 
-def translate(data, keys=["title"]):
+def translate(data, keys=None):
     """Translate strings in a data structure."""
+    if keys is None:
+        keys = ["title"]
     to_return = data
     if isinstance(data, dict):
         for k, v in six.iteritems(data):
@@ -26,8 +28,10 @@ def translate(data, keys=["title"]):
     return to_return
 
 
-def extract(fileobj, keys=["title"]):
+def extract(fileobj, keys=None):
     """Extract translation from a json file."""
+    if keys is None:
+        keys = ["title"]
     translations = []
     line = 1
 
@@ -44,8 +48,10 @@ def extract(fileobj, keys=["title"]):
     return translations
 
 
-def extract_array(fileobj, keys=["title"]):
+def extract_array(fileobj, keys=None):
     """Extract translation from a json file."""
+    if keys is None:
+        keys = ["title"]
     translations = []
     import json
 

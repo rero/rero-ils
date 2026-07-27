@@ -41,7 +41,6 @@ def test_checkout_library_limit(
     circ_policy_short_martigny,
 ):
     """Test checkout library limits."""
-
     patron = patron_martigny
     item2_original_data = deepcopy(item2_lib_martigny_data)
     item3_original_data = deepcopy(item3_lib_martigny_data)
@@ -240,7 +239,6 @@ def test_overdue_limit(
     loc_public_saxon,
 ):
     """Test overdue limit."""
-
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid

@@ -27,7 +27,7 @@ def test_csv_serializer(
     acq_receipt_line_1_fiction_martigny,
     acq_receipt_line_2_fiction_martigny,
 ):
-    """Test CSV formatter"""
+    """Test CSV formatter."""
     login_user_via_session(client, librarian_martigny.user)
     list_url = url_for("api_exports.acq_order_export", q=f"pid:{acq_order_fiction_martigny.pid}")
     response = client.get(list_url, headers=csv_header)

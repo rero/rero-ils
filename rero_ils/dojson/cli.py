@@ -17,9 +17,7 @@ def reverse():
     """Reverse the order of the data."""
 
     def processor(iterator):
-        items = []
-        for item in iterator:
-            items.append(item)
+        items = list(iterator)
         items.reverse()
         return items
 
@@ -35,11 +33,9 @@ def head(max):
     """Take only the first max items."""
 
     def processor(iterator):
-        n = 0
-        for item in iterator:
+        for n, item in enumerate(iterator):
             if n >= max:
-                raise StopIteration
-            n += 1
+                return
             yield item
 
     return processor

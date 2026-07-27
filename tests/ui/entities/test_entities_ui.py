@@ -18,7 +18,6 @@ from rero_ils.modules.entities.views import (
 
 def test_view(client, entity_person, local_entity_person):
     """Entity detailed view test."""
-
     # Check unauthorized type value in url
     res = client.get(url_for("entities.entity_detailed_view", viewcode="global", type="foo", pid="foo"))
     assert res.status_code == 404
@@ -106,7 +105,6 @@ def test_sources_link(app):
 
 def test_search_link(app, entity_organisation, local_entity_org, entity_topic):
     """Search link test."""
-
     # test remote link
     link = search_link(entity_organisation)
     assert link == "contribution.entity.pids.rero:A027711299 OR subjects.entity.pids.rero:A027711299&simple=0"

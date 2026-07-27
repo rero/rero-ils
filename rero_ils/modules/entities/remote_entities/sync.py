@@ -258,7 +258,7 @@ class SyncEntity:
                 # MEF sever failed to retrieve the latest MEF record
                 # for the given entity
                 if not (mef_pid := mef.get("pid")):
-                    raise Exception(f"Error cannot get latest for {entity['type']} {source}:{entity[source]['pid']}")
+                    raise RuntimeError(f"Error cannot get latest for {entity['type']} {source}:{entity[source]['pid']}")
 
                 old_entity_pid = entity[source]["pid"]
                 new_entity_pid = mef[source]["pid"]

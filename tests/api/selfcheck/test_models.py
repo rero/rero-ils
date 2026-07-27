@@ -13,7 +13,6 @@ from rero_ils.modules.selfcheck.models import SelfcheckTerminal
 
 def test_selfcheckuser(app):
     """Test SelfcheckUser model."""
-
     selfcheck_terminal = SelfcheckTerminal(
         name="selfcheck_test",
         access_token="UNACCESSTOKENDETEST",

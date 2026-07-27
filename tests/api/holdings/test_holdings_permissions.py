@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests holdings permissions."""
+
 from unittest import mock
 
 from flask import current_app
@@ -27,7 +29,6 @@ def test_holdings_permissions(
     holding_lib_sion_w_patterns,
 ):
     """Test holdings permissions class."""
-
     # Anonymous user & Patron user
     #  - search/read any document are allowed.
     #  - create/update/delete operations are disallowed.

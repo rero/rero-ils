@@ -88,7 +88,6 @@ def test_acq_accounts_post_put_delete(
     client, lib_saxon, acq_account_books_saxon_data, budget_2020_martigny, json_header
 ):
     """Test record retrieval."""
-
     # TEST 1 :: Create record using POST API
     #   and check that the returned record matches the given data
     acc_data = deepcopy(acq_account_books_saxon_data)

@@ -146,7 +146,6 @@ def test_marc21_to_contribution():
 @mock.patch("rero_ils.modules.documents.dojson.contrib.marc21tojson.slsp.model.get_mef_link")
 def test_marc21_to_subjects(mock_get_mef_link):
     """Test dojson subjects imported from 6xx."""
-
     # 600 Person => to import (all subfields)
     marc21xml = """
     <record>
@@ -370,7 +369,6 @@ def test_marc21_to_subjects(mock_get_mef_link):
 @mock.patch("rero_ils.modules.documents.dojson.contrib.marc21tojson.slsp.model.get_mef_link")
 def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     """Test that GND subjects always go to subjects field, not subjects_imported."""
-
     # Test 1: GND subject WITHOUT MEF link should go to subjects
     marc21xml = """
     <record>

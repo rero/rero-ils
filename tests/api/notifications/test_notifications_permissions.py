@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests notifications permissions."""
+
 from unittest import mock
 
 from flask import current_app

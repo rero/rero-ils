@@ -4,7 +4,7 @@
 """Command line interface for migration data record management."""
 
 import json
-from pprint import pprint
+from pprint import pformat
 from random import choice
 
 import click
@@ -79,7 +79,7 @@ def dedup(migration, id, dry_run, force):
                 )
                 for pid, json, score, detailed_score in candidates:
                     print(f"ILS pid: {pid}", f"{score:.2f}")
-                    pprint(detailed_score, indent=2)
+                    print(pformat(detailed_score, indent=2))
             else:
                 record.deduplication.candidates = [
                     DeduplicationCandidate(

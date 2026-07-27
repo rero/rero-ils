@@ -178,8 +178,7 @@ def test_local_search_by_proxy(client, local_entity_genre_form, local_entity_org
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
 def test_local_entities_resolve(client, mef_agents_url, local_entity_person, document):
-    """Test local entity resolver"""
-
+    """Test local entity resolver."""
     # LOCAL ENTITY RESOLVER ===================================================
     res = client.get(
         url_for(

@@ -33,9 +33,7 @@ from rero_ils.modules.notifications.utils import (
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.listener import create_subscription_patron_transaction
 from rero_ils.modules.patrons.tasks import (
-    check_patron_types_and_add_subscriptions as check_patron_types_and_add_subscriptions,
-)
-from rero_ils.modules.patrons.tasks import (
+    check_patron_types_and_add_subscriptions,
     clean_obsolete_subscriptions,
     task_clear_and_renew_subscriptions,
 )
@@ -181,8 +179,6 @@ def test_notifications_task(
 
 def test_clear_and_renew_subscription(patron_type_grown_sion, patron_sion):
     """Test the `task patrons.tasks.clear_and_renew_subscription`."""
-    patron_sion = patron_sion
-
     # To test correctly all the code we need to disconnect the listener
     # `create_subscription_patron_transaction` method. Otherwise, the
     # first part of the task (clean_obsolete_subscriptions) will automatically
@@ -240,7 +236,7 @@ def test_clear_obsolete_temporary_item_type_and_location(
     loc_restricted_martigny,
     item2_lib_martigny,
 ):
-    """Test task test_clear_obsolete_temporary_item_type_and_location"""
+    """Test task test_clear_obsolete_temporary_item_type_and_location."""
     item = item_lib_martigny
     end_date = datetime.now() + timedelta(days=2)
     item["temporary_item_type"] = {

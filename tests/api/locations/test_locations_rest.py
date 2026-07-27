@@ -17,7 +17,6 @@ from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_rela
 
 def test_location_pickup_locations(locations, patron_martigny, patron_sion, loc_public_martigny, item2_lib_martigny):
     """Test for pickup locations."""
-
     # At the beginning, if we load all locations from fixtures, there are 4
     # pickup locations (loc1, loc3, loc5, loc7)
     pickup_locations = Location.get_pickup_location_pids()

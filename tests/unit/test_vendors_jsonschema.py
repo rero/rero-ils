@@ -14,7 +14,7 @@ from rero_ils.modules.vendors.api import Vendor
 
 
 def test_vendors_special_rero_validation(app, vendor_martigny_data, vendors_schema):
-    """Test RERO special validation data"""
+    """Test RERO special validation data."""
     record = copy.deepcopy(vendor_martigny_data)
     validate(record, vendors_schema)
 

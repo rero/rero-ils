@@ -102,7 +102,6 @@ class RecordTest(IlsRecord):
 
 def test_ilsrecord(app, search_default_index, ils_record, ils_record_2):
     """Test IlsRecord update."""
-
     # the created records will be accessible in all function of this test file
     record_1 = RecordTest.create(data=ils_record, dbcommit=True, reindex=True)
     assert record_1.pid == "ilsrecord_pid"
@@ -224,13 +223,15 @@ failed_pid_fetcher = partial(id_fetcher, provider=FailedPidProvider)
 
 
 class FailedIlsRecord(IlsRecord):
+    """Record class whose PID minting always fails."""
+
     minter = failed_pid_minter
     fetcher = failed_pid_fetcher
     provider = FailedPidProvider
 
 
 def test_ilsrecord_failed_pid(app, search_default_index, ils_record, ils_record_2):
-    """Test IlsRecord PID after validation failed"""
+    """Test IlsRecord PID after validation failed."""
     schema = {
         "type": "object",
         "properties": {

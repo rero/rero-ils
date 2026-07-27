@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests templates permissions."""
+
 from unittest import mock
 
 from flask import current_app
@@ -27,7 +29,6 @@ def test_template_permissions(
     templ_doc_private_sion,
 ):
     """Test template permissions class."""
-
     # Anonymous user & Patron user
     #  - None operation are allowed
     identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())

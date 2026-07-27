@@ -210,7 +210,6 @@ def test_notifications_get(client, notification_availability_martigny):
 )
 def test_notifications_post_put_delete(client, dummy_notification, loan_validated_martigny, json_header):
     """Test record delete and update."""
-
     record = deepcopy(dummy_notification)
     del record["pid"]
     loan_ref = get_ref_for_pid("loans", loan_validated_martigny.get("pid"))
@@ -388,6 +387,7 @@ def test_recall2_notifications(
     circulation_policies,
     mailbox,
 ):
+    """Test recall notification for a second request on a checked out item."""
     mailbox.clear()
     login_user_via_session(client, librarian_martigny.user)
     # - Create request for User#X
@@ -1246,7 +1246,6 @@ def test_reminder_notifications_after_extend(
     client,
 ):
     """Test any reminder notification could be resend after loan extension."""
-
     # STEP 1 - CREATE BASIC RESOURCES FOR THE TEST
     #   * Create a loan and update it to be considered as "due soon".
     #   * Run the `notification-creation` task to create a DUE_SOON
@@ -1349,4 +1348,5 @@ def test_reminder_notifications_after_extend(
 
 # should be at the end to avoid notifications in other tests
 def test_transaction_library_pid(notification_late_martigny, lib_martigny_data):
+    """Test the transaction library pid of a notification."""
     assert notification_late_martigny.transaction_library_pid == lib_martigny_data.get("pid")

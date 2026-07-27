@@ -13,7 +13,6 @@ from tests.utils import get_json
 
 def test_patrons_logged_user(client, librarian_martigny):
     """Test logged user info API."""
-
     # No logged user (only settings are present)
     res = client.get(url_for("patrons.logged_user"))
     assert res.status_code == 200

@@ -444,8 +444,8 @@ def do_abbreviated_title(data, marc21, key, value):
             title["subtitle"] = [{"value": subtitle}]
         for resp_tag in ["f", "g"]:
             if datas := utils.force_list(value.get(resp_tag)):
-                for data in datas:
-                    if responsibility := build_responsibility_data(data):
+                for resp_data in datas:
+                    if responsibility := build_responsibility_data(resp_data):
                         new_responsibility = data.get("responsibilityStatement", [])
                         for resp in responsibility:
                             new_responsibility.append(resp)
@@ -969,8 +969,7 @@ def do_intended_audience(data, value):
     intended_audience_set = set()
     for subfield_a in utils.force_list(value.get("a")):
         audiance_found = False
-        for audiance in _INTENDED_AUDIENCE_REGEXP:
-            regexp = _INTENDED_AUDIENCE_REGEXP[audiance]
+        for audiance, regexp in _INTENDED_AUDIENCE_REGEXP.items():
             if regexp.search(subfield_a):
                 intended_audience_set.add(audiance)
                 audiance_found = True
@@ -981,8 +980,7 @@ def do_intended_audience(data, value):
     for intended_audience_str in intended_audience_set:
         intended_audience = {}
         # get the audiance_type
-        for audiance_type in _INTENDED_AUDIENCE_TYPE_REGEXP:
-            regexp = _INTENDED_AUDIENCE_TYPE_REGEXP[audiance_type]
+        for audiance_type, regexp in _INTENDED_AUDIENCE_TYPE_REGEXP.items():
             if regexp.search(intended_audience_str):
                 intended_audience["audienceType"] = audiance_type
         if "audienceType" not in intended_audience:
@@ -1110,9 +1108,9 @@ def do_identified_by_from_field_024(data, marc21, key, value):
         elif subfield_2:
             identifier["value"] = subfield_a
             populate_acquisitionTerms_note_qualifier(identifier)
-            for pattern in subfield_2_regexp:
+            for pattern, identifier_data in subfield_2_regexp.items():
                 if re.search(pattern, subfield_2, re.IGNORECASE):
-                    identifier.update(subfield_2_regexp[pattern])
+                    identifier.update(identifier_data)
         else:  # without subfield $2
             ind1 = key[3]  # indicateur_1
             if ind1 in ("0", "1", "2", "3", "8"):

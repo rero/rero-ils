@@ -11,7 +11,6 @@ from elasticsearch_dsl.exceptions import ValidationException
 
 def test_migration_data_create(migration, migration_xml_data, lib_martigny):
     """Test the migration creation."""
-
     raw = migration_xml_data.encode()
     data = {"raw": raw, "migration_id": migration.meta.id}
     MigrationData = migration.data_class

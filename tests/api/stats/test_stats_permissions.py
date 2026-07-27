@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests statistics permissions."""
+
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
@@ -12,7 +14,6 @@ from tests.utils import check_permission
 
 def test_stats_permissions(patron_martigny, stats_librarian, librarian_martigny, system_librarian_martigny):
     """Test stat permissions class."""
-
     # Anonymous user & Patron user :: all operation are disallowed
     identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(

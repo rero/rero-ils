@@ -49,14 +49,14 @@ def test_item_type_get_pid_by_name(item_type_standard_martigny):
 
 
 def test_item_type_can_not_delete(item_type_standard_martigny, item_lib_martigny):
-    """Test item type cannot delete"""
+    """Test item type cannot delete."""
     can, reasons = item_type_standard_martigny.can_delete
     assert not can
     assert reasons["links"]["items"]
 
 
 def test_item_type_can_delete(app, item_type_data_tmp):
-    """Test item type can delete"""
+    """Test item type can delete."""
     itty = ItemType.create(item_type_data_tmp, delete_pid=True)
     can, reasons = itty.can_delete
     assert can

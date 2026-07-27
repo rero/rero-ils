@@ -30,7 +30,7 @@ class CirculationDumper(InvenioRecordsDumper):
         if ptrn_data := next(ptrn_query.scan(), None):
             data["patron"] = {}
             data["patron"]["barcode"] = ptrn_data.patron.barcode.pop()
-            data["patron"]["name"] = ", ".join((ptrn_data.last_name, ptrn_data.first_name))
+            data["patron"]["name"] = f"{ptrn_data.last_name}, {ptrn_data.first_name}"
 
         if record.get("pickup_location_pid"):
             location = Location.get_record_by_pid(record.get("pickup_location_pid"))

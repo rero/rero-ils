@@ -149,14 +149,16 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
 
     items = []
     holdings = []
-    with open(holdings_f, "w", encoding="utf-8") as holdings_file:
-        with open(items_f, "w", encoding="utf-8") as items_file:
-            for item, holding in generate(count, itemscount, missing):
-                items.append(item)
-                if holding:
-                    holdings.append(holding)
-            json.dump(items, indent=2, fp=items_file)
-            json.dump(holdings, indent=2, fp=holdings_file)
+    with (
+        open(holdings_f, "w", encoding="utf-8") as holdings_file,
+        open(items_f, "w", encoding="utf-8") as items_file,
+    ):
+        for item, holding in generate(count, itemscount, missing):
+            items.append(item)
+            if holding:
+                holdings.append(holding)
+        json.dump(items, indent=2, fp=items_file)
+        json.dump(holdings, indent=2, fp=holdings_file)
 
 
 def create_holding_record(holding_pid, location_pid, item_type_pid, document_pid):

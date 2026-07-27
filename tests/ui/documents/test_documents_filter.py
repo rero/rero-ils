@@ -171,7 +171,6 @@ def test_main_title_text():
 
 def test_doc_entity_label_filter(entity_person, local_entity_person):
     """Test entity label filter."""
-
     # Remote entity
     remote_pid = entity_person["idref"]["pid"]
     data = {

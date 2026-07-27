@@ -47,13 +47,12 @@ class Dispatcher:
         for notification in notifications:
             try:
                 cls._process_notification(notification, resend, aggregated)
-            except Exception as error:
+            except Exception:
                 errors += 1
-                current_app.logger.error(
-                    f"Notification has not be sent (pid: {notification.pid},"
-                    f" type: {notification['notification_type']}): "
-                    f"{error}",
-                    exc_info=True,
+                current_app.logger.exception(
+                    "Notification has not be sent (pid: %s, type: %s)",
+                    notification.pid,
+                    notification["notification_type"],
                     stack_info=True,
                 )
 

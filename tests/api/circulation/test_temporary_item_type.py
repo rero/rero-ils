@@ -30,7 +30,7 @@ def test_checkout_temporary_item_type(
     circ_policy_short_martigny,
     circ_policy_default_martigny,
 ):
-    """Test checkout or item with temporary item_types"""
+    """Test checkout or item with temporary item_types."""
     login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
@@ -194,7 +194,6 @@ def test_checkin_remove_temporary_item_type_on_scan(
     item_type_on_site_martigny,
 ):
     """Test checkin removes temporary item type when remove_on_scan is enabled."""
-
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 
@@ -257,7 +256,6 @@ def test_remove_temporary_item_type_on_scan_disabled(
     item_type_on_site_martigny,
 ):
     """Test that temporary item type is NOT removed when remove_on_scan is disabled."""
-
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 
@@ -318,7 +316,6 @@ def test_no_circulation_action_remove_temporary_item_type_on_scan(
     item_type_on_site_martigny,
 ):
     """Test that temporary item type is removed even when no circulation action occurs."""
-
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 
@@ -368,7 +365,6 @@ def test_circulation_exception_remove_temporary_item_type_on_scan(
     item_type_on_site_martigny,
 ):
     """Test that temporary item type is removed even when CirculationException occurs."""
-
     item = item_lib_martigny
     patron = patron_martigny
 

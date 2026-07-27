@@ -65,7 +65,6 @@ def test_patrons_permissions(
     librarian_sion,
 ):
     """Test permissions for patrons."""
-
     # simple librarian -----------------------------------------------
     login_user(client, librarian_martigny)
     # 1) should update and delete a librarian of the same library

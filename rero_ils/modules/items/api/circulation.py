@@ -872,7 +872,7 @@ class ItemCirculation(ItemRecord):
         # check if library exists
         lib = Library.get_record_by_pid(library_pid)
         if not lib:
-            raise Exception("Invalid Library PID")
+            raise ValueError("Invalid Library PID")
         # the '-' prefix means a desc order.
         sort_by = sort_by or "_created"
         order_by = "asc"

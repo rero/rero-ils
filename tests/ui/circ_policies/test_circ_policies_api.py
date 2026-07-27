@@ -121,7 +121,7 @@ def test_circ_policy_extended_validation(
     circ_policy_short_martigny_data,
     circ_policy_default_sion_data,
 ):
-    """Test extended validation for circ policy"""
+    """Test extended validation for circ policy."""
     cipo_data = deepcopy(circ_policy_short_martigny_data)
     cipo_data["allow_requests"] = False
     cipo_data["pickup_hold_duration"] = 10

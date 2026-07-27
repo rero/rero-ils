@@ -22,7 +22,6 @@ def test_unimarc_to_type():
     Sounds: LDR/6: i|j
     E-books (imported from Cantook)
     """
-
     unimarcxml = """
     <record>
         <leader>00501nam a2200133 a 4500</leader>
@@ -101,10 +100,7 @@ def test_unimarc_to_type():
 
 
 def test_marc21_to_mode_of_issuance():
-    """
-    Test dojson marc21_to_mode_issuance.
-    """
-
+    """Test dojson marc21_to_mode_issuance."""
     #  rdami:1001 (single unit)
     #    materialUnit > LDR07=m
     #    article > LDR07=a
@@ -237,7 +233,6 @@ def test_marc21_to_mode_of_issuance():
 
 def test_unimarc_to_title():
     """Test dojson unimarc to title."""
-
     # field 200 to bf:Title
     # field 200 with $a, $e, $f, $h, $i, $i
     unimarcxml = """
@@ -302,7 +297,6 @@ def test_unimarc_to_title():
 
 def test_unimarc_to_title_with_alt_graphic_with_bad_lang():
     """Test dojson unimarc to title with alternate graphic."""
-
     unimarcxml = """
     <record>
       <datafield tag="101" ind1=" " ind2=" ">
@@ -344,7 +338,6 @@ def test_unimarc_to_title_with_alt_graphic_with_bad_lang():
 
 def test_unimarc_to_title_with_alt_graphic():
     """Test dojson unimarc to title with alternate graphic."""
-
     unimarcxml = """
     <record>
       <datafield tag="101" ind1=" " ind2=" ">
@@ -386,7 +379,6 @@ def test_unimarc_to_title_with_alt_graphic():
 
 def test_unimarctotitle_with_parallel_title():
     """Test dojson unimarc to title and parallel title."""
-
     # field 200 to bf:Title
     # field 200 with $a, $e, $f, $g $h, $i
     # field 510 to bf:ParallelTitle
@@ -444,7 +436,6 @@ def test_unimarctotitle_with_parallel_title():
 
 def test_unimarctotitle_with_parallel_and_variant_title():
     """Test dojson unimarc to title, parallel and variant title."""
-
     # field 200 to bf:Title
     # field 200 with $a, $e, $f, $g $h, $i
     # field 510 to bf:ParallelTitle
@@ -543,7 +534,6 @@ def test_unimarctotitle_with_parallel_and_variant_title():
 # languages: 101 [$a]
 def test_unimarc_languages():
     """Test dojson unimarc_languages."""
-
     unimarcxml = """
     <record>
       <datafield tag="101" ind1=" " ind2=" ">
@@ -589,7 +579,6 @@ def test_unimarc_languages():
 
 def test_unimarc_contribution():
     """Test dojson unimarctocontribution."""
-
     unimarcxml = """
     <record>
       <datafield tag="700" ind1=" " ind2=" ">
@@ -671,7 +660,8 @@ def test_unimarc_contribution():
 
 def test_unimarc_edition():
     """Test dojson edition statement.
-    - 1 edition designation and 1 responsibility from field 205
+
+    - 1 edition designation and 1 responsibility from field 205.
     """
     unimarcxml = """
     <record>
@@ -693,7 +683,6 @@ def test_unimarc_edition():
 
 def test_unimarc_publishers_provision_activity():
     """Test dojson publishers publicationDate."""
-
     unimarcxml = """
     <record>
       <datafield tag="100" ind1=" " ind2=" ">
@@ -975,7 +964,6 @@ def test_unimarc_description():
 # seriesStatement: [225 repetitive]
 def test_unimarc_series_statement():
     """Test dojson seriesStatement."""
-
     unimarcxml = """
     <record>
       <datafield tag="225" ind1=" " ind2=" ">
@@ -1013,7 +1001,6 @@ def test_unimarc_series_statement():
 
 def test_unimarc_partOf_without_link(document):
     """Test dojson partOf when no linked record found."""
-
     unimarcxml = """
     <record>
       <datafield tag="410" ind1=" " ind2="0">
@@ -1043,7 +1030,6 @@ def test_unimarc_partOf_without_link(document):
 
 def test_unimarc_partOf_with_link(document_with_issn):
     """Test dojson partOf when linked record found."""
-
     unimarcxml = """
     <record>
       <datafield tag="410" ind1=" " ind2="0">
@@ -1145,7 +1131,6 @@ def test_unimarc_partOf_with_link(document_with_issn):
 # abstract: [330$a repetitive]
 def test_unimarc_summary():
     """Test dojson summary."""
-
     unimarcxml = """
     <record>
       <datafield tag="330" ind1=" " ind2=" ">
@@ -1161,7 +1146,6 @@ def test_unimarc_summary():
 # identifiers:isbn: 010$a
 def test_unimarc_identifiers():
     """Test dojson identifiers."""
-
     unimarcxml = """
     <record>
       <controlfield
@@ -1193,7 +1177,6 @@ def test_unimarc_identifiers():
 # notes: [300$a repetitive]
 def test_unimarc_notes():
     """Test dojson notes."""
-
     unimarcxml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
@@ -1228,7 +1211,6 @@ def test_unimarc_notes():
 # if possible deduplicate]
 def test_unimarc_subjects():
     """Test dojson subjects."""
-
     unimarcxml = """
     <record>
       <datafield tag="600" ind1=" " ind2=" ">
@@ -1266,7 +1248,6 @@ def test_unimarc_subjects():
 
 def test_unimarc_to_electronicLocator_from_856():
     """Test dojson electronicLocator from 856."""
-
     unimarcxml = """
     <record>
       <datafield tag="856" ind1="4" ind2=" ">
@@ -1287,7 +1268,6 @@ def test_unimarc_to_electronicLocator_from_856():
 
 def test_unimarc_to_isFiktion_from_105():
     """Test dojson isFiktion from 105."""
-
     unimarcxml = """
     <record>
       <datafield tag="105" ind1=" " ind2=" ">

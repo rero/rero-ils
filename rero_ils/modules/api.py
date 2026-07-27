@@ -378,10 +378,10 @@ class IlsRecord(Record):
             persistent_identifier.delete()
             if force:
                 db.session.delete(persistent_identifier)
-            self = super().delete(force=force)
+            record = super().delete(force=force)
             if dbcommit:
                 db.session.commit()
-            return self
+            return record
         raise IlsRecordError.NotDeleted()
 
     def update(self, data, commit=False, dbcommit=False, reindex=False):
@@ -429,10 +429,10 @@ class IlsRecord(Record):
         persistent_identifier = self.get_persistent_identifier(self.id)
         if persistent_identifier.is_deleted():
             raise IlsRecordError.Deleted()
-        self = super().revert(revision_id=revision_id)
+        record = super().revert(revision_id=revision_id)
         if reindex:
-            self.reindex(forceindex=False)
-        return self
+            record.reindex(forceindex=False)
+        return record
 
     def undelete(self, reindex=False):
         """Undelete the record."""
@@ -635,11 +635,12 @@ class IlsRecordsIndexer(RecordIndexer):
                 message.reject()
             except Exception:
                 message.reject()
-                current_app.logger.error(
-                    f"Failed to {payload['op']}"
-                    f" {payload.get('doc_type'), 'rec'} "
-                    f"{payload.get('pid')}:{payload.get('id')}",
-                    exc_info=True,
+                current_app.logger.exception(
+                    "Failed to %s %s %s:%s",
+                    payload["op"],
+                    payload.get("doc_type", "rec"),
+                    payload.get("pid"),
+                    payload.get("id"),
                 )
 
     def _index_action(self, payload):

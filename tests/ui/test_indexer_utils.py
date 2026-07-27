@@ -15,7 +15,6 @@ from rero_ils.modules.libraries.api import LibrariesIndexer, LibrariesSearch
 
 def test_record_indexing(app, lib_martigny):
     """Test record indexing process."""
-
     # TEST#1 :: Test indexing without $ref replacement
     app.config["INDEXER_REPLACE_REFS"] = False
     lib_martigny.reindex()
@@ -41,7 +40,6 @@ def test_record_indexing(app, lib_martigny):
 
 def test_record_to_index(app):
     """Test the index name value from the JSONSchema."""
-
     # for documents
     assert (
         record_to_index({"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"})

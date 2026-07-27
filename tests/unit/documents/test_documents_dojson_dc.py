@@ -53,9 +53,11 @@ def test_title_to_dc():
     result = dublincore.do(record)
     assert result == {
         "titles": [
-            "Statistique : exercices corrigés avec rappels de cours. T. 1, "
-            "Licence ès sciences économiques, 1ère année, étudiants de Grandes "
-            "écoles. Section 2, Grandes écoles / Edmond Berrebi"
+            (
+                "Statistique : exercices corrigés avec rappels de cours. T. 1, "
+                "Licence ès sciences économiques, 1ère année, étudiants de Grandes "
+                "écoles. Section 2, Grandes écoles / Edmond Berrebi"
+            )
         ]
     }
 

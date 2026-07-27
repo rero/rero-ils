@@ -275,7 +275,7 @@ def test_series(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp["seriesStatement"][0]["subseriesStatement"] is None
+        document_data_tmp["seriesStatement"][0]["subseriesStatement"] = None
         validate(document_data_tmp, document_schema)
 
 

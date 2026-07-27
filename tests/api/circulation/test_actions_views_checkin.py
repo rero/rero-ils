@@ -123,7 +123,6 @@ def test_checkin_overdue_item(
     item_on_loan_martigny_patron_and_loan_on_loan,
 ):
     """Test a checkin for an overdue item with incremental fees."""
-
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # Update the circulation policy corresponding to the loan
