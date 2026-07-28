@@ -112,13 +112,13 @@ get_version "${NG_DIR}"
 NG_PACKAGE="${NG_DIR}/${PACKAGE_NAME}"
 # fetch rero-ils-ui version
 get_version "${FRONTEND_DIR}"
-FRONTEND_PACKAGE="${FRONTEND_DIR}/build/${PACKAGE_NAME}"
+FRONTEND_PACKAGE="${FRONTEND_DIR}/${PACKAGE_NAME}"
 
 # packages ng-core
 info_msg "NG-CORE ❯ packaging…"
 cd "${NG_DIR}" \
-  && npm ci \
-  && npm run pack \
+  && pnpm ci \
+  && pnpm run pack \
   && cd - &>/dev/null \
   || error_msg+exit "NG-CORE ❯ packaging failed!"
 success_msg "NG-CORE ❯ successfully packaged."
@@ -126,9 +126,9 @@ success_msg "NG-CORE ❯ successfully packaged."
 # packages rero-ils-ui using previous ng-core package
 info_msg "UI ❯ including ng-core + packaging…"
 cd "${FRONTEND_DIR}" \
-  && npm ci \
-  && npm i "${NG_PACKAGE}" --no-save \
-  && npm run pack \
+  && pnpm ci \
+  && pnpm add "${NG_PACKAGE}" \
+  && pnpm run pack \
   && cd - &>/dev/null \
   || error_msg+exit "UI ❯ packaging failed!"
 success_msg "UI ❯ successfully packaged."
@@ -136,7 +136,7 @@ success_msg "UI ❯ successfully packaged."
 # include rero-ils-ui into rero-ils
 info_msg "ILS ❯ including rero-ils-ui…"
 static_folder=$(uv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder|cut -d: -f2-) || error_msg+exit "Error. Have you launched a bootstrap on this directory?"
-npm i "${FRONTEND_PACKAGE}" --prefix "${static_folder}" \
+pnpm add "${FRONTEND_PACKAGE}" --dir "${static_folder}" \
   || error_msg+exit "ILS ❯ inclusion failed!"
 success_msg "ILS ❯ successfully included."
 
