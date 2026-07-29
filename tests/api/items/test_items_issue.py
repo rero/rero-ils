@@ -208,7 +208,7 @@ def test_issues_claim_notifications(
     assert len(response.json["metadata"]["issue"]["claims"]["dates"]) == 2
 
     # Export this issue as CSV and check issue claims_count column
-    list_url = url_for("api_item.inventory_search", q=f"pid:{issue_pid}")
+    list_url = url_for("api_exports.item_export", q=f"pid:{issue_pid}")
     response = client.get(list_url, headers=csv_header)
     assert response.status_code == 200
     data = list(parse_csv(get_csv(response)))

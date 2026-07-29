@@ -68,7 +68,7 @@ dependencies = [
     "sentry-sdk",
     "dojson>=1.4.0",
     ## RERO specific python modules
-    "rero-invenio-base>=1.1.1",
+    "rero-invenio-base>=1.2.0",
     "rero-invenio-files>=1.0.0",
     "rero-invenio-thumbnails>=2.0.0",
     "flask-wiki>=1.0.0",

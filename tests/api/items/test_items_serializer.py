@@ -6,7 +6,7 @@
 from flask import url_for
 
 from rero_ils.modules.utils import get_ref_for_pid
-from tests.utils import get_csv, login_user
+from tests.utils import get_csv, login_user, parse_csv, parse_xlsx
 
 
 def test_serializers(
@@ -56,7 +56,7 @@ def test_serializers(
     data = response.json["hits"]["hits"]
     assert response.status_code == 200
 
-    list_url = url_for("api_item.inventory_search")
+    list_url = url_for("api_exports.item_export")
     response = client.get(list_url, headers=csv_header)
     assert response.status_code == 200
     data = get_csv(response)
@@ -135,12 +135,24 @@ def test_serializers(
     for field in fields:
         assert field in data
 
+    csv_rows = list(parse_csv(data))
+    list_url = url_for("api_exports.item_export", format="xlsx")
+    response = client.get(list_url, buffered=False)
+
+    assert response.status_code == 200
+    assert response.mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    assert response.is_streamed
+    assert response.headers["Content-Disposition"].endswith('-inventory.xlsx"')
+    assert response.headers["X-Accel-Buffering"] == "no"
+    assert "Content-Length" not in response.headers
+    assert parse_xlsx(response.get_data(), csv_compatible=True) == csv_rows
+
     # test provisionActivity without type bf:Publication
     document["provisionActivity"][0]["type"] = "bf:Manufacture"
     document.commit()
     document.reindex()
 
-    list_url = url_for("api_item.inventory_search")
+    list_url = url_for("api_exports.item_export")
     response = client.get(list_url, headers=csv_header)
     assert response.status_code == 200
     data = get_csv(response)

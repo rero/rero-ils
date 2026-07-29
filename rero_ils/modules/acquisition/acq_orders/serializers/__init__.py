@@ -5,6 +5,7 @@
 """Acquisition order serialization."""
 
 from invenio_records_rest.serializers.response import record_responsify
+from rero_invenio_base.modules.export import xlsx_converter
 
 from rero_ils.modules.serializers import (
     RecordSchemaJSONV1,
@@ -15,7 +16,12 @@ from rero_ils.modules.serializers import (
 from .csv import AcqOrderCSVSerializer
 from .json import AcqOrderJSONSerializer
 
-__all__ = ["csv_acor_search", "json_acor_record", "json_acor_search"]
+__all__ = [
+    "csv_acor_search",
+    "json_acor_record",
+    "json_acor_search",
+    "xlsx_acor_search",
+]
 
 """JSON serializer."""
 _json = AcqOrderJSONSerializer(RecordSchemaJSONV1)
@@ -56,3 +62,13 @@ _csv = AcqOrderCSVSerializer(
 )
 
 csv_acor_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_prefix="export-orders")
+xlsx_acor_search = search_responsify_file(
+    _csv,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    file_extension="xlsx",
+    file_prefix="export-orders",
+    content_converter=xlsx_converter(
+        "rero_ils/exports/acquisition_orders.xml",
+        worksheet_name="Acquisition orders",
+    ),
+)

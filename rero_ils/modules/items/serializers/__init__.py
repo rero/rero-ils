@@ -4,6 +4,7 @@
 """Items serializers."""
 
 from invenio_records_rest.serializers.response import record_responsify
+from rero_invenio_base.modules.export import xlsx_converter
 
 from rero_ils.modules.serializers import (
     JSONSerializer,
@@ -94,6 +95,16 @@ _csv = ItemCSVSerializer(
 """CSV serializer."""
 csv_item_response = record_responsify(_csv, "text/csv")
 csv_item_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_suffix="inventory")
+xlsx_item_search = search_responsify_file(
+    _csv,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    file_extension="xlsx",
+    file_suffix="inventory",
+    content_converter=xlsx_converter(
+        "rero_ils/exports/inventory.xml",
+        worksheet_name="Inventory",
+    ),
+)
 
 """JSON serializer."""
 _json = ItemsJSONSerializer(RecordSchemaJSONV1)

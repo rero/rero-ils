@@ -1,0 +1,16 @@
+{% set number_columns = [
+  "ordered_quantity",
+  "ordered_unit_price",
+  "ordered_amount",
+  "received_quantity",
+  "received_amount",
+] %}
+{% set pid_columns = [
+  "order_pid",
+  "document_pid",
+] %}
+{% set date_columns = [
+  "order_date",
+  "receipt_date",
+] %}
+{% include "rero_ils/exports/_xlsx_sheet.xml" %}

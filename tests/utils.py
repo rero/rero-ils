@@ -7,7 +7,11 @@ import csv
 import json
 from copy import deepcopy
 from datetime import UTC, datetime, timedelta
+from decimal import Decimal
+from io import BytesIO
 from unittest.mock import MagicMock, Mock
+from xml.etree import ElementTree
+from zipfile import ZipFile
 
 import jsonref
 import xmltodict
@@ -90,6 +94,174 @@ def parse_csv(raw_data):
     """Parse CSV raw data into a iterable raw file."""
     content = StringIO(raw_data)
     return csv.reader(content)
+
+
+XLSX_PARTS = {
+    "[Content_Types].xml",
+    "_rels/.rels",
+    "xl/workbook.xml",
+    "xl/_rels/workbook.xml.rels",
+    "xl/styles.xml",
+    "xl/worksheets/sheet1.xml",
+}
+
+XLSX_NAMESPACE = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+XLSX_NAMESPACES = {"xlsx": XLSX_NAMESPACE}
+XLSX_RELATIONSHIP_NAMESPACE = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+PACKAGE_RELATIONSHIP_NAMESPACE = "http://schemas.openxmlformats.org/package/2006/relationships"
+CONTENT_TYPES_NAMESPACE = "http://schemas.openxmlformats.org/package/2006/content-types"
+XLSX_EXCEL_EPOCH = datetime(1899, 12, 30)
+XLSX_BUILTIN_DATE_FORMAT_IDS = {str(identifier) for identifier in range(14, 23)}
+
+
+def _xlsx_parts(raw_data):
+    """Return the parsed XML parts of a structurally valid XLSX package."""
+    with ZipFile(BytesIO(raw_data)) as archive:
+        assert archive.testzip() is None
+        assert XLSX_PARTS.issubset(archive.namelist())
+        return {part: ElementTree.fromstring(archive.read(part)) for part in XLSX_PARTS}
+
+
+def assert_xlsx_structure(raw_data):
+    """Assert that an XLSX package contains valid required parts."""
+    parts = _xlsx_parts(raw_data)
+
+    content_types = parts["[Content_Types].xml"]
+    overrides = {element.get("PartName") for element in content_types.findall(f"{{{CONTENT_TYPES_NAMESPACE}}}Override")}
+    assert {
+        "/xl/workbook.xml",
+        "/xl/styles.xml",
+        "/xl/worksheets/sheet1.xml",
+    }.issubset(overrides)
+
+    root_relationships = parts["_rels/.rels"]
+    assert "xl/workbook.xml" in {
+        element.get("Target")
+        for element in root_relationships.findall(f"{{{PACKAGE_RELATIONSHIP_NAMESPACE}}}Relationship")
+    }
+
+    workbook_relationships = parts["xl/_rels/workbook.xml.rels"]
+    relationships = {
+        element.get("Id"): element.get("Target")
+        for element in workbook_relationships.findall(f"{{{PACKAGE_RELATIONSHIP_NAMESPACE}}}Relationship")
+    }
+    assert {"worksheets/sheet1.xml", "styles.xml"}.issubset(relationships.values())
+
+    workbook = parts["xl/workbook.xml"]
+    worksheet = workbook.find("xlsx:sheets/xlsx:sheet", XLSX_NAMESPACES)
+    assert worksheet is not None
+    relationship_id = worksheet.get(f"{{{XLSX_RELATIONSHIP_NAMESPACE}}}id")
+    assert relationships[relationship_id] == "worksheets/sheet1.xml"
+    return parts
+
+
+def _xlsx_style_ids(styles, *, bold=False, date=False):
+    """Return style indexes matching the requested formatting."""
+    font_ids = set()
+    if bold:
+        fonts = styles.findall("xlsx:fonts/xlsx:font", XLSX_NAMESPACES)
+        font_ids = {str(index) for index, font in enumerate(fonts) if font.find("xlsx:b", XLSX_NAMESPACES) is not None}
+
+    number_format_ids = set(XLSX_BUILTIN_DATE_FORMAT_IDS)
+    if date:
+        for number_format in styles.findall("xlsx:numFmts/xlsx:numFmt", XLSX_NAMESPACES):
+            code = number_format.get("formatCode", "").lower().replace("\\", "")
+            if any(token in code for token in ("yy", "dd", "hh", "ss")):
+                number_format_ids.add(number_format.get("numFmtId"))
+
+    style_ids = set()
+    for index, style in enumerate(styles.findall("xlsx:cellXfs/xlsx:xf", XLSX_NAMESPACES)):
+        if bold and style.get("fontId", "0") not in font_ids:
+            continue
+        if date and style.get("numFmtId", "0") not in number_format_ids:
+            continue
+        style_ids.add(str(index))
+    return style_ids
+
+
+def inspect_xlsx(raw_data):
+    """Return worksheet metadata and cells parsed directly from OOXML."""
+    parts = assert_xlsx_structure(raw_data)
+    workbook = parts["xl/workbook.xml"]
+    worksheet = parts["xl/worksheets/sheet1.xml"]
+    styles = parts["xl/styles.xml"]
+    bold_style_ids = _xlsx_style_ids(styles, bold=True)
+    date_style_ids = _xlsx_style_ids(styles, date=True)
+
+    sheet = workbook.find("xlsx:sheets/xlsx:sheet", XLSX_NAMESPACES)
+    pane = worksheet.find("xlsx:sheetViews/xlsx:sheetView/xlsx:pane", XLSX_NAMESPACES)
+    auto_filter = worksheet.find("xlsx:autoFilter", XLSX_NAMESPACES)
+    widths = [float(column.get("width")) for column in worksheet.findall("xlsx:cols/xlsx:col", XLSX_NAMESPACES)]
+
+    rows = []
+    for row in worksheet.findall("xlsx:sheetData/xlsx:row", XLSX_NAMESPACES):
+        cells = []
+        for cell in row.findall("xlsx:c", XLSX_NAMESPACES):
+            cell_type = cell.get("t")
+            style_id = cell.get("s", "0")
+            if cell_type == "inlineStr":
+                value = "".join(text.text or "" for text in cell.findall("xlsx:is//xlsx:t", XLSX_NAMESPACES))
+                data_type = "s"
+            else:
+                raw_value = cell.find("xlsx:v", XLSX_NAMESPACES)
+                value = (raw_value.text or "") if raw_value is not None else ""
+                if cell_type == "b":
+                    data_type = "b"
+                elif style_id in date_style_ids:
+                    data_type = "d"
+                else:
+                    data_type = "n"
+            cells.append(
+                {
+                    "reference": cell.get("r"),
+                    "type": data_type,
+                    "style": style_id,
+                    "bold": style_id in bold_style_ids,
+                    "value": value,
+                }
+            )
+        rows.append(cells)
+
+    return {
+        "worksheet_name": sheet.get("name"),
+        "freeze_pane": pane.get("topLeftCell") if pane is not None else None,
+        "pane_state": pane.get("state") if pane is not None else None,
+        "auto_filter": auto_filter.get("ref") if auto_filter is not None else None,
+        "widths": widths,
+        "rows": rows,
+    }
+
+
+def _xlsx_datetime(value):
+    """Convert an Excel serial number to a Python datetime."""
+    serial = Decimal(value)
+    days = int(serial)
+    microseconds = int(((serial - days) * Decimal(86_400_000_000)).to_integral_value())
+    return XLSX_EXCEL_EPOCH + timedelta(days=days, microseconds=microseconds)
+
+
+def parse_xlsx(raw_data, csv_compatible=False):
+    """Parse rows from an XLSX workbook.
+
+    :param csv_compatible: Convert typed dates and booleans back to the text
+        produced by the CSV serializer.
+    """
+    workbook = inspect_xlsx(raw_data)
+    rows = []
+    for row in workbook["rows"]:
+        values = []
+        for cell in row:
+            value = cell["value"]
+            if value and cell["type"] == "d":
+                parsed = _xlsx_datetime(value)
+                value = parsed.isoformat()
+                if csv_compatible and parsed.time().isoformat() == "00:00:00":
+                    value = parsed.date().isoformat()
+            elif csv_compatible and cell["type"] == "b":
+                value = "True" if value == "1" else "False"
+            values.append(value)
+        rows.append(values)
+    return rows
 
 
 def postdata(client, endpoint, data=None, headers=None, url_data=None, force_data_as_json=True):
