@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+{% set number_columns = ["amount"] %}
+{% set pid_columns = ["document_pid"] %}
+{% set date_columns = ["transaction_date"] %}
+{% include "rero_ils/exports/_spreadsheet.xml" %}

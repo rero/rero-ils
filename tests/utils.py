@@ -8,6 +8,7 @@ import json
 from copy import deepcopy
 from datetime import UTC, datetime, timedelta
 from unittest.mock import MagicMock, Mock
+from xml.etree import ElementTree
 
 import jsonref
 import xmltodict
@@ -90,6 +91,32 @@ def parse_csv(raw_data):
     """Parse CSV raw data into a iterable raw file."""
     content = StringIO(raw_data)
     return csv.reader(content)
+
+
+def parse_excel_xml(raw_data, csv_compatible=False):
+    """Parse rows from an Excel XML workbook.
+
+    :param csv_compatible: Convert typed dates and booleans back to the text
+        produced by the CSV serializer.
+    """
+    namespace_uri = "urn:schemas-microsoft-com:office:spreadsheet"
+    namespace = {"ss": namespace_uri}
+    workbook = ElementTree.fromstring(raw_data)
+    rows = []
+    for row in workbook.findall(".//ss:Worksheet/ss:Table/ss:Row", namespace):
+        values = []
+        for cell in row.findall("ss:Cell", namespace):
+            data = cell.find("ss:Data", namespace)
+            value = (data.text or "") if data is not None else ""
+            if csv_compatible and data is not None:
+                data_type = data.get(f"{{{namespace_uri}}}Type")
+                if data_type == "DateTime":
+                    value = value.partition("T")[0]
+                elif data_type == "Boolean":
+                    value = "True" if value == "1" else "False"
+            values.append(value)
+        rows.append(values)
+    return rows
 
 
 def postdata(client, endpoint, data=None, headers=None, url_data=None, force_data_as_json=True):

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+{% set pid_columns = ["pid"] %}
+{% set date_columns = [
+  "checkout_date",
+  "end_date",
+  "request_expire_date",
+] %}
+{% include "rero_ils/exports/_spreadsheet.xml" %}

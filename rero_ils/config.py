@@ -917,8 +917,13 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response",
             "text/csv": "rero_ils.modules.stats.serializers:csv_v1_response",
+            "application/vnd.ms-excel": "rero_ils.modules.stats.serializers:excel_xml_v1_response",
         },
-        record_serializers_aliases={"json": "application/json", "csv": "text/csv"},
+        record_serializers_aliases={
+            "json": "application/json",
+            "csv": "text/csv",
+            "xml": "application/vnd.ms-excel",
+        },
         search_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_search"
         },
@@ -3991,32 +3996,36 @@ RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
         default_media_type="text/csv",
         search_serializers={
             "text/csv": "rero_ils.modules.acquisition.acq_accounts.serializers:csv_acq_account_search",
+            "application/vnd.ms-excel": "rero_ils.modules.acquisition.acq_accounts.serializers:excel_xml_acq_account_search",
         },
-        search_serializers_aliases={"csv": "text/csv"},
+        search_serializers_aliases={"csv": "text/csv", "xml": "application/vnd.ms-excel"},
     ),
     acq_order=dict(
         resource=RECORDS_REST_ENDPOINTS.get("acor"),
         default_media_type="text/csv",
         search_serializers={
             "text/csv": "rero_ils.modules.acquisition.acq_orders.serializers:csv_acor_search",
+            "application/vnd.ms-excel": "rero_ils.modules.acquisition.acq_orders.serializers:excel_xml_acor_search",
         },
-        search_serializers_aliases={"csv": "text/csv"},
+        search_serializers_aliases={"csv": "text/csv", "xml": "application/vnd.ms-excel"},
     ),
     loan=dict(
         resource=CIRCULATION_REST_ENDPOINTS.get("loanid"),
         default_media_type="text/csv",
         search_serializers={
             "text/csv": "rero_ils.modules.loans.serializers:csv_stream_search",
+            "application/vnd.ms-excel": "rero_ils.modules.loans.serializers:excel_xml_loan_search",
         },
-        search_serializers_aliases={"csv": "text/csv"},
+        search_serializers_aliases={"csv": "text/csv", "xml": "application/vnd.ms-excel"},
     ),
     patron_transaction_events=dict(
         resource=RECORDS_REST_ENDPOINTS.get("ptre"),
         default_media_type="text/csv",
         search_serializers={
             "text/csv": "rero_ils.modules.patron_transaction_events.serializers:csv_ptre_search",
+            "application/vnd.ms-excel": "rero_ils.modules.patron_transaction_events.serializers:excel_xml_ptre_search",
         },
-        search_serializers_aliases={"csv": "text/csv"},
+        search_serializers_aliases={"csv": "text/csv", "xml": "application/vnd.ms-excel"},
     ),
 )
 

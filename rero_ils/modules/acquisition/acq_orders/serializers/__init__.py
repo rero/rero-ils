@@ -11,11 +11,17 @@ from rero_ils.modules.serializers import (
     search_responsify,
     search_responsify_file,
 )
+from rero_ils.modules.serializers.utils import excel_xml_converter
 
 from .csv import AcqOrderCSVSerializer
 from .json import AcqOrderJSONSerializer
 
-__all__ = ["csv_acor_search", "json_acor_record", "json_acor_search"]
+__all__ = [
+    "csv_acor_search",
+    "excel_xml_acor_search",
+    "json_acor_record",
+    "json_acor_search",
+]
 
 """JSON serializer."""
 _json = AcqOrderJSONSerializer(RecordSchemaJSONV1)
@@ -56,3 +62,13 @@ _csv = AcqOrderCSVSerializer(
 )
 
 csv_acor_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_prefix="export-orders")
+excel_xml_acor_search = search_responsify_file(
+    _csv,
+    "application/vnd.ms-excel",
+    file_extension="xls",
+    file_prefix="export-orders",
+    content_converter=excel_xml_converter(
+        "rero_ils/exports/acquisition_orders.xml",
+        worksheet_name="Acquisition orders",
+    ),
+)

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+{% set number_columns = ["checkins", "checkouts"] %}
+{% include "rero_ils/exports/_spreadsheet.xml" %}

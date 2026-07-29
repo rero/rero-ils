@@ -11,7 +11,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.documents.api import DocumentsSearch
-from tests.utils import get_csv
+from tests.utils import get_csv, parse_csv, parse_excel_xml
 
 
 def test_csv_serializer(
@@ -46,6 +46,17 @@ def test_csv_serializer(
         '"receipt_reference","received_quantity","received_amount",'
         '"receipt_date"' in data
     )
+
+    xml_url = url_for(
+        "api_exports.acq_order_export",
+        q=f"pid:{acq_order_fiction_martigny.pid}",
+        format="xml",
+    )
+    xml_response = client.get(xml_url)
+    assert xml_response.status_code == 200
+    assert xml_response.mimetype == "application/vnd.ms-excel"
+    assert xml_response.headers["Content-Disposition"].endswith('.xls"')
+    assert parse_excel_xml(xml_response.get_data(), csv_compatible=True) == list(parse_csv(data))
 
 
 def test_csv_serializer_missing_document(

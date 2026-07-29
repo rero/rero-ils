@@ -10,7 +10,7 @@ from invenio_rest import ContentNegotiatedMethodView
 
 from rero_ils.modules.decorators import check_logged_as_librarian
 from rero_ils.modules.items.api import ItemsSearch
-from rero_ils.modules.items.serializers import csv_item_search
+from rero_ils.modules.items.serializers import csv_item_search, excel_xml_item_search
 from rero_ils.query import items_search_factory
 
 
@@ -24,11 +24,13 @@ class InventoryListResource(ContentNegotiatedMethodView):
         super().__init__(
             method_serializers={
                 "GET": {
+                    "application/vnd.ms-excel": excel_xml_item_search,
                     "text/csv": csv_item_search,
                 }
             },
             serializers_query_aliases={
                 "csv": "text/csv",
+                "xml": "application/vnd.ms-excel",
             },
             default_method_media_type={"GET": "text/csv"},
             default_media_type="text/csv",

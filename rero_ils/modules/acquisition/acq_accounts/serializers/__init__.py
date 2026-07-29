@@ -11,12 +11,14 @@ from rero_ils.modules.serializers import (
     search_responsify,
     search_responsify_file,
 )
+from rero_ils.modules.serializers.utils import excel_xml_converter
 
 from .csv import AcqAccountCSVSerializer
 from .json import AcqAccountJSONSerializer
 
 __all__ = [
     "csv_acq_account_search",
+    "excel_xml_acq_account_search",
     "json_acq_account_response",
     "json_acq_account_search",
 ]
@@ -41,3 +43,13 @@ _csv = AcqAccountCSVSerializer(
 )
 
 csv_acq_account_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_prefix="export-accounts")
+excel_xml_acq_account_search = search_responsify_file(
+    _csv,
+    "application/vnd.ms-excel",
+    file_extension="xls",
+    file_prefix="export-accounts",
+    content_converter=excel_xml_converter(
+        "rero_ils/exports/acquisition_accounts.xml",
+        worksheet_name="Acquisition accounts",
+    ),
+)

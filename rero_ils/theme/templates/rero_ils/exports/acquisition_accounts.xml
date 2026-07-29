@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+{% set number_columns = [
+  "account_allocated_amount",
+  "account_available_amount",
+  "account_current_encumbrance",
+  "account_current_expenditure",
+  "account_available_balance",
+] %}
+{% set pid_columns = ["account_pid"] %}
+{% include "rero_ils/exports/_spreadsheet.xml" %}

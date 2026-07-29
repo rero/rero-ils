@@ -8,7 +8,14 @@ from unittest import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
-from tests.utils import VerifyRecordPermissionPatch, get_csv, get_json, to_relative_url
+from tests.utils import (
+    VerifyRecordPermissionPatch,
+    get_csv,
+    get_json,
+    parse_csv,
+    parse_excel_xml,
+    to_relative_url,
+)
 
 
 @mock.patch(
@@ -48,6 +55,14 @@ def test_stats_get(client, stats, csv_header):
         "0,0,0,0,0,1,0,1,1,0,2,1,1,0,1,0,0\r\n"
         "0.000,lib4,Library of Sion,0,0,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0\r\n"
     )
+
+    params = {"pid_value": stats.pid, "format": "xml"}
+    item_url = url_for("invenio_records_rest.stat_item", **params)
+    res = client.get(item_url)
+    assert res.status_code == 200
+    assert res.mimetype == "application/vnd.ms-excel"
+    assert res.headers["Content-Disposition"].endswith('.xls"')
+    assert parse_excel_xml(res.get_data()) == list(parse_csv(data))
 
     list_url = url_for("invenio_records_rest.stat_list")
     res = client.get(list_url)
@@ -116,8 +131,17 @@ def test_stats_report_get(client, stats_report_martigny, csv_header):
     item_url = url_for("invenio_records_rest.stat_item", **params)
     res = client.get(item_url, headers=csv_header)
     assert res.status_code == 200
-    data = get_csv(res)
-    assert data
+    csv_data = get_csv(res)
+    assert csv_data
+
+    params = {"pid_value": stats_report_martigny.pid, "format": "xml"}
+    item_url = url_for("invenio_records_rest.stat_item", **params)
+    res = client.get(item_url)
+    assert res.status_code == 200
+    assert res.mimetype == "application/vnd.ms-excel"
+    assert res.headers["Content-Disposition"].endswith('.xls"')
+    assert parse_excel_xml(res.get_data()) == list(parse_csv(csv_data))
+
     list_url = url_for("invenio_records_rest.stat_list")
     res = client.get(list_url)
     assert res.status_code == 200

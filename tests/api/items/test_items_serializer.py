@@ -6,7 +6,7 @@
 from flask import url_for
 
 from rero_ils.modules.utils import get_ref_for_pid
-from tests.utils import get_csv, login_user
+from tests.utils import get_csv, login_user, parse_csv, parse_excel_xml
 
 
 def test_serializers(
@@ -134,6 +134,16 @@ def test_serializers(
     ]
     for field in fields:
         assert field in data
+
+    csv_rows = list(parse_csv(data))
+    list_url = url_for("api_item.inventory_search", format="xml")
+    response = client.get(list_url, buffered=False)
+
+    assert response.status_code == 200
+    assert response.mimetype == "application/vnd.ms-excel"
+    assert response.is_streamed
+    assert response.headers["Content-Disposition"].endswith('-inventory.xls"')
+    assert parse_excel_xml(response.get_data(), csv_compatible=True) == csv_rows
 
     # test provisionActivity without type bf:Publication
     document["provisionActivity"][0]["type"] = "bf:Manufacture"

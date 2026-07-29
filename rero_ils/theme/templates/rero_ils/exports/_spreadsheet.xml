@@ -1,0 +1,75 @@
+{% set number_columns = number_columns|default([]) %}
+{% set pid_columns = pid_columns|default([]) %}
+{% set date_columns = date_columns|default([]) %}
+{% set boolean_columns = boolean_columns|default([]) %}
+{% set string_columns = string_columns|default([]) %}
+{% set infer_numbers = infer_numbers|default(false) %}
+{% set state = namespace(row_count=1) %}
+<Workbook
+  xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+>
+  <Styles>
+    <Style ss:ID="Header">
+      <Font ss:Bold="1"/>
+    </Style>
+    <Style ss:ID="Date">
+      <NumberFormat ss:Format="yyyy-mm-dd"/>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="{{ worksheet_name }}">
+    <Table>
+      {% for column in header %}
+      <Column ss:AutoFitWidth="0" ss:Width="{{ column|length * 6 + 12 }}"/>
+      {% endfor %}
+      {% if header %}
+      <Row ss:StyleID="Header">
+        {% for column in header %}
+        <Cell><Data ss:Type="String">{{ column }}</Data></Cell>
+        {% endfor %}
+      </Row>
+      {% endif %}
+      {% for row in data_generator %}
+      {% set state.row_count = state.row_count + 1 %}
+      <Row>
+        {% for column in header %}
+        {% set value = row[loop.index0] %}
+        {% set column_name = column|lower %}
+        {% set number = excel_number(value) %}
+        {% set datetime = excel_datetime(value) if column_name in date_columns else none %}
+        {% set inferred_number = infer_numbers and loop.index0 > 0 and column_name not in string_columns %}
+        {% if not value %}
+        <Cell/>
+        {% elif number and (
+          column_name in number_columns
+          or column_name in pid_columns
+          or inferred_number
+        ) %}
+        <Cell><Data ss:Type="Number">{{ number }}</Data></Cell>
+        {% elif datetime %}
+        <Cell ss:StyleID="Date"><Data ss:Type="DateTime">{{ datetime }}</Data></Cell>
+        {% elif column_name in boolean_columns %}
+        <Cell><Data ss:Type="Boolean">{{ "1" if value|lower in ["true", "1"] else "0" }}</Data></Cell>
+        {% else %}
+        <Cell><Data ss:Type="String">{{ value }}</Data></Cell>
+        {% endif %}
+        {% endfor %}
+      </Row>
+      {% endfor %}
+    </Table>
+    <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+      <FreezePanes/>
+      <FrozenNoSplit/>
+      <SplitHorizontal>1</SplitHorizontal>
+      <TopRowBottomPane>1</TopRowBottomPane>
+    </WorksheetOptions>
+    {% if header %}
+    <AutoFilter
+      x:Range="R1C1:R{{ state.row_count }}C{{ header|length }}"
+      xmlns="urn:schemas-microsoft-com:office:excel"
+    />
+    {% endif %}
+  </Worksheet>
+</Workbook>

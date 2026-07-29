@@ -11,6 +11,7 @@ from rero_ils.modules.serializers import (
     search_responsify,
     search_responsify_file,
 )
+from rero_ils.modules.serializers.utils import excel_xml_converter
 
 from .csv import ItemCSVSerializer
 from .json import ItemsJSONSerializer
@@ -94,6 +95,16 @@ _csv = ItemCSVSerializer(
 """CSV serializer."""
 csv_item_response = record_responsify(_csv, "text/csv")
 csv_item_search = search_responsify_file(_csv, "text/csv", file_extension="csv", file_suffix="inventory")
+excel_xml_item_search = search_responsify_file(
+    _csv,
+    "application/vnd.ms-excel",
+    file_extension="xls",
+    file_suffix="inventory",
+    content_converter=excel_xml_converter(
+        "rero_ils/exports/inventory.xml",
+        worksheet_name="Inventory",
+    ),
+)
 
 """JSON serializer."""
 _json = ItemsJSONSerializer(RecordSchemaJSONV1)

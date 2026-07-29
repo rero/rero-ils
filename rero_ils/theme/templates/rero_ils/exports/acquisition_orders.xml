@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+{% set number_columns = [
+  "ordered_quantity",
+  "ordered_unit_price",
+  "ordered_amount",
+  "received_quantity",
+  "received_amount",
+] %}
+{% set pid_columns = [
+  "order_pid",
+  "document_pid",
+] %}
+{% set date_columns = [
+  "order_date",
+  "receipt_date",
+] %}
+{% include "rero_ils/exports/_spreadsheet.xml" %}

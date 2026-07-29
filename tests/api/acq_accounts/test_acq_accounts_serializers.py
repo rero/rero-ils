@@ -7,7 +7,7 @@
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
-from tests.utils import get_csv
+from tests.utils import get_csv, parse_csv, parse_excel_xml
 
 
 def test_csv_serializer(
@@ -36,3 +36,14 @@ def test_csv_serializer(
         '"account_current_encumbrance","account_current_expenditure",'
         '"account_available_balance"' in data
     )
+
+    xml_url = url_for(
+        "api_exports.acq_account_export",
+        q=f"pid:{acq_account_fiction_martigny.pid}",
+        format="xml",
+    )
+    xml_response = client.get(xml_url)
+    assert xml_response.status_code == 200
+    assert xml_response.mimetype == "application/vnd.ms-excel"
+    assert xml_response.headers["Content-Disposition"].endswith('.xls"')
+    assert parse_excel_xml(xml_response.get_data()) == list(parse_csv(data))
