@@ -1,0 +1,2 @@
+{% set number_columns = ["checkins", "checkouts"] %}
+{% include "rero_ils/exports/_xlsx_sheet.xml" %}

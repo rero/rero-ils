@@ -1,0 +1,30 @@
+{% macro write_cell(value, reference) %}
+  {% set number = excel_number(value) %}
+  {% if not value %}
+  <c r="{{ reference }}"/>
+  {% elif number is not none %}
+  <c r="{{ reference }}"><v>{{ number }}</v></c>
+  {% else %}
+  <c r="{{ reference }}" t="inlineStr"><is><t xml:space="preserve">{{ excel_text(value) }}</t></is></c>
+  {% endif %}
+{% endmacro %}
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+  <sheetData>
+    {% if header %}
+    <row r="1">
+      {% for value in header %}
+      {{ write_cell(value, refs[loop.index0] ~ "1") }}
+      {% endfor %}
+    </row>
+    {% endif %}
+    {% for row in data_generator %}
+    {% set row_index = loop.index + 1 %}
+    <row r="{{ row_index }}">
+      {% for column in header %}
+      {% set value = row[loop.index0] if loop.index0 < row|length else "" %}
+      {{ write_cell(value, refs[loop.index0] ~ row_index) }}
+      {% endfor %}
+    </row>
+    {% endfor %}
+  </sheetData>
+</worksheet>

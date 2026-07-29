@@ -3819,7 +3819,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=0.13.0" },
     { name = "pyyaml", specifier = ">=5.3.1" },
     { name = "requests", specifier = ">=2.23.0" },
-    { name = "rero-invenio-base", specifier = ">=1.1.1" },
+    { name = "rero-invenio-base", specifier = ">=1.2.0" },
     { name = "rero-invenio-files", specifier = ">=1.0.0" },
     { name = "rero-invenio-thumbnails", specifier = ">=2.0.0" },
     { name = "sentry-sdk" },
@@ -3849,18 +3849,20 @@ prod = [
 
 [[package]]
 name = "rero-invenio-base"
-version = "1.1.2"
+version = "1.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "babel" },
     { name = "invenio-db", extra = ["postgresql"] },
+    { name = "invenio-i18n" },
     { name = "invenio-records-rest" },
     { name = "invenio-search", extra = ["elasticsearch7"] },
     { name = "jsonpatch" },
     { name = "pyyaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7c/1a/582c875a9f8f527b9b60138b7fa3d61325eb040fe3131e456db8bb54899a/rero_invenio_base-1.1.2.tar.gz", hash = "sha256:9529ef86d489c03b498566569d22f864cbe6f0c66e63d2ecc204bda0b92dda9f", size = 29404, upload-time = "2026-07-09T07:59:40.071Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/da/61/18c451b65cef90461cc24cb6584119d37545b20c267e45127d5dd2f4afd1/rero_invenio_base-1.2.0.tar.gz", hash = "sha256:736cc77c8d816578f44f2c555dc69a80d25f8fb95f5b6938acb299f336c5bdb6", size = 34407, upload-time = "2026-08-18T08:30:04.027Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d1/61/071e468d821dd92c143cde1ed6e27915dd07fbef5f6bcab64d26c3cfcb7c/rero_invenio_base-1.1.2-py3-none-any.whl", hash = "sha256:20f64ff008ac145211008e79217c2307aa9a017508d019334d52d832cb47a601", size = 40499, upload-time = "2026-07-09T07:59:39.112Z" },
+    { url = "https://files.pythonhosted.org/packages/f9/41/d3914b4319b6b52b6761c4904c4eacfc1d703daf155ded79139416eb6d94/rero_invenio_base-1.2.0-py3-none-any.whl", hash = "sha256:0e942a0c2583dd635ed2b6e364245c6d667257913ecfc11830a875ae77789e57", size = 45755, upload-time = "2026-08-18T08:30:02.951Z" },
 ]
 
 [[package]]

@@ -1,0 +1,7 @@
+{% set pid_columns = ["pid"] %}
+{% set date_columns = [
+  "checkout_date",
+  "end_date",
+  "request_expire_date",
+] %}
+{% include "rero_ils/exports/_xlsx_sheet.xml" %}

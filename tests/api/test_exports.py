@@ -9,7 +9,26 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 
 from rero_ils.modules.utils import get_ref_for_pid
-from tests.utils import get_csv, parse_csv
+from tests.utils import get_csv, parse_csv, parse_xlsx
+
+
+def test_items_exports(client, patron_martigny, librarian_martigny, item_lib_martigny):
+    """Test inventory streamed export permissions and content."""
+    url = url_for("api_exports.item_export", q=f"pid:{item_lib_martigny.pid}")
+
+    res = client.get(url)
+    assert res.status_code == 401
+
+    login_user_via_session(client, patron_martigny.user)
+    res = client.get(url)
+    assert res.status_code == 403
+
+    login_user_via_session(client, librarian_martigny.user)
+    res = client.get(url)
+    assert res.status_code == 200
+    rows = list(parse_csv(get_csv(res)))
+    assert "item_pid" in rows[0]
+    assert len(rows) == 2
 
 
 def test_loans_exports(app, client, librarian_martigny, loan_pending_martigny, loan2_validated_martigny):
@@ -25,7 +44,8 @@ def test_loans_exports(app, client, librarian_martigny, loan_pending_martigny, l
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(url)
     assert res.status_code == 200
-    data = list(parse_csv(get_csv(res)))
+    csv_rows = list(parse_csv(get_csv(res)))
+    data = list(csv_rows)
 
     header = data.pop(0)
     header_columns = [
@@ -46,6 +66,13 @@ def test_loans_exports(app, client, librarian_martigny, loan_pending_martigny, l
     ]
     assert all(field in header for field in header_columns)
     assert len(data) == 2
+
+    res = client.get(url_for("api_exports.loan_export", format="xlsx"))
+    assert res.status_code == 200
+    assert res.mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    assert res.headers["Content-Disposition"].endswith('.xlsx"')
+    assert res.headers["X-Accel-Buffering"] == "no"
+    assert parse_xlsx(res.get_data(), csv_compatible=True) == csv_rows
 
 
 def test_patron_transaction_events_exports(
@@ -91,7 +118,8 @@ def test_patron_transaction_events_exports(
 
     res = client.get(url)
     assert res.status_code == 200
-    data = list(parse_csv(get_csv(res)))
+    csv_rows = list(parse_csv(get_csv(res)))
+    data = list(csv_rows)
 
     header = data.pop(0)
     header_columns = [
@@ -113,3 +141,15 @@ def test_patron_transaction_events_exports(
     ]
     assert all(field in header for field in header_columns)
     assert len(data) == 1
+
+    res = client.get(url_for("api_exports.patron_transaction_events_export", format="xlsx"))
+    assert res.status_code == 200
+    assert res.mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    assert res.headers["Content-Disposition"].endswith('.xlsx"')
+    xlsx_rows = parse_xlsx(res.get_data())
+    assert xlsx_rows[0] == csv_rows[0]
+    assert len(xlsx_rows) == len(csv_rows)
+    transaction_date_index = header.index("transaction_date")
+    assert [value for index, value in enumerate(xlsx_rows[1]) if index != transaction_date_index] == [
+        value for index, value in enumerate(csv_rows[1]) if index != transaction_date_index
+    ]
