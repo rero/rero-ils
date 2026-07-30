@@ -77,7 +77,9 @@ function pretests () {
 
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
-info_msg "Test formatting:"
+  info_msg "Check license headers:"
+  invenio reroils utils check_license
+  info_msg "Test formatting:"
   ruff format --check rero_ils tests
   info_msg "Test linting:"
   ruff check rero_ils tests
