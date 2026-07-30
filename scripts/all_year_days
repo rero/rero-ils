@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Fondation RERO+
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 #
 # Launch a command every day of current year
 #
