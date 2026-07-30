@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: Fondation RERO+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 # Developer resources
 
 This directory contains resources about RERO ILS: loan state chart, item state chart,

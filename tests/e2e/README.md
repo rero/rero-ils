@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: Fondation RERO+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 # E2E Tests
 
 Playwright-based end-to-end tests for RERO ILS. Tests run against a live server
