@@ -8,6 +8,7 @@ import contextlib
 import itertools
 import json
 import os
+import subprocess
 import sys
 import traceback
 from collections import OrderedDict
@@ -186,6 +187,84 @@ def check_json(paths, replace, indent, sort_keys, verbose):
         tot_error_cnt += error_cnt
 
     sys.exit(tot_error_cnt)
+
+
+SPDX_TAGS = ("SPDX-FileCopyrightText:", "SPDX-License-Identifier: AGPL-3.0-or-later")
+SPDX_EXTENSIONS = (
+    ".cfg",
+    ".conf",
+    ".css",
+    ".html",
+    ".ini",
+    ".js",
+    ".md",
+    ".py",
+    ".scss",
+    ".sh",
+    ".toml",
+    ".yml",
+)
+# `.github` templates and generated or fixture content have no license header
+SPDX_EXCLUDED_PATHS = (".github/", "CHANGELOG.md", "data/wiki/", "tests/data/help/")
+
+
+def needs_spdx_header(file_name):
+    """Check if a file is expected to have a SPDX license header.
+
+    Files are selected by extension. Files without extension are selected when
+    they are Dockerfiles or scripts starting with a shebang.
+
+    :param file_name: the path of the file to check.
+    :returns: True if the file requires a SPDX license header.
+    """
+    if any(excluded in file_name for excluded in SPDX_EXCLUDED_PATHS):
+        return False
+    base_name = os.path.basename(file_name)
+    if base_name.startswith("Dockerfile"):
+        return True
+    if extension := os.path.splitext(base_name)[1]:
+        return extension in SPDX_EXTENSIONS
+    with open(file_name, "rb") as opened_file:
+        return opened_file.read(2) == b"#!"
+
+
+def has_spdx_header(file_name):
+    """Check if a file starts with the SPDX license header.
+
+    The comment syntax is not checked, only the presence of both SPDX tags in
+    the first lines of the file.
+
+    :param file_name: the path of the file to check.
+    :returns: True if the copyright and the license tags are both present.
+    """
+    with open(file_name) as opened_file:
+        header = "".join(itertools.islice(opened_file, 5))
+    return all(tag in header for tag in SPDX_TAGS)
+
+
+@utils.command("check_license")
+@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
+def check_license(verbose):
+    """Check SPDX license headers of the files tracked by git."""
+    click.secho("Testing SPDX license headers.", fg="green")
+    try:
+        tracked_files = subprocess.check_output(["git", "ls-files", "-z"], text=True).split("\0")
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise click.ClickException("git is required and must run in a git repository.") from error
+    error_cnt = 0
+    for file_name in tracked_files:
+        if not os.path.isfile(file_name) or not needs_spdx_header(file_name):
+            continue
+        if has_spdx_header(file_name):
+            if verbose:
+                click.echo(f"{file_name}: ", nl=False)
+                click.secho("License header found", fg="green")
+        else:
+            click.echo(f"{file_name}: ", nl=False)
+            click.secho("Missing license header", fg="red")
+            error_cnt += 1
+
+    sys.exit(1 if error_cnt else 0)
 
 
 @utils.command("schedules")
