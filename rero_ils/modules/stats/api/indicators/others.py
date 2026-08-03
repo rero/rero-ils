@@ -55,6 +55,12 @@ class NumberOfDocumentsCfg(IndicatorCfg):
                 calendar_interval="year",
                 format="yyyy",
             ),
+            "publication_year": A(
+                "terms",
+                field="sort_date_old",
+                order={"_key": "asc"},
+                size=self.cfg.aggs_size,
+            ),
             "imported": A(
                 "filters",
                 other_bucket_key="not imported",
@@ -75,6 +81,7 @@ class NumberOfDocumentsCfg(IndicatorCfg):
             "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} ({bucket.key})",
             "created_month": lambda: bucket.key_as_string,
             "created_year": lambda: bucket.key_as_string,
+            "publication_year": lambda: str(bucket.key),
             "imported": lambda: bucket,
         }
         return cfg[distribution]()

@@ -16,6 +16,7 @@ def test_stats_report_number_of_documents(org_martigny, org_sion, lib_martigny, 
         id="1",
         body={
             "_created": "2023-02-01",
+            "sort_date_old": 2023,
             "adminMetadata": {"source": "foo"},
             "holdings": [
                 {
@@ -32,6 +33,7 @@ def test_stats_report_number_of_documents(org_martigny, org_sion, lib_martigny, 
         id="2",
         body={
             "_created": "2024-01-01",
+            "sort_date_old": 2024,
             "holdings": [
                 {
                     "organisation": {
@@ -53,6 +55,7 @@ def test_stats_report_number_of_documents(org_martigny, org_sion, lib_martigny, 
         id="3",
         body={
             "_created": "2024-01-01",
+            "sort_date_old": 2024,
             "holdings": [
                 {
                     "organisation": {
@@ -158,6 +161,59 @@ def test_stats_report_number_of_documents(org_martigny, org_sion, lib_martigny, 
         ["2024", 1, 0],
     ]
 
+    # publication year
+    es.index(
+        index="documents",
+        id="publication-year",
+        body={
+            "_created": "2024-01-01",
+            "sort_date_old": 2024,
+            "holdings": [
+                {
+                    "organisation": {
+                        "organisation_pid": org_martigny.pid,
+                        "library_pid": lib_martigny_bourg.pid,
+                    }
+                }
+            ],
+        },
+    )
+    es.indices.refresh(index="documents")
+    cfg = {
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_documents",
+                "distributions": ["publication_year"],
+            }
+        },
+    }
+    assert StatsReport(cfg).collect() == [["2023", 1], ["2024", 2]]
+
+    # publication year and owning library
+    cfg = {
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_documents",
+                "distributions": ["publication_year", "owning_library"],
+            }
+        },
+    }
+    assert StatsReport(cfg).collect() == [
+        [
+            "",
+            f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})",
+            f"{lib_martigny.get('name')} ({lib_martigny.pid})",
+        ],
+        ["2023", 0, 1],
+        ["2024", 2, 0],
+    ]
+    es.delete(index="documents", id="publication-year")
+    es.indices.refresh(index="documents")
+
     # imported
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
@@ -195,3 +251,32 @@ def test_stats_report_number_of_documents(org_martigny, org_sion, lib_martigny, 
         ["imported", 0, 1],
         ["not imported", 1, 0],
     ]
+
+    # documents without a publication year are ignored
+    es.index(
+        index="documents",
+        id="4",
+        body={
+            "_created": "2024-01-01",
+            "holdings": [
+                {
+                    "organisation": {
+                        "organisation_pid": org_martigny.pid,
+                        "library_pid": lib_martigny.pid,
+                    }
+                }
+            ],
+        },
+    )
+    es.indices.refresh(index="documents")
+    cfg = {
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_documents",
+                "distributions": ["publication_year"],
+            }
+        },
+    }
+    assert StatsReport(cfg).collect() == [["2023", 1], ["2024", 1]]

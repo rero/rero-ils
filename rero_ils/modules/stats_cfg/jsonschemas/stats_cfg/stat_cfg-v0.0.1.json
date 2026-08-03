@@ -210,6 +210,7 @@
                             "enum": [
                               "created_month",
                               "created_year",
+                              "publication_year",
                               "owning_library",
                               "imported"
                             ]
@@ -227,6 +228,10 @@
                                   {
                                     "value": "created_year",
                                     "label": "created_year"
+                                  },
+                                  {
+                                    "value": "publication_year",
+                                    "label": "publication_year"
                                   },
                                   {
                                     "value": "owning_library",
