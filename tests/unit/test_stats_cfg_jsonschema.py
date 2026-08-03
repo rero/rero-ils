@@ -31,7 +31,7 @@ def test_valid_circulation_n_docs(stats_cfg_schema):
         "category": {"type": "catalog", "indicator": {"type": "number_of_documents"}},
         "is_active": True,
     }
-    for dist in ["created_month", "created_year", "imported", "owning_library"]:
+    for dist in ["created_month", "created_year", "imported", "owning_library", "publication_year"]:
         data["category"]["indicator"]["distributions"] = [dist]
         validate(data, stats_cfg_schema)
 
