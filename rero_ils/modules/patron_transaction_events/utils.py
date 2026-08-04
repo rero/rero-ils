@@ -4,9 +4,9 @@
 
 """Utils functions about patron_transaction_events."""
 
-from elasticsearch_dsl import Q
 from flask import request
 from invenio_records_rest.utils import make_comma_list_a_list
+from opensearch_dsl import Q
 
 from rero_ils.modules.patron_transaction_events.models import PatronTransactionEventType
 

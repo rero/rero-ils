@@ -5,9 +5,9 @@
 
 import re
 
-from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Q
 from Levenshtein import jaro_winkler
+from opensearch_dsl import Q
+from opensearchpy import OpenSearch
 from unidecode import unidecode
 
 from rero_ils.modules.documents.api import DocumentsSearch
@@ -56,7 +56,7 @@ class Deduplication:
         search = DocumentsSearch()
         if search_hosts:
             search = search.using(
-                Elasticsearch(
+                OpenSearch(
                     hosts=search_hosts,
                     retry_on_timeout=True,
                     max_retries=5,
@@ -434,10 +434,12 @@ class Deduplication:
             flags="WHITESPACE",
             boost=5,
         )
+        _text_fields = ["title._text", "responsibilityStatement.value", "provisionActivity._text.value"]
         # title AND provisionActivity AND 1th author should match the complete record
         query |= Q(
             "simple_query_string",
             query=f"{data_text}",
+            fields=_text_fields,
             default_operator="AND",
             flags="WHITESPACE",
             boost=2,
@@ -446,6 +448,7 @@ class Deduplication:
         query |= Q(
             "simple_query_string",
             query=f"{data_text}",
+            fields=_text_fields,
             flags="WHITESPACE",
             default_operator="OR",
         )

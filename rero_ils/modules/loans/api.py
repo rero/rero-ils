@@ -9,7 +9,6 @@ from bisect import bisect_right
 from datetime import UTC, datetime, timedelta
 
 import ciso8601
-from elasticsearch_dsl import A
 from flask import current_app
 from flask_babel import gettext as _
 from invenio_circulation.errors import MissingRequiredParameterError
@@ -20,6 +19,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_circulation.utils import str2datetime
 from invenio_jsonschemas import current_jsonschemas
+from opensearch_dsl import A
 from werkzeug.utils import cached_property
 
 from rero_ils.modules.api import (
@@ -1127,7 +1127,7 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
     results = query.params(preserve_order=True).sort({"_created": {"order": "asc"}}).source(["pid"]).scan()
     # We will return all pids here to prevent folowing error during long
     # operations:
-    #  elasticsearch.helpers.errors.ScanError:
+    #  opensearchpy.exceptions.ScanError:
     #  Scroll request has only succeeded on X (+0 skipped) shards out of Y.
     return [hit.pid for hit in results]
 

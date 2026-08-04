@@ -6,7 +6,7 @@
 from datetime import UTC, datetime
 from enum import Enum
 
-from elasticsearch_dsl import (
+from opensearch_dsl import (
     Binary,
     Date,
     Document,
@@ -16,7 +16,7 @@ from elasticsearch_dsl import (
     Object,
     Text,
 )
-from elasticsearch_dsl.exceptions import ValidationException
+from opensearch_dsl.exceptions import ValidationException
 
 
 def _(x):
@@ -100,7 +100,7 @@ class Conversion(InnerDoc):
 
 
 class MigrationData(Document):
-    """Migration Resource (ElasticSearch only)."""
+    """Migration Resource (OpenSearch only)."""
 
     # migration ID
     migration_id = Text(fields={"raw": Keyword()}, required=True)

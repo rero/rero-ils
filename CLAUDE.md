@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 rero-ils is the Python/Flask backend of the RERO ILS Integrated Library System (ILS). Some frontend elements are defined in this project as HTML/Jinja templates, the rest is a separate Angular project (rero-ils-ui) based on (ng-core).
 
-**Stack**: Python 3.14, Flask (Invenio), PostgreSQL, Elasticsearch 7, Celery, RabbitMQ, Redis
+**Stack**: Python 3.14, Flask (Invenio), PostgreSQL, OpenSearch 2, Celery, RabbitMQ, Redis
 **Package manager**: `uv` with `poethepoet` for task running
 
 ## Commands
@@ -45,7 +45,7 @@ rero_ils/modules/<module_name>/
 ├── listener.py       # Signal handlers (enrich data before indexing)
 ├── permissions.py    # Access control rules
 ├── jsonschemas/      # JSON Schema for validation
-├── mappings/v7/      # Elasticsearch index mappings
+├── mappings/os-v2/   # OpenSearch index mappings
 ├── serializers/      # REST response serializers
 ├── dumpers.py        # Data dumpers for ES indexing
 └── jsonresolver.py   # JSON $ref resolver
@@ -58,7 +58,7 @@ rero_ils/modules/<module_name>/
 
 ### Signal/Event Flow
 
-The `ext.py` file wires up all signal listeners. Before a record is indexed in Elasticsearch, `listener.py` in each module can enrich the data (e.g., adding computed fields, resolving references). This is the primary mechanism for denormalizing data into ES.
+The `ext.py` file wires up all signal listeners. Before a record is indexed in OpenSearch, `listener.py` in each module can enrich the data (e.g., adding computed fields, resolving references). This is the primary mechanism for denormalizing data into the search index.
 
 ### API Entry Points
 

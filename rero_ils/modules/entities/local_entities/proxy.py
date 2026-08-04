@@ -4,7 +4,7 @@
 
 """Local entity proxies."""
 
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 
 from ..models import EntityType
 from .api import LocalEntitiesSearch

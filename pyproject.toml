@@ -33,7 +33,7 @@ dependencies = [
     ## Third party invenio modules used by RERO ILS
     "invenio-oaiharvester>=1.0.0a4",
     "invenio-circulation>=4.0.0",
-    "invenio-search[elasticsearch7]>=3.0.0",
+    "invenio-search[opensearch2]>=3.0.0",
     # Invenio core modules
     "invenio-app>=3.0.0",
     "invenio-base>=2.0.0",
@@ -68,8 +68,10 @@ dependencies = [
     "sentry-sdk",
     "dojson>=1.4.0",
     ## RERO specific python modules
-    "rero-invenio-base>=1.1.1",
-    "rero-invenio-files>=1.0.0",
+    # "rero-invenio-base>=1.1.1",
+    "rero-invenio-base @ git+https://github.com/rerowep/rero-invenio-base@wep-opensearch",
+    # "rero-invenio-files>=1.0.0",
+    "rero-invenio-files @ git+https://github.com/rerowep/rero-invenio-files@wep-opensearch",
     "rero-invenio-thumbnails>=2.0.0",
     "flask-wiki>=1.0.0",
     ## RERO ILS specific python modules
@@ -89,9 +91,6 @@ dependencies = [
     "dcxml>=0.1.2",
     "DeepDiff>=5.5.0",
     "jsonresolver",
-    "click>=8.3.3",
-    # needed for elasticsearch 7.13.4
-    "urllib3<2.0.0",
     "dnspython>=2.4.2",
     "babel>=2.16.0",
     "levenshtein>=0.26.0",
@@ -437,8 +436,8 @@ templates = "rero_ils.modules.templates.mappings"
 vendors = "rero_ils.modules.vendors.mappings"
 
 [project.entry-points."invenio_search.templates"]
-operation_logs = "rero_ils.modules.operation_logs.es_templates:list_search_templates"
-rero_ils = "rero_ils.es_templates:list_search_templates"
+operation_logs = "rero_ils.modules.operation_logs.search_templates:list_search_templates"
+rero_ils = "rero_ils.search_templates:list_search_templates"
 
 # ---------------------------------------------------------------------------
 # Tool configurations

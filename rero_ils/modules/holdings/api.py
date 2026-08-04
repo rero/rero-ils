@@ -9,11 +9,11 @@ from datetime import UTC, datetime
 from functools import partial
 
 from dateutil.relativedelta import relativedelta
-from elasticsearch_dsl import Q
 from flask import current_app
 from flask_babel import gettext as _
 from invenio_records_rest.utils import obj_or_import_string
 from jinja2 import Environment
+from opensearch_dsl import Q
 
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.api import (

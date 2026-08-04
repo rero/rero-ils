@@ -7,7 +7,6 @@
 import logging
 
 import jinja2
-from elasticsearch_dsl import connections
 from flask import Blueprint, jsonify, request
 from flask_bootstrap import Bootstrap4
 from flask_login import current_user
@@ -27,6 +26,7 @@ from invenio_records.signals import (
 from invenio_records_rest.errors import JSONSchemaValidationError, PIDResolveRESTError
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
+from opensearch_dsl import connections
 from redis import Redis
 from sqlalchemy.orm.exc import StaleDataError
 
@@ -227,7 +227,7 @@ class REROILSAPP:
         if db_log := app.config.get("RERO_ILS_DB_LOGGING"):
             logging.getLogger("sqlalchemy.engine").setLevel(db_log)
         if search_log := app.config.get("RERO_ILS_SEARCH_LOGGING"):
-            search_trace_logger = logging.getLogger("elasticsearch.trace")
+            search_trace_logger = logging.getLogger("opensearch.trace")
             search_trace_logger.setLevel(search_log)
             handler = logging.StreamHandler()
             search_trace_logger.addHandler(handler)

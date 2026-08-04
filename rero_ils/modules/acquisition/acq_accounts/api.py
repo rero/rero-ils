@@ -6,8 +6,8 @@
 
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from opensearch_dsl import Q
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus

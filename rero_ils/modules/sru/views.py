@@ -32,11 +32,11 @@ See Also:
 import hashlib
 import uuid
 
-from elasticsearch.exceptions import RequestError as ESRequestError
 from flask import current_app
 from flask import request as flask_request
 from invenio_cache import current_cache
 from invenio_rest import ContentNegotiatedMethodView
+from opensearchpy.exceptions import RequestError as ESRequestError
 from werkzeug.exceptions import HTTPException
 from werkzeug.wrappers import Response
 

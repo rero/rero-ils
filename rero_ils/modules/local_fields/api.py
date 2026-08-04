@@ -6,8 +6,8 @@
 
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from opensearch_dsl import Q
 
 from ...modules.utils import extracted_data_from_ref
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -48,7 +48,7 @@ class LocalFieldsSearch(IlsRecordsSearch):
         :param parent_type: the parent record type.
         :param parent_pid: the parent record pid.
         :param organisation_pid: organisation pid filter value.
-        :return: a list of ElasticSearch hit.
+        :return: a list of OpenSearch hit.
         """
         filters = Q("term", parent__type=parent_type)
         filters &= Q("term", parent__pid=parent_pid)

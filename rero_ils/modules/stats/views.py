@@ -10,8 +10,8 @@ from io import StringIO
 
 import arrow
 import jinja2
-from elasticsearch_dsl import Q
 from flask import Blueprint, abort, make_response, render_template, request
+from opensearch_dsl import Q
 
 from .api.api import Stat, StatsSearch
 from .api.pricing import StatsForPricing

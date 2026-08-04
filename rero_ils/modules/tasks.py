@@ -17,7 +17,7 @@ def process_bulk_queue(version_type=None, queue=None, search_bulk_kwargs=None, s
     :param str version_type: search index version type.
     :param str queue: Queue name to use (also used as routing key).
     :param dict search_bulk_kwargs: Passed to
-        :func:`elasticsearch:elasticsearch.helpers.bulk`.
+        :func:`opensearchpy.helpers.bulk`.
     :param boolean stats_only: if `True` only report number of
             successful/failed operations instead of just number of
             successful and a list of error responses.

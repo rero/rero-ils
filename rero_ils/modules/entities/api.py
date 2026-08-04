@@ -6,8 +6,8 @@
 
 from abc import ABC, abstractmethod
 
-from elasticsearch_dsl import A
 from flask import current_app
+from opensearch_dsl import A
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsSearch

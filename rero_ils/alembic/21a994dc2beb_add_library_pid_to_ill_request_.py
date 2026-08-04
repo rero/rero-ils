@@ -5,8 +5,8 @@
 
 from logging import getLogger
 
-from elasticsearch_dsl import Q
 from invenio_search.api import RecordsSearch
+from opensearch_dsl import Q
 
 from rero_ils.modules.ill_requests.api import ILLRequest
 from rero_ils.modules.loans.logs.api import LoanOperationLog

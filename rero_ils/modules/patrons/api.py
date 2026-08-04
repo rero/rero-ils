@@ -8,7 +8,6 @@ from copy import deepcopy
 from datetime import date, datetime
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask import current_app
 from flask_babel import gettext as _
 from flask_babel import ngettext
@@ -16,6 +15,7 @@ from flask_login import current_user
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 from jsonschema.exceptions import ValidationError
+from opensearch_dsl import Q
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch

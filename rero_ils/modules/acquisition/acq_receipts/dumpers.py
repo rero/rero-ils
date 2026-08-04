@@ -8,12 +8,12 @@ from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 
 class AcqReceiptESDumper(InvenioRecordsDumper):
-    """ElasticSearch dumper class for an AcqReceipt."""
+    """OpenSearch dumper class for an AcqReceipt."""
 
     def dump(self, record, data):
-        """Dump an AcqReceipt instance for ElasticSearch.
+        """Dump an AcqReceipt instance for OpenSearch.
 
-        For ElasticSearch integration, we need to dump basic informations from
+        For OpenSearch integration, we need to dump basic informations from
         a `AcqReceipt` object instance, and add receipt date from related
         `AcqReceptionLine`.
 

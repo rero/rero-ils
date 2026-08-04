@@ -15,8 +15,8 @@ import threading
 
 import requests
 import urllib3
-from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search
+from opensearchpy import OpenSearch
+from opensearch_dsl import Search
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -114,7 +114,7 @@ def get_records_pids(index="documents", size=1000):
     :param str index: Index to search for records.
     :param int size: Number of records to return.
     """
-    results = Search(using=Elasticsearch(),
+    results = Search(using=OpenSearch(),
                      index=index)[0:size].source(includes=["pid"]).execute()
 
     return [item["pid"] for item in results]

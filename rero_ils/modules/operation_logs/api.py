@@ -3,13 +3,13 @@
 
 """API for manipulating operation_logs."""
 
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch.helpers import bulk
-from elasticsearch_dsl import Document
 from flask import current_app
 from invenio_jsonschemas.proxies import current_jsonschemas
 from invenio_records.api import RecordBase
 from invenio_search import RecordsSearch, current_search_client
+from opensearch_dsl import Document
+from opensearchpy.exceptions import NotFoundError
+from opensearchpy.helpers import bulk
 
 from ..api import IlsRecordsSearch
 from ..fetchers import FetchedPID
@@ -33,7 +33,7 @@ class OperationLogsSearch(IlsRecordsSearch):
         """Get operation logs records by notification pid.
 
         :param notif_pid: The notification pid.
-        :returns a generator of ElasticSearch hit.
+        :returns a generator of OpenSearch hit.
         :rtype generator<dict>.
         """
         query = self.filter("term", notification__pid=notif_pid)

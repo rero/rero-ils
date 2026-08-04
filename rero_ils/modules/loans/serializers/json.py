@@ -52,14 +52,14 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             library = self.get_resource(Library, library_pid)
             metadata["library"] = {"pid": library_pid, "name": library["name"]}
         # DUMP DOCUMENT INFORMATION
-        #   Replace the `document_pid` reference by the known ElasticSearch
+        #   Replace the `document_pid` reference by the known OpenSearch
         #   data related to this document.
         if document_pid := metadata.pop("document_pid", None):
             document = self.get_resource(DocumentsSearch(), document_pid)
             metadata["document"] = document
 
         # DUMP PATRON INFORMATION
-        #   Replace the `patron_pid` reference by some known ElasticSearch
+        #   Replace the `patron_pid` reference by some known OpenSearch
         #   data related to this patron
         if patron_pid := metadata.pop("patron_pid", None):
             patron = self.get_resource(Patron, patron_pid)
@@ -87,7 +87,7 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result.
 
-        :param aggregations: the dictionary representing ElasticSearch
+        :param aggregations: the dictionary representing OpenSearch
                              aggregations section.
         """
 

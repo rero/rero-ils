@@ -5,10 +5,10 @@
 
 from functools import wraps
 
-from elasticsearch_dsl import Q
 from flask import abort, jsonify, make_response
 from flask_login import current_user
 from invenio_access import action_factory
+from opensearch_dsl import Q
 
 from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import (
