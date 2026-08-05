@@ -26,6 +26,7 @@ from .permissions import (
     record_permissions,
 )
 from .permissions import permission_management as permission_management_action
+from .permissions_cache import record_permissions_cache_key
 
 api_blueprint = Blueprint("api_blueprint", __name__, url_prefix="")
 
@@ -35,7 +36,7 @@ api_blueprint = Blueprint("api_blueprint", __name__, url_prefix="")
 
 @api_blueprint.route("/permissions/<route_name>", methods=["GET"])
 @api_blueprint.route("/permissions/<route_name>/<record_pid>", methods=["GET"])
-@cached(timeout=10, query_string=True)  # 10 seconds timeout
+@cached(timeout=10, key_prefix=record_permissions_cache_key)  # 10 seconds timeout
 @check_authentication
 def permissions(route_name, record_pid=None):
     """HTTP GET request for record permissions.

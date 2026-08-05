@@ -5,7 +5,11 @@
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from invenio_cache import current_cache
+from invenio_db import db
 
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch
+from rero_ils.modules.permissions_cache import record_permissions_cache_key
 from tests.utils import get_json, login_user
 
 
@@ -51,6 +55,37 @@ def test_document_permissions(
     assert data.get("delete", {}).get("can") is False
     reasons = data.get("delete", {}).get("reasons", {})
     assert "others" in reasons and "permission" in reasons["others"]
+
+
+def test_document_permissions_cache_is_invalidated_by_holding_deletion(
+    client,
+    document,
+    holding_lib_martigny_data_tmp,
+    librarian_martigny,
+    loc_public_martigny,
+    item_type_standard_martigny,
+):
+    """Test document permissions cache invalidation on holding deletion."""
+    holding_data = holding_lib_martigny_data_tmp
+    holding_data["pid"] = "holding-permissions-cache"
+    holding = Holding.create(data=holding_data, delete_pid=False, dbcommit=True, reindex=True)
+    HoldingsSearch.flush_and_refresh()
+
+    login_user_via_session(client, librarian_martigny.user)
+    permissions = call_api_permissions(client, "documents", document.pid)
+    assert not permissions["delete"]["can"]
+    assert permissions["delete"]["reasons"]["links"]["holdings"] == 1
+    cache_key = record_permissions_cache_key("documents", document.pid)
+    current_cache.set(cache_key, permissions, timeout=10)
+
+    holding.delete(dbcommit=False, delindex=True)
+    assert current_cache.get(cache_key) == permissions
+
+    db.session.commit()
+    assert current_cache.get(cache_key) is None
+    HoldingsSearch.flush_and_refresh()
+
+    assert call_api_permissions(client, "documents", document.pid)["delete"]["can"]
 
 
 def test_patrons_permissions(
