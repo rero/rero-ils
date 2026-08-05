@@ -6,6 +6,16 @@
   margin: 7px 0;
 }
 
+.rero-ils-header-search {
+  min-width: 0;
+}
+
+@include media-breakpoint-down(md) {
+  .rero-ils-header-actions:has(.rero-ils-header-search) {
+    min-width: 10rem;
+  }
+}
+
 header {
   position: relative;
 }
