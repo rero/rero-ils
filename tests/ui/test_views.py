@@ -7,7 +7,7 @@ import pytest
 from flask import session, url_for
 from flask_login import login_user, logout_user
 from flask_security import url_for_security
-from invenio_accounts.testutils import login_user_via_view
+from invenio_accounts.testutils import login_user_via_session, login_user_via_view
 
 from rero_ils.modules.users.api import user_formatted_name
 from rero_ils.theme.views import localized_label, nl2br
@@ -119,6 +119,29 @@ def test_help(client):
     """Test help entrypoint."""
     result = client.get(url_for("wiki.index"))
     assert result.status_code == 302
+
+
+@pytest.mark.parametrize("role_name", ["editor", "admin"])
+def test_help_edit_permission(client, app, db, user_with_profile, role_name):
+    """Test the wiki edition permission."""
+    url = url_for("wiki.edit", url="home")
+
+    # an anonymous user is redirected to the login page
+    result = client.get(url)
+    assert result.status_code == 302
+    assert url_for_security("login") in result.location
+
+    # a logged user without any editor role is not allowed
+    login_user_via_session(client, user_with_profile)
+    assert client.get(url).status_code == 403
+
+    # the editor and admin roles both grant the wiki edition
+    datastore = app.extensions["invenio-accounts"].datastore
+    role = datastore.find_or_create_role(name=role_name)
+    datastore.add_role_to_user(user_with_profile, role)
+    datastore.commit()
+    db.session.commit()
+    assert client.get(url).status_code == 200
 
 
 # TODO: uncomment tests when rero-ils-ui is deployed on npm
