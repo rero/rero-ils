@@ -8,7 +8,6 @@ from functools import wraps
 from flask import abort, current_app, redirect, request, url_for
 from flask_login import current_user
 from flask_principal import RoleNeed
-from flask_security import login_required, roles_required
 from invenio_access.permissions import Permission
 
 from rero_ils.modules.users.models import UserRole
@@ -122,22 +121,19 @@ def check_user_is_authenticated(redirect_to=None, code=302):
 def wiki_edit_view_permission():
     """Wiki edition permission.
 
-    :return: true if the logged user has the editor role
+    :return: True if the logged user has the editor or the admin role, False if
+        it has neither, the unauthorized response if it isn't authenticated.
     """
-
-    @login_required
-    @roles_required("editor")
-    def foo():
-        return True
-
-    return foo()
+    if not current_user.is_authenticated:
+        return current_app.login_manager.unauthorized()
+    return editor_permission.can()
 
 
 def wiki_edit_ui_permission():
     """Wiki edition permision for the user interface.
 
     Mainly used to display buttons in the user interface.
-    :return: true if the logged user has the editor role
+    :return: True if the logged user has the editor or admin role
     """
     return editor_permission.can()
 
