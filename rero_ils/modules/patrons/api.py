@@ -40,7 +40,7 @@ from rero_ils.modules.utils import (
     sorted_pids,
 )
 
-from .extensions import UserDataExtension
+from .extensions import PatronWelcomeEmailExtension, UserDataExtension
 from .models import CommunicationChannel, PatronIdentifier, PatronMetadata
 from .utils import get_patron_pid_by_email
 
@@ -86,7 +86,11 @@ class Patron(IlsRecord):
     model_cls = PatronMetadata
     schema = "patrons/patron-v0.0.1.json"
 
-    _extensions = [UserDataExtension(), OperationLogObserverExtension()]
+    _extensions = [
+        UserDataExtension(),
+        OperationLogObserverExtension(),
+        PatronWelcomeEmailExtension(),
+    ]
 
     def extended_validation(self, **kwargs):
         """Return reasons for validation failures, otherwise True.

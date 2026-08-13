@@ -1,0 +1,15 @@
+Inscription: {{ organisation.name }}
+Chère/cher {{ patron.name }},
+
+Nous sommes ravi·e·s de pouvoir vous compter parmi nos lectrices et lecteurs !
+
+C'est ici que vous accédez à notre catalogue et à votre compte en ligne : {{ organisation.url }}
+{%- if patron.additional_email %}
+
+Une copie de toutes vos notifications est envoyée à l'adresse suivante : {{ patron.additional_email }}
+{%- endif %}
+
+Avec nos compliments,
+
+{{ organisation.name }}
+{{ organisation.address }}

@@ -1,0 +1,15 @@
+Registration: {{ organisation.name }}
+Dear {{ patron.name }},
+
+We are pleased to have you as one of our patrons!
+
+Here you can access our catalogue and your account: {{ organisation.url }}
+{%- if patron.additional_email %}
+
+A copy of all your notifications is sent to the following email: {{ patron.additional_email }}
+{%- endif %}
+
+Best regards,
+
+{{ organisation.name }}
+{{ organisation.address }}
