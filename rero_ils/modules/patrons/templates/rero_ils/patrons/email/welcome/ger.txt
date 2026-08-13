@@ -1,0 +1,15 @@
+Registrierung: {{ organisation.name }}
+Sehr geehrte(r) {{ patron.name }},
+
+Es freut uns, Sie zu unseren Leserinnen und Lesern zählen zu dürfen!
+
+Sie können auf unseren Katalog und Ihr Konto hier zugreifen: {{ organisation.url }}
+{%- if patron.additional_email %}
+
+Eine Kopie aller Ihrer Benachrichtigungen wird an die folgende E-Mail-Adresse gesendet: {{ patron.additional_email }}
+{%- endif %}
+
+Freundliche Grüsse,
+
+{{ organisation.name }}
+{{ organisation.address }}
