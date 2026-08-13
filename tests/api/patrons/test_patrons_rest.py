@@ -8,6 +8,7 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 from unittest import mock
 
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
@@ -15,6 +16,7 @@ from invenio_oauth2server.models import Client, Token
 
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.patrons.extensions import PatronWelcomeEmailExtension
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.patrons.utils import create_user_from_data
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
@@ -257,8 +259,12 @@ def test_patrons_post_put_delete(
 
     assert res.status_code == 201
     assert Patron.count() == pids + 1
-    # assert len(mailbox) == 1
-    # assert re.search(r'localhost/lost-password', mailbox[0].body)
+    assert len(mailbox) == 1
+    assert mailbox[0].recipients == ["post_put_delete@test.ch"]
+    assert mailbox[0].subject == "Inscription: The district of Martigny Libraries"
+    assert "Chère/cher Louis Roduit" in mailbox[0].body
+    expected_url = f"{app.config['RERO_ILS_URL'].rstrip('/')}/org1/"
+    assert expected_url in mailbox[0].body
 
     # # Check that the returned record matches the given data
     # data = get_json(res)
@@ -277,6 +283,7 @@ def test_patrons_post_put_delete(
     data["patron"]["barcode"] = ["barcode_test"]
     res = client.put(item_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 200
+    assert len(mailbox) == 1
     # assert res.headers['ETag'] != f'"{ptrnrarie.revision_id}"'
 
     # Check that the returned record matches the given data
@@ -341,6 +348,94 @@ def test_patrons_post_without_email(
     data = get_json(res)
     data["metadata"]["patron"]["communication_channel"] = CommunicationChannel.MAIL
 
+    ds = app.extensions["invenio-accounts"].datastore
+    ds.delete_user(ds.find_user(id=patron_data["user_id"]))
+
+
+def test_welcome_email_skips_non_patron(librarian_martigny):
+    """Do not enqueue a welcome email for a professional-only account."""
+    with mock.patch("rero_ils.modules.patrons.extensions.send_email.apply_async") as enqueue:
+        PatronWelcomeEmailExtension().post_create(librarian_martigny)
+
+    enqueue.assert_not_called()
+
+
+def test_patrons_post_with_additional_email_only(
+    app,
+    client,
+    patron_type_children_martigny,
+    patron_martigny_data_tmp,
+    roles,
+    mailbox,
+    system_librarian_martigny,
+):
+    """Send the welcome email to the additional address when it is the only one."""
+    login_user_via_session(client, system_librarian_martigny.user)
+    patron_data = deepcopy(patron_martigny_data_tmp)
+    patron_data.pop("pid")
+    patron_data.pop("email")
+    patron_data["username"] = "welcome_additional_email"
+    patron_data["patron"]["barcode"] = ["welcome1534"]
+    patron_data["patron"]["communication_channel"] = CommunicationChannel.EMAIL
+    patron_data["patron"]["additional_communication_email"] = "welcome-additional@test.ch"
+    patron_data = create_user_from_data(patron_data)
+
+    res, data = postdata(client, "invenio_records_rest.ptrn_list", patron_data)
+
+    assert res.status_code == 201
+    assert len(mailbox) == 1
+    assert mailbox[0].recipients == ["welcome-additional@test.ch"]
+    assert "welcome-additional@test.ch" in mailbox[0].body
+
+    patron_pid = data["metadata"]["pid"]
+    item_url = url_for("invenio_records_rest.ptrn_item", pid_value=patron_pid)
+    assert client.delete(item_url).status_code == 204
+    ds = app.extensions["invenio-accounts"].datastore
+    ds.delete_user(ds.find_user(id=patron_data["user_id"]))
+
+
+@pytest.mark.parametrize(
+    ("additional_email", "expected_recipients"),
+    [
+        (
+            "welcome-secondary@test.ch",
+            ["welcome-primary@test.ch", "welcome-secondary@test.ch"],
+        ),
+        ("welcome-primary@test.ch", ["welcome-primary@test.ch"]),
+    ],
+    ids=["both-addresses", "duplicate-address"],
+)
+def test_patrons_post_with_primary_and_additional_email(
+    additional_email,
+    expected_recipients,
+    app,
+    client,
+    patron_type_children_martigny,
+    patron_martigny_data_tmp,
+    roles,
+    mailbox,
+    system_librarian_martigny,
+):
+    """Send to both patron addresses without duplicate recipients."""
+    login_user_via_session(client, system_librarian_martigny.user)
+    suffix = "duplicate" if len(expected_recipients) == 1 else "both"
+    patron_data = deepcopy(patron_martigny_data_tmp)
+    patron_data.pop("pid")
+    patron_data["email"] = "welcome-primary@test.ch"
+    patron_data["username"] = f"welcome_{suffix}_email"
+    patron_data["patron"]["barcode"] = [f"welcome1534-{suffix}"]
+    patron_data["patron"]["additional_communication_email"] = additional_email
+    patron_data = create_user_from_data(patron_data)
+
+    res, data = postdata(client, "invenio_records_rest.ptrn_list", patron_data)
+
+    assert res.status_code == 201
+    assert len(mailbox) == 1
+    assert mailbox[0].recipients == expected_recipients
+
+    patron_pid = data["metadata"]["pid"]
+    item_url = url_for("invenio_records_rest.ptrn_item", pid_value=patron_pid)
+    assert client.delete(item_url).status_code == 204
     ds = app.extensions["invenio-accounts"].datastore
     ds.delete_user(ds.find_user(id=patron_data["user_id"]))
 
