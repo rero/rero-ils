@@ -7,6 +7,7 @@ from unittest import mock
 
 import pytest
 from elasticsearch import NotFoundError
+from invenio_search import current_search_client
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.indexer_utils import record_to_index
@@ -35,6 +36,39 @@ def test_record_indexing(app, lib_martigny):
     # RESET INDEX
     app.config["INDEXER_REPLACE_REFS"] = True
     lib_martigny.reindex()
+    LibrariesSearch.flush_and_refresh()
+
+
+def test_process_bulk_queue_version_conflict(app, lib_martigny, lib_saxon):
+    """Test a queued message older than the indexed document."""
+    indexer = LibrariesIndexer()
+    # drain anything a previous test left in the shared queue
+    indexer.process_bulk_queue()
+    # index the record one revision ahead, as if it had been indexed again
+    # while its message was still waiting in the queue
+    action = indexer._index_action({"id": str(lib_martigny.id)})
+    newer_version = action["_version"] + 1
+    current_search_client.index(
+        index=action["_index"],
+        id=action["_id"],
+        body=action["_source"],
+        version=newer_version,
+        version_type="external_gte",
+        refresh=True,
+    )
+
+    # the stale message conflicts, the second one must still be indexed
+    indexer.bulk_index([lib_martigny.id, lib_saxon.id])
+    # the conflict is counted as a failed message and does not raise, so the
+    # rest of the queue is still processed
+    assert indexer.process_bulk_queue()[1] == (1, 1)
+
+    # the refused message left the newer document in place
+    indexed = current_search_client.get(index=action["_index"], id=action["_id"])
+    assert indexed["_version"] == newer_version
+
+    # RESET INDEX: realign the record revision with the indexed document
+    lib_martigny.update(data=lib_martigny, dbcommit=True, reindex=True)
     LibrariesSearch.flush_and_refresh()
 
 
