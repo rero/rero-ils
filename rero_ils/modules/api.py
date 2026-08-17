@@ -556,6 +556,14 @@ class IlsRecordsIndexer(RecordIndexer):
     def process_bulk_queue(self, search_bulk_kwargs=None, stats_only=True):
         """Process bulk indexing queue.
 
+        A queued message carries a record revision that can be older than the
+        document already indexed, typically when the record was indexed again
+        before the queue was drained. The `external_gte` version type answers
+        such a message with a 409 and keeps the newer document, which is the
+        wanted behaviour, so the status is ignored instead of aborting the
+        chunk and leaving the rest of the queue to the next run. The count
+        still reports these messages as failed.
+
         :param dict search_bulk_kwargs: Passed to
             :func:`elasticsearch:elasticsearch.helpers.bulk`.
         :param boolean stats_only: if `True` only report number of
@@ -573,7 +581,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
             req_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]
 
-            search_bulk_kwargs = search_bulk_kwargs or {}
+            search_bulk_kwargs = {"ignore_status": (409,)} | (search_bulk_kwargs or {})
 
             count = bulk(
                 self.client,
