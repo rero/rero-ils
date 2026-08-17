@@ -60,6 +60,23 @@
 {%- endif %}
 {%- endblock recoverable %}
 {% endblock panel %}
+{# The rero-ils-ui bundles (search-bar CSS/JS) aren't needed on the login
+   page and call /patrons/logged_user (moved to /api/patrons/logged_user),
+   so they're skipped here rather than included via page.html/javascript.html. #}
+{%- block css %}
+<style>
+  @layer bootstrap, babel, theme, base, rero-ils-ui, primeng, utilities;
+</style>
+<style type="text/css" data-primeng-style-id="layer-order"></style>
+{{ webpack['global.css'] }}
+{% if config.get('RERO_ILS_PERSONALIZED_CSS_BY_VIEW') %}
+<link
+  href="{{ config.get('RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT') }}{{ viewcode }}.css"
+  rel="stylesheet"
+  title="{{ viewcode }}"
+>
+{% endif %}
+{%- endblock css %}
 {%- block javascript %}
-{% include 'rero_ils/javascript.html' %}
+{{ webpack['reroils_public.js'] }}
 {%- endblock javascript %}
