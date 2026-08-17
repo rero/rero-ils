@@ -96,18 +96,62 @@ def test_item_extended_validation(client, holding_lib_martigny_w_patterns):
             "regular": False,
         },
     }
-    Item.create(data, dbcommit=True, reindex=True, delete_pid=True)
+    Item.create(deepcopy(data), dbcommit=True, reindex=True, delete_pid=True)
 
-    # TODO: check why system is not raising validation error here
-    # # cannot have a standard item with issues on a serial holdings
-    # data['type'] = 'standard'
-    # with pytest.raises(ValidationError):
-    #     Item.create(data, dbcommit=True, reindex=True, delete_pid=True)
-    # data['type'] == 'issue'
-    # data.pop('issue')
-    # # cannot create an issue item without issues on a serial holdings
-    # with pytest.raises(ValidationError):
-    #     Item.create(data, dbcommit=True, reindex=True, delete_pid=True)
+    # `Item.create` completes its data in place, barcode included, so each case
+    # below starts from a pristine copy. Reusing the same dict would make every
+    # creation fail on the barcode uniqueness check instead of the tested one.
+
+    # cannot have a standard item with issues on a serial holdings
+    standard_data = deepcopy(data)
+    standard_data["type"] = TypeOfItem.STANDARD
+    with pytest.raises(ValidationError) as err:
+        Item.create(standard_data, dbcommit=True, reindex=True, delete_pid=True)
+    assert "Standard item cannot have a issue field" in str(err.value)
+
+    # cannot create an issue item without issues on a serial holdings
+    issue_data = deepcopy(data)
+    issue_data.pop("issue")
+    with pytest.raises(ValidationError) as err:
+        Item.create(issue_data, dbcommit=True, reindex=True, delete_pid=True)
+    assert "Issue item must have" in str(err.value)
+
+
+def test_issue_inherits_holding_location_and_item_type(
+    holding_lib_martigny_w_patterns, loc_restricted_martigny, item_type_on_site_martigny
+):
+    """Test an issue cannot diverge from its serial holdings."""
+    holding = holding_lib_martigny_w_patterns
+    issue = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
+    assert issue.location_pid == holding.location_pid
+    assert issue.item_type_pid == holding.circulation_category_pid
+    issue_pid = issue.pid
+
+    # a rejected update leaves the record instance dirty, so always start over
+    # from the stored issue.
+    # the location cannot be changed to another one than the holdings location
+    issue = Item.get_record_by_pid(issue_pid)
+    data = deepcopy(dict(issue))
+    data["location"] = {"$ref": get_ref_for_pid("loc", loc_restricted_martigny.pid)}
+    with pytest.raises(ValidationError) as err:
+        issue.update(data, dbcommit=True, reindex=True)
+    assert "Issue location must be the same" in str(err.value)
+
+    # the circulation category cannot be changed either
+    issue = Item.get_record_by_pid(issue_pid)
+    data = deepcopy(dict(issue))
+    data["item_type"] = {"$ref": get_ref_for_pid("itty", item_type_on_site_martigny.pid)}
+    with pytest.raises(ValidationError) as err:
+        issue.update(data, dbcommit=True, reindex=True)
+    assert "Issue circulation category must be the same" in str(err.value)
+
+    # any other update is still allowed
+    issue = Item.get_record_by_pid(issue_pid)
+    data = deepcopy(dict(issue))
+    data["call_number"] = "issue-call-number"
+    assert issue.update(data, dbcommit=True, reindex=True)
+
+    Item.get_record_by_pid(issue_pid).delete(force=True, dbcommit=True, delindex=True)
 
 
 def test_extended_validation_unique_barcode(
