@@ -94,6 +94,7 @@ def test_serializers(
         "item_type",
         "item_library_name",
         "item_location_name",
+        "item_temporary_location_name",
         "item_pac_code",
         "item_holding_pid",
         "item_price",
