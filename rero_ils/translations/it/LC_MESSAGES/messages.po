@@ -17,9 +17,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-08-19 09:22+0000\n"
-"PO-Revision-Date: 2026-06-23 11:31+0000\n"
+"PO-Revision-Date: 2026-08-20 02:50+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/it/>\n"
@@ -29,6 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: rero_ils/accounts_views.py:48
 msgid "The 2 passwords are not identical."
@@ -9248,10 +9249,8 @@ msgid "Back"
 msgstr "Ritorno"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:32
-#, fuzzy
-#| msgid "Professional interface"
 msgid "See in pro interface"
-msgstr "Interfaccia professionale"
+msgstr "Vedi nell'interfaccia pro"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:191
 msgid "Show more"
@@ -11309,10 +11308,8 @@ msgstr ""
 #. Line unknown
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:1
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-#, fuzzy
-#| msgid "<i class=\"fa fa-at\"></i>"
 msgid "<i class=\"fa-solid fa-at\"></i>"
-msgstr "<i class=\"fa fa-at\"></i>"
+msgstr "<i class=\"fa-solid fa-at\"></i>"
 
 #: rero_ils/modules/migrations/api.py:26
 msgid "created"
@@ -12183,7 +12180,7 @@ msgstr "Il conto del lettore è scaduto."
 
 #: rero_ils/modules/patrons/views.py:111
 msgid "English"
-msgstr ""
+msgstr "Inglese"
 
 #: rero_ils/modules/patrons/views.py:169
 msgid "You have a pending subscription fee."
@@ -12450,7 +12447,7 @@ msgstr "Rapporto"
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:63
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:71
 msgid "Export to Excel"
-msgstr ""
+msgstr "Esporta in Excel"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:13
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:61
@@ -12458,7 +12455,7 @@ msgstr ""
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:64
 #: rero_ils/modules/stats/templates/rero_ils/stats_list.html:74
 msgid "Export to CSV"
-msgstr ""
+msgstr "Esporta in CSV"
 
 #: rero_ils/modules/stats/templates/rero_ils/detailed_view_stats.html:78
 msgid "Postal code: number of patrons"
@@ -12596,10 +12593,8 @@ msgid "created_year"
 msgstr "anno di creazione"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:234
-#, fuzzy
-#| msgid "action_year"
 msgid "publication_year"
-msgstr "anno di azione"
+msgstr "anno di pubblicazione"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:238
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:308
@@ -13048,31 +13043,23 @@ msgstr "È consentito solo un contatto per tipo."
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-#, fuzzy
-#| msgid "<i class=\"fa fa-globe\"></i>"
 msgid "<i class=\"fa-solid fa-globe\"></i>"
-msgstr "<i class=\"fa fa-globe\"></i>"
+msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-#, fuzzy
-#| msgid "<i class=\"fa fa-user\"></i>"
 msgid "<i class=\"fa-solid fa-user\"></i>"
-msgstr "<i class=\"fa fa-user\"></i>"
+msgstr "<i class=\"fa-solid fa-user\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-#, fuzzy
-#| msgid "<i class=\"fa fa-phone\"></i>"
 msgid "<i class=\"fa-solid fa-phone\"></i>"
-msgstr "<i class=\"fa fa-phone\"></i>"
+msgstr "<i class=\"fa-solid fa-phone\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-#, fuzzy
-#| msgid "<i class=\"fa fa-at\"></i>"
 msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
-msgstr "<i class=\"fa fa-at\"></i>"
+msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
 
 #: rero_ils/theme/menus.py:38
 msgid "My Account"
@@ -13209,10 +13196,8 @@ msgid "Search"
 msgstr "Ricerca"
 
 #: rero_ils/theme/templates/rero_ils/header.html:34
-#, fuzzy
-#| msgid "organisation"
 msgid "Toggle navigation"
-msgstr "organizzazione"
+msgstr "Attiva/disattiva la navigazione"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:20
 msgid "Log in to account"
