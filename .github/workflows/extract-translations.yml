@@ -1,0 +1,86 @@
+# Continuous localization buffer (the CI owns the template, Weblate
+# owns the translations). Keeps the `translations` branch equal to `staging` plus
+# the not-yet-released translations: it merges (never rebases) `staging` into the
+# buffer, regenerates the gettext template (messages.pot) from the code, and
+# pushes back to `translations` only when the set of source messages changes. It
+# never writes the .po files -- Weblate is their sole editor, via the "Update PO
+# files to match POT (msgmerge)" add-on. The two actors therefore touch disjoint
+# files (CI: messages.pot, Weblate: */LC_MESSAGES/*.po), so a CI<->Weblate
+# conflict is impossible by construction. The buffer is squash-merged into
+# `staging` once per release.
+#
+# Invariants: no rebase, no force-push, no branch lock.
+
+name: Extract translations
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # every day at 02:00 UTC (aligns with Weblate's 24h commit window)
+  workflow_dispatch:
+
+concurrency:
+  group: extract-translations # one run at a time -> no CI<->CI race
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    # Never run on forks: the job pushes to rero/rero-ils and would always fail
+    # elsewhere. Skipped (not failed) on any other repository.
+    if: github.repository == 'rero/rero-ils'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: translations
+          fetch-depth: 0
+          persist-credentials: false # token is configured just before the push (see below)
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Set up Python
+        run: uv python install 3.14
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Bring staging code into the buffer
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin staging
+          git merge --no-edit origin/staging # MERGE (never rebase) -> translations is never rewritten
+
+      - name: Extract message template
+        run: uv run poe extract_messages # regenerate messages.pot (source keys only; Weblate owns the .po)
+
+      - name: Commit & push if the template changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          POT='rero_ils/translations/messages.pot'
+          # Ignore POT-Creation-Date (rewritten every run) and the #: source locations
+          # (they churn on any line shift) to skip content-free commits.
+          if git diff --quiet -I '^"POT-Creation-Date:' -I '^#:' -- "$POT"; then
+            echo "No template changes."; exit 0
+          fi
+          git add "$POT"
+          git commit -m "chore(i18n): extract messages"
+          # Set the token only now, so it is never in git config during dependency install.
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          # Absorb any concurrent Weblate commit (merge, never rebase), then push; retry the race.
+          for i in 1 2 3; do
+            git fetch origin translations \
+              && git merge --no-edit origin/translations \
+              && git push origin translations && exit 0
+            git merge --abort 2>/dev/null || true
+            echo "attempt $i failed, retrying"; sleep 5
+          done
+          echo "::error::failed to push to translations after 3 attempts"; exit 1
