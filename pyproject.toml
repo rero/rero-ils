@@ -21,7 +21,7 @@ package = true
 
 [project]
 name = "rero-ils"
-version = "1.28.0"
+version = "1.29.0"
 description = "The elegant solution for heritage, public and school libraries or networks."
 authors = [{name = "RERO+", email = "software@rero.ch"}]
 keywords = ["rero-ils", "invenio", "integrated library system"]
@@ -59,7 +59,7 @@ dependencies = [
     "invenio-jsonschemas>=2.0.0",
     "invenio-oaiserver>=4.0.0",
     "invenio-pidstore>=3.0.0",
-    "invenio-records-rest>=3.0.0",
+    "invenio-records-rest>=6.0.2",
     "invenio-records-ui>=2.0.0",
     "invenio-records>=4.0.0",
     "invenio-search-ui>=4.0.0",
@@ -68,9 +68,9 @@ dependencies = [
     "sentry-sdk",
     "dojson>=1.4.0",
     ## RERO specific python modules
-    "rero-invenio-base>=0.3.0",
+    "rero-invenio-base>=1.2.0",
     "rero-invenio-files>=1.0.0",
-    "rero-invenio-thumbnails>=1.0.0",
+    "rero-invenio-thumbnails>=2.0.0",
     "flask-wiki>=1.0.0",
     ## RERO ILS specific python modules
     "PyYAML>=5.3.1",
@@ -89,6 +89,7 @@ dependencies = [
     "dcxml>=0.1.2",
     "DeepDiff>=5.5.0",
     "jsonresolver",
+    "click>=8.3.3",
     # needed for elasticsearch 7.13.4
     "urllib3<2.0.0",
     "dnspython>=2.4.2",
@@ -115,7 +116,10 @@ dev = [
     "ruff>=0.12.8",
     "pytest-ruff>=0.5",
     "python-semantic-release>=10.5.3",
+    "pytest-playwright>=0.8.0",
+    "playwright>=1.30.0"
 ]
+
 prod = [
     "uwsgi>=2.0.30",
     "uwsgitop>=0.11",
@@ -445,13 +449,17 @@ rero_ils = "rero_ils.es_templates:list_search_templates"
 bootstrap = {cmd = "./scripts/bootstrap", help = "Runs bootstrap"}
 console = {cmd = "./scripts/console", help = "Opens invenio shell"}
 server = {cmd = "./scripts/server", help = "Starts the server"}
-setup = {cmd = "./scripts/setup", help = "Runs setup"}
+setup = {cmd = "./scripts/setup", help = "Runs full setup"}
+setup_e2e = {cmd = "./scripts/setup_e2e", help = "Minimal setup for E2E tests (orgs, libs, locs, item types, patron types, circ policies, users — no documents/items)"}
 update = {cmd = "./scripts/update", help = "Runs update"}
 # Code quality
 format = {cmd = "ruff format rero_ils tests", help = "Formats all files"}
 lint = {cmd = "ruff check rero_ils tests", help = "Checks linting"}
 # Tests
-cypress = {cmd = "./scripts/cypress", help = "Runs Cypress tests"}
+e2e = {cmd = "pytest tests/e2e -m \"e2e and not chromium_only\" --base-url https://localhost:5000 --browser chromium --browser firefox --browser webkit -o \"addopts=--color=yes\"", help = "Runs cross-browser E2E tests (requires a running RERO ILS instance)"}
+e2e_chromium = {cmd = "pytest tests/e2e -m e2e --base-url https://localhost:5000 --browser chromium -o \"addopts=--color=yes\"", help = "Runs all E2E tests on Chromium including chromium_only tests (requires a running RERO ILS instance)"}
+e2e_firefox = {cmd = "pytest tests/e2e -m \"e2e and not chromium_only\" --base-url https://localhost:5000 --browser firefox -o \"addopts=--color=yes\"", help = "Runs Playwright E2E tests on Firefox, skipping Chromium-only tests (requires a running RERO ILS instance)"}
+e2e_webkit = {cmd = "pytest tests/e2e -m \"e2e and not chromium_only\" --base-url https://localhost:5000 --browser webkit -o \"addopts=--color=yes\"", help = "Runs Playwright E2E tests on WebKit, skipping Chromium-only tests (requires a running RERO ILS instance)"}
 run_tests = {cmd = "./scripts/test", help = "Runs all tests"}
 tests = {cmd = "pytest", help = "pytest"}
 tests_debug = {cmd = "pytest -s -vv --no-cov", help = "pytest -s -vv --no-cov"}
@@ -504,18 +512,57 @@ match = "staging"
 prerelease = false
 
 [tool.pytest.ini_options]
-addopts = "--color=yes --ruff --exclude-warning-annotations --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=rero_ils/config.py -m \"not external\""
+addopts = "--color=yes --ruff --exclude-warning-annotations --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=rero_ils/config.py --ignore=tests/e2e -m \"not external\""
 testpaths = ["tests", "rero_ils"]
-markers = ["external: mark a test as dealing with external services."]
-filterwarnings = "ignore::PendingDeprecationWarning"
+markers = [
+    "external: mark a test as dealing with external services.",
+    "e2e: mark a test as a Playwright end-to-end test (requires a running instance).",
+    "chromium_only: mark a test as Chromium-only (Angular PrimeNG form submission incompatible with Playwright Firefox/WebKit).",
+]
+filterwarnings = [
+    "ignore::PendingDeprecationWarning",
+    # marshmallow: 'missing' argument renamed to 'load_default' (upstream fix needed)
+    "ignore::DeprecationWarning:marshmallow",
+    # iso639: uses codecs.open() internally
+    "ignore:.*codecs\\.open.*:DeprecationWarning",
+    # jsonmerge uses jsonschema.RefResolver which was deprecated in jsonschema 4.18
+    "ignore:.*RefResolver.*:DeprecationWarning",
+    # pytest-playwright: false positive when session-scoped browser fixture is used with multiple --browser flags
+    "ignore:When using unittest.TestCase specifying multiple browsers is not supported:UserWarning",
+]
 
 [tool.ruff]
+target-version = "py314"
 extend-exclude = ["config.py"]
 line-length = 120
 
 [tool.ruff.lint]
-extend-select = ["A", "C4", "INT", "ISC", "T20", "PIE", "Q", "RET", "SIM", "I", "N", "PERF", "W", "D", "F", "UP", "RUF"]
-ignore = ["A001", "A002", "D100", "D101", "D103", "D200", "D202", "D205", "D400", "D401", "F403", "F405", "F841", "INT001", "N801", "N802", "N803", "N806", "N811", "N818", "PERF203", "PERF401", "PERF402", "RUF001", "RUF012", "RUF018", "RUF059", "SIM102", "SIM113", "SIM115", "SIM117", "T201", "T203"]
+extend-select = ["A", "C4", "D", "F", "I", "INT", "ISC", "N", "PERF", "PIE", "Q", "RET", "RUF", "SIM", "T20", "UP", "W"]
+ignore = [
+    "A001",    # builtin-variable-shadowing
+    "A002",    # builtin-argument-shadowing
+    "BLE001",  # blind-except: catching `Exception` is deliberate around external services and harvesters
+    "D401",    # non-imperative-mood: docstring wording is left to the author
+    "DTZ",     # flake8-datetimez: naive dates are intentional (MARC dates, circulation dates, display)
+    "F403",    # undefined-local-with-import-star
+    "F841",    # unused-variable
+    "INT001",  # f-string-in-get-text-func-call
+    "N801",    # invalid-class-name
+    "N802",    # invalid-function-name: dojson handlers mirror the MARC field names
+    "N803",    # invalid-argument-name
+    "N806",    # non-lowercase-variable-in-function
+    "N818",    # error-suffix-on-exception-name
+    "PERF401", # manual-list-comprehension
+    "RUF012",  # mutable-class-default: Invenio base classes rely on mutable class attributes
+    "RUF059",  # unused-unpacked-variable
+    "SIM102",  # collapsible-if
+    "SIM115",  # open-file-with-context-handler
+    "T201",    # print
+]
+
+[tool.ruff.lint.per-file-ignores]
+# MARC transliteration fixtures deliberately mix Cyrillic and Latin look-alikes.
+"tests/**" = ["RUF001"]  # ambiguous-unicode-character-string
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257"

@@ -38,7 +38,6 @@ def test_orphean_pids(
     json_header,
 ):
     """Test record retrieval."""
-
     item_data = item_lib_martigny_data_tmp
     item_data.pop("pid", None)
     item_data["foo"] = "foo"
@@ -201,7 +200,7 @@ def test_checkout_default_policy(
     json_header,
     circulation_policies,
 ):
-    """Test circ policy parameters"""
+    """Test circ policy parameters."""
     login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -257,7 +256,7 @@ def test_checkout_library_level_policy(
     json_header,
     circ_policy_short_martigny,
 ):
-    """Test circ policy parameters"""
+    """Test circ policy parameters."""
     login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -308,7 +307,7 @@ def test_checkout_organisation_policy(
     json_header,
     circ_policy_short_martigny,
 ):
-    """Test circ policy parameters"""
+    """Test circ policy parameters."""
     login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -365,7 +364,6 @@ def test_items_receive(
     item_pid = item.pid
     patron_pid = patron_martigny.pid
     assert not item.patron_has_an_active_loan_on_item(patron_martigny)
-    location = loc_public_martigny
     # checkout
     res, data = postdata(
         client,
@@ -418,7 +416,6 @@ def test_items_no_extend(
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
-    location = loc_public_martigny
 
     # checkout
     res, data = postdata(
@@ -830,7 +827,6 @@ def test_local_fields_items_get(
 
 def test_items_notes(client, librarian_martigny, item_lib_martigny, json_header):
     """Test items notes."""
-
     item = item_lib_martigny
     login_user_via_session(client, librarian_martigny.user)
 
@@ -885,7 +881,6 @@ def test_requested_loans_to_validate(
     circulation_policies,
 ):
     """Test requested loans to validate."""
-
     holding_pid = item2_lib_martigny.holding_pid
     holding = Holding.get_record_by_pid(holding_pid)
     original_item = deepcopy(item2_lib_martigny)
@@ -1081,7 +1076,6 @@ def test_items_facets(
 
 def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_json_header, roles):
     """Test sorting option on `Item` REST API endpoints."""
-
     item_lib_fully["second_call_number"] = "second_call_number"
     item_lib_fully.update(item_lib_fully, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()

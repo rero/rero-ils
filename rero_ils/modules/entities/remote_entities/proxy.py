@@ -102,6 +102,10 @@ class MEFProxyMixin:
         "Transfer-Encoding".upper(),
         "Connection".upper(),
     ]
+    # Only content-negotiation headers are relayed to the remote MEF server:
+    # forwarding cookies or other RERO-ILS-specific headers to an external
+    # server would leak them for no benefit to the search itself.
+    forwarded_headers = ["accept", "accept-language"]
     mef_entrypoint = None  # Must be overridden by subclasses
 
     def __init__(self, *args):
@@ -119,15 +123,14 @@ class MEFProxyMixin:
         :returns: the remote MEF response matching the search term
         :rtype: flask.Response
         """
-        # Call the remote MEF server removing the 'Host' headers from initial
-        # request to avoid security problems.
-        request_headers = {key: value for key, value in request.headers if key != "Host"}
+        # Only relay a small allowlist of headers to the remote MEF server;
+        # cookies and other RERO-ILS-specific headers are not forwarded.
+        request_headers = {key: value for key, value in request.headers if key.lower() in self.forwarded_headers}
         response = requests.request(
             method=request.method,
             url=self._build_url(term),
             headers=request_headers,
             data=request.get_data(),
-            cookies=request.cookies,
             allow_redirects=True,
         )
 
@@ -176,6 +179,20 @@ class MEFProxyMixin:
                 filter_value = _build_filter_value(value)
                 query_params.append(f"{key}:{filter_value}")
         return query_params
+
+    def _type_query_param(self):
+        """Build the `(type:X OR type:Y)` query filter from `self.entity_types`.
+
+        :returns: the type filter query param, or `None` if no entity type is set.
+        :rtype: str
+        """
+        if not self.entity_types:
+            return None
+        ent_types = []
+        for _type in self.entity_types:
+            _type = _type.replace(":", "\\:")
+            ent_types.append(f"type:{_type}")
+        return f"({' OR '.join(ent_types)})"
 
     def _build_url(self, term):
         """Build the HTTP query to call to search on MEF authority system.
@@ -226,12 +243,8 @@ class MefAgentsProxy(MEFProxyMixin):
         :rtype: list<str>
         """
         params = super()._get_query_params(term)
-        if self.entity_types:
-            ent_types = []
-            for _type in self.entity_types:
-                _type = _type.replace(":", "\\:")
-                ent_types.append(f"type:{_type}")
-            params += [f"({' OR '.join(ent_types)})"]
+        if type_query := self._type_query_param():
+            params.append(type_query)
         return params
 
     def _post_process_result_hit(self, hit):
@@ -271,26 +284,9 @@ class MefConceptsProxy(MEFProxyMixin):
         :rtype: list<str>
         """
         params = super()._get_query_params(term)
-        if self.entity_types:
-            ent_types = []
-            for _type in self.entity_types:
-                _type = _type.replace(":", "\\:")
-                ent_types.append(f"type:{_type}")
-            params += [f"({' OR '.join(ent_types)})"]
+        if type_query := self._type_query_param():
+            params.append(type_query)
         return params
-
-    def _post_process_result_hit(self, hit):
-        """Modify a MEF hit response to return a standardized hit.
-
-        The modification to do on an 'Agent' hit are :
-          - for each used sources: (TODO :: Need MEF correction)
-            - add a `type` field
-
-        :param hit: an elasticSearch hit already parsed as a dictionary.
-        """
-        if not (metadata := hit.get("metadata", {})):
-            return
-        super()._post_process_result_hit(hit)
 
 
 class MefConceptsGenreFormProxy(MefConceptsProxy):

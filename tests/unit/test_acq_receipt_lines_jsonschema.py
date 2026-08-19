@@ -11,7 +11,6 @@ from jsonschema.exceptions import ValidationError
 
 def test_vat_rate(acq_receipt_line_1_fiction_martigny, acq_receipt_line_schema):
     """Test VAT rate for acq receipt lines jsonschemas."""
-
     receipt_line_data = acq_receipt_line_1_fiction_martigny
     validate(receipt_line_data, acq_receipt_line_schema)
 

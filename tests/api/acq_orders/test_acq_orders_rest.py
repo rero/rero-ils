@@ -75,6 +75,38 @@ def test_acq_order_get(client, acq_order_fiction_martigny):
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
+def test_acq_computed_records_are_not_cacheable(
+    client,
+    acq_order_fiction_martigny,
+    acq_order_line_fiction_martigny,
+    acq_receipt_fiction_martigny,
+    acq_receipt_line_1_fiction_martigny,
+    acq_account_fiction_martigny,
+):
+    """Test acquisition item responses with related data disable caching.
+
+    Their body and ETag depend on related records (financial totals,
+    statuses, budget state), so a conditional 304 would serve a stale body
+    and a stale ETag (the latter breaking the editor's If-Match on save).
+    The responses must be `no-store` while keeping the ETag for updates.
+    """
+    for endpoint, record in [
+        ("invenio_records_rest.acor_item", acq_order_fiction_martigny),
+        ("invenio_records_rest.acol_item", acq_order_line_fiction_martigny),
+        ("invenio_records_rest.acre_item", acq_receipt_fiction_martigny),
+        ("invenio_records_rest.acrl_item", acq_receipt_line_1_fiction_martigny),
+        ("invenio_records_rest.acac_item", acq_account_fiction_martigny),
+    ]:
+        res = client.get(url_for(endpoint, pid_value=record.pid))
+        assert res.status_code == 200
+        assert res.headers["Cache-Control"] == "no-store"
+        assert "ETag" in res.headers
+
+
+@mock.patch(
+    "invenio_records_rest.views.verify_record_permission",
+    mock.MagicMock(return_value=VerifyRecordPermissionPatch),
+)
 def test_acq_orders_post_put_delete(
     client,
     org_martigny,

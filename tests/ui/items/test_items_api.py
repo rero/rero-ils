@@ -113,7 +113,7 @@ def test_item_extended_validation(client, holding_lib_martigny_w_patterns):
 def test_extended_validation_unique_barcode(
     item_lib_martigny, item_lib_fully, item_lib_martigny_data_tmp, lib_martigny
 ):
-    """Test that a barcode must be unique"""
+    """Test that a barcode must be unique."""
     # check that own barcode doesn't fail validation on item update
     assert item_lib_martigny.update(item_lib_martigny)
 
@@ -201,7 +201,6 @@ def test_items_availability(
     document,
 ):
     """Test availability for an item."""
-
     # Create a temporary item with correct data for the test
     item_data = deepcopy(item_lib_martigny_data_tmp)
     del item_data["pid"]

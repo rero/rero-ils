@@ -15,4 +15,4 @@ def vendor_resolver(pid):
     if persistent_id.status == PIDStatus.REGISTERED:
         return {"pid": persistent_id.pid_value}
     current_app.logger.error(f"Doc resolver error: /api/vendors/{pid} {persistent_id}")
-    raise Exception("unable to resolve")
+    raise RuntimeError("unable to resolve")

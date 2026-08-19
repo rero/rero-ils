@@ -15,7 +15,6 @@ from rero_ils.modules.stats.api.librarian import StatsForLibrarian
 
 def test_stats_librarian_collect(stat_for_librarian):
     """Test the stat librarian collect keys."""
-
     assert list(stat_for_librarian.collect()[0].keys()) == [
         "library",
         "checkouts_for_transaction_library",

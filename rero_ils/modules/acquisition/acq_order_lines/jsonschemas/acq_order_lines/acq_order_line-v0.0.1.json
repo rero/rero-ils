@@ -42,8 +42,10 @@
       "maximum": 5,
       "widget": {
         "formlyConfig": {
+          "type": "number",
           "props": {
-            "itemCssClass": "ui:col-span-4 ui:md:col-span-2"
+            "itemCssClass": "ui:col-span-4 ui:md:col-span-2",
+            "step": 1
           }
         }
       }
@@ -55,8 +57,10 @@
       "minimum": 1,
       "widget": {
         "formlyConfig": {
+          "type": "number",
           "props": {
-            "itemCssClass": "ui:col-span-4 ui:md:col-span-2"
+            "itemCssClass": "ui:col-span-4 ui:md:col-span-2",
+            "step": 1
           }
         }
       }

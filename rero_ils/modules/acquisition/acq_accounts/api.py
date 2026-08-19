@@ -259,7 +259,7 @@ class AcqAccount(AcquisitionIlsRecord):
             rate = self.get("encumbrance_exceedance", 0)
         elif exceed_type == AcqAccountExceedanceType.EXPENDITURE:
             rate = self.get("expenditure_exceedance", 0)
-        return round(self["allocated_amount"] * rate) / 100
+        return round(self["allocated_amount"] * rate / 100, 2)
 
     def transfer_fund(self, target_account, amount):
         """Transfer funds between two accounts.

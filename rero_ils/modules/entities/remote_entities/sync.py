@@ -85,7 +85,7 @@ class SyncEntity:
             ignore_order=True,
         )
         if diff:
-            self.logger.debug(f"Entity differs: {entity1['pid']}, {entity2['pid']}", diff)
+            self.logger.debug("Entity differs: %s, %s: %s", entity1["pid"], entity2["pid"], diff)
             return True
         return False
 
@@ -106,7 +106,7 @@ class SyncEntity:
         res = requests_retry_session().get(url)
         if res.status_code == requests.codes.ok:
             return res.json()
-        self.logger.debug(f"Problem get {url}: {res.status_code}")
+        self.logger.debug("Problem get %s: %s", url, res.status_code)
         return {}
 
     def _update_entities_in_document(self, doc_pid, pids_to_replace):
@@ -129,7 +129,7 @@ class SyncEntity:
                 entity["entity"] for entity in doc.get(field, []) if entity.get("entity", {}).get("$ref")
             ]
         if not remote_entities:
-            self.logger.debug(f"No entity to update for document {doc.pid}")
+            self.logger.debug("No entity to update for document %s", doc.pid)
 
         # update the $ref entity URL and MEF pid
         for mef_url, (old_pid, new_pid) in pids_to_replace.items():
@@ -137,10 +137,12 @@ class SyncEntity:
             new_entity_url = f"{mef_url}/{new_pid}"
             entities_to_update = filter(lambda c: c.get("$ref") == old_entity_url, remote_entities)
             for entity in entities_to_update:
-                if old_entity_url != new_entity_url:
-                    self.logger.info(
-                        f"Entitiy URL changed from {old_entity_url} to {new_entity_url} for document {doc.pid}"
-                    )
+                self.logger.info(
+                    "Entity URL changed from %s to %s for document %s",
+                    old_entity_url,
+                    new_entity_url,
+                    doc.pid,
+                )
                 # update the entity URL
                 entity["$ref"] = new_entity_url
         # in any case we update the doc as the mef pid can be changed
@@ -161,7 +163,7 @@ class SyncEntity:
         if not from_date and self.from_date:
             from_date = self.from_date
         if from_date:
-            self.logger.info(f"Get records updated after: {from_date}")
+            self.logger.info("Get records updated after: %s", from_date)
 
         def get_mef_pids(search_query, chunk_size=1000):
             """Get the identifiers from search index.
@@ -174,7 +176,7 @@ class SyncEntity:
             The scroll is done using the slice scroll feature:
             https://www.elastic.co/guide/en/elasticsearch/reference/8.5/paginate-search-results.html#slice-scroll
             """
-            self.logger.info(f"Processing: {total} MEF records")
+            self.logger.info("Processing: %s MEF records", total)
             if total > 2 * chunk_size:
                 n_part = int(total / chunk_size)
                 for i in range(n_part):
@@ -222,7 +224,7 @@ class SyncEntity:
                                 n_provided += 1
                                 yield hit.get("pid")
                 finally:
-                    self.logger.info(f"Processed {n_provided} records.")
+                    self.logger.info("Processed %s records.", n_provided)
 
             if total:
                 return (
@@ -233,10 +235,16 @@ class SyncEntity:
         # considers all MEF pids
         return get_mef_pids(search_query), total
 
-    def sync_record(self, pid):
+    #: maximum recursion depth for `sync_record`, as a safety net against a
+    #: pathological MEF pid cycle (e.g. A's latest is B, B's latest is A).
+    max_recursion_depth = 10
+
+    def sync_record(self, pid, _depth=0):
         """Sync a MEF record.
 
         :param pid: (string) the MEF identifier.
+        :param _depth: (int) current recursion depth. Used internally to
+            guard against MEF pid cycles; callers should not pass it.
         :returns: the number of updated document, true if the MEF record
             has been update, true if an error occurs.
         :rtype: integer, boolean, x.
@@ -247,10 +255,13 @@ class SyncEntity:
         doc_updated = set()
         updated = error = False
         try:
+            if _depth > self.max_recursion_depth:
+                raise RuntimeError(f"MEF record(pid: {pid}): recursion depth exceeded, possible MEF pid cycle")
+
             if not (entity := RemoteEntity.get_record_by_pid(pid)):
                 raise RecordNotFound(RemoteEntity, pid)
 
-            self.logger.debug(f"Processing {entity['type']} MEF(pid: {pid})")
+            self.logger.debug("Processing %s MEF(pid: %s)", entity["type"], pid)
             # iterate over all entity sources: rero, gnd, idref
             pids_to_replace = {}
             for source in entity["sources"]:
@@ -258,7 +269,7 @@ class SyncEntity:
                 # MEF sever failed to retrieve the latest MEF record
                 # for the given entity
                 if not (mef_pid := mef.get("pid")):
-                    raise Exception(f"Error cannot get latest for {entity['type']} {source}:{entity[source]['pid']}")
+                    raise RuntimeError(f"Error cannot get latest for {entity['type']} {source}:{entity[source]['pid']}")
 
                 old_entity_pid = entity[source]["pid"]
                 new_entity_pid = mef[source]["pid"]
@@ -279,16 +290,22 @@ class SyncEntity:
 
                     if old_mef_pid != new_mef_pid:
                         self.logger.info(
-                            f"MEF pid has changed from {entity.type} "
-                            f"{old_mef_pid} to {new_mef_pid} "
-                            f"for {source} (pid:{old_entity_pid})"
+                            "MEF pid has changed from %s %s to %s for %s (pid:%s)",
+                            entity.type,
+                            old_mef_pid,
+                            new_mef_pid,
+                            source,
+                            old_entity_pid,
                         )
                         if RemoteEntity.get_record_by_pid(new_mef_pid):
                             # update the new MEF - recursion
                             self.logger.info(
-                                f"{entity['type']} MEF(pid: {entity.pid}) recursion with (pid:{new_mef_pid})"
+                                "%s MEF(pid: %s) recursion with (pid:%s)",
+                                entity["type"],
+                                entity.pid,
+                                new_mef_pid,
                             )
-                            new_doc_updated, new_updated, new_error = self.sync_record(new_mef_pid)
+                            new_doc_updated, new_updated, new_error = self.sync_record(new_mef_pid, _depth + 1)
                             # TODO: find a better way
                             doc_updated.update(new_doc_updated)
                             updated = updated or new_updated
@@ -298,9 +315,9 @@ class SyncEntity:
                             if not self.dry_run:
                                 RemoteEntity.create(data=new_mef_data, dbcommit=True, reindex=True)
                                 RemoteEntitiesSearch.flush_and_refresh()
-                            self.logger.info(f"Create a new MEF {entity['type']} record(pid: {new_mef_pid})")
+                            self.logger.info("Create a new MEF %s record(pid: %s)", entity["type"], new_mef_pid)
                     # something changed, update the content
-                    self.logger.info(f"MEF {entity['type']} record(pid: {entity.pid}) content has been updated")
+                    self.logger.info("MEF %s record(pid: %s) content has been updated", entity["type"], entity.pid)
                     if not self.dry_run:
                         if old_mef_pid == new_mef_pid:
                             RemoteEntity.get_record(entity.id).replace(new_mef_data, dbcommit=True, reindex=True)
@@ -315,13 +332,18 @@ class SyncEntity:
             if updated:
                 # need to update each documents
                 doc_pids = entity.documents_pids()
-                self.logger.info(f"MEF {entity['type']} record(pid: {entity.pid})  try to update documents: {doc_pids}")
+                self.logger.info(
+                    "MEF %s record(pid: %s)  try to update documents: %s",
+                    entity["type"],
+                    entity.pid,
+                    doc_pids,
+                )
 
                 for doc_pid in doc_pids:
                     self._update_entities_in_document(doc_pid=doc_pid, pids_to_replace=pids_to_replace)
                 doc_updated = set(doc_pids)
         except Exception as err:
-            self.logger.error(f"ERROR: MEF record(pid: {pid}) -> {err!s}")
+            self.logger.error("ERROR: MEF record(pid: %s) -> %s", pid, err)
             error = True
             # uncomment to debug
             # raise
@@ -337,7 +359,7 @@ class SyncEntity:
 
     def end_sync(self, n_doc_updated, n_mef_updated, mef_errors):
         """Add logging and cache information about the ending process."""
-        self.logger.info(f"DONE: doc updated: {n_doc_updated}, mef updated: {n_mef_updated}.")
+        self.logger.info("DONE: doc updated: %s, mef updated: %s.", n_doc_updated, n_mef_updated)
         if self.dry_run:
             return
         errors = data.get("errors", []) if (data := get_timestamp("sync_entities")) else []
@@ -395,20 +417,21 @@ class SyncEntity:
             if not self.dry_run:
                 # remove from the database and the index: no tombstone
                 entity.delete(True, True, True)
-            self.logger.info(f"MEF {entity['type']} record(pid: {entity.pid}) has been deleted.")
+            self.logger.info("MEF %s record(pid: %s) has been deleted.", entity["type"], entity.pid)
             return True
         return False
 
     @classmethod
     def get_errors(cls):
         """Get all the MEF pids that causes an error."""
-        return get_timestamp("sync_entities").get("errors", [])
+        data = get_timestamp("sync_entities")
+        return data.get("errors", []) if data else []
 
     @classmethod
     def clear_errors(cls):
         """Removes errors in the cache information."""
         data = get_timestamp("sync_entities")
-        if data.get("errors"):
+        if data and data.get("errors"):
             data["errors"] = []
             set_timestamp("sync_entities", **data)
 
@@ -438,5 +461,5 @@ class SyncEntity:
             except Exception:
                 error_entities.append(pid)
             sys.stdout.flush()
-        self.logger.info(f"DONE: MEF deleted: {removed_entity_counter}")
+        self.logger.info("DONE: MEF deleted: %s", removed_entity_counter)
         return removed_entity_counter, error_entities

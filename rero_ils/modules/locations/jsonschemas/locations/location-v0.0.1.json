@@ -260,7 +260,7 @@
           },
           "props": {
             "addonLeft": [
-              "<i class=\"fa fa-at\"></i>"
+              "<i class=\"fa-solid fa-at\"></i>"
             ]
           }
         }

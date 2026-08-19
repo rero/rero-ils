@@ -50,8 +50,8 @@ def jsonify_error(func):
     def decorated_view(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except (Unauthorized, NotFound) as error:
-            raise error
+        except Unauthorized, NotFound:
+            raise
         except (TemplateSyntaxError, UndefinedError) as error:
             return jsonify({"status": f"error: {error}"}), 400
         except Exception as error:
@@ -174,8 +174,8 @@ def do_holding_jsonify_action(func):
             abort(400, str(error))
         except CirculationException as error:
             abort(403, error.description or str(error))
-        except NotFound as error:
-            raise error
+        except NotFound:
+            raise
         except exceptions.RequestError as error:
             # missing required parameters
             return jsonify({"status": f"error: {error}"}), 400

@@ -204,7 +204,7 @@ class AcqOrderCSVSerializer(CSVSerializer):
                     csv_data = {k: order_data.get(f) for k, f in order_fields.items()}
 
                     # Update csv data with vendor
-                    csv_data["vendor_name"] = vendor_data.get("name")
+                    csv_data["vendor_name"] = vendor_data.get("name") if vendor_data else "unknown"
 
                     # extract order notes
                     order_notes = filter(
@@ -216,15 +216,19 @@ class AcqOrderCSVSerializer(CSVSerializer):
                         column_name = f"order_{note_type}"
                         csv_data[column_name] = note.get("content")
 
-                    # update csv data with document infos
-                    csv_data.update(documents.get(order_line["document"]["pid"]))
+                    # update csv data with document info
+                    if document := documents.get(order_line["document"]["pid"]):
+                        csv_data.update(document)
+                    else:
+                        csv_data["document_pid"] = order_line["document"]["pid"]
+                        csv_data["document_title"] = "unknown"
 
                     # update csv data with account infos
                     account = accounts.get(order_line["acq_account"]["pid"])
                     csv_data.update(
                         {
-                            "account_name": account.get("name"),
-                            "account_number": account.get("number"),
+                            "account_name": account.get("name") if account else "unknown",
+                            "account_number": account.get("number") if account else "unknown",
                         }
                     )
 

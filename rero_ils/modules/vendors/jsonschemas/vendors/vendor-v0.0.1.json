@@ -65,7 +65,7 @@
         "formlyConfig": {
           "props": {
             "addonLeft": [
-              "<i class=\"fa fa-globe\"></i>"
+              "<i class=\"fa-solid fa-globe\"></i>"
             ],
             "validation": {
               "messages": {
@@ -306,7 +306,7 @@
                 "props": {
                   "itemCssClass": "ui:col-span-12",
                   "addonLeft": [
-                    "<i class=\"fa fa-user\"></i>"
+                    "<i class=\"fa-solid fa-user\"></i>"
                   ]
                 }
               }
@@ -359,7 +359,7 @@
                 "props": {
                   "itemCssClass": "ui:col-span-12 ui:md:col-span-4",
                   "addonLeft": [
-                    "<i class=\"fa fa-globe\"></i>"
+                    "<i class=\"fa-solid fa-earth-europe\"></i>"
                   ]
                 }
               }
@@ -373,7 +373,7 @@
                 "props": {
                   "itemCssClass": "ui:col-span-12",
                   "addonLeft": [
-                    "<i class=\"fa fa-phone\"></i>"
+                    "<i class=\"fa-solid fa-phone\"></i>"
                   ]
                 }
               }
@@ -388,7 +388,7 @@
                 "props": {
                   "itemCssClass": "ui:col-span-12",
                   "addonLeft": [
-                    "<i class=\"fa fa-at\"></i>"
+                    "<i class=\"fa-solid fa-at\"></i>"
                   ]
                 }
               }

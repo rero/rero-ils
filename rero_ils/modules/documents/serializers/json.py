@@ -28,6 +28,27 @@ from ..extensions import TitleExtension
 GLOBAL_VIEW_CODE = LocalProxy(lambda: current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
 
 
+def _rewrite_nested_terms(terms):
+    """Rewrite a nested terms aggregation to expose root-document counts.
+
+    The nested holdings context counts holdings; the `record_count`
+    (reverse_nested) sub-aggregation gives the number of documents. Expose it
+    as `doc_count` on each bucket and drop empty buckets. The aggregation query
+    already orders buckets by descending document count (`order` on
+    `record_count`), so the buckets are not reordered.
+
+    The `sum_other_doc_count` and `doc_count_error_upper_bound` metadata still
+    describe the holdings-count terms aggregation and no longer match the
+    rewritten (document-count) buckets, so they are dropped.
+    """
+    for bucket in terms["buckets"]:
+        bucket["doc_count"] = bucket.pop("record_count")["doc_count"]
+    terms["buckets"] = [bucket for bucket in terms["buckets"] if bucket["doc_count"] > 0]
+    terms.pop("sum_other_doc_count", None)
+    terms.pop("doc_count_error_upper_bound", None)
+    return terms
+
+
 class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `Document` records as JSON."""
 
@@ -152,9 +173,8 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             else:
                 aggregations["organisation"] = aggr_by_org
 
-        if aggr_org := aggregations.get("organisation", {}).get("buckets", []):
-            # nested aggregation, we need to filter empty buckets
-            aggr_org = filter(lambda agg: agg["doc_count"] > 0, aggr_org)
+        organisation = aggregations.get("organisation", {})
+        if organisation.get("buckets"):
             # load all organisations, libraries and locations in cache
             # to avoid multiple queries
             self.load_all(
@@ -162,32 +182,31 @@ class DocumentJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                 LibrariesSearch().source(["name", "pid"]),
                 LocationsSearch().source(["name", "pid"]),
             )
+            # expose document counts (reverse_nested) and prune empty buckets
+            _rewrite_nested_terms(organisation)
             # For a "local view", we only need the facet on the location
             # organisation. We can filter the organisation aggregation to keep
             # only this value
             if view_code != GLOBAL_VIEW_CODE:
-                # nested aggregation, we need to filter empty buckets
-                aggr_org = list(filter(lambda term: term["key"] == view_id, aggr_org))
-                aggregations["organisation"]["buckets"] = aggr_org
-            for org in aggr_org:
+                organisation["buckets"] = [term for term in organisation["buckets"] if term["key"] == view_id]
+            for org in organisation["buckets"]:
                 # add aggregation name
                 org["name"] = self.get_resource(OrganisationsSearch(), org["key"])["name"]
-                org["library"]["buckets"] = list(filter(lambda agg: agg["doc_count"] > 0, org["library"]["buckets"]))
-                for lib_term in org["library"].get("buckets", []):
+                _rewrite_nested_terms(org["library"])
+                for lib_term in org["library"]["buckets"]:
                     # add aggregation name
                     lib_term["name"] = self.get_resource(LibrariesSearch(), lib_term["key"])["name"]
-                    # nested aggregation, we need to filter empty buckets
-                    lib_term["location"]["buckets"] = list(
-                        filter(lambda agg: agg["doc_count"] > 0, lib_term["location"]["buckets"])
-                    )
-                    for loc_term in lib_term["location"].get("buckets", []):
+                    _rewrite_nested_terms(lib_term["location"])
+                    for loc_term in lib_term["location"]["buckets"]:
                         # add aggregation name
                         loc_term["name"] = self.get_resource(LocationsSearch(), loc_term["key"])["name"]
 
             # For a "local view", we replace the organisation aggregation by
             # a library aggregation containing only for the local organisation
             if view_code != GLOBAL_VIEW_CODE:
-                aggregations["library"] = aggr_org[0].get("library", {}) if aggr_org else {}
+                aggregations["library"] = (
+                    organisation["buckets"][0].get("library", {}) if organisation["buckets"] else {}
+                )
                 del aggregations["organisation"]
 
         super()._postprocess_search_aggregations(aggregations)

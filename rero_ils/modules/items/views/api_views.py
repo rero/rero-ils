@@ -90,8 +90,8 @@ def jsonify_error(func):
     def decorated_view(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except NotFound as error:
-            raise error
+        except NotFound:
+            raise
         except Exception as error:
             # raise error
             current_app.logger.error(str(error))
@@ -229,8 +229,8 @@ def do_item_jsonify_action(func):
                 {"status": 403, "message": error.description or str(error)}, removed_temp_item_type_name
             )
             return jsonify(error_response), 403
-        except NotFound as error:
-            raise error
+        except NotFound:
+            raise
         except exceptions.RequestError as error:
             # missing required parameters
             return jsonify({"status": 400, "message": str(error)}), 400

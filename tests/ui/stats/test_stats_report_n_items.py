@@ -18,6 +18,8 @@ def test_stats_report_number_of_items(
     loc_restricted_martigny,
     loc_public_martigny_bourg,
     loc_public_sion,
+    item_type_standard_martigny,
+    item_type_on_site_martigny,
 ):
     """Test the number of items."""
     # no data
@@ -38,6 +40,7 @@ def test_stats_report_number_of_items(
             "organisation": {"pid": org_martigny.pid},
             "library": {"pid": lib_martigny.pid},
             "location": {"pid": loc_public_martigny.pid},
+            "item_type": {"pid": item_type_standard_martigny.pid},
             "document": {
                 "document_type": [
                     {
@@ -57,6 +60,7 @@ def test_stats_report_number_of_items(
             "organisation": {"pid": org_martigny.pid},
             "library": {"pid": lib_martigny.pid},
             "location": {"pid": loc_restricted_martigny.pid},
+            "item_type": {"pid": item_type_on_site_martigny.pid},
             "document": {
                 "document_type": [
                     {
@@ -76,6 +80,7 @@ def test_stats_report_number_of_items(
             "organisation": {"pid": org_martigny.pid},
             "library": {"pid": lib_martigny_bourg.pid},
             "location": {"pid": loc_public_martigny_bourg.pid},
+            "item_type": {"pid": item_type_standard_martigny.pid},
             "document": {
                 "document_type": [
                     {
@@ -272,3 +277,18 @@ def test_stats_report_number_of_items(
         },
     }
     assert StatsReport(cfg).collect() == [["docsubtype_other_book", 3]]
+
+    # item types
+    cfg = {
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
+        "is_active": True,
+        "category": {"indicator": {"type": "number_of_items", "distributions": ["item_type"]}},
+    }
+    label_itty_standard = f"{item_type_standard_martigny['name']} ({item_type_standard_martigny.pid})"
+    label_itty_on_site = f"{item_type_on_site_martigny['name']} ({item_type_on_site_martigny.pid})"
+    assert StatsReport(cfg).collect() == sorted(
+        [
+            [label_itty_standard, 2],
+            [label_itty_on_site, 1],
+        ]
+    )

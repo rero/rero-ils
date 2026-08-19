@@ -6,6 +6,7 @@
 
 import json
 import sys
+from datetime import UTC
 
 import click
 import dateparser
@@ -152,9 +153,15 @@ def reindex(pid_types, from_date, until_date, direct, queue):
                         .order_by(model_cls.created)
                     )
                     if from_date:
-                        query = query.filter(model_cls.updated > dateparser.parse(from_date))
+                        dt = dateparser.parse(from_date)
+                        if dt:
+                            dt = dt.astimezone(UTC) if dt.tzinfo else dt.replace(tzinfo=UTC)
+                            query = query.filter(model_cls.updated > dt)
                     if until_date:
-                        query = query.filter(model_cls.updated <= dateparser.parse(until_date))
+                        dt = dateparser.parse(until_date)
+                        if dt:
+                            dt = dt.astimezone(UTC) if dt.tzinfo else dt.replace(tzinfo=UTC)
+                            query = query.filter(model_cls.updated <= dt)
             else:
                 query = (
                     PersistentIdentifier.query.filter_by(object_type="rec", status=PIDStatus.REGISTERED)

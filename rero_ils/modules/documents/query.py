@@ -8,7 +8,7 @@ import re
 from datetime import datetime
 
 from elasticsearch_dsl import Q
-from flask import request
+from flask import abort, request
 
 
 def acquisition_filter():
@@ -38,6 +38,12 @@ def acquisition_filter():
         #     * ?location=17&library=2&new_acquisition=:2019-12-31
         #       --> all new acq for (location with pid=17 and library with
         #           pid=2) until Jan, 1 2020
+        #     * ?new_acquisition=2020-01-01&location=17&location=18
+        #       --> all new acq for (location with pid=17 or pid=18) from
+        #           2020-01-01 to now
+        #     * ?new_acquisition=2020-01-01&library=2&library=3
+        #       --> all new acq for (library with pid=2 or pid=3) from
+        #           2020-01-01 to now
 
         # build acquisition date range query
         range_values = values.pop()
@@ -45,10 +51,13 @@ def acquisition_filter():
             # NG-Core's widget for a date range sends timestamps
             # We transform the timestamp into a date
             values = dict(zip(["from", "to"], range_values.split("--")))
-            if "from" in values:
-                values["from"] = datetime.fromtimestamp(float(values["from"]) / 1000).strftime("%Y-%m-%d")
-            if "to" in values:
-                values["to"] = datetime.fromtimestamp(float(values["to"]) / 1000).strftime("%Y-%m-%d")
+            try:
+                if "from" in values:
+                    values["from"] = datetime.fromtimestamp(float(values["from"]) / 1000).strftime("%Y-%m-%d")
+                if "to" in values:
+                    values["to"] = datetime.fromtimestamp(float(values["to"]) / 1000).strftime("%Y-%m-%d")
+            except ValueError, OverflowError, OSError:
+                abort(400, description="Invalid 'new_acquisition' timestamp range")
         else:
             values = dict(zip(["from", "to"], range_values.split(":")))
         range_acquisition_dates = {"lte": values.get("to") or "now/d"}
@@ -60,9 +69,9 @@ def acquisition_filter():
         # Check others filters from command line and add them to the query if
         # needed
         for level in ["location", "library", "organisation"]:
-            if arg := request.args.get(level):
+            if args := request.args.getlist(level):
                 field = f"holdings__items__acquisition__{level}_pid"
-                must_queries.append(Q("match", **{field: arg}))
+                must_queries.append(Q("terms", **{field: args}))
 
         return Q(
             "nested",

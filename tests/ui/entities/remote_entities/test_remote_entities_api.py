@@ -182,7 +182,6 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
 
 @mock.patch("requests.Session.get")
 def test_sync_concept(mock_get, app, mef_concepts_url, entity_topic_data, document_data_subject_ref):
-    #
     """Test MEF agent synchronization."""
     # === setup
     log_path = tempfile.mkdtemp()
@@ -395,15 +394,233 @@ def test_replace_identified_by(
             mock_response(json_data=entity_topic_data_2),
         ],
     ):
+        # bf:Work has no MEF family at all: no MEF lookup is attempted for it, it's just not_found
         changed, not_found, rero_only = replace_identified_by.run()
         assert changed == 1
-        assert not_found == 0
+        assert not_found == 1
         assert rero_only == 3
         assert dict(sorted(replace_identified_by.rero_only.items())) == {
             "bf:Person": {"rero:A009963344": "Athenagoras (patriarche oecuménique ; 1)"},
             "bf:Topic": {"rero:A021039750": "Bases de données déductives"},
             "bf:Place": {"rero:A009975209": "Europe occidentale"},
         }
+        assert replace_identified_by.not_found == {
+            "bf:Work": {"rero:A001234567": "Bases de donnéesi (Voltenauer, Marc)"}
+        }
+
+
+def test_replace_identified_by_type_mismatch(app, entity_organisation, entity_organisation_data):
+    """A MEF type differing from the document should not block the $ref replace.
+
+    The identifier alone is enough to link the entity. Only for
+    `contribution` is the mismatch still flagged for the metadata admin.
+    """
+    log_path = tempfile.mkdtemp()
+    entity = {
+        "entity": {
+            "type": "bf:Person",
+            "authorized_access_point": "Some person",
+            "identifiedBy": {"type": "GND", "value": "1161956409"},
+        }
+    }
+
+    # subjects/genreForm: replaced, mismatch is not flagged
+    replace_identified_by = ReplaceIdentifiedBy(field="subjects", verbose=True, dry_run=False, log_dir=log_path)
+    with mock.patch("requests.Session.get", side_effect=[mock_response(json_data=entity_organisation_data)]):
+        changed = replace_identified_by._do_entity(deepcopy(entity), "doc_pid_test")
+    assert changed is True
+    assert replace_identified_by.rero_only == {}
+
+    # contribution: replaced, but mismatch is flagged for the metadata admin
+    replace_identified_by = ReplaceIdentifiedBy(field="contribution", verbose=True, dry_run=False, log_dir=log_path)
+    contribution_entity = deepcopy(entity)
+    with mock.patch("requests.Session.get", side_effect=[mock_response(json_data=entity_organisation_data)]):
+        changed = replace_identified_by._do_entity(contribution_entity, "doc_pid_test")
+    assert changed is True
+    assert contribution_entity["entity"]["$ref"] == "https://mef.rero.ch/api/agents/gnd/1161956409"
+    assert replace_identified_by.rero_only == {}
+    assert replace_identified_by.type_mismatch == {
+        "bf:Person": {
+            "gnd:1161956409": 'bf:Person != bf:Organisation : "Convegno internazionale di italianistica Craiova"'
+        }
+    }
+
+
+def test_replace_identified_by_type_mismatch_does_not_block_retry(app, entity_organisation, entity_organisation_data):
+    """A type-mismatch flag on one document must not block replacement for another.
+
+    `type_mismatch` (flagged for admin review) must stay independent from
+    `rero_only` (which also gates retries): a successfully replaced entity
+    must not silently block a later document sharing the same identifier.
+    """
+    log_path = tempfile.mkdtemp()
+    replace_identified_by = ReplaceIdentifiedBy(field="contribution", verbose=True, dry_run=False, log_dir=log_path)
+
+    def make_entity():
+        return {
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Some person",
+                "identifiedBy": {"type": "GND", "value": "1161956409"},
+            }
+        }
+
+    entity_doc1 = make_entity()
+    with mock.patch("requests.Session.get", side_effect=[mock_response(json_data=entity_organisation_data)]):
+        changed_doc1 = replace_identified_by._do_entity(entity_doc1, "doc_pid_1")
+    assert changed_doc1 is True
+    assert entity_doc1["entity"]["$ref"] == "https://mef.rero.ch/api/agents/gnd/1161956409"
+
+    # a second document sharing the same identifier must still be replaced,
+    # not skipped because the first one was already flagged in type_mismatch
+    entity_doc2 = make_entity()
+    with mock.patch("requests.Session.get", side_effect=[mock_response(json_data=entity_organisation_data)]):
+        changed_doc2 = replace_identified_by._do_entity(entity_doc2, "doc_pid_2")
+    assert changed_doc2 is True
+    assert entity_doc2["entity"]["$ref"] == "https://mef.rero.ch/api/agents/gnd/1161956409"
+
+
+def test_replace_identified_by_type_not_allowed(app):
+    """A resolved MEF type invalid for the field is logged as error and not linked.
+
+    Unlike a Person/Organisation mismatch (still linked, flagged as warning), a
+    resolved type that cannot appear in the field at all (e.g. a contribution
+    resolving to a bf:Topic) must be refused: no $ref is written.
+    """
+    log_path = tempfile.mkdtemp()
+    entity = {
+        "entity": {
+            "type": "bf:Person",
+            "authorized_access_point": "Some person",
+            "identifiedBy": {"type": "GND", "value": "1161956409"},
+        }
+    }
+    # The identifier resolves to a bf:Topic, which is not allowed in a contribution.
+    mef_data = {
+        "pid": "topic1",
+        "type": "bf:Topic",
+        "gnd": {"pid": "1161956409", "authorized_access_point": "Some topic"},
+    }
+    original = deepcopy(entity)
+
+    replace_identified_by = ReplaceIdentifiedBy(field="contribution", verbose=True, dry_run=False, log_dir=log_path)
+    with mock.patch("requests.Session.get", side_effect=[mock_response(json_data=mef_data)]):
+        changed = replace_identified_by._do_entity(entity, "doc_pid_test")
+
+    assert not changed
+    # entity left untouched — no $ref written
+    assert entity == original
+    assert replace_identified_by.type_mismatch == {}
+    assert replace_identified_by.type_not_allowed == {
+        "bf:Person": {"gnd:1161956409": 'bf:Person -> bf:Topic not allowed for contribution : "Some topic"'}
+    }
+
+
+def test_replace_identified_by_type_not_allowed_gates_retry(app):
+    """A type-not-allowed identifier must not be re-queried against MEF.
+
+    The outcome is deterministic per identifier, so a second document sharing
+    it is skipped without another MEF call.
+    """
+    log_path = tempfile.mkdtemp()
+
+    def make_entity():
+        return {
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Some person",
+                "identifiedBy": {"type": "GND", "value": "1161956409"},
+            }
+        }
+
+    mef_data = {
+        "pid": "topic1",
+        "type": "bf:Topic",
+        "gnd": {"pid": "1161956409", "authorized_access_point": "Some topic"},
+    }
+    replace_identified_by = ReplaceIdentifiedBy(field="contribution", verbose=True, dry_run=False, log_dir=log_path)
+
+    with mock.patch("requests.Session.get", return_value=mock_response(json_data=mef_data)) as mock_get:
+        replace_identified_by._do_entity(make_entity(), "doc_pid_1")
+        replace_identified_by._do_entity(make_entity(), "doc_pid_2")
+
+    # the second document is gated by the type_not_allowed cache — MEF hit once
+    assert mock_get.call_count == 1
+
+
+def test_replace_identified_by_timestamp_reports_each_outcome(app):
+    """set_timestamp records each outcome under its own key, without conflation.
+
+    `rero only` must not absorb the `type mismatch` count anymore; both, plus
+    `type not allowed`, are reported distinctly.
+    """
+    _SET_TS = "rero_ils.modules.entities.remote_entities.replace.utils_set_timestamp"
+    replace = ReplaceIdentifiedBy(field="contribution", verbose=True, dry_run=True, log_dir=tempfile.mkdtemp())
+    replace.changed = 5
+    replace.not_found = {"bf:Person": {"idref:1": "x"}}
+    replace.rero_only = {"bf:Person": {"rero:2": "x"}}
+    replace.type_mismatch = {"bf:Person": {"gnd:3": "x"}}
+    replace.type_not_allowed = {"bf:Person": {"gnd:4": "x"}}
+
+    with mock.patch(_SET_TS) as mock_set, mock.patch.object(replace, "get_timestamp", return_value={}):
+        replace.set_timestamp()
+
+    payload = mock_set.call_args.kwargs["contribution"]
+    assert payload["changed"] == 5
+    assert payload["not found"] == 1
+    assert payload["rero only"] == 1  # does NOT include the type mismatch
+    assert payload["type mismatch"] == 1
+    assert payload["type not allowed"] == 1
+
+
+def test_replace_identified_by_query_allowed_types(app):
+    """The document search query must use the full per-field allowed-type list.
+
+    `subjects` allows `bf:Work` (it has no MEF family, but is still a valid
+    local type per the document schema); a document whose only qualifying
+    subject is a `bf:Work` entry must still be selected for scanning.
+    `contribution` only allows agents (Person/Organisation): `bf:Work` and
+    `bf:Place` must not appear in its filter.
+    """
+    subjects_types = ReplaceIdentifiedBy(field="subjects").query.to_dict()
+    contribution_types = ReplaceIdentifiedBy(field="contribution").query.to_dict()
+
+    def terms_for(query_dict):
+        for clause in query_dict["query"]["bool"]["filter"]:
+            if "terms" in clause:
+                return next(iter(clause["terms"].values()))
+        return []
+
+    assert "bf:Work" in terms_for(subjects_types)
+    assert "bf:Work" not in terms_for(contribution_types)
+    assert "bf:Place" not in terms_for(contribution_types)
+
+
+def test_replace_identified_by_family_fallback(app, entity_person_all, entity_person_data_all):
+    """The MEF family implied by a wrong local type is not the only one tried.
+
+    `subjects` allows agents, concepts and places: if the identifier is not
+    found in the family the (here wrong) local type implies, the other
+    allowed families are tried before giving up.
+    """
+    log_path = tempfile.mkdtemp()
+    replace_identified_by = ReplaceIdentifiedBy(field="subjects", verbose=True, dry_run=False, log_dir=log_path)
+    entity = {
+        "entity": {
+            "type": "bf:Temporal",
+            "authorized_access_point": "Some temporal",
+            "identifiedBy": {"type": "RERO", "value": "A003633163"},
+        }
+    }
+    with mock.patch(
+        "requests.Session.get",
+        side_effect=[mock_response(status=404), mock_response(json_data=entity_person_data_all)],
+    ):
+        changed = replace_identified_by._do_entity(entity, "doc_pid_test")
+    assert changed is True
+    assert entity["entity"]["$ref"] == "https://mef.rero.ch/api/agents/idref/029314100"
+    assert replace_identified_by.rero_only == {}
+    assert replace_identified_by.not_found == {}
 
 
 def test_entity_get_record_by_ref(mef_agents_url, entity_person, entity_person_data_tmp):

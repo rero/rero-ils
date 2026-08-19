@@ -4,7 +4,6 @@
 
 """Tests REST API items."""
 
-import time
 from unittest import mock
 
 from elasticsearch_dsl.search import Response
@@ -20,8 +19,7 @@ from tests.utils import get_json, postdata
 def test_item_stats_endpoint(item_at_desk_martigny_patron_and_loan_at_desk, client, librarian_martigny):
     """Test loan filter on stats endpoint with real data."""
     item, _, _ = item_at_desk_martigny_patron_and_loan_at_desk
-    StatsSearch.flush_and_refresh()
-    time.sleep(1)  # TODO :: find a better way to wait for stats.
+    OperationLogsSearch.flush_and_refresh()
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(
         url_for(

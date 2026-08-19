@@ -50,13 +50,13 @@ def enrich_acq_account_data(
     json["encumbrance_amount"] = {
         "self": self_amount,
         "children": children_amount,
-        "total": self_amount + children_amount,
+        "total": round(self_amount + children_amount, 2),
     }
     (self_amount, children_amount) = account.expenditure_amount
     json["expenditure_amount"] = {
         "self": self_amount,
         "children": children_amount,
-        "total": self_amount + children_amount,
+        "total": round(self_amount + children_amount, 2),
     }
     (self_amount, total_amount) = account.remaining_balance
     json["remaining_balance"] = {"self": self_amount, "total": total_amount}

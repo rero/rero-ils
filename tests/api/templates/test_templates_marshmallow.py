@@ -22,7 +22,7 @@ from tests.utils import VerifyRecordPermissionPatch, login_user_via_session, pos
 def test_templates_marshmallow_loaders(
     client, system_librarian_martigny, templ_doc_public_martigny_data_tmp, json_header
 ):
-    """Test template marshmallow loaders"""
+    """Test template marshmallow loaders."""
     login_user_via_session(client, system_librarian_martigny.user)
     data = templ_doc_public_martigny_data_tmp
     del data["pid"]

@@ -107,6 +107,13 @@ def test_stats_report_number_of_patrons(
         "category": {"indicator": {"type": "number_of_patrons", "distributions": ["postal_code"]}},
     }
     assert StatsReport(cfg).collect() == [["1920", 2]]
+    # local codes
+    cfg = {
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
+        "is_active": True,
+        "category": {"indicator": {"type": "number_of_patrons", "distributions": ["local_codes"]}},
+    }
+    assert StatsReport(cfg).collect() == [["code1", 1]]
     # role
     cfg = {
         "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},

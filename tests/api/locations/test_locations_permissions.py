@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests locations permissions."""
+
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
@@ -21,7 +23,6 @@ def test_location_permissions(
     loc_public_sion,
 ):
     """Test location permissions class."""
-
     # Anonymous user
     identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     check_permission(

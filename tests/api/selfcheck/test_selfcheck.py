@@ -45,7 +45,6 @@ def test_invenio_sip2():
 
 def test_selfcheck_login(librarian_martigny, selfcheck_librarian_martigny):
     """Test selfcheck client login."""
-
     # test failed login
     response = selfcheck_login("invalid_user", "invalid_password", terminal_ip="127.0.0.1")
     assert not response
@@ -62,7 +61,6 @@ def test_selfcheck_login(librarian_martigny, selfcheck_librarian_martigny):
 
 def test_authorize_patron(selfcheck_patron_martigny, default_user_password):
     """Test authorize patron."""
-
     # try to authorize with wrong password
     response = authorize_patron(
         selfcheck_patron_martigny.get("patron", {}).get("barcode")[0],

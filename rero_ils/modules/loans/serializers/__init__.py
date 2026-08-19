@@ -4,6 +4,8 @@
 
 """RERO-ILS Loan resource serializers."""
 
+from rero_invenio_base.modules.export import xlsx_converter
+
 from rero_ils.modules.serializers import (
     RecordSchemaJSONV1,
     search_responsify,
@@ -13,7 +15,7 @@ from rero_ils.modules.serializers import (
 from .csv import LoanStreamedCSVSerializer
 from .json import LoanJSONSerializer
 
-__all__ = ["csv_stream_search", "json_loan_search"]
+__all__ = ["csv_stream_search", "json_loan_search", "xlsx_loan_search"]
 
 
 _json = LoanJSONSerializer(RecordSchemaJSONV1)
@@ -39,3 +41,13 @@ _streamed_csv = LoanStreamedCSVSerializer(
 
 json_loan_search = search_responsify(_json, "application/rero+json")
 csv_stream_search = search_responsify_file(_streamed_csv, "text/csv", file_extension="csv", file_prefix="export-loans")
+xlsx_loan_search = search_responsify_file(
+    _streamed_csv,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    file_extension="xlsx",
+    file_prefix="export-loans",
+    content_converter=xlsx_converter(
+        "rero_ils/exports/loans.xml",
+        worksheet_name="Loans",
+    ),
+)

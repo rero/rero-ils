@@ -167,7 +167,6 @@ def _(x):
 
 # Personalized homepage
 RERO_ILS_PERSONALIZED_CSS_BY_VIEW = True
-RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW = False
 RERO_ILS_HOMEPAGE_GENERAL_BLOCK = "rero_ils/_frontpage_block_test.html"
 RERO_ILS_HOMEPAGE_GENERAL_SLOGAN = "rero_ils/_frontpage_slogan_test.html"
 #: Link to privacy and data protection policy for the instance
@@ -619,10 +618,10 @@ PREVIEWER_RECORD_FILE_FACOTRY = (
     "rero_invenio_files.records.previewer.record_file_factory"
 )
 
-PREVIEWER_MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024
+PREVIEWER_MAX_IMAGE_SIZE_BYTES = 50 * 1024 * 1024
 """Maximum file size in bytes for image files."""
 
-PREVIEWER_MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024
+PREVIEWER_MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024
 """Maximum file size in bytes for JSON/XML files."""
 
 # Debug
@@ -833,12 +832,10 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers_aliases={
             "json": "application/json",
             "rero": "application/rero+json",
-            "csv": "text/csv",
         },
         search_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_search",
             "application/rero+json": "rero_ils.modules.items.serializers:json_item_search",
-            "text/csv": "rero_ils.modules.items.serializers:csv_item_search",
         },
         list_route="/items/",
         record_loaders={
@@ -918,8 +915,15 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response",
             "text/csv": "rero_ils.modules.stats.serializers:csv_v1_response",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+                "rero_ils.modules.stats.serializers:xlsx_v1_response"
+            ),
         },
-        record_serializers_aliases={"json": "application/json", "csv": "text/csv"},
+        record_serializers_aliases={
+            "json": "application/json",
+            "csv": "text/csv",
+            "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
         search_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_search"
         },
@@ -2125,21 +2129,35 @@ RECORDS_REST_FACETS = dict(
                                     field="nested_holdings.organisation.organisation_pid",
                                     size=DOCUMENTS_AGGREGATION_SIZE,
                                     min_doc_count=0,
+                                    # count documents, not holdings, so the
+                                    # `size` cut keeps the buckets with the
+                                    # most documents (see `record_count` below)
+                                    order={"record_count": "desc"},
                                 ),
                                 aggs=dict(
+                                    # count documents, not holdings
+                                    record_count=dict(reverse_nested=dict()),
                                     library=dict(
                                         terms=dict(
                                             field="nested_holdings.organisation.library_pid",
-                                            size=50,
+                                            size=100,
                                             min_doc_count=0,
+                                            order={"record_count": "desc"},
                                         ),
                                         aggs=dict(
+                                            record_count=dict(reverse_nested=dict()),
                                             location=dict(
                                                 terms=dict(
                                                     field="nested_holdings.location.pid",
                                                     size=100,
                                                     min_doc_count=0,
-                                                )
+                                                    order={"record_count": "desc"},
+                                                ),
+                                                aggs=dict(
+                                                    record_count=dict(
+                                                        reverse_nested=dict()
+                                                    )
+                                                ),
                                             )
                                         )
                                     )
@@ -3033,6 +3051,19 @@ RECORDS_REST_SORT_OPTIONS["locations"]["pickup_name"] = dict(
     fields=["pickup_name.keyword"], title="Pickup Location name", default_order="asc"
 )
 RECORDS_REST_DEFAULT_SORT["locations"] = dict(query="bestmatch", noquery="name")
+
+# ------ OPERATION LOGS
+RECORDS_REST_SORT_OPTIONS["operation_logs"]["operation_date_mostrecent"] = dict(
+    fields=["-operation", "-date"],
+    title="Operation date mostrecent",
+    default_order="asc"
+)
+RECORDS_REST_SORT_OPTIONS["operation_logs"]["operation_date_created"] = dict(
+    fields=["operation", "date"],
+    title="Operation date create",
+    default_order="asc"
+)
+RECORDS_REST_DEFAULT_SORT["operation_logs"] = dict(query="bestmatch", noquery="operation_date_mostrecent")
 
 # ------ PATRONS SORT
 RECORDS_REST_SORT_OPTIONS["patrons"]["full_name"] = dict(
@@ -3973,37 +4004,77 @@ RERO_ILS_IMPORT_REST_ENDPOINTS = dict(
 # STREAMED EXPORT RECORDS
 # =============================================================================
 RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
+    item=dict(
+        resource=RECORDS_REST_ENDPOINTS.get("item"),
+        default_media_type="text/csv",
+        # `item-search` is granted to any user; restrict inventory exports to librarians.
+        list_permission_factory_imp=librarian_permission_factory,
+        search_serializers={
+            "text/csv": "rero_ils.modules.items.serializers:csv_item_search",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+                "rero_ils.modules.items.serializers:xlsx_item_search"
+            ),
+        },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
+    ),
     acq_account=dict(
         resource=RECORDS_REST_ENDPOINTS.get("acac"),
         default_media_type="text/csv",
         search_serializers={
             "text/csv": "rero_ils.modules.acquisition.acq_accounts.serializers:csv_acq_account_search",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+                "rero_ils.modules.acquisition.acq_accounts.serializers:xlsx_acq_account_search"
+            ),
         },
-        search_serializers_aliases={"csv": "text/csv"},
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
     ),
     acq_order=dict(
         resource=RECORDS_REST_ENDPOINTS.get("acor"),
         default_media_type="text/csv",
         search_serializers={
             "text/csv": "rero_ils.modules.acquisition.acq_orders.serializers:csv_acor_search",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+                "rero_ils.modules.acquisition.acq_orders.serializers:xlsx_acor_search"
+            ),
         },
-        search_serializers_aliases={"csv": "text/csv"},
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
     ),
     loan=dict(
         resource=CIRCULATION_REST_ENDPOINTS.get("loanid"),
         default_media_type="text/csv",
         search_serializers={
             "text/csv": "rero_ils.modules.loans.serializers:csv_stream_search",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+                "rero_ils.modules.loans.serializers:xlsx_loan_search"
+            ),
         },
-        search_serializers_aliases={"csv": "text/csv"},
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
     ),
     patron_transaction_events=dict(
         resource=RECORDS_REST_ENDPOINTS.get("ptre"),
         default_media_type="text/csv",
         search_serializers={
             "text/csv": "rero_ils.modules.patron_transaction_events.serializers:csv_ptre_search",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+                "rero_ils.modules.patron_transaction_events.serializers:xlsx_ptre_search"
+            ),
         },
-        search_serializers_aliases={"csv": "text/csv"},
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
     ),
 )
 
@@ -4074,6 +4145,17 @@ SIP2_SUMMARY_FIELDS = {
 
 # OAuth base template
 OAUTH2SERVER_COVER_TEMPLATE = "rero_ils/oauth/base.html"
+
+# Extend the oauthlib allowed character set for Lucene query syntax.
+# Characters that commonly appear unencoded in query strings:
+#   $  - MARC subfield codes ($a, $b, ...)
+#   [] - inclusive range queries (date:[x TO y])
+#   {} - exclusive range queries (date:{x TO y})
+#   ^  - boost factor (term^2)
+#   "  - phrase queries ("exact phrase")
+#   |  - OR operator (||)
+#   '  - apostrophe in text queries (O'Brien); also in oauthlib's own default
+OAUTH2SERVER_ALLOWED_URLENCODE_CHARACTERS = "=&;:%+~,*@!()/?$'[]{}^\"|"
 
 # STOP WORDS
 # Disregarded articles for sorting processes

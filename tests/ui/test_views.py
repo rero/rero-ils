@@ -7,7 +7,7 @@ import pytest
 from flask import session, url_for
 from flask_login import login_user, logout_user
 from flask_security import url_for_security
-from invenio_accounts.testutils import login_user_via_view
+from invenio_accounts.testutils import login_user_via_session, login_user_via_view
 
 from rero_ils.modules.users.api import user_formatted_name
 from rero_ils.theme.views import localized_label, nl2br
@@ -36,7 +36,7 @@ def test_localized_label():
 
 def test_error(client):
     """Test error entrypoint."""
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         client.get(url_for("rero_ils.error"))
 
 
@@ -49,18 +49,34 @@ def test_schemaform(client):
     assert result.status_code == 404
 
 
-def test_organisation_link_on_homepage(client):
-    """Test Organisation link on homepage."""
+def test_homepage_global_view(client):
+    """The global view falls back to the general (hardcoded) homepage."""
     result = client.get(url_for("rero_ils.index"))
     assert result.status_code == 200
-    assert str(result.data).find("RERO+ catalogue") > -1
+    # general slogan and block are rendered from the config templates
+    assert "Get into your library" in result.text
+    assert "RERO+ catalogue" in result.text
 
 
-def test_global_link_on_institution_homepage(client, org_martigny):
-    """Test global link on institution homepage."""
+def test_homepage_organisation_with_data(client, org_sion):
+    """An organisation view renders its own homepage from the database."""
+    result = client.get(url_for("rero_ils.index_with_view_code", viewcode="org2"))
+    assert result.status_code == 200
+    assert "Welcome to the Sion libraries" in result.text
+    assert "Search the Sion libraries" in result.text
+    assert "Global catalogue" in result.text
+    # the general homepage must not leak into a personalized view
+    assert "Get into your library" not in result.text
+    assert "RERO+ catalogue" not in result.text
+
+
+def test_homepage_organisation_without_data(client, org_martigny):
+    """An organisation view without homepage data shows no fallback."""
     result = client.get(url_for("rero_ils.index_with_view_code", viewcode="org1"))
     assert result.status_code == 200
-    assert str(result.data).find("Global") > -1
+    # organisation views never fall back to the general homepage
+    assert "Get into your library" not in result.text
+    assert "RERO+ catalogue" not in result.text
 
 
 def test_view_parameter_exists(client):
@@ -69,9 +85,9 @@ def test_view_parameter_exists(client):
     assert result.status_code == 302
 
 
-def test_view_parameter_cypress(client):
-    """Test view parameter with cypress viewcode."""
-    result = client.get(url_for("rero_ils.index_with_view_code", viewcode="cypress"))
+def test_view_parameter_e2e(client):
+    """Test view parameter with e2e viewcode."""
+    result = client.get(url_for("rero_ils.index_with_view_code", viewcode="e2e"))
     assert result.status_code == 404
 
 
@@ -103,6 +119,29 @@ def test_help(client):
     """Test help entrypoint."""
     result = client.get(url_for("wiki.index"))
     assert result.status_code == 302
+
+
+@pytest.mark.parametrize("role_name", ["editor", "admin"])
+def test_help_edit_permission(client, app, db, user_with_profile, role_name):
+    """Test the wiki edition permission."""
+    url = url_for("wiki.edit", url="home")
+
+    # an anonymous user is redirected to the login page
+    result = client.get(url)
+    assert result.status_code == 302
+    assert url_for_security("login") in result.location
+
+    # a logged user without any editor role is not allowed
+    login_user_via_session(client, user_with_profile)
+    assert client.get(url).status_code == 403
+
+    # the editor and admin roles both grant the wiki edition
+    datastore = app.extensions["invenio-accounts"].datastore
+    role = datastore.find_or_create_role(name=role_name)
+    datastore.add_role_to_user(user_with_profile, role)
+    datastore.commit()
+    db.session.commit()
+    assert client.get(url).status_code == 200
 
 
 # TODO: uncomment tests when rero-ils-ui is deployed on npm
@@ -198,7 +237,6 @@ def test_google_analytics(client, app):
 
 def test_login(client, app, user_with_profile):
     """Testing the frontend login view."""
-
     ## bad password
     # be sure that no one is logged
     client.get(url_for_security("logout"))

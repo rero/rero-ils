@@ -17,17 +17,20 @@ _StubDocument.cover = Document.cover
 
 
 def test_cover_returns_none_when_no_locators():
+    """Test cover without any electronic locator."""
     doc = _StubDocument()
     assert doc.cover == (None, None)
 
 
 def test_cover_returns_none_when_no_cover_image():
+    """Test cover without any cover image locator."""
     doc = _StubDocument()
     doc["electronicLocator"] = [{"content": "fullText", "type": "resource", "url": "https://example.com/full.pdf"}]
     assert doc.cover == (None, None)
 
 
 def test_cover_returns_url_and_provider():
+    """Test cover url and provider from the public note."""
     doc = _StubDocument()
     doc["electronicLocator"] = [
         {
@@ -43,6 +46,7 @@ def test_cover_returns_url_and_provider():
 
 
 def test_cover_returns_url_without_provider():
+    """Test cover url when no provider is given."""
     doc = _StubDocument()
     doc["electronicLocator"] = [{"content": "coverImage", "type": "relatedResource", "url": URL}]
     url, provider = doc.cover
@@ -51,6 +55,7 @@ def test_cover_returns_url_without_provider():
 
 
 def test_cover_ignores_non_related_resource():
+    """Test cover ignores locators that are not a related resource."""
     doc = _StubDocument()
     doc["electronicLocator"] = [{"content": "coverImage", "type": "resource", "url": URL}]
     assert doc.cover == (None, None)

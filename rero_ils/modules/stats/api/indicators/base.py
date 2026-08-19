@@ -27,7 +27,6 @@ class IndicatorCfg:
         """
         raise NotImplementedError()
 
-    @property
     @abstractmethod
     def aggregation(self, distribution):
         """Search index Aggregation configuration to compute distributions.

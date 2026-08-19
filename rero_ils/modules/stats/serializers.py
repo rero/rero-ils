@@ -8,6 +8,7 @@ import csv
 from flask import current_app
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 from invenio_records_rest.serializers.response import add_link_header
+from rero_invenio_base.modules.export import xlsx_converter
 
 from .models import StatType
 
@@ -118,22 +119,33 @@ csv_v1 = StatCSVSerializer()
 """CSV serializer."""
 
 
-def record_responsify(serializer, mimetype):
+def record_responsify(
+    serializer,
+    mimetype,
+    file_extension,
+    content_converter=None,
+):
     """Create a Records-REST response serializer.
 
     This function is the same as the `invenio-records-rest`, but it adds an
     header to change the download file name.
     :param serializer: Serializer instance.
     :param mimetype: MIME type of response.
+    :param file_extension: File extension.
+    :param content_converter: Optional function used to convert the serialized
+        content and record before creating the response.
     :returns: Function that generates a record HTTP response.
     """
 
     def view(pid, record, code=200, headers=None, links_factory=None):
-        response = current_app.response_class(
-            serializer.serialize(pid, record, links_factory=links_factory),
-            mimetype=mimetype,
-        )
+        content = serializer.serialize(pid, record, links_factory=links_factory)
+        if content_converter:
+            content = content_converter(content, record)
+
+        response = current_app.response_class(content, mimetype=mimetype)
         response.status_code = code
+        if content_converter:
+            response.headers["X-Accel-Buffering"] = "no"
         response.cache_control.no_cache = True
         response.set_etag(str(record.revision_id))
         response.last_modified = record.updated
@@ -142,7 +154,7 @@ def record_responsify(serializer, mimetype):
 
         # set the output filename
         date = record.created.isoformat()
-        filename = f"stats-{date}.csv"
+        filename = f"stats-{date}.{file_extension}"
         if not response.headers.get("Content-Disposition"):
             response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
 
@@ -154,4 +166,20 @@ def record_responsify(serializer, mimetype):
     return view
 
 
-csv_v1_response = record_responsify(csv_v1, "text/csv")
+def _xlsx_content_converter(content, record):
+    """Convert statistics CSV rows using the template for their record type."""
+    template_name = (
+        "rero_ils/exports/statistics_report.xml"
+        if record.get("type") == StatType.REPORT
+        else "rero_ils/exports/statistics.xml"
+    )
+    return xlsx_converter(template_name, worksheet_name="Statistics")(content)
+
+
+csv_v1_response = record_responsify(csv_v1, "text/csv", file_extension="csv")
+xlsx_v1_response = record_responsify(
+    csv_v1,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    file_extension="xlsx",
+    content_converter=_xlsx_content_converter,
+)

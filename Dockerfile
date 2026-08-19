@@ -21,5 +21,6 @@ ENV INVENIO_RERO_ILS_UI_GIT_HASH=${GIT_UI_HASH:-''}
 ARG UI_TGZ=""
 
 ENV INVENIO_COLLECT_STORAGE='flask_collect.storage.file'
+ENV LANG=C.UTF-8
 
 RUN uv run --no-sync ./scripts/bootstrap --deploy ${UI_TGZ}

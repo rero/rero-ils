@@ -39,7 +39,7 @@ def test_json_export_serializers(client, export_json_header, document, export_do
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
 def test_ris_serializer(client, ris_header, document, export_document):
-    """Test RIS formatter"""
+    """Test RIS formatter."""
     ris_tag = [
         "TY  -",
         "ID  -",

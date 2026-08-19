@@ -35,7 +35,6 @@ def test_stats_cfg_create(
 
 def test_stats_cfg_can_delete(stats_cfg_martigny):
     """Test statistics configuration can delete."""
-
     assert stats_cfg_martigny.get_links_to_me("stats_cfg1") == {}
 
     can, reasons = stats_cfg_martigny.can_delete

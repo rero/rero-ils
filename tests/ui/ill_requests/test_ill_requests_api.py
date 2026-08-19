@@ -32,6 +32,16 @@ def test_ill_request_properties(
 
     assert ill_request_martigny.get_library().pid == lib_martigny.pid
 
+    # test with a deleted pickup location: properties relying on it should
+    # not raise an exception ; `organisation_pid` should fallback on the
+    # patron organisation.
+    pickup_location = ill_request_martigny["pickup_location"]
+    ill_request_martigny["pickup_location"] = {"$ref": "https://bib.rero.ch/api/locations/dummy_pid"}
+    assert ill_request_martigny.get_pickup_location() is None
+    assert ill_request_martigny.organisation_pid == org_martigny_data["pid"]
+    assert ill_request_martigny.get_library() is None
+    ill_request_martigny["pickup_location"] = pickup_location
+
 
 def test_ill_request_get_request(ill_request_martigny, ill_request_sion, patron_martigny):
     """Test ill request get_request functions."""

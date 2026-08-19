@@ -110,7 +110,6 @@ def test_patron_transaction_events_amount(patron_transaction_event_schema, patro
 
 def test_patron_transaction_steps(patron_transaction_event_schema, patron_transaction_overdue_event_saxon_data):
     """Test amount for patron transaction event jsonschemas."""
-
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
         data["steps"] = []

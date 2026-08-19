@@ -4,12 +4,10 @@
 
 """Test library calendar changes effects on related loans."""
 
-import time
-
 from invenio_accounts.testutils import login_user_via_session
 from invenio_cache import current_cache
 
-from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.api import Loan, LoansSearch
 from tests.utils import postdata
 
 
@@ -44,6 +42,7 @@ def test_library_calendar_changes(
     assert res.status_code == 200
     loan_pid = res.json["action_applied"]["checkout"]["pid"]
     loan = Loan.get_record_by_pid(loan_pid)
+    LoansSearch.flush_and_refresh()
 
     # TEST#1 :: Changes on an untracked field.
     #   Related loan shouldn't be updated
@@ -63,7 +62,6 @@ def test_library_calendar_changes(
     library["exception_dates"].append({"is_open": False, "title": "exception date", "start_date": loan.end_date[:10]})
     library = library.update(library, dbcommit=True, reindex=False)
 
-    time.sleep(5)  # TODO :: find a better way to detect task is finished.
     loan = Loan.get_record_by_pid(loan_pid)
     assert loan.end_date != initial_enddate
 

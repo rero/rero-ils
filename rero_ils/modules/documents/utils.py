@@ -104,8 +104,8 @@ def title_format_text_alternate_graphic(titles, responsabilities=None):
             responsibilities_text[language] = responsibility_text
 
     output = []
-    for language in altgr_titles:
-        altgr_text = ". ".join(altgr_titles[language])
+    for language, altgr_values in altgr_titles.items():
+        altgr_text = ". ".join(altgr_values)
         if language in parallel_titles:
             parallel_title_text = " = ".join(parallel_titles[language])
             altgr_text += " = " + str(parallel_title_text)

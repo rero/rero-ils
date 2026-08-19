@@ -91,12 +91,6 @@ data/wiki/_index/
 # error files from documents creation
 data/*_errors.xml
 
-# Cypress
-tests/e2e/cypress/node_modules
-tests/e2e/cypress/cypress/videos
-tests/e2e/cypress/cypress/screenshots
-tests/e2e/cypress/cypress/integration/test
-
 # tests
 tests/data/documents_items_lofi_items.json
 

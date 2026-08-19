@@ -461,11 +461,13 @@ def mef_record_with_idref_gnd_rero_data():
             "authorized_access_point": "Congrès ouvrier français",
             "type": "bf:Organisation",
             "biographical_information": [
-                "L'ordre des formes exclues suit l'ordre chronologique des "
-                "publications et correspond à l'évolution historique "
-                "(Cf. la notice des congrès particuliers) On a gardé "
-                "volontairement la forme 'Congrès ouvrier français' "
-                "pour toute la série"
+                (
+                    "L'ordre des formes exclues suit l'ordre chronologique des "
+                    "publications et correspond à l'évolution historique "
+                    "(Cf. la notice des congrès particuliers) On a gardé "
+                    "volontairement la forme 'Congrès ouvrier français' "
+                    "pour toute la série"
+                )
             ],
             "conference": False,
             "country_associated": "fr",

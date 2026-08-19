@@ -28,16 +28,14 @@ def test_item_holding_document_availability(
     patron2_martigny,
     loc_public_saxon,
     circulation_policies,
-    ebook_1_data,
-    item_lib_martigny_data,
 ):
     """Test item, holding and document availability."""
-    assert item_availablity_status(client, item_lib_martigny.pid, librarian_martigny.user)
+    assert item_availability_status(client, item_lib_martigny.pid)
     assert item_lib_martigny.is_available()
     assert holding_lib_martigny.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
     assert Document.is_available(document.pid, view_code="global")
-    assert document_availability_status(client, document.pid, librarian_martigny.user)
+    assert document_availability_status(client, document.pid)
 
     # login as patron
     with mock.patch("rero_ils.modules.patrons.api.current_patrons", [patron_martigny]):
@@ -62,12 +60,12 @@ def test_item_holding_document_availability(
     actions = data.get("action_applied")
     loan_pid = actions[LoanAction.REQUEST].get("pid")
     assert not item_lib_martigny.is_available()
-    assert not item_availablity_status(client, item_lib_martigny.pid, librarian_martigny.user)
+    assert not item_availability_status(client, item_lib_martigny.pid)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
     assert Document.is_available(document.pid, "global")
-    assert document_availability_status(client, document.pid, librarian_martigny.user)
+    assert document_availability_status(client, document.pid)
 
     # validate request
     res, _ = postdata(
@@ -81,14 +79,12 @@ def test_item_holding_document_availability(
         },
     )
     assert res.status_code == 200
-    assert not item_lib_martigny.is_available()
-    assert not item_availablity_status(client, item_lib_martigny.pid, librarian_martigny.user)
-    assert not item_lib_martigny.is_available()
+    assert not item_availability_status(client, item_lib_martigny.pid)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
     assert Document.is_available(document.pid, "global")
-    assert document_availability_status(client, document.pid, librarian_martigny.user)
+    assert document_availability_status(client, document.pid)
     login_user_via_session(client, librarian_saxon.user)
     # receive
     res, _ = postdata(
@@ -102,15 +98,14 @@ def test_item_holding_document_availability(
         },
     )
     assert res.status_code == 200
-    assert not item_lib_martigny.is_available()
-    assert not item_availablity_status(client, item_lib_martigny.pid, librarian_saxon.user)
+    assert not item_availability_status(client, item_lib_martigny.pid)
     item = Item.get_record_by_pid(item_lib_martigny.pid)
     assert not item.is_available()
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
     assert Document.is_available(document.pid, "global")
-    assert document_availability_status(client, document.pid, librarian_martigny.user)
+    assert document_availability_status(client, document.pid)
     # checkout
     res, _ = postdata(
         client,
@@ -126,12 +121,12 @@ def test_item_holding_document_availability(
 
     item = Item.get_record_by_pid(item_lib_martigny.pid)
     assert not item.is_available()
-    assert not item_availablity_status(client, item.pid, librarian_martigny.user)
+    assert not item_availability_status(client, item.pid)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
     assert Document.is_available(document.pid, "global")
-    assert document_availability_status(client, document.pid, librarian_martigny.user)
+    assert document_availability_status(client, document.pid)
 
     # masked item isn't.is_available()
     item["_masked"] = True
@@ -153,13 +148,7 @@ def test_item_holding_document_availability(
     data = get_json(res)
     assert not data.get("can_request")
 
-    end_date = item.get_item_end_date(time_format=None, language="en")
-
-    """
-    request second item with another patron and test document and holding
-    availability
-    """
-
+    # request second item with another patron and test document and holding availability
     # login as patron
     with mock.patch("rero_ils.modules.patrons.api.current_patrons", [patron_martigny]):
         login_user_via_session(client, patron2_martigny.user)
@@ -179,15 +168,15 @@ def test_item_holding_document_availability(
     )
     assert res.status_code == 200
     assert not item2_lib_martigny.is_available()
-    assert not item_availablity_status(client, item2_lib_martigny.pid, librarian_martigny.user)
+    assert not item_availability_status(client, item2_lib_martigny.pid)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert not holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == "standard"
     assert not Document.is_available(document.pid, "global")
-    assert not document_availability_status(client, document.pid, librarian_martigny.user)
+    assert not document_availability_status(client, document.pid)
 
 
-def item_availablity_status(client, pid, user):
+def item_availability_status(client, pid):
     """Returns item availability."""
     res = client.get(
         url_for(
@@ -200,7 +189,7 @@ def item_availablity_status(client, pid, user):
     return data.get("available")
 
 
-def document_availability_status(client, pid, user):
+def document_availability_status(client, pid):
     """Returns document availability."""
     res = client.get(url_for("api_documents.document_availability", pid=pid, view_code="global"))
     assert res.status_code == 200

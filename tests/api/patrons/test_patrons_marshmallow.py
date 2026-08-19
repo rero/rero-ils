@@ -17,7 +17,6 @@ from tests.utils import postdata
 
 def test_patrons_marshmallow_loaders(client, librarian_martigny, system_librarian_martigny_data_tmp, json_header):
     """Test marshmallow schema/restrictions for Patron resources."""
-
     # TEST#1 :: Use console to manage patron/role
     #   Using 'console' commands, no matter connected user, all operations are
     #   allowed on a Patron, even changes any roles.

@@ -717,12 +717,12 @@ def marc21_to_classification(self, key, value):
         subdivision_subfield_codes_per_tag_980_2 = {"brp": {"d"}, "musg": {"d", "e"}}
         classification_type = None
         subdivision_subfield_codes = None
-        for key in classification_type_per_tag_980_2:
-            regexp = re.compile(rf"{key}", re.IGNORECASE)
+        for type_code, classification in classification_type_per_tag_980_2.items():
+            regexp = re.compile(rf"{type_code}", re.IGNORECASE)
             if regexp.search(subfield_2):
-                classification_type = classification_type_per_tag_980_2[key]
-                if key in subdivision_subfield_codes_per_tag_980_2:
-                    subdivision_subfield_codes = subdivision_subfield_codes_per_tag_980_2[key]
+                classification_type = classification
+                if type_code in subdivision_subfield_codes_per_tag_980_2:
+                    subdivision_subfield_codes = subdivision_subfield_codes_per_tag_980_2[type_code]
                 break
         return classification_type, subdivision_subfield_codes
 

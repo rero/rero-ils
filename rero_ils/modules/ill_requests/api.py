@@ -135,7 +135,14 @@ class ILLRequest(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for ill_request."""
-        return self.get_pickup_location().organisation_pid
+        if location := self.get_pickup_location():
+            return location.organisation_pid
+        # fallback on the patron organisation if the pickup location has been
+        # deleted (should not happen, but the location could have been
+        # removed without checking related ill_requests).
+        if patron := extracted_data_from_ref(self.get("patron"), data="record"):
+            return patron.organisation_pid
+        return None
 
     @property
     def public_note(self):
@@ -154,7 +161,9 @@ class ILLRequest(IlsRecord):
 
     def get_library(self):
         """Get the library linked to the ill_request."""
-        return self.get_pickup_location().get_library()
+        if location := self.get_pickup_location():
+            return location.get_library()
+        return None
 
 
 class ILLRequestsIndexer(IlsRecordsIndexer):

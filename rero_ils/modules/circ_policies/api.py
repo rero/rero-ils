@@ -402,7 +402,7 @@ class CircPolicy(IlsRecord):
         elif isinstance(record, Holding):
             record_circulation_category_pid = record.circulation_category_pid
         else:
-            raise Exception(
+            raise TypeError(
                 f"This resource cannot be \
                 requested : {record.__class__.__name__}"
             )

@@ -13,7 +13,7 @@
 <header class="row">
   <div class="col-10">
     <h1 class="mb-0">
-      <i class="fa {{ record['type'] | entity_icon }}" title="{{ _(record['type']) }}" aria-hidden="true"></i>
+      <i class="{{ record['type'] | entity_icon }}" title="{{ _(record['type']) }}" aria-hidden="true"></i>
       {{ record.authorized_access_point }}
     </h1>
     <small>{{ _('LOCAL ID') }}: {{ pid }}</small>

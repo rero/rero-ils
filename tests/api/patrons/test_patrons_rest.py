@@ -68,13 +68,11 @@ def test_filtered_patrons_get(client, librarian_martigny, patron_martigny, libra
 def test_patron_has_valid_subscriptions(
     patron_type_grown_sion,
     patron_sion,
-    patron_sion_data,
     patron_type_adults_martigny,
     patron2_martigny,
     patron_type_youngsters_sion,
 ):
     """Test patron subscriptions."""
-    patron_sion = patron_sion
     patron_martigny = patron2_martigny
 
     # 'patron_type_adults_martigny' doesn't require any subscription
@@ -438,7 +436,6 @@ def test_patron_messages(client, patron_martigny):
 
 def test_patron_info(app, client, patron_martigny, librarian_martigny):
     """Test patron info."""
-
     # All scopes
     scopes = [
         "fullname",

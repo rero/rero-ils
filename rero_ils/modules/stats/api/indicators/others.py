@@ -39,7 +39,7 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         cfg = {
             "owning_library": A(
                 "terms",
-                field="holdings.organisation.library_pid",
+                field="library_pid",
                 size=self.cfg.aggs_size,
                 include=self.cfg.lib_pids,
             ),
@@ -54,6 +54,12 @@ class NumberOfDocumentsCfg(IndicatorCfg):
                 field="_created",
                 calendar_interval="year",
                 format="yyyy",
+            ),
+            "publication_year": A(
+                "terms",
+                field="sort_date_old",
+                order={"_key": "asc"},
+                size=self.cfg.aggs_size,
             ),
             "imported": A(
                 "filters",
@@ -75,6 +81,7 @@ class NumberOfDocumentsCfg(IndicatorCfg):
             "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} ({bucket.key})",
             "created_month": lambda: bucket.key_as_string,
             "created_year": lambda: bucket.key_as_string,
+            "publication_year": lambda: str(bucket.key),
             "imported": lambda: bucket,
         }
         return cfg[distribution]()
@@ -176,6 +183,7 @@ class NumberOfItemsCfg(IndicatorCfg):
                 include=self.cfg.loc_pids,
             ),
             "type": A("terms", field="type", size=self.cfg.aggs_size),
+            "item_type": A("terms", field="item_type.pid", size=self.cfg.aggs_size),
             "document_type": A(
                 "terms",
                 field="document.document_type.main_type",
@@ -209,6 +217,7 @@ class NumberOfItemsCfg(IndicatorCfg):
             "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} ({bucket.key})",
             "owning_location": lambda: f"{self.cfg.locations.get(bucket.key, self.label_na_msg)} ({bucket.key})",
             "type": lambda: bucket.key,
+            "item_type": lambda: f"{self.cfg.item_types.get(bucket.key, self.label_na_msg)} ({bucket.key})",
             "document_type": lambda: bucket.key,
             "document_subtype": lambda: bucket.key,
             "created_month": lambda: bucket.key_as_string,

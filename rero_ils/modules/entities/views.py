@@ -52,14 +52,14 @@ def entity_icon(type):
     :returns: string, The class of the selected icon.
     """
     icons = {
-        EntityType.ORGANISATION: "fa-building-o",
-        EntityType.PERSON: "fa-user-o",
-        EntityType.PLACE: "fa-map-marker",
-        EntityType.TEMPORAL: "fa-calendar",
-        EntityType.TOPIC: "fa-tag",
-        EntityType.WORK: "fa-book",
+        EntityType.ORGANISATION: "fa-regular fa-building",
+        EntityType.PERSON: "fa-regular fa-user",
+        EntityType.PLACE: "fa-solid fa-location-dot",
+        EntityType.TEMPORAL: "fa-solid fa-calendar-day",
+        EntityType.TOPIC: "fa-solid fa-tag",
+        EntityType.WORK: "fa-solid fa-book",
     }
-    return icons.get(type, "fa-question-circle-o")
+    return icons.get(type, "fa-solid fa-circle-question")
 
 
 @blueprint.app_template_filter()

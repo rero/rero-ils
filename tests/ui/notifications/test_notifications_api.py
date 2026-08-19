@@ -36,6 +36,7 @@ def test_notification_organisation_pid(app, org_martigny, notification_availabil
 
 def test_notification_mail(notification_late_martigny, lib_martigny, mailbox):
     """Test notification creation.
+
     Patron communication channel is mail.
     """
     mailbox.clear()
@@ -47,6 +48,7 @@ def test_notification_mail(notification_late_martigny, lib_martigny, mailbox):
 
 def test_notification_email(notification_late_sion, patron_sion, mailbox):
     """Test overdue notification.
+
     Patron communication channel is email.
     """
     mailbox.clear()
@@ -56,6 +58,7 @@ def test_notification_email(notification_late_sion, patron_sion, mailbox):
 
 def test_notification_email_availability(notification_availability_sion, lib_sion, patron_sion, mailbox):
     """Test availability notification.
+
     Patron communication channel is email.
     """
     # test availability context fields
@@ -92,6 +95,7 @@ def test_notification_email_aggregated(
     mailbox,
 ):
     """Test availability notification.
+
     Patron communication channel is email.
     """
     mailbox.clear()
@@ -113,7 +117,6 @@ def test_notification_email_aggregated(
 
 def test_notification_properties(client, holding_lib_martigny_w_patterns):
     """Test notification properties."""
-
     record = CirculationNotification({})
     record.__class__ = CirculationNotification
     assert record.get_recipients("cc") == []

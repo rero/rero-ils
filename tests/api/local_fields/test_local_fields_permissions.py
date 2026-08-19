@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: Fondation RERO+
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests local fields permissions."""
+
 from unittest import mock
 
 from flask import current_app
@@ -21,7 +23,6 @@ def test_local_fields_permissions(
     local_field_sion,
 ):
     """Test item permissions class."""
-
     # Anonymous user & Patron user
     #  - search/read any local fields are allowed.
     #  - create/update/delete operations are disallowed.

@@ -84,7 +84,9 @@
       "minimum": 0,
       "widget": {
         "formlyConfig": {
+          "type": "number",
           "props": {
+            "step": 1,
             "addonRight": [
               "day(s)"
             ],
@@ -107,10 +109,12 @@
       "minimum": 1,
       "widget": {
         "formlyConfig": {
+          "type": "number",
           "expressions": {
             "hide": "model && !model.allow_requests"
           },
           "props": {
+            "step": 1,
             "addonRight": [
               "day(s)"
             ]
@@ -173,7 +177,9 @@
             "minimum": 1,
             "widget": {
               "formlyConfig": {
+                "type": "number",
                 "props": {
+                  "step": 1,
                   "addonRight": [
                     "day(s)"
                   ]
@@ -280,8 +286,10 @@
                 "minimum": 1,
                 "widget": {
                   "formlyConfig": {
+                    "type": "number",
                     "props": {
-                      "itemCssClass": "ui:col-span-12 ui:md:col-span-2"
+                      "itemCssClass": "ui:col-span-12 ui:md:col-span-2",
+                      "step": 1
                     }
                   }
                 }
@@ -292,8 +300,10 @@
                 "minimum": 1,
                 "widget": {
                   "formlyConfig": {
+                    "type": "number",
                     "props": {
-                      "itemCssClass": "ui:col-span-12 ui:md:col-span-3"
+                      "itemCssClass": "ui:col-span-12 ui:md:col-span-3",
+                      "step": 1
                     }
                   }
                 }
@@ -356,8 +366,12 @@
       "default": 0,
       "widget": {
         "formlyConfig": {
+          "type": "number",
           "expressions": {
             "hide": "!model.checkout_duration && model.checkout_duration !== 0"
+          },
+          "props": {
+            "step": 1
           }
         }
       }
@@ -368,11 +382,13 @@
       "minimum": 1,
       "widget": {
         "formlyConfig": {
+          "type": "number",
           "expressions": {
             "props.required": "model?.number_renewals > 0",
             "hide": "!model.number_renewals"
           },
           "props": {
+            "step": 1,
             "addonRight": [
               "day(s)"
             ]

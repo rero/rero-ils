@@ -11,7 +11,6 @@ from tests.utils import get_mapping
 
 def test_notification_search_mapping(dummy_notification, loan_validated_martigny):
     """Test notification search index mapping."""
-
     search = NotificationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

@@ -52,7 +52,7 @@ def sync_entities(from_last_date=True, verbose=0, dry_run=False, in_memory=True)
 
 
 @shared_task(ignore_result=True)
-def replace_identified_by(fields=None, verbose=0, dry_run=False):
+def replace_identified_by(fields=None, verbose=False, dry_run=False):
     """Replace identifiedBy with $ref.
 
     :param fields: Entity type to replace (concepts, subjects, genreForm)
@@ -70,6 +70,8 @@ def replace_identified_by(fields=None, verbose=0, dry_run=False):
                 "changed": changed,
                 "not_found": not_found,
                 "rero_only": rero_only,
+                "type_not_allowed": sum(len(v) for v in replace.type_not_allowed.values()),
+                "type_mismatch": sum(len(v) for v in replace.type_mismatch.values()),
             }
         except Exception as err:
             result[field] = {"error": err}

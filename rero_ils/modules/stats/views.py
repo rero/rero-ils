@@ -11,7 +11,8 @@ from io import StringIO
 import arrow
 import jinja2
 from elasticsearch_dsl import Q
-from flask import Blueprint, abort, make_response, render_template, request
+from flask import Blueprint, abort, current_app, make_response, render_template, request
+from rero_invenio_base.modules.export import xlsx_converter
 
 from .api.api import Stat, StatsSearch
 from .api.pricing import StatsForPricing
@@ -80,13 +81,12 @@ def stats_librarian():
     return render_template("rero_ils/stats_list.html", records=hits["hits"]["hits"], type="librarian")
 
 
-@blueprint.route("/librarian/<record_pid>/csv")
-@check_logged_as_librarian
-def stats_librarian_queries(record_pid):
-    """Download specific statistic query into csv file.
+def _stats_librarian_queries(record_pid, file_format):
+    """Download a specific librarian statistics query.
 
     :param record_pid: statistics pid
-    :return: response object, the csv file
+    :param file_format: Export file format
+    :return: response object
     """
     queries = ["loans_of_transaction_library_by_item_location"]
     query_id = request.args.get("query_id", None)
@@ -102,7 +102,7 @@ def stats_librarian_queries(record_pid):
 
     _from = record["date_range"]["from"].split("T")[0]
     _to = record["date_range"]["to"].split("T")[0]
-    filename = f"{query_id}_{_from}_{_to}.csv"
+    filename = f"{query_id}_{_from}_{_to}.{file_format}"
 
     data = StringIO()
     w = csv.writer(data)
@@ -136,10 +136,37 @@ def stats_librarian_queries(record_pid):
                         )
                     )
 
-    output = make_response(data.getvalue())
+    if file_format == "xlsx":
+        data.seek(0)
+        content = xlsx_converter(
+            "rero_ils/exports/librarian_query.xml",
+            worksheet_name="Librarian query",
+        )(data)
+        output = current_app.response_class(
+            content,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+        output.headers["X-Accel-Buffering"] = "no"
+    else:
+        output = make_response(data.getvalue())
+        output.headers["Content-type"] = "text/csv"
+
     output.headers["Content-Disposition"] = f"attachment; filename={filename}"
-    output.headers["Content-type"] = "text/csv"
     return output
+
+
+@blueprint.route("/librarian/<record_pid>/csv")
+@check_logged_as_librarian
+def stats_librarian_queries(record_pid):
+    """Download a specific librarian statistics query as CSV."""
+    return _stats_librarian_queries(record_pid, "csv")
+
+
+@blueprint.route("/librarian/<record_pid>/xlsx")
+@check_logged_as_librarian
+def stats_librarian_queries_xlsx(record_pid):
+    """Download a specific librarian statistics query as XLSX."""
+    return _stats_librarian_queries(record_pid, "xlsx")
 
 
 # JINJA FILTERS ===============================================================

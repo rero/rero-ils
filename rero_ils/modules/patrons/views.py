@@ -108,6 +108,8 @@ def logged_user():
         "settings": {
             "maxFilesCount": config.get("RERO_ILS_FILES_UI_MAX", 600),
             "language": current_i18n.locale.language,
+            "availableLanguages": [{"code": "en", "name": _("English")}]
+            + [{"code": code, "name": name} for code, name in config.get("I18N_LANGUAGES", [])],
             "globalView": config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"),
             "baseUrl": get_base_url(),
             "agentLabelOrder": config.get("RERO_ILS_AGENTS_LABEL_ORDER", {}),
@@ -125,7 +127,8 @@ def logged_user():
 
     user = User.get_record(current_user.id).dumps_metadata()
     user["id"] = current_user.id
-    data = {**data, **user, "patrons": []}
+    data["user"] = user
+    data["patrons"] = []
     for patron in Patron.get_patrons_by_user(current_user):
         patron.pop("$schema", None)
         patron.pop("user_id", None)

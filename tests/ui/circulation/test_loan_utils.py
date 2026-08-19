@@ -39,7 +39,7 @@ def test_loan_utils(
 
     # test that loan without an item may not move to the pending state
     del loan["item_pid"]
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017 - the circulation callbacks raise various types
         assert can_be_requested(loan)
 
     # test a pending loan will be attached at the right organisation and

@@ -61,10 +61,6 @@ def collect_stats_reports(frequency="month"):
             values = stat_report.collect()
             report = stat_report.create_stat(values)
             to_return.append(report.pid)
-        except Exception as error:
-            logger.error(
-                f"Unable to generate report from config({pid}) :: {error}",
-                exc_info=True,
-                stack_info=True,
-            )
+        except Exception:
+            logger.exception("Unable to generate report from config(%s)", pid, stack_info=True)
     return to_return

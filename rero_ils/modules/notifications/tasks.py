@@ -56,12 +56,8 @@ def create_notifications(types=None, tstamp=None, verbose=True):
                 logger.debug(f"* Loan#{loan.pid} is considered as 'due_soon'")
                 notifications = loan.create_notification(_type=NotificationType.DUE_SOON)
                 notification_counter[NotificationType.DUE_SOON] += len(notifications)
-            except Exception as error:
-                logger.error(
-                    f"Unable to create DUE_SOON notification :: {error}",
-                    exc_info=True,
-                    stack_info=True,
-                )
+            except Exception:
+                logger.exception("Unable to create DUE_SOON notification", stack_info=True)
         process_notifications(NotificationType.DUE_SOON)
     # OVERDUE NOTIFICATIONS
     if NotificationType.OVERDUE in types:
@@ -91,12 +87,8 @@ def create_notifications(types=None, tstamp=None, verbose=True):
                     else:
                         msg = f"  --> Overdue notification#{idx + 1} skipped :: already sent"
                         logger.debug(msg)
-                except Exception as error:
-                    logger.error(
-                        f"Unable to create OVERDUE notification :: {error}",
-                        exc_info=True,
-                        stack_info=True,
-                    )
+                except Exception:
+                    logger.exception("Unable to create OVERDUE notification", stack_info=True)
         process_notifications(NotificationType.OVERDUE)
     notification_sum = sum(notification_counter.values())
 

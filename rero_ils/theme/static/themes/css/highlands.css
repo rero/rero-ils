@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: Fondation RERO+
-// SPDX-License-Identifier: AGPL-3.0-or-later
+/* SPDX-FileCopyrightText: Fondation RERO+ */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
 
 @layer bootstrap {
   body#view-highlands nav.rero-ils-header {
@@ -11,7 +11,7 @@
   }
   
   div#highlands-logo {
-    content: url('https://resources.rero.ch/ils/test/images/logo-highlands.svg');
+    content: url('/static/themes/images/logo-highlands.svg');
     max-height: 44px;
   }
   

@@ -18,7 +18,7 @@ class AcqOrderLineValidationExtension(RecordExtension):
     def _check_balance(record):
         """Check if parent account balance has enough money."""
         # compute the total amount of the order line
-        record["total_amount"] = record["amount"] * record["quantity"] - record.get("discount_amount", 0)
+        record["total_amount"] = round(record["amount"] * record["quantity"] - record.get("discount_amount", 0), 2)
 
         original_record = record.__class__.get_record_by_pid(record.pid)
 

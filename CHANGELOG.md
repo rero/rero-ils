@@ -2,6 +2,159 @@
 
 <!-- version list -->
 
+## v1.29.0 (2026-07-14)
+
+### Bug Fixes
+
+- Error message when saving user
+  ([`5bba404`](https://github.com/rero/rero-ils/commit/5bba404d39e3499a530989010de8ac1fa6115ed7))
+
+- Normalize thumbnail size in courses
+  ([`b91c89e`](https://github.com/rero/rero-ils/commit/b91c89e559875bbb7f39b65cd698fdedfd009e50))
+
+- Remove unused static_folder from blueprints
+  ([`9f222ef`](https://github.com/rero/rero-ils/commit/9f222efbca26184844a37a45f4204cfbb20344ba))
+
+- **acquisition**: Allow cancelling the last non-received order line
+  ([`05886c1`](https://github.com/rero/rero-ils/commit/05886c19dbb7962846d015505e06cf4cd45e16be))
+
+- **acquisition**: Prevent stale browser caching of order data
+  ([`c35a863`](https://github.com/rero/rero-ils/commit/c35a86321feba04c950023b929697b3d28fa40f1))
+
+- **cli**: Make index date filters UTC-aware
+  ([`b9d2d2a`](https://github.com/rero/rero-ils/commit/b9d2d2a693e0d137f13d1b90609c7ab8953872f8))
+
+- **docker**: Raise Elasticsearch mem_limit to avoid OOM kills
+  ([`7f00f7f`](https://github.com/rero/rero-ils/commit/7f00f7f275d2bfa001c2a10272b22419f9aafea4))
+
+- **documents**: Allow delete for rolled-over orders
+  ([`baa6df1`](https://github.com/rero/rero-ils/commit/baa6df1eefd92c621aa54df3b88084d7bd33b06c))
+
+- **ext**: Return 409 on concurrent PUT instead of 500
+  ([`f74f45c`](https://github.com/rero/rero-ils/commit/f74f45cf830f763601924041d568d87ea65deb6d))
+
+- **files**: Read and write text as UTF-8 regardless of host locale
+  ([`958113e`](https://github.com/rero/rero-ils/commit/958113ebc9c905d47bb610581d2a5ce74868651a))
+
+- **homepage**: Allow class attributes in the HTML blocks
+  ([`5723dbd`](https://github.com/rero/rero-ils/commit/5723dbdd9d17b75dc0567ae4a191117b4bfea2c0))
+
+- **homepage**: Do not display "None" for orgs without a placeholder
+  ([`bfb21ff`](https://github.com/rero/rero-ils/commit/bfb21ffa29511c4288cb057d0cd2992b14d811f2))
+
+- **homepage**: Drive the frontpage cascade by organisation view
+  ([`eb13def`](https://github.com/rero/rero-ils/commit/eb13def8f6571fbd0d3e5a674f12c9b32bf45f09))
+
+- **homepage**: Remove links to deleted templates
+  ([`27f8347`](https://github.com/rero/rero-ils/commit/27f8347eccbd4bf0d6920f3e8b117ca3c4ca98c3))
+
+- **homepage-editor**: Add homepage mapping
+  ([`1627da6`](https://github.com/rero/rero-ils/commit/1627da6ff88a4bbfa08478f0de892cd7d450df67))
+
+- **local_fields**: Permission is dependent of the linked resource
+  ([`388aae0`](https://github.com/rero/rero-ils/commit/388aae0c6b725aceb79b65bde7d1692ef7cb3328))
+
+- **login**: Toggle password visibility
+  ([`0d795a8`](https://github.com/rero/rero-ils/commit/0d795a83de66cfdcaac01ccf505db4a224b6cb58))
+
+- **organisation**: Fix jsonschema and incorrect translation
+  ([`3c7d1aa`](https://github.com/rero/rero-ils/commit/3c7d1aa1b27fcfe7964e63f4901584d44352e300))
+
+- **patrons**: Avoid duplicate operation log on update
+  ([`e491fbc`](https://github.com/rero/rero-ils/commit/e491fbca88091971ce342336b79dd8db925dfb5a))
+
+- **stats**: Aggregate owning_location by PID with name fallback
+  ([`55c4720`](https://github.com/rero/rero-ils/commit/55c47201f7d53d0cde19787d46783046dee029dc))
+
+- **stats**: Document owning_lib distribution also counts files
+  ([`3acf987`](https://github.com/rero/rero-ils/commit/3acf9876d88d3003a5acdc1cc05b2a31c1fb6409))
+
+- **theme**: Repair broken CSS files and demo assets
+  ([`9fab098`](https://github.com/rero/rero-ils/commit/9fab0989699113ec93d651da43323aec4361b3a6))
+
+### Build System
+
+- Bump rero-ils-ui to v21.1.0
+  ([`8c913cd`](https://github.com/rero/rero-ils/commit/8c913cdc2e694db1cc2f23a8cbca536d23c4f6d6))
+
+- Update dependencies
+  ([`46e5ff3`](https://github.com/rero/rero-ils/commit/46e5ff37ca6be09f4f3ad7ef51a82500c926f3e3))
+
+- Update dependencies
+  ([`9666faf`](https://github.com/rero/rero-ils/commit/9666fafcbe5269a54fcd64ac87e5902a13a6f90b))
+
+### Chores
+
+- Translate v1.29.0
+  ([`0a3eb48`](https://github.com/rero/rero-ils/commit/0a3eb489dece339c23d3c5a930b82e91bb8e3443))
+
+- Update dependencies
+  ([`cfb4c4f`](https://github.com/rero/rero-ils/commit/cfb4c4fe6f0ccc02b6d5f534c16b65a146db2a2a))
+
+- Update dependencies
+  ([`f18bd05`](https://github.com/rero/rero-ils/commit/f18bd0570738bca21b68d223ecdfc05ef4074cd9))
+
+- Update digital services URL for Bulle homepage
+  ([`9837188`](https://github.com/rero/rero-ils/commit/9837188b1b241ba922621908bf0546f75fc34857))
+
+- Update Python to 3.14 and invenio deps
+  ([`994996e`](https://github.com/rero/rero-ils/commit/994996ed05d486e863967c662e16bd9b536751b0))
+
+- **filter**: Fix the translation when it's a list
+  ([`c586a9b`](https://github.com/rero/rero-ils/commit/c586a9b619a1ffff3eaac7234d45c95c8bb05244))
+
+### Code Style
+
+- Replace verbose license headers with SPDX tags
+  ([`b186c34`](https://github.com/rero/rero-ils/commit/b186c34916302331dccfa50989bc6a4e24a43169))
+
+### Continuous Integration
+
+- Add automatic release workflow
+  ([`db24d20`](https://github.com/rero/rero-ils/commit/db24d20a65ee9f6e509427bb6629e989ac394fa3))
+
+### Documentation
+
+- Update CLAUDE.md with behavioural guidelines
+  ([`b0ee2a3`](https://github.com/rero/rero-ils/commit/b0ee2a34e6f67c4a913d8a8b470131d57d76a531))
+
+### Features
+
+- **homepage-editor**: Editable homepage
+  ([`57039d5`](https://github.com/rero/rero-ils/commit/57039d5ba039069c6c9afc6dc8b39ee25ee37ead))
+
+- **organisations**: Make patron_cleanup optional in the editor
+  ([`9f03a4c`](https://github.com/rero/rero-ils/commit/9f03a4cce9186060b2b81894ab21f11ced178781))
+
+- **patrons**: Add task for automatic deletion of inactive patrons
+  ([`2711e02`](https://github.com/rero/rero-ils/commit/2711e02898e07a93faa1689404fb5d4367a39bc6))
+
+- **patrons**: Wire operation logs and add ILL requests to deletion checks
+  ([`4ee1781`](https://github.com/rero/rero-ils/commit/4ee17817626de96fc4d8893a44cf67b6d24ae9c3))
+
+- **sru**: Add result sets, record schema negotiation and CQL 1.2
+  ([`23a4356`](https://github.com/rero/rero-ils/commit/23a43568173f5af0fac8d25f6bc22ab826840d2f))
+
+- **stats**: Add item_type distribution for number of items
+  ([`4c6c941`](https://github.com/rero/rero-ils/commit/4c6c9418f42284acdf9af920ca34a37dba7e1056))
+
+### Refactoring
+
+- **modules**: Remove Python type annotations
+  ([`927447a`](https://github.com/rero/rero-ils/commit/927447a90e87dc6cadbf371c750b7e6bd54bd13d))
+
+- **search**: Rename all ES identifiers to search equivalents
+  ([`905157d`](https://github.com/rero/rero-ils/commit/905157d8d19334ffad6b8a46c322ecd1f72205d5))
+
+- **theme**: Replace node_assets with angular_assets for Angular 21
+  ([`d87f0b6`](https://github.com/rero/rero-ils/commit/d87f0b6569a916492883d3e444fd1b1df8b9fcb1))
+
+### Testing
+
+- Fix flaky operation log test
+  ([`54b3c47`](https://github.com/rero/rero-ils/commit/54b3c47989ae3541122b4f45efc755605fbc4076))
+
+
 ## [v1.28.0](https://github.com/rero/rero-ils/tree/v1.28.0) (2026-04-23)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.27.1...v1.28.0)

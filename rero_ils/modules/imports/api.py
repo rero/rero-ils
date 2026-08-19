@@ -33,8 +33,6 @@ class Import:
     url_api = ""
     search = {}
     to_json_processor = None
-    status_code = 444
-    status_msg = ""
     max_results = 50
     timeout_connect = 5
     timeout_request = 60
@@ -46,7 +44,7 @@ class Import:
         assert self.url_api
         assert self.search
         assert self.search.get("anywhere")
-        assert self.to_json_processor
+        assert callable(self.to_json_processor)
         self.init_results()
         self.cache = current_app.extensions["rero_ils_import_cache"]
         self.cache_expire = current_app.config.get("RERO_ILS_IMPORT_CACHE_EXPIRE")
@@ -64,6 +62,9 @@ class Import:
             "permissions": {},
         }
         self.data = []
+        self.aggregations_creation = {}
+        self.status_code = 200
+        self.status_msg = ""
 
     @property
     def response(self):
@@ -78,72 +79,73 @@ class Import:
         """
         return json_data.get("001")
 
-    def get_link(self, id):
+    def get_link(self, id_):
         """Get direct link to record.
 
-        :param id: id to use for the link
-        :return: url for id
+        :param id_: id to use for the link
+        :return: url for id_
         """
         return self.url_api.format(
             url=self.url,
             max_results=1,
-            what=id,
+            what=id_,
             relation="all",
             where=self.search.get("recordid"),
         )
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
         Has to be addaped in each sub class!
-        :param id: id to use for the link
-        :return: url for id
+        :param id_: id to use for the link
+        :return: url for id_
         """
         return
 
-    def calculate_aggregations_add(self, type, data, id):
+    def calculate_aggregations_add(self, agg_type, data, id_):
         """Add data to aggregations_creation.
 
-        :param type: type of the aggregation
+        :param agg_type: type of the aggregation
         :param data: data for the aggregation
-        :param id: id for the type
+        :param id_: id for the type
         """
         if data:
-            ids_indexes = self.aggregations_creation[type].get(data, {"ids": set()})
-            ids_indexes["ids"].add(id)
-            self.aggregations_creation[type][data] = ids_indexes
+            ids_indexes = self.aggregations_creation[agg_type].get(data, {"ids": set()})
+            ids_indexes["ids"].add(id_)
+            self.aggregations_creation[agg_type][data] = ids_indexes
 
-    def calculate_aggregations_add_sub(self, type, data, sub_type, sub_data, id):
+    def calculate_aggregations_add_sub(self, agg_type, data, sub_type, sub_data, id_):
         """Add data to aggregations_creation.
 
-        :param type: type of the aggregation
+        :param agg_type: type of the aggregation
         :param data: data for the aggregation
         :param sub_type: type of the aggregation
         :param sub_data: data for the aggregation
-        :param id: id for the type
+        :param id_: id for the type
         """
         if data:
-            ids_indexes = self.aggregations_creation[type].get(data, {"ids": set(), "sub_type": sub_type, "sub": {}})
-            ids_indexes["ids"].add(id)
+            ids_indexes = self.aggregations_creation[agg_type].get(
+                data, {"ids": set(), "sub_type": sub_type, "sub": {}}
+            )
+            ids_indexes["ids"].add(id_)
             # check if we have data for subtype
             if sub_data:
-                ids_indexes["sub"].setdefault(sub_data, set()).add(id)
-            self.aggregations_creation[type][data] = ids_indexes
+                ids_indexes["sub"].setdefault(sub_data, set()).add(id_)
+            self.aggregations_creation[agg_type][data] = ids_indexes
 
-    def calculate_aggregations(self, record, id):
+    def calculate_aggregations(self, record, id_):
         """Calculate aggregations.
 
         :param record: record to create aggregation from
-        :param id: id for the record
-        :param indexd: index of the record
+        :param id_: id for the record
         """
         for document_type in record["type"]:
             self.calculate_aggregations_add_sub(
-                type="document_type",
+                agg_type="document_type",
                 data=document_type["main_type"],
                 sub_type="document_subtype",
                 sub_data=document_type.get("subtype"),
-                id=id,
+                id_=id_,
             )
 
         provision_activitys = record.get("provisionActivity", [])
@@ -151,7 +153,7 @@ class Import:
         year_max = 1400
         for provision_activity in provision_activitys:
             if date := provision_activity.get("startDate"):
-                self.calculate_aggregations_add("year", date, id)
+                self.calculate_aggregations_add("year", date, id_)
                 int_date = int(date)
                 year_min = min(int_date, year_min)
                 year_max = max(int_date, year_max)
@@ -163,12 +165,12 @@ class Import:
             elif text := agent.get("entity", {}).get("_text"):
                 name = text
             if name:
-                self.calculate_aggregations_add("author", name, id)
+                self.calculate_aggregations_add("author", name, id_)
 
         languages = record.get("language", [])
         for language in languages:
             lang = language.get("value")
-            self.calculate_aggregations_add("language", lang, id)
+            self.calculate_aggregations_add("language", lang, id_)
 
         return year_min, year_max + 1
 
@@ -249,35 +251,31 @@ class Import:
         """Get ids for aggregation.
 
         :param results: dictionary with the results in hits hits
-        :param aggregation: whitch aggregation ro use to use to get the ids
-        :param key: whitch key in aggregation to use to get the ids
+        :param aggregation: which aggregation to use to get the ids
+        :param key: which key in aggregation to use to get the ids
         :return: list of ids
         """
-        ids = []
-        buckets = results.get("aggregations").get(aggregation, {}).get("buckets", [])
-        bucket = list(filter(lambda bucket: bucket["key"] == str(key), buckets))
-        if bucket:
-            ids = bucket[0]["ids"]
-        return ids
+        buckets = results.get("aggregations", {}).get(aggregation, {}).get("buckets", [])
+        bucket = next((b for b in buckets if b["key"] == str(key)), None)
+        return bucket["ids"] if bucket else []
 
     def get_ids_for_aggregation_sub(self, results, agg, key, sub_agg, sub_key):
-        """Get ids for aggregation.
+        """Get ids for sub-aggregation.
 
         :param results: dictionary with the results in hits hits
-        :param agg: which aggregation to use to use to get the ids
+        :param agg: which aggregation to use to get the ids
         :param key: which key in aggregation to use to get the ids
-        :param sub_agg: which aggregation to use to use to get the ids
-        :param sub_key: which sub_key from key in aggregation to use
-                        to get the ids
+        :param sub_agg: which sub-aggregation to use to get the ids
+        :param sub_key: which key in sub-aggregation to use to get the ids
         :return: list of ids
         """
-        ids = []
-        buckets = results.get("aggregations").get(agg, {}).get("buckets", [])
-        if bucket := list(filter(lambda bucket: bucket["key"] == str(key), buckets)):
-            sub_buckets = bucket[0].get(sub_agg, {}).get("buckets", [])
-            sub_bucket = list(filter(lambda sub_bucket: sub_bucket["key"] == str(sub_key), sub_buckets))
-            ids = sub_bucket[0]["ids"]
-        return ids
+        buckets = results.get("aggregations", {}).get(agg, {}).get("buckets", [])
+        bucket = next((b for b in buckets if b["key"] == str(key)), None)
+        if not bucket:
+            return []
+        sub_buckets = bucket.get(sub_agg, {}).get("buckets", [])
+        sub_bucket = next((b for b in sub_buckets if b["key"] == str(sub_key)), None)
+        return sub_bucket["ids"] if sub_bucket else []
 
     def _create_sru_url(self, what, relation, where, max_results):
         """Create SRU URL.
@@ -404,19 +402,25 @@ class Import:
                     )
             self.results["hits"]["total"]["value"] = len(self.results["hits"]["hits"])
             self.create_aggregations(self.results)
+        except requests.exceptions.Timeout as error:
+            self.status_code = 504
+            self.status_msg = str(error)
         except requests.exceptions.ConnectionError as error:
-            self.status_code = 433
+            self.status_code = 502
             self.status_msg = str(error)
         except requests.exceptions.HTTPError as error:
             current_app.logger.error(f"{type(error)} {error}")
-            self.status_code = error.response.status_code
+            self.status_code = error.response.status_code if error.response is not None else 502
             self.status_msg = str(error)
             current_app.logger.error(f"HTTPError: {traceback.format_exc()}")
+        except requests.exceptions.RequestException as error:
+            self.status_code = 502
+            self.status_msg = str(error)
         except Exception as error:
             self.status_code = 500
             self.status_msg = str(error)
             current_app.logger.error(f"Exception: {traceback.format_exc()}")
-        if self.status_code > 400:
+        if self.status_code >= 400:
             # TODO: enable error logging only for 500
             # if self.status_code == 500:
             current_app.logger.error(
@@ -455,16 +459,16 @@ class BnfImport(Import):
         "date": "bib.date",
     }
 
-    to_json_processor = unimarc.do
+    to_json_processor = staticmethod(unimarc.do)
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -497,7 +501,7 @@ class LoCImport(Import):
         "date": "dc.date",  # NOT DEFINED IN LOC
     }
 
-    to_json_processor = marc21_loc.do
+    to_json_processor = staticmethod(marc21_loc.do)
 
     # For LoC record, let's take the recordID in Tag 010 $a
     def get_id(self, json_data):
@@ -510,14 +514,14 @@ class LoCImport(Import):
             return json_data.get("010__").get("a").strip()
         return None
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -549,16 +553,16 @@ class DNBImport(Import):
         "date": "dnb.jhr",
     }
 
-    to_json_processor = marc21_dnb.do
+    to_json_processor = staticmethod(marc21_dnb.do)
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -590,16 +594,16 @@ class SUDOCImport(Import):
         "date": "dc.date",
     }
 
-    to_json_processor = unimarc.do
+    to_json_processor = staticmethod(unimarc.do)
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -629,16 +633,16 @@ class HelveticallImport(Import):
         "date": "alma.date",
     }
 
-    to_json_processor = marc21_slsp.do
+    to_json_processor = staticmethod(marc21_slsp.do)
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -669,16 +673,16 @@ class SLSPImport(Import):
         "date": "alma.date",
     }
 
-    to_json_processor = marc21_slsp.do
+    to_json_processor = staticmethod(marc21_slsp.do)
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -710,7 +714,7 @@ class UGentImport(Import):
         "date": "main_pub_date",
     }
 
-    to_json_processor = marc21_ugent.do
+    to_json_processor = staticmethod(marc21_ugent.do)
 
     def get_id(self, json_data):
         """Get id.
@@ -725,14 +729,14 @@ class UGentImport(Import):
             id_ = json_data.get("090__").get("a").strip()
         return id_
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -762,16 +766,16 @@ class KULImport(Import):
         "date": "alma.date",
     }
 
-    to_json_processor = marc21_kul.do
+    to_json_processor = staticmethod(marc21_kul.do)
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -801,16 +805,16 @@ class RenouvaudImport(Import):
         "date": "alma.date",
     }
 
-    to_json_processor = marc21_slsp.do
+    to_json_processor = staticmethod(marc21_slsp.do)
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
@@ -839,16 +843,16 @@ class CambridgeImport(Import):
         "date": "alma.date",
     }
 
-    to_json_processor = marc21_slsp.do
+    to_json_processor = staticmethod(marc21_slsp.do)
 
-    def get_marc21_link(self, id):
+    def get_marc21_link(self, id_):
         """Get direct link to marc21 record.
 
-        :param id: id to use for the link
+        :param id_: id to use for the link
         :return: url for id
         """
         args = {
-            "id": id,
+            "id": id_,
             "_external": True,
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }

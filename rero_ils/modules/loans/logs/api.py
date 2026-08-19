@@ -111,6 +111,7 @@ class NoCirculationOperationLog(OperationLog, SpecificOperationLog):
     @classmethod
     def create(cls, scan, id_=None, index_refresh="false", **kwargs):
         """Create a new record instance and store it in search index.
+
         :param item_data: Dict with the item metadata.
         :param loan: Dict with the loan metadata.
         :param message: Message for item category.

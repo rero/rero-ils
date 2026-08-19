@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: UCLouvain
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+"""Tests items issue."""
+
 from unittest import mock
 
 from flask import url_for
@@ -44,7 +46,6 @@ def _receive_regular_issue(client, holding):
 )
 def test_issues_permissions(client, holding_lib_martigny_w_patterns, librarian_martigny):
     """Test specific items issues permissions."""
-
     # receive a regular issue
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
@@ -207,7 +208,7 @@ def test_issues_claim_notifications(
     assert len(response.json["metadata"]["issue"]["claims"]["dates"]) == 2
 
     # Export this issue as CSV and check issue claims_count column
-    list_url = url_for("api_item.inventory_search", q=f"pid:{issue_pid}")
+    list_url = url_for("api_exports.item_export", q=f"pid:{issue_pid}")
     response = client.get(list_url, headers=csv_header)
     assert response.status_code == 200
     data = list(parse_csv(get_csv(response)))

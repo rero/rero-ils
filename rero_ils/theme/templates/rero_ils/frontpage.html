@@ -25,17 +25,15 @@
           <h1>{{ slogan }}</h1>
         </div>
       </div>
-    {% elif not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
+    {% elif not view_organisation %}
       {%- include config.RERO_ILS_HOMEPAGE_GENERAL_SLOGAN %}
-    {% else %}
-      {%- include "rero_ils/_frontpage_slogan_" + viewcode + ".html" %}
     {% endif %}
 
     <!-- Search bar -->
     <div class="rero-search-bar">
       <div class="container">
         <main-search-bar
-          placeholder="{{ placeholder or _('What are you looking for?') }}"
+          placeholder="{{ (_('What are you looking for?') if not view_organisation else placeholder if placeholder) }}"
           viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
           inputstyleclass="ui:md:text-xl ui:w-full"
           styleclass="ui:w-full"
@@ -44,6 +42,7 @@
     </div>
   </header>
   {% if viewcode == 'bulle' %}
+  <!-- Display a copyright notice for the Bulle banner image -->
   <div class="w-100 text-right">
     <small class="mr-1 text-secondary">© Vincent Levrat</small>
   </div>
@@ -70,10 +69,8 @@
             {{ block_right|safe }}
           {% endif %}
         </section>
-      {% elif not config.RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW %}
+      {% elif not view_organisation %}
         {%- include config.RERO_ILS_HOMEPAGE_GENERAL_BLOCK %}
-      {% else %}
-        {%- include "rero_ils/_frontpage_block_" + viewcode + ".html" %}
       {% endif %}
     </article>
   </div>

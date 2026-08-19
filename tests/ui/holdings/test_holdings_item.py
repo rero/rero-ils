@@ -6,6 +6,7 @@
 from copy import deepcopy
 
 import pytest
+from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.holdings.api import (
     Holding,
@@ -58,7 +59,7 @@ def test_holding_item_links(
     assert reasons["links"]["items"]
     # test loan conditions
     assert holding_loan_condition_filter(holding_lib_martigny.pid) == "standard"
-    with pytest.raises(Exception):
+    with pytest.raises(NotFound):
         assert holding_loan_condition_filter("no pid")
     holdings = get_holdings_by_document_item_type(document.pid, item_type_standard_martigny.pid)
     assert holding_lib_martigny.pid == holdings[1].get("pid")
@@ -97,7 +98,6 @@ def test_holding_delete_after_item_deletion(client, holding_lib_martigny, item_l
 
 def test_holding_delete_after_item_edition(client, holding_lib_saxon, item_lib_saxon, holding_lib_fully):
     """Test automatic holding delete after item edition."""
-
     item_lib_saxon["location"] = {"$ref": "https://bib.rero.ch/api/locations/loc5"}
 
     item_lib_saxon.update(item_lib_saxon, dbcommit=True, reindex=True)

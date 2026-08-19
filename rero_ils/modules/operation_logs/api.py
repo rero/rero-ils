@@ -149,7 +149,7 @@ class OperationLog(RecordBase):
             actions.append(action)
         n_succeed, errors = bulk(current_search_client, actions)
         if n_succeed != len(data):
-            raise Exception(f"search indexing Errors: {errors}")
+            raise RuntimeError(f"search indexing Errors: {errors}")
 
     @classmethod
     def get_record(cls, _id):
@@ -196,7 +196,7 @@ class OperationLog(RecordBase):
         )
 
         if result != "updated":
-            raise Exception("Operation log cannot be updated.")
+            raise RuntimeError("Operation log cannot be updated.")
 
     @property
     def id(self):

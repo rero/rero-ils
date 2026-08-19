@@ -128,6 +128,7 @@ def test_stats_report_number_of_checkins(
                     "age": 13,
                     "type": "Usager.ère moins de 14 ans",
                     "postal_code": "1920",
+                    "local_codes": ["codeA"],
                 },
             },
             "record": {
@@ -158,6 +159,7 @@ def test_stats_report_number_of_checkins(
                     "age": 30,
                     "type": "Usager.ère plus de 18 ans",
                     "postal_code": "1930",
+                    "local_codes": ["codeB"],
                 },
             },
             "record": {
@@ -362,6 +364,19 @@ def test_stats_report_number_of_checkins(
         },
     }
     assert StatsReport(cfg).collect() == [["1920", 1], ["1930", 1]]
+
+    # local codes
+    cfg = {
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_checkins",
+                "distributions": ["patron_local_codes"],
+            }
+        },
+    }
+    assert StatsReport(cfg).collect() == [["codeA", 1], ["codeB", 1]]
 
     # patron type
     cfg = {

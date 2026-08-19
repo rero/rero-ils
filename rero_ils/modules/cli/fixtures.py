@@ -329,8 +329,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose, create_p
                         file_errors.write(",")
                     errors_count += 1
                     file_errors.write("\n")
-                    for line in json.dumps(record, indent=2).split("\n"):
-                        file_errors.write(f"  {line}\n")
+                    file_errors.writelines(f"  {line}\n" for line in json.dumps(record, indent=2).split("\n"))
 
         file_metadata.close()
         file_pids.close()
@@ -418,10 +417,8 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
     with contextlib.suppress(OSError):
         os.remove(file_name_tmp_pidstore)
 
-    all_pid_types = []
     endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS")
-    for endpoint in endpoints:
-        all_pid_types.append(endpoint)
+    all_pid_types = list(endpoints)
     if pid_types[0] == "all":
         pid_types = all_pid_types
 

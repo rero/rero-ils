@@ -1,0 +1,64 @@
+{% set number_columns = number_columns|default([]) %}
+{% set pid_columns = pid_columns|default([]) %}
+{% set date_columns = date_columns|default([]) %}
+{% set boolean_columns = boolean_columns|default([]) %}
+{% set string_columns = string_columns|default([]) %}
+{% set infer_numbers = infer_numbers|default(false) %}
+{% set state = namespace(rows=0) %}
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+  <sheetViews>
+    <sheetView workbookViewId="0">
+      {% if header %}
+      <pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>
+      {% endif %}
+    </sheetView>
+  </sheetViews>
+  {% if header %}
+  <cols>
+    {% for column in header %}
+    <col min="{{ loop.index }}" max="{{ loop.index }}" width="{{ column_width(column) }}" customWidth="1"/>
+    {% endfor %}
+  </cols>
+  {% endif %}
+  <sheetData>
+    {% if header %}
+    {% set state.rows = 1 %}
+    <row r="1">
+      {% for column in header %}
+      <c r="{{ refs[loop.index0] }}1" s="1" t="inlineStr"><is><t xml:space="preserve">{{ excel_text(column) }}</t></is></c>
+      {% endfor %}
+    </row>
+    {% endif %}
+    {% for row in data_generator %}
+    {% set state.rows = state.rows + 1 %}
+    <row r="{{ state.rows }}">
+      {% for column in header %}
+      {% set value = row[loop.index0] if loop.index0 < row|length else "" %}
+      {% set column_name = column|lower %}
+      {% set serial = excel_serial(value) if column_name in date_columns else none %}
+      {% set number = excel_number(value) %}
+      {% set inferred_number = infer_numbers and loop.index0 > 0 and column_name not in string_columns %}
+      {% set reference = refs[loop.index0] ~ state.rows %}
+      {% if not value %}
+      <c r="{{ reference }}"/>
+      {% elif serial %}
+      <c r="{{ reference }}" s="2"><v>{{ serial }}</v></c>
+      {% elif number and (
+        column_name in number_columns
+        or column_name in pid_columns
+        or inferred_number
+      ) %}
+      <c r="{{ reference }}"><v>{{ number }}</v></c>
+      {% elif column_name in boolean_columns %}
+      <c r="{{ reference }}" t="b"><v>{{ "1" if value|lower in ["true", "1"] else "0" }}</v></c>
+      {% else %}
+      <c r="{{ reference }}" t="inlineStr"><is><t xml:space="preserve">{{ excel_text(value) }}</t></is></c>
+      {% endif %}
+      {% endfor %}
+    </row>
+    {% endfor %}
+  </sheetData>
+  {% if header %}
+  <autoFilter ref="A1:{{ refs[header|length - 1] }}{{ state.rows }}"/>
+  {% endif %}
+</worksheet>

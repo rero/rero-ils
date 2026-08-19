@@ -417,7 +417,7 @@ def remove_trailing_punctuation(data, punctuation=",", spaced_punctuation=":;/-"
     return re.sub(rf"([{punctuation}]|\s+[{spaced_punctuation}])$", "", data.rstrip()).rstrip()
 
 
-def remove_special_characters(value, chars=["\u0098", "\u009c"]):
+def remove_special_characters(value, chars=("\u0098", "\u009c")):
     """Remove special characters from a string.
 
     :params value: string to clean.
@@ -452,8 +452,10 @@ def get_mef_link(bibid, reroid, entity_type, ids, key):
         entity_types = current_app.config.get("RERO_ILS_ENTITY_TYPES", {})
         mef_config = current_app.config.get("RERO_ILS_MEF_CONFIG")
     except Exception:
-        from rero_ils.config import RERO_ILS_ENTITY_TYPES as entity_types
-        from rero_ils.config import RERO_ILS_MEF_CONFIG as mef_config
+        from rero_ils.config import RERO_ILS_ENTITY_TYPES, RERO_ILS_MEF_CONFIG
+
+        entity_types = RERO_ILS_ENTITY_TYPES
+        mef_config = RERO_ILS_MEF_CONFIG
     entity_type = entity_types.get(entity_type)
     mef_url = mef_config.get(entity_type, {}).get("base_url")
     if not mef_url:
@@ -620,7 +622,7 @@ class BookFormatExtraction:
                 regexp = "|".join([regexp, self._specific_for_1248[value]])
             else:
                 additional = rf"[^\d]{value}mo|^{value}mo"
-                regexp = "|".join([regexp, additional])
+                regexp = f"{regexp}|{additional}"
             return f"({regexp})"
 
         def _populate_regexp():
@@ -888,17 +890,15 @@ class ReroIlsOverdo(Overdo):
         extent_and_physical_detail_str = "|".join(extent_and_physical_detail_data)
 
         color_content_set = set()
-        for key in _COLOR_CONTENT_REGEXP:
-            regexp = _COLOR_CONTENT_REGEXP[key]
+        for color_code, regexp in _COLOR_CONTENT_REGEXP.items():
             if regexp.search(physical_details_str):
-                color_content_set.add(key)
+                color_content_set.add(color_code)
         add_data_and_sort_list("colorContent", color_content_set, data)
 
         production_method_set = set()
-        for key in _PRODUCTION_METHOD_FROM_EXTENT_AND_PHYSICAL_DETAILS:
-            regexp = _PRODUCTION_METHOD_FROM_EXTENT_AND_PHYSICAL_DETAILS[key]
+        for method_code, regexp in _PRODUCTION_METHOD_FROM_EXTENT_AND_PHYSICAL_DETAILS.items():
             if regexp.search(extent_and_physical_detail_str):
-                production_method_set.add(key)
+                production_method_set.add(method_code)
 
         # extract build illustrativeContent data
         # remove 'couv. ill' and the extra '|' resulting of the remove
@@ -906,10 +906,9 @@ class ReroIlsOverdo(Overdo):
         physical_detail_ill_str = re.sub(r"\|\||^\||\|$", "", physical_detail_ill_str)
 
         illustration_set = set()
-        for key in _ILLUSTRATIVE_CONTENT_REGEXP:
-            regexp = _ILLUSTRATIVE_CONTENT_REGEXP[key]
+        for illustration_code, regexp in _ILLUSTRATIVE_CONTENT_REGEXP.items():
             if regexp.search(physical_detail_ill_str):
-                illustration_set.add(key)
+                illustration_set.add(illustration_code)
         add_data_and_sort_list("illustrativeContent", illustration_set, data)
 
         # remove 'rdapm:1005' if specific production_method exists
@@ -931,10 +930,8 @@ class ReroIlsOverdo(Overdo):
         subfield_code = self.extract_description_subfield["book_format"]
         for dimension in utils.force_list(value.get(subfield_code, [])):
             formats = tool.extract_book_formats_from(dimension)
-            for book_format in formats:
-                book_formats.append(book_format)
-            dim = remove_trailing_punctuation(data=dimension.rstrip(), punctuation="+,:;&.")
-            if dim:
+            book_formats.extend(iter(formats))
+            if dim := remove_trailing_punctuation(data=dimension.rstrip(), punctuation="+,:;&."):
                 add_data_and_sort_list("dimensions", utils.force_list(dim), data)
         add_data_and_sort_list("bookFormat", book_formats, data)
 
@@ -1093,8 +1090,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             self.date = {"start_date": None}
             self.serial_type = ""
             self.is_top_level_record = False
-            fields_008 = self.get_fields(tag="008")
-            if fields_008:
+            if fields_008 := self.get_fields(tag="008"):
                 self.field_008_data = self.get_control_field_data(fields_008[0]).rstrip()
                 try:
                     self.serial_type = self.field_008_data[21]
@@ -1107,9 +1103,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                     self.original_date_from_008 = self.date2_from_008
             self.admin_meta_data = {}
 
-            enc_level = ""
-            if self.leader:
-                enc_level = self.leader[17]  # LDR 17
+            enc_level = self.leader[17] if self.leader else ""
             if enc_level in _ENCODING_LEVEL_MAPPING:
                 encoding_level = _ENCODING_LEVEL_MAPPING[enc_level]
             else:
@@ -1130,21 +1124,20 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             for field_019 in fields_019:
                 note = ""
                 for subfield_a in self.get_subfields(field_019, "a"):
-                    note += " | " + subfield_a
+                    note += f" | {subfield_a}"
                     if regexp.search(subfield_a):
                         self.is_top_level_record = True
                 for subfield_b in self.get_subfields(field_019, "b"):
                     note += " | " + subfield_b
                 for subfield_9 in self.get_subfields(field_019, "9"):
-                    note += " (" + subfield_9 + ")"
+                    note += f" ({subfield_9})"
                     break
                 if note:
                     notes_from_019_and_351.append(note[3:])
 
             fields_351 = self.get_fields(tag="351")
             for field_351 in fields_351:
-                note = " | ".join(self.get_subfields(field_351, "c"))
-                if note:
+                if note := " | ".join(self.get_subfields(field_351, "c")):
                     notes_from_019_and_351.append(note)
 
             if notes_from_019_and_351:
@@ -1164,14 +1157,10 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                             self.rero_id,
                             subfield_b,
                         )
-                description_modifier = []
-                for subfield_d in self.get_subfields(field_040, "d"):
-                    description_modifier.append(subfield_d)
+                description_modifier = list(self.get_subfields(field_040, "d"))
                 if description_modifier:
                     self.admin_meta_data["descriptionModifier"] = description_modifier
-                description_conventions = []
-                for subfield_e in self.get_subfields(field_040, "e"):
-                    description_conventions.append(subfield_e)
+                description_conventions = list(self.get_subfields(field_040, "e"))
                 if description_conventions:
                     self.admin_meta_data["descriptionConventions"] = description_conventions
 
@@ -1202,7 +1191,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 f"{err} {traceback.format_exception_only}",
             )
             traceback.print_exc()
-            raise Exception(err)
+            raise
         return result
 
     def get_link_data(self, subfields_6_data):
@@ -1435,7 +1424,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             languages = [self.lang_from_008, *self.langs_from_041_a, *self.langs_from_041_h]
             for lang in languages:
                 if lang in _LANGUAGES_SCRIPTS[script_code]:
-                    return "-".join([lang, script_code])
+                    return f"{lang}-{script_code}"
             error_print(
                 "WARNING LANGUAGE SCRIPTS:",
                 self.bib_id,
@@ -1448,7 +1437,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 "041$h:",
                 self.langs_from_041_h,
             )
-        return "-".join(["und", script_code])
+        return f"und-{script_code}"
 
     def build_variant_title_data(self, string_set):
         """Build variant title data form fields 246.
@@ -1669,7 +1658,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
             if script_code in _LANGUAGES_SCRIPTS:
                 lang = self.lang_from_101
                 if lang in _LANGUAGES_SCRIPTS[script_code]:
-                    return "-".join([self.lang_from_101, script_code])
+                    return f"{self.lang_from_101}-{script_code}"
                 error_print(
                     "WARNING LANGUAGE SCRIPTS:",
                     self.bib_id,
@@ -1678,7 +1667,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                     "101 $a or $g:",
                     f'"{self.lang_from_101}"',
                 )
-        return "-".join(["und", script_code])
+        return f"und-{script_code}"
 
     def get_alt_graphic_fields(self, tag=None):
         """Get all alternate graphic fields having the given tag value.
@@ -1850,10 +1839,9 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(parallel_title_data, f
     data_lang_items = []
     if data_lang:
         data_lang_items = data_lang.split("=")
-    index = 0
     out_data_dict = {}
 
-    for data_std in data_std_items:
+    for index, data_std in enumerate(data_std_items):
         if index == 0 and not field_245_a_end_with_equal:
             if data_std.rstrip():
                 main_subtitle.append({"value": data_std.rstrip()})
@@ -1903,7 +1891,6 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(parallel_title_data, f
                     out_data_dict["mainTitle"] = main_title
                 if subtitle:
                     out_data_dict["subtitle"] = subtitle
-        index += 1
         if out_data_dict:
             parallel_titles.append(out_data_dict)
     return main_subtitle, parallel_titles, pararalel_title_string_set
@@ -1932,8 +1919,7 @@ def build_responsibility_data(responsibility_data):
     data_lang_items = []
     if data_lang:
         data_lang_items = data_lang.split(";")
-    index = 0
-    for data_std in data_std_items:
+    for index, data_std in enumerate(data_std_items):
         out_data = []
         data_value = remove_trailing_punctuation(data_std.lstrip(), ",.", ":;/-=")
         if data_value:
@@ -1942,7 +1928,7 @@ def build_responsibility_data(responsibility_data):
                 try:
                     data_lang_value = remove_trailing_punctuation(data_lang_items[index].lstrip(), ",.", ":;/-=")
                     if not data_lang_value:
-                        raise Exception("missing data")
+                        raise ValueError("missing data")
                 except Exception:
                     data_lang_value = "[missing data]"
                 out_data.append({"value": data_lang_value, "language": lang})

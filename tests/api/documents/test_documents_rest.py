@@ -12,7 +12,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.commons.identifiers import IdentifierType
-from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import (
@@ -34,7 +35,7 @@ def test_documents_get(client, document_with_files):
     document = document_with_files
 
     def clean_search_metadata(metadata):
-        """Clean contribution from authorized_access_point_"""
+        """Clean contribution from authorized_access_point_."""
         # Contributions, subject and genreForm are i18n indexed field, so it's
         # too complicated to compare it from original record. Just take the
         # data from original record ... not best, but not real alternatives.
@@ -111,11 +112,14 @@ def test_documents_newacq_filters(
     system_librarian_martigny,
     rero_json_header,
     document,
+    document_sion_items,
+    export_document,
     holding_lib_martigny,
     holding_lib_saxon,
     loc_public_saxon,
     item_lib_martigny_data,
 ):
+    """Test documents new acquisition filters."""
     login_user_via_session(client, system_librarian_martigny.user)
 
     def datetime_delta(**args):
@@ -150,7 +154,7 @@ def test_documents_newacq_filters(
     assert res.status_code == 201
 
     # check item creation and indexation
-    doc_list = url_for("invenio_records_rest.doc_list", view="global", pid="doc1")
+    doc_list = url_for("invenio_records_rest.doc_list", view="global", q="pid:doc1")
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
     assert len(data["hits"]["hits"]) == 1
@@ -216,6 +220,19 @@ def test_documents_newacq_filters(
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 0
 
+    #   --> for loc1 or loc3, there is 1 document with 2 new acquisition
+    #       items (multiple `location` values are combined with OR)
+    doc_list = url_for(
+        "invenio_records_rest.doc_list",
+        view="global",
+        new_acquisition=f"{past}:{future_1}",
+        location=["loc1", "loc3"],
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 1
+    assert len(data["hits"]["hits"][0]["metadata"]["holdings"]) == 2
+
     # check new_acquisition filters with -- separator and timestamp
     # Ex: 1696111200000--1700089200000
     doc_list = url_for(
@@ -226,6 +243,53 @@ def test_documents_newacq_filters(
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
+
+    # check that several `location` filter values are combined with OR
+    # across DIFFERENT documents, not just within a single document.
+    #   --> document_sion_items has a new acquisition in loc1 only ;
+    #       export_document has a new acquisition in loc3 only.
+    far_past = datetime_delta(days=-100).strftime("%Y-%m-%d")
+    far_future = datetime_delta(days=100).strftime("%Y-%m-%d")
+
+    new_acq_sion = deepcopy(item_lib_martigny_data)
+    new_acq_sion["pid"] = "itemacqsion"
+    new_acq_sion["document"]["$ref"] = get_ref_for_pid("doc", document_sion_items.pid)
+    new_acq_sion["acquisition_date"] = today
+    res, data = postdata(client, "invenio_records_rest.item_list", new_acq_sion)
+    assert res.status_code == 201
+
+    new_acq_export = deepcopy(item_lib_martigny_data)
+    new_acq_export["pid"] = "itemacqexport"
+    new_acq_export["document"]["$ref"] = get_ref_for_pid("doc", export_document.pid)
+    new_acq_export["location"]["$ref"] = get_ref_for_pid("loc", loc_public_saxon.pid)
+    new_acq_export["acquisition_date"] = today
+    res, data = postdata(client, "invenio_records_rest.item_list", new_acq_export)
+    assert res.status_code == 201
+
+    #   --> for loc1 or loc3, both document_sion_items and export_document
+    #       are returned, even though neither matches both locations on
+    #       its own. This would fail without combining repeated
+    #       `location` values with OR (see acquisition_filter in
+    #       rero_ils/modules/documents/query.py)
+    doc_list = url_for(
+        "invenio_records_rest.doc_list",
+        view="global",
+        new_acquisition=f"{far_past}:{far_future}",
+        location=["loc1", "loc3"],
+        q="pid:doc3 OR pid:doc8",
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 2
+
+    # malformed timestamp range must return a clean 400 Bad Request
+    doc_list = url_for(
+        "invenio_records_rest.doc_list",
+        view="global",
+        new_acquisition="foo--bar",
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    assert res.status_code == 400
 
 
 @mock.patch(
@@ -310,8 +374,8 @@ def test_documents_facets(
             0,
         ),
         ({"view": "global", "author": "Nebehay, Christian Michael", "lang": "thl"}, 1),
-        ({"view": "global", "online": "true"}, 1),
-        ({"view": "global", "organisation": "org1"}, 1),
+        ({"view": "global", "online": "true"}, 2),
+        ({"view": "global", "organisation": "org1"}, 3),
     ]
     for params, value in checks:
         url = url_for("invenio_records_rest.doc_list", **params)
@@ -332,35 +396,32 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
     data = get_json(res)
     aggs = data["aggregations"]
 
+    # the stale holdings-based terms metadata (`sum_other_doc_count`,
+    # `doc_count_error_upper_bound`) is dropped: it no longer matches the
+    # document counts exposed on the buckets.
     assert aggs["organisation"]["buckets"] == [
         {
-            "doc_count": 2,
+            "doc_count": 3,
             "key": "org1",
             "library": {
                 "buckets": [
                     {
-                        "doc_count": 1,
+                        "doc_count": 2,
                         "key": "lib1",
                         "location": {
-                            "buckets": [{"doc_count": 1, "key": "loc1", "name": "Martigny Library Public Space"}],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
+                            "buckets": [{"doc_count": 2, "key": "loc1", "name": "Martigny Library Public Space"}],
                         },
                         "name": "Library of Martigny-ville",
                     },
                     {
-                        "doc_count": 1,
+                        "doc_count": 2,
                         "key": "lib2",
                         "location": {
-                            "buckets": [{"doc_count": 1, "key": "loc3", "name": "Saxon Library Public Space"}],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
+                            "buckets": [{"doc_count": 2, "key": "loc3", "name": "Saxon Library Public Space"}],
                         },
                         "name": "Library of Saxon",
                     },
                 ],
-                "doc_count_error_upper_bound": 0,
-                "sum_other_doc_count": 0,
             },
             "name": "The district of Martigny Libraries",
         }
@@ -375,33 +436,27 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
 
     assert aggs["organisation"]["buckets"] == [
         {
-            "doc_count": 2,
+            "doc_count": 3,
             "key": "org1",
             "library": {
                 "buckets": [
                     {
-                        "doc_count": 1,
+                        "doc_count": 2,
                         "key": "lib1",
                         "location": {
-                            "buckets": [{"doc_count": 1, "key": "loc1", "name": "Martigny Library Public Space"}],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
+                            "buckets": [{"doc_count": 2, "key": "loc1", "name": "Martigny Library Public Space"}],
                         },
                         "name": "Library of Martigny-ville",
                     },
                     {
-                        "doc_count": 1,
+                        "doc_count": 2,
                         "key": "lib2",
                         "location": {
-                            "buckets": [{"doc_count": 1, "key": "loc3", "name": "Saxon Library Public Space"}],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
+                            "buckets": [{"doc_count": 2, "key": "loc3", "name": "Saxon Library Public Space"}],
                         },
                         "name": "Library of Saxon",
                     },
                 ],
-                "doc_count_error_upper_bound": 0,
-                "sum_other_doc_count": 0,
             },
             "name": "The district of Martigny Libraries",
         }
@@ -414,51 +469,118 @@ def test_documents_organisation_facets(client, document, item_lib_martigny, item
     data = get_json(res)
     aggs = data["aggregations"]
 
-    assert aggs["organisation"]["buckets"] == [
-        {
-            "doc_count": 0,
-            "key": "org1",
-            "library": {
-                "buckets": [
-                    {
-                        "doc_count": 0,
-                        "key": "lib1",
-                        "location": {
-                            "buckets": [
-                                {"doc_count": 0, "key": "loc1"},
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc3",
-                                },
-                            ],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
-                        },
-                    },
-                    {
-                        "doc_count": 0,
-                        "key": "lib2",
-                        "location": {
-                            "buckets": [
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc1",
-                                },
-                                {
-                                    "doc_count": 0,
-                                    "key": "loc3",
-                                },
-                            ],
-                            "doc_count_error_upper_bound": 0,
-                            "sum_other_doc_count": 0,
-                        },
-                    },
-                ],
-                "doc_count_error_upper_bound": 0,
-                "sum_other_doc_count": 0,
-            },
-        }
+    # no document matches `fiction`; every reverse_nested count is 0, so all
+    # buckets are pruned. `min_doc_count=0` still makes Elasticsearch emit the
+    # (empty) buckets, so the rewrite runs and drops the stale holdings-based
+    # terms metadata even for an empty result set.
+    assert aggs["organisation"]["buckets"] == []
+    assert "sum_other_doc_count" not in aggs["organisation"]
+    assert "doc_count_error_upper_bound" not in aggs["organisation"]
+
+
+def _facet_holding_data(document, location, item_type):
+    """Build minimal standard holding data (library/org come from location)."""
+    return {
+        "document": {"$ref": get_ref_for_pid("doc", document.pid)},
+        "circulation_category": {"$ref": get_ref_for_pid("itty", item_type.pid)},
+        "location": {"$ref": get_ref_for_pid("loc", location.pid)},
+        "holdings_type": "standard",
+    }
+
+
+@mock.patch(
+    "invenio_records_rest.views.verify_record_permission",
+    mock.MagicMock(return_value=VerifyRecordPermissionPatch),
+)
+def test_documents_organisation_facet_document_count_order(
+    client,
+    app,
+    rero_json_header,
+    org_sion,
+    lib_sion,
+    lib_aproz,
+    loc_public_sion,
+    loc_restricted_sion,
+    loc_online_sion,
+    loc_online_aproz,
+    item_type_internal_sion,
+    document_data,
+):
+    """Test the `size` cut keeps the buckets with the most documents.
+
+    The org/library/location facet runs on the `nested_holdings` nested field,
+    so Elasticsearch orders the terms buckets by holdings count. When the
+    number of buckets exceeds the aggregation `size`, a library (or location)
+    with many documents but few holdings could be dropped before the serializer
+    re-sorts. The terms aggregations must therefore order by `record_count`
+    (the document count) in the query itself.
+    """
+    # Two libraries of the same organisation:
+    #   * `lib_sion` gets 3 holdings, but all on a single document;
+    #   * `lib_aproz` gets 2 holdings, on two distinct documents.
+    # Elasticsearch orders terms by holdings count, so `lib_sion` (3 holdings)
+    # comes before `lib_aproz` (2 holdings) even though `lib_aproz` has more
+    # documents.
+    documents = [
+        Document.create(deepcopy(document_data), delete_pid=True, dbcommit=True, reindex=True) for _ in range(3)
     ]
+    doc_a, doc_b, doc_c = documents
+
+    holdings = [
+        Holding.create(
+            _facet_holding_data(doc_a, location, item_type_internal_sion), delete_pid=True, dbcommit=True, reindex=True
+        )
+        for location in (loc_public_sion, loc_restricted_sion, loc_online_sion)
+    ]
+    holdings += [
+        Holding.create(
+            _facet_holding_data(document, loc_online_aproz, item_type_internal_sion),
+            delete_pid=True,
+            dbcommit=True,
+            reindex=True,
+        )
+        for document in (doc_b, doc_c)
+    ]
+    HoldingsSearch.flush_and_refresh()
+    for document in documents:
+        document.reindex()
+    DocumentsSearch.flush_and_refresh()
+
+    try:
+        # Shrink the library `size` to 1: with two libraries, the size cut now
+        # keeps a single bucket, reproducing the "buckets exceed the limit"
+        # situation with a minimal dataset.
+        facets = deepcopy(app.config["RECORDS_REST_FACETS"])
+        library_agg = facets["documents"]["aggs"]["organisation"]["aggs"]["nested_holdings"]["aggs"]["organisation"][
+            "aggs"
+        ]["library"]
+        library_agg["terms"]["size"] = 1
+        with mock.patch.dict(app.config, {"RECORDS_REST_FACETS": facets}):
+            list_url = url_for("invenio_records_rest.doc_list", view="org2")
+            res = client.get(list_url, headers=rero_json_header)
+        aggs = get_json(res)["aggregations"]
+
+        # `lib_aproz` (2 documents) must survive the size cut; `lib_sion`
+        # (3 holdings but 1 document) must be dropped. Ordering by holdings
+        # count would keep `lib_sion` and lose `lib_aproz`.
+        library_buckets = aggs["library"]["buckets"]
+        assert [bucket["key"] for bucket in library_buckets] == [lib_aproz.pid]
+        assert library_buckets[0]["doc_count"] == 2
+        location_buckets = library_buckets[0]["location"]["buckets"]
+        assert [bucket["key"] for bucket in location_buckets] == [loc_online_aproz.pid]
+        assert location_buckets[0]["doc_count"] == 2
+        # the stale holdings-based terms metadata is dropped: here the size cut
+        # dropped `lib_sion`, so Elasticsearch reported a non-zero
+        # `sum_other_doc_count` (its 3 holdings) that no longer makes sense.
+        assert "sum_other_doc_count" not in aggs["library"]
+        assert "doc_count_error_upper_bound" not in aggs["library"]
+    finally:
+        for holding in holdings:
+            holding.delete(force=True, dbcommit=True, delindex=True)
+        HoldingsSearch.flush_and_refresh()
+        for document in documents:
+            document.delete(force=True, dbcommit=True, delindex=True)
+        DocumentsSearch.flush_and_refresh()
 
 
 @mock.patch(
@@ -488,7 +610,6 @@ def test_documents_post_put_delete(client, document_chinese_data, json_header, r
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for("invenio_records_rest.doc_item", pid_value="4")
-    list_url = url_for("invenio_records_rest.doc_list", q="pid:4")
 
     document_chinese_data["pid"] = "4"
     res, data = postdata(client, "invenio_records_rest.doc_list", document_chinese_data)
@@ -593,10 +714,12 @@ def test_documents_post_put_delete(client, document_chinese_data, json_header, r
     assert data["metadata"]["title"] == expected_title
     assert data["metadata"]["ui_title_variants"] == ["Guojifa"]
     assert data["metadata"]["ui_title_altgr"] == [
-        "Guo ji fa : subtitle (Latin). Part Number (Latin), Part Name (Latin)"
-        " = International law (Latin) : Parallel Subtitle (Latin)."
-        " Parallel Part Number (Latin), Parallel Part Name (Latin)"
-        " = Parallel Title 2 (Latin) : Parallel Subtitle 2 (Latin)"
+        (
+            "Guo ji fa : subtitle (Latin). Part Number (Latin), Part Name (Latin)"
+            " = International law (Latin) : Parallel Subtitle (Latin)."
+            " Parallel Part Number (Latin), Parallel Part Name (Latin)"
+            " = Parallel Title 2 (Latin) : Parallel Subtitle 2 (Latin)"
+        )
     ]
     assert data["metadata"]["ui_responsibilities"] == [
         "梁西原著主编, 王献枢副主编",
@@ -803,9 +926,7 @@ def test_document_current_library_on_request_parameter(
     document,
     json_header,
 ):
-    """Test for library assignment if the current_library parameter
-    is present in the request.
-    """
+    """Test for library assignment if the current_library parameter is present in the request."""
     login_user_via_session(client, system_librarian_martigny.user)
 
     # Assign library pid with current_librarian information

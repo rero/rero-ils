@@ -6,7 +6,7 @@
   {%- block navbar %}
     <!-- SEARCH NAVBAR :: Brand / search / expand ========================= -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark rero-ils-header">
-      <div class="container d-flex align-self-center justify-content-between">
+      <div class="container d-flex flex-wrap align-self-center justify-content-between">
         {%- block navbar_brand %}
           {%- if config.THEME_LOGO %}
             <a href="/{% if viewcode != config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}{{ viewcode }}{% endif %}" class="navbar-brand pr-2" id="homepage-logo" aria-label="{{ _(config.THEME_SITENAME) }} — {{ _('Home') }}">
@@ -17,23 +17,25 @@
             <a href="/{% if viewcode != config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}{{ viewcode }}{% endif %}" class="navbar-brand">{{_(config.THEME_SITENAME)}}</a>
           {%- endif %}
         {%- endblock navbar_brand %}
-        {%- block navbar_search %}
-          <main-search-bar
-            class="flex-grow-1 rero-ils-ui"
-            inputstyleclass="ui:text-sm ui:py-1 ui:w-full"
-            styleclass="ui:w-full"
-            placeholder="{{ _('Search') }}"
-            viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
-            language="{{ current_i18n.locale.language[:2] }}"
-          />
-        {%- endblock navbar_search %}
-        {%- block navbar_menus %}
-          <button class="navbar-toggler ml-2" type="button"
-                  data-toggle="collapse" data-target="#mobileHide"
-                  aria-controls="mobileHide" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span>
-          </button>
-        {%- endblock navbar_menus %}
+        <div class="rero-ils-header-actions d-flex flex-grow-1 flex-nowrap align-items-center justify-content-end">
+          {%- block navbar_search %}
+            <main-search-bar
+              class="flex-grow-1 rero-ils-header-search rero-ils-ui"
+              inputstyleclass="ui:text-sm ui:py-1 ui:w-full"
+              styleclass="ui:w-full"
+              placeholder="{{ _('Search') }}"
+              viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
+              language="{{ current_i18n.locale.language[:2] }}"
+            ></main-search-bar>
+          {%- endblock navbar_search %}
+          {%- block navbar_menus %}
+            <button class="navbar-toggler flex-shrink-0 ml-2" type="button"
+                    data-toggle="collapse" data-target="#mobileHide"
+                    aria-controls="mobileHide" aria-expanded="false" aria-label="{{ _('Toggle navigation') }}">
+              <span class="fa-solid fa-bars"></span>
+            </button>
+          {%- endblock navbar_menus %}
+        </div>
       </div>
     </nav>
     <!-- MAIN NAVBAR :: Main menus (visible only on large screens) ======== -->
@@ -49,7 +51,7 @@
              {{ "id={}".format(item.id) if item.id }}
           >
            {{ item.text|safe }}
-          <i class="fa fa-caret-down" aria-hidden="true"></i>
+          <i class="fa-solid fa-caret-down" aria-hidden="true"></i>
           </a>
         </li>
         {%- else %}
@@ -100,7 +102,7 @@
         {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
           {%- if item.children %}
             <li class="nav-item{{ ' active' if item.active else ''}} w-100 list-group-item bg-light">
-              <a class="nav-link collapsed" href="#{{ item.name }}" data-toggle="collapse" role="button" aria-controls="collapseExample" aria-expanded="false" {{ "id={}".format(item.id) if item.id }}>{{ item.text|safe }} <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+              <a class="nav-link collapsed" href="#{{ item.name }}" data-toggle="collapse" role="button" aria-controls="collapseExample" aria-expanded="false" {{ "id={}".format(item.id) if item.id }}>{{ item.text|safe }} <i class="fa-solid fa-caret-down" aria-hidden="true"></i></a>
               <ul class="nav collapse pl-2" id="{{ item.name }}" data-parent="#mobileHide">
                 {%- for child in item.children if child.visible %}
                   <li class="nav-item {{class_name if class_name}} w-100">
@@ -124,4 +126,3 @@
   {%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
   {{ flashed_messages() }}
 {%- endblock flashmessages %}
-

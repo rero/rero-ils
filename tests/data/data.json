@@ -21,7 +21,29 @@
     "current_budget_pid": "budg2",
     "online_harvested_source": [
       "mv-cantook"
-    ]
+    ],
+    "homepage": {
+      "slogan": [
+        {
+          "language": "en",
+          "value": "Welcome to the Sion libraries"
+        }
+      ],
+      "placeholder": [
+        {
+          "language": "en",
+          "value": "Search the Sion libraries"
+        }
+      ],
+      "blocks": {
+        "left": [
+          {
+            "language": "en",
+            "value": "<a href=\"/global\">Global catalogue</a>"
+          }
+        ]
+      }
+    }
   },
   "lib1": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -3505,8 +3527,8 @@
       },
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/concepts/idref/050394460",
-          "pid": "14650374"
+          "$ref": "https://mef.rero.ch/api/concepts/idref/030752787",
+          "pid": "14613205"
         }
       }
     ]

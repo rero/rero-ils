@@ -1,0 +1,24 @@
+{% set number_columns = [
+  "item_legacy_checkout_count",
+  "item_price",
+  "issue_claims_count",
+  "item_checkouts_count",
+  "item_renewals_count",
+  "current_pending_requests",
+] %}
+{% set pid_columns = [
+  "document_pid",
+  "item_pid",
+  "item_holding_pid",
+] %}
+{% set date_columns = [
+  "item_acquisition_date",
+  "item_create_date",
+  "temporary_item_type_expiry_date",
+  "issue_status_date",
+  "issue_expected_date",
+  "last_transaction_date",
+  "last_checkout_date",
+] %}
+{% set boolean_columns = ["issue_regular"] %}
+{% include "rero_ils/exports/_xlsx_sheet.xml" %}

@@ -4,9 +4,13 @@
 """Organisation record extensions."""
 
 from invenio_records.extensions import RecordExtension
-from marshmallow_utils.html import sanitize_html
+from marshmallow_utils.html import ALLOWED_HTML_ATTRS, sanitize_html
 
 from .cache import delete_homepage_organisation_cache
+
+# Allow the ``class`` attribute on every tag so the Bootstrap utility classes
+# used in the homepage blocks (list-unstyled, text-center, ...) are preserved.
+HOMEPAGE_ALLOWED_ATTRS = {**ALLOWED_HTML_ATTRS, "*": ["class"]}
 
 
 class OrganisationHomepageSanitizerExtension(RecordExtension):
@@ -32,4 +36,4 @@ class OrganisationHomepageSanitizerExtension(RecordExtension):
         for position in ("left", "center", "right"):
             for entry in blocks.get(position, []):
                 if "value" in entry:
-                    entry["value"] = sanitize_html(entry["value"])
+                    entry["value"] = sanitize_html(entry["value"], attrs=HOMEPAGE_ALLOWED_ATTRS)

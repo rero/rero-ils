@@ -23,6 +23,6 @@ theme = WebpackBundle(
         "popper.js": "1.16.1",
         "jquery": "~3.2.1",
         "bootstrap": "~4.5.3",
-        "font-awesome": "~4.7.0",
+        "@fortawesome/fontawesome-free": "^7.0.0",
     },
 )

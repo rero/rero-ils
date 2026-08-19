@@ -23,7 +23,7 @@ from tests.utils import get_json, mock_response, postdata
 
 
 def test_librarian_delete_permission_factory(client, librarian_fully, org_martigny, lib_martigny):
-    """Test librarian_delete_permission_factory"""
+    """Test librarian_delete_permission_factory."""
     login_user_via_session(client, librarian_fully.user)
     assert isinstance(librarian_delete_permission_factory(None, credentials_only=True), Permission)
     assert librarian_delete_permission_factory(org_martigny) is not None
@@ -111,7 +111,6 @@ def test_permission_exposition(app, db, client, system_librarian_martigny):
 
 def test_permission_management(client, system_librarian_martigny):
     """Test permission management."""
-
     # Test bad usage of the API
     #   1) Anonymous user can't manage permissions.
     #   2) try with bad payload data
@@ -201,6 +200,12 @@ def test_proxy(mock_get, client):
     mock_get.return_value = mock_response(status=418)
     response = client.get(url_for("api_blueprint.proxy", url="http://mocked.url"))
     assert response.status_code == 418
+
+
+def test_wiki_not_registered_on_api_app(app, client):
+    """Test the wiki is not served by the API app."""
+    assert "wiki.page" not in app.view_functions
+    assert client.get("/help/home/").status_code == 404
 
 
 def test_boosting_fields(app):

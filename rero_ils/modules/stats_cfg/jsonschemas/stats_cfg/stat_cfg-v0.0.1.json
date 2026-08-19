@@ -210,6 +210,7 @@
                             "enum": [
                               "created_month",
                               "created_year",
+                              "publication_year",
                               "owning_library",
                               "imported"
                             ]
@@ -227,6 +228,10 @@
                                   {
                                     "value": "created_year",
                                     "label": "created_year"
+                                  },
+                                  {
+                                    "value": "publication_year",
+                                    "label": "publication_year"
                                   },
                                   {
                                     "value": "owning_library",
@@ -349,6 +354,7 @@
                               "created_year",
                               "document_type",
                               "document_subtype",
+                              "item_type",
                               "owning_library",
                               "owning_location",
                               "type"
@@ -375,6 +381,10 @@
                                   {
                                     "value": "document_subtype",
                                     "label": "document_subtype"
+                                  },
+                                  {
+                                    "value": "item_type",
+                                    "label": "item_type"
                                   },
                                   {
                                     "value": "owning_library",

@@ -12,6 +12,7 @@ from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl import Q
 from flask import current_app
 from flask_babel import gettext as _
+from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
 from jinja2 import Environment
 
@@ -36,6 +37,7 @@ from rero_ils.modules.locations.api import Location
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.operation_logs.extensions import OperationLogObserverExtension
 from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.permissions_cache import register_record_permissions_cache_deletion
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.record_extensions import OrgLibRecordExtension
 from rero_ils.modules.utils import (
@@ -181,7 +183,12 @@ class Holding(IlsRecord):
                 # Delete all attached items
                 for item in self.get_all_items():
                     item.delete(force=force, dbcommit=dbcommit, delindex=False)
-            return super().delete(force=force, dbcommit=dbcommit, delindex=delindex)
+            # Defer the commit until cache invalidation is registered.
+            record = super().delete(force=force, dbcommit=False, delindex=delindex)
+            register_record_permissions_cache_deletion("documents", self.document_pid)
+            if dbcommit:
+                db.session.commit()
+            return record
         raise IlsRecordError.NotDeleted()
 
     @property
