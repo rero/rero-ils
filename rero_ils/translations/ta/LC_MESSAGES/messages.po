@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 1.24.1\n"
-"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
+"Report-Msgid-Bugs-To: software@rero.ch\n"
 "POT-Creation-Date: 2026-07-02 12:17+0200\n"
 "PO-Revision-Date: 2025-08-30 18:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
+"ta/>\n"
 "Language: ta\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/rero_plus/rero-"
-"ils/ta/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: rero_ils/accounts_views.py:48
@@ -58,14 +58,12 @@ msgstr "உங்கள் ரீரோ ஐடி கடவுச்சொல்
 #: rero_ils/config.py:318
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:128
 msgid ""
-"Username must start with a letter or a number, be at least three "
-"characters long and only contain alphanumeric characters, dashes and "
-"underscores."
+"Username must start with a letter or a number, be at least three characters "
+"long and only contain alphanumeric characters, dashes and underscores."
 msgstr ""
-"பயனர்பெயர் ஒரு எழுத்து அல்லது ஒரு எண்ணுடன் தொடங்க வேண்டும், குறைந்தது "
-"மூன்று எழுத்துக்கள் நீளமாக இருக்க வேண்டும் மற்றும் எண்ணெழுத்து "
-"எழுத்துக்கள், கோடுகள் மற்றும் அடிக்கோடிட்டுக் காட்டுதல் மட்டுமே இருக்க "
-"வேண்டும்."
+"பயனர்பெயர் ஒரு எழுத்து அல்லது ஒரு எண்ணுடன் தொடங்க வேண்டும், குறைந்தது மூன்று எழுத்துக்கள் "
+"நீளமாக இருக்க வேண்டும் மற்றும் எண்ணெழுத்து எழுத்துக்கள், கோடுகள் மற்றும் அடிக்கோடிட்டுக் "
+"காட்டுதல் மட்டுமே இருக்க வேண்டும்."
 
 #: rero_ils/config.py:2001
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:17
@@ -4644,11 +4642,11 @@ msgstr "Encumbrance exceence"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:68
 msgid ""
-"The exceedance percentage of account amount that linked pending orders "
-"can reach."
+"The exceedance percentage of account amount that linked pending orders can "
+"reach."
 msgstr ""
-"இணைக்கப்பட்ட நிலுவையில் உள்ள ஆர்டர்களை எட்டக்கூடிய கணக்குத் தொகையின் "
-"அதிகப்படியான விழுக்காடு."
+"இணைக்கப்பட்ட நிலுவையில் உள்ள ஆர்டர்களை எட்டக்கூடிய கணக்குத் தொகையின் அதிகப்படியான "
+"விழுக்காடு."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:85
 msgid "Expenditure exceedance"
@@ -4656,11 +4654,10 @@ msgstr "செலவு அதிகரிப்பு"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:86
 msgid ""
-"The exceedance percentage of account amount than linked paid invoices can"
-" reach."
+"The exceedance percentage of account amount than linked paid invoices can "
+"reach."
 msgstr ""
-"இணைக்கப்பட்ட கட்டண விலைப்பட்டியல்களை விட கணக்குத் தொகையின் அதிகப்படியான "
-"விழுக்காடு."
+"இணைக்கப்பட்ட கட்டண விலைப்பட்டியல்களை விட கணக்குத் தொகையின் அதிகப்படியான விழுக்காடு."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:103
 msgid "Parent account"
@@ -4945,11 +4942,9 @@ msgstr "ஆவண யூரி"
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:274
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:40
 msgid ""
-"Should be in the following format: "
-"https://bib.rero.ch/api/documents/<PID>."
+"Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
 msgstr ""
-"பின்வரும் வடிவத்தில் இருக்க வேண்டும்: https://bib.reo.ch/api/documents/ "
-"<bid>."
+"பின்வரும் வடிவத்தில் இருக்க வேண்டும்: https://bib.reo.ch/api/documents/ <bid>."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:290
 msgid "Cancelled"
@@ -4962,8 +4957,8 @@ msgstr "சரிபார்த்தால் இந்த ஆர்டர் 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "Enquiry sent to a vendor, consisting of lines referring to documents."
 msgstr ""
-"ஒரு விற்பனையாளருக்கு வினவல் அனுப்பப்பட்டது, இது ஆவணங்களைக் குறிக்கும் "
-"வரிகளைக் கொண்டுள்ளது."
+"ஒரு விற்பனையாளருக்கு வினவல் அனுப்பப்பட்டது, இது ஆவணங்களைக் குறிக்கும் வரிகளைக் "
+"கொண்டுள்ளது."
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:27
 msgid "AcqOrder ID"
@@ -5163,8 +5158,8 @@ msgid ""
 "Set of circulation rules applying to a loan resource and depending on a "
 "patron type and an item type."
 msgstr ""
-"கடன் வளத்திற்கு பொருந்தும் மற்றும் புரவலர் வகை மற்றும் உருப்படி வகையைப் "
-"பொறுத்து சுழற்சி விதிகளின் தொகுப்பு."
+"கடன் வளத்திற்கு பொருந்தும் மற்றும் புரவலர் வகை மற்றும் உருப்படி வகையைப் பொறுத்து சுழற்சி "
+"விதிகளின் தொகுப்பு."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:40
 msgid "Circulation policy ID"
@@ -5189,8 +5184,8 @@ msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
-"புதுப்பித்தலை முடக்க இந்த புலத்தை அகற்றவும். நாள் இறுதி வரை புதுப்பித்தலை"
-" அனுமதிக்க 0 உள்ளிடவும்."
+"புதுப்பித்தலை முடக்க இந்த புலத்தை அகற்றவும். நாள் இறுதி வரை புதுப்பித்தலை அனுமதிக்க 0 "
+"உள்ளிடவும்."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:99
 msgid "Allow patron requests"
@@ -5205,16 +5200,16 @@ msgid ""
 "Number of day(s) after which a not-picked up validated request will be "
 "cancelled. Keep empty to specify infinite duration."
 msgstr ""
-"தேர்ந்தெடுக்கப்பட்ட சரிபார்க்கப்படாத கோரிக்கை ரத்து செய்யப்படும், அதன் "
-"பிறகு (கள்) எண்ணிக்கை. எல்லையற்ற காலத்தைக் குறிப்பிட காலியாக வைக்கவும்."
+"தேர்ந்தெடுக்கப்பட்ட சரிபார்க்கப்படாத கோரிக்கை ரத்து செய்யப்படும், அதன் பிறகு (கள்) எண்ணிக்கை. "
+"எல்லையற்ற காலத்தைக் குறிப்பிட காலியாக வைக்கவும்."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:123
 msgid ""
 "They include the loan expiry notices, sent before the due date, and the "
 "reminders, sent after the due date."
 msgstr ""
-"அவற்றில் கடன் காலாவதி அறிவிப்புகள், உரிய தேதிக்கு முன் அனுப்பப்பட்டவை, "
-"மற்றும் நினைவூட்டல்கள், உரிய தேதிக்குப் பிறகு அனுப்பப்படுகின்றன."
+"அவற்றில் கடன் காலாவதி அறிவிப்புகள், உரிய தேதிக்கு முன் அனுப்பப்பட்டவை, மற்றும் "
+"நினைவூட்டல்கள், உரிய தேதிக்குப் பிறகு அனுப்பப்படுகின்றன."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:124
 msgid "Reminders"
@@ -5237,13 +5232,12 @@ msgstr "தாமதமானது"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:171
 msgid ""
-"Number of days before the due date (for loan expiry notices) or after the"
-" due date (for reminders). This number defines when the notification is "
-"sent."
+"Number of days before the due date (for loan expiry notices) or after the "
+"due date (for reminders). This number defines when the notification is sent."
 msgstr ""
-"உரிய தேதிக்கு முந்தைய நாட்களின் எண்ணிக்கை (கடன் காலாவதி அறிவிப்புகளுக்கு)"
-" அல்லது உரிய தேதிக்குப் பிறகு (நினைவூட்டல்களுக்கு). அறிவிப்பு "
-"அனுப்பப்படும்போது இந்த எண் வரையறுக்கிறது."
+"உரிய தேதிக்கு முந்தைய நாட்களின் எண்ணிக்கை (கடன் காலாவதி அறிவிப்புகளுக்கு) அல்லது உரிய "
+"தேதிக்குப் பிறகு (நினைவூட்டல்களுக்கு). அறிவிப்பு அனுப்பப்படும்போது இந்த எண் "
+"வரையறுக்கிறது."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:172
 msgid "Delay"
@@ -5295,11 +5289,11 @@ msgstr "பெறுநர்"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:327
 msgid ""
-"This defines the maximum fee amount per document, without considering the"
-" reminder fees."
+"This defines the maximum fee amount per document, without considering the "
+"reminder fees."
 msgstr ""
-"நினைவூட்டல் கட்டணத்தை கருத்தில் கொள்ளாமல், ஆவணத்திற்கான அதிகபட்ச கட்டணத் "
-"தொகையை இது வரையறுக்கிறது."
+"நினைவூட்டல் கட்டணத்தை கருத்தில் கொள்ளாமல், ஆவணத்திற்கான அதிகபட்ச கட்டணத் தொகையை இது "
+"வரையறுக்கிறது."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:328
 msgid "Maximum total amount"
@@ -5327,10 +5321,9 @@ msgid ""
 "reach their due date. Automatic renewal only renews loans that are also "
 "renewable manually (taking into account existing limits and blocks)."
 msgstr ""
-"கடன்கள் அவற்றின் உரிய தேதியை அடையும்போது தானாகவே கணினியால் "
-"புதுப்பிக்கப்படுகின்றனவா என்பதை வரையறுக்கிறது. தானியங்கி புதுப்பித்தல் "
-"கைமுறையாக புதுப்பிக்கத்தக்க கடன்களை மட்டுமே புதுப்பிக்கிறது (தற்போதுள்ள "
-"வரம்புகள் மற்றும் தொகுதிகளை கணக்கில் எடுத்துக்கொள்வது)."
+"கடன்கள் அவற்றின் உரிய தேதியை அடையும்போது தானாகவே கணினியால் புதுப்பிக்கப்படுகின்றனவா "
+"என்பதை வரையறுக்கிறது. தானியங்கி புதுப்பித்தல் கைமுறையாக புதுப்பிக்கத்தக்க கடன்களை "
+"மட்டுமே புதுப்பிக்கிறது (தற்போதுள்ள வரம்புகள் மற்றும் தொகுதிகளை கணக்கில் எடுத்துக்கொள்வது)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:396
 msgid "Mark as default policy"
@@ -5350,11 +5343,11 @@ msgstr "புரவலர் + பொருள் வகைகள் இணை�
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:448
 msgid ""
-"This defines which item categories and patron types this circulation "
-"policy applies to."
+"This defines which item categories and patron types this circulation policy "
+"applies to."
 msgstr ""
-"இந்த சுழற்சி கொள்கை எந்த உருப்படி வகைகள் மற்றும் புரவலர் வகைகளுக்கு "
-"பொருந்தும் என்பதை இது வரையறுக்கிறது."
+"இந்த சுழற்சி கொள்கை எந்த உருப்படி வகைகள் மற்றும் புரவலர் வகைகளுக்கு பொருந்தும் என்பதை இது "
+"வரையறுக்கிறது."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:459
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
@@ -5400,9 +5393,7 @@ msgstr "உள் சேகரிப்பு பிஐடி"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:53
 msgid "Identifier or code used locally for this collection"
-msgstr ""
-"இந்த சேகரிப்புக்கு உள்நாட்டில் பயன்படுத்தப்படும் அடையாளங்காட்டி அல்லது "
-"குறியீடு"
+msgstr "இந்த சேகரிப்புக்கு உள்நாட்டில் பயன்படுத்தப்படும் அடையாளங்காட்டி அல்லது குறியீடு"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:91
 msgid "course"
@@ -5454,10 +5445,9 @@ msgid "Published"
 msgstr "வெளியிடப்பட்டது"
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:320
-msgid "'Published' indicates that the collection appears in the public interface."
-msgstr ""
-"'வெளியிடப்பட்டது' சேகரிப்பு பொது இடைமுகத்தில் தோன்றும் என்பதைக் "
-"குறிக்கிறது."
+msgid ""
+"'Published' indicates that the collection appears in the public interface."
+msgstr "'வெளியிடப்பட்டது' சேகரிப்பு பொது இடைமுகத்தில் தோன்றும் என்பதைக் குறிக்கிறது."
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:23
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:32
@@ -5530,13 +5520,11 @@ msgstr "நிறுவனங்கள்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:245
 msgid ""
-"Imported topic, place, temporal, person, family or corporate body "
-"(including conferences), used for information. Do not enter data "
-"manually."
+"Imported topic, place, temporal, person, family or corporate body (including "
+"conferences), used for information. Do not enter data manually."
 msgstr ""
-"இறக்குமதி செய்யப்பட்ட தலைப்பு, இடம், தற்காலிக, நபர், குடும்பம் அல்லது "
-"கார்ப்பரேட் அமைப்பு (மாநாடுகள் உட்பட), தகவலுக்கு பயன்படுத்தப்படுகிறது. "
-"தரவை கைமுறையாக உள்ளிட வேண்டாம்."
+"இறக்குமதி செய்யப்பட்ட தலைப்பு, இடம், தற்காலிக, நபர், குடும்பம் அல்லது கார்ப்பரேட் அமைப்பு "
+"(மாநாடுகள் உட்பட), தகவலுக்கு பயன்படுத்தப்படுகிறது. தரவை கைமுறையாக உள்ளிட வேண்டாம்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:268
 msgid "Genres, forms (imported)"
@@ -5547,10 +5535,11 @@ msgid "Genre or form imported from external data"
 msgstr "வெளிப்புற தரவுகளிலிருந்து இறக்குமதி செய்யப்படும் வகை அல்லது வடிவம்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:275
-msgid "Imported genre or form, used for information. Do not enter data manually."
+msgid ""
+"Imported genre or form, used for information. Do not enter data manually."
 msgstr ""
-"இறக்குமதி செய்யப்பட்ட வகை அல்லது படிவம், தகவலுக்கு பயன்படுத்தப்படுகிறது. "
-"தரவை கைமுறையாக உள்ளிட வேண்டாம்."
+"இறக்குமதி செய்யப்பட்ட வகை அல்லது படிவம், தகவலுக்கு பயன்படுத்தப்படுகிறது. தரவை "
+"கைமுறையாக உள்ளிட வேண்டாம்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:304
 msgid "Harvested"
@@ -5559,8 +5548,8 @@ msgstr "அறுவடை"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:305
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
-"ஆவணம் அறுவடை செய்யப்படுகிறது அல்லது இல்லை, பதிவு பதிப்பை முடக்கும் அல்லது"
-" ஒத்ததாக இருக்கும்."
+"ஆவணம் அறுவடை செய்யப்படுகிறது அல்லது இல்லை, பதிவு பதிப்பை முடக்கும் அல்லது ஒத்ததாக "
+"இருக்கும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:309
 msgid "Fiction statement"
@@ -5571,9 +5560,8 @@ msgid ""
 "Defines whether the document is fiction or non-fiction (documentary). If "
 "irrelevant (image, object, score, etc.), use unspecified."
 msgstr ""
-"ஆவணம் புனைகதை அல்லது புனைகதை அல்லவா (ஆவணப்படம்) என்பதை வரையறுக்கிறது. "
-"பொருத்தமற்றதாக இருந்தால் (படம், பொருள், மதிப்பெண் போன்றவை), "
-"குறிப்பிடப்படாததைப் பயன்படுத்துங்கள்."
+"ஆவணம் புனைகதை அல்லது புனைகதை அல்லவா (ஆவணப்படம்) என்பதை வரையறுக்கிறது. பொருத்தமற்றதாக "
+"இருந்தால் (படம், பொருள், மதிப்பெண் போன்றவை), குறிப்பிடப்படாததைப் பயன்படுத்துங்கள்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:325
 msgid "fiction"
@@ -5604,18 +5592,18 @@ msgstr "முகமூடி"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:356
 msgid ""
-"A masked document is visible in the professional interface, but not in "
-"the public interface."
+"A masked document is visible in the professional interface, but not in the "
+"public interface."
 msgstr ""
-"ஒரு முகமூடி ஆவணம் தொழில்முறை இடைமுகத்தில் தெரியும், ஆனால் பொது "
-"இடைமுகத்தில் இல்லை."
+"ஒரு முகமூடி ஆவணம் தொழில்முறை இடைமுகத்தில் தெரியும், ஆனால் பொது இடைமுகத்தில் இல்லை."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:3
 msgid "Terms of availability"
 msgstr "கிடைக்கும் விதிமுறைகள்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:4
-msgid "A condition under which the document is supplied. This includes the price."
+msgid ""
+"A condition under which the document is supplied. This includes the price."
 msgstr "ஆவணம் வழங்கப்படும் ஒரு நிபந்தனை. இதில் விலை அடங்கும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_acquisition_terms-v0.0.1.json:8
@@ -5719,13 +5707,12 @@ msgstr "நூலியல் வடிவங்கள்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:4
 msgid ""
-"A proportional relationship between a whole sheet in a printed or "
-"manuscript resource, and the individual leaves that result if that sheet "
-"is left full, cut, or folded."
+"A proportional relationship between a whole sheet in a printed or manuscript "
+"resource, and the individual leaves that result if that sheet is left full, "
+"cut, or folded."
 msgstr ""
-"அச்சிடப்பட்ட அல்லது கையெழுத்துப் பிரதி வளத்தில் ஒரு முழு தாளுக்கும், "
-"அந்தத் தாள் முழு, வெட்டப்பட்டால் அல்லது மடிந்திருந்தால் அந்த தனிப்பட்ட "
-"இலைகள் இடையே ஒரு விகிதாசார உறவு."
+"அச்சிடப்பட்ட அல்லது கையெழுத்துப் பிரதி வளத்தில் ஒரு முழு தாளுக்கும், அந்தத் தாள் முழு, "
+"வெட்டப்பட்டால் அல்லது மடிந்திருந்தால் அந்த தனிப்பட்ட இலைகள் இடையே ஒரு விகிதாசார உறவு."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_book_format-v0.0.1.json:8
 msgid "Bibliographic format"
@@ -5790,12 +5777,11 @@ msgstr "பதிப்பு"
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:353
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:449
 msgid ""
-"Used for imported records only. Edition of the classification, identified"
-" by a number, a date, or another textual designation."
+"Used for imported records only. Edition of the classification, identified by "
+"a number, a date, or another textual designation."
 msgstr ""
-"இறக்குமதி செய்யப்பட்ட பதிவுகளுக்கு மட்டுமே பயன்படுத்தப்படுகிறது. "
-"வகைப்பாட்டின் பதிப்பு, ஒரு எண், தேதி அல்லது மற்றொரு உரை பதவி மூலம் "
-"அடையாளம் காணப்படுகிறது."
+"இறக்குமதி செய்யப்பட்ட பதிவுகளுக்கு மட்டுமே பயன்படுத்தப்படுகிறது. வகைப்பாட்டின் பதிப்பு, "
+"ஒரு எண், தேதி அல்லது மற்றொரு உரை பதவி மூலம் அடையாளம் காணப்படுகிறது."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:359
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:455
@@ -5813,8 +5799,8 @@ msgid ""
 "Used for imported records only. Agency that assigned this classification "
 "value."
 msgstr ""
-"இறக்குமதி செய்யப்பட்ட பதிவுகளுக்கு மட்டுமே பயன்படுத்தப்படுகிறது. இந்த "
-"வகைப்பாடு மதிப்பை ஒதுக்கிய நிறுவனம்."
+"இறக்குமதி செய்யப்பட்ட பதிவுகளுக்கு மட்டுமே பயன்படுத்தப்படுகிறது. இந்த வகைப்பாடு மதிப்பை "
+"ஒதுக்கிய நிறுவனம்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:373
 msgid "classification_musicale_genres"
@@ -5836,12 +5822,11 @@ msgstr "வண்ண உள்ளடக்கங்கள்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:4
 msgid ""
-"A presence of color, tone, etc., in the content of an expression. Record "
-"a color content if considered important for identification or selection."
+"A presence of color, tone, etc., in the content of an expression. Record a "
+"color content if considered important for identification or selection."
 msgstr ""
-"ஒரு வெளிப்பாட்டின் உள்ளடக்கத்தில் வண்ணம், தொனி போன்றவற்றின் இருப்பு. "
-"அடையாளம் அல்லது தேர்வுக்கு முக்கியமானதாகக் கருதப்பட்டால் வண்ண "
-"உள்ளடக்கத்தை பதிவு செய்யுங்கள்."
+"ஒரு வெளிப்பாட்டின் உள்ளடக்கத்தில் வண்ணம், தொனி போன்றவற்றின் இருப்பு. அடையாளம் அல்லது "
+"தேர்வுக்கு முக்கியமானதாகக் கருதப்பட்டால் வண்ண உள்ளடக்கத்தை பதிவு செய்யுங்கள்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:8
 msgid "Color content"
@@ -5882,11 +5867,11 @@ msgstr "RDAMT: 1001"
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:652
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:728
 msgid ""
-"Type of intermediation device required to view, play, run, etc., the "
-"content of a manifestation (MARC 337)."
+"Type of intermediation device required to view, play, run, etc., the content "
+"of a manifestation (MARC 337)."
 msgstr ""
-"ஒரு வெளிப்பாட்டின் உள்ளடக்கம் (MARC 337) காண, விளையாட, இயக்க தேவையான "
-"இடைநிலை சாதனத்தின் வகை."
+"ஒரு வெளிப்பாட்டின் உள்ளடக்கம் (MARC 337) காண, விளையாட, இயக்க தேவையான இடைநிலை "
+"சாதனத்தின் வகை."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:155
@@ -5910,13 +5895,12 @@ msgstr "கேரியர் வகை"
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:668
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:744
 msgid ""
-"Format of the storage medium and housing of a carrier in combination with"
-" the type of intermediation device required to view, play, run, etc., the"
-" content of a manifestation (MARC 338)."
+"Format of the storage medium and housing of a carrier in combination with "
+"the type of intermediation device required to view, play, run, etc., the "
+"content of a manifestation (MARC 338)."
 msgstr ""
-"ஒரு வெளிப்பாட்டின் உள்ளடக்கம் (MARC 338) பார்க்க, விளையாட, இயக்க தேவையான "
-"இடைநிலை சாதனத்தின் வகையுடன் இணைந்து ஒரு கேரியரின் சேமிப்பு ஊடகம் மற்றும் "
-"வீட்டுவசதி வடிவம்."
+"ஒரு வெளிப்பாட்டின் உள்ளடக்கம் (MARC 338) பார்க்க, விளையாட, இயக்க தேவையான இடைநிலை "
+"சாதனத்தின் வகையுடன் இணைந்து ஒரு கேரியரின் சேமிப்பு ஊடகம் மற்றும் வீட்டுவசதி வடிவம்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:80
 msgid "rdact:1002"
@@ -6167,11 +6151,11 @@ msgstr "உள்ளடக்க வகை"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:781
 msgid ""
-"Fundamental form of communication in which the content is expressed and "
-"the human sense through which it is intended to be perceived (MARC 336)."
+"Fundamental form of communication in which the content is expressed and the "
+"human sense through which it is intended to be perceived (MARC 336)."
 msgstr ""
-"உள்ளடக்கம் வெளிப்படுத்தப்படும் தகவல்தொடர்புகளின் அடிப்படை வடிவம் மற்றும் "
-"அது உணரப்பட வேண்டிய மனித உணர்வு (மார்க் 336)."
+"உள்ளடக்கம் வெளிப்படுத்தப்படும் தகவல்தொடர்புகளின் அடிப்படை வடிவம் மற்றும் அது உணரப்பட வேண்டிய "
+"மனித உணர்வு (மார்க் 336)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:822
 msgid "rdaco:1002"
@@ -6274,8 +6258,8 @@ msgid ""
 "Person, family or corporate body (including conferences) and their "
 "contributing role for the document."
 msgstr ""
-"நபர், குடும்பம் அல்லது கார்ப்பரேட் அமைப்பு (மாநாடுகள் உட்பட) மற்றும் "
-"ஆவணத்திற்கு அவர்களின் பங்களிப்பு பங்கு."
+"நபர், குடும்பம் அல்லது கார்ப்பரேட் அமைப்பு (மாநாடுகள் உட்பட) மற்றும் ஆவணத்திற்கு அவர்களின் "
+"பங்களிப்பு பங்கு."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:14
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
@@ -6286,11 +6270,11 @@ msgstr "ஒரு நிறுவனத்துடன் இணைப்பு"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:5
 msgid ""
-"Link to a remote or local entity of type person, family or corporate body"
-" (including conferences)."
+"Link to a remote or local entity of type person, family or corporate body "
+"(including conferences)."
 msgstr ""
-"வகை நபர், குடும்பம் அல்லது கார்ப்பரேட் அமைப்பின் தொலைநிலை அல்லது உள்ளக "
-"நிறுவனத்துடன் இணைக்கவும் (மாநாடுகள் உட்பட)."
+"வகை நபர், குடும்பம் அல்லது கார்ப்பரேட் அமைப்பின் தொலைநிலை அல்லது உள்ளக நிறுவனத்துடன் "
+"இணைக்கவும் (மாநாடுகள் உட்பட)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:43
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:3
@@ -6307,9 +6291,8 @@ msgid ""
 "conferences). Usually used temporarily until a link to an entity can be "
 "established."
 msgstr ""
-"ஒரு நபர், குடும்பம் அல்லது கார்ப்பரேட் அமைப்பின் உரை விளக்கம் (மாநாடுகள் "
-"உட்பட). வழக்கமாக ஒரு நிறுவனத்திற்கான இணைப்பு நிறுவப்படும் வரை தற்காலிகமாக"
-" பயன்படுத்தப்படுகிறது."
+"ஒரு நபர், குடும்பம் அல்லது கார்ப்பரேட் அமைப்பின் உரை விளக்கம் (மாநாடுகள் உட்பட). வழக்கமாக "
+"ஒரு நிறுவனத்திற்கான இணைப்பு நிறுவப்படும் வரை தற்காலிகமாக பயன்படுத்தப்படுகிறது."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:3
 msgid "Link to an agent"
@@ -6393,11 +6376,11 @@ msgstr "மாநாடு"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:75
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:126
 msgid ""
-"Mark as conference if the access point is directly at the conference name"
-" and not at the corporate body name"
+"Mark as conference if the access point is directly at the conference name "
+"and not at the corporate body name"
 msgstr ""
-"அணுகல் புள்ளி நேரடியாக மாநாட்டு பெயரில் இருந்தால், கார்ப்பரேட் உடல் "
-"பெயரில் இல்லை என்றால் மாநாட்டாக குறிக்கவும்"
+"அணுகல் புள்ளி நேரடியாக மாநாட்டு பெயரில் இருந்தால், கார்ப்பரேட் உடல் பெயரில் இல்லை என்றால் "
+"மாநாட்டாக குறிக்கவும்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:87
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:131
@@ -6494,13 +6477,13 @@ msgstr "பெயரின் முழுமையான வடிவம்"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:105
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:134
 msgid ""
-"Used only for import. Fuller form of a name represented only by an "
-"initial, abbreviation, or other variant not included in the form chosen "
-"as the preferred name"
+"Used only for import. Fuller form of a name represented only by an initial, "
+"abbreviation, or other variant not included in the form chosen as the "
+"preferred name"
 msgstr ""
-"இறக்குமதிக்கு மட்டுமே பயன்படுத்தப்படுகிறது. ஆரம்ப, சுருக்கத்தால் மட்டுமே "
-"குறிப்பிடப்படும் பெயரின் முழுமையான வடிவம் அல்லது விருப்பமான பெயராக "
-"தேர்ந்தெடுக்கப்பட்ட படிவத்தில் சேர்க்கப்படாத பிற மாறுபாடு"
+"இறக்குமதிக்கு மட்டுமே பயன்படுத்தப்படுகிறது. ஆரம்ப, சுருக்கத்தால் மட்டுமே குறிப்பிடப்படும் "
+"பெயரின் முழுமையான வடிவம் அல்லது விருப்பமான பெயராக தேர்ந்தெடுக்கப்பட்ட படிவத்தில் "
+"சேர்க்கப்படாத பிற மாறுபாடு"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:2
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:473
@@ -7117,11 +7100,11 @@ msgstr "பொறுப்பு அறிக்கை குறித்த க
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:4
 msgid ""
-"Note used for agents not named in the statement of responsibility, or for"
-" other information about the statement of responsibility (MARC 508, 511)."
+"Note used for agents not named in the statement of responsibility, or for "
+"other information about the statement of responsibility (MARC 508, 511)."
 msgstr ""
-"பொறுப்பு அறிக்கையில் பெயரிடப்படாத முகவர்களுக்கு அல்லது பொறுப்பு அறிக்கை "
-"பற்றிய பிற தகவல்களுக்கு (MARC 508, 511) பயன்படுத்தப்படுகிறது."
+"பொறுப்பு அறிக்கையில் பெயரிடப்படாத முகவர்களுக்கு அல்லது பொறுப்பு அறிக்கை பற்றிய பிற "
+"தகவல்களுக்கு (MARC 508, 511) பயன்படுத்தப்படுகிறது."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:8
 msgid "Note on statement of responsibility"
@@ -7129,9 +7112,7 @@ msgstr "பொறுப்பு அறிக்கை குறித்த க
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:13
 msgid "Example: Additional collaborators: Bernard Levrat, Eric Wehrli"
-msgstr ""
-"எடுத்துக்காட்டு: கூடுதல் ஒத்துழைப்பாளர்கள்: பெர்னார்ட் லெவ்ராட், எரிக் "
-"வெர்லி"
+msgstr "எடுத்துக்காட்டு: கூடுதல் ஒத்துழைப்பாளர்கள்: பெர்னார்ட் லெவ்ராட், எரிக் வெர்லி"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:8
@@ -7140,12 +7121,11 @@ msgstr "பரிமாணங்கள்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:4
 msgid ""
-"Dimensions include measurements of height, width, depth, length, gauge, "
-"and diameter. For oblong volumes, record the height x width."
+"Dimensions include measurements of height, width, depth, length, gauge, and "
+"diameter. For oblong volumes, record the height x width."
 msgstr ""
-"பரிமாணங்களில் உயரம், அகலம், ஆழம், நீளம், பாதை மற்றும் விட்டம் ஆகியவற்றின்"
-" அளவீடுகள் அடங்கும். நீளமான தொகுதிகளுக்கு, உயரம் ஃச் அகலத்தை பதிவு "
-"செய்யுங்கள்."
+"பரிமாணங்களில் உயரம், அகலம், ஆழம், நீளம், பாதை மற்றும் விட்டம் ஆகியவற்றின் அளவீடுகள் அடங்கும். "
+"நீளமான தொகுதிகளுக்கு, உயரம் ஃச் அகலத்தை பதிவு செய்யுங்கள்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:15
 msgid "Example: 22 cm"
@@ -7160,8 +7140,8 @@ msgid ""
 "A statement that identifies an academic institution, degree, or year for "
 "which a work was presented (MARC 502)."
 msgstr ""
-"ஒரு கல்வி நிறுவனம், பட்டம் அல்லது ஆண்டு ஒரு வேலை வழங்கப்பட்ட ஆண்டு "
-"(மார்க் 502) அடையாளம் காணும் அறிக்கை."
+"ஒரு கல்வி நிறுவனம், பட்டம் அல்லது ஆண்டு ஒரு வேலை வழங்கப்பட்ட ஆண்டு (மார்க் 502) அடையாளம் "
+"காணும் அறிக்கை."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:18
 #: rero_ils/modules/documents/jsonschemas/documents/document_edition_statement-v0.0.1.json:16
@@ -7179,8 +7159,8 @@ msgstr "துணை"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:8
 msgid ""
-"A document that updates or otherwise complements the predominant document"
-" (MARC 770)."
+"A document that updates or otherwise complements the predominant document "
+"(MARC 770)."
 msgstr "முதன்மையான ஆவணத்தை (MARC 770) புதுப்பிக்கும் அல்லது நிறைவு செய்யும் ஆவணம்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:28
@@ -7196,9 +7176,7 @@ msgstr "துணை"
 msgid ""
 "A document that is updated or otherwise complemented by the augmenting "
 "document (MARC 772)."
-msgstr ""
-"ஆக்மென்டிங் ஆவணத்தால் (மார்க் 772) புதுப்பிக்கப்பட்ட அல்லது நிறைவு "
-"செய்யப்படும் ஆவணம்."
+msgstr "ஆக்மென்டிங் ஆவணத்தால் (மார்க் 772) புதுப்பிக்கப்பட்ட அல்லது நிறைவு செய்யப்படும் ஆவணம்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:53
 msgid "Other editions"
@@ -7213,8 +7191,8 @@ msgid ""
 "Other available editions, for example simultaneously published language "
 "editions or reprints (MARC 775)."
 msgstr ""
-"கிடைக்கக்கூடிய பிற பதிப்புகள், எடுத்துக்காட்டாக ஒரே நேரத்தில் "
-"வெளியிடப்பட்ட மொழி பதிப்புகள் அல்லது மறுபதிப்புகள் (மார்க் 775)."
+"கிடைக்கக்கூடிய பிற பதிப்புகள், எடுத்துக்காட்டாக ஒரே நேரத்தில் வெளியிடப்பட்ட மொழி "
+"பதிப்புகள் அல்லது மறுபதிப்புகள் (மார்க் 775)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:78
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:82
@@ -7223,11 +7201,9 @@ msgstr "ஆகவும் வழங்கப்பட்டது"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:83
 msgid ""
-"A document that embodies the same expression of a work in a different "
-"format (MARC 776)."
-msgstr ""
-"ஒரு படைப்பின் அதே வெளிப்பாட்டை வேறு வடிவத்தில் (மார்க் 776) உள்ளடக்கிய "
-"ஒரு ஆவணம்."
+"A document that embodies the same expression of a work in a different format "
+"(MARC 776)."
+msgstr "ஒரு படைப்பின் அதே வெளிப்பாட்டை வேறு வடிவத்தில் (மார்க் 776) உள்ளடக்கிய ஒரு ஆவணம்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:103
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:107
@@ -7249,11 +7225,11 @@ msgstr "முன்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:133
 msgid ""
-"A document that precedes the succeeding document (earlier in time or "
-"before in a narrative) (MARC 780)."
+"A document that precedes the succeeding document (earlier in time or before "
+"in a narrative) (MARC 780)."
 msgstr ""
-"அடுத்தடுத்த ஆவணத்திற்கு முந்திய ஒரு ஆவணம் (முந்தைய நேரத்தில் அல்லது "
-"அதற்கு முன் ஒரு கதையில்) (மார்க் 780)."
+"அடுத்தடுத்த ஆவணத்திற்கு முந்திய ஒரு ஆவணம் (முந்தைய நேரத்தில் அல்லது அதற்கு முன் ஒரு "
+"கதையில்) (மார்க் 780)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:153
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:157
@@ -7263,11 +7239,11 @@ msgstr "செய் பெற்றார்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:158
 msgid ""
-"A document that succeeds, that is, is later in time or after in a "
-"narrative, etc., the preceding work (MARC 785)."
+"A document that succeeds, that is, is later in time or after in a narrative, "
+"etc., the preceding work (MARC 785)."
 msgstr ""
-"வெற்றிபெறும் ஒரு ஆவணம், அதாவது, பிற்காலத்தில் அல்லது ஒரு கதை "
-"போன்றவற்றில், முந்தைய வேலை (மார்க் 785)."
+"வெற்றிபெறும் ஒரு ஆவணம், அதாவது, பிற்காலத்தில் அல்லது ஒரு கதை போன்றவற்றில், முந்தைய வேலை "
+"(மார்க் 785)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:178
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:182
@@ -7308,11 +7284,10 @@ msgstr "காலம்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:4
 msgid ""
-"A playing time, performance time, running time, etc., of the content of "
-"an expression."
+"A playing time, performance time, running time, etc., of the content of an "
+"expression."
 msgstr ""
-"ஒரு வெளிப்பாட்டின் உள்ளடக்கத்தின் விளையாட்டு நேரம், செயல்திறன் நேரம், "
-"இயங்கும் நேரம் போன்றவை."
+"ஒரு வெளிப்பாட்டின் உள்ளடக்கத்தின் விளையாட்டு நேரம், செயல்திறன் நேரம், இயங்கும் நேரம் போன்றவை."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:71
@@ -7545,12 +7520,12 @@ msgstr "எடுத்துக்காட்டு: நூலகத்தி�
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:39
 msgid ""
 "Textual description of a topic, person, organisation (including "
-"conferences), place, temporal or work. Usually used temporarily until a "
-"link to an entity can be established."
+"conferences), place, temporal or work. Usually used temporarily until a link "
+"to an entity can be established."
 msgstr ""
-"ஒரு தலைப்பு, நபர், அமைப்பு (மாநாடுகள் உட்பட), இடம், தற்காலிக அல்லது வேலை "
-"ஆகியவற்றின் உரை விளக்கம். வழக்கமாக ஒரு நிறுவனத்திற்கான இணைப்பு "
-"நிறுவப்படும் வரை தற்காலிகமாக பயன்படுத்தப்படுகிறது."
+"ஒரு தலைப்பு, நபர், அமைப்பு (மாநாடுகள் உட்பட), இடம், தற்காலிக அல்லது வேலை ஆகியவற்றின் "
+"உரை விளக்கம். வழக்கமாக ஒரு நிறுவனத்திற்கான இணைப்பு நிறுவப்படும் வரை தற்காலிகமாக "
+"பயன்படுத்தப்படுகிறது."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:47
 msgid "bf:Work"
@@ -7575,8 +7550,8 @@ msgid ""
 "Textual description of a topic (including genre and forms), person, "
 "organisation (including conferences), place, temporal or work."
 msgstr ""
-"ஒரு தலைப்பின் உரை விளக்கம் (வகை மற்றும் படிவங்கள் உட்பட), நபர், அமைப்பு "
-"(மாநாடுகள் உட்பட), இடம், தற்காலிக அல்லது வேலை."
+"ஒரு தலைப்பின் உரை விளக்கம் (வகை மற்றும் படிவங்கள் உட்பட), நபர், அமைப்பு (மாநாடுகள் "
+"உட்பட), இடம், தற்காலிக அல்லது வேலை."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:131
 msgid "Is this entity a genre, form ?"
@@ -7588,11 +7563,11 @@ msgstr "அளவு"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:4
 msgid ""
-"Record the number of units and the type of unit. For the type of unit, "
-"use RDA recommended terms."
+"Record the number of units and the type of unit. For the type of unit, use "
+"RDA recommended terms."
 msgstr ""
-"அலகுகளின் எண்ணிக்கை மற்றும் அலகு வகை ஆகியவற்றைப் பதிவுசெய்க. அலகு "
-"வகைக்கு, RDA பரிந்துரைக்கப்பட்ட விதிமுறைகளைப் பயன்படுத்தவும்."
+"அலகுகளின் எண்ணிக்கை மற்றும் அலகு வகை ஆகியவற்றைப் பதிவுசெய்க. அலகு வகைக்கு, RDA "
+"பரிந்துரைக்கப்பட்ட விதிமுறைகளைப் பயன்படுத்தவும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:15
 msgid "Example: 355 pages"
@@ -7605,12 +7580,12 @@ msgstr "அலைவெண்கள்"
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:4
 msgid ""
 "An interval at which an issue or part of a serial or the update to an "
-"integrating resource is issued. For former frequencies, repeat the field "
-"and specify dates (MARC 310, 321)."
+"integrating resource is issued. For former frequencies, repeat the field and "
+"specify dates (MARC 310, 321)."
 msgstr ""
-"ஒரு சீரியலின் சிக்கல் அல்லது ஒரு பகுதி அல்லது ஒருங்கிணைந்த வளத்திற்கான "
-"புதுப்பிப்பு வழங்கப்படும் இடைவெளி. முன்னாள் அதிர்வெண்களுக்கு, புலத்தை "
-"மீண்டும் செய்து தேதிகளைக் குறிப்பிடவும் (மார்க் 310, 321)."
+"ஒரு சீரியலின் சிக்கல் அல்லது ஒரு பகுதி அல்லது ஒருங்கிணைந்த வளத்திற்கான புதுப்பிப்பு "
+"வழங்கப்படும் இடைவெளி. முன்னாள் அதிர்வெண்களுக்கு, புலத்தை மீண்டும் செய்து தேதிகளைக் "
+"குறிப்பிடவும் (மார்க் 310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:83
@@ -7621,9 +7596,7 @@ msgstr "மீடிறன், மீள்திறன், நிகழ்வ�
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:26
 msgid "RDA recommended terms: monthly, weekly, daily, ..."
-msgstr ""
-"ஆர்.டி.ஏ பரிந்துரைக்கப்பட்ட விதிமுறைகள்: மாதாந்திர, வாராந்திர, "
-"நாள்தோறும், ..."
+msgstr "ஆர்.டி.ஏ பரிந்துரைக்கப்பட்ட விதிமுறைகள்: மாதாந்திர, வாராந்திர, நாள்தோறும், ..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:33
 msgid "Required if a former frequency is indicated"
@@ -7647,19 +7620,18 @@ msgstr "ஆவணத்தின் வகை அல்லது வடிவம
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:15
 msgid ""
-"Link to a remote or local entity of type topic accepted as a 'genre, "
-"form'."
+"Link to a remote or local entity of type topic accepted as a 'genre, form'."
 msgstr ""
-"'வகை, படிவம்' என ஏற்றுக்கொள்ளப்பட்ட வகை தலைப்பின் தொலை அல்லது உள்ளக "
-"நிறுவனத்துடன் இணைக்கவும்."
+"'வகை, படிவம்' என ஏற்றுக்கொள்ளப்பட்ட வகை தலைப்பின் தொலை அல்லது உள்ளக நிறுவனத்துடன் "
+"இணைக்கவும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:31
 msgid ""
 "Textual description of a genre or form. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
-"ஒரு வகை அல்லது வடிவத்தின் உரை விளக்கம். வழக்கமாக ஒரு நிறுவனத்திற்கான "
-"இணைப்பு நிறுவப்படும் வரை தற்காலிகமாக பயன்படுத்தப்படுகிறது."
+"ஒரு வகை அல்லது வடிவத்தின் உரை விளக்கம். வழக்கமாக ஒரு நிறுவனத்திற்கான இணைப்பு "
+"நிறுவப்படும் வரை தற்காலிகமாக பயன்படுத்தப்படுகிறது."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:3
 msgid "Link to a genre, form"
@@ -7683,11 +7655,11 @@ msgstr "அடையாளங்காட்டிகள்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:25
 msgid ""
-"Other identifier types are entered as local identifiers with indication "
-"of the source."
+"Other identifier types are entered as local identifiers with indication of "
+"the source."
 msgstr ""
-"பிற அடையாளங்காட்டி வகைகள் மூலத்தின் அறிகுறியுடன் உள்ளக அடையாளங்காட்டிகளாக"
-" உள்ளிடப்படுகின்றன."
+"பிற அடையாளங்காட்டி வகைகள் மூலத்தின் அறிகுறியுடன் உள்ளக அடையாளங்காட்டிகளாக "
+"உள்ளிடப்படுகின்றன."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:59
 msgid "bf:AudioIssueNumber"
@@ -7787,11 +7759,11 @@ msgstr "தகுதி"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:183
 msgid ""
-"Qualification if the resource has more than one identifier of the same, "
-"to enter if considered important for identification."
+"Qualification if the resource has more than one identifier of the same, to "
+"enter if considered important for identification."
 msgstr ""
-"தகுதி என்பது ஒன்றுக்கு மேற்பட்ட அடையாளங்காட்டிகளைக் கொண்டிருந்தால், "
-"அடையாளம் காண முக்கியமானதாகக் கருதப்பட்டால் நுழைய."
+"தகுதி என்பது ஒன்றுக்கு மேற்பட்ட அடையாளங்காட்டிகளைக் கொண்டிருந்தால், அடையாளம் காண "
+"முக்கியமானதாகக் கருதப்பட்டால் நுழைய."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:191
 msgid "Example: volume 1"
@@ -7799,11 +7771,11 @@ msgstr "எடுத்துக்காட்டு: தொகுதி 1"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:198
 msgid ""
-"The source is entered only for local identifiers, it indicates the system"
-" or agency responsible for the identifier."
+"The source is entered only for local identifiers, it indicates the system or "
+"agency responsible for the identifier."
 msgstr ""
-"மூலமானது உள்ளக அடையாளங்காட்டிகளுக்கு மட்டுமே உள்ளிடப்படுகிறது, இது "
-"அடையாளங்காட்டிக்கு பொறுப்பான கணினி அல்லது நிறுவனத்தைக் குறிக்கிறது."
+"மூலமானது உள்ளக அடையாளங்காட்டிகளுக்கு மட்டுமே உள்ளிடப்படுகிறது, இது அடையாளங்காட்டிக்கு "
+"பொறுப்பான கணினி அல்லது நிறுவனத்தைக் குறிக்கிறது."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:209
 msgid "Examples: LCCN, PMID, DNB"
@@ -7823,12 +7795,12 @@ msgstr "விளக்கமளிக்கும் உள்ளடக்க�
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:4
 msgid ""
-"Record every different illustrative content in a new field. Use one or "
-"more RDA recommended terms, in the singular or plural (MARC 300$b)."
+"Record every different illustrative content in a new field. Use one or more "
+"RDA recommended terms, in the singular or plural (MARC 300$b)."
 msgstr ""
-"ஒவ்வொரு வெவ்வேறு விளக்க உள்ளடக்கத்தையும் புதிய துறையில் பதிவு "
-"செய்யுங்கள். ஒன்று அல்லது அதற்கு மேற்பட்ட RDA பரிந்துரைக்கப்பட்ட "
-"சொற்களைப் பயன்படுத்தவும், ஒருமை அல்லது பன்மையில் (MARC 300 $ B)."
+"ஒவ்வொரு வெவ்வேறு விளக்க உள்ளடக்கத்தையும் புதிய துறையில் பதிவு செய்யுங்கள். ஒன்று அல்லது "
+"அதற்கு மேற்பட்ட RDA பரிந்துரைக்கப்பட்ட சொற்களைப் பயன்படுத்தவும், ஒருமை அல்லது பன்மையில் "
+"(MARC 300 $ B)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:8
 msgid "Illustrative content"
@@ -7837,8 +7809,8 @@ msgstr "விளக்க உள்ளடக்கம்"
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:14
 msgid "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
 msgstr ""
-"ஆர்.டி.ஏ பரிந்துரைக்கப்பட்ட விதிமுறைகள்: விளக்கப்படங்கள், வரைபடங்கள், "
-"புகைப்படங்கள், உருவப்படங்கள், ..."
+"ஆர்.டி.ஏ பரிந்துரைக்கப்பட்ட விதிமுறைகள்: விளக்கப்படங்கள், வரைபடங்கள், புகைப்படங்கள், "
+"உருவப்படங்கள், ..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:3
 msgid "Intended audiences"
@@ -8264,8 +8236,8 @@ msgstr "ஒரு பகுதி (ஓச்ட் ஆவணம்)"
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:4
 msgid "Host document, for example a journal or a series (MARC 773, 800, 830)."
 msgstr ""
-"புரவலன் ஆவணம், எடுத்துக்காட்டாக ஒரு செய்தித் தாள் அல்லது ஒரு தொடர் (MARC "
-"773, 800, 830)."
+"புரவலன் ஆவணம், எடுத்துக்காட்டாக ஒரு செய்தித் தாள் அல்லது ஒரு தொடர் (MARC 773, 800, "
+"830)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:9
 msgid "Part of"
@@ -8284,8 +8256,8 @@ msgid ""
 "For series, record only the volume. For journals, record every available "
 "information."
 msgstr ""
-"தொடருக்கு, தொகுதியை மட்டும் பதிவு செய்யுங்கள். பத்திரிகைகளுக்கு, "
-"கிடைக்கக்கூடிய ஒவ்வொரு தகவலையும் பதிவு செய்யுங்கள்."
+"தொடருக்கு, தொகுதியை மட்டும் பதிவு செய்யுங்கள். பத்திரிகைகளுக்கு, கிடைக்கக்கூடிய ஒவ்வொரு "
+"தகவலையும் பதிவு செய்யுங்கள்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:60
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:31
@@ -8466,12 +8438,11 @@ msgstr "தேதி 1"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:248
 msgid ""
-"Normalised date used for sorting and filtering options (MARC 008). A free"
-" text date (transcripted) can be added in the field Statements."
+"Normalised date used for sorting and filtering options (MARC 008). A free "
+"text date (transcripted) can be added in the field Statements."
 msgstr ""
-"விருப்பங்களை வரிசைப்படுத்துவதற்கும் வடிகட்டுவதற்கும் பயன்படுத்தப்படும் "
-"இயல்பாக்கப்பட்ட தேதி (MARC 008). புல அறிக்கைகளில் ஒரு இலவச உரை தேதி "
-"(டிரான்ச்கிரிப்ட்) சேர்க்கப்படலாம்."
+"விருப்பங்களை வரிசைப்படுத்துவதற்கும் வடிகட்டுவதற்கும் பயன்படுத்தப்படும் இயல்பாக்கப்பட்ட தேதி "
+"(MARC 008). புல அறிக்கைகளில் ஒரு இலவச உரை தேதி (டிரான்ச்கிரிப்ட்) சேர்க்கப்படலாம்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:264
 msgid "Date 2"
@@ -8479,14 +8450,13 @@ msgstr "தேதி 2"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:265
 msgid ""
-"Normalised end date if the provision activity covers more than one year, "
-"and used for sorting and filtering options (MARC 008). A free text date "
+"Normalised end date if the provision activity covers more than one year, and "
+"used for sorting and filtering options (MARC 008). A free text date "
 "(transcripted) can be added in the field Statements"
 msgstr ""
-"இயல்பாக்கப்பட்ட இறுதி தேதி, விதிமுறை செயல்பாடு ஒரு வருடத்திற்கும் மேலாக "
-"உள்ளடக்கியது, மற்றும் விருப்பங்களை வரிசைப்படுத்துவதற்கும் "
-"வடிகட்டுவதற்கும் பயன்படுத்தப்படுகிறது (MARC 008). புல அறிக்கைகளில் ஒரு "
-"இலவச உரை தேதி (படியெடுத்தல்) சேர்க்கப்படலாம்"
+"இயல்பாக்கப்பட்ட இறுதி தேதி, விதிமுறை செயல்பாடு ஒரு வருடத்திற்கும் மேலாக உள்ளடக்கியது, "
+"மற்றும் விருப்பங்களை வரிசைப்படுத்துவதற்கும் வடிகட்டுவதற்கும் பயன்படுத்தப்படுகிறது (MARC "
+"008). புல அறிக்கைகளில் ஒரு இலவச உரை தேதி (படியெடுத்தல்) சேர்க்கப்படலாம்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:279
 msgid "Date of the original"
@@ -8505,8 +8475,8 @@ msgid ""
 "Ratio of the dimensions of an image or three-dimensional form to the "
 "dimensions of the thing that is represented. (MARC 034, 255)"
 msgstr ""
-"ஒரு படத்தின் பரிமாணங்களின் விகிதம் அல்லது முப்பரிமாண வடிவம் "
-"குறிப்பிடப்படும் விசயத்தின் பரிமாணங்களுக்கு. (மார்க் 034, 255)"
+"ஒரு படத்தின் பரிமாணங்களின் விகிதம் அல்லது முப்பரிமாண வடிவம் குறிப்பிடப்படும் விசயத்தின் "
+"பரிமாணங்களுக்கு. (மார்க் 034, 255)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:8
 msgid "Scale"
@@ -8568,11 +8538,11 @@ msgstr "நெட்டாங்கு"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:128
 msgid ""
-"Enter one value, or two values (westernmost then easternmost) separated "
-"by a space."
+"Enter one value, or two values (westernmost then easternmost) separated by a "
+"space."
 msgstr ""
-"ஒரு இடத்தால் பிரிக்கப்பட்ட ஒரு மதிப்பு அல்லது இரண்டு மதிப்புகள் (மேற்கு "
-"திசையில் கிழக்கு நோக்கி) உள்ளிடவும்."
+"ஒரு இடத்தால் பிரிக்கப்பட்ட ஒரு மதிப்பு அல்லது இரண்டு மதிப்புகள் (மேற்கு திசையில் கிழக்கு "
+"நோக்கி) உள்ளிடவும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:134
 msgid "Example: W1800000 E1800000"
@@ -8584,11 +8554,11 @@ msgstr "அகலாங்கு"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:141
 msgid ""
-"Enter one value, or two values (northernmost then southernmost) separated"
-" by a space."
+"Enter one value, or two values (northernmost then southernmost) separated by "
+"a space."
 msgstr ""
-"ஒரு இடத்தால் பிரிக்கப்பட்ட ஒரு மதிப்பு அல்லது இரண்டு மதிப்புகள் (வடக்கு "
-"திசையில் தெற்கே) உள்ளிடவும்."
+"ஒரு இடத்தால் பிரிக்கப்பட்ட ஒரு மதிப்பு அல்லது இரண்டு மதிப்புகள் (வடக்கு திசையில் தெற்கே) "
+"உள்ளிடவும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:147
 msgid "Example: N0251500 N0221000"
@@ -8603,9 +8573,8 @@ msgid ""
 "Use the format hdddmmss (hemisphere-degrees-minutes-seconds). Enter one "
 "value, or two values separated by a space."
 msgstr ""
-"HDDDMMSS (அரைக்கோள-டிகிரி-நிமிடங்கள்-இரண்டாவது) வடிவமைப்பைப் "
-"பயன்படுத்தவும். ஒரு மதிப்பால் பிரிக்கப்பட்ட ஒரு மதிப்பை அல்லது இரண்டு "
-"மதிப்புகளை உள்ளிடவும்."
+"HDDDMMSS (அரைக்கோள-டிகிரி-நிமிடங்கள்-இரண்டாவது) வடிவமைப்பைப் பயன்படுத்தவும். ஒரு "
+"மதிப்பால் பிரிக்கப்பட்ட ஒரு மதிப்பை அல்லது இரண்டு மதிப்புகளை உள்ளிடவும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:160
 msgid "Example: N0300000"
@@ -8617,11 +8586,11 @@ msgstr "வலது அசென்சன்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:167
 msgid ""
-"Use the format hhmmss (hour-minute-seconds). Enter one value, or two "
-"values separated by a space."
+"Use the format hhmmss (hour-minute-seconds). Enter one value, or two values "
+"separated by a space."
 msgstr ""
-"HHMMSS (மணிநேரத்திற்கு மணிநேரம்) வடிவத்தைப் பயன்படுத்தவும். ஒரு மதிப்பால்"
-" பிரிக்கப்பட்ட ஒரு மதிப்பை அல்லது இரண்டு மதிப்புகளை உள்ளிடவும்."
+"HHMMSS (மணிநேரத்திற்கு மணிநேரம்) வடிவத்தைப் பயன்படுத்தவும். ஒரு மதிப்பால் பிரிக்கப்பட்ட "
+"ஒரு மதிப்பை அல்லது இரண்டு மதிப்புகளை உள்ளிடவும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:173
 msgid "Example: 021800"
@@ -8653,11 +8622,11 @@ msgstr "வரிசையின் எண்ணிக்கை"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:4
 msgid ""
-"First and last designations of a sequence for a document is issued in two"
-" or more units (MARC 362)"
+"First and last designations of a sequence for a document is issued in two or "
+"more units (MARC 362)"
 msgstr ""
-"ஒரு ஆவணத்திற்கான வரிசையின் முதல் மற்றும் கடைசி பெயர்கள் இரண்டு அல்லது "
-"அதற்கு மேற்பட்ட அலகுகளில் வழங்கப்படுகின்றன (மார்க் 362)"
+"ஒரு ஆவணத்திற்கான வரிசையின் முதல் மற்றும் கடைசி பெயர்கள் இரண்டு அல்லது அதற்கு மேற்பட்ட "
+"அலகுகளில் வழங்கப்படுகின்றன (மார்க் 362)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:11
 msgid "Example: Volume 1(2006)-volume 9(2014)"
@@ -8685,11 +8654,9 @@ msgstr "(மார்க் 6xx)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:10
 msgid ""
-"Topic, person, organisation (including conferences), place, temporal or "
-"work that is a subject of the document."
-msgstr ""
-"தலைப்பு, நபர், அமைப்பு (மாநாடுகள் உட்பட), இடம், தற்காலிக அல்லது ஆவணத்தின்"
-" பொருள்."
+"Topic, person, organisation (including conferences), place, temporal or work "
+"that is a subject of the document."
+msgstr "தலைப்பு, நபர், அமைப்பு (மாநாடுகள் உட்பட), இடம், தற்காலிக அல்லது ஆவணத்தின் பொருள்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:5
@@ -8697,8 +8664,8 @@ msgid ""
 "Link to a remote or local entity of type topic, person, organisation "
 "(including conferences), place, temporal or work."
 msgstr ""
-"வகை தலைப்பு, நபர், அமைப்பு (மாநாடுகள் உட்பட), இடம், தற்காலிக அல்லது "
-"வேலையின் தொலைநிலை அல்லது உள்ளக நிறுவனத்துடன் இணைக்கவும்."
+"வகை தலைப்பு, நபர், அமைப்பு (மாநாடுகள் உட்பட), இடம், தற்காலிக அல்லது வேலையின் தொலைநிலை "
+"அல்லது உள்ளக நிறுவனத்துடன் இணைக்கவும்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:3
 msgid "Link to a subject"
@@ -8745,12 +8712,11 @@ msgstr "துணை உள்ளடக்கங்கள்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:4
 msgid ""
-"Indication of content that updates or complements the primary content, "
-"like an index, a bibliography or an appendix (MARC 504)."
+"Indication of content that updates or complements the primary content, like "
+"an index, a bibliography or an appendix (MARC 504)."
 msgstr ""
-"ஒரு குறியீடு, நூலியல் அல்லது பின் இணைப்பு (மார்க் 504) போன்ற முதன்மை "
-"உள்ளடக்கத்தை புதுப்பிக்கும் அல்லது நிறைவு செய்யும் உள்ளடக்கத்தின் "
-"அறிகுறி."
+"ஒரு குறியீடு, நூலியல் அல்லது பின் இணைப்பு (மார்க் 504) போன்ற முதன்மை உள்ளடக்கத்தை "
+"புதுப்பிக்கும் அல்லது நிறைவு செய்யும் உள்ளடக்கத்தின் அறிகுறி."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:8
 msgid "Supplementary content"
@@ -8766,11 +8732,11 @@ msgstr "உள்ளடக்கங்கள்"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:4
 msgid ""
-"Titles of the works or parts of the manifestation. Enter one title per "
-"field (MARC 505)."
+"Titles of the works or parts of the manifestation. Enter one title per field "
+"(MARC 505)."
 msgstr ""
-"படைப்புகளின் தலைப்புகள் அல்லது வெளிப்பாட்டின் பகுதிகள். ஒரு புலத்திற்கு "
-"ஒரு தலைப்பை உள்ளிடவும் (MARC 505)."
+"படைப்புகளின் தலைப்புகள் அல்லது வெளிப்பாட்டின் பகுதிகள். ஒரு புலத்திற்கு ஒரு தலைப்பை "
+"உள்ளிடவும் (MARC 505)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:13
 msgid "Example: 1. Fundamentals / ed. by A. Miller"
@@ -8796,11 +8762,11 @@ msgstr "நேரம்"
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:88
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:101
 msgid ""
-"Enter a date in the format (+/-)yyyy. You can add the month, day or time "
-"as follows: (+/-)yyyy-mm-ddTHH-MM-SS."
+"Enter a date in the format (+/-)yyyy. You can add the month, day or time as "
+"follows: (+/-)yyyy-mm-ddTHH-MM-SS."
 msgstr ""
-"வடிவமைப்பில் (+/-) yyyyy ஒரு தேதியை உள்ளிடவும். நீங்கள் மாதம், நாள் "
-"அல்லது நேரத்தை பின்வருமாறு சேர்க்கலாம்: (+/-) yyyy-mm-ddthh-mm-ss."
+"வடிவமைப்பில் (+/-) yyyyy ஒரு தேதியை உள்ளிடவும். நீங்கள் மாதம், நாள் அல்லது நேரத்தை "
+"பின்வருமாறு சேர்க்கலாம்: (+/-) yyyy-mm-ddthh-mm-ss."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:47
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:94
@@ -9161,12 +9127,11 @@ msgstr "பயன்பாடு மற்றும் அணுகல் கொ
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:4
 msgid ""
 "description: Information about restrictions imposed on access to the "
-"described materials, including retention, reproduction, access, and "
-"lending (MARC 506, 540)."
+"described materials, including retention, reproduction, access, and lending "
+"(MARC 506, 540)."
 msgstr ""
-"விளக்கம்: தக்கவைத்தல், இனப்பெருக்கம், அணுகல் மற்றும் கடன் வழங்குதல் (MARC"
-" 506, 540) உள்ளிட்ட விவரிக்கப்பட்ட பொருட்களுக்கான அணுகலில் "
-"விதிக்கப்பட்டுள்ள கட்டுப்பாடுகள் பற்றிய தகவல்கள்."
+"விளக்கம்: தக்கவைத்தல், இனப்பெருக்கம், அணுகல் மற்றும் கடன் வழங்குதல் (MARC 506, 540) உள்ளிட்ட "
+"விவரிக்கப்பட்ட பொருட்களுக்கான அணுகலில் விதிக்கப்பட்டுள்ள கட்டுப்பாடுகள் பற்றிய தகவல்கள்."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:9
 msgid "Usage and access policy"
@@ -9264,9 +9229,7 @@ msgstr "உள்ளக நிறுவனம்"
 msgid ""
 "Entity (person, corporate body, topic, place, temporal, etc.) catalogued "
 "directly in RERO ILS."
-msgstr ""
-"நிறுவனம் (நபர், கார்ப்பரேட் உடல், தலைப்பு, இடம், தற்காலிக, முதலியன) ரீரோ "
-"ஐ.எல்."
+msgstr "நிறுவனம் (நபர், கார்ப்பரேட் உடல், தலைப்பு, இடம், தற்காலிக, முதலியன) ரீரோ ஐ.எல்."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:49
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:47
@@ -9435,11 +9398,11 @@ msgstr "MEF நிறுவனம்"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:5
 msgid ""
-"Entity (person, corporate body, topic, place, temporal, etc.) from MEF "
-"and indexed in RERO ILS."
+"Entity (person, corporate body, topic, place, temporal, etc.) from MEF and "
+"indexed in RERO ILS."
 msgstr ""
-"MEF இலிருந்து நிறுவனம் (நபர், கார்ப்பரேட் உடல், தலைப்பு, இடம், தற்காலிக, "
-"முதலியன) ரீரோ ILS இல் குறியிடப்பட்டுள்ளது."
+"MEF இலிருந்து நிறுவனம் (நபர், கார்ப்பரேட் உடல், தலைப்பு, இடம், தற்காலிக, முதலியன) ரீரோ "
+"ILS இல் குறியிடப்பட்டுள்ளது."
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:20
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:24
@@ -9544,8 +9507,7 @@ msgstr "மூல (கள்)"
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:3
 msgid "Container linking one or more files to a document and a library."
 msgstr ""
-"ஒன்று அல்லது அதற்கு மேற்பட்ட கோப்புகளை ஒரு ஆவணம் மற்றும் நூலகத்துடன் "
-"இணைக்கும் கொள்கலன்."
+"ஒன்று அல்லது அதற்கு மேற்பட்ட கோப்புகளை ஒரு ஆவணம் மற்றும் நூலகத்துடன் இணைக்கும் கொள்கலன்."
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:21
 msgid "Collections"
@@ -9574,10 +9536,11 @@ msgid "Holdings"
 msgstr "ஓல்டிங்ச்"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:5
-msgid "Describes a set of items linked to a document and belonging to a library."
+msgid ""
+"Describes a set of items linked to a document and belonging to a library."
 msgstr ""
-"ஒரு ஆவணத்துடன் இணைக்கப்பட்ட மற்றும் நூலகத்திற்கு சொந்தமான பொருட்களின் "
-"தொகுப்பை விவரிக்கிறது."
+"ஒரு ஆவணத்துடன் இணைக்கப்பட்ட மற்றும் நூலகத்திற்கு சொந்தமான பொருட்களின் தொகுப்பை "
+"விவரிக்கிறது."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:49
 msgid "Persistant identifier"
@@ -9619,14 +9582,13 @@ msgstr "கணிப்புகள்"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:228
 msgid ""
-"This template define how a prediction is displayed. i.e. year 2020; "
-"vol.1, iss. 4. It should contains the variable field between {{}} with "
-"the corresponding pattern and level name."
+"This template define how a prediction is displayed. i.e. year 2020; vol.1, "
+"iss. 4. It should contains the variable field between {{}} with the "
+"corresponding pattern and level name."
 msgstr ""
-"இந்த வார்ப்புரு ஒரு கணிப்பு எவ்வாறு காட்டப்படும் என்பதை வரையறுக்கிறது. "
-"அதாவது 2020 ஆண்டு; தொகுதி 1, வெளியீடு. 4. இது தொடர்புடைய முறை மற்றும் "
-"நிலை பெயருடன் {{} between க்கு இடையில் மாறி புலத்தைக் கொண்டிருக்க "
-"வேண்டும்."
+"இந்த வார்ப்புரு ஒரு கணிப்பு எவ்வாறு காட்டப்படும் என்பதை வரையறுக்கிறது. அதாவது 2020 "
+"ஆண்டு; தொகுதி 1, வெளியீடு. 4. இது தொடர்புடைய முறை மற்றும் நிலை பெயருடன் {{} "
+"between க்கு இடையில் மாறி புலத்தைக் கொண்டிருக்க வேண்டும்."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:237
 msgid "Should contains at least one variable between {{ }}."
@@ -9709,10 +9671,9 @@ msgid "Prediction pattern"
 msgstr "கணிப்பு முறை"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:375
-msgid "It should be used in the display template. i.e. chronology, enumeration."
-msgstr ""
-"இது காட்சி வார்ப்புருவில் பயன்படுத்தப்பட வேண்டும். அதாவது காலவரிசை, "
-"கணக்கீடு."
+msgid ""
+"It should be used in the display template. i.e. chronology, enumeration."
+msgstr "இது காட்சி வார்ப்புருவில் பயன்படுத்தப்பட வேண்டும். அதாவது காலவரிசை, கணக்கீடு."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:380
 msgid "Example: numbering"
@@ -9732,11 +9693,11 @@ msgstr "எண் அடிப்படையிலான கணிப்பு"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:409
 msgid ""
-"It should be used in the display template. i.e. year, month, volume, "
-"issue, etc."
+"It should be used in the display template. i.e. year, month, volume, issue, "
+"etc."
 msgstr ""
-"இது காட்சி வார்ப்புருவில் பயன்படுத்தப்பட வேண்டும். அதாவது ஆண்டு, மாதம், "
-"தொகுதி, சிக்கல் போன்றவை."
+"இது காட்சி வார்ப்புருவில் பயன்படுத்தப்பட வேண்டும். அதாவது ஆண்டு, மாதம், தொகுதி, சிக்கல் "
+"போன்றவை."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:414
 msgid "Example: volume"
@@ -9760,11 +9721,10 @@ msgstr "மதிப்புகளை நிறைவு செய்தல்"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:434
 msgid ""
-"Last value of the sequence. If it is not defined the sequence will "
-"continue until the infinity."
+"Last value of the sequence. If it is not defined the sequence will continue "
+"until the infinity."
 msgstr ""
-"வரிசையின் கடைசி மதிப்பு. அது வரையறுக்கப்படாவிட்டால், முடிவிலி வரை வரிசை "
-"தொடரும்."
+"வரிசையின் கடைசி மதிப்பு. அது வரையறுக்கப்படாவிட்டால், முடிவிலி வரை வரிசை தொடரும்."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:440
 msgid "Example: 12"
@@ -9785,17 +9745,13 @@ msgstr "எடுத்துக்காட்டு: 3"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:461
 msgid "List based prediction (used for seasons, months...)"
-msgstr ""
-"பட்டியல் அடிப்படையிலான கணிப்பு (பருவங்களுக்கு பயன்படுத்தப்படுகிறது, "
-"மாதங்கள் ...)"
+msgstr "பட்டியல் அடிப்படையிலான கணிப்பு (பருவங்களுக்கு பயன்படுத்தப்படுகிறது, மாதங்கள் ...)"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:475
 msgid ""
-"It should be used in the display template. i.e. year, month, volume, "
-"issue."
+"It should be used in the display template. i.e. year, month, volume, issue."
 msgstr ""
-"இது காட்சி வார்ப்புருவில் பயன்படுத்தப்பட வேண்டும். அதாவது ஆண்டு, மாதம், "
-"தொகுதி, சிக்கல்."
+"இது காட்சி வார்ப்புருவில் பயன்படுத்தப்பட வேண்டும். அதாவது ஆண்டு, மாதம், தொகுதி, சிக்கல்."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Use a value instead of a number. i.e. january, 2nd, quarter."
@@ -9803,11 +9759,11 @@ msgstr "எண்ணுக்கு பதிலாக மதிப்பைப�
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:493
 msgid ""
-"Can be used to correct the next current prediction. The value is the "
-"current position of the value in the list."
+"Can be used to correct the next current prediction. The value is the current "
+"position of the value in the list."
 msgstr ""
-"அடுத்த தற்போதைய கணிப்பை சரிசெய்ய பயன்படுத்தலாம். மதிப்பு என்பது "
-"பட்டியலில் உள்ள மதிப்பின் தற்போதைய நிலை."
+"அடுத்த தற்போதைய கணிப்பை சரிசெய்ய பயன்படுத்தலாம். மதிப்பு என்பது பட்டியலில் உள்ள மதிப்பின் "
+"தற்போதைய நிலை."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:506
 msgid "Maximum number of claims"
@@ -9815,11 +9771,11 @@ msgstr "உரிமைகோரல்களின் அதிகபட்ச �
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:507
 msgid ""
-"After this number, no further claims will be sent. 0 means that no claims"
-" will be sent."
+"After this number, no further claims will be sent. 0 means that no claims "
+"will be sent."
 msgstr ""
-"இந்த எண்ணுக்குப் பிறகு, மேலதிக உரிமைகோரல்கள் அனுப்பப்படாது. 0 என்றால் "
-"எந்த உரிமைகோரல்களும் அனுப்பப்படாது."
+"இந்த எண்ணுக்குப் பிறகு, மேலதிக உரிமைகோரல்கள் அனுப்பப்படாது. 0 என்றால் எந்த "
+"உரிமைகோரல்களும் அனுப்பப்படாது."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:512
 msgid "Number of days before 1st claim"
@@ -9830,8 +9786,8 @@ msgid ""
 "If the item is not received, this defines the number of days from the "
 "expected date after which it is claimed."
 msgstr ""
-"உருப்படி பெறப்படாவிட்டால், அது கோரப்பட்ட பின்னர் எதிர்பார்க்கப்படும் "
-"தேதியிலிருந்து நாட்களின் எண்ணிக்கையை வரையறுக்கிறது."
+"உருப்படி பெறப்படாவிட்டால், அது கோரப்பட்ட பின்னர் எதிர்பார்க்கப்படும் தேதியிலிருந்து "
+"நாட்களின் எண்ணிக்கையை வரையறுக்கிறது."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:518
 msgid "Number of days before next claims"
@@ -9839,11 +9795,11 @@ msgstr "அடுத்த உரிமைகோரல்களுக்கு �
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:519
 msgid ""
-"If the item is not received, this defines the number of days from the "
-"last claim date after which it is claimed again."
+"If the item is not received, this defines the number of days from the last "
+"claim date after which it is claimed again."
 msgstr ""
-"உருப்படி பெறப்படாவிட்டால், இது கடைசி உரிமைகோரல் தேதியிலிருந்து மீண்டும் "
-"கோரப்பட்ட நாட்களின் எண்ணிக்கையை வரையறுக்கிறது."
+"உருப்படி பெறப்படாவிட்டால், இது கடைசி உரிமைகோரல் தேதியிலிருந்து மீண்டும் கோரப்பட்ட "
+"நாட்களின் எண்ணிக்கையை வரையறுக்கிறது."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:555
 msgid "Choose a vendor"
@@ -10018,12 +9974,11 @@ msgstr "எதிர்பார்க்கப்படும் கையக�
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:936
 msgid ""
-"Indicate an intent to cancel, the effective date of a cancellation, or "
-"the date of the last expected part of a multipart or serial item."
+"Indicate an intent to cancel, the effective date of a cancellation, or the "
+"date of the last expected part of a multipart or serial item."
 msgstr ""
-"ரத்து செய்வதற்கான நோக்கம், ரத்து செய்வதற்கான பயனுள்ள தேதி அல்லது "
-"மல்டிபார்ட் அல்லது தொடர் உருப்படியின் கடைசியாக எதிர்பார்க்கப்படும் "
-"பகுதியின் தேதி ஆகியவற்றைக் குறிக்கவும்."
+"ரத்து செய்வதற்கான நோக்கம், ரத்து செய்வதற்கான பயனுள்ள தேதி அல்லது மல்டிபார்ட் அல்லது தொடர் "
+"உருப்படியின் கடைசியாக எதிர்பார்க்கப்படும் பகுதியின் தேதி ஆகியவற்றைக் குறிக்கவும்."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:961
 msgid "General retention policy"
@@ -10091,13 +10046,12 @@ msgstr "தனி அல்லது கலப்பு நகல் அறி�
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1073
 msgid ""
-"A separate copy report contains holdings information for one "
-"copy/subscription of a serial. If the holdings describes more than one "
-"copy/subscription, choose composite."
+"A separate copy report contains holdings information for one copy/"
+"subscription of a serial. If the holdings describes more than one copy/"
+"subscription, choose composite."
 msgstr ""
-"ஒரு தனி நகல் அறிக்கையில் ஒரு சீரியலின் ஒரு நகல்/சந்தாவுக்கான ஓல்டிங்ச் "
-"தகவல்கள் உள்ளன. ஓல்டிங்ச் ஒன்றுக்கு மேற்பட்ட நகல்/சந்தாவை விவரித்தால், "
-"கலவையைத் தேர்வுசெய்க."
+"ஒரு தனி நகல் அறிக்கையில் ஒரு சீரியலின் ஒரு நகல்/சந்தாவுக்கான ஓல்டிங்ச் தகவல்கள் உள்ளன. "
+"ஓல்டிங்ச் ஒன்றுக்கு மேற்பட்ட நகல்/சந்தாவை விவரித்தால், கலவையைத் தேர்வுசெய்க."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1086
 msgid "separate"
@@ -10133,8 +10087,7 @@ msgstr "வெளியீட்டாளர்"
 #: rero_ils/modules/ill_requests/forms.py:68
 msgid "Example: 978-0-901690-54-6 (ISBN), 2049-3630 (ISSN), ..."
 msgstr ""
-"எடுத்துக்காட்டு: 978-0-901690-54-6 (ஐ.எச்.பி.என்), 2049-3630 "
-"(ஐ.எச்.எச்.என்), ..."
+"எடுத்துக்காட்டு: 978-0-901690-54-6 (ஐ.எச்.பி.என்), 2049-3630 (ஐ.எச்.எச்.என்), ..."
 
 #: rero_ils/modules/ill_requests/forms.py:69
 msgid "ISBN, ISSN"
@@ -10183,9 +10136,7 @@ msgstr "இந்த கோரிக்கை இயக்கப்படும�
 
 #: rero_ils/modules/ill_requests/forms.py:128
 msgid "As you request a document part, you need to specify requested pages"
-msgstr ""
-"நீங்கள் ஒரு ஆவண பகுதியைக் கோரும்போது, கோரப்பட்ட பக்கங்களை நீங்கள் "
-"குறிப்பிட வேண்டும்"
+msgstr "நீங்கள் ஒரு ஆவண பகுதியைக் கோரும்போது, கோரப்பட்ட பக்கங்களை நீங்கள் குறிப்பிட வேண்டும்"
 
 #: rero_ils/modules/ill_requests/views.py:86
 msgid "The request has been transmitted to your library."
@@ -10196,10 +10147,9 @@ msgid "ILL request"
 msgstr "தவறான கோரிக்கை"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:5
-msgid "Request data, including references to a patron and to a pick-up location."
-msgstr ""
-"ஒரு புரவலருக்கான குறிப்புகள் மற்றும் பிக்-அப் இருப்பிடம் உள்ளிட்ட தரவைக் "
-"கோருங்கள்."
+msgid ""
+"Request data, including references to a patron and to a pick-up location."
+msgstr "ஒரு புரவலருக்கான குறிப்புகள் மற்றும் பிக்-அப் இருப்பிடம் உள்ளிட்ட தரவைக் கோருங்கள்."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:37
 msgid "ILL request ID"
@@ -10244,10 +10194,9 @@ msgid "Patron URI"
 msgstr "புரவலர்கள்"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:100
-msgid "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
-msgstr ""
-"பின்வரும் வடிவத்தில் இருக்க வேண்டும்: https://bib.relo.ch/api/patrons/ "
-"<bid>."
+msgid ""
+"Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
+msgstr "பின்வரும் வடிவத்தில் இருக்க வேண்டும்: https://bib.relo.ch/api/patrons/ <bid>."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:114
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:175
@@ -10307,8 +10256,8 @@ msgstr "எச்சரிக்கை!"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:13
 msgid ""
-"Please make sure that the requested document does not exist in your "
-"library network."
+"Please make sure that the requested document does not exist in your library "
+"network."
 msgstr "உங்கள் நூலக நெட்வொர்க்கில் கோரப்பட்ட ஆவணம் இல்லை என்பதை உறுதிப்படுத்தவும்."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:20
@@ -10329,11 +10278,10 @@ msgstr "இடைக்கணிப்பு கடன் உறுதிப்�
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:66
 msgid ""
-"You are about to request an interlibrary loan. By confirming you agree "
-"that:"
+"You are about to request an interlibrary loan. By confirming you agree that:"
 msgstr ""
-"நீங்கள் ஒரு இடைக்கால கடனைக் கோர உள்ளீர்கள். இதை உறுதிப்படுத்துவதன் மூலம் "
-"இதை ஒப்புக்கொள்கிறீர்கள்:"
+"நீங்கள் ஒரு இடைக்கால கடனைக் கோர உள்ளீர்கள். இதை உறுதிப்படுத்துவதன் மூலம் இதை "
+"ஒப்புக்கொள்கிறீர்கள்:"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:68
 msgid "The requested document does not exist in your library network."
@@ -10356,7 +10304,8 @@ msgid "Document is available"
 msgstr "ஆவணம் கிடைக்கிறது"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:90
-msgid "The document you are requesting exists in the catalog at your institution."
+msgid ""
+"The document you are requesting exists in the catalog at your institution."
 msgstr "நீங்கள் கோரும் ஆவணம் உங்கள் நிறுவனத்தின் பட்டியலில் உள்ளது."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:91
@@ -10409,11 +10358,11 @@ msgstr "இந்த வகையின் உருப்படிகளை க
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:108
 msgid ""
-"If enabled, all items of this circulation category will be displayed as "
-"not available, with the red availability symbol."
+"If enabled, all items of this circulation category will be displayed as not "
+"available, with the red availability symbol."
 msgstr ""
-"இயக்கப்பட்டால், இந்த சுழற்சி வகையின் அனைத்து உருப்படிகளும் கிடைக்காதபடி "
-"காண்பிக்கப்படும், சிவப்பு கிடைக்கும் சின்னத்துடன்."
+"இயக்கப்பட்டால், இந்த சுழற்சி வகையின் அனைத்து உருப்படிகளும் கிடைக்காதபடி காண்பிக்கப்படும், "
+"சிவப்பு கிடைக்கும் சின்னத்துடன்."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:113
 msgid "Displayed status"
@@ -10424,8 +10373,8 @@ msgid ""
 "Short text displayed in the interface, for instance 'in acquisition' or "
 "'missing'."
 msgstr ""
-"இடைமுகத்தில் காட்டப்படும் குறுகிய உரை, உதாரணமாக 'கையகப்படுத்துதலில்' "
-"அல்லது 'காணவில்லை'."
+"இடைமுகத்தில் காட்டப்படும் குறுகிய உரை, உதாரணமாக 'கையகப்படுத்துதலில்' அல்லது "
+"'காணவில்லை'."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:171
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:233
@@ -10438,11 +10387,9 @@ msgstr "புழக்கத்தில் செய்தி"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:181
 msgid ""
-"This optional text is displayed in the public interface, for instance "
-"'On-site consultation'"
-msgstr ""
-"இந்த விருப்ப உரை பொது இடைமுகத்தில் காட்டப்படும், உதாரணமாக 'ஆன்-சைட் "
-"அறிவுரை'"
+"This optional text is displayed in the public interface, for instance 'On-"
+"site consultation'"
+msgstr "இந்த விருப்ப உரை பொது இடைமுகத்தில் காட்டப்படும், உதாரணமாக 'ஆன்-சைட் அறிவுரை'"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:185
 msgid "Information"
@@ -10454,8 +10401,8 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:242
 msgid ""
-"If enabled, scanning (in the circulation module) an item with this "
-"temporary item type will remove the temporary item type from the item."
+"If enabled, scanning (in the circulation module) an item with this temporary "
+"item type will remove the temporary item type from the item."
 msgstr ""
 
 #: rero_ils/modules/items/api/circulation.py:83
@@ -10478,9 +10425,7 @@ msgstr "புழக்கத்தில் நடவடிக்கை எத�
 #: rero_ils/modules/items/api/circulation.py:275
 #: rero_ils/modules/items/api/circulation.py:302
 msgid "No circulation action performed: in transit added"
-msgstr ""
-"புழக்கத்தில் நடவடிக்கை எதுவும் செய்யப்படவில்லை: போக்குவரத்தில் "
-"சேர்க்கப்பட்டது"
+msgstr "புழக்கத்தில் நடவடிக்கை எதுவும் செய்யப்படவில்லை: போக்குவரத்தில் சேர்க்கப்பட்டது"
 
 #: rero_ils/modules/items/api/circulation.py:260
 msgid "No circulation action performed: item at desk"
@@ -10529,23 +10474,18 @@ msgstr "ஒரு வெளியீட்டு உருப்படிக்�
 
 #: rero_ils/modules/items/api/record.py:97
 msgid ""
-"Temporary circulation category cannot be the same than default "
-"circulation category."
+"Temporary circulation category cannot be the same than default circulation "
+"category."
 msgstr ""
-"இயல்புநிலை சுழற்சி வகையை விட தற்காலிக சுழற்சி வகை ஒரே மாதிரியாக இருக்க "
-"முடியாது."
+"இயல்புநிலை சுழற்சி வகையை விட தற்காலிக சுழற்சி வகை ஒரே மாதிரியாக இருக்க முடியாது."
 
 #: rero_ils/modules/items/api/record.py:101
 msgid "Temporary circulation category end date must be a date in the future."
-msgstr ""
-"தற்காலிக சுழற்சி வகை இறுதி தேதி எதிர்காலத்தில் ஒரு தேதியாக இருக்க "
-"வேண்டும்."
+msgstr "தற்காலிக சுழற்சி வகை இறுதி தேதி எதிர்காலத்தில் ஒரு தேதியாக இருக்க வேண்டும்."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:5
 msgid "Describes a physical or online object linked to a holdings/document."
-msgstr ""
-"ஒரு ஓல்டிங்ச்/ஆவணத்துடன் இணைக்கப்பட்ட உடல் அல்லது நிகழ்நிலை பொருளை "
-"விவரிக்கிறது."
+msgstr "ஒரு ஓல்டிங்ச்/ஆவணத்துடன் இணைக்கப்பட்ட உடல் அல்லது நிகழ்நிலை பொருளை விவரிக்கிறது."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:38
 msgid "Schema to validate item records against."
@@ -10569,11 +10509,8 @@ msgstr "அலகு"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:106
 msgid ""
-"Numbering or other enumeration and dates associated with the issue or "
-"item."
-msgstr ""
-"எண் அல்லது பிற கணக்கீடு மற்றும் சிக்கல் அல்லது உருப்படியுடன் தொடர்புடைய "
-"தேதிகள்."
+"Numbering or other enumeration and dates associated with the issue or item."
+msgstr "எண் அல்லது பிற கணக்கீடு மற்றும் சிக்கல் அல்லது உருப்படியுடன் தொடர்புடைய தேதிகள்."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:117
 msgid "Example: Volume 1"
@@ -10589,7 +10526,8 @@ msgid "Temporary item type"
 msgstr "தற்காலிக_உருப்படி_வகை"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:198
-msgid "Applies a temporary item type which overrides the default one temporarily."
+msgid ""
+"Applies a temporary item type which overrides the default one temporarily."
 msgstr "தற்காலிகமாக ஒன்றை மேலெழுதும் தற்காலிக உருப்படி வகையைப் பயன்படுத்துகிறது."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:225
@@ -10607,9 +10545,7 @@ msgstr "உருப்படியின் தரவுத்தள வகை"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:312
 msgid "Defines how this item is managed and in the application."
-msgstr ""
-"இந்த உருப்படி எவ்வாறு நிர்வகிக்கப்படுகிறது மற்றும் பயன்பாட்டில் "
-"வரையறுக்கிறது."
+msgstr "இந்த உருப்படி எவ்வாறு நிர்வகிக்கப்படுகிறது மற்றும் பயன்பாட்டில் வரையறுக்கிறது."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:346
 msgid "Issue status"
@@ -10645,12 +10581,11 @@ msgstr "வரிசையாக்க தேதி"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:435
 msgid ""
-"Date used to sort the issue from the holdings item list. If empty, the "
-"issue expected date will be used as sort key."
+"Date used to sort the issue from the holdings item list. If empty, the issue "
+"expected date will be used as sort key."
 msgstr ""
-"ஓல்டிங்ச் உருப்படி பட்டியலிலிருந்து சிக்கலை வரிசைப்படுத்தப் "
-"பயன்படுத்தப்படும் தேதி. காலியாக இருந்தால், சிக்கல் எதிர்பார்க்கப்படும் "
-"தேதி வரிசை விசையாக பயன்படுத்தப்படும்."
+"ஓல்டிங்ச் உருப்படி பட்டியலிலிருந்து சிக்கலை வரிசைப்படுத்தப் பயன்படுத்தப்படும் தேதி. "
+"காலியாக இருந்தால், சிக்கல் எதிர்பார்க்கப்படும் தேதி வரிசை விசையாக பயன்படுத்தப்படும்."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:453
 msgid "Regularity"
@@ -10739,8 +10674,8 @@ msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
 msgstr ""
-"முகமூடி அணிந்த உருப்படி தொழில்முறை இடைமுகத்தில் தெரியும், ஆனால் பொது "
-"இடைமுகத்தில் இல்லை."
+"முகமூடி அணிந்த உருப்படி தொழில்முறை இடைமுகத்தில் தெரியும், ஆனால் பொது இடைமுகத்தில் "
+"இல்லை."
 
 #: rero_ils/modules/libraries/api.py:85
 msgid "Opening times must be specified for an open exception date."
@@ -10919,11 +10854,9 @@ msgstr "கணக்கு பரிமாற்றம்"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:535
 msgid ""
-"This defines if and how the accounts are transferred into the next fiscal"
-" year."
-msgstr ""
-"அடுத்த நிதியாண்டில் கணக்குகள் எவ்வாறு மாற்றப்படுகின்றன என்பதை இது "
-"வரையறுக்கிறது."
+"This defines if and how the accounts are transferred into the next fiscal "
+"year."
+msgstr "அடுத்த நிதியாண்டில் கணக்குகள் எவ்வாறு மாற்றப்படுகின்றன என்பதை இது வரையறுக்கிறது."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:549
 msgid "rollover_no_transfer"
@@ -10955,17 +10888,16 @@ msgstr "கடனுக்கான திட்டம்"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:4
 msgid ""
-"Describes the status of a circulation operation, i.e. an interaction "
-"between a patron and an item. For example, when a patron requests an "
-"item, a loan resource is created. It links the patron to the item and "
-"changes status according to the operations performed: PENDING, "
-"ITEM_ON_LOAN, etc."
+"Describes the status of a circulation operation, i.e. an interaction between "
+"a patron and an item. For example, when a patron requests an item, a loan "
+"resource is created. It links the patron to the item and changes status "
+"according to the operations performed: PENDING, ITEM_ON_LOAN, etc."
 msgstr ""
-"ஒரு சுழற்சி செயல்பாட்டின் நிலையை விவரிக்கிறது, அதாவது ஒரு புரவலர் மற்றும்"
-" ஒரு பொருளுக்கு இடையிலான தொடர்பு. எடுத்துக்காட்டாக, ஒரு புரவலர் ஒரு "
-"பொருளைக் கோரும்போது, கடன் சான்று உருவாக்கப்படுகிறது. இது புரவலரை "
-"உருப்படியுடன் இணைக்கிறது மற்றும் நிகழ்த்தப்பட்ட செயல்பாடுகளுக்கு ஏற்ப "
-"நிலையை மாற்றுகிறது: நிலுவையில் உள்ளது, பொருள்_ஆன்_லோன், முதலியன."
+"ஒரு சுழற்சி செயல்பாட்டின் நிலையை விவரிக்கிறது, அதாவது ஒரு புரவலர் மற்றும் ஒரு "
+"பொருளுக்கு இடையிலான தொடர்பு. எடுத்துக்காட்டாக, ஒரு புரவலர் ஒரு பொருளைக் கோரும்போது, "
+"கடன் சான்று உருவாக்கப்படுகிறது. இது புரவலரை உருப்படியுடன் இணைக்கிறது மற்றும் "
+"நிகழ்த்தப்பட்ட செயல்பாடுகளுக்கு ஏற்ப நிலையை மாற்றுகிறது: நிலுவையில் உள்ளது, "
+"பொருள்_ஆன்_லோன், முதலியன."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:22
 msgid "Item URI"
@@ -10974,9 +10906,7 @@ msgstr "பொருள் யூரி"
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:55
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:310
 msgid "Defines if the latest renewal was automatic or manual."
-msgstr ""
-"அண்மைக் கால புதுப்பித்தல் தானியங்கி அல்லது கையேட்டாக இருந்தால் "
-"வரையறுக்கிறது."
+msgstr "அண்மைக் கால புதுப்பித்தல் தானியங்கி அல்லது கையேட்டாக இருந்தால் வரையறுக்கிறது."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:59
 msgid "Loan extension count"
@@ -11090,8 +11020,8 @@ msgid ""
 "Data that is specific to an organization or library and related to a "
 "document, holdings or item."
 msgstr ""
-"ஒரு அமைப்பு அல்லது நூலகத்திற்கு குறிப்பிட்ட மற்றும் ஒரு ஆவணம், ஓல்டிங்ச் "
-"அல்லது உருப்படி தொடர்பான தரவு."
+"ஒரு அமைப்பு அல்லது நூலகத்திற்கு குறிப்பிட்ட மற்றும் ஒரு ஆவணம், ஓல்டிங்ச் அல்லது உருப்படி "
+"தொடர்பான தரவு."
 
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:23
 msgid "Local field PID"
@@ -11230,10 +11160,9 @@ msgid "ILL Pickup location name"
 msgstr "தவறான இடும் இருப்பிட பெயர்"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:197
-msgid "Displayed ILL pickup location name, if different from the location name."
-msgstr ""
-"இருப்பிட பெயரிலிருந்து வேறுபட்டால், மோசமான இடும் இருப்பிட பெயர் "
-"காட்டப்படும்."
+msgid ""
+"Displayed ILL pickup location name, if different from the location name."
+msgstr "இருப்பிட பெயரிலிருந்து வேறுபட்டால், மோசமான இடும் இருப்பிட பெயர் காட்டப்படும்."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:231
 msgid "Allow request"
@@ -11242,15 +11171,16 @@ msgstr "கோரிக்கையை அனுமதிக்கவும்"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:233
 msgid "If enabled, it allows requests for items linked to this location."
 msgstr ""
-"இயக்கப்பட்டால், இந்த இருப்பிடத்துடன் இணைக்கப்பட்ட உருப்படிகளுக்கான "
-"கோரிக்கைகளை இது அனுமதிக்கிறது."
+"இயக்கப்பட்டால், இந்த இருப்பிடத்துடன் இணைக்கப்பட்ட உருப்படிகளுக்கான கோரிக்கைகளை இது "
+"அனுமதிக்கிறது."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:237
 msgid "Send notification"
 msgstr "அறிவிப்பை அனுப்பவும்"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:238
-msgid "Send a email notification when an item of the location has been requested."
+msgid ""
+"Send a email notification when an item of the location has been requested."
 msgstr "இருப்பிடத்தின் ஒரு உருப்படி கோரப்பட்டால் மின்னஞ்சல் அறிவிப்பை அனுப்பவும்."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:251
@@ -11259,9 +11189,7 @@ msgstr "அறிவிப்பு மின்னஞ்சல்"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:252
 msgid "Specify a generic email address used for notification."
-msgstr ""
-"அறிவிப்புக்கு பயன்படுத்தப்படும் பொதுவான மின்னஞ்சல் முகவரியைக் "
-"குறிப்பிடவும்."
+msgstr "அறிவிப்புக்கு பயன்படுத்தப்படும் பொதுவான மின்னஞ்சல் முகவரியைக் குறிப்பிடவும்."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:270
 msgid "Restrict pickup to"
@@ -11272,8 +11200,7 @@ msgid ""
 "Select locations where items linked to the current location could be "
 "requested."
 msgstr ""
-"தற்போதைய இருப்பிடத்துடன் இணைக்கப்பட்ட உருப்படிகளை கோரக்கூடிய இடங்களைத் "
-"தேர்ந்தெடுக்கவும்."
+"தற்போதைய இருப்பிடத்துடன் இணைக்கப்பட்ட உருப்படிகளை கோரக்கூடிய இடங்களைத் தேர்ந்தெடுக்கவும்."
 
 #. Line unknown
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:1
@@ -11346,8 +11273,7 @@ msgstr "அறிவிப்பு"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:5
 msgid "Message generated and sent by the system (reminder, order, etc.)."
 msgstr ""
-"கணினியால் உருவாக்கப்பட்ட மற்றும் அனுப்பப்படும் செய்தி (நினைவூட்டல், "
-"ஒழுங்கு போன்றவை)."
+"கணினியால் உருவாக்கப்பட்ட மற்றும் அனுப்பப்படும் செய்தி (நினைவூட்டல், ஒழுங்கு போன்றவை)."
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:14
 msgid "Recipient email addresses"
@@ -11605,11 +11531,10 @@ msgstr "மாற்றும் தேதி"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid ""
-"Usually a network of several libraries sharing data for patrons, items, "
-"etc."
+"Usually a network of several libraries sharing data for patrons, items, etc."
 msgstr ""
-"வழக்கமாக பல நூலகங்களின் பிணையம் புரவலர்கள், உருப்படிகள் போன்றவற்றிற்கான "
-"தரவைப் பகிரும் பிணையம்."
+"வழக்கமாக பல நூலகங்களின் பிணையம் புரவலர்கள், உருப்படிகள் போன்றவற்றிற்கான தரவைப் பகிரும் "
+"பிணையம்."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:29
 msgid "Organisation ID"
@@ -11653,9 +11578,8 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:79
 msgid ""
-"Configuration for the automatic deletion of inactive patron profiles. "
-"Delete the field if you never want the patrons to be deleted "
-"automatically."
+"Configuration for the automatic deletion of inactive patron profiles. Delete "
+"the field if you never want the patrons to be deleted automatically."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:93
@@ -11664,8 +11588,7 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:94
 msgid ""
-"Only delete patrons whose expiration_date is older than this many years "
-"ago."
+"Only delete patrons whose expiration_date is older than this many years ago."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:99
@@ -11674,8 +11597,7 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:100
 msgid ""
-"Only delete patrons whose user last logged in more than this many years "
-"ago."
+"Only delete patrons whose user last logged in more than this many years ago."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:105
@@ -11735,8 +11657,8 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:285
 msgid ""
-"HTML content displayed in the left homepage block. Will also be the first"
-" block displayed on mobile."
+"HTML content displayed in the left homepage block. Will also be the first "
+"block displayed on mobile."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:303
@@ -11752,8 +11674,8 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:348
 msgid ""
-"HTML content displayed in the center homepage block. Will also be the "
-"second block displayed on mobile."
+"HTML content displayed in the center homepage block. Will also be the second "
+"block displayed on mobile."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:408
@@ -11763,8 +11685,8 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:411
 msgid ""
-"HTML content displayed in the right homepage block. Will also be the "
-"third block displayed on mobile."
+"HTML content displayed in the right homepage block. Will also be the third "
+"block displayed on mobile."
 msgstr ""
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:4
@@ -11860,8 +11782,8 @@ msgid ""
 "Amount to be charged to a patron, generated manually or by a circulation "
 "operation."
 msgstr ""
-"ஒரு புரவலரிடம் வசூலிக்கப்பட வேண்டிய தொகை, கைமுறையாக அல்லது ஒரு சுழற்சி "
-"செயல்பாட்டால் உருவாக்கப்படுகிறது."
+"ஒரு புரவலரிடம் வசூலிக்கப்பட வேண்டிய தொகை, கைமுறையாக அல்லது ஒரு சுழற்சி செயல்பாட்டால் "
+"உருவாக்கப்படுகிறது."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:23
 msgid "Patron transaction ID"
@@ -11947,8 +11869,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/api.py:355
 msgid ""
-"Checkout denied: maximum number of checked out items for this library "
-"reached"
+"Checkout denied: maximum number of checked out items for this library reached"
 msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:5
@@ -11993,11 +11914,11 @@ msgstr "நிறுவனத்தில் புதுப்பித்த�
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:113
 msgid ""
-"The checkout is blocked once the specified checkout number is reached by "
-"the patron. This is a global checkout limit."
+"The checkout is blocked once the specified checkout number is reached by the "
+"patron. This is a global checkout limit."
 msgstr ""
-"குறிப்பிட்ட புதுப்பித்து எண்ணை புரவலரால் அடைந்தவுடன் புதுப்பித்தல் "
-"தடுக்கப்படுகிறது. இது உலகளாவிய புதுப்பித்து வரம்பு."
+"குறிப்பிட்ட புதுப்பித்து எண்ணை புரவலரால் அடைந்தவுடன் புதுப்பித்தல் தடுக்கப்படுகிறது. இது "
+"உலகளாவிய புதுப்பித்து வரம்பு."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:118
 msgid "Number of checkouts by library"
@@ -12005,13 +11926,12 @@ msgstr "நூலகத்தின் புதுப்பித்தலி�
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:119
 msgid ""
-"The checkout is blocked once the specified checkout number is reached by "
-"the patron for items of the same owning library. This is the same limit "
-"for all libraries."
+"The checkout is blocked once the specified checkout number is reached by the "
+"patron for items of the same owning library. This is the same limit for all "
+"libraries."
 msgstr ""
-"அதே சொந்த நூலகத்தின் உருப்படிகளுக்கான புரவலரால் குறிப்பிட்ட புதுப்பித்து "
-"எண்ணை அடைந்தவுடன் புதுப்பிப்பு தடுக்கப்படுகிறது. எல்லா நூலகங்களுக்கும் "
-"இது ஒரே வரம்பு."
+"அதே சொந்த நூலகத்தின் உருப்படிகளுக்கான புரவலரால் குறிப்பிட்ட புதுப்பித்து எண்ணை "
+"அடைந்தவுடன் புதுப்பிப்பு தடுக்கப்படுகிறது. எல்லா நூலகங்களுக்கும் இது ஒரே வரம்பு."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:125
 msgid "Library checkout limit exceptions"
@@ -12036,8 +11956,8 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:183
 msgid ""
-"Requests are blocked once the specified number of requests is reached by "
-"the patron."
+"Requests are blocked once the specified number of requests is reached by the "
+"patron."
 msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:188
@@ -12046,9 +11966,9 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:189
 msgid ""
-"Requests are blocked once the specified number of requests is reached by "
-"the patron for items of the same owning library. This is the same limit "
-"for all libraries."
+"Requests are blocked once the specified number of requests is reached by the "
+"patron for items of the same owning library. This is the same limit for all "
+"libraries."
 msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:195
@@ -12069,11 +11989,11 @@ msgstr "கட்டண தொகை"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:255
 msgid ""
-"The checkout, renewal and the request are blocked once the specified "
-"overdue fee amount is reached by the patron."
+"The checkout, renewal and the request are blocked once the specified overdue "
+"fee amount is reached by the patron."
 msgstr ""
-"குறிப்பிட்ட தாமதக் கட்டணத் தொகையை புரவலரால் அடைந்தவுடன் புதுப்பித்தல், "
-"புதுப்பித்தல் மற்றும் கோரிக்கை தடுக்கப்படுகின்றன."
+"குறிப்பிட்ட தாமதக் கட்டணத் தொகையை புரவலரால் அடைந்தவுடன் புதுப்பித்தல், புதுப்பித்தல் மற்றும் "
+"கோரிக்கை தடுக்கப்படுகின்றன."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:262
 msgid "Limit by overdue items"
@@ -12085,11 +12005,11 @@ msgstr "தாமதமான பொருட்களின் எண்ணி�
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:268
 msgid ""
-"The checkout, renewal and the request are blocked once the specified "
-"number of overdue items is reached by the patron."
+"The checkout, renewal and the request are blocked once the specified number "
+"of overdue items is reached by the patron."
 msgstr ""
-"குறிப்பிட்ட எண்ணிக்கையிலான தாமதமான பொருட்களை புரவலரால் அடைந்தவுடன் "
-"புதுப்பித்தல், புதுப்பித்தல் மற்றும் கோரிக்கை தடுக்கப்படுகின்றன."
+"குறிப்பிட்ட எண்ணிக்கையிலான தாமதமான பொருட்களை புரவலரால் அடைந்தவுடன் புதுப்பித்தல், "
+"புதுப்பித்தல் மற்றும் கோரிக்கை தடுக்கப்படுகின்றன."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:276
 msgid "Block the patron if the subscription is not paid"
@@ -12134,14 +12054,13 @@ msgstr "உங்களிடம் சந்தா கட்டணம் நி
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:5
 msgid ""
-"A library patron, i.e. a person who is registered with an organisation. "
-"It is linked to a user resource and contains patron data useful to "
-"libraries (role, card number, specific address, etc.)."
+"A library patron, i.e. a person who is registered with an organisation. It "
+"is linked to a user resource and contains patron data useful to libraries "
+"(role, card number, specific address, etc.)."
 msgstr ""
-"ஒரு நூலக புரவலர், அதாவது ஒரு நிறுவனத்தில் பதிவு செய்யப்பட்ட ஒரு நபர். இது"
-" ஒரு பயனர் வளத்துடன் இணைக்கப்பட்டுள்ளது மற்றும் நூலகங்களுக்கு பயனுள்ள "
-"புரவலர் தரவைக் கொண்டுள்ளது (பங்கு, அட்டை எண், குறிப்பிட்ட முகவரி "
-"போன்றவை)."
+"ஒரு நூலக புரவலர், அதாவது ஒரு நிறுவனத்தில் பதிவு செய்யப்பட்ட ஒரு நபர். இது ஒரு பயனர் "
+"வளத்துடன் இணைக்கப்பட்டுள்ளது மற்றும் நூலகங்களுக்கு பயனுள்ள புரவலர் தரவைக் கொண்டுள்ளது "
+"(பங்கு, அட்டை எண், குறிப்பிட்ட முகவரி போன்றவை)."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:31
 msgid "Patron ID"
@@ -12153,9 +12072,7 @@ msgstr "பதிவு ஒரு தொகுப்பில் ஏற்றப
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
 msgid "Codes used to classify users, for instance for statistics."
-msgstr ""
-"பயனர்களை வகைப்படுத்தப் பயன்படுத்தப்படும் குறியீடுகள், உதாரணமாக "
-"புள்ளிவிவரங்களுக்கு."
+msgstr "பயனர்களை வகைப்படுத்தப் பயன்படுத்தப்படும் குறியீடுகள், உதாரணமாக புள்ளிவிவரங்களுக்கு."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:60
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:4
@@ -12209,11 +12126,10 @@ msgstr "புரவலரின் காலாவதி தேதி"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:274
 msgid ""
-"For the email channel, the user must have an e-mail or an additional "
-"e-mail."
+"For the email channel, the user must have an e-mail or an additional e-mail."
 msgstr ""
-"மின்னஞ்சல் சேனலைப் பொறுத்தவரை, பயனருக்கு ஒரு மின்னஞ்சல் அல்லது கூடுதல் "
-"மின்னஞ்சல் இருக்க வேண்டும்."
+"மின்னஞ்சல் சேனலைப் பொறுத்தவரை, பயனருக்கு ஒரு மின்னஞ்சல் அல்லது கூடுதல் மின்னஞ்சல் இருக்க "
+"வேண்டும்."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:287
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:26
@@ -12253,18 +12169,17 @@ msgid "Blocking"
 msgstr "தடுப்பு"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:407
-msgid "A patron with a blocked account cannot extend, request and borrow items."
+msgid ""
+"A patron with a blocked account cannot extend, request and borrow items."
 msgstr ""
-"தடுக்கப்பட்ட கணக்கைக் கொண்ட ஒரு புரவலர் பொருட்களை நீட்டிக்கவோ, கோரவும், "
-"கடன் வாங்கவும் முடியாது."
+"தடுக்கப்பட்ட கணக்கைக் கொண்ட ஒரு புரவலர் பொருட்களை நீட்டிக்கவோ, கோரவும், கடன் வாங்கவும் "
+"முடியாது."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:413
 msgid ""
 "The reason is displayed in the circulation module and is visible by the "
 "patron in his account."
-msgstr ""
-"காரணம் சுழற்சி தொகுதியில் காட்டப்படும் மற்றும் அவரது கணக்கில் புரவலரால் "
-"தெரியும்."
+msgstr "காரணம் சுழற்சி தொகுதியில் காட்டப்படும் மற்றும் அவரது கணக்கில் புரவலரால் தெரியும்."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:435
 msgid "libraries"
@@ -12276,11 +12191,11 @@ msgstr "தொழில்முறை பயனர்களுக்கான �
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:474
 msgid ""
-"Define the roles of the user. Please do not remove existing user role, "
-"this can have unintended side effects."
+"Define the roles of the user. Please do not remove existing user role, this "
+"can have unintended side effects."
 msgstr ""
-"பயனரின் பாத்திரங்களை வரையறுக்கவும். தயவுசெய்து இருக்கும் பயனர் பங்கை "
-"அகற்ற வேண்டாம், இது திட்டமிடப்படாத பக்க விளைவுகளை ஏற்படுத்தும்."
+"பயனரின் பாத்திரங்களை வரையறுக்கவும். தயவுசெய்து இருக்கும் பயனர் பங்கை அகற்ற வேண்டாம், இது "
+"திட்டமிடப்படாத பக்க விளைவுகளை ஏற்படுத்தும்."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:503
 msgid "patron"
@@ -12358,11 +12273,11 @@ msgstr "புள்ளிவிவரங்கள்"
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:5
 msgid ""
-"Indicator of the system use collected at a given time, or for a specified"
-" period."
+"Indicator of the system use collected at a given time, or for a specified "
+"period."
 msgstr ""
-"ஒரு குறிப்பிட்ட நேரத்தில் அல்லது ஒரு குறிப்பிட்ட காலத்திற்கு "
-"சேகரிக்கப்பட்ட கணினியின் காட்டி பயன்பாடு."
+"ஒரு குறிப்பிட்ட நேரத்தில் அல்லது ஒரு குறிப்பிட்ட காலத்திற்கு சேகரிக்கப்பட்ட கணினியின் "
+"காட்டி பயன்பாடு."
 
 #: rero_ils/modules/stats/jsonschemas/stats/stat-v0.0.1.json:20
 msgid "Statistics type"
@@ -12430,8 +12345,8 @@ msgid ""
 "Set of parameters that manages the production of statistical reports at "
 "regular intervals to analyze an institution's activity."
 msgstr ""
-"ஒரு நிறுவனத்தின் செயல்பாட்டை பகுப்பாய்வு செய்ய சரியான இடைவெளியில் "
-"புள்ளிவிவர அறிக்கைகளின் உற்பத்தியை நிர்வகிக்கும் அளவுருக்களின் தொகுப்பு."
+"ஒரு நிறுவனத்தின் செயல்பாட்டை பகுப்பாய்வு செய்ய சரியான இடைவெளியில் புள்ளிவிவர "
+"அறிக்கைகளின் உற்பத்தியை நிர்வகிக்கும் அளவுருக்களின் தொகுப்பு."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:32
 msgid "Configuration ID"
@@ -12471,13 +12386,12 @@ msgstr "நூலகங்கள் மூலம் எண்களை வடி
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:95
 msgid ""
-"If disabled, stats are calculated for the whole organisation. If enabled,"
-" calculate stats only for the resources belonging to the selected "
-"libraries."
+"If disabled, stats are calculated for the whole organisation. If enabled, "
+"calculate stats only for the resources belonging to the selected libraries."
 msgstr ""
-"முடக்கப்பட்டால், முழு நிறுவனத்திற்கும் புள்ளிவிவரங்கள் "
-"கணக்கிடப்படுகின்றன. இயக்கப்பட்டால், தேர்ந்தெடுக்கப்பட்ட நூலகங்களுக்கு "
-"சொந்தமான வளங்களுக்கு மட்டுமே புள்ளிவிவரங்களைக் கணக்கிடுங்கள்."
+"முடக்கப்பட்டால், முழு நிறுவனத்திற்கும் புள்ளிவிவரங்கள் கணக்கிடப்படுகின்றன. இயக்கப்பட்டால், "
+"தேர்ந்தெடுக்கப்பட்ட நூலகங்களுக்கு சொந்தமான வளங்களுக்கு மட்டுமே புள்ளிவிவரங்களைக் "
+"கணக்கிடுங்கள்."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:145
 msgid "Category of the configuration."
@@ -12617,11 +12531,11 @@ msgstr "வழங்கல்"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:855
 msgid ""
-"Up to 2 filters by which to distribute the data in the generated tables. "
-"The first value is the lines; the second value is the columns."
+"Up to 2 filters by which to distribute the data in the generated tables. The "
+"first value is the lines; the second value is the columns."
 msgstr ""
-"உருவாக்கப்பட்ட அட்டவணையில் தரவை விநியோகிக்க 2 வடிப்பான்கள் வரை. முதல் "
-"மதிப்பு கோடுகள்; இரண்டாவது மதிப்பு நெடுவரிசைகள்."
+"உருவாக்கப்பட்ட அட்டவணையில் தரவை விநியோகிக்க 2 வடிப்பான்கள் வரை. முதல் மதிப்பு கோடுகள்; "
+"இரண்டாவது மதிப்பு நெடுவரிசைகள்."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:863
 msgid "Period"
@@ -12630,13 +12544,12 @@ msgstr "காலசுழற்சி"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:864
 msgid ""
 "The time range to filter the data relevant to a specific period: latest "
-"month or latest year. Leave empty to not filter the data. Example: "
-"process the number of checkouts performed in the last month."
+"month or latest year. Leave empty to not filter the data. Example: process "
+"the number of checkouts performed in the last month."
 msgstr ""
-"ஒரு குறிப்பிட்ட காலத்திற்கு தொடர்புடைய தரவை வடிகட்டுவதற்கான கால வரம்பு: "
-"அண்மைக் கால மாதம் அல்லது அண்மைக் கால ஆண்டு. தரவை வடிகட்டாமல் காலியாக "
-"விடவும். எடுத்துக்காட்டு: கடந்த மாதத்தில் நிகழ்த்தப்பட்ட "
-"புதுப்பித்தல்களின் எண்ணிக்கையை செயலாக்கவும்."
+"ஒரு குறிப்பிட்ட காலத்திற்கு தொடர்புடைய தரவை வடிகட்டுவதற்கான கால வரம்பு: அண்மைக் கால "
+"மாதம் அல்லது அண்மைக் கால ஆண்டு. தரவை வடிகட்டாமல் காலியாக விடவும். எடுத்துக்காட்டு: கடந்த "
+"மாதத்தில் நிகழ்த்தப்பட்ட புதுப்பித்தல்களின் எண்ணிக்கையை செயலாக்கவும்."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:876
 msgid "month"
@@ -12717,8 +12630,8 @@ msgid ""
 "Public templates are visible by all users of the organisation. Private "
 "templates are visible only by its creator (you)."
 msgstr ""
-"நிறுவனத்தின் அனைத்து பயனர்களும் பொது வார்ப்புருக்கள் தெரியும். தனியார் "
-"வார்ப்புருக்கள் அதன் படைப்பாளரால் மட்டுமே தெரியும் (நீங்கள்)."
+"நிறுவனத்தின் அனைத்து பயனர்களும் பொது வார்ப்புருக்கள் தெரியும். தனியார் வார்ப்புருக்கள் அதன் "
+"படைப்பாளரால் மட்டுமே தெரியும் (நீங்கள்)."
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:95
 msgid "public"
@@ -12763,12 +12676,12 @@ msgstr "பயனர்பெயர் அல்லது மின்னஞ்�
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:5
 msgid ""
 "Data about a person (first name, last name, addresses). This resource is "
-"shared by the various RERO ILS organisations, enabling the data of people"
-" registered with several organizations to be shared."
+"shared by the various RERO ILS organisations, enabling the data of people "
+"registered with several organizations to be shared."
 msgstr ""
-"ஒரு நபரைப் பற்றிய தரவு (முதல் பெயர், கடைசி பெயர், முகவரிகள்). இந்த வளத்தை"
-" பல்வேறு ரீரோ ஐ.எல்.எச் அமைப்புகளால் பகிரப்படுகிறது, இது பல அமைப்புகளில் "
-"பதிவுசெய்யப்பட்ட நபர்களின் தரவைப் பகிர உதவுகிறது."
+"ஒரு நபரைப் பற்றிய தரவு (முதல் பெயர், கடைசி பெயர், முகவரிகள்). இந்த வளத்தை பல்வேறு ரீரோ "
+"ஐ.எல்.எச் அமைப்புகளால் பகிரப்படுகிறது, இது பல அமைப்புகளில் பதிவுசெய்யப்பட்ட நபர்களின் "
+"தரவைப் பகிர உதவுகிறது."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:39
 msgid "User ID"
@@ -12823,11 +12736,8 @@ msgstr "பன்னாட்டு முன்னொட்டுடன், இ
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:229
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:249
 msgid ""
-"Phone number with the international prefix, without spaces, ie "
-"+41221234567."
-msgstr ""
-"பன்னாட்டு முன்னொட்டுடன் தொலைபேசி எண், இடைவெளிகள் இல்லாமல், அதாவது "
-"+41221234567."
+"Phone number with the international prefix, without spaces, ie +41221234567."
+msgstr "பன்னாட்டு முன்னொட்டுடன் தொலைபேசி எண், இடைவெளிகள் இல்லாமல், அதாவது +41221234567."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:193
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:213
@@ -12866,8 +12776,8 @@ msgstr "வரலாற்றை வைத்திருங்கள்"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:260
 msgid ""
-"If enabled, the loan history is visible in the patron account. Loan data "
-"is always anonymised after a certain period."
+"If enabled, the loan history is visible in the patron account. Loan data is "
+"always anonymised after a certain period."
 msgstr ""
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:273
@@ -12923,10 +12833,11 @@ msgid "Only one note per type is allowed."
 msgstr "ஒரு வகைக்கு ஒரு குறிப்பு மட்டுமே அனுமதிக்கப்படுகிறது."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:204
-msgid "Selected language will be used in all notifications sent to this vendor."
+msgid ""
+"Selected language will be used in all notifications sent to this vendor."
 msgstr ""
-"இந்த விற்பனையாளருக்கு அனுப்பப்படும் அனைத்து அறிவிப்புகளிலும் "
-"தேர்ந்தெடுக்கப்பட்ட மொழி பயன்படுத்தப்படும்."
+"இந்த விற்பனையாளருக்கு அனுப்பப்படும் அனைத்து அறிவிப்புகளிலும் தேர்ந்தெடுக்கப்பட்ட மொழி "
+"பயன்படுத்தப்படும்."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:246
 msgid "Contacts"
@@ -13014,14 +12925,14 @@ msgstr "பதிப்பு"
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:34
 msgid "Link to the RERO ILS code source on GitHub, current used version"
 msgstr ""
-"அறிவிலிமையம், தற்போதைய பயன்படுத்தப்பட்ட பதிப்பில் ரீரோ ஐ.எல்.எச் குறியீடு"
-" மூலத்துடன் இணைக்கவும்"
+"அறிவிலிமையம், தற்போதைய பயன்படுத்தப்பட்ட பதிப்பில் ரீரோ ஐ.எல்.எச் குறியீடு மூலத்துடன் "
+"இணைக்கவும்"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:38
 msgid "Link to the RERO ILS UI code source on GitHub, current used version"
 msgstr ""
-"கிதூப்பில் RERO ILS இடைமுகம் குறியீடு மூலத்துடன் இணைக்கவும், தற்போதைய "
-"பயன்படுத்தப்பட்ட பதிப்பு"
+"கிதூப்பில் RERO ILS இடைமுகம் குறியீடு மூலத்துடன் இணைக்கவும், தற்போதைய பயன்படுத்தப்பட்ட "
+"பதிப்பு"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:49
 msgid "More test logins and documentation are available on the"
@@ -13081,14 +12992,13 @@ msgid ""
 "Enter your email address below and we will send you a link to reset your "
 "password."
 msgstr ""
-"உங்கள் மின்னஞ்சல் முகவரியை கீழே உள்ளிடவும், உங்கள் கடவுச்சொல்லை "
-"மீட்டமைக்க ஒரு இணைப்பை நாங்கள் உங்களுக்கு அனுப்புவோம்."
+"உங்கள் மின்னஞ்சல் முகவரியை கீழே உள்ளிடவும், உங்கள் கடவுச்சொல்லை மீட்டமைக்க ஒரு இணைப்பை நாங்கள் "
+"உங்களுக்கு அனுப்புவோம்."
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:22
 msgid "If you are registered without email, please contact your library."
 msgstr ""
-"நீங்கள் மின்னஞ்சல் இல்லாமல் பதிவு செய்யப்பட்டால், தயவுசெய்து உங்கள் "
-"நூலகத்தைத் தொடர்பு கொள்ளவும்."
+"நீங்கள் மின்னஞ்சல் இல்லாமல் பதிவு செய்யப்பட்டால், தயவுசெய்து உங்கள் நூலகத்தைத் தொடர்பு கொள்ளவும்."
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:36
 #: rero_ils/theme/templates/rero_ils/login_user.html:43
@@ -13186,8 +13096,7 @@ msgstr "அன்புள்ள புரவலர்"
 #: rero_ils/theme/templates/security/email/reset_instructions.html:9
 msgid "Someone requested that the password for your RERO ID account be reset."
 msgstr ""
-"உங்கள் ரெரோ ஐடி கணக்கிற்கான கடவுச்சொல் மீட்டமைக்கப்பட வேண்டும் என்று "
-"ஒருவர் கேட்டுக்கொண்டார்."
+"உங்கள் ரெரோ ஐடி கணக்கிற்கான கடவுச்சொல் மீட்டமைக்கப்பட வேண்டும் என்று ஒருவர் கேட்டுக்கொண்டார்."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:10
 msgid "Reset my password"
@@ -13195,11 +13104,11 @@ msgstr "எனது கடவுச்சொல்லை மீட்டமை�
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:11
 msgid ""
-"If you didn't request this, you can ignore this e-mail. Your password "
-"won't change until you create a new password."
+"If you didn't request this, you can ignore this e-mail. Your password won't "
+"change until you create a new password."
 msgstr ""
-"இதை நீங்கள் கோரவில்லை என்றால், இந்த மின்னஞ்சலை நீங்கள் புறக்கணிக்கலாம். "
-"புதிய கடவுச்சொல்லை உருவாக்கும் வரை உங்கள் கடவுச்சொல் மாறாது."
+"இதை நீங்கள் கோரவில்லை என்றால், இந்த மின்னஞ்சலை நீங்கள் புறக்கணிக்கலாம். புதிய கடவுச்சொல்லை "
+"உருவாக்கும் வரை உங்கள் கடவுச்சொல் மாறாது."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:12
 #: rero_ils/theme/templates/security/email/reset_notice.html:10
@@ -13214,7 +13123,3 @@ msgstr "உங்கள் நூலகம்"
 #: rero_ils/theme/templates/security/email/reset_notice.html:9
 msgid "Your password has been successfully reset."
 msgstr "உங்கள் கடவுச்சொல் வெற்றிகரமாக மீட்டமைக்கப்பட்டுள்ளது."
-
-#~ msgid "Cannot create an order line with an order with a wrong status."
-#~ msgstr ""
-
