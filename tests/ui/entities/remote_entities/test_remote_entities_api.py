@@ -9,6 +9,7 @@ from copy import deepcopy
 from unittest import mock
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.entities.remote_entities import tasks
 from rero_ils.modules.entities.remote_entities.api import (
     RemoteEntitiesSearch,
     RemoteEntity,
@@ -407,6 +408,14 @@ def test_replace_identified_by(
         assert replace_identified_by.not_found == {
             "bf:Work": {"rero:A001234567": "Bases de donnéesi (Voltenauer, Marc)"}
         }
+
+
+def test_replace_identified_by_task_error(app, caplog):
+    """Test a failure of the scheduled task is logged, not only returned."""
+    error = Exception("MEF server is down")
+    with mock.patch.object(tasks, "ReplaceIdentifiedBy", side_effect=error):
+        assert tasks.replace_identified_by(fields=["contribution"]) == {"contribution": {"error": error}}
+    assert caplog.record_tuples[-1] == ("invenio", 40, "replace_identified_by contribution")
 
 
 def test_replace_identified_by_type_mismatch(app, entity_organisation, entity_organisation_data):
