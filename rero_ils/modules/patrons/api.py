@@ -27,11 +27,7 @@ from rero_ils.modules.minters import id_minter
 from rero_ils.modules.operation_logs.extensions import OperationLogObserverExtension
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_transactions.api import PatronTransaction
-from rero_ils.modules.patron_transactions.utils import (
-    create_subscription_for_patron,
-    get_transactions_count_for_patron,
-    get_transactions_pids_for_patron,
-)
+from rero_ils.modules.patron_transactions.utils import _build_transaction_query, create_subscription_for_patron
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.tasks import process_bulk_queue
 from rero_ils.modules.templates.api import TemplatesSearch
@@ -334,14 +330,15 @@ class Patron(IlsRecord):
         )
         template_query = TemplatesSearch().filter("term", creator__pid=self.pid)
         ill_query = ILLRequestsSearch().filter("term", patron__pid=self.pid)
+        transaction_query = _build_transaction_query(patron_pid=self.pid, status="open")
         if get_pids:
             loans = sorted_pids(loan_query)
-            transactions = get_transactions_pids_for_patron(self.pid, status="open")
+            transactions = sorted_pids(transaction_query)
             templates = sorted_pids(template_query)
             ill_requests = sorted_pids(ill_query)
         else:
             loans = loan_query.count()
-            transactions = get_transactions_count_for_patron(self.pid, status="open")
+            transactions = transaction_query.count()
             templates = template_query.count()
             ill_requests = ill_query.count()
         if loans:
