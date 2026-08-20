@@ -11,6 +11,8 @@ from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.patron_transactions.utils import get_last_transaction_by_loan_pid
@@ -208,3 +210,81 @@ def test_checkin_overdue_item(
     # reset the cipo
     del cipo["overdue_fees"]
     cipo.update(data=cipo, dbcommit=True, reindex=True)
+
+
+def test_checkin_scan_log_transaction_location(
+    client,
+    librarian_fully,
+    lib_fully,
+    loc_public_fully,
+    loc_public_martigny,
+    item_at_desk_martigny_patron_and_loan_at_desk,
+):
+    """Test the scan log keeps the location where the item was really scanned."""
+    # An item at desk for a Martigny pickup is wrongly sent to Fully. The scan
+    # log must reference the Fully location and not the last transaction
+    # location recorded on the loan (Martigny).
+    item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
+    assert loan["transaction_location_pid"] == loc_public_martigny.pid
+
+    login_user_via_session(client, librarian_fully.user)
+    res, _ = postdata(
+        client,
+        "api_item.checkin",
+        {
+            "item_pid": item.pid,
+            "transaction_location_pid": loc_public_fully.pid,
+            "transaction_user_pid": librarian_fully.pid,
+        },
+    )
+    assert res.status_code == 400
+
+    query = OperationLogsSearch().filter("term", scan__item__pid=item.pid)
+    assert query.count() == 1
+    log_data = query.execute()[0].to_dict()
+    assert log_data["library"]["value"] == lib_fully.pid
+    assert log_data["scan"]["transaction_location"]["pid"] == loc_public_fully.pid
+    assert log_data["scan"]["pickup_location"]["pid"] == loc_public_martigny.pid
+
+    # restore the fixture state: the checkin sent the item in transit
+    loan = Loan.get_record_by_pid(loan.pid)
+    loan["state"] = LoanState.ITEM_AT_DESK
+    loan.update(loan, dbcommit=True, reindex=True)
+    item = Item.get_record_by_pid(item.pid)
+    item["status"] = ItemStatus.AT_DESK
+    item.update(item, dbcommit=True, reindex=True)
+
+
+def test_checkin_scan_log_transaction_location_in_transit(
+    client,
+    librarian_saxon,
+    lib_saxon,
+    loc_public_saxon,
+    loc_public_fully,
+    loc_public_martigny,
+    item_in_transit_martigny_patron_and_loan_for_pickup,
+):
+    """Test the scan log of an in transit item scanned in a third library."""
+    # An item in transit to Fully is scanned in Saxon. The scan log must
+    # reference a Saxon location, resolved from the transaction library, and
+    # not the transaction location recorded on the loan (Martigny).
+    item, patron, loan = item_in_transit_martigny_patron_and_loan_for_pickup
+    assert loan["transaction_location_pid"] == loc_public_martigny.pid
+
+    login_user_via_session(client, librarian_saxon.user)
+    res, _ = postdata(
+        client,
+        "api_item.checkin",
+        {
+            "item_pid": item.pid,
+            "transaction_library_pid": lib_saxon.pid,
+            "transaction_user_pid": librarian_saxon.pid,
+        },
+    )
+    assert res.status_code == 400
+
+    query = OperationLogsSearch().filter("term", scan__item__pid=item.pid)
+    assert query.count() == 1
+    log_data = query.execute()[0].to_dict()
+    assert log_data["scan"]["transaction_location"]["pid"] == loc_public_saxon.pid
+    assert log_data["scan"]["pickup_location"]["pid"] == loc_public_fully.pid

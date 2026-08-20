@@ -18,6 +18,7 @@ from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_circ_policy
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 from rero_ils.modules.patron_transactions.utils import get_last_transaction_by_loan_pid
 from rero_ils.modules.utils import get_ref_for_pid
@@ -246,6 +247,7 @@ def test_extend_on_item_on_loan_with_no_requests(
 def test_extend_on_item_on_loan_with_requests(
     item_on_loan_martigny_patron_and_loan_on_loan,
     loc_public_martigny,
+    loc_public_saxon,
     librarian_martigny,
     circulation_policies,
     patron2_martigny,
@@ -272,15 +274,27 @@ def test_extend_on_item_on_loan_with_requests(
     with pytest.raises(NoCirculationAction):
         item, actions = item.extend_loan(**params)
     assert item.status == ItemStatus.ON_LOAN
-    # test fails if loan pid is given
+    # test fails if loan pid is given. The scan log must reference the location
+    # where the extension was attempted (Saxon) and not the transaction
+    # location recorded on the loan.
     params = {
         "pid": loan.pid,
-        "transaction_location_pid": loc_public_martigny.pid,
+        "transaction_location_pid": loc_public_saxon.pid,
         "transaction_user_pid": librarian_martigny.pid,
     }
     with pytest.raises(NoCirculationAction):
         item, actions = item.extend_loan(**params)
     assert item.status == ItemStatus.ON_LOAN
+    query = OperationLogsSearch().filter("term", scan__item__pid=item.pid).sort("-date")
+    assert query.execute()[0].to_dict()["scan"]["transaction_location"]["pid"] == loc_public_saxon.pid
+
+    # without any transaction parameter, the loan transaction location is kept
+    params = {"pid": loan.pid, "transaction_user_pid": librarian_martigny.pid}
+    with pytest.raises(NoCirculationAction):
+        item, actions = item.extend_loan(**params)
+    loan_location_pid = Loan.get_record_by_pid(loan.pid)["transaction_location_pid"]
+    query = OperationLogsSearch().filter("term", scan__item__pid=item.pid).sort("-date")
+    assert query.execute()[0].to_dict()["scan"]["transaction_location"]["pid"] == loan_location_pid
 
 
 def test_extend_on_item_in_transit_for_pickup(
