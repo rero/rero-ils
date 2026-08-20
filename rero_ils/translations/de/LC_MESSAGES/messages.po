@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2026-08-19 09:22+0000\n"
+"Report-Msgid-Bugs-To: software@rero.ch\n"
+"POT-Creation-Date: 2026-08-20 02:49+0000\n"
 "PO-Revision-Date: 2026-08-20 02:50+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -13060,11 +13060,6 @@ msgstr "Nur ein Kontakt pro Typ ist erlaubt."
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
-msgstr "<i class=\"fa-solid fa-globe\"></i>"
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-user\"></i>"
 msgstr "<i class=\"fa-solid fa-user\"></i>"
 
@@ -13072,6 +13067,11 @@ msgstr "<i class=\"fa-solid fa-user\"></i>"
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-phone\"></i>"
 msgstr "<i class=\"fa-solid fa-phone\"></i>"
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
