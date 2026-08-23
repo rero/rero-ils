@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 1.0.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-08-22 02:47+0000\n"
+"POT-Creation-Date: 2026-08-23 02:55+0000\n"
 "PO-Revision-Date: 2021-06-09 13:00+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -12721,12 +12721,12 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-user\"></i>"
+msgid "<i class=\"fa-solid fa-phone\"></i>"
 msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgid "<i class=\"fa-solid fa-user\"></i>"
 msgstr ""
 
 #. Line unknown
@@ -12736,7 +12736,7 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr ""
 
 #: rero_ils/theme/menus.py:38
