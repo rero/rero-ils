@@ -34,5 +34,4 @@ def enrich_patron_transaction_data(
 
     if loan := record.loan:
         json["document"] = {"pid": record.document_pid, "type": "doc"}
-        json["library"] = {"pid": record.library_pid, "type": "lib"}
         json["item"] = {"pid": loan.item_pid, "type": "item"}
