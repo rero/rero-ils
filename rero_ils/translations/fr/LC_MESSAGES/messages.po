@@ -19,9 +19,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-08-24 02:55+0000\n"
-"PO-Revision-Date: 2026-08-20 02:50+0000\n"
+"PO-Revision-Date: 2026-08-25 02:51+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/fr/>\n"
@@ -9315,7 +9315,7 @@ msgstr "Date de suppression"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:65
 msgid "Example: University of Cambridge"
-msgstr "Exemple : Université de Bordeaux III"
+msgstr "Exemple : Université de Bordeaux III"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:71
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:69
@@ -12003,8 +12003,7 @@ msgstr "Prêt refusé : maximum de prêts en cours atteint"
 #: rero_ils/modules/patron_types/api.py:355
 msgid ""
 "Checkout denied: maximum number of checked out items for this library reached"
-msgstr ""
-"Prêt refusé : maximum de prêts en cours atteint pour cette bibliothèque"
+msgstr "Prêt refusé : maximum de prêts en cours atteint pour cette bibliothèque"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:5
 msgid "Categorization of patrons."
