@@ -628,8 +628,10 @@ class Loan(IlsRecord):
 
     @cached_property
     def transaction_library_pid(self):
-        """Get loan transaction_library PID."""
-        return Location.get_record_by_pid(self.transaction_location_pid).get_library().get("pid")
+        """Get the library where the loan transaction occurred."""
+        if (location_pid := self.transaction_location_pid) and (location := Location.get_record_by_pid(location_pid)):
+            return location.library_pid
+        return None
 
     @property
     def get_overdue_fees(self):

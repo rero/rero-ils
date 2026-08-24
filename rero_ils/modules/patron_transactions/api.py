@@ -112,10 +112,19 @@ class PatronTransaction(IlsRecord):
 
     @property
     def library_pid(self):
-        """Get the `Library` pid related to this transaction."""
-        if loan := self.loan:
-            return loan.library_pid
+        """Get the owning or assigning library pid."""
+        if (loan := self.loan) and (item := loan.item):
+            return item.library_pid
+
+        if library := self.get("library"):
+            return extracted_data_from_ref(library)
+
         return None
+
+    @property
+    def transaction_library_pid(self):
+        """Get the library where the loan transaction occurred."""
+        return self.loan.transaction_library_pid if self.loan and self.loan.transaction_location_pid else None
 
     @property
     def patron_pid(self):
