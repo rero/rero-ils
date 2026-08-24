@@ -962,8 +962,7 @@
             },
             {
               "label": "lang_dut",
-              "value": "dut",
-              "preferred": true
+              "value": "dut"
             },
             {
               "label": "lang_dyu",
