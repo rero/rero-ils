@@ -30,7 +30,7 @@ def app_config(app_config):
     """Create temporary instance dir for each test."""
     app_config["CELERY_BROKER_URL"] = "memory://"
     app_config["RATELIMIT_STORAGE_URI"] = "memory://"
-    app_config["CACHE_TYPE"] = "simple"
+    app_config["CACHE_TYPE"] = "SimpleCache"
     app_config["SEARCH_ELASTIC_HOSTS"] = None
     app_config["DB_VERSIONING"] = True
     app_config["CELERY_ALWAYS_EAGER"] = True

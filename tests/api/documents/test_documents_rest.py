@@ -1033,6 +1033,12 @@ def test_document_advanced_search_config(app, db, client, system_librarian_marti
     check_field_data("rdaContentType", field_data, {"label": "rdaco:1002", "value": "rdaco:1002"})
     check_field_data("rdaMediaType", field_data, {"label": "rdamt:1001", "value": "rdamt:1001"})
 
+    # Authentication must still be checked when the response is cached.
+    with client.session_transaction() as session:
+        session.clear()
+    res = client.get(config_url)
+    assert res.status_code == 401
+
 
 @mock.patch(
     "invenio_records_rest.views.verify_record_permission",
