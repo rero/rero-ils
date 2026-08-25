@@ -757,7 +757,8 @@ def test_multiple_loans_on_item_error(
     new_loan = Loan.get_record_by_pid(req_loan_pid)
     assert new_loan.get("state") == "ITEM_AT_DESK"
     assert Item.get_record_by_pid(item.pid).get("status") == ItemStatus.AT_DESK
-    # cancel request
+    # cancel request: the item is at desk in an external library, it has to go
+    # back to its owning library
     res, _ = postdata(
         client,
         "api_item.cancel_item_request",
@@ -769,6 +770,20 @@ def test_multiple_loans_on_item_error(
         },
     )
     assert res.status_code == 200
+    assert Item.get_record_by_pid(item.pid).get("status") == ItemStatus.IN_TRANSIT
+
+    # receive the item at its owning library
+    res, _ = postdata(
+        client,
+        "api_item.checkin",
+        {
+            "item_pid": item.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+        },
+    )
+    assert res.status_code == 200
+    assert Item.get_record_by_pid(item.pid).get("status") == ItemStatus.ON_SHELF
 
 
 def test_filtered_items_get(

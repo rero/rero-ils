@@ -103,22 +103,21 @@ def test_cancel_request_on_item_on_shelf(
     assert loan["state"] == LoanState.CANCELLED
 
 
-def test_cancel_request_on_item_at_desk_no_requests_externally(
+def test_cancel_request_on_item_at_desk_in_another_library(
     client,
-    item_at_desk_martigny_patron_and_loan_at_desk,
+    item_martigny_at_desk_fully_patron_and_loan_at_desk,
     loc_public_martigny,
     librarian_martigny,
-    loc_public_fully,
 ):
-    """Test cancel requests on an at_desk item externally."""
-    item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
+    """Test cancel requests on an item at desk in an external library."""
+    item, patron, loan = item_martigny_at_desk_fully_patron_and_loan_at_desk
     # the following tests the circulation action CANCEL_REQUEST_2_1_1_1
-    # an item at_desk with no other pending loans.
-    # if the item library != pickup location, update the at_desk loan.
-    # loan ITEM_IN_TRANSIT_TO_HOUSE and item is: in_transit
+    # an item at_desk in an external library with no other pending loans.
+    # the item has to go back home: update the at_desk loan to
+    # ITEM_IN_TRANSIT_TO_HOUSE and item is: in_transit
     params = {
         "pid": loan.pid,
-        "transaction_location_pid": loc_public_fully.pid,
+        "transaction_location_pid": loc_public_martigny.pid,
         "transaction_user_pid": librarian_martigny.pid,
     }
     item.cancel_item_request(**params)
@@ -126,6 +125,30 @@ def test_cancel_request_on_item_at_desk_no_requests_externally(
     loan = Loan.get_record_by_pid(loan.pid)
     assert item.status == ItemStatus.IN_TRANSIT
     assert loan["state"] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+
+
+def test_cancel_request_on_item_at_desk_no_requests_externally(
+    client,
+    item_at_desk_martigny_patron_and_loan_at_desk,
+    librarian_fully,
+    loc_public_fully,
+):
+    """Test cancel requests on an at_desk item externally."""
+    item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
+    # the following tests the circulation action CANCEL_REQUEST_2_1_1_2
+    # an item at_desk in its owning library with no other pending loans.
+    # the library where the request is cancelled has no influence: cancel the
+    # loan and item is: on_shelf
+    params = {
+        "pid": loan.pid,
+        "transaction_location_pid": loc_public_fully.pid,
+        "transaction_user_pid": librarian_fully.pid,
+    }
+    item.cancel_item_request(**params)
+    item = Item.get_record_by_pid(item.pid)
+    loan = Loan.get_record_by_pid(loan.pid)
+    assert item.status == ItemStatus.ON_SHELF
+    assert loan["state"] == LoanState.CANCELLED
 
 
 def test_cancel_request_on_item_at_desk_no_requests_at_home(

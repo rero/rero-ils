@@ -5,6 +5,10 @@
 
 from invenio_accounts.testutils import login_user_via_session
 
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.models import LoanState
 from tests.utils import postdata
 
 
@@ -71,3 +75,30 @@ def test_cancel_an_item_request(
         },
     )
     assert res.status_code == 200
+
+
+def test_cancel_an_item_request_at_desk_in_another_library(
+    client,
+    librarian_martigny,
+    lib_martigny,
+    item_martigny_at_desk_fully_patron_and_loan_at_desk,
+    circulation_policies,
+):
+    """Test the frontend cancel of a request at desk in an external library."""
+    # A martigny item is at desk in the fully library, its request is
+    # cancelled by a librarian of the owning library: the item must go back
+    # home instead of going on shelf.
+    item, patron, loan = item_martigny_at_desk_fully_patron_and_loan_at_desk
+    login_user_via_session(client, librarian_martigny.user)
+    res, _ = postdata(
+        client,
+        "api_item.cancel_item_request",
+        {
+            "pid": loan.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
+    )
+    assert res.status_code == 200
+    assert Item.get_record_by_pid(item.pid).status == ItemStatus.IN_TRANSIT
+    assert Loan.get_record_by_pid(loan.pid)["state"] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
