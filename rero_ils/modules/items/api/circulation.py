@@ -81,13 +81,9 @@ class ItemCirculation(ItemRecord):
         else:
             # no validation is possible when loan is not found/given
             message = _("No circulation action performed: validate impossible")
-            transaction_location_pid = kwargs.get("transaction_location_pid")
-            if not transaction_location_pid and (transaction_library_pid := kwargs.pop("transaction_library_pid")):
-                lib = Library.get_record_by_pid(transaction_library_pid)
-                transaction_location_pid = lib.get_transaction_location_pid()
             scan = {
                 "item": self,
-                "transaction_location_pid": transaction_location_pid,
+                "transaction_location_pid": self.get_transaction_location_pid_from_params(**kwargs),
                 "note": message,
             }
             NoCirculationOperationLog.create(scan=scan, index_refresh=True)
@@ -105,15 +101,8 @@ class ItemCirculation(ItemRecord):
         else:
             loan = Loan.get_record_by_pid(loan_pid)
 
-        pickup_location_pid = None
-        if loan:
-            pickup_location_pid = loan.get("pickup_location_pid")
-            transaction_location_pid = loan.get("transaction_location_pid")
-        else:
-            transaction_location_pid = kwargs.get("transaction_location_pid")
-            if not transaction_location_pid and (transaction_library_pid := kwargs.pop("transaction_library_pid")):
-                lib = Library.get_record_by_pid(transaction_library_pid)
-                transaction_location_pid = lib.get_transaction_location_pid()
+        pickup_location_pid = loan.get("pickup_location_pid") if loan else None
+        transaction_location_pid = self.get_transaction_location_pid_from_params(loan=loan, **kwargs)
 
         # Check extend is allowed
         #   It's not allowed to extend an item if it is not checked out
@@ -213,13 +202,9 @@ class ItemCirculation(ItemRecord):
         libraries = self.compare_item_pickup_transaction_libraries(**kwargs)
         transaction_item_libraries = libraries["transaction_item_libraries"]
 
-        transaction_location_pid = kwargs.get("transaction_location_pid")
-        if not transaction_location_pid and (transaction_library_pid := kwargs.pop("transaction_library_pid")):
-            lib = Library.get_record_by_pid(transaction_library_pid)
-            transaction_location_pid = lib.get_transaction_location_pid()
         scan = {
             "item": self,
-            "transaction_location_pid": transaction_location_pid,
+            "transaction_location_pid": self.get_transaction_location_pid_from_params(**kwargs),
         }
         if transaction_item_libraries:
             # CHECKIN_1_1_1, item library = transaction library
@@ -261,7 +246,7 @@ class ItemCirculation(ItemRecord):
             scan = {
                 "item": self,
                 "pickup_location_pid": at_desk_loan.get("pickup_location_pid"),
-                "transaction_location_pid": at_desk_loan.get("transaction_location_pid"),
+                "transaction_location_pid": self.get_transaction_location_pid_from_params(loan=at_desk_loan, **kwargs),
                 "note": message,
             }
             NoCirculationOperationLog.create(scan=scan, index_refresh=True)
@@ -276,7 +261,7 @@ class ItemCirculation(ItemRecord):
         scan = {
             "item": self,
             "pickup_location_pid": at_desk_loan.get("pickup_location_pid"),
-            "transaction_location_pid": at_desk_loan.get("transaction_location_pid"),
+            "transaction_location_pid": self.get_transaction_location_pid_from_params(loan=at_desk_loan, **kwargs),
             "note": message,
         }
         NoCirculationOperationLog.create(scan=scan, index_refresh=True)
@@ -303,7 +288,7 @@ class ItemCirculation(ItemRecord):
         scan = {
             "item": self,
             "pickup_location_pid": in_transit_loan.get("pickup_location_pid"),
-            "transaction_location_pid": in_transit_loan.get("transaction_location_pid"),
+            "transaction_location_pid": self.get_transaction_location_pid_from_params(loan=in_transit_loan, **kwargs),
             "note": message,
         }
         NoCirculationOperationLog.create(scan=scan, index_refresh=True)
@@ -326,13 +311,11 @@ class ItemCirculation(ItemRecord):
                 # CHECKIN_5_1_2: item location != transaction library
                 # (no action, item is: in_transit (IN_TRANSIT_TO_HOUSE))
                 message = _("No circulation action performed: in transit to house")
-                transaction_location_pid = kwargs.get("transaction_location_pid")
-                if not transaction_location_pid and (transaction_library_pid := kwargs.pop("transaction_library_pid")):
-                    lib = Library.get_record_by_pid(transaction_library_pid)
-                    transaction_location_pid = lib.get_transaction_location_pid()
                 scan = {
                     "item": self,
-                    "transaction_location_pid": transaction_location_pid,
+                    "transaction_location_pid": self.get_transaction_location_pid_from_params(
+                        loan=in_transit_loan, **kwargs
+                    ),
                     "note": message,
                 }
                 NoCirculationOperationLog.create(scan=scan, index_refresh=True)
@@ -378,7 +361,9 @@ class ItemCirculation(ItemRecord):
                     scan = {
                         "item": self,
                         "pickup_location_pid": in_transit_loan.get("pickup_location_pid"),
-                        "transaction_location_pid": in_transit_loan.get("transaction_location_pid"),
+                        "transaction_location_pid": self.get_transaction_location_pid_from_params(
+                            loan=in_transit_loan, **kwargs
+                        ),
                         "note": message,
                     }
                     NoCirculationOperationLog.create(scan=scan, index_refresh=True)
@@ -401,6 +386,23 @@ class ItemCirculation(ItemRecord):
             kwargs["validate_current_loan"] = True
             loan = pending
         return loan, kwargs
+
+    def get_transaction_location_pid_from_params(self, loan=None, **kwargs):
+        """Get the transaction location pid of the current circulation operation.
+
+        :param loan: the loan of the operation, used as a fallback when the
+            circulation parameters give no transaction location.
+        :param kwargs: all others named arguments.
+        :return the transaction location pid.
+        """
+        if transaction_location_pid := kwargs.get("transaction_location_pid"):
+            return transaction_location_pid
+        if transaction_library_pid := kwargs.get("transaction_library_pid"):
+            return Library.get_record_by_pid(transaction_library_pid).get_transaction_location_pid()
+        # no transaction parameter given, fall back on the loan or the item
+        if loan and (transaction_location_pid := loan.get("transaction_location_pid")):
+            return transaction_location_pid
+        return self.location_pid
 
     def compare_item_pickup_transaction_libraries(self, **kwargs):
         """Compare item library, pickup and transaction libraries.

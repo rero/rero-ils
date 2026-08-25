@@ -175,6 +175,7 @@ class Collector:
             "item_type_pid": hit.get("item_type", {}).get("pid"),
             "item_library_pid": hit.get("library", {}).get("pid"),
             "item_location_pid": hit.get("location", {}).get("pid"),
+            "temporary_location_pid": hit.get("temporary_location", {}).get("pid"),
             "document_pid": hit.get("document", {}).get("pid"),
             "item_holding_pid": hit.get("holding", {}).get("pid"),
             "item_org_pid": hit.get("organisation", {}).get("pid"),

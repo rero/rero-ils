@@ -54,6 +54,9 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
                 # location
                 loc_pid = csv_data.pop("item_location_pid")
                 csv_data["item_location_name"] = self.get_resource(LocationsSearch(), loc_pid).get("name")
+                # temporary location
+                if loc_pid := csv_data.pop("temporary_location_pid", None):
+                    csv_data["item_temporary_location_name"] = self.get_resource(LocationsSearch(), loc_pid).get("name")
 
             headers = dict.fromkeys(self.csv_included_fields)
 
