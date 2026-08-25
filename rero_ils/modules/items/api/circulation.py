@@ -483,7 +483,7 @@ class ItemCirculation(ItemRecord):
         actions = {}
         loan = Loan.get_record_by_pid(pid)
         # decide  which actions need to be executed according to loan state.
-        actions_to_execute = self.checks_before_a_cancel_item_request(loan, **kwargs)
+        actions_to_execute = self.checks_before_a_cancel_item_request(loan)
         # execute the actions
         if actions_to_execute.get("cancel_loan"):
             item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
@@ -494,14 +494,16 @@ class ItemCirculation(ItemRecord):
             actions.update({LoanAction.UPDATE: loan})
         elif actions_to_execute.get("validate_first_pending"):
             pending = self.get_first_loan_by_state(state=LoanState.PENDING)
-            loan_pickup = loan.get("pickup_location_pid", None)
+            # for an at desk loan, the last `validate`/`receive` action took
+            # place where the item is.
+            item_location_pid = loan.transaction_location_pid
             pending_pickup = pending.get("pickup_location_pid", None)
             # If the item is at_desk at the same location as the next loan
             # pickup we can validate the next loan so that it becomes at desk
             # for the next patron.
-            if loan.get("state") == LoanState.ITEM_AT_DESK and loan_pickup == pending_pickup:
+            if loan.get("state") == LoanState.ITEM_AT_DESK and item_location_pid == pending_pickup:
                 item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
-                kwargs["transaction_location_pid"] = loan_pickup
+                kwargs["transaction_location_pid"] = item_location_pid
                 kwargs.pop("transaction_library_pid", None)
                 item, validate_actions = self.validate_request(pid=pending.pid, **kwargs)
                 actions.update(validate_actions)
@@ -516,11 +518,14 @@ class ItemCirculation(ItemRecord):
         item = self
         return item, actions
 
-    def checks_before_a_cancel_item_request(self, loan, **kwargs):
-        """Actions tobe executed before a cancel item request.
+    def checks_before_a_cancel_item_request(self, loan):
+        """Actions to be executed before a cancel item request.
+
+        When the loan is at desk, the item is located at the transaction
+        location of the loan, ie. where its last `validate` or `receive`
+        action took place.
 
         :param loan : the current loan to cancel
-        :param kwargs : all others named arguments
         :return: the item record and list of actions performed
         """
         actions_to_execute = {
@@ -528,7 +533,6 @@ class ItemCirculation(ItemRecord):
             "loan_update": {},
             "validate_first_pending": False,
         }
-        libraries = self.compare_item_pickup_transaction_libraries(**kwargs)
         # List all loan states attached to this item except the loan to cancel.
         # If the list is empty, no pending request/loan are linked to this item
         states = self.get_loans_states_by_item_pid_exclude_loan_pid(self.pid, loan.pid)
@@ -550,9 +554,10 @@ class ItemCirculation(ItemRecord):
                 # OperationLog about this cancellation.
                 actions_to_execute["cancel_loan"] = True
             elif loan["state"] == LoanState.ITEM_AT_DESK:
-                if not libraries["item_pickup_libraries"]:
-                    # CANCEL_REQUEST_2_1_1_1: when item library and pickup
-                    # pickup library arent equal, update loan to go in_transit.
+                if loan.transaction_library_pid != self.library_pid:
+                    # CANCEL_REQUEST_2_1_1_1: the item is at desk in a library
+                    # that isn't its owning library, update the loan to send
+                    # the item back home.
                     actions_to_execute["loan_update"]["state"] = LoanState.ITEM_IN_TRANSIT_TO_HOUSE
                 # Always mark the loan to be cancelled to create an
                 # OperationLog about this cancellation.

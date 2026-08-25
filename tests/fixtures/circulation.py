@@ -1074,6 +1074,43 @@ def item5_at_desk_martigny_patron_and_loan_at_desk(
 
 
 @pytest.fixture(scope="module")
+def item_martigny_at_desk_fully_patron_and_loan_at_desk(
+    app,
+    librarian_martigny,
+    librarian_fully,
+    item_lib_martigny,
+    loc_public_martigny,
+    loc_public_fully,
+    patron_martigny,
+    circulation_policies,
+):
+    """Creates a martigny item validated and received at the fully library.
+
+    :return item: the created or copied item.
+    :return patron: the patron placed the request.
+    :return loan: the received loan, at desk in an external library.
+    """
+    params = {
+        "patron_pid": patron_martigny.pid,
+        "transaction_location_pid": loc_public_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+        "pickup_location_pid": loc_public_fully.pid,
+    }
+    item, loan = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny,
+        loan_state=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+        params=params,
+        copy_item=True,
+    )
+    item, _ = item.receive(
+        pid=loan.pid,
+        transaction_location_pid=loc_public_fully.pid,
+        transaction_user_pid=librarian_fully.pid,
+    )
+    return item, patron_martigny, Loan.get_record_by_pid(loan.pid)
+
+
+@pytest.fixture(scope="module")
 def item_on_shelf_fully_patron_and_loan_pending(
     app,
     librarian_martigny,
