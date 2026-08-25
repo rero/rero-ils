@@ -56,6 +56,12 @@ def test_document_permissions(
     reasons = data.get("delete", {}).get("reasons", {})
     assert "others" in reasons and "permission" in reasons["others"]
 
+    # Authentication must still be checked when permissions are cached.
+    with client.session_transaction() as session:
+        session.clear()
+    res = client.get(url_for("api_blueprint.permissions", route_name="documents", record_pid=document.pid))
+    assert res.status_code == 401
+
 
 def test_document_permissions_cache_is_invalidated_by_holding_deletion(
     client,

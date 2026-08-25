@@ -232,7 +232,7 @@ def app_config(app_config):
     """Create temporary instance dir for each test."""
     app_config["CELERY_BROKER_URL"] = "memory://"
     app_config["RATELIMIT_STORAGE_URI"] = "memory://"
-    app_config["CACHE_TYPE"] = "simple"
+    app_config["CACHE_TYPE"] = "SimpleCache"
     app_config["SEARCH_ELASTIC_HOSTS"] = None
     app_config["SEARCH_CLIENT_CONFIG"] = {"timeout": 30, "max_retries": 3, "retry_on_timeout": True}
     app_config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://rero-ils:rero-ils@localhost/rero-ils"

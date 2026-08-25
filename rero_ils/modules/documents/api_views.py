@@ -29,8 +29,8 @@ def document_availability(pid):
 
 
 @api_blueprint.route("/advanced-search-config")
-@cached(timeout=5 * 60, query_string=True)  # 5 minutes timeout
 @check_logged_as_librarian
+@cached(timeout=5 * 60, query_string=True)  # 5 minutes timeout
 def advanced_search_config():
     """Advanced search config."""
 
