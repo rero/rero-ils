@@ -79,3 +79,19 @@ def test_get_related_orders(acq_order_fiction_martigny, acq_order_fiction_saxon)
     assert related_acors == [acor_saxon]
     assert acor_martigny.get_related_orders(output="count") == 1
     assert acor_martigny.get_links_to_me(True)["acq_orders"] == [acor_saxon.pid]
+
+
+def test_order_get_links_to_me_empty_pids(acq_order_fiction_martigny):
+    """Test that a resource without any linked pid is not in the links."""
+    acor = acq_order_fiction_martigny
+    links = acor.get_links_to_me()
+    links_pids = acor.get_links_to_me(get_pids=True)
+
+    # no receipt is attached to the order: the resource is reported by neither
+    # variant, a query is truthy even when it matches nothing
+    assert "acq_receipts" not in links
+    assert "acq_receipts" not in links_pids
+    # both variants report the same resources, with matching lengths
+    assert set(links_pids) == set(links)
+    for resource, pids in links_pids.items():
+        assert len(pids) == links[resource]

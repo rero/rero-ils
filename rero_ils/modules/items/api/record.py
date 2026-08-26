@@ -57,6 +57,9 @@ class ItemRecord(IlsRecord):
 
         Ensures that only one note of each type is present.
 
+        Ensures that an issue inherits the location and the circulation
+        category of its parent serial holdings.
+
         :return: Error message if
             - barcode already exists
             - holdings type is not journal and item type is issue.
@@ -65,6 +68,7 @@ class ItemRecord(IlsRecord):
             - if notes array has multiple notes with same type
             - `temporary_item_type` has same value than `item_type`
             - temporary_item_type isn't in the future (if specified)
+            - an issue location or item_type differs from its serial holdings
 
         """
         from . import ItemsSearch
@@ -87,6 +91,14 @@ class ItemRecord(IlsRecord):
                 return _("Issue item must have an issue field.")
             if not self.get("enumerationAndChronology"):
                 return _("enumerationAndChronology field is required for an issue item")
+            # an issue always inherits these fields from its parent holdings ;
+            # they are hidden in the editor, but nothing prevents an API call
+            # from desynchronizing them.
+            if holding.holdings_type == HoldingTypes.SERIAL:
+                if extracted_data_from_ref(self["location"]) != holding.location_pid:
+                    return _("Issue location must be the same as the parent holdings location.")
+                if extracted_data_from_ref(self["item_type"]) != holding.circulation_category_pid:
+                    return _("Issue circulation category must be the same as the parent holdings one.")
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
             return _("Cannot have multiple notes of the same type.")

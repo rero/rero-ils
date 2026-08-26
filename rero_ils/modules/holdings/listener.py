@@ -3,9 +3,8 @@
 
 """Signals connector for Holding."""
 
-import contextlib
-
 from elasticsearch_dsl.query import Q
+from flask import current_app
 from invenio_db import db
 
 from rero_ils.modules.holdings.models import HoldingTypes
@@ -88,31 +87,39 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
     # update these items so that they inherit the fields location,
     # item_type and call numbers from the parent holdings record.
     for id in items:
-        with contextlib.suppress(Exception):
-            item = Item.get_record(id)
-            if not item:
-                continue
-            items_to_index.append(id)
-            item_temp_loc_pid, item_temp_type_pid = None, None
-            # remove the item temporary_location if it is equal to the
-            # new item location.
-            if temporary_location := item.get("temporary_location"):
-                item_temp_loc_pid = extracted_data_from_ref(temporary_location.get("$ref"))
-            if hold_loc_pid != item.location_pid:
-                if item_temp_loc_pid == hold_loc_pid:
-                    item.pop("temporary_location", None)
-                item["location"] = {"$ref": get_ref_for_pid("locations", hold_loc_pid)}
+        try:
+            # a savepoint keeps a failing item from invalidating the whole
+            # transaction, so the other items can still be committed below.
+            with db.session.begin_nested():
+                item = Item.get_record(id)
+                if not item:
+                    continue
+                item_temp_loc_pid, item_temp_type_pid = None, None
+                # remove the item temporary_location if it is equal to the
+                # new item location.
+                if temporary_location := item.get("temporary_location"):
+                    item_temp_loc_pid = extracted_data_from_ref(temporary_location.get("$ref"))
+                if hold_loc_pid != item.location_pid:
+                    if item_temp_loc_pid == hold_loc_pid:
+                        item.pop("temporary_location", None)
+                    item["location"] = {"$ref": get_ref_for_pid("locations", hold_loc_pid)}
 
-            # remove the item temporary_item_type if it is equal to the
-            # new item item_type.
-            if temporary_type := item.get("temporary_item_type"):
-                item_temp_type_pid = extracted_data_from_ref(temporary_type.get("$ref"))
-            if hold_circ_pid != item.item_type_pid:
-                if item_temp_type_pid == hold_circ_pid:
-                    item.pop("temporary_item_type", None)
-                item["item_type"] = {"$ref": get_ref_for_pid("item_types", hold_circ_pid)}
-            # update directly in database.
-            db.session.query(item.model_cls).filter_by(id=item.id).update({item.model_cls.json: item})
+                # remove the item temporary_item_type if it is equal to the
+                # new item item_type.
+                if temporary_type := item.get("temporary_item_type"):
+                    item_temp_type_pid = extracted_data_from_ref(temporary_type.get("$ref"))
+                if hold_circ_pid != item.item_type_pid:
+                    if item_temp_type_pid == hold_circ_pid:
+                        item.pop("temporary_item_type", None)
+                    item["item_type"] = {"$ref": get_ref_for_pid("item_types", hold_circ_pid)}
+                # update directly in database.
+                db.session.query(item.model_cls).filter_by(id=item.id).update({item.model_cls.json: item})
+            # only index items whose savepoint was released, otherwise the item
+            # would be reindexed from its unchanged record and the drift would
+            # go unnoticed.
+            items_to_index.append(id)
+        except Exception:
+            current_app.logger.exception(f"Unable to inherit holding {record.pid} fields on item {id}")
 
     if items_to_index:
         # commit session

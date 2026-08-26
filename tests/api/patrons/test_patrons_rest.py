@@ -626,3 +626,19 @@ def test_patron_get_links_to_me_ill_requests(
     links_pids = patron_martigny.get_links_to_me(get_pids=True)
     assert "ill_requests" in links_pids
     assert len(links_pids["ill_requests"]) > 0
+
+
+def test_patron_get_links_to_me_pids(app, patron_martigny, patron_transaction_overdue_martigny):
+    """Test that get_links_to_me reports pid lists and drops the empty ones."""
+    links = patron_martigny.get_links_to_me()
+    links_pids = patron_martigny.get_links_to_me(get_pids=True)
+
+    # the open transaction is reported by both variants
+    assert "transactions" in links_pids
+    # both variants report the same resources: a resource without any linked
+    # pid must not be added to the links
+    assert set(links_pids) == set(links)
+    # every value is a list of pids, matching the counted variant
+    for resource, pids in links_pids.items():
+        assert isinstance(pids, list)
+        assert len(pids) == links[resource]

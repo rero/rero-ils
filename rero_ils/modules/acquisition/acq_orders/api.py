@@ -394,8 +394,7 @@ class AcqOrder(AcquisitionIlsRecord):
     def get_links_to_me(self, get_pids=False):
         """Get related record links.
 
-        :param get_pids: if True list of related record pids, if False count
-                         of related records.
+        :param get_pids: if True list of related record pids, if False count of related records.
         """
         output = "query" if get_pids else "count"
         links = {
@@ -403,10 +402,11 @@ class AcqOrder(AcquisitionIlsRecord):
             "acq_order_lines": self.get_order_lines(output=output),
             "acq_receipts": self.get_receipts(output=output),
         }
-        links = {k: v for k, v in links.items() if v}
         if get_pids:
+            # the queries are resolved before the empty ones are dropped: a
+            # query is an object and is still truthy when it matches nothing
             links = {k: sorted_pids(v) for k, v in links.items()}
-        return links
+        return {k: v for k, v in links.items() if v}
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
