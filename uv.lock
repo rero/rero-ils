@@ -3849,7 +3849,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=0.13.0" },
     { name = "pyyaml", specifier = ">=5.3.1" },
     { name = "requests", specifier = ">=2.23.0" },
-    { name = "rero-invenio-base", specifier = ">=1.2.0" },
+    { name = "rero-invenio-base", specifier = ">=1.3.0" },
     { name = "rero-invenio-files", specifier = ">=1.0.0" },
     { name = "rero-invenio-thumbnails", specifier = ">=2.0.0" },
     { name = "sentry-sdk" },
@@ -3879,7 +3879,7 @@ prod = [
 
 [[package]]
 name = "rero-invenio-base"
-version = "1.2.0"
+version = "1.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "babel" },
@@ -3890,9 +3890,9 @@ dependencies = [
     { name = "jsonpatch" },
     { name = "pyyaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/da/61/18c451b65cef90461cc24cb6584119d37545b20c267e45127d5dd2f4afd1/rero_invenio_base-1.2.0.tar.gz", hash = "sha256:736cc77c8d816578f44f2c555dc69a80d25f8fb95f5b6938acb299f336c5bdb6", size = 34407, upload-time = "2026-08-18T08:30:04.027Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/38/a6/7eb559ae573c55ed2912aa0fd971ef372f01bdf551f0725e6c60358938a3/rero_invenio_base-1.3.0.tar.gz", hash = "sha256:e4357d63e610ddca40ae0ca21ebac7941d88ed433d847519977471e616f4cd7b", size = 36210, upload-time = "2026-08-27T12:02:49.87Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f9/41/d3914b4319b6b52b6761c4904c4eacfc1d703daf155ded79139416eb6d94/rero_invenio_base-1.2.0-py3-none-any.whl", hash = "sha256:0e942a0c2583dd635ed2b6e364245c6d667257913ecfc11830a875ae77789e57", size = 45755, upload-time = "2026-08-18T08:30:02.951Z" },
+    { url = "https://files.pythonhosted.org/packages/1d/5f/84beeb7ddaa5a4a60bb13897fb8526a652af1aa6a1c60c26d267bce1a035/rero_invenio_base-1.3.0-py3-none-any.whl", hash = "sha256:d16254163e7484ab90782ac5142fded3ecc006a35bfde6a3a5c6416e534b82c5", size = 48160, upload-time = "2026-08-27T12:02:48.78Z" },
 ]
 
 [[package]]
