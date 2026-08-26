@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-08-25 02:51+0000\n"
+"POT-Creation-Date: 2026-08-26 02:57+0000\n"
 "PO-Revision-Date: 2026-08-25 02:51+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -4787,7 +4787,7 @@ msgstr "%"
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:81
 #: rero_ils/modules/acquisition/acq_orders/api.py:88
 #: rero_ils/modules/holdings/api.py:175 rero_ils/modules/ill_requests/api.py:89
-#: rero_ils/modules/items/api/record.py:92
+#: rero_ils/modules/items/api/record.py:104
 msgid "Cannot have multiple notes of the same type."
 msgstr "Impossible d'avoir plusieurs notes du même type."
 
@@ -10545,25 +10545,39 @@ msgstr "L'exemplaire et le lecteur ne sont pas dans la même organisation."
 msgid "Item is already checked-out or requested by patron."
 msgstr "L'exemplaire est déjà prêté ou demandé par un lecteur."
 
-#: rero_ils/modules/items/api/record.py:74
+#: rero_ils/modules/items/api/record.py:78
 msgid "Barcode is already taken."
 msgstr "Le code-barres est déjà pris."
 
-#: rero_ils/modules/items/api/record.py:84
+#: rero_ils/modules/items/api/record.py:88
 msgid "Standard item cannot have a issue field."
 msgstr "Un exemplaire standard ne peut pas avoir de champ 'issue'."
 
-#: rero_ils/modules/items/api/record.py:87
+#: rero_ils/modules/items/api/record.py:91
 msgid "Issue item must have an issue field."
 msgstr ""
 "Un exemplaire correspondant à un fascicule doit avoir un champ pour un "
 "fascicule."
 
-#: rero_ils/modules/items/api/record.py:89
+#: rero_ils/modules/items/api/record.py:93
 msgid "enumerationAndChronology field is required for an issue item"
 msgstr "Le champ énumération et chronologie est requis pour un fascicule"
 
-#: rero_ils/modules/items/api/record.py:97
+#: rero_ils/modules/items/api/record.py:99
+msgid "Issue location must be the same as the parent holdings location."
+msgstr ""
+
+#: rero_ils/modules/items/api/record.py:101
+#, fuzzy
+#| msgid ""
+#| "Temporary circulation category cannot be the same than default "
+#| "circulation category."
+msgid "Issue circulation category must be the same as the parent holdings one."
+msgstr ""
+"La catégorie de prêt temporaire ne peut pas être identique à la catégorie de "
+"prêt par défaut."
+
+#: rero_ils/modules/items/api/record.py:109
 msgid ""
 "Temporary circulation category cannot be the same than default circulation "
 "category."
@@ -10571,7 +10585,7 @@ msgstr ""
 "La catégorie de prêt temporaire ne peut pas être identique à la catégorie de "
 "prêt par défaut."
 
-#: rero_ils/modules/items/api/record.py:101
+#: rero_ils/modules/items/api/record.py:113
 msgid "Temporary circulation category end date must be a date in the future."
 msgstr ""
 "La date de fin de la catégorie de prêt temporaire doit être dans le futur."
@@ -12155,36 +12169,36 @@ msgstr ""
 msgid "Block the patron if the subscription is not paid"
 msgstr "Bloquer le lecteur si les cotisations ne sont pas payées"
 
-#: rero_ils/modules/patrons/api.py:126
+#: rero_ils/modules/patrons/api.py:122
 msgid "Patron has active loans or fees, cannot remove patron role"
 msgstr "Prêts/frais actifs, impossible de retirer le rôle \"lecteur\""
 
-#: rero_ils/modules/patrons/api.py:383
+#: rero_ils/modules/patrons/api.py:380
 msgid "Your account is currently blocked."
 msgstr "Votre compte est actuellement bloqué."
 
-#: rero_ils/modules/patrons/api.py:383
+#: rero_ils/modules/patrons/api.py:380
 msgid "This patron is currently blocked."
 msgstr "Ce lecteur est actuellement bloqué."
 
-#: rero_ils/modules/patrons/api.py:385
+#: rero_ils/modules/patrons/api.py:382
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:411
 msgid "Reason"
 msgstr "Motif"
 
-#: rero_ils/modules/patrons/api.py:458
+#: rero_ils/modules/patrons/api.py:455
 msgid "Patron rights expired"
 msgstr "Droits du lecteur expirés"
 
-#: rero_ils/modules/patrons/api.py:477
+#: rero_ils/modules/patrons/api.py:474
 msgid "Transactions denied: maximum amount of overdue fees reached"
 msgstr "Transactions refusées : montant maximum de frais atteint"
 
-#: rero_ils/modules/patrons/api.py:485
+#: rero_ils/modules/patrons/api.py:482
 msgid "Checkout denied: maximum number of overdue items reached"
 msgstr "Prêt refusé : maximum d'exemplaires en retard atteint"
 
-#: rero_ils/modules/patrons/api.py:589
+#: rero_ils/modules/patrons/api.py:586
 msgid "Patron account expired."
 msgstr "Compte-lecteur expiré."
 
@@ -13057,8 +13071,8 @@ msgstr "Un seul contact de chaque type est autorisé."
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
-msgstr "<i class=\"fa-solid fa-globe\"></i>"
+msgid "<i class=\"fa-solid fa-user\"></i>"
+msgstr "<i class=\"fa-solid fa-user\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
@@ -13067,13 +13081,13 @@ msgstr "<i class=\"fa-solid fa-phone\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-user\"></i>"
-msgstr "<i class=\"fa-solid fa-user\"></i>"
+msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
+msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
-msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
+msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
 #: rero_ils/theme/menus.py:38
 msgid "My Account"

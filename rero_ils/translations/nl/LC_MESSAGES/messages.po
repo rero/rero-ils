@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-08-25 02:51+0000\n"
+"POT-Creation-Date: 2026-08-26 02:57+0000\n"
 "PO-Revision-Date: 2024-02-23 17:02+0000\n"
 "Last-Translator: LievenSmets <lievensmets@me.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
@@ -4781,7 +4781,7 @@ msgstr ""
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:81
 #: rero_ils/modules/acquisition/acq_orders/api.py:88
 #: rero_ils/modules/holdings/api.py:175 rero_ils/modules/ill_requests/api.py:89
-#: rero_ils/modules/items/api/record.py:92
+#: rero_ils/modules/items/api/record.py:104
 msgid "Cannot have multiple notes of the same type."
 msgstr ""
 
@@ -10589,29 +10589,37 @@ msgstr ""
 msgid "Item is already checked-out or requested by patron."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:74
+#: rero_ils/modules/items/api/record.py:78
 msgid "Barcode is already taken."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:84
+#: rero_ils/modules/items/api/record.py:88
 msgid "Standard item cannot have a issue field."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:87
+#: rero_ils/modules/items/api/record.py:91
 msgid "Issue item must have an issue field."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:89
+#: rero_ils/modules/items/api/record.py:93
 msgid "enumerationAndChronology field is required for an issue item"
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:97
+#: rero_ils/modules/items/api/record.py:99
+msgid "Issue location must be the same as the parent holdings location."
+msgstr ""
+
+#: rero_ils/modules/items/api/record.py:101
+msgid "Issue circulation category must be the same as the parent holdings one."
+msgstr ""
+
+#: rero_ils/modules/items/api/record.py:109
 msgid ""
 "Temporary circulation category cannot be the same than default circulation "
 "category."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:101
+#: rero_ils/modules/items/api/record.py:113
 msgid "Temporary circulation category end date must be a date in the future."
 msgstr ""
 
@@ -12190,36 +12198,36 @@ msgstr ""
 msgid "Block the patron if the subscription is not paid"
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:126
+#: rero_ils/modules/patrons/api.py:122
 msgid "Patron has active loans or fees, cannot remove patron role"
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:383
+#: rero_ils/modules/patrons/api.py:380
 msgid "Your account is currently blocked."
 msgstr "Uw account is momenteel geblokkeerd."
 
-#: rero_ils/modules/patrons/api.py:383
+#: rero_ils/modules/patrons/api.py:380
 msgid "This patron is currently blocked."
 msgstr "Deze lezer is momenteel geblokkeerd."
 
-#: rero_ils/modules/patrons/api.py:385
+#: rero_ils/modules/patrons/api.py:382
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:411
 msgid "Reason"
 msgstr "Reden"
 
-#: rero_ils/modules/patrons/api.py:458
+#: rero_ils/modules/patrons/api.py:455
 msgid "Patron rights expired"
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:477
+#: rero_ils/modules/patrons/api.py:474
 msgid "Transactions denied: maximum amount of overdue fees reached"
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:485
+#: rero_ils/modules/patrons/api.py:482
 msgid "Checkout denied: maximum number of overdue items reached"
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:589
+#: rero_ils/modules/patrons/api.py:586
 msgid "Patron account expired."
 msgstr ""
 
@@ -13090,7 +13098,7 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgid "<i class=\"fa-solid fa-user\"></i>"
 msgstr ""
 
 #. Line unknown
@@ -13100,12 +13108,12 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-user\"></i>"
+msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
+msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr ""
 
 #: rero_ils/theme/menus.py:38
