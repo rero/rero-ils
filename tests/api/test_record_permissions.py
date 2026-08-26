@@ -3,14 +3,17 @@
 
 """Test record permissions API."""
 
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_cache import current_cache
+from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.permissions_cache import record_permissions_cache_key
-from tests.utils import get_json, login_user
+from tests.utils import get_json, login_user, postdata
 
 
 def test_document_permissions(
@@ -165,6 +168,82 @@ def test_items_permissions(
 
     response = client.get(url_for("api_blueprint.permissions", route_name="items", record_pid="dummy_item_pid"))
     assert response.status_code == 404
+
+
+def test_item_permissions_cache_is_invalidated_by_request(
+    client,
+    item_lib_martigny,
+    librarian_martigny,
+    patron_martigny,
+    loc_public_martigny,
+    lib_martigny,
+    circulation_policies,
+):
+    """Test item permissions cache invalidation after a request."""
+    login_user_via_session(client, librarian_martigny.user)
+    permissions = call_api_permissions(client, "items", item_lib_martigny.pid)
+    assert permissions["delete"]["can"]
+    cache_key = record_permissions_cache_key("items", item_lib_martigny.pid)
+    current_cache.set(cache_key, permissions, timeout=10)
+
+    request_data = {
+        "item_pid": item_lib_martigny.pid,
+        "patron_pid": patron_martigny.pid,
+        "pickup_location_pid": loc_public_martigny.pid,
+        "transaction_library_pid": lib_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+    }
+
+    # A failed request must not invalidate the permissions cache.
+    response, _ = postdata(
+        client,
+        "api_item.librarian_request",
+        {"item_pid": item_lib_martigny.pid, "patron_pid": patron_martigny.pid},
+    )
+    assert response.status_code == 400
+    assert current_cache.get(cache_key) == permissions
+
+    response, _ = postdata(client, "api_item.librarian_request", request_data)
+    assert response.status_code == 200
+    assert current_cache.get(cache_key) is None
+
+    permissions = call_api_permissions(client, "items", item_lib_martigny.pid)
+    assert not permissions["delete"]["can"]
+    assert permissions["delete"]["reasons"]["links"]["loans"] == 1
+
+
+def test_item_permissions_cache_is_preserved_without_request_state_change(
+    client,
+    item2_lib_martigny,
+    librarian_martigny,
+    patron_martigny,
+    loc_public_martigny,
+    lib_martigny,
+    circulation_policies,
+):
+    """Test item permissions cache preservation without a state change."""
+    login_user_via_session(client, librarian_martigny.user)
+    permissions = call_api_permissions(client, "items", item2_lib_martigny.pid)
+    assert permissions["delete"]["can"]
+    cache_key = record_permissions_cache_key("items", item2_lib_martigny.pid)
+    current_cache.set(cache_key, permissions, timeout=10)
+
+    request_data = {
+        "item_pid": item2_lib_martigny.pid,
+        "patron_pid": patron_martigny.pid,
+        "pickup_location_pid": loc_public_martigny.pid,
+        "transaction_library_pid": lib_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+    }
+    with mock.patch.object(
+        current_circulation.circulation,
+        "trigger",
+        side_effect=lambda loan, **kwargs: loan,
+    ):
+        response, _ = postdata(client, "api_item.librarian_request", request_data)
+
+    assert response.status_code == 200
+    assert current_cache.get(cache_key) == permissions
 
 
 def call_api_permissions(client, route_name, pid):
