@@ -11,10 +11,9 @@ PROGRAM=`basename $0`
 SCRIPT_PATH=$(cd `dirname $0` && pwd)
 CURRENT_DIR=$(pwd)
 
-NC='\033[0m'                    # Default color
-INFO_COLOR='\033[1;97;44m'      # Bold + white + blue background
-SUCCESS_COLOR='\033[1;97;42m'   # Bold + white + green background
-ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
+# Colored message helpers: msg, info_msg, error_msg, error_msg+exit,
+# success_msg, colored_msg.
+. "$(dirname "${BASH_SOURCE[0]}")/messages"
 
 # Default values
 # First we check in parent directory if frontend and ng-core exists.
@@ -23,35 +22,6 @@ ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
 # ~/rero/ng-core for NG_DIR
 FRONTEND_DIR=$(cd "${CURRENT_DIR}/../rero-ils-ui" &>/dev/null && pwd || echo "${HOME}/rero/rero-ils-ui")
 NG_DIR=$(cd "${CURRENT_DIR}/../ng-core" &>/dev/null && pwd || echo "${HOME}/rero/ng-core")
-
-# MESSAGES
-msg() {
-  echo -e "${1}" 1>&2
-}
-# Display a colored message
-# More info: https://misc.flogisoft.com/bash/tip_colors_and_formatting
-# $1: choosen color
-# $2: title
-# $3: the message
-colored_msg() {
-  msg "${1}[${2}]: ${3}${NC}"
-}
-
-info_msg() {
-  colored_msg "${INFO_COLOR}" "INFO" "${1}"
-}
-
-error_msg() {
-  colored_msg "${ERROR_COLOR}" "ERROR" "${1}"
-}
-
-error_msg+exit() {
-    error_msg "${1}" && exit 1
-}
-
-success_msg() {
-  colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}"
-}
 
 set -e
 

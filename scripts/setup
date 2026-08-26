@@ -2,100 +2,58 @@
 # SPDX-FileCopyrightText: Fondation RERO+
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-DATA_PATH=./data
+PROGRAM=$(basename "$0")
 
-# Parameters description:
-#  --deployment:
-#       used to deploy the 'big' fixtures, with ebooks and files
-#  --dont_stop:
-#       used for continue script on error
-#  --time:
-#       used for checking time for each command
+# Colored message helpers: msg, info_msg, error_msg, error_msg+exit,
+# success_msg, colored_msg.
+. "$(dirname "${BASH_SOURCE[0]}")/messages"
 
-# COLORS for messages
-NC='\033[0m'                    # Default color
-INFO_COLOR='\033[1;97;44m'      # Bold + white + blue background
-SUCCESS_COLOR='\033[1;97;42m'   # Bold + white + green background
-ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
+# The `batch_*` functions emitting the command lines of each batch.
+. "$(dirname "${BASH_SOURCE[0]}")/setup_batches"
 
-PROGRAM=`basename $0`
+# Print the usage on standard error, as every other message of this script.
+usage() {
+  cat >&2 <<EOF
+Usage: uv run ${PROGRAM} [options]
 
-# MESSAGES
-msg() {
-  echo -e "${1}" 1>&2
+Set up the instance from scratch: reset the database and the search indices,
+then load the fixtures of the data path.
+
+Options:
+  -d, --deployment       load the 'big' fixtures, with ebooks and files, and
+                         enable the scheduled tasks
+  -e, --e2e              stop after the fixtures the E2E test suite needs:
+                         roles, users, referential, API config, scheduler
+  -p, --pursue           keep going when a fixture record or a command fails
+  -t, --time             time every command
+  -D, --data_path PATH   read the fixtures from PATH (default: ./data)
+  -h, --help             display this help and exit
+EOF
 }
-# Display a colored message
-# More info: https://misc.flogisoft.com/bash/tip_colors_and_formatting
-# $1: choosen color
-# $2: title
-# $3: the message
-colored_msg() {
-  msg "${1}[${2}]: ${3}${NC}"
-}
-
-info_msg() {
-  colored_msg "${INFO_COLOR}" "INFO" "${1}"
-}
-
-error_msg() {
-  colored_msg "${ERROR_COLOR}" "ERROR" "${1}"
-}
-
-error_msg+exit() {
-    error_msg "${1}" && exit 1
-}
-
-success_msg() {
-  colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}"
-}
-
-invert_warning_option() {
-  if ${ENABLE_WARNINGS}
-  then
-    ENABLE_WARNINGS=false
-  else
-    ENABLE_WARNINGS=true
-  fi
-}
-
-create_token() {
-  if [ -z ${3} ]
-  then
-      eval ${PREFIX} invenio reroils utils token-create -n ${1} -u ${2}
-  else
-      eval ${PREFIX} invenio reroils utils token-create -n ${1} -u ${2} -t ${3}
-  fi
-}
-
 
 DEPLOYMENT=false
-LOAD_REMOTE_ENTITIES=false
-STOP_EXECUTION=true
-CREATE_LAZY=""
+E2E=false
+DATA_PATH=./data
 DONT_STOP=""
+BATCH_TIME=""
+BATCH_CONTINUE=""
+
+# Timing prefix, set by --time. `eval ${PREFIX} cmd` would consume the quotes of
+# the command it wraps, so the prefix is applied by a function keeping "$@"
+# intact.
 PREFIX=""
-ES_MAPPING=false
-ENQUEUE=""
-INDEX_PARALLEL=0
-LOADEXTRAFILES=false
-# Permit user to set it with system var. Default is true.
-ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
-FILES_PATH="${INVENIO_RERO_ILS_FILES_FOLDER:=data/files}"
+run() {
+  if [ -n "${PREFIX}" ]; then time "$@"; else "$@"; fi
+}
+
+# Total run time, reported by both exit paths. ${SECONDS} counts from the start
+# of the shell, so there is nothing to initialize.
+elapsed() {
+  printf '%dm%02ds' $((SECONDS / 60)) $((SECONDS % 60))
+}
 
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
-
-# uv is a mandatory condition to launch this program!
-if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via uv command:\n\tuv run ${PROGRAM}"
-fi
-
-# options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dCsbclptmwkD:i: -l deployment,entities,lazy,pursue,time,es-mapping,warnings,enqueue,data_path:,index_parallel: -- "$@")
-then
-    # something went wrong, getopt will put out an error message for us
-    exit 1
-fi
 
 while [ $# -gt 0 ]
 do
@@ -103,40 +61,24 @@ do
     -d|--deployment)
       DEPLOYMENT=true
       ;;
-    -L|--load_extra_files)
-      LOADEXTRAFILES=true
-      ;;
-    -E|--entities)
-      LOAD_REMOTE_ENTITIES=true
-      ;;
-    -c|--continue)
-      STOP_EXECUTION=false
-      ;;
-    -l|--lazy)
-      CREATE_LAZY="--lazy"
+    -e|--e2e)
+      E2E=true
       ;;
     -p|--pursue)
       DONT_STOP="--dont-stop"
+      BATCH_CONTINUE="-k"
       ;;
     -t|--time)
       PREFIX="time"
+      BATCH_TIME="-t"
       ;;  # Get time for all commands
-    -m|--es-mapping)
-      ES_MAPPING=true
-      ;;
-    -w|--warnings)
-      invert_warning_option
-      ;;
-    -k|--enqueue)
-      ENQUEUE="--enqueue --wait"
-      ;;
     -D|--data_path)
       DATA_PATH=$2
       shift
       ;;
-    -i|--index_parallel)
-      INDEX_PARALLEL=$2
-      shift
+    -h|--help)
+      usage
+      exit 0
       ;;
     (--) shift; break;;
     (-*) error_msg+exit "$0: Unrecognized option $1";;
@@ -145,459 +87,75 @@ do
     shift
 done
 
+if ${DEPLOYMENT} && ${E2E}
+then
+    error_msg+exit "Error - --deployment and --e2e exclude each other"
+fi
+
+# uv is a mandatory condition to launch this program!
+if [[ -z "${VIRTUAL_ENV}" ]]; then
+  error_msg+exit "Error - Launch this script via uv command:\n\tuv run ${PROGRAM}"
+fi
+
 if [[ ! -d "${DATA_PATH}" ]]; then
     error_msg+exit "Error - data path does not exist: ${DATA_PATH}"
 fi
 
-if ! ${ENABLE_WARNINGS}
-then
-    # Disables different warnings from used applications
-    # --------------------------------------------------
-    # avoid Python deprecation warnings
-    export PYTHONWARNINGS="ignore::DeprecationWarning"
-fi
-
-# Purge celery
-info_msg "Purge celery"
-celery --app rero_ils.celery purge -f
-# Clean redis
-info_msg "Clean redis"
-eval "${PREFIX} invenio shell --no-term-title -c \"import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')\""
-
-info_msg "Prefix: "
-info_msg ${PREFIX}
-
-if ${DEPLOYMENT}
-then
-  eval ${PREFIX} invenio db drop --yes-i-know
-  eval ${PREFIX} invenio db create
-else
-  eval ${PREFIX} invenio db destroy --yes-i-know
-  eval ${PREFIX} invenio db init create
-fi
-eval ${PREFIX} invenio reroils index queue purge
-eval ${PREFIX} invenio reroils index queue delete
-eval ${PREFIX} invenio reroils migrations index destroy --yes-i-know
+# Every command below must succeed. The two that may legitimately fail carry
+# their own `|| info_msg`.
 set -e
-eval ${PREFIX} invenio index destroy --force --yes-i-know
-eval ${PREFIX} invenio reroils fixtures destroy_operation_logs --yes-i-know
 
-# TODO: check if invenio index init --force works (to delete utils init --force)
-info_msg "Override index init to load templates before mapping"
-eval ${PREFIX} invenio reroils index init --force
-eval ${PREFIX} invenio reroils migrations index init
+info_msg "Purge celery"
+# `rero_ils.celery` builds a full application at import, so this line costs a
+# boot like the others and is timed with them.
+run celery --app rero_ils.celery purge -f
 
-# eval ${PREFIX} invenio index init --force
-eval ${PREFIX} invenio reroils index queue init
-# Delete invenio_circulations index
-info_msg "Delete invenio_circulations index"
-eval ${PREFIX} invenio index delete loans-loan-v1.0.0 --force --yes-i-know
+info_msg "Clean redis"
+run invenio shell --no-term-title -c \
+    "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
 
+# On a first run the database does not exist yet, so dropping it fails; the
+# creation that follows must succeed. Chaining the two is not an option: click
+# abandons a chained group as soon as one subcommand raises, so a tolerated
+# `drop` would take the `create` down with it.
+info_msg "Reset database"
+if ${DEPLOYMENT}
+then
+  run invenio db drop --yes-i-know || info_msg "no database to drop"
+  run invenio db create
+else
+  run invenio db destroy --yes-i-know || info_msg "no database to destroy"
+  run invenio db init create
+fi
+
+# the files location only registers the path, so emptying it first is unrelated
+# to the batch below and can be done here.
+FILES_PATH="${INVENIO_RERO_ILS_FILES_FOLDER:=data/files}"
 info_msg "Initialize files location to ${FILES_PATH}."
-eval rm -fr ${FILES_PATH}/*
-eval ${PREFIX} invenio files location create --default fixtures ${FILES_PATH}
+rm -fr "${FILES_PATH:?}"/*
 
-if ${ES_MAPPING}
+info_msg "Reset search indices, indexing queue, operation logs and files location"
+run invenio rero batch ${BATCH_TIME} ${BATCH_CONTINUE} <(batch_destroy; batch_init)
+
+if ${E2E}
 then
-    info_msg "ES mappings:"
-    mkdir -p tmp
-    invenio reroils utils dump_es_mappings -o tmp/mapping_before_setup.txt
+    info_msg "Roles, users, accesses, tokens, referential fixtures, API config, scheduler"
+    run invenio rero batch ${BATCH_TIME} ${BATCH_CONTINUE} <(batch_accounts; batch_small_fixtures; batch_e2e_config)
+    success_msg "E2E setup complete in $(elapsed)."
+    exit 0
 fi
 
-# create roles
-info_msg "Create roles"
-eval ${PREFIX} "invenio roles create -d 'Admins Group' admin"
-eval ${PREFIX} "invenio roles create -d 'Super Users Group' superuser"
-eval ${PREFIX} "invenio roles create -d 'Monitoring Group' monitoring"
-eval ${PREFIX} "invenio roles create -d 'Patron' patron"
-eval ${PREFIX} "invenio roles create -d 'Professional: Read_only' pro_read_only"
-eval ${PREFIX} "invenio roles create -d 'Professional: Acquisition manager' pro_acquisition_manager"
-eval ${PREFIX} "invenio roles create -d 'Professional: Full permissions' pro_full_permissions"
-eval ${PREFIX} "invenio roles create -d 'Professional: Catalog manager' pro_catalog_manager"
-eval ${PREFIX} "invenio roles create -d 'Professional: Circulation manager' pro_circulation_manager"
-eval ${PREFIX} "invenio roles create -d 'Professional: Library administrator' pro_library_administrator"
-eval ${PREFIX} "invenio roles create -d 'Professional: User manager' pro_user_manager"
-eval ${PREFIX} "invenio roles create -d 'Professional: Entity manager' pro_entity_manager"
-eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
-eval ${PREFIX} "invenio roles create -d 'Document Importing' document_importer"
-eval ${PREFIX} "invenio roles create -d 'Professional: Statistics manager' pro_statistic_manager"
+info_msg "Roles, users, accesses, tokens, referential fixtures, ILL requests, statistics, local entities"
+run invenio rero batch ${BATCH_TIME} ${BATCH_CONTINUE} <(batch_accounts; batch_small_fixtures; batch_users_entities)
 
-info_msg "Create action roles policies"
-eval ${PREFIX} "invenio reroils fixtures import_system_role_policies data/system_role_policies.json"
-eval ${PREFIX} "invenio reroils fixtures import_role_policies data/role_policies.json"
+info_msg "Documents, holdings, items, local fields, patterns, collections"
+run invenio rero batch ${BATCH_TIME} ${BATCH_CONTINUE} <(batch_biblio)
 
-# create users
-info_msg "Create users"
-eval ${PREFIX} invenio users create --active --confirm --password administrator admin@rero.ch
-eval ${PREFIX} invenio users create --active --confirm --password editor editor@rero.ch
-eval ${PREFIX} invenio users create --active --confirm --password monitor monitoring@rero.ch
-eval ${PREFIX} invenio users create --active --confirm --password ngscan gipi@ngscan.com
+info_msg "Acquisition: budgets, accounts, orders, order lines, receipts, receipt lines, templates"
+run invenio rero batch ${BATCH_TIME} ${BATCH_CONTINUE} <(batch_acq)
 
-# grant accesses to action roles
-info_msg "Grant access to action roles"
-eval ${PREFIX} invenio access allow superuser-access role admin
-eval ${PREFIX} invenio access allow superuser-access role superuser
-# TODO: eval ${PREFIX} invenio access allow admin-access role admin
+info_msg "Migration data, circulation, notifications, tokens, API config, scheduler, statistics, wiki"
+run invenio rero batch ${BATCH_TIME} ${BATCH_CONTINUE} <(batch_migration; batch_circulation; batch_final)
 
-# grant roles to users
-info_msg "Grant roles to users"
-eval ${PREFIX} invenio roles add admin@rero.ch admin
-eval ${PREFIX} invenio roles add admin@rero.ch superuser
-eval ${PREFIX} invenio roles add admin@rero.ch monitoring
-eval ${PREFIX} invenio roles add editor@rero.ch editor
-eval ${PREFIX} invenio roles add monitoring@rero.ch monitoring
-eval ${PREFIX} invenio roles add gipi@ngscan.com document_importer
-
-# create token access for monitoring
-info_msg "Create token for: monitoring@rero.ch"
-create_token monitoring monitoring@rero.ch ${INVENIO_RERO_ILS_ACCESS_TOKEN_MONITORING}
-# create token access for ngscan (ezpump)
-info_msg "Create token for: gipi@ngscan.com"
-create_token ezpump gipi@ngscan.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_NGSCAN}
-
-# Generate fixtures
-info_msg "Generate fixtures:"
-
-info_msg "- Organisations ${DATA_PATH}/organisations.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t org --yes-i-know
-
-info_msg "- Libraries: ${DATA_PATH}/libraries.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t lib --yes-i-know
-
-info_msg "- Locations: ${DATA_PATH}/locations.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t loc --yes-i-know
-
-info_msg "- Item types: ${DATA_PATH}/item_types.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t itty --yes-i-know
-
-info_msg "- Patron types: ${DATA_PATH}/patron_types.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t ptty --yes-i-know
-
-info_msg "- Circulation policies: ${DATA_PATH}/circulation_policies.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t cipo --yes-i-know
-
-info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t vndr --yes-i-know
-
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t org -t lib -t loc -t itty -t ptty -t cipo -t vndr -v
-fi
-
-info_msg "- Users: ${DATA_PATH}/users.json"
-eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v --append ${CREATE_LAZY} ${DONT_STOP}
-
-info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
-eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
-eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
-
-info_msg "- Statistics configurations: ${DATA_PATH}/stats_cfg.json"
-eval ${PREFIX} invenio reroils fixtures create --pid_type stacfg ${DATA_PATH}/stats_cfg.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t stacfg --yes-i-know
-
-info_msg "- Local entities ${DATA_PATH}/local_entities.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type locent --schema 'https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json' ${DATA_PATH}/local_entities.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t locent --yes-i-know
-eval ${PREFIX} invenio reroils index run --raise-on-error
-
-#: - xml to json transformation for rero marcxml --------------------------------
-#: don't forget to recreat the documents json schema files:
-# SIZE=big # SIZE=small
-# invenio reroils documents marc21tojson -t rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
-# Save the entities after setup for later use.
-# invenio reroils utils export -t rement -o ${DATA_PATH}/remote_entities_${SIZE}.json -v
-
-if ${DEPLOYMENT}
-then
-    DOCUMENTS=${DATA_PATH}/documents_big.json
-    ITEMS=${DATA_PATH}/items_big.json
-    HOLDINGS=${DATA_PATH}/holdings_big.json
-    REMOTE_ENTITIES=${DATA_PATH}/remote_entities_big.json
-else
-    DOCUMENTS=${DATA_PATH}/documents_small.json
-    ITEMS=${DATA_PATH}/items_small.json
-    HOLDINGS=${DATA_PATH}/holdings_small.json
-    REMOTE_ENTITIES=${DATA_PATH}/remote_entities_small.json
-fi
-
-if ${LOAD_REMOTE_ENTITIES}
-then
-    info_msg "- REMOTE REMOTE_ENTITIES: ${REMOTE_ENTITIES} ${CREATE_LAZY} ${DONT_STOP}"
-    eval ${PREFIX} invenio reroils fixtures create --pid_type rement --schema 'https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json' ${REMOTE_ENTITIES} --append ${CREATE_LAZY} ${DONT_STOP}
-    info_msg "Indexing Entities:"
-    eval ${PREFIX} invenio reroils index reindex -t rement --yes-i-know
-    if [ ${INDEX_PARALLEL} -gt 0 ]; then
-        eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-    fi
-    eval ${PREFIX} invenio reroils index run --raise-on-error
-    if [ ${INDEX_PARALLEL} -gt 0 ]; then
-        eval ${PREFIX} invenio reroils index reindex_missing -t rement -v
-    fi
-# else
-#     info_msg "- Contributions from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
-#     eval ${PREFIX} invenio reroils fixtures get_all_mef_records ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE} -v
-fi
-
-info_msg "Pause cover URL queue worker to avoid race conditions"
-eval ${PREFIX} invenio reroils documents cover-url-queue-worker pause
-
-info_msg "- Documents: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type doc --schema 'https://bib.rero.ch/schemas/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${CREATE_LAZY} ${DONT_STOP}
-
-info_msg "- Holdings: ${HOLDINGS} ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type hold --schema 'https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
-
-info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'https://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
-
-info_msg "- Generate files"
-if ${DEPLOYMENT}
-then
-  eval ${PREFIX} invenio reroils fixtures create-files 75
-else
-  info_msg "To create file fixtures, run:"
-  msg "\tinvenio reroils fixtures create-files 50"
-fi
-
-# index items
-eval ${PREFIX} invenio reroils index reindex -t item --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t item -v
-fi
-
-# index holdings
-eval ${PREFIX} invenio reroils index reindex -t hold --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t hold -v
-fi
-
-# index documents
-eval ${PREFIX} invenio reroils index reindex -t doc --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t doc -v
-fi
-
-# index entities
-# We have to reindex entities to get the organisations pids indexed correctly.
-eval ${PREFIX} invenio reroils index reindex -t rement --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t rement -v
-fi
-
-info_msg "- Local fields ${DATA_PATH}/local_fields.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type lofi ${DATA_PATH}/local_fields.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t lofi --yes-i-know
-
-# create serials patterns
-info_msg "Serials patterns: ${DATA_PATH}/patterns.json"
-eval ${PREFIX} invenio reroils fixtures create_patterns ${DATA_PATH}/patterns.json
-
-info_msg "- Collections: ${DATA_PATH}/collections.json"
-eval ${PREFIX} invenio reroils fixtures create_collections -f ${DATA_PATH}/collections.json
-eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know
-eval ${PREFIX} invenio reroils index run --raise-on-error
-
-# # ACQUISITION
-# create library budgets
-info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -d -t budg --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t budg -v
-fi
-# create acquisition accounts
-info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -d -t acac --yes-i-know
-
-# create acquisition orders
-info_msg "Acquisition orders: ${DATA_PATH}/acq_orders.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type acor ${DATA_PATH}/acq_orders.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -d -t acor --yes-i-know
-
-# create acquisition order lines
-info_msg "Acquisition order lines: ${DATA_PATH}/acq_order_lines.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type acol ${DATA_PATH}/acq_order_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -d -t acol --yes-i-know
-
-# reindex acquisition orders to receive the correct status
-# eval ${PREFIX} invenio reroils index reindex -d -t acor --yes-i-know
-
-# create acquisition receipts
-info_msg "Acquisition receipts: ${DATA_PATH}/acq_receipts.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type acre ${DATA_PATH}/acq_receipts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -d -t acre --yes-i-know
-
-# create acquisition receipt lines
-info_msg "Acquisition receipt lines: ${DATA_PATH}/acq_receipt_lines.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create --pid_type acrl ${DATA_PATH}/acq_receipt_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -d -t acrl --yes-i-know
-
-# create resource templates
-info_msg "Resource templates:"
-eval ${PREFIX} invenio reroils fixtures create --pid_type tmpl ${DATA_PATH}/templates.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t tmpl --yes-i-know
-
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t lofi -t coll -t acac -t acol -t tmpl -t acor -v
-fi
-
-info_msg "Migration data"
-eval ${PREFIX} "invenio reroils migrations create cogne 24 'scripts.convert_marc21xml.Marc21XMLConverter' -d 'Cogne Migration Fixture'"
-eval ${PREFIX} invenio reroils migrations data load cogne ${DATA_PATH}/migration.xml
-eval ${PREFIX} invenio reroils migrations data dedup cogne
-eval ${PREFIX} invenio reroils migrations data subsets cogne Simonetta,Astrid,Jean,Elena
-
-if ${LOADEXTRAFILES}
-  then
-      # create acquisition invoices
-      eval ${PREFIX} invenio reroils index reindex -t acin --yes-i-know
-      if [ ${INDEX_PARALLEL} -gt 0 ]; then
-          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-      fi
-      eval ${PREFIX} invenio reroils index run --raise-on-error
-
-      if [ ${INDEX_PARALLEL} -gt 0 ]; then
-          eval ${PREFIX} invenio reroils index reindex_missing -t acre -t acrl -t acin -v
-      fi
-
-      # reindex acquisition order lines
-      eval ${PREFIX} invenio reroils index reindex -t acol --yes-i-know
-      if [ ${INDEX_PARALLEL} -gt 0 ]; then
-          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-      fi
-      eval ${PREFIX} invenio reroils index run --raise-on-error
-
-      # reindex acquisition orders
-      eval ${PREFIX} invenio reroils index reindex -t acor --yes-i-know
-      if [ ${INDEX_PARALLEL} -gt 0 ]; then
-          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-      fi
-      eval ${PREFIX} invenio reroils index run --raise-on-error
-
-      # reindex acquisition accounts
-      eval ${PREFIX} invenio reroils index reindex -t acac --yes-i-know
-      if [ ${INDEX_PARALLEL} -gt 0 ]; then
-          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-      fi
-      eval ${PREFIX} invenio reroils index run --raise-on-error
-
-  fi
-
-
-# create circulation transactions
-info_msg "Circulation transactions: ${DATA_PATH}/loans.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create_loans ${DATA_PATH}/loans.json -v
-
-# process notifications
-eval ${PREFIX} invenio reroils notifications process
-
-# create token access for system librarians
-info_msg "create an access token for all system librarians"
-create_token organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_AOSTA_LIBRARIAN}
-create_token organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_RERO_ILS_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
-create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
-
-# # OAI configuration
-info_msg "API configuration: ${DATA_PATH}/apisources.yml"
-eval ${PREFIX} invenio reroils api-harvester init-config ${DATA_PATH}/apisources.yml
-
-info_msg "Scheduler initialisation"
-eval ${PREFIX} invenio reroils scheduler init --reset
-if ${DEPLOYMENT}
-then
-  eval ${PREFIX} invenio reroils scheduler enable-tasks --all --verbose
-  info_msg disable VS/NJ CANTOOK harvesting
-  eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-vs-cantook --disable
-  eval ${PREFIX} invenio reroils scheduler enable-tasks --name harvest-nj-cantook --disable
-else
-  eval ${PREFIX} invenio reroils scheduler enable-tasks --all --verbose --disable
-fi
-
-if ${ES_MAPPING}
-then
-    info_msg "ES mappings:"
-    invenio reroils utils dump_es_mappings -o tmp/mapping_after_setup.txt
-    error_msg "ES mapping differences:"
-    diff --suppress-common-lines --side-by-side tmp/mapping_before_setup.txt tmp/mapping_after_setup.txt
-fi
-
-if ${LOADEXTRAFILES}
-  then
-    info_msg "- Load Virtua operation logs: ${DATA_PATH}/operation_logs.json"
-    eval ${PREFIX} invenio reroils fixtures create_operation_logs ${DATA_PATH}/operation_logs.json  ${CREATE_LAZY} ${DONT_STOP}
-
-    # load legacy circulation transactions from Virtua
-    info_msg "Checkout transactions: ${DATA_PATH}/checkouts.json ${CREATE_LAZY} ${DONT_STOP}"
-    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/checkouts.json -t checkout
-
-    info_msg "Request transactions: ${DATA_PATH}/requests.json ${CREATE_LAZY} ${DONT_STOP}"
-    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/requests.json -t request
-
-    info_msg "Fine transactions: ${DATA_PATH}/fines.json ${CREATE_LAZY} ${DONT_STOP}"
-    eval ${PREFIX} invenio reroils fixtures load_virtua_transactions ${DATA_PATH}/fines.json -t fine
-fi
-
-
-info_msg "Resume cover URL queue worker"
-eval ${PREFIX} invenio reroils documents cover-url-queue-worker resume
-
-info_msg "Collect statistics"
-eval ${PREFIX} invenio reroils stats collect billing
-eval ${PREFIX} invenio reroils stats collect librarian
-eval ${PREFIX} invenio reroils stats report collect-all month
-eval ${PREFIX} invenio reroils stats report collect-all year
-
-info_msg "Initialize wiki search"
-eval ${PREFIX} invenio flask_wiki init-index
-eval ${PREFIX} invenio flask_wiki index
-
-info_msg "Api harvesting ...:"
-for NAME in "VS-CANTOOK" "NJ-CANTOOK"
-do
-  eval ${PREFIX} invenio reroils api-harvester set-last-run ${NAME} -d 1900-01-01
-  if ${DEPLOYMENT}
-  then
-      # start api harvesting asynchrone: beats must be running
-      eval ${PREFIX} invenio reroils api-harvester harvest -n ${NAME} -m 100 -k
-  else
-      info_msg "For ${NAME} harvesting run: \"invenio reroils api-harvester harvest -n ${NAME} -m 100 -v\""
-  fi
-done
-
-info_msg "Set footer date"
-eval ${PREFIX} invenio reroils messages set footer info `date +'%d-%m-%Y'`
-
-date
-success_msg "Perfect ${PROGRAM}! See you soon…"
+success_msg "Perfect ${PROGRAM}! Done in $(elapsed). See you soon…"
 exit 0
