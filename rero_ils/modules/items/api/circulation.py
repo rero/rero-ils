@@ -26,6 +26,7 @@ from invenio_search import current_search
 from rero_ils.modules.loans.logs.api import NoCirculationOperationLog
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+from rero_ils.modules.permissions_cache import register_record_permissions_cache_deletion
 
 from ....filter import format_date_filter
 from ...circ_policies.api import CircPolicy
@@ -611,6 +612,8 @@ class ItemCirculation(ItemRecord):
             current_app.logger.error(
                 f"Loan state has not changed after REQUEST: {loan.pid} state: {old_state} kwargs: {kwargs}"
             )
+        else:
+            register_record_permissions_cache_deletion("items", self.pid)
         return self, {LoanAction.REQUEST: loan}
 
     @add_action_parameters_and_flush_indexes
