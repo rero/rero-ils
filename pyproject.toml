@@ -102,9 +102,6 @@ dependencies = [
     "flask-admin>=1.6.1",
     "invenio-sip2>=0.6.25",
     "markdown-captions>=2.1.2",
-    # invenio-cache 3.0.1 uses a deprecated backend name removed in Flask-Caching 2.5.
-    # Remove this constraint once invenio-cache supports the new RedisCache name.
-    "flask-caching<2.5.0",
 ]
 
 [dependency-groups]

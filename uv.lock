@@ -921,15 +921,15 @@ wheels = [
 
 [[package]]
 name = "flask-caching"
-version = "2.4.1"
+version = "2.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cachelib" },
     { name = "flask" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/89/15/d2852e86419c6c1416cba00c177b2cf609b5c2935372933684f84111c631/flask_caching-2.4.1.tar.gz", hash = "sha256:ecef4ca80b9cb1fa01d461373a0fce441527cd57eecee1aa71c1f6d750d7ff77", size = 165380, upload-time = "2026-07-08T19:23:57.264Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/dc/ce/a54552acb28bd0ac617703780e8f2344a4e5aee7a46936328fe7cf5b3a95/flask_caching-2.5.0.tar.gz", hash = "sha256:5a8779b54695f96e1b4a7a149dd8c6d863433ea66327cde4311ce7fd7b57391f", size = 218694, upload-time = "2026-08-24T18:52:01.459Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bd/e3/ad7572c7f00b1286f2fc2a387f01b62bb46b59c5f91536093eae57889adb/flask_caching-2.4.1-py3-none-any.whl", hash = "sha256:5f5555d610ec1f230c8200ae00c1c723ee562f657c22f896b806f4689513b952", size = 28977, upload-time = "2026-07-08T19:23:55.68Z" },
+    { url = "https://files.pythonhosted.org/packages/fc/51/ce7bc1eb0787acef0fecd6dae3f9f45cf46da5c5a51da79efa1e0eb2724c/flask_caching-2.5.0-py3-none-any.whl", hash = "sha256:8e625acd99759171a428ceb9b669ba6743c11dd9b37ace4e0ea7a3ee34097ccd", size = 34976, upload-time = "2026-08-24T18:52:00.136Z" },
 ]
 
 [[package]]
@@ -1537,15 +1537,15 @@ wheels = [
 
 [[package]]
 name = "invenio-cache"
-version = "3.0.1"
+version = "3.0.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "flask-caching" },
     { name = "invenio-base" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/03/ee/36fb71ec0f552e8dda7928607a28c5a7ac77e5c0cca3b84a2e8277d641bc/invenio_cache-3.0.1.tar.gz", hash = "sha256:c0f0d288bfac367f86abd0b5c66c4ab80883731d901cfccf3ae1116557e36fd6", size = 7393, upload-time = "2026-07-16T14:36:07.192Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/53/82/da5cd830498da53df2b5bdf9ec49b9688e9a5eaf44592eecf7b65e7718a5/invenio_cache-3.0.2.tar.gz", hash = "sha256:9e8bf45b45480926930d90104f03270c2128ae60e8d55062b51ab6ca01e10aee", size = 7417, upload-time = "2026-08-25T14:13:15.2Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2f/d9/a3491db20ba2509f6d38656c4dc125f80b12ef2375987551d3926f1a413a/invenio_cache-3.0.1-py3-none-any.whl", hash = "sha256:c71b50e0a7cdd250f6488037de357c974f45deb2b8f56fe973b396e051425aec", size = 10678, upload-time = "2026-07-16T14:36:06.133Z" },
+    { url = "https://files.pythonhosted.org/packages/e8/b6/d33a3e01fbfb591463cc2b9c0eeffa5495f2a508fd7314996e1b5e5c49eb/invenio_cache-3.0.2-py3-none-any.whl", hash = "sha256:eca2ed99a72bd45afbf6883c2a882f769e8f6c78e98bf6a4382e8b2d4d1210ef", size = 10717, upload-time = "2026-08-25T14:13:14.356Z" },
 ]
 
 [[package]]
@@ -3719,7 +3719,6 @@ dependencies = [
     { name = "dnspython" },
     { name = "dojson" },
     { name = "flask-admin" },
-    { name = "flask-caching" },
     { name = "flask-wiki" },
     { name = "invenio-access" },
     { name = "invenio-accounts" },
@@ -3805,7 +3804,6 @@ requires-dist = [
     { name = "dnspython", specifier = ">=2.4.2" },
     { name = "dojson", specifier = ">=1.4.0" },
     { name = "flask-admin", specifier = ">=1.6.1" },
-    { name = "flask-caching", specifier = "<2.5.0" },
     { name = "flask-wiki", specifier = ">=1.0.0" },
     { name = "invenio-access", specifier = ">=4.0.0" },
     { name = "invenio-accounts", specifier = ">=6.0.0" },
