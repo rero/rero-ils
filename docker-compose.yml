@@ -6,10 +6,43 @@ services:
     extends:
       file: docker-services.yml
       service: cache
+    # Required to order `init` below, which is what makes `docker compose up -d`
+    # wait for the whole stack.
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
   db:
     extends:
       file: docker-services.yml
       service: db
+    # Same purpose as the redis healthcheck above. `pg_isready` answers as soon
+    # as the server accepts connections, which is what the setup needs.
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "rero-ils"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    # This stack serves the test suite and `scripts/setup`, whose data is always
+    # thrown away, so every durability guarantee is relaxed. Measured: 0.962 ms
+    # -> 0.370 ms per commit seen from the host. `wal_level=minimal` requires
+    # `max_wal_senders=0`. `autovacuum` stays on: without it there is no ANALYZE,
+    # hence no statistics, and the queries fall back to sequential scans.
+    #
+    # These options belong here and NOT in docker-services.yml, which is the base
+    # of the docker-compose.full.yml production example: an example carrying a
+    # database without durability is a trap left behind for whoever copies it.
+    #
+    # Trade-off: an unclean stop can corrupt the database, which then has to be
+    # recreated by a new setup.
+    command: >
+      postgres
+      -c fsync=off
+      -c synchronous_commit=off
+      -c full_page_writes=off
+      -c wal_level=minimal
+      -c max_wal_senders=0
   mq:
     extends:
       file: docker-services.yml
@@ -18,3 +51,82 @@ services:
     extends:
       file: docker-services.yml
       service: es
+    # Required to order es_init below. `_cluster/health` answers 200 whatever the
+    # state, yellow included, so the colour is not part of the test.
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:9200/_cluster/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+  # The `record` template asks for 8 shards and 1 replica, sized for production.
+  # On a development cluster that is 254 shards for a few thousand documents, and
+  # every search fans out over 8 of them. Measured on a complete setup: -150 s,
+  # essentially all of it the fan-out removed from ~110 000 search requests (the
+  # engine itself only works 23 s, all the rest is round-trip latency).
+  #
+  # This is a LEGACY template: it merges with `record` (order 0) and overrides
+  # only these two settings, so every ICU/French analyzer is preserved. A
+  # composable template would have disabled `record` entirely.
+  #
+  # This service installs the template. It is called `init` rather than `es_init`
+  # because it also depends on every service being healthy, so it doubles as the
+  # ordering point of the stack. The setup itself knows nothing about shards on
+  # purpose — it also runs on the test servers, where the production defaults are
+  # the right ones.
+  #
+  # The test suite cannot rely on this service: the `search` fixture calls
+  # `delete_template("*")` when a previous run left state behind, so
+  # tests/conftest.py puts the template back itself.
+  #
+  # `curlimages/curl` is 10 MB and takes curl's arguments directly, so no
+  # entrypoint override. `-f` makes curl exit non-zero on an HTTP error, so a
+  # rejected template surfaces instead of passing for a success.
+  init:
+    image: curlimages/curl
+    depends_on:
+      cache:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      mq:
+        condition: service_healthy
+      es:
+        condition: service_healthy
+    command:
+      - "-fsS"
+      - "-X"
+      - "PUT"
+      - "http://es:9200/_template/dev-single-shard"
+      - "-H"
+      - "Content-Type: application/json"
+      - "-d"
+      - '{"index_patterns":["*-*"],"order":100,"settings":{"number_of_shards":1,"number_of_replicas":0}}'
+  # `docker compose up -d` returns as soon as the containers are *started*: it
+  # does not wait for `init` to finish, so an index created right after would keep
+  # the 8 shards of `record`. Measured three times out of three from a cold stack,
+  # `init` is still running and the template returns 404 when `up -d` returns.
+  #
+  # This service closes that window inside the compose file, so that plain
+  # `docker compose up -d` is the only command a caller needs. `depends_on`
+  # conditions block a container's start, and `up -d` does not return before it
+  # has tried to start every service — so it now blocks until the four services
+  # are healthy *and* `init` has succeeded. Measured: a rejected template makes
+  # `up -d` return 1 with `service "init" didn't complete successfully`, and a
+  # service that never turns healthy makes it return 1 once its retries are
+  # exhausted, rather than hanging.
+  #
+  # `docker compose wait init` cannot do this job: it only considers running
+  # containers, so it fails with `no containers for project` once `init` has
+  # exited — which is the normal case by the time a later step asks. And
+  # `up -d --wait` treats an exited one-shot as a failure, returning 1 even on a
+  # clean exit.
+  #
+  # It reuses the image of `init` and runs `true`, so it pulls nothing extra and
+  # leaves nothing running.
+  gate:
+    image: curlimages/curl
+    entrypoint: ["true"]
+    depends_on:
+      init:
+        condition: service_completed_successfully
