@@ -42,9 +42,6 @@ jobs:
       - name: Set up Python
         run: uv python install 3.14
 
-      - name: Install dependencies
-        run: uv sync --frozen
-
       - name: Python Semantic Release
         id: release
         env:
@@ -53,7 +50,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          uv run semantic-release version
+          uvx --from python-semantic-release@latest semantic-release version
 
           # A release was made if HEAD now points exactly at a tag.
           if git describe --exact-match HEAD 2>/dev/null; then
