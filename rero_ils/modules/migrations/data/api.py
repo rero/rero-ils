@@ -27,7 +27,6 @@ def _(x):
 class IndexCfg:
     """Migration Data Index configuration."""
 
-    settings = {"number_of_shards": 2, "number_of_replicas": 2}
     aliases = {"migration-data": {}}
 
 
