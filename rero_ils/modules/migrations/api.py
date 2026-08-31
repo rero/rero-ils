@@ -61,7 +61,6 @@ class Migration(Document):
         """Migration Index configuration."""
 
         name = "migrations-20240909"
-        settings = {"number_of_shards": 2, "number_of_replicas": 2}
         aliases = {"migrations": {}}
 
     @property
@@ -78,7 +77,6 @@ class Migration(Document):
     def data_class(self):
         """Returns the class to create a migration data."""
         index = Index(name=self.data_index_name)
-        index.settings(**IndexCfg.settings)
         index.aliases(**IndexCfg.aliases)
         cls = MigrationData.clone()
         return index.document(cls)
