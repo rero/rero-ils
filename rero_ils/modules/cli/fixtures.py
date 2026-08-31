@@ -28,12 +28,8 @@ from ..files.cli import create_files
 from ..holdings.cli import create_patterns
 from ..ill_requests.cli import create_ill_requests
 from ..items.cli import create_items, reindex_items
-from ..loans.cli import create_loans, load_virtua_transactions
-from ..operation_logs.cli import (
-    create_operation_logs,
-    destroy_operation_logs,
-    dump_operation_logs,
-)
+from ..loans.cli import create_loans
+from ..operation_logs.cli import destroy_operation_logs
 from ..patrons.cli import import_users
 from ..providers import append_fixtures_new_identifiers
 from ..utils import (
@@ -66,12 +62,9 @@ fixtures.add_command(create_items)
 fixtures.add_command(reindex_items)
 fixtures.add_command(create_loans)
 fixtures.add_command(create_files)
-fixtures.add_command(load_virtua_transactions)
 fixtures.add_command(create_patterns)
 fixtures.add_command(create_ill_requests)
 fixtures.add_command(create_collections)
-fixtures.add_command(create_operation_logs)
-fixtures.add_command(dump_operation_logs)
 fixtures.add_command(destroy_operation_logs)
 
 

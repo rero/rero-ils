@@ -4,7 +4,6 @@
 """Click command-line interface for item record management."""
 
 import json
-import os
 import random
 import traceback
 from datetime import UTC, datetime, timedelta
@@ -24,152 +23,14 @@ from ..notifications.dispatcher import Dispatcher
 from ..notifications.models import NotificationType
 from ..notifications.tasks import create_notifications
 from ..patron_transaction_events.api import PatronTransactionEvent
-from ..patron_transactions.api import PatronTransaction
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
 from ..users.models import UserRole
 from ..utils import (
-    JsonWriter,
     extracted_data_from_ref,
     get_ref_for_pid,
     get_schema_for_resource,
-    read_json_record,
 )
-
-
-def check_missing_fields(transaction, transaction_type):
-    """Return list of missing fields for a given transaction type.
-
-    transaction: the json transaction record.
-    transaction_type: type of transaction.
-    """
-    if transaction_type == "checkout":
-        fields = [
-            "item_pid",
-            "patron_pid",
-            "end_date",
-            "transaction_date",
-            "transaction_location_pid",
-            "transaction_user_pid",
-            "organisation",
-            "start_date",
-        ]
-    elif transaction_type == "request":
-        fields = [
-            "item_pid",
-            "patron_pid",
-            "organisation",
-            "transaction_date",
-            "pickup_location_pid",
-            "transaction_location_pid",
-            "transaction_user_pid",
-            "request_expire_date",
-        ]
-    elif transaction_type == "fine":
-        fields = [
-            "note",
-            "type",
-            "patron",
-            "status",
-            "organisation",
-            "total_amount",
-            "creation_date",
-        ]
-
-    return [field for field in fields if field not in transaction]
-
-
-def build_loan_record(transaction, transaction_type, item):
-    """Build the loan record before inserting into db.
-
-    transaction: the json transaction record.
-    transaction_type: type of transaction.
-    item: the item record.
-    """
-    if transaction_type == "checkout":
-        transaction.pop("item_pid", None)
-        transaction.pop("organisation", None)
-    elif transaction_type == "request":
-        transaction["state"] = "PENDING"
-        transaction["trigger"] = "request"
-        transaction["item_pid"] = {"value": transaction.get("item_pid"), "type": "item"}
-        transaction["document_pid"] = item.document_pid
-        transaction["to_anonymize"] = False
-
-
-@click.command("load_virtua_transactions")
-@click.option("-l", "--lazy", "lazy", is_flag=True, default=False)
-@click.option("-e", "--save_errors", "save_errors", type=click.File("w"))
-@click.option("-t", "--transaction_type", "transaction_type", is_flag=False, default="checkout")
-@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
-@click.option("-d", "--debug", "debug", is_flag=True, default=False)
-@click.argument("infile", type=click.File("r"))
-@with_appcontext
-def load_virtua_transactions(infile, lazy, save_errors, transaction_type, verbose, debug):
-    """Load Virtua circulation transactions.
-
-    infile: Json Virtua transactions file.
-    transaction_type: Transaction type either checkout, request or fine.
-    :param lazy: lazy reads file.
-    :param save_errors: save error records to file.
-    """
-    # TODO: move this method and other similar methods to a new project that
-    # deals with loading data from other ILS into REROILS.
-    if save_errors:
-        name, ext = os.path.splitext(infile.name)
-        err_file_name = f"{name}_errors{ext}"
-        error_file = JsonWriter(err_file_name)
-
-    if lazy:
-        records = read_json_record(infile)
-    else:
-        file_data = json.load(infile)
-    click.secho(f"Loading Virtua transactions of type {transaction_type}", fg="green")
-
-    for counter, transaction in enumerate(file_data, 1):
-        if missing_fields := check_missing_fields(transaction, transaction_type):
-            click.secho(f"\ntransaction # {counter} missing fields: {missing_fields}", fg="red")
-            if save_errors:
-                error_file.write(transaction)
-            continue
-
-        if transaction_type == "fine":
-            patron_pid = extracted_data_from_ref(transaction.get("patron"))
-            patron = Patron.get_record_by_pid(patron_pid)
-            if not patron:
-                click.secho(f"\ntransaction # {counter} patron not in db", fg="red")
-                if save_errors:
-                    error_file.write(transaction)
-                continue
-
-            try:
-                PatronTransaction.create(transaction, dbcommit=True, reindex=True)
-                click.secho(f"\ntransaction # {counter} created", fg="green")
-            except Exception as error:
-                click.secho(f"transaction# {counter} failed creation {error}", fg="red")
-                if save_errors:
-                    error_file.write(transaction)
-
-        elif transaction_type in ["checkout", "request"]:
-            item = Item.get_record_by_pid(transaction.get("item_pid"))
-            patron = Patron.get_record_by_pid(transaction.get("patron_pid"))
-            if not (item and patron):
-                click.secho(f"\ntransaction# {counter} item/patron not in db", fg="red")
-                if save_errors:
-                    error_file.write(transaction)
-                    continue
-            else:
-                build_loan_record(transaction, transaction_type, item)
-            try:
-                if transaction_type == "request":
-                    Loan.create(transaction, dbcommit=True, reindex=True)
-                elif transaction_type == "checkout":
-                    item.checkout(**transaction)
-                click.secho(f"\ntransaction # {counter} created", fg="green")
-            except Exception as error:
-                click.secho(f"transaction# {counter} failed creation {error}", fg="red")
-                if save_errors:
-                    error_file.write(transaction)
 
 
 @click.command("create_loans")
@@ -355,50 +216,6 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False, debug=
         if debug:
             traceback.print_exc()
         return item["barcode"], True
-
-
-def create_request(barcode, transaction_type, loanable_items, verbose=False, debug=False):
-    """Create request transactions."""
-    try:
-        item = next(loanable_items)
-        rank_1_patron = get_random_patron(barcode)
-        patron = Patron.get_patron_by_barcode(barcode=barcode)
-        if transaction_type == "rank_2":
-            transaction_date = (datetime.now(UTC) - timedelta(2)).isoformat()
-            user_pid, user_location = get_random_librarian_and_transaction_location(patron)
-
-            circ_policy = CircPolicy.provide_circ_policy(
-                item.organisation_pid,
-                item.holding_library_pid,
-                rank_1_patron.patron_type_pid,
-                item.holding_circulation_category_pid,
-            )
-            if circ_policy.get("allow_requests"):
-                item.request(
-                    patron_pid=rank_1_patron.pid,
-                    transaction_location_pid=user_location,
-                    transaction_user_pid=user_pid,
-                    transaction_date=transaction_date,
-                    pickup_location_pid=get_random_pickup_location(rank_1_patron.pid, item),
-                    document_pid=extracted_data_from_ref(item.get("document")),
-                )
-        transaction_date = datetime.now(UTC).isoformat()
-        user_pid, user_location = get_random_librarian_and_transaction_location(patron)
-        item.request(
-            patron_pid=patron.pid,
-            transaction_location_pid=user_location,
-            transaction_user_pid=user_pid,
-            transaction_date=transaction_date,
-            pickup_location_pid=get_random_pickup_location(patron.pid, item),
-            document_pid=extracted_data_from_ref(item.get("document")),
-        )
-        return item["barcode"]
-    except Exception as err:
-        if verbose:
-            click.secho(f"\tException request {transaction_type}: {err}", fg="red")
-        if debug:
-            traceback.print_exc()
-        return None
 
 
 def get_loanable_items(patron_type_pid):

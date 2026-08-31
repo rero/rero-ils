@@ -1,7 +1,18 @@
 # SPDX-FileCopyrightText: Fondation RERO+
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""Convert MARC21 XML records to RERO ILS JSON format with deduplication support."""
+"""Converter for the `cogne` migration fixture of scripts/setup_batches.
+
+Production converters live in `rero-ils-migrations`, one module per campaign,
+resolved by dotted path from `Migration.conversion_code`. That package is
+private and absent from PyPI, so it cannot be a dependency here and the fixture
+needs its own. This one pairs the MARC21 conversion of
+`converter_marc21xml_rero` with a working `dedup`: that converter inherits
+`dedup` abstract and never implements it, and the fixture calls it.
+
+It stays in scripts/ rather than under rero_ils/ because only rero_ils/ goes
+into the wheel, and fixture code has no business being shipped.
+"""
 
 from dojson.contrib.marc21.utils import create_record
 from lxml import etree
