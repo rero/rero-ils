@@ -7,6 +7,8 @@ import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
+from rero_ils.dojson.utils import _LANGUAGES_SCRIPTS, _SCRIPT_PER_CODE, _UNIMARC_LANGUAGES_SCRIPTS
+
 
 def test_required(app, document_schema, document_data_tmp):
     """Test required for jsonschemas."""
@@ -31,6 +33,25 @@ def test_title(document_schema, document_data_tmp):
 
     with pytest.raises(ValidationError):
         document_data_tmp["title"] = 2
+        validate(document_data_tmp, document_schema)
+
+
+def test_title_language_script(document_schema, document_data_tmp):
+    """Test that the schema accepts every language script built by the dojson."""
+    scripts = set(_LANGUAGES_SCRIPTS) | set(_UNIMARC_LANGUAGES_SCRIPTS.values()) | set(_SCRIPT_PER_CODE.values())
+    codes = {f"und-{script}" for script in scripts}
+    codes |= {f"{language}-{script}" for script, languages in _LANGUAGES_SCRIPTS.items() for language in languages}
+    document_data_tmp["title"] = [
+        {
+            "type": "bf:Title",
+            "mainTitle": [{"value": "Title", "language": code} for code in sorted(codes)],
+        }
+    ]
+
+    validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp["title"][0]["mainTitle"] = [{"value": "Title", "language": "und-zzzz"}]
         validate(document_data_tmp, document_schema)
 
 

@@ -38,8 +38,8 @@ _UNIMARC_LANGUAGES_SCRIPTS = {
 
 _LANGUAGES_SCRIPTS = {
     "armn": ("arm",),
-    "arab": ("ara", "per"),
-    "cyrl": ("bel", "chu", "mac", "rus", "srp", "ukr"),
+    "arab": ("ara", "aze", "ber", "ful", "hau", "kur", "pan", "per", "pus", "urd"),
+    "cyrl": ("aze", "bel", "bul", "chu", "mac", "mon", "rus", "srp", "tgk", "ukr", "uzb"),
     "deva": (
         "awa",
         "bho",

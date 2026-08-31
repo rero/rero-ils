@@ -504,6 +504,35 @@ def test_marc21_to_title_245_with_two_246():
     ]
 
 
+def test_marc21_to_title_880_language_script(capsys):
+    """Test dojson title with a 880.
+
+    - the language of the 008 and the script of the 880 $6 are combined
+    """
+    for language, country, script_code, script in (("urd", "pk", "(3", "arab"), ("uzb", "uz", "(N", "cyrl")):
+        marc21xml = f"""
+        <record>
+            <controlfield tag=
+                "008">160315s2015    {country} ||| |  ||||00|  |{language} d</controlfield>
+            <datafield tag="245" ind1="0" ind2="0">
+                <subfield code="6">880-01</subfield>
+                <subfield code="a">Title</subfield>
+            </datafield>
+            <datafield tag="880" ind1="0" ind2="0">
+                <subfield code="6">245-01/{script_code}</subfield>
+                <subfield code="a">Alternate title</subfield>
+            </datafield>
+        </record>
+        """
+        marc21json = create_record(marc21xml)
+        data = marc21.do(marc21json)
+        assert data.get("title")[0]["mainTitle"] == [
+            {"value": "Title"},
+            {"value": "Alternate title", "language": f"{language}-{script}"},
+        ]
+        assert "WARNING LANGUAGE SCRIPTS" not in capsys.readouterr().out
+
+
 def test_marc21_to_title_245_without_246():
     """Test dojson test_marc21_to_title_245_without_246.
 
