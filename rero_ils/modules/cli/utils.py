@@ -4,7 +4,6 @@
 
 """Click command-line utilities."""
 
-import contextlib
 import itertools
 import json
 import os
@@ -25,7 +24,6 @@ from invenio_oauth2server.cli import process_scopes, process_user
 from invenio_oauth2server.models import Client, Token
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
-from invenio_search.proxies import current_search
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from lxml import etree
@@ -461,192 +459,6 @@ def reserve_pid_range(pid_type, records_number, unused):
                 record_class.provider.create(pid_type, pid_value=pid, status=PIDStatus.NEW)
                 db.session.add(identifier(recid=pid))
             db.session.commit()
-
-
-@utils.command("check_pid_dependencies")
-@click.option(
-    "-i",
-    "--dependency_file",
-    "dependency_file",
-    type=click.File("r"),
-    default="./data/pid_dependencies_big.json",
-)
-@click.option("-d", "--directory", "directory", default="./data")
-@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
-def check_pid_dependencies(dependency_file, directory, verbose):
-    """Check record dependencies."""
-
-    class Dependencies:
-        """Class for dependencies checking."""
-
-        test_data = {}
-
-        def __init__(self, directory, verbose=False):
-            """Init dependency class."""
-            self.directory = directory
-            self.verbose = verbose
-            self.record = {}
-            self.name = ""
-            self.pid = "0"
-            self.dependencies_pids = []
-            self.dependencies = set()
-            self.missing = 0
-            self.not_found = 0
-
-        def get_pid(self, data):
-            """Get pid from end of $ref string."""
-            return data["$ref"].split("/")[-1]
-
-        def get_pid_type(self, data):
-            """Get pid and type from end of $ref string."""
-            data_split = data["$ref"].split("/")
-            return data_split[-1], data_split[-2]
-
-        def get_ref_pids(self, data, dependency_name):
-            """Get pids from data."""
-            pids = []
-            with contextlib.suppress(Exception):
-                if isinstance(data[dependency_name], list):
-                    for dat in data[dependency_name]:
-                        pids.append(self.get_pid(dat))
-                else:
-                    pids = [self.get_pid(data[dependency_name])]
-            return pids
-
-        def get_ref_type_pids(self, data, dependency_name, ref_type):
-            """Get pids from data."""
-            pids = []
-            with contextlib.suppress(Exception):
-                if isinstance(data[dependency_name], list):
-                    for dat in data[dependency_name]:
-                        pid, pid_type = self.get_pid_type(dat)
-                        if pid_type == ref_type:
-                            pids.append(pid)
-                else:
-                    pid, pid_type = self.get_pid_type(data[dependency_name])
-                    if pid_type == ref_type:
-                        pids.append(pid)
-            return pids
-
-        def add_pids_to_dependencies(self, dependency_name, pids, optional):
-            """Add pids to dependoencies_pid."""
-            if pids or optional:
-                self.dependencies_pids.append({dependency_name: pids})
-                self.dependencies.add(dependency_name)
-
-            else:
-                click.secho(f"{self.name}: dependencies not found: {dependency_name}", fg="red")
-                self.not_found += 1
-
-        def set_dependencies_pids(self, dependencies):
-            """Get all dependencies and pids."""
-            self.dependencies_pids = []
-            for dependency in dependencies:
-                dependency_ref = dependency.get("ref")
-                dependency_refs = dependency.get("refs")
-                if not dependency_ref:
-                    dependency_ref = dependency["name"]
-                sublist = dependency.get("sublist", [])
-                for sub in sublist:
-                    datas = self.record.get(dependency["name"], [])
-                    if not datas and not dependency.get("optional"):
-                        click.secho(
-                            f"{self.name}: sublist not found: {dependency['name']}",
-                            fg="red",
-                        )
-                        self.not_found += 1
-                    else:
-                        for data in datas:
-                            dependency_ref = sub.get("ref") or sub["name"]
-                            self.add_pids_to_dependencies(
-                                dependency_ref,
-                                self.get_ref_pids(data, sub["name"]),
-                                sub.get("optional"),
-                            )
-                if not sublist:
-                    if dependency_refs:
-                        for ref, ref_type in dependency_refs.items():
-                            pids = self.get_ref_type_pids(self.record, dependency["name"], ref_type)
-                            self.add_pids_to_dependencies(ref, pids, dependency.get("optional"))
-                    else:
-                        self.add_pids_to_dependencies(
-                            dependency_ref,
-                            self.get_ref_pids(self.record, dependency["name"]),
-                            dependency.get("optional"),
-                        )
-
-        def test_dependencies(self):
-            """Test all dependencies."""
-            for dependency in self.dependencies_pids:
-                for key, values in dependency.items():
-                    for value in values:
-                        try:
-                            self.test_data[key][value]
-                        except Exception:
-                            click.secho(
-                                f"{self.name}: {self.pid} missing {key}: {value}",
-                                fg="red",
-                            )
-                            self.missing += 1
-
-        def init_and_test_data(self, test):
-            """Init data and test data."""
-            self.name = test["name"]
-            file_name = os.path.join(self.directory, test["filename"])
-            self.test_data.setdefault(self.name, {})
-            with open(file_name) as infile:
-                if self.verbose:
-                    click.echo(f"{self.name}: {file_name}")
-                records = read_json_record(infile)
-                for idx, self.record in enumerate(records, 1):
-                    self.pid = self.record.get("pid", idx)
-                    if self.test_data[self.name].get(self.pid):
-                        click.secho(f"Double pid in {self.name}: {self.pid}", fg="red")
-                    else:
-                        self.test_data[self.name][self.pid] = {}
-                        self.set_dependencies_pids(test.get("dependencies", []))
-                        self.test_dependencies()
-                if self.verbose:
-                    for dependency in self.dependencies:
-                        click.echo(f"\tTested dependency: {dependency}")
-
-        def run_tests(self, tests):
-            """Run the tests."""
-            for test in tests:
-                self.init_and_test_data(test)
-            if self.missing:
-                click.secho(f"Missing relations: {self.missing}", fg="red")
-            if self.not_found:
-                click.secho(f"Relation not found: {self.not_found}", fg="red")
-
-    # start of tests
-    click.secho(f"Check dependencies {dependency_file.name}: {directory}", fg="green")
-    dependency_tests = Dependencies(directory, verbose=verbose)
-    tests = json.load(dependency_file)
-    dependency_tests.run_tests(tests)
-
-    sys.exit(dependency_tests.missing + dependency_tests.not_found)
-
-
-@utils.command("dump_search_mappings")
-@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
-@click.option("-o", "--outfile", "outfile", type=click.File("w"), default=None)
-@with_appcontext
-def dump_search_mappings(verbose, outfile):
-    """Dumps search mappings."""
-    click.secho("Dump search mappings:", fg="green")
-    aliases = current_search.client.indices.get_alias("*")
-    mappings = current_search.client.indices.get_mapping()
-    for alias in sorted(aliases):
-        if alias[0] != ".":
-            mapping = mappings.get(alias, {}).get("mappings")
-            click.echo(alias)
-            if verbose or not outfile:
-                print(json.dumps(mapping, indent=2))
-            if outfile:
-                outfile.write(f"{alias}\n")
-                json.dump(mapping, outfile, indent=2)
-                outfile.write("\n")
 
 
 @utils.command("export")
