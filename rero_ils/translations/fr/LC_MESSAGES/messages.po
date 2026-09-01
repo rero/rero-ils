@@ -19,9 +19,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-08-31 07:55+0000\n"
-"PO-Revision-Date: 2026-08-25 02:51+0000\n"
+"PO-Revision-Date: 2026-09-01 07:01+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/fr/>\n"
@@ -10566,12 +10566,10 @@ msgstr "Le champ énumération et chronologie est requis pour un fascicule"
 #: rero_ils/modules/items/api/record.py:99
 msgid "Issue location must be the same as the parent holdings location."
 msgstr ""
+"La localisation du fascicule doit être la même que celle de l'état de "
+"collection parent."
 
 #: rero_ils/modules/items/api/record.py:101
-#, fuzzy
-#| msgid ""
-#| "Temporary circulation category cannot be the same than default "
-#| "circulation category."
 msgid "Issue circulation category must be the same as the parent holdings one."
 msgstr ""
 "La catégorie de prêt temporaire ne peut pas être identique à la catégorie de "
