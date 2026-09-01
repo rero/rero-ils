@@ -1,0 +1,339 @@
+# SPDX-FileCopyrightText: Fondation RERO+
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Command lines of the setup batches, sourced by scripts/setup.
+#
+# Each `batch_*` function writes the command lines of one batch to its
+# standard output, and is read by `invenio rero batch` through a process
+# substitution. Grouping commands this way is what makes the difference on a
+# long sequence: building the Flask application costs ~3s, and the setup would
+# otherwise pay it once per command.
+#
+# Only standard output belongs to the batch. `info_msg` and `msg` write to
+# standard error, so they can be used inside these functions.
+#
+# These functions read, but never set, these variables of scripts/setup:
+# DATA_PATH, FILES_PATH, DONT_STOP, DEPLOYMENT and the
+# INVENIO_RERO_ILS_ACCESS_TOKEN_* ones.
+
+# Emit the reindex/run sequence used for one pid type.
+# $1: pid type.
+index_lines() {
+  echo "reroils index reindex -t ${1} --yes-i-know"
+  echo "reroils index run --raise-on-error"
+}
+
+# Emit the token creation command, the token value being optional.
+# $1: token name, $2: user, $3: token value.
+token_line() {
+  if [ -z "${3}" ]
+  then
+      echo "reroils utils token-create -n ${1} -u ${2}"
+  else
+      echo "reroils utils token-create -n ${1} -u ${2} -t ${3}"
+  fi
+}
+
+# Emit the users import, shared by the full and the E2E paths.
+users_line() {
+  echo "reroils fixtures import_users ${DATA_PATH}/users.json -v --append ${DONT_STOP}"
+}
+
+# Emit the API harvester configuration and the scheduler reset, shared by the
+# full and the E2E paths.
+config_lines() {
+  cat <<EOF
+reroils api-harvester init-config ${DATA_PATH}/apisources.yml
+reroils scheduler init --reset
+EOF
+}
+
+# The indexing queue, the migrations index, the search indices and the operation
+# logs. Every line here tolerates a missing target on its own: the two `queue`
+# commands catch and report instead of raising, and `migrations index destroy`
+# skips a missing index. So the batch needs no `--continue-on-error`, and a
+# failure it does report is a real one.
+#
+# The database lifecycle stays out: `db destroy` fails when the database does not
+# exist, and a batch cannot tolerate one line only.
+batch_destroy() {
+  cat <<EOF
+reroils index queue purge
+reroils index queue delete
+reroils migrations index destroy --yes-i-know
+index destroy --force --yes-i-know
+reroils fixtures destroy_operation_logs --yes-i-know
+EOF
+}
+
+# Index templates and mappings, the indexing queue, and the files location.
+#
+# `reroils index init` overrides `invenio index init` to load the templates
+# before the mappings.
+# TODO: check if `invenio index init --force` works, to drop our own.
+#
+# `loans-loan-v1.0.0` comes from invenio-circulation and is unused here.
+#
+# This batch runs after `set -e`, so every line must succeed, which is what
+# `batch` does by default. It holds no database lifecycle command on purpose:
+# `db destroy` issues a DROP DATABASE, which fails as soon as anything in the
+# same process has opened a connection to that database.
+batch_init() {
+  cat <<EOF
+reroils index init --force
+reroils migrations index init
+reroils index queue init
+index delete loans-loan-v1.0.0 --force --yes-i-know
+files location create --default fixtures ${FILES_PATH}
+EOF
+}
+
+# roles, action policies, users, accesses and tokens: 31 commands that only
+# touch the database, grouped into one process.
+batch_accounts() {
+  cat <<EOF
+# create roles
+roles create -d 'Admins Group' admin
+roles create -d 'Super Users Group' superuser
+roles create -d 'Monitoring Group' monitoring
+roles create -d 'Patron' patron
+roles create -d 'Professional: Read_only' pro_read_only
+roles create -d 'Professional: Acquisition manager' pro_acquisition_manager
+roles create -d 'Professional: Full permissions' pro_full_permissions
+roles create -d 'Professional: Catalog manager' pro_catalog_manager
+roles create -d 'Professional: Circulation manager' pro_circulation_manager
+roles create -d 'Professional: Library administrator' pro_library_administrator
+roles create -d 'Professional: User manager' pro_user_manager
+roles create -d 'Professional: Entity manager' pro_entity_manager
+roles create -d 'Documentation Editor' editor
+roles create -d 'Document Importing' document_importer
+roles create -d 'Professional: Statistics manager' pro_statistic_manager
+
+# create action roles policies
+# NOTE: 'data/' is hardcoded here, as it was before this batch: these two lines
+# have never used \${DATA_PATH}.
+reroils fixtures import_system_role_policies data/system_role_policies.json
+reroils fixtures import_role_policies data/role_policies.json
+
+# create users
+users create --active --confirm --password administrator admin@rero.ch
+users create --active --confirm --password editor editor@rero.ch
+users create --active --confirm --password monitor monitoring@rero.ch
+users create --active --confirm --password ngscan gipi@ngscan.com
+
+# grant accesses to action roles
+access allow superuser-access role admin
+access allow superuser-access role superuser
+# TODO: access allow admin-access role admin
+
+# grant roles to users
+roles add admin@rero.ch admin
+roles add admin@rero.ch superuser
+roles add admin@rero.ch monitoring
+roles add editor@rero.ch editor
+roles add monitoring@rero.ch monitoring
+roles add gipi@ngscan.com document_importer
+
+# create token access for monitoring and for ngscan (ezpump)
+EOF
+  token_line monitoring monitoring@rero.ch ${INVENIO_RERO_ILS_ACCESS_TOKEN_MONITORING}
+  token_line ezpump gipi@ngscan.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_NGSCAN}
+}
+
+# Referential order matters here: org, then lib, then loc, then the types.
+# Each `reindex` only fills the bulk queue; the trailing `index run` is what
+# actually indexes. Grouped into one process; `batch` echoes every line, which
+# replaces the per-fixture info messages.
+batch_small_fixtures() {
+  cat <<EOF
+reroils fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${DONT_STOP}
+reroils index reindex -t org --yes-i-know
+
+reroils fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${DONT_STOP}
+reroils index reindex -t lib --yes-i-know
+
+reroils fixtures create --pid_type loc ${DATA_PATH}/locations.json --append ${DONT_STOP}
+reroils index reindex -t loc --yes-i-know
+
+reroils fixtures create --pid_type itty ${DATA_PATH}/item_types.json --append ${DONT_STOP}
+reroils index reindex -t itty --yes-i-know
+
+reroils fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${DONT_STOP}
+reroils index reindex -t ptty --yes-i-know
+
+reroils fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${DONT_STOP}
+reroils index reindex -t cipo --yes-i-know
+
+reroils fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append ${DONT_STOP}
+reroils index reindex -t vndr --yes-i-know
+
+reroils index run --raise-on-error
+EOF
+}
+
+# Users, ILL requests, statistics configurations and local entities.
+batch_users_entities() {
+  users_line
+  cat <<EOF
+
+reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
+reroils index reindex -t illr --yes-i-know
+
+reroils fixtures create --pid_type stacfg ${DATA_PATH}/stats_cfg.json --append ${DONT_STOP}
+reroils index reindex -t stacfg --yes-i-know
+
+reroils fixtures create --pid_type locent --schema 'https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json' ${DATA_PATH}/local_entities.json --append ${DONT_STOP}
+reroils index reindex -t locent --yes-i-know
+reroils index run --raise-on-error
+EOF
+}
+
+# Documents, holdings and items, then the four index cycles in order:
+# item, hold, doc, and finally rement, which has to be reindexed after doc to
+# get the organisation pids right. The cover URL worker is paused first, as it
+# was, to avoid race conditions during the document creation; it is resumed by
+# `batch_final`.
+batch_biblio() {
+  # The deployment only changes the size of the fixtures loaded here.
+  local SIZE
+  if ${DEPLOYMENT}; then SIZE=big; else SIZE=small; fi
+  cat <<EOF
+reroils documents cover-url-queue-worker pause
+
+reroils fixtures create --pid_type doc --schema 'https://bib.rero.ch/schemas/documents/document-v0.0.1.json' ${DATA_PATH}/documents_${SIZE}.json --append ${DONT_STOP}
+reroils fixtures create --pid_type hold --schema 'https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json' ${DATA_PATH}/holdings_${SIZE}.json --append ${DONT_STOP}
+reroils fixtures create --pid_type item --schema 'https://bib.rero.ch/schemas/items/item-v0.0.1.json' ${DATA_PATH}/items_${SIZE}.json --append ${DONT_STOP}
+EOF
+  if ${DEPLOYMENT}
+  then
+    echo "reroils fixtures create-files 75"
+  else
+    info_msg "To create file fixtures, run:"
+    msg "\tinvenio reroils fixtures create-files 50"
+  fi
+  index_lines item
+  index_lines hold
+  index_lines doc
+  # We have to reindex entities to get the organisations pids indexed correctly.
+  index_lines rement
+  cat <<EOF
+
+reroils fixtures create --pid_type lofi ${DATA_PATH}/local_fields.json --append ${DONT_STOP}
+reroils index reindex -t lofi --yes-i-know
+
+# serials patterns
+reroils fixtures create_patterns ${DATA_PATH}/patterns.json
+
+reroils fixtures create_collections -f ${DATA_PATH}/collections.json
+reroils index reindex -t coll --yes-i-know
+reroils index run --raise-on-error
+EOF
+}
+
+# budg -> acac -> acor -> acol -> acre -> acrl: the order is strict, each
+# resource reading the parents already indexed. `reindex -d` indexes directly
+# and synchronously, so those lines must stay in sequence.
+batch_acq() {
+  cat <<EOF
+reroils fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append ${DONT_STOP}
+reroils index reindex -d -t budg --yes-i-know
+
+reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append --reindex ${DONT_STOP}
+reroils index reindex -d -t acac --yes-i-know
+
+reroils fixtures create --pid_type acor ${DATA_PATH}/acq_orders.json --append --reindex ${DONT_STOP}
+reroils index reindex -d -t acor --yes-i-know
+
+reroils fixtures create --pid_type acol ${DATA_PATH}/acq_order_lines.json --append --reindex ${DONT_STOP}
+reroils index reindex -d -t acol --yes-i-know
+
+reroils fixtures create --pid_type acre ${DATA_PATH}/acq_receipts.json --append --reindex ${DONT_STOP}
+reroils index reindex -d -t acre --yes-i-know
+
+reroils fixtures create --pid_type acrl ${DATA_PATH}/acq_receipt_lines.json --append --reindex ${DONT_STOP}
+reroils index reindex -d -t acrl --yes-i-know
+
+# resource templates
+reroils fixtures create --pid_type tmpl ${DATA_PATH}/templates.json --append ${DONT_STOP}
+reroils index reindex -t tmpl --yes-i-know
+
+reroils index run --raise-on-error
+EOF
+}
+
+# The Cogne migration: the conversion setup, then the data load, the
+# deduplication against the existing documents and the reviewer subsets.
+# Strictly sequential, each command reading what the previous one wrote.
+batch_migration() {
+  cat <<EOF
+reroils migrations create cogne 24 'scripts.convert_marc21xml.Marc21XMLConverter' -d 'Cogne Migration Fixture'
+reroils migrations data load cogne ${DATA_PATH}/migration.xml
+reroils migrations data dedup cogne
+reroils migrations data subsets cogne Simonetta,Astrid,Jean,Elena
+EOF
+}
+
+# The E2E minimum, run by `setup --e2e` in place of everything that follows
+# `batch_small_fixtures`: the users, and the two configuration commands that the
+# full setup emits from `batch_circulation`.
+batch_e2e_config() {
+  users_line
+  config_lines
+}
+
+# Circulation, notifications, system librarian tokens, OAI config and
+# scheduler.
+batch_circulation() {
+  cat <<EOF
+reroils fixtures create_loans ${DATA_PATH}/loans.json -v
+reroils notifications process
+
+# access tokens for all system librarians
+EOF
+  token_line organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_AOSTA_LIBRARIAN}
+  token_line organisation_scotland_token reroilstest+irma@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
+  token_line organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ILS_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
+  cat <<EOF
+
+# OAI configuration
+EOF
+  config_lines
+  if ${DEPLOYMENT}
+  then
+    cat <<EOF
+reroils scheduler enable-tasks --all --verbose
+# disable VS/NJ CANTOOK harvesting
+reroils scheduler enable-tasks --name harvest-vs-cantook --disable
+reroils scheduler enable-tasks --name harvest-nj-cantook --disable
+EOF
+  else
+    echo "reroils scheduler enable-tasks --all --verbose --disable"
+  fi
+}
+
+# Cover worker, statistics, wiki index, API harvesting and footer date.
+batch_final() {
+  cat <<EOF
+reroils documents cover-url-queue-worker resume
+
+reroils stats collect billing
+reroils stats collect librarian
+reroils stats report collect-all month
+reroils stats report collect-all year
+
+flask_wiki init-index
+flask_wiki index
+EOF
+  for NAME in "VS-CANTOOK" "NJ-CANTOOK"
+  do
+    echo "reroils api-harvester set-last-run ${NAME} -d 1900-01-01"
+    if ${DEPLOYMENT}
+    then
+        # start api harvesting asynchrone: beats must be running
+        echo "reroils api-harvester harvest -n ${NAME} -m 100 -k"
+    else
+        info_msg "For ${NAME} harvesting run: \"invenio reroils api-harvester harvest -n ${NAME} -m 100 -v\""
+    fi
+  done
+  echo "reroils messages set footer info `date +'%d-%m-%Y'`"
+}

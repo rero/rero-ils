@@ -8,6 +8,7 @@ from unittest import mock
 from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
+from invenio_access.permissions import system_identity
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.files.permissions import FilePermissionPolicy
@@ -213,3 +214,16 @@ def test_files_permissions(
         {"search": True, "read": True, "create": True, "update": True, "delete": True},
         record_file,
     )
+
+
+def test_files_extract_metadata_permission(app, document_with_files):
+    """Test that the file metadata extraction is allowed to the system.
+
+    The extraction runs from a task under the system identity once a file is committed, and it is the only
+    thing that gives an uploaded file its metadata entry. An action the policy does not know about falls
+    back to `Disable()`, which leaves every uploaded file without metadata.
+    """
+    record_file = next(document_with_files.get_records_files())
+    permission = FilePermissionPolicy("extract_file_metadata", record=record_file)
+    assert permission.allows(system_identity)
+    assert not permission.allows(AnonymousIdentity())

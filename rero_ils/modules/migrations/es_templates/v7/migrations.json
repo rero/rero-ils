@@ -1,0 +1,11 @@
+{
+  "index_patterns": [
+    "migrations-*",
+    "migration-data-*"
+  ],
+  "order": 10,
+  "settings": {
+    "number_of_shards": "1",
+    "number_of_replicas": "1"
+  }
+}

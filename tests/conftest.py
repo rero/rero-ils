@@ -97,11 +97,34 @@ def search(appctx):
     from invenio_search import current_search, current_search_client
     from invenio_search.errors import IndexAlreadyExistsError
 
+    def put_single_shard_template():
+        """Bring the test indices down to a single shard.
+
+        The `record` template asks for 8 shards and 1 replica, sized for
+        production; on a test cluster that is 254 shards for a few thousand
+        documents, and each of the 438 `flush_and_refresh` call sites pays for
+        all the shards of its index. This legacy template merges with `record`
+        (order 0) and overrides only these two settings, so every analyzer is
+        preserved.
+
+        It has to be put back after each `put_templates`, because the recovery
+        branches below wipe all templates.
+        """
+        current_search_client.indices.put_template(
+            "dev-single-shard",
+            body={
+                "index_patterns": ["*-*"],
+                "order": 100,
+                "settings": {"number_of_shards": 1, "number_of_replicas": 0},
+            },
+        )
+
     try:
         list(current_search.put_templates(ignore=[400]))
     except IndexAlreadyExistsError:
         current_search_client.indices.delete_template("*")
         list(current_search.put_templates(ignore=[400]))
+    put_single_shard_template()
 
     try:
         list(current_search.create())
@@ -115,6 +138,7 @@ def search(appctx):
         current_search_client.indices.delete(index="*", ignore=[404])
         current_search_client.indices.delete_template("*")
         list(current_search.put_templates(ignore=[400]))
+        put_single_shard_template()
         list(current_search.create())
     current_search_client.indices.refresh()
 
