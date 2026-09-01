@@ -41,6 +41,28 @@ cd rero-ils
 uv run ./scripts/bootstrap
 ```
 
+### TLS certificates
+
+The development server is served over HTTPS. The bootstrap generates its
+certificate and private key in `.certs/`, which is not versioned: a pair
+committed to a public repository is a published private key, and it expires.
+An existing pair is kept; `--force-certs` replaces it.
+
+If [mkcert](https://github.com/FiloSottile/mkcert) is installed, the pair is
+signed by a local certificate authority and browsers accept it without warning.
+Run `mkcert -install` once to trust that authority. Otherwise the script falls
+back to a self-signed certificate from `openssl`, which works but makes browsers
+warn about the unknown issuer.
+
+To regenerate the pair on its own:
+
+```console
+uv run ./scripts/gen-certs --force
+```
+
+The nginx and HAProxy images of `docker-compose.full.yml` build their own
+self-signed certificate, so nothing has to be generated for them.
+
 Start all dependent services using docker-compose (this will start PostgreSQL,
 Elasticsearch 6, RabbitMQ and Redis):
 

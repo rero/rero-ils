@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# SPDX-FileCopyrightText: Fondation RERO+
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Colored message helpers: msg, info_msg, error_msg, error_msg+exit,
+# success_msg, colored_msg.
+. "$(dirname "${BASH_SOURCE[0]}")/messages"
+
+PROGRAM=`basename $0`
+
+set -e
+
+# Displays program name
+msg "PROGRAM: ${PROGRAM}"
+
+CERTS_DIR="$(dirname "${BASH_SOURCE[0]}")/../.certs"
+CERT="${CERTS_DIR}/dev.crt"
+KEY="${CERTS_DIR}/dev.key"
+HOSTS=(localhost 127.0.0.1 ::1)
+
+force=false
+while test $# -gt 0
+do
+  case "$1" in
+    -f|--force)
+      force=true ;;
+    (--) shift; break;;
+    (*) error_msg+exit "Option $1 not recognized" ;;
+  esac
+  shift
+done
+
+if [[ -f "${CERT}" && -f "${KEY}" ]] && ! $force ; then
+  info_msg "Certificates already exist, skipping. Use --force to regenerate."
+  exit 0
+fi
+
+mkdir -p "${CERTS_DIR}"
+
+if command -v mkcert &> /dev/null; then
+  # mkcert signs with a locally trusted CA, so a browser opens the development
+  # server without an interstitial.
+  info_msg "Generate the pair with mkcert"
+  mkcert -cert-file "${CERT}" -key-file "${KEY}" "${HOSTS[@]}"
+  info_msg "Run 'mkcert -install' once if the certificate is not trusted yet."
+else
+  # Fallback for the CI and for any environment without mkcert. A browser warns
+  # about the unknown issuer; curl needs -k and Playwright already ignores it.
+  info_msg "mkcert not found, generate a self-signed pair with openssl"
+  openssl req -x509 -newkey rsa:4096 -sha256 -days 825 -nodes \
+    -keyout "${KEY}" -out "${CERT}" \
+    -subj "/CN=localhost" \
+    -addext "subjectAltName=DNS:localhost,IP:127.0.0.1,IP:::1"
+fi
+
+chmod 600 "${KEY}"
+
+success_msg "Certificates generated in ${CERTS_DIR}"
