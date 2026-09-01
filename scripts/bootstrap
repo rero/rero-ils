@@ -14,7 +14,7 @@ set -e
 msg "PROGRAM: ${PROGRAM}"
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dct: -l deploy,ci,tgz_package: -- "$@")
+if ! options=$(getopt -o dct: -l deploy,ci,force-certs,tgz_package: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -25,6 +25,7 @@ flags=()
 deploy=false
 cmd="uv sync --frozen"
 ci=false
+force_certs=false
 tgz_file=""
 while test $# -gt 0
 do
@@ -35,6 +36,8 @@ do
     -c|--ci)
       # We are probably inside travis, check for env variables
       ci=true ;;
+    --force-certs)
+      force_certs=true ;;
     -t|--tgz_package)
       tgz_file=$2
       if [[ ! -f "${tgz_file}" ]]
@@ -113,6 +116,13 @@ info_msg "Compile translations"
 uv run pybabel compile -d rero_ils/translations
 
 if ! $deploy ; then
+  # The development server needs a TLS pair; a deployment brings its own.
+  certs_flags=()
+  if $force_certs ; then
+    certs_flags+=("--force")
+  fi
+  "$(dirname "${BASH_SOURCE[0]}")"/gen-certs "${certs_flags[@]}"
+
   info_msg "Install Playwright browsers (Chromium, Firefox, WebKit) for E2E tests"
   uv run playwright install chromium firefox webkit
 fi
