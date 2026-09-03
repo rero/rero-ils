@@ -15,6 +15,31 @@ class PatronTransactionExtension(RecordExtension):
     """Patron transactions extension."""
 
     @staticmethod
+    def _record_with_references(record):
+        """Return the persisted record when references have been resolved."""
+        reference_fields = (record.get("loan"), record.get("library"))
+        if any(field and "$ref" not in field for field in reference_fields):
+            return type(record).get_record_by_pid(record.pid)
+        return record
+
+    def post_dump(self, record, data, dumper=None):
+        """Add the owning and transaction libraries to dumped data."""
+        record = self._record_with_references(record)
+
+        if library_pid := record.library_pid:
+            data["library"] = {"pid": library_pid, "type": "lib"}
+        else:
+            data.pop("library", None)
+
+        if transaction_library_pid := record.transaction_library_pid:
+            data["transaction_library"] = {
+                "pid": transaction_library_pid,
+                "type": "lib",
+            }
+        else:
+            data.pop("transaction_library", None)
+
+    @staticmethod
     def _base_data_patron_event(record, steps=None):
         """Create a initial data for Patron Transaction Event."""
         data = {
