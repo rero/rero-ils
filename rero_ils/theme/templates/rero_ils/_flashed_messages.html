@@ -1,0 +1,15 @@
+{# SPDX-FileCopyrightText: Fondation RERO+ #}
+{# SPDX-License-Identifier: AGPL-3.0-or-later #}
+
+{# The messages flashed by the server, in the toast stack of the application. #}
+
+{% from "rero_ils/macros/messages.html" import toast %}
+
+{%- set messages = get_flashed_messages(with_categories=True) %}
+{%- if messages %}
+<div class="toast-container">
+  {%- for category, message in messages %}
+  {{ toast(message, category) }}
+  {%- endfor %}
+</div>
+{%- endif %}

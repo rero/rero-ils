@@ -1130,7 +1130,7 @@ wheels = [
 
 [[package]]
 name = "flask-wiki"
-version = "2.0.0"
+version = "4.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "babel" },
@@ -1141,15 +1141,14 @@ dependencies = [
     { name = "flask-babel" },
     { name = "flask-wtf" },
     { name = "markdown" },
-    { name = "markdown-captions" },
     { name = "poethepoet" },
     { name = "werkzeug" },
     { name = "whoosh-reloaded" },
     { name = "wtforms" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fb/6e/fec51c340ec69d8929100a11b2f500c7df063704a040dd614a350235e613/flask_wiki-2.0.0.tar.gz", hash = "sha256:abe0443cbfe60f2afe765532440073d6c75ebb02a70a561b89f928430c129654", size = 693018, upload-time = "2026-03-26T15:20:28.964Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c4/1e/172fc02404f2b7b9fad841028f021e357f6e1c74195b32b46cf388b40056/flask_wiki-4.0.0.tar.gz", hash = "sha256:cd9d7257771bbf458d5916bc9f89bc3a05785f604461ecd02146f70c05eeb31d", size = 35193, upload-time = "2026-09-04T08:53:36.403Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/94/45/159e87f3191fbd2a15120e17c2799d6e48d42bd439ee76e60c1eb2e70f9e/flask_wiki-2.0.0-py3-none-any.whl", hash = "sha256:2622f336a033fd393472c92d38a20303e762e719ee58edca271d9c791fd53879", size = 720730, upload-time = "2026-03-26T15:20:30.188Z" },
+    { url = "https://files.pythonhosted.org/packages/dc/e1/c0d2a7eca05a34e6eaa29162c38b0b219f1b2ccf862ea176b46b5c6ca14f/flask_wiki-4.0.0-py3-none-any.whl", hash = "sha256:d86d25f19400774dc94534b39711b012bb85c92439a3434706095bb4b5b98c88", size = 58337, upload-time = "2026-09-04T08:53:35.439Z" },
 ]
 
 [[package]]
@@ -2424,15 +2423,6 @@ wheels = [
 ]
 
 [[package]]
-name = "markdown-captions"
-version = "2.1.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "markdown" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/81/1d/15ef64ed904c85d0520d632ec6844b7da886a45b0cb7970644be493181d0/markdown-captions-2.1.2.tar.gz", hash = "sha256:1c3ec0b674dd41a4c5f125724188c32a17bd46fd527db29f0c55a001e2d7abaf", size = 3031, upload-time = "2022-07-19T22:29:28.959Z" }
-
-[[package]]
 name = "markdown-it-py"
 version = "4.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3568,7 +3558,6 @@ dependencies = [
     { name = "invenio-circulation" },
     { name = "invenio-config" },
     { name = "invenio-db", extra = ["postgresql"] },
-    { name = "invenio-formatter" },
     { name = "invenio-i18n" },
     { name = "invenio-indexer" },
     { name = "invenio-jsonschemas" },
@@ -3587,7 +3576,6 @@ dependencies = [
     { name = "invenio-search", extra = ["elasticsearch7"] },
     { name = "invenio-search-ui" },
     { name = "invenio-sip2" },
-    { name = "invenio-theme" },
     { name = "isbnlib" },
     { name = "iso639" },
     { name = "jinja2" },
@@ -3595,7 +3583,6 @@ dependencies = [
     { name = "jsonresolver" },
     { name = "lazyreader" },
     { name = "levenshtein" },
-    { name = "markdown-captions" },
     { name = "num2words" },
     { name = "poethepoet" },
     { name = "polib" },
@@ -3641,7 +3628,7 @@ requires-dist = [
     { name = "dnspython", specifier = ">=2.4.2" },
     { name = "dojson", specifier = ">=1.4.0" },
     { name = "flask-admin", specifier = ">=1.6.1" },
-    { name = "flask-wiki", specifier = ">=1.0.0" },
+    { name = "flask-wiki", specifier = ">=4.0.0" },
     { name = "invenio-access", specifier = ">=4.0.0" },
     { name = "invenio-accounts", specifier = ">=6.0.0" },
     { name = "invenio-admin", specifier = ">=1.6.0" },
@@ -3652,7 +3639,6 @@ requires-dist = [
     { name = "invenio-circulation", specifier = ">=4.0.0" },
     { name = "invenio-config", specifier = ">=1.0.3" },
     { name = "invenio-db", extras = ["postgresql"], specifier = ">=2.0.0" },
-    { name = "invenio-formatter", specifier = ">=3.0.0" },
     { name = "invenio-i18n", specifier = ">=3.4.2" },
     { name = "invenio-indexer", specifier = ">=4.0.0" },
     { name = "invenio-jsonschemas", specifier = ">=2.0.0" },
@@ -3671,7 +3657,6 @@ requires-dist = [
     { name = "invenio-search", extras = ["elasticsearch7"], specifier = ">=3.0.0" },
     { name = "invenio-search-ui", specifier = ">=4.0.0" },
     { name = "invenio-sip2", specifier = ">=0.6.25" },
-    { name = "invenio-theme", specifier = ">=4.0.0" },
     { name = "isbnlib", specifier = ">=3.9.1" },
     { name = "iso639", specifier = ">=0.1.4" },
     { name = "jinja2", specifier = ">2.11.2" },
@@ -3679,7 +3664,6 @@ requires-dist = [
     { name = "jsonresolver" },
     { name = "lazyreader", specifier = ">=1.0.0" },
     { name = "levenshtein", specifier = ">=0.26.0" },
-    { name = "markdown-captions", specifier = ">=2.1.2" },
     { name = "num2words", specifier = ">=0.5.10" },
     { name = "poethepoet" },
     { name = "polib" },

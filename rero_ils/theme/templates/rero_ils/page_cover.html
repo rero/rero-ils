@@ -11,8 +11,7 @@
     <![endif]-->
   {%- endblock browserupgrade %}
   {%- block flashmessages %}
-    {%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
-    {{ flashed_messages() }}
+    {%- include "rero_ils/_flashed_messages.html" %}
   {%- endblock flashmessages %}
   <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
   {% block page_header %}

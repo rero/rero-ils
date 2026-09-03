@@ -3,7 +3,8 @@
 
 import $ from 'jquery';
 
-// flash messages
-$('.toast-container .toast').toast({
+// flash messages, rendered visible by the server. Toasts kept hidden for a
+// script to reveal them by id are left alone.
+$('.toast-container .toast.show').toast({
   delay: 5000
 }).toast('show');
