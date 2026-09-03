@@ -11,3 +11,11 @@ NJ-CANTOOK:
     url: https://bm.ebibliomedia.ch
     classname: 'rero_ils.modules.api_harvester.cantook.api.ApiCantook'
     code: 'ebibliomedia'
+
+VS-MEMO:
+    url: https://archives.memovs.ch/docs/api/
+    classname: 'rero_ils.modules.api_harvester.memovs.api.ApiMemovs'
+    code: 'memovs'
+    settings:
+        location_pid: '3'
+        item_type_pid: '4'
