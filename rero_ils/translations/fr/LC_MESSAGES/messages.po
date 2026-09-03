@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-09-02 06:39+0000\n"
+"POT-Creation-Date: 2026-09-03 06:41+0000\n"
 "PO-Revision-Date: 2026-09-01 07:01+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -10492,55 +10492,55 @@ msgstr ""
 "Si activé, le scan (dans le module de prêt/retour) d'un exemplaire avec ce "
 "type temporaire le lui retirera."
 
-#: rero_ils/modules/items/api/circulation.py:83
+#: rero_ils/modules/items/api/circulation.py:84
 msgid "No circulation action performed: validate impossible"
 msgstr "Aucune action de prêt effectuée : validation impossible"
 
-#: rero_ils/modules/items/api/circulation.py:112
+#: rero_ils/modules/items/api/circulation.py:113
 msgid "No circulation action performed: extension impossible"
 msgstr "Aucune action de prêt effectuée : prolongation impossible"
 
-#: rero_ils/modules/items/api/circulation.py:214
+#: rero_ils/modules/items/api/circulation.py:215
 msgid "No circulation action performed: item returned at owning library"
 msgstr ""
 "Aucune action de prêt effectuée : exemplaire de retour dans sa bibliothèque"
 
-#: rero_ils/modules/items/api/circulation.py:218
+#: rero_ils/modules/items/api/circulation.py:219
 msgid "No circulation action performed: on shelf"
 msgstr "Aucune action de prêt effectuée : exemplaire en rayon"
 
-#: rero_ils/modules/items/api/circulation.py:227
-#: rero_ils/modules/items/api/circulation.py:260
-#: rero_ils/modules/items/api/circulation.py:287
+#: rero_ils/modules/items/api/circulation.py:228
+#: rero_ils/modules/items/api/circulation.py:261
+#: rero_ils/modules/items/api/circulation.py:288
 msgid "No circulation action performed: in transit added"
 msgstr "Aucune action de prêt effectuée : exemplaire en transit"
 
-#: rero_ils/modules/items/api/circulation.py:245
+#: rero_ils/modules/items/api/circulation.py:246
 msgid "No circulation action performed: item at desk"
 msgstr "Aucune action de prêt effectuée : exemplaire à retirer"
 
-#: rero_ils/modules/items/api/circulation.py:313
+#: rero_ils/modules/items/api/circulation.py:314
 msgid "No circulation action performed: in transit to house"
 msgstr ""
 "Aucune action de prêt effectuée : en transit vers bibliothèque propriétaire"
 
-#: rero_ils/modules/items/api/circulation.py:360
+#: rero_ils/modules/items/api/circulation.py:361
 msgid "No circulation action performed: in transit"
 msgstr "Aucune action de prêt effectuée : en transit"
 
-#: rero_ils/modules/items/api/circulation.py:543
+#: rero_ils/modules/items/api/circulation.py:544
 msgid "No circulation action performed: item on loan"
 msgstr "Aucune action de prêt effectuée : exemplaire en prêt"
 
-#: rero_ils/modules/items/api/circulation.py:989
+#: rero_ils/modules/items/api/circulation.py:992
 msgid "Item status disallows the operation."
 msgstr "Le statut de l'exemplaire empêche cette opération."
 
-#: rero_ils/modules/items/api/circulation.py:995
+#: rero_ils/modules/items/api/circulation.py:998
 msgid "Item and patron are not in the same organisation."
 msgstr "L'exemplaire et le lecteur ne sont pas dans la même organisation."
 
-#: rero_ils/modules/items/api/circulation.py:998
+#: rero_ils/modules/items/api/circulation.py:1001
 #: rero_ils/modules/selfcheck/api.py:409
 msgid "Item is already checked-out or requested by patron."
 msgstr "L'exemplaire est déjà prêté ou demandé par un lecteur."
@@ -12167,36 +12167,36 @@ msgstr ""
 msgid "Block the patron if the subscription is not paid"
 msgstr "Bloquer le lecteur si les cotisations ne sont pas payées"
 
-#: rero_ils/modules/patrons/api.py:122
+#: rero_ils/modules/patrons/api.py:126
 msgid "Patron has active loans or fees, cannot remove patron role"
 msgstr "Prêts/frais actifs, impossible de retirer le rôle \"lecteur\""
 
-#: rero_ils/modules/patrons/api.py:380
+#: rero_ils/modules/patrons/api.py:384
 msgid "Your account is currently blocked."
 msgstr "Votre compte est actuellement bloqué."
 
-#: rero_ils/modules/patrons/api.py:380
+#: rero_ils/modules/patrons/api.py:384
 msgid "This patron is currently blocked."
 msgstr "Ce lecteur est actuellement bloqué."
 
-#: rero_ils/modules/patrons/api.py:382
+#: rero_ils/modules/patrons/api.py:386
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:411
 msgid "Reason"
 msgstr "Motif"
 
-#: rero_ils/modules/patrons/api.py:455
+#: rero_ils/modules/patrons/api.py:459
 msgid "Patron rights expired"
 msgstr "Droits du lecteur expirés"
 
-#: rero_ils/modules/patrons/api.py:474
+#: rero_ils/modules/patrons/api.py:478
 msgid "Transactions denied: maximum amount of overdue fees reached"
 msgstr "Transactions refusées : montant maximum de frais atteint"
 
-#: rero_ils/modules/patrons/api.py:482
+#: rero_ils/modules/patrons/api.py:486
 msgid "Checkout denied: maximum number of overdue items reached"
 msgstr "Prêt refusé : maximum d'exemplaires en retard atteint"
 
-#: rero_ils/modules/patrons/api.py:586
+#: rero_ils/modules/patrons/api.py:590
 msgid "Patron account expired."
 msgstr "Compte-lecteur expiré."
 
@@ -13069,11 +13069,6 @@ msgstr "Un seul contact de chaque type est autorisé."
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
-msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
@@ -13086,6 +13081,11 @@ msgstr "<i class=\"fa-solid fa-user\"></i>"
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-phone\"></i>"
 msgstr "<i class=\"fa-solid fa-phone\"></i>"
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
+msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
 
 #: rero_ils/theme/menus.py:38
 msgid "My Account"
