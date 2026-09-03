@@ -121,6 +121,20 @@ def test_help(client):
     assert result.status_code == 302
 
 
+def test_help_front_end(client):
+    """Test that the help pages provide what the wiki front-end needs."""
+    result = client.get(url_for("wiki.page", url="home"))
+    assert result.status_code == 200
+    # the wiki icons are rendered with the Font Awesome of the theme bundle
+    assert "fa-magnifying-glass" in result.text
+    # no front-end library is loaded from a CDN
+    assert "cdn.jsdelivr.net" not in result.text
+    # the toasts wiki.js reveals by id, in the toast stack of the application
+    assert 'class="toast-container"' in result.text
+    assert 'id="copy-success"' in result.text
+    assert 'id="copy-error"' in result.text
+
+
 @pytest.mark.parametrize("role_name", ["editor", "admin"])
 def test_help_edit_permission(client, app, db, user_with_profile, role_name):
     """Test the wiki edition permission."""
@@ -221,6 +235,22 @@ def test_set_user_name(
     login_user(user=librarian_martigny.user)
     assert session["user_name"] == librarian_martigny.formatted_name
     logout_user()
+
+
+def test_flashed_message_categories(client):
+    """Test that a flashed message is rendered as a toast of a styled category."""
+    # an error is displayed as a danger toast, the only red category styled
+    with client.session_transaction() as session:
+        session["_flashes"] = [("error", "an error")]
+    result = client.get(url_for("rero_ils.index"))
+    assert "toast-danger" in result.text
+    assert "toast-error" not in result.text
+
+    # a message flashed without any category falls back on the info toast
+    with client.session_transaction() as session:
+        session["_flashes"] = [("message", "a notice")]
+    result = client.get(url_for("rero_ils.index"))
+    assert "toast-info" in result.text
 
 
 def test_google_analytics(client, app):
