@@ -1,0 +1,15 @@
+Registrazione: {{ organisation.name }}
+Cara/caro {{ patron.name }},
+
+Siamo liete·i di avervi come nostra lettrice o nostro lettore!
+
+Qui si può accedere al catalogo e all'account online: {{ organisation.url }}
+{%- if patron.additional_email %}
+
+Una copia di tutte le vostre notifiche viene inviata alla seguente email: {{ patron.additional_email }}
+{%- endif %}
+
+Cordiali saluti,
+
+{{ organisation.name }}
+{{ organisation.address }}

@@ -5,6 +5,8 @@
 
 from invenio_records.extensions import RecordExtension
 
+from rero_ils.modules.permissions_cache import register_record_permissions_cache_deletion
+
 
 class AcqReceiptExtension(RecordExtension):
     """Defines hooks about API functions calls for AcqReceipt."""
@@ -15,6 +17,7 @@ class AcqReceiptExtension(RecordExtension):
         :param record: the record metadata.
         :param force: force the deleting of the record.
         """
+        register_record_permissions_cache_deletion("acq_orders", record.order_pid)
         # For receipts, we are allowed to delete all of its receipt lines
         # without further checks.
         for line in record.get_receipt_lines():
