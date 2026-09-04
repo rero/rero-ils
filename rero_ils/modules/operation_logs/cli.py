@@ -3,74 +3,16 @@
 
 """Click command-line interface for operation_log record management."""
 
-import json
-
 import click
 from flask.cli import with_appcontext
-from invenio_search.api import RecordsSearch
 
 from rero_ils.modules.operation_logs.api import OperationLog
-
-from ..utils import JsonWriter, read_json_record
 
 
 def abort_if_false(ctx, param, value):
     """Abort command is value is False."""
     if not value:
         ctx.abort()
-
-
-@click.command("create_operation_logs")
-@click.option("-l", "--lazy", "lazy", is_flag=True, default=False)
-@click.option("-s", "--batch-size", "size", type=int, default=10000)
-@click.argument("infile", type=click.File("r"))
-@with_appcontext
-def create_operation_logs(infile, lazy, size):
-    """Load operation log records in reroils.
-
-    :param infile: Json operation log file.
-    :param lazy: lazy reads file
-    """
-    click.secho("Load operation log records:", fg="green")
-    data = read_json_record(infile) if lazy else json.load(infile)
-    index_count = 0
-    with click.progressbar(data) as bar:
-        records = []
-        for oplg in bar:
-            if not (index_count + 1) % size:
-                OperationLog.bulk_index(records)
-                records = []
-            records.append(oplg)
-            index_count += 1
-        # the rest of the records
-        if records:
-            OperationLog.bulk_index(records)
-            index_count += len(records)
-    click.echo(f"created {index_count} operation logs.")
-
-
-@click.command("dump_operation_logs")
-@click.argument("outfile_name")
-@click.option("-y", "--year", "year", type=int)
-@with_appcontext
-def dump_operation_logs(outfile_name, year):
-    """Dumps operation log records in a given file.
-
-    :param outfile: JSON operation log output file.
-    """
-    click.secho("Dumps operation log records:", fg="green")
-    index_name = OperationLog.index_name
-    if year is not None:
-        index_name = f"{index_name}-{year}"
-    search = RecordsSearch(index=index_name)
-
-    index_count = 0
-    outfile = JsonWriter(outfile_name)
-    with click.progressbar(search.scan(), length=search.count()) as bar:
-        for oplg in bar:
-            outfile.write(str(oplg.to_dict()))
-            index_count += 1
-    click.echo(f"created {index_count} operation logs.")
 
 
 @click.command("destroy_operation_logs")

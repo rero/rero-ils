@@ -10,12 +10,50 @@ PROGRAM=`basename $0`
 
 set -e
 
+# Print the usage on standard error, as every other message of this script.
+usage() {
+  cat >&2 <<EOF
+Usage: uv run ${PROGRAM} [options]
+
+Start the development server over HTTPS, along with the celery worker and its
+beat scheduler. The TLS pair is read from .certs/, produced by
+'uv run ./scripts/gen-certs'.
+
+Options:
+  -n, --no-worker        start the server alone, without celery
+  -l, --loglevel LEVEL   celery log level (default: INFO)
+  -h, --help             display this help and exit
+EOF
+}
+
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
-set -e
-
 SCRIPT_PATH=$(dirname "$0")
+
+# The options are parsed before anything else, so that --help answers outside a
+# virtual environment too.
+# loglevel: celery log level (Cf. https://docs.celeryproject.org/en/latest/reference/celery.bin.worker.html#cmdoption-celery-worker-l)
+# no-worker: disable celery worker
+CELERY_LOG_LEVEL="INFO"
+worker=true
+while test $# -gt 0
+do
+  case "$1" in
+    -l|--loglevel)
+      CELERY_LOG_LEVEL=$2
+      shift ;;
+    -n|--no-worker)
+      worker=false ;;
+    -h|--help)
+      usage
+      exit 0 ;;
+    (--) shift; break;;
+    (*) error_msg+exit "$0: Unrecognized option $1";;
+  esac
+  shift
+done
+
 # uv is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via uv command:\n\tuv run ${PROGRAM}"
@@ -28,27 +66,15 @@ if [[ -z "${FLASK_ENV}" ]]; then
   export FLASK_ENV="development"
 fi
 
-# loglevel: celery log level (Cf. https://docs.celeryproject.org/en/latest/reference/celery.bin.worker.html#cmdoption-celery-worker-l)
-# no-worker: disable celery worker
-if ! options=$(getopt -o nl: -l no-worker,loglevel: -- "$@"); then
-  exit 1
+# The certificates are checked, and the trap set, before anything is started:
+# both used to come after the celery worker, so a missing pair left it orphaned.
+CERT="$SCRIPT_PATH"/../.certs/dev.crt
+KEY="$SCRIPT_PATH"/../.certs/dev.key
+if [[ ! -f "${CERT}" || ! -f "${KEY}" ]]; then
+  error_msg+exit "Missing development certificates. Generate them with:\n\tuv run ./scripts/gen-certs"
 fi
 
-CELERY_LOG_LEVEL="INFO"
-worker=true
-while test $# -gt 0
-do
-  case "$1" in
-    -l|--loglevel)
-      CELERY_LOG_LEVEL=$2
-      shift ;;
-    -n|--no-worker)
-      worker=false ;;
-    (--) shift; break;;
-    (*) break;;
-  esac
-  shift
-done
+trap 'kill $PID_CELERY $PID_SERVER &>/dev/null' EXIT
 
 # Start Worker and Beat
 if $worker; then
@@ -56,10 +82,6 @@ if $worker; then
 fi
 
 # Start Server
-invenio run \
-   --cert "$SCRIPT_PATH"/../docker/nginx/test.crt \
-   --key "$SCRIPT_PATH"/../docker/nginx/test.key & PID_SERVER=$!
-
-trap 'kill $PID_CELERY $PID_SERVER &>/dev/null' EXIT
+invenio run --cert "${CERT}" --key "${KEY}" & PID_SERVER=$!
 
 wait $PID_CELERY $PID_SERVER
