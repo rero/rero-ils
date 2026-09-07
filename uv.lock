@@ -3675,7 +3675,7 @@ requires-dist = [
     { name = "invenio-mail", specifier = ">=2.0.0" },
     { name = "invenio-oaiharvester", specifier = ">=1.0.0a4" },
     { name = "invenio-oaiserver", specifier = ">=4.0.0" },
-    { name = "invenio-oauth2server", specifier = ">=3.0.0" },
+    { name = "invenio-oauth2server", specifier = ">=6.1.0" },
     { name = "invenio-oauthclient", specifier = ">=5.0.0" },
     { name = "invenio-pidstore", specifier = ">=3.0.0" },
     { name = "invenio-records", specifier = ">=4.0.0" },

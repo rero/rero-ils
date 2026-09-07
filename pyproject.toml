@@ -50,7 +50,7 @@ dependencies = [
     # Invenio auth bundle
     "invenio-access>=4.0.0",
     "invenio-accounts>=6.0.0",
-    "invenio-oauth2server>=3.0.0",
+    "invenio-oauth2server>=6.1.0",
     "invenio-oauthclient>=5.0.0",
     # Invenio metadata bundle
     "invenio-indexer>=4.0.0",
