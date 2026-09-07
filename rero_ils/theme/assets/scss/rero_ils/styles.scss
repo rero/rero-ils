@@ -56,6 +56,10 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
     width: 10em;
   }
 
+  .rero-ils-cover-panel {
+    max-width: 40rem;
+  }
+
   // CSS code to allow `ng-csp="no-inline-css"`
   [ng\:cloak],
   [ng-cloak],

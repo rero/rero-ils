@@ -2,12 +2,12 @@
 {# SPDX-License-Identifier: AGPL-3.0-or-later #}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_i18n.locale.language|safe }}" dir="{{ current_i18n.locale.text_direction }}">
 
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
+  <title>{{ title or _(config.THEME_SITENAME) }}</title>
+  {{ webpack['global.css'] }}
 </head>
 
 <body style="padding: 4em;">

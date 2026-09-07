@@ -21,7 +21,7 @@ theme = WebpackBundle(
     },
     dependencies={
         "popper.js": "1.16.1",
-        "jquery": "~3.2.1",
+        "jquery": "^3.7",
         "bootstrap": "~4.5.3",
         "@fortawesome/fontawesome-free": "^7.0.0",
     },
