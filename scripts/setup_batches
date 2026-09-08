@@ -302,9 +302,10 @@ EOF
   then
     cat <<EOF
 reroils scheduler enable-tasks --all --verbose
-# disable VS/NJ CANTOOK harvesting
+# disable VS/NJ CANTOOK and VS MEMO harvesting
 reroils scheduler enable-tasks --name harvest-vs-cantook --disable
 reroils scheduler enable-tasks --name harvest-nj-cantook --disable
+reroils scheduler enable-tasks --name harvest-vs-memo --disable
 EOF
   else
     echo "reroils scheduler enable-tasks --all --verbose --disable"
@@ -324,7 +325,7 @@ reroils stats report collect-all year
 flask_wiki init-index
 flask_wiki index
 EOF
-  for NAME in "VS-CANTOOK" "NJ-CANTOOK"
+  for NAME in "VS-CANTOOK" "NJ-CANTOOK" "VS-MEMO"
   do
     echo "reroils api-harvester set-last-run ${NAME} -d 1900-01-01"
     if ${DEPLOYMENT}

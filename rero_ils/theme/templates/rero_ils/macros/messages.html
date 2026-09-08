@@ -1,20 +1,15 @@
 {# SPDX-FileCopyrightText: Fondation RERO+ #}
 {# SPDX-License-Identifier: AGPL-3.0-or-later #}
 
-{%- macro flashed_messages() -%}
-  {%- block messages %}
-    {%- set messages = get_flashed_messages(with_categories=True) %}
-    {%- if messages|length > 0 %}
-    <div class="toast-container">
-        {%- for category, msg in messages %}
-        {%- set category = 'info' if category not in ['info', 'danger', 'warning', 'success'] else category %}
-        <div class="toast toast-top-right toast-{{ category }} show">
-          <div class="toast-body">
-            {{ msg }}
-          </div>
-        </div>
-      {%- endfor %}
+{# A toast of the application. It is shown as soon as it is rendered, unless it
+   carries an id and no autoshow: it then waits for a script to reveal it. #}
+{%- macro toast(message, category='info', id=None, autoshow=False) -%}
+  {%- set category = 'danger' if category in ['error', 'critical'] else category %}
+  {%- set category = 'info' if category not in ['info', 'danger', 'warning', 'success'] else category %}
+  <div class="toast toast-top-right toast-{{ category }} {{ 'hide' if id and not autoshow else 'show' }}"
+       {%- if id %} id="{{ id }}" data-delay="5000"{% endif %}>
+    <div class="toast-body">
+      {{ message }}
     </div>
-    {%- endif %}
-  {%- endblock messages %}
+  </div>
 {%- endmacro %}

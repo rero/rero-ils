@@ -123,6 +123,5 @@
 </header>
 
 {%- block flashmessages %}
-  {%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
-  {{ flashed_messages() }}
+  {%- include "rero_ils/_flashed_messages.html" %}
 {%- endblock flashmessages %}

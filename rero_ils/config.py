@@ -533,6 +533,19 @@ CELERY_BEAT_SCHEDULE = {
         "kwargs": {"name": "NJ-CANTOOK"},
         "enabled": False,
     },
+    "celery.harvest-vs-memo": {
+        "task": "rero_ils.modules.api_harvester.tasks.harvest_records",
+        "schedule": schedules.crontab(minute=55, hour=5),  # Every day at 05:55 UTC,
+        "kwargs": {"name": "VS-MEMO"},
+        "enabled": False,
+    },
+    "celery.delete-vs-memo": {
+        "task": "rero_ils.modules.api_harvester.memovs.tasks.delete_memovs",
+        "schedule": schedules.crontab(
+            minute=7, hour=7, day_of_week=6
+        ),  # Every Sunday at 07:07 UTC,
+        "enabled": False,
+    },
 }
 
 INDEXER_BULK_REQUEST_TIMEOUT = 60
@@ -595,7 +608,6 @@ APP_DEFAULT_SECURE_HEADERS = {
             "https://www.google-analytics.com",
             "https://services.test.rero.ch",
             "https://services.rero.ch",
-            "https://cdn.jsdelivr.net",
             "https://www.babelio.com",
         ],
     },
@@ -3908,10 +3920,13 @@ WIKI_URL_PREFIX = "/help"
 WIKI_LANGUAGES = {"en": "English", "fr": "French", "de": "German", "it": "Italian"}
 WIKI_CURRENT_LANGUAGE = get_current_language
 WIKI_UPLOAD_FOLDER = os.path.join(WIKI_CONTENT_DIR, "files")
+# Render the wiki icons and toasts the way the rest of the application does.
+WIKI_ICON_TEMPLATE = "wiki/icons/fontawesome.html"
+WIKI_TOAST_TEMPLATE = "rero_ils/macros/messages.html"
 WIKI_BASE_TEMPLATE = "rero_ils/page_wiki.html"
 WIKI_EDIT_VIEW_PERMISSION = wiki_edit_view_permission
 WIKI_EDIT_UI_PERMISSION = wiki_edit_ui_permission
-WIKI_MARKDOWN_EXTENSIONS = set(("extra", "markdown_captions"))
+WIKI_MARKDOWN_EXTENSIONS = {"extra"}
 
 # IMPORT FROM EXTERNAL SOURCE CONFIGURATION
 # =============================================================================

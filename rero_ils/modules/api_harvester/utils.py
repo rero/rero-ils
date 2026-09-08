@@ -32,20 +32,21 @@ def add_set(spec, name, pattern, description="..."):
     return msg
 
 
-def api_source(name, url="", classname=None, code="", update=False):
+def api_source(name, url="", classname=None, code="", settings=None, update=False):
     """Add ApiHarvestConfig do DB.
 
     :param name: name for the configuration
     :param url: harvesting url
     :param classname: Class responsible for getting record_serializers
     :param code: code added to electronic_location['nonpublic_note']
+    :param settings: arbitrary harvester-specific configuration dict
     :param update: update configuration if exist
     :returns: update message string
     """
     msg = "No Update"
     source = ApiHarvestConfig.query.filter_by(name=name).first()
     if not source:
-        source = ApiHarvestConfig(name=name, url=url, classname=classname, code=code)
+        source = ApiHarvestConfig(name=name, url=url, classname=classname, code=code, settings=settings)
         db.session.merge(source)
         db.session.commit()
         msg = "Add"
@@ -60,7 +61,9 @@ def api_source(name, url="", classname=None, code="", update=False):
         if code != "":
             source.code = code
             msgs.append(f"code:{code}")
-        # TODO: commit not working get stuck
+        if settings is not None:
+            source.settings = settings
+            msgs.append(f"settings:{settings}")
         db.session.merge(source)
         db.session.commit()
         msg = f"Update {', '.join(msgs)}"

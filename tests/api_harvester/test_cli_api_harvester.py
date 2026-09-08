@@ -40,18 +40,26 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
         "\tlastrun   : 1900-01-01 00:00:00",
         "\turl       : https://bm.ebibliomedia.ch",
         "\tclassname : rero_ils.modules.api_harvester.cantook.api.ApiCantook",
-        "\tcode   : ebibliomedia",
+        "\tcode      : ebibliomedia",
+        "\tsettings  : None",
         "VS-CANTOOK",
         "\tlastrun   : 1900-01-01 00:00:00",
         "\turl       : https://mediatheque-valais.cantookstation.eu",
         "\tclassname : rero_ils.modules.api_harvester.cantook.api.ApiCantook",
-        "\tcode   : mv-cantook",
+        "\tcode      : mv-cantook",
+        "\tsettings  : None",
+        "VS-MEMO",
+        "\tlastrun   : 1900-01-01 00:00:00",
+        "\turl       : https://archives.memovs.ch/docs/api/",
+        "\tclassname : rero_ils.modules.api_harvester.memovs.api.ApiMemovs",
+        "\tcode      : memovs",
+        "\tsettings  : {'location_pid': None, 'item_type_pid': None}",
     ]
 
     result = runner.invoke(set_last_run, ["NJ-CANTOOK", "-d", "2002-02-02"])
     assert result.exit_code == 0
     output = result.output.strip().split("\n")
-    assert output == ["Set last run NJ-CANTOOK: 2002-02-02"]
+    assert output == ["Set last run NJ-CANTOOK: 2002-02-02 00:00:00"]
 
     result = runner.invoke(info)
     assert result.exit_code == 0
@@ -61,12 +69,20 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
         "\tlastrun   : 2002-02-02 00:00:00",
         "\turl       : https://bm.ebibliomedia.ch",
         "\tclassname : rero_ils.modules.api_harvester.cantook.api.ApiCantook",
-        "\tcode   : ebibliomedia",
+        "\tcode      : ebibliomedia",
+        "\tsettings  : None",
         "VS-CANTOOK",
         "\tlastrun   : 1900-01-01 00:00:00",
         "\turl       : https://mediatheque-valais.cantookstation.eu",
         "\tclassname : rero_ils.modules.api_harvester.cantook.api.ApiCantook",
-        "\tcode   : mv-cantook",
+        "\tcode      : mv-cantook",
+        "\tsettings  : None",
+        "VS-MEMO",
+        "\tlastrun   : 1900-01-01 00:00:00",
+        "\turl       : https://archives.memovs.ch/docs/api/",
+        "\tclassname : rero_ils.modules.api_harvester.memovs.api.ApiMemovs",
+        "\tcode      : memovs",
+        "\tsettings  : {'location_pid': None, 'item_type_pid': None}",
     ]
 
     result = runner.invoke(add_api_source_config, ["NJ-CANTOOK", "-c", "ebibliomedia-test", "-u"])
@@ -82,13 +98,47 @@ def test_cli(app, org_sion, lib_sion, loc_online_sion, item_type_online_sion):
         "\tlastrun   : 2002-02-02 00:00:00",
         "\turl       : https://bm.ebibliomedia.ch",
         "\tclassname : rero_ils.modules.api_harvester.cantook.api.ApiCantook",
-        "\tcode   : ebibliomedia-test",
+        "\tcode      : ebibliomedia-test",
+        "\tsettings  : None",
         "VS-CANTOOK",
         "\tlastrun   : 1900-01-01 00:00:00",
         "\turl       : https://mediatheque-valais.cantookstation.eu",
         "\tclassname : rero_ils.modules.api_harvester.cantook.api.ApiCantook",
-        "\tcode   : mv-cantook",
+        "\tcode      : mv-cantook",
+        "\tsettings  : None",
+        "VS-MEMO",
+        "\tlastrun   : 1900-01-01 00:00:00",
+        "\turl       : https://archives.memovs.ch/docs/api/",
+        "\tclassname : rero_ils.modules.api_harvester.memovs.api.ApiMemovs",
+        "\tcode      : memovs",
+        "\tsettings  : {'location_pid': None, 'item_type_pid': None}",
     ]
+
+    # test --setting patches individual settings keys
+    result = runner.invoke(add_api_source_config, ["VS-MEMO", "-u", "-s", "location_pid=loc1"])
+    assert result.exit_code == 0
+    assert (
+        result.output.strip()
+        == "ApiHarvestConfig VS-MEMO: Update settings:{'location_pid': 'loc1', 'item_type_pid': None}"
+    )
+
+    result = runner.invoke(
+        add_api_source_config, ["VS-MEMO", "-u", "-s", "location_pid=loc2", "-s", "item_type_pid=itty1"]
+    )
+    assert result.exit_code == 0
+    assert (
+        result.output.strip()
+        == "ApiHarvestConfig VS-MEMO: Update settings:{'location_pid': 'loc2', 'item_type_pid': 'itty1'}"
+    )
+
+    # test --delete-setting removes a key
+    result = runner.invoke(add_api_source_config, ["VS-MEMO", "-u", "-d", "item_type_pid"])
+    assert result.exit_code == 0
+    assert result.output.strip() == "ApiHarvestConfig VS-MEMO: Update settings:{'location_pid': 'loc2'}"
+
+    # test --setting with bad format (no =) exits with error
+    result = runner.invoke(add_api_source_config, ["VS-MEMO", "-u", "-s", "bad_format"])
+    assert result.exit_code != 0
 
     # test harvest with create
     content = json.load(open(join(dirname(__file__), "../data/mv_cantook.json")))

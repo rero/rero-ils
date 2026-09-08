@@ -142,6 +142,11 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
     right: 24px;
   }
 
+  .toast-info .toast-body {
+    background-color: $dark-blue;
+    color: white;
+  }
+
   .toast-success .toast-body {
     background-color: $green;
     color: white;
@@ -152,7 +157,6 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
     color: white;
   }
 
-  .toast-error .toast-body,
   .toast-danger .toast-body {
     background-color: $red;
     color: white;

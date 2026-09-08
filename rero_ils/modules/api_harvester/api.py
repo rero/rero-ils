@@ -13,7 +13,7 @@ from rero_ils.modules.organisations.api import Organisation
 class ApiHarvest:
     """ApiHarvest class."""
 
-    def __init__(self, name, file_name=None, process=False, harvest_count=-1, verbose=False):
+    def __init__(self, name, file_name=None, process=False, harvest_count=-1, verbose=False, log_file=None):
         """Class init.
 
         :param name: name of API config
@@ -21,6 +21,7 @@ class ApiHarvest:
         :param process: create harvested records
         :param harvest_count: how many records to harvest
         :param verbose: print verbose messages
+        :param log_file: open file handle for verbose output (line-buffered)
         """
         config = self.get_config(name)
         if not config:
@@ -29,7 +30,8 @@ class ApiHarvest:
         self.file = file_name
         self.process = process
         self.harvest_count = harvest_count
-        self.verbose = verbose
+        self.verbose = verbose or log_file is not None
+        self.log_file = log_file
         self._vendor = None
         self._url = self.config.url
         self._code = self.config.code
@@ -37,6 +39,7 @@ class ApiHarvest:
         self._count_new = 0
         self._count_upd = 0
         self._count_del = 0
+        self._count_unchanged = 0
         info = {}
         for organisation in Organisation.get_records_by_online_harvested_source(self._code):
             locations = {}
@@ -114,6 +117,8 @@ class ApiHarvest:
         """
         if self.verbose:
             click.echo(msg)
+            if self.log_file:
+                self.log_file.write(f"{msg}\n")
 
     def harvest_records(self, from_date):
         """Harvest records from servers.
@@ -144,3 +149,8 @@ class ApiHarvest:
     def count_del(self):
         """Get deleted count."""
         return self._count_del
+
+    @property
+    def count_unchanged(self):
+        """Get unchanged count."""
+        return self._count_unchanged
