@@ -39,6 +39,15 @@ def _wait_for_server(base_url):
 # so we set it here to avoid needing it as an external environment variable.
 os.environ.setdefault("E2E", "yes")
 
+
+@pytest.hookimpl(wrapper=True)
+def pytest_runtest_makereport(item, call):
+    """Store each phase report on the item so fixtures can read the outcome."""
+    report = yield
+    setattr(item, f"_report_{report.when}", report)
+    return report
+
+
 # ── Test credentials (match the small fixture data set) ──────────────────────
 
 PASSWORD = "Pw123456"
@@ -121,20 +130,115 @@ def browser(browser_type, browser_type_launch_args):
     pw_browser.close()
 
 
-def _make_page(pw_browser, base_url, email, start_url=None):
-    """Create an isolated browser context + page logged in as the given user.
+# ── Console / network guard ───────────────────────────────────────────────────
+
+#: Console error messages containing one of these substrings are tolerated.
+CONSOLE_ALLOWLIST = (
+    # Transport-level failure of the Werkzeug development server over TLS: it
+    # drops a keep-alive connection on the second navigation inside the admin
+    # SPA, Chromium retries and gives up. The resource itself is served fine
+    # (curl returns it in 34 ms), and no production server behaves this way.
+    "net::ERR_TOO_MANY_RETRIES",
+)
+
+#: ``(method, url substring, status)`` non-2xx answers that the application
+#: legitimately returns and that must therefore not fail a test.
+HTTP_ALLOWLIST = (
+    # The circulation state machine answers 400 "No circulation action performed"
+    # for checkins that are valid no-ops (CHECKIN_1.1.1, CHECKIN_4.2).
+    ("POST", "/api/item/checkin", 400),
+    # Renewal is denied when it would not push the due date forward.
+    ("POST", "/api/item/extend_loan", 400),
+)
+
+
+def http_allowed(method, url, status):
+    """Whether a non-2xx response is a documented, legitimate answer."""
+    return any(m == method and part in url and s == status for m, part, s in HTTP_ALLOWLIST)
+
+
+class PageGuard:
+    """Watch a page for console errors, uncaught exceptions and failed responses.
+
+    One is attached to every page fixture. Nothing fails during the test itself:
+    problems are collected and reported by ``assert_clean`` once the test body is
+    over, so a test that navigates through a broken screen fails even when its own
+    assertions pass.
+    """
+
+    def __init__(self, page):
+        """Subscribe to the three browser channels of the given page."""
+        self.problems = []
+        page.on("console", self._on_console)
+        page.on("pageerror", self._on_page_error)
+        page.on("response", self._on_response)
+
+    def _on_console(self, message):
+        """Record console.error() calls that are not allowlisted.
+
+        The location is appended because Chromium's network-level messages
+        ("Failed to load resource: …") never name the resource in their text.
+        """
+        if message.type != "error" or any(part in message.text for part in CONSOLE_ALLOWLIST):
+            return
+        origin = message.location.get("url") or ""
+        self.problems.append(f"console error: {message.text}" + (f" ({origin})" if origin else ""))
+
+    def _on_page_error(self, error):
+        """Record exceptions that reached the top level of the page."""
+        self.problems.append(f"uncaught exception: {error.message}")
+
+    def _on_response(self, response):
+        """Record 4xx/5xx answers to requests issued by the browser."""
+        method = response.request.method
+        if response.status >= 400 and not http_allowed(method, response.url, response.status):
+            self.problems.append(f"HTTP {response.status}: {method} {response.url}")
+
+    def assert_clean(self):
+        """Fail with the full list of everything the browser reported."""
+        assert not self.problems, "the browser reported errors:\n  - " + "\n  - ".join(self.problems)
+
+
+def _assert_clean_unless_failed(guard, request):
+    """Run the guard assertion, unless the test already failed on its own.
+
+    A failing test usually produces browser errors too; reporting them on top of
+    the real failure would only bury it.
+    """
+    report = getattr(request.node, "_report_call", None)
+    if report is not None and report.passed:
+        guard.assert_clean()
+
+
+@pytest.fixture()
+def page(page, request):
+    """Watch pytest-playwright's default page for console and network errors."""
+    guard = PageGuard(page)
+    yield page
+    _assert_clean_unless_failed(guard, request)
+
+
+def _make_page(pw_browser, base_url, email, request, start_url=None):
+    """Yield an isolated context + page logged in as the given user, under surveillance.
 
     Takes a playwright Browser instance (not pytest-invenio's Selenium browser).
+    The guard is attached before the first navigation so that the initial load of
+    the interface is watched too.
     """
     ctx = pw_browser.new_context(base_url=base_url, **_CONTEXT_ARGS)
     ctx.set_default_timeout(_DEFAULT_TIMEOUT_MS)
     p = ctx.new_page()
+    guard = PageGuard(p)
     resp = p.request.post(f"{base_url}/api/login", data={"email": email, "password": PASSWORD})
     assert resp.ok, f"Login failed for {email!r}: {resp.status} {resp.text()}"
     p.goto(f"{base_url}/lang/en", wait_until="domcontentloaded")
     if start_url:
         p.goto(start_url, wait_until="domcontentloaded")
-    return p, ctx
+    yield p
+    try:
+        _assert_clean_unless_failed(guard, request)
+    finally:
+        ctx.close()
 
 
 # ── Login helpers ─────────────────────────────────────────────────────────────
@@ -156,27 +260,21 @@ def logout(page, base_url):
 
 
 @pytest.fixture()
-def librarian_page(browser, base_url):
+def librarian_page(browser, base_url, request):
     """Isolated context + page logged in as Leonard at the professional UI."""
-    p, ctx = _make_page(browser, base_url, LIBRARIANS["leonard"]["email"], f"{base_url}/professional")
-    yield p
-    ctx.close()
+    yield from _make_page(browser, base_url, LIBRARIANS["leonard"]["email"], request, f"{base_url}/professional")
 
 
 @pytest.fixture()
-def spock_page(browser, base_url):
+def spock_page(browser, base_url, request):
     """Isolated context + page logged in as Spock (Vulcan library)."""
-    p, ctx = _make_page(browser, base_url, LIBRARIANS["spock"]["email"], f"{base_url}/professional")
-    yield p
-    ctx.close()
+    yield from _make_page(browser, base_url, LIBRARIANS["spock"]["email"], request, f"{base_url}/professional")
 
 
 @pytest.fixture()
-def patron_page(browser, base_url):
+def patron_page(browser, base_url, request):
     """Isolated context + page logged in as patron James."""
-    p, ctx = _make_page(browser, base_url, PATRONS["james"]["email"])
-    yield p
-    ctx.close()
+    yield from _make_page(browser, base_url, PATRONS["james"]["email"], request)
 
 
 # ── API helpers ───────────────────────────────────────────────────────────────
