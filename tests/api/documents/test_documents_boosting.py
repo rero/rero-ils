@@ -14,7 +14,7 @@ def test_document_boosting(client, roles, ebook_1, ebook_4):
     res = client.get(list_url)
 
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 2
+    assert hits["total"] == 2
     data = hits["hits"][0]["metadata"]
     assert data["pid"] == ebook_1.pid
 
@@ -24,6 +24,6 @@ def test_document_boosting(client, roles, ebook_1, ebook_4):
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
     data = hits["hits"][0]["metadata"]
     assert data["pid"] == ebook_1.pid

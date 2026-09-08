@@ -197,7 +197,7 @@ def test_filtered_patron_transactions_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
@@ -205,7 +205,7 @@ def test_filtered_patron_transactions_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
@@ -214,7 +214,7 @@ def test_filtered_patron_transactions_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
 
 def test_patron_subscription_transaction(patron_type_youngsters_sion, patron_sion):

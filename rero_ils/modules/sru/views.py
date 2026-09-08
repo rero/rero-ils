@@ -386,6 +386,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
             .query("query_string", query=query_string)
             .exclude("term", _masked=True)
             .exclude("term", _draft=True)
+            .extra(track_total_hits=True)
         )
         if sort_keys:
             search = search.sort(*sort_keys)
@@ -399,7 +400,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
         result = {
             "hits": {
                 "hits": records,
-                "total": {"value": total, "relation": "eq"},
+                "total": total,
                 "sru": {
                     "operation": "searchRetrieve",
                     "cql_query": strip_chars(query),
@@ -420,6 +421,8 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
     def _execute_search(self, search, query):
         """Run the ES search and return ``(records, total)``.
 
+        The total keeps the search engine shape, which the serializers unwrap.
+
         :param search: prepared :class:`DocumentsSearch` instance.
         :param query: original CQL string, used in diagnostic messages.
         :raises HTTPException: on fatal ES errors.
@@ -430,13 +433,13 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
                 {"_id": hit.meta.id, "_index": hit.meta.index, "_source": hit.to_dict(), "_version": 0}
                 for hit in response
             ]
-            total = getattr(response.hits.total, "value", response.hits.total)
+            total = response.hits.total
             return records, total
         except ESRequestError as e:
             err_text = str(getattr(e, "info", e))
             if "Result window" in err_text or "result_window" in err_text:
                 current_app.logger.warning(f"ES window overflow during SRU search: {e}")
-                return [], 0
+                return [], {"value": 0, "relation": "eq"}
             current_app.logger.error(f"ES backend error during SRU search: {e}")
             raise HTTPException(
                 response=_diagnostic_response(

@@ -44,7 +44,7 @@ def test_templates_get(client, templ_doc_public_martigny):
     res = client.get(url)
 
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
 
     data = template.replace_refs()
     data.pop("data", None)
@@ -70,7 +70,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
 
     # librarian martigny can have access to all public and his templates
     login_user_via_session(client, librarian_martigny.user)
@@ -79,7 +79,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
 
     # librarian fully can have access to all public templates only
     login_user_via_session(client, librarian_fully.user)
@@ -88,7 +88,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # Sion
     # librarian sion can have access to no templates
@@ -98,7 +98,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
     # system librarian sion can have access to no templates
     login_user_via_session(client, system_librarian_sion.user)
@@ -107,7 +107,7 @@ def test_filtered_templates_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
 
 @mock.patch(
