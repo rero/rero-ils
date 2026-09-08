@@ -16,9 +16,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-09-08 06:45+0000\n"
-"PO-Revision-Date: 2026-08-20 02:50+0000\n"
+"PO-Revision-Date: 2026-09-09 06:55+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/de/>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: rero_ils/accounts_views.py:48
 msgid "The 2 passwords are not identical."
@@ -7031,10 +7031,8 @@ msgid "rpc"
 msgstr "Hörfunkproduzent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:681
-#, fuzzy
-#| msgid "pht"
 msgid "rpt"
-msgstr "Fotograf"
+msgstr "Reporter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:685
 msgid "rsp"
@@ -7558,7 +7556,7 @@ msgstr "Film"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:240
 msgid "film"
-msgstr ""
+msgstr "Film"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:249
 msgid "Public notes"
@@ -10578,16 +10576,14 @@ msgstr "Das Feld Zählung und Chronologie ist für eine Lieferung erforderlich"
 #: rero_ils/modules/items/api/record.py:99
 msgid "Issue location must be the same as the parent holdings location."
 msgstr ""
+"Der Standort der Lieferung muss mit dem Standort des übergeordneten Bestands "
+"übereinstimmen."
 
 #: rero_ils/modules/items/api/record.py:101
-#, fuzzy
-#| msgid ""
-#| "Temporary circulation category cannot be the same than default "
-#| "circulation category."
 msgid "Issue circulation category must be the same as the parent holdings one."
 msgstr ""
-"Die temporäre Ausleihkategorie kann nicht gleich sein wie die Basis-"
-"Ausleihkategorie."
+"Die Ausleihkategorie der Lieferung muss mit der Ausleihkategorie des "
+"übergeordneten Bestands übereinstimmen."
 
 #: rero_ils/modules/items/api/record.py:109
 msgid ""
@@ -10801,12 +10797,9 @@ msgstr ""
 "aber nicht in der öffentlichen Oberfläche."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:814
-#, fuzzy
-#| msgid ""
-#| "Document is harvested or not, will disable record edition or similar."
 msgid "Item is harvested or not, will disable record edition or similar."
 msgstr ""
-"Dokument wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der "
+"Exemplar wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der "
 "Ressource."
 
 #: rero_ils/modules/libraries/api.py:85
