@@ -27,7 +27,7 @@ def test_migrations_rest(
     login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(url_for("api_migration_data.migration_data_list", sort="-updated_at"))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
     assert res.json["hits"]["hits"][0]["id"] == migration_data.meta.id
     assert res.json["hits"]["hits"][0]["metadata"]
     aggs = res.json["aggregations"]
@@ -51,11 +51,11 @@ def test_migrations_rest(
         args[agg] = key
     res = client.get(url_for("api_migration_data.migration_data_list", **args))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
 
     res = client.get(url_for("api_migration_data.migration_data_list", conversion_status="invalid"))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 0
+    assert res.json["hits"]["total"] == 0
 
     res = client.get(
         url_for(
@@ -64,7 +64,7 @@ def test_migrations_rest(
         )
     )
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
 
     res = client.get(
         url_for(
@@ -73,7 +73,7 @@ def test_migrations_rest(
         )
     )
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
 
     res = client.get(
         url_for(
@@ -91,22 +91,22 @@ def test_migrations_rest(
         )
     )
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 0
+    assert res.json["hits"]["total"] == 0
 
     res = client.get(url_for("api_migration_data.migration_data_list", size=0))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
     assert res.json["hits"]["hits"] == []
 
     res = client.get(url_for("api_migration_data.migration_data_list", page=2, size=10))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
     assert res.json["hits"]["hits"] == []
 
     login_user_via_session(client, system_librarian_sion.user)
     res = client.get(url_for("api_migration_data.migration_data_list"))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 0
+    assert res.json["hits"]["total"] == 0
 
 
 def test_migrations_rest_get(

@@ -83,7 +83,11 @@ class MigrationDataListResource(ContentNegotiatedMethodView):
         query = flask_request.args.get("q")
 
         # base query and filter by organization
-        search = search[(page - 1) * size : page * size].filter(MigrationPermissionPolicy("mig-search").query_filters)
+        search = (
+            search[(page - 1) * size : page * size]
+            .filter(MigrationPermissionPolicy("mig-search").query_filters)
+            .extra(track_total_hits=True)
+        )
 
         # aggregations
         search.aggs.bucket(_("migration"), "terms", field="migration_id.raw", size=30)

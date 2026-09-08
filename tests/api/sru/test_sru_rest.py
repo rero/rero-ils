@@ -427,7 +427,7 @@ def test_sru_next_record_position(client):
         maximumRecords="5",
         format="dc",
     )
-    with patch.object(SRUDocumentsSearch, "_execute_search", return_value=([], 20)):
+    with patch.object(SRUDocumentsSearch, "_execute_search", return_value=([], {"value": 20, "relation": "eq"})):
         res = client.get(api_url)
     assert res.status_code == 200
     xml_dict = get_xml_dict(res)
@@ -506,7 +506,7 @@ def test_sru_result_set_preserves_sort(sru_result_set_client, document_sion_item
 
     def capture_and_return(search, query):
         captured["search_dict"] = search.to_dict()
-        return [], 0
+        return [], {"value": 0, "relation": "eq"}
 
     api_url2 = url_for(
         "api_sru.documents",

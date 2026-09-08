@@ -53,7 +53,7 @@ def test_loans_search(client, loan_pending_martigny, rero_json_header, librarian
         "transaction_library",
     ]
     assert all(key in data["aggregations"] for key in facet_keys)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # STEP#2 :: REQUEST EXPIRED
     #   Update the loan to simulate that this request is now expired.
@@ -61,13 +61,13 @@ def test_loans_search(client, loan_pending_martigny, rero_json_header, librarian
     url = url_for("invenio_records_rest.loanid_list", **params)
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
     loan["request_expire_date"] = yesterday.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # STEP#3 :: LOAN IS OVERDUE
     #   Update the loan to be overdue and test the API search.
@@ -75,13 +75,13 @@ def test_loans_search(client, loan_pending_martigny, rero_json_header, librarian
     url = url_for("invenio_records_rest.loanid_list", **params)
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
     loan["end_date"] = yesterday.isoformat()
     loan.update(loan, dbcommit=True, reindex=True)
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # RESET THE LOAN (for next tests)
     loan.update(original_loan, dbcommit=True, reindex=True)
