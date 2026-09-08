@@ -55,7 +55,7 @@ class Import:
             "aggregations": {},
             "hits": {
                 "hits": [],
-                "total": {"value": 0, "relation": "eq"},
+                "total": 0,
                 "remote_total": 0,
             },
             "links": {},
@@ -231,7 +231,7 @@ class Import:
                 "step": 1,
             }
         results["aggregations"]["year"]["type"] = "range"
-        results["hits"]["total"]["value"] = len(results["hits"]["hits"])
+        results["hits"]["total"] = len(results["hits"]["hits"])
         return results
 
     def filter_records(self, results, ids):
@@ -400,7 +400,7 @@ class Import:
                         timedelta(minutes=self.cache_expire),
                         value=pickle.dumps(cache_data),
                     )
-            self.results["hits"]["total"]["value"] = len(self.results["hits"]["hits"])
+            self.results["hits"]["total"] = len(self.results["hits"]["hits"])
             self.create_aggregations(self.results)
         except requests.exceptions.Timeout as error:
             self.status_code = 504

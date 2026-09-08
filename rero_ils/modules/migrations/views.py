@@ -22,7 +22,7 @@ def simple_search_json_serializer(data, code=200, headers=None):
         return data
     if data:
         hits = [{"metadata": hit["_source"], "id": hit["_id"]} for hit in data["hits"]["hits"]]
-        new_data = {"hits": {"hits": hits, "total": data["hits"]["total"]}}
+        new_data = {"hits": {"hits": hits, "total": data["hits"]["total"]["value"]}}
         if data.get("aggregations"):
             new_data["aggregations"] = data["aggregations"]
         res = jsonify(new_data)

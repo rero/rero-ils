@@ -82,7 +82,7 @@ def test_filtered_notifications_get(client, notification_availability_martigny, 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] > 0
+    assert data["hits"]["total"] > 0
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
@@ -91,7 +91,7 @@ def test_filtered_notifications_get(client, notification_availability_martigny, 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
 
 def test_notification_secure_api(

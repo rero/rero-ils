@@ -495,7 +495,7 @@ def wait_for_item_indexed(page, base_url, barcode, timeout_ms=15000):
                     f"{base_url}/api/holdings/",
                     params={"q": f"document.pid:{doc_pid}"},
                 )
-                if holding_resp.json().get("hits", {}).get("total", {}).get("value", 0) > 0:
+                if holding_resp.json().get("hits", {}).get("total", 0) > 0:
                     return
         page.wait_for_timeout(500)
     raise TimeoutError(f"Item/holding for barcode {barcode!r} not indexed after {timeout_ms}ms")

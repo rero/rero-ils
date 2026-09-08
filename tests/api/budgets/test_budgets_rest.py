@@ -141,7 +141,7 @@ def test_filtered_budgets_get(client, librarian_martigny, budget_2020_martigny, 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
@@ -150,7 +150,7 @@ def test_filtered_budgets_get(client, librarian_martigny, budget_2020_martigny, 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
 
 def test_budget_secure_api(client, json_header, budget_2020_martigny, librarian_martigny, librarian_sion):

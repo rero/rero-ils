@@ -157,7 +157,7 @@ def test_filtered_patron_transaction_events_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
     res = client.get(
         url_for(
             "invenio_records_rest.ptre_list",
@@ -166,7 +166,7 @@ def test_filtered_patron_transaction_events_get(
     )
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     assert not data["hits"]["hits"][0]["metadata"].get("document")
 
     # Sion
@@ -176,7 +176,7 @@ def test_filtered_patron_transaction_events_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
 
 def test_patron_transaction_event_secure_api(

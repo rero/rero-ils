@@ -323,7 +323,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         MARC 21 records with proper namespace declarations and metadata.
 
         Args:
-            total (dict): Total hits information from search index with 'value' key.
+            total (int): Number of matching records. Unused for a single record.
             records (list or dict): Either a list of MARC records (for search results)
                 or a single MARC record dict. Each record should be a GroupableOrderedDict
                 with MARC fields as keys (e.g., 'leader', '245__', '100__').
@@ -442,7 +442,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         if isinstance(records, dict):
             root = dump_record(records, 1)
         else:
-            number_of_records = total["value"]
+            number_of_records = total
             operation = sru.get("operation")
             start_record = sru.get("start_record", 1)
             maximum_records = sru.get("maximum_records", 0)

@@ -103,7 +103,7 @@ def test_documents_get(client, document_with_files):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
 
 def test_documents_newacq_filters(
@@ -173,7 +173,7 @@ def test_documents_newacq_filters(
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
     #   --> for org1, there is 1 document with 2 new acquisition items
     doc_list = url_for(
@@ -184,7 +184,7 @@ def test_documents_newacq_filters(
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     assert len(data["hits"]["hits"][0]["metadata"]["holdings"]) == 2
 
     #   --> for lib2, there is 1 document with 1 new acquisition items
@@ -196,7 +196,7 @@ def test_documents_newacq_filters(
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     #   --> for loc3, there is 1 document with 1 new acquisition items
     doc_list = url_for(
@@ -207,7 +207,7 @@ def test_documents_newacq_filters(
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     #   --> for loc3, there is no document corresponding to range date
     doc_list = url_for(
@@ -218,7 +218,7 @@ def test_documents_newacq_filters(
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
     #   --> for loc1 or loc3, there is 1 document with 2 new acquisition
     #       items (multiple `location` values are combined with OR)
@@ -230,7 +230,7 @@ def test_documents_newacq_filters(
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     assert len(data["hits"]["hits"][0]["metadata"]["holdings"]) == 2
 
     # check new_acquisition filters with -- separator and timestamp
@@ -242,7 +242,7 @@ def test_documents_newacq_filters(
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # check that several `location` filter values are combined with OR
     # across DIFFERENT documents, not just within a single document.
@@ -280,7 +280,7 @@ def test_documents_newacq_filters(
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
 
     # malformed timestamp range must return a clean 400 Bad Request
     doc_list = url_for(
@@ -381,7 +381,7 @@ def test_documents_facets(
         url = url_for("invenio_records_rest.doc_list", **params)
         res = client.get(url)
         data = get_json(res)
-        assert data["hits"]["total"]["value"] == value
+        assert data["hits"]["total"] == value
 
 
 @mock.patch(
@@ -785,7 +785,7 @@ def test_document_exclude_draft_records(client, document):
     list_url = url_for("invenio_records_rest.doc_list", q="Lingliang")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
     data = hits["hits"][0]["metadata"]
     assert data["pid"] == document.get("pid")
 
@@ -795,7 +795,7 @@ def test_document_exclude_draft_records(client, document):
     list_url = url_for("invenio_records_rest.doc_list", q="Lingliang")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 0
+    assert hits["total"] == 0
 
     document["_draft"] = False
     document.update(document, dbcommit=True, reindex=True)
@@ -803,7 +803,7 @@ def test_document_exclude_draft_records(client, document):
     list_url = url_for("invenio_records_rest.doc_list", q="Lingliang")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
 
 
 def test_document_identifiers_search(client, document):
@@ -811,10 +811,10 @@ def test_document_identifiers_search(client, document):
 
     def success(response_data):
         data = response_data["hits"]
-        return data["total"]["value"] == 1 and data["hits"][0]["metadata"]["pid"] == document.pid
+        return data["total"] == 1 and data["hits"][0]["metadata"]["pid"] == document.pid
 
     def failure(response_data):
-        return response_data["hits"]["total"]["value"] == 0
+        return response_data["hits"]["total"] == 0
 
     # STEP#1 :: SEARCH FOR AN EXISTING IDENTIFIER
     #   Search for an existing encoded document identifier. The ISBN-13 is
@@ -1053,7 +1053,7 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
     data = hits["hits"][0]["metadata"]
     assert data["pid"] == document_with_files.pid
     # the document index should contains files informations
@@ -1073,14 +1073,14 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
     data = hits["hits"][0]["metadata"]
     assert data["pid"] == document_with_files.pid
 
     list_url = url_for("invenio_records_rest.doc_list", q=f'"Document ({document_with_files.pid})"')
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 0
+    assert hits["total"] == 0
 
     list_url = url_for(
         "invenio_records_rest.doc_list",
@@ -1089,7 +1089,7 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 0
+    assert hits["total"] == 0
 
     # fulltext is not included by default but it can be accessed if it is
     # explicit
@@ -1100,4 +1100,4 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1

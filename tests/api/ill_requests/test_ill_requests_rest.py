@@ -256,7 +256,7 @@ def test_filtered_ill_requests_get_pending_months_filters(client, app, db, libra
     list_url = url_for("invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}")
     res = client.get(list_url)
     result = res.json
-    assert result["hits"]["total"]["value"] == 1
+    assert result["hits"]["total"] == 1
 
     # Closed record
     ill_request_martigny = ILLRequest.get_record_by_pid(ill_request_martigny.pid)
@@ -267,7 +267,7 @@ def test_filtered_ill_requests_get_pending_months_filters(client, app, db, libra
     list_url = url_for("invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}")
     res = client.get(list_url)
     result = res.json
-    assert result["hits"]["total"]["value"] == 1
+    assert result["hits"]["total"] == 1
 
     # With filter (hide record)
     list_url = url_for(
@@ -277,7 +277,7 @@ def test_filtered_ill_requests_get_pending_months_filters(client, app, db, libra
     )
     res = client.get(list_url)
     result = res.json
-    assert result["hits"]["total"]["value"] == 1
+    assert result["hits"]["total"] == 1
 
     # Change created date
     initial_create = ill_request_martigny.model.created
@@ -288,7 +288,7 @@ def test_filtered_ill_requests_get_pending_months_filters(client, app, db, libra
     list_url = url_for("invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}")
     res = client.get(list_url)
     result = res.json
-    assert result["hits"]["total"]["value"] == 1
+    assert result["hits"]["total"] == 1
 
     # With filter (show record)
     list_url = url_for(
@@ -298,7 +298,7 @@ def test_filtered_ill_requests_get_pending_months_filters(client, app, db, libra
     )
     res = client.get(list_url)
     result = res.json
-    assert result["hits"]["total"]["value"] == 0
+    assert result["hits"]["total"] == 0
 
     # Make record to pending status
     ill_request_martigny = ILLRequest.get_record_by_pid(ill_request_martigny.pid)
@@ -309,7 +309,7 @@ def test_filtered_ill_requests_get_pending_months_filters(client, app, db, libra
     list_url = url_for("invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}")
     res = client.get(list_url)
     result = res.json
-    assert result["hits"]["total"]["value"] == 1
+    assert result["hits"]["total"] == 1
 
     # With filter (show record)
     list_url = url_for(
@@ -319,7 +319,7 @@ def test_filtered_ill_requests_get_pending_months_filters(client, app, db, libra
     )
     res = client.get(list_url)
     result = res.json
-    assert result["hits"]["total"]["value"] == 1
+    assert result["hits"]["total"] == 1
 
     # Initial state
     ill_request_martigny.model.created = initial_create

@@ -105,55 +105,55 @@ def test_users_search_api(client, librarian_martigny, patron_martigny, user_with
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"] == []
-    assert hits["hits"]["total"]["value"] == 0
+    assert hits["hits"]["total"] == 0
 
     res = client.get(url_for("api_users.users_list", q=""))
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"] == []
-    assert hits["hits"]["total"]["value"] == 0
+    assert hits["hits"]["total"] == 0
 
     # all by username
     res = client.get(url_for("api_users.users_list", q=patron_martigny["username"]))
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    assert hits["hits"]["total"]["value"] == 1
+    assert hits["hits"]["total"] == 1
 
     # all by email
     res = client.get(url_for("api_users.users_list", q=patron_martigny["email"]))
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    assert hits["hits"]["total"]["value"] == 1
+    assert hits["hits"]["total"] == 1
 
     # by username
     res = client.get(url_for("api_users.users_list", q="username:" + patron_martigny["username"]))
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    assert hits["hits"]["total"]["value"] == 1
+    assert hits["hits"]["total"] == 1
 
     # by email
     res = client.get(url_for("api_users.users_list", q="email:" + patron_martigny["email"]))
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    assert hits["hits"]["total"]["value"] == 1
+    assert hits["hits"]["total"] == 1
 
     # non patron by email
     res = client.get(url_for("api_users.users_list", q="email:" + user_without_profile.email))
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"][0]["metadata"]["email"] == user_without_profile.email
-    assert hits["hits"]["total"]["value"] == 1
+    assert hits["hits"]["total"] == 1
 
     # by uppercase email
     res = client.get(url_for("api_users.users_list", q="email:" + patron_martigny["email"].upper()))
     assert res.status_code == 200
     hits = get_json(res)
     assert hits["hits"]["hits"][0]["metadata"]["username"] == patron_martigny["username"]
-    assert hits["hits"]["total"]["value"] == 1
+    assert hits["hits"]["total"] == 1
 
     # Login with patron role
     login_user_via_session(client, p_martigny.user)

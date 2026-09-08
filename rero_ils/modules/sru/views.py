@@ -399,7 +399,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
         result = {
             "hits": {
                 "hits": records,
-                "total": {"value": total, "relation": "eq"},
+                "total": total,
                 "sru": {
                     "operation": "searchRetrieve",
                     "cql_query": strip_chars(query),

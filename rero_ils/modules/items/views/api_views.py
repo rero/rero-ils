@@ -452,7 +452,7 @@ def extend_loan(item, data):
 def requested_loans(library_pid):
     """HTTP GET request for sorted requested loans for a library."""
     metadata = Loan.requested_loans_to_validate(library_pid)
-    return jsonify({"hits": {"total": {"value": len(metadata)}, "hits": metadata}})
+    return jsonify({"hits": {"total": len(metadata), "hits": metadata}})
 
 
 @api_blueprint.route("/loans/<patron_pid>", methods=["GET"])
@@ -474,7 +474,7 @@ def loans(patron_pid):
                 }
             }
         )
-    return jsonify({"hits": {"total": {"value": len(metadata)}, "hits": metadata}})
+    return jsonify({"hits": {"total": len(metadata), "hits": metadata}})
 
 
 @api_blueprint.route("/barcode/<item_barcode>", methods=["GET"])

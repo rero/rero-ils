@@ -76,7 +76,7 @@ def test_local_fields_post_put_delete(client, org_sion, document, local_field_si
         )
     )
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # Delete record
     res = client.delete(item_url)
