@@ -1,4 +1,6 @@
 ---
+# SPDX-FileCopyrightText: Fondation RERO+
+# SPDX-License-Identifier: AGPL-3.0-or-later
 name: commit-message
 description: Write Conventional Commits messages for the current changes, splitting them into several commits when they cover several concerns, and propose each message for review before anything is committed. Use whenever the user asks for a commit message, asks to commit the current changes, or invokes /commit-message.
 ---
@@ -93,8 +95,12 @@ it again with step 6, and propose the new version the same way.
 
 ### 8. Commit
 
-Only once the user has agreed to it. They may have edited the draft in the
-meantime, so read the file again first, then commit what it holds:
+Only once the user has agreed to it. They may have edited the draft or the
+index in the meantime, so check both before committing: read the file again and
+rerun step 6 over it, and confirm `git status --short` still stages exactly the
+files of this commit. A staged scope that has drifted stops the commit — report
+what changed and ask. A line the user's own edit made too long stays theirs to
+keep, so only flag it. Then commit what the file holds:
 
 ```bash
 git commit --file "$(git rev-parse --git-path CLAUDE_COMMIT_MSG)"
