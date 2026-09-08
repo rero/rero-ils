@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RERO_ILS VERSION\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-09-07 06:49+0000\n"
+"POT-Creation-Date: 2026-09-08 06:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,284 +61,284 @@ msgid ""
 "underscores."
 msgstr ""
 
-#: rero_ils/config.py:2006
+#: rero_ils/config.py:2018
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:17
 msgid "Global catalog"
 msgstr ""
 
-#: rero_ils/config.py:2207
+#: rero_ils/config.py:2219
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:86
 msgid "online"
 msgstr ""
 
-#: rero_ils/config.py:2214
+#: rero_ils/config.py:2226
 msgid "not_online"
 msgstr ""
 
-#: rero_ils/config.py:2217
+#: rero_ils/config.py:2229
 msgid "author"
 msgstr ""
 
-#: rero_ils/config.py:2218 rero_ils/config.py:2635
+#: rero_ils/config.py:2230 rero_ils/config.py:2647
 msgid "subject"
 msgstr ""
 
-#: rero_ils/config.py:2220
+#: rero_ils/config.py:2232
 msgid "acquisition"
 msgstr ""
 
-#: rero_ils/config.py:2223
+#: rero_ils/config.py:2235
 msgid "new_acquisition"
 msgstr ""
 
-#: rero_ils/config.py:2224
+#: rero_ils/config.py:2236
 msgid "identifiers"
 msgstr ""
 
-#: rero_ils/config.py:2227 rero_ils/config.py:2228 rero_ils/config.py:2304
+#: rero_ils/config.py:2239 rero_ils/config.py:2240 rero_ils/config.py:2316
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:379
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:959
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1035
 msgid "document_type"
 msgstr ""
 
-#: rero_ils/config.py:2229 rero_ils/config.py:2305
+#: rero_ils/config.py:2241 rero_ils/config.py:2317
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:383
 msgid "document_subtype"
 msgstr ""
 
-#: rero_ils/config.py:2231
+#: rero_ils/config.py:2243
 msgid "language"
 msgstr ""
 
-#: rero_ils/config.py:2232 rero_ils/config.py:2233
+#: rero_ils/config.py:2244 rero_ils/config.py:2245
 msgid "organisation"
 msgstr ""
 
-#: rero_ils/config.py:2234 rero_ils/config.py:2306 rero_ils/config.py:2469
-#: rero_ils/config.py:2506 rero_ils/config.py:2634 rero_ils/config.py:2678
-#: rero_ils/config.py:2784
+#: rero_ils/config.py:2246 rero_ils/config.py:2318 rero_ils/config.py:2481
+#: rero_ils/config.py:2518 rero_ils/config.py:2646 rero_ils/config.py:2690
+#: rero_ils/config.py:2796
 msgid "library"
 msgstr ""
 
-#: rero_ils/config.py:2235 rero_ils/config.py:2307
+#: rero_ils/config.py:2247 rero_ils/config.py:2319
 msgid "location"
 msgstr ""
 
-#: rero_ils/config.py:2237 rero_ils/config.py:2311 rero_ils/config.py:2393
-#: rero_ils/config.py:2520 rero_ils/modules/migrations/views.py:74
+#: rero_ils/config.py:2249 rero_ils/config.py:2323 rero_ils/config.py:2405
+#: rero_ils/config.py:2532 rero_ils/modules/migrations/views.py:74
 msgid "status"
 msgstr ""
 
-#: rero_ils/config.py:2238
+#: rero_ils/config.py:2250
 msgid "genreForm"
 msgstr ""
 
-#: rero_ils/config.py:2239
+#: rero_ils/config.py:2251
 msgid "intendedAudience"
 msgstr ""
 
-#: rero_ils/config.py:2240
+#: rero_ils/config.py:2252
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:885
 msgid "year"
 msgstr ""
 
-#: rero_ils/config.py:2241
+#: rero_ils/config.py:2253
 msgid "fiction_statement"
 msgstr ""
 
-#: rero_ils/config.py:2308
+#: rero_ils/config.py:2320
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:387
 msgid "item_type"
 msgstr ""
 
-#: rero_ils/config.py:2309
+#: rero_ils/config.py:2321
 msgid "temporary_item_type"
 msgstr ""
 
-#: rero_ils/config.py:2310
+#: rero_ils/config.py:2322
 msgid "temporary_location"
 msgstr ""
 
-#: rero_ils/config.py:2312 rero_ils/config.py:2507
+#: rero_ils/config.py:2324 rero_ils/config.py:2519
 msgid "vendor"
 msgstr ""
 
-#: rero_ils/config.py:2313
+#: rero_ils/config.py:2325
 msgid "or_issue_status"
 msgstr ""
 
-#: rero_ils/config.py:2316
+#: rero_ils/config.py:2328
 msgid "claims_count"
 msgstr ""
 
-#: rero_ils/config.py:2317
+#: rero_ils/config.py:2329
 msgid "claims_date"
 msgstr ""
 
-#: rero_ils/config.py:2321
+#: rero_ils/config.py:2333
 msgid "current_requests"
 msgstr ""
 
-#: rero_ils/config.py:2387
+#: rero_ils/config.py:2399
 msgid "owner_library"
 msgstr ""
 
-#: rero_ils/config.py:2388
+#: rero_ils/config.py:2400
 msgid "owner_location"
 msgstr ""
 
-#: rero_ils/config.py:2389
+#: rero_ils/config.py:2401
 msgid "pickup_library"
 msgstr ""
 
-#: rero_ils/config.py:2390
+#: rero_ils/config.py:2402
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:574
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1043
 msgid "pickup_location"
 msgstr ""
 
-#: rero_ils/config.py:2391
+#: rero_ils/config.py:2403
 msgid "transaction_library"
 msgstr ""
 
-#: rero_ils/config.py:2392
+#: rero_ils/config.py:2404
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:939
 msgid "transaction_location"
 msgstr ""
 
-#: rero_ils/config.py:2394
+#: rero_ils/config.py:2406
 msgid "misc_status"
 msgstr ""
 
-#: rero_ils/config.py:2395 rero_ils/config.py:2443
+#: rero_ils/config.py:2407 rero_ils/config.py:2455
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:943
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1019
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1092
 msgid "patron_type"
 msgstr ""
 
-#: rero_ils/config.py:2396
+#: rero_ils/config.py:2408
 msgid "request_expire_date"
 msgstr ""
 
-#: rero_ils/config.py:2400
+#: rero_ils/config.py:2412
 msgid "end_date"
 msgstr ""
 
-#: rero_ils/config.py:2404
+#: rero_ils/config.py:2416
 msgid "exclude_status"
 msgstr ""
 
-#: rero_ils/config.py:2441
+#: rero_ils/config.py:2453
 msgid "roles"
 msgstr ""
 
-#: rero_ils/config.py:2442
+#: rero_ils/config.py:2454
 msgid "city"
 msgstr ""
 
-#: rero_ils/config.py:2444
+#: rero_ils/config.py:2456
 msgid "blocked"
 msgstr ""
 
-#: rero_ils/config.py:2445
+#: rero_ils/config.py:2457
 msgid "expired"
 msgstr ""
 
-#: rero_ils/config.py:2446
+#: rero_ils/config.py:2458
 msgid "not_expired"
 msgstr ""
 
-#: rero_ils/config.py:2470 rero_ils/config.py:2509
+#: rero_ils/config.py:2482 rero_ils/config.py:2521
 msgid "budget"
 msgstr ""
 
-#: rero_ils/config.py:2508
+#: rero_ils/config.py:2520
 msgid "account"
 msgstr ""
 
-#: rero_ils/config.py:2510
+#: rero_ils/config.py:2522
 msgid "order_date"
 msgstr ""
 
-#: rero_ils/config.py:2514
+#: rero_ils/config.py:2526
 msgid "receipt_date"
 msgstr ""
 
-#: rero_ils/config.py:2534
+#: rero_ils/config.py:2546
 msgid "resource_type"
 msgstr ""
 
-#: rero_ils/config.py:2535 rero_ils/config.py:2546 rero_ils/config.py:2558
-#: rero_ils/config.py:2585 rero_ils/config.py:2633
+#: rero_ils/config.py:2547 rero_ils/config.py:2558 rero_ils/config.py:2570
+#: rero_ils/config.py:2597 rero_ils/config.py:2645
 msgid "type"
 msgstr ""
 
-#: rero_ils/config.py:2536
+#: rero_ils/config.py:2548
 msgid "source_catalog"
 msgstr ""
 
-#: rero_ils/config.py:2545 rero_ils/config.py:2557
+#: rero_ils/config.py:2557 rero_ils/config.py:2569
 msgid "sources"
 msgstr ""
 
-#: rero_ils/config.py:2586
+#: rero_ils/config.py:2598
 msgid "visibility"
 msgstr ""
 
-#: rero_ils/config.py:2636
+#: rero_ils/config.py:2648
 msgid "teacher"
 msgstr ""
 
-#: rero_ils/config.py:2675
+#: rero_ils/config.py:2687
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:578
 msgid "request_status"
 msgstr ""
 
-#: rero_ils/config.py:2676
+#: rero_ils/config.py:2688
 msgid "loan_status"
 msgstr ""
 
-#: rero_ils/config.py:2677
+#: rero_ils/config.py:2689
 msgid "requester"
 msgstr ""
 
-#: rero_ils/config.py:2781
+#: rero_ils/config.py:2793
 msgid "category"
 msgstr ""
 
-#: rero_ils/config.py:2782
+#: rero_ils/config.py:2794
 msgid "indicator"
 msgstr ""
 
-#: rero_ils/config.py:2783
+#: rero_ils/config.py:2795
 msgid "frequency"
 msgstr ""
 
-#: rero_ils/config.py:2785
+#: rero_ils/config.py:2797
 msgid "active"
 msgstr ""
 
-#: rero_ils/config.py:3534 rero_ils/manual_translations.txt:69
+#: rero_ils/config.py:3546 rero_ils/manual_translations.txt:69
 #: rero_ils/theme/templates/rero_ils/header.html:91
 msgid "This is a TEST VERSION."
 msgstr ""
 
-#: rero_ils/config.py:3535 rero_ils/manual_translations.txt:70
+#: rero_ils/config.py:3547 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:93
 msgid "Go to the production site."
 msgstr ""
 
-#: rero_ils/config.py:4313
+#: rero_ils/config.py:4328
 msgid "contains"
 msgstr ""
 
-#: rero_ils/config.py:4315
+#: rero_ils/config.py:4330
 msgid "phrase"
 msgstr ""
 
-#: rero_ils/config.py:4321
+#: rero_ils/config.py:4336
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:26
@@ -358,35 +358,35 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: rero_ils/config.py:4327
+#: rero_ils/config.py:4342
 msgid "Responsibility statement"
 msgstr ""
 
-#: rero_ils/config.py:4333
+#: rero_ils/config.py:4348
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:8
 msgid "Contribution"
 msgstr ""
 
-#: rero_ils/config.py:4339 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
+#: rero_ils/config.py:4354 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:354
 msgid "Country"
 msgstr ""
 
-#: rero_ils/config.py:4345
+#: rero_ils/config.py:4360
 msgid "Canton"
 msgstr ""
 
-#: rero_ils/config.py:4351
+#: rero_ils/config.py:4366
 msgid "Provision activity statement"
 msgstr ""
 
-#: rero_ils/config.py:4357
+#: rero_ils/config.py:4372
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 msgid "Series statement"
 msgstr ""
 
-#: rero_ils/config.py:4363 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
+#: rero_ils/config.py:4378 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:52
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:43
@@ -395,15 +395,15 @@ msgstr ""
 msgid "Identifier"
 msgstr ""
 
-#: rero_ils/config.py:4369
+#: rero_ils/config.py:4384
 msgid "ISBN"
 msgstr ""
 
-#: rero_ils/config.py:4375
+#: rero_ils/config.py:4390
 msgid "ISSN"
 msgstr ""
 
-#: rero_ils/config.py:4381
+#: rero_ils/config.py:4396
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:130
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:14
@@ -411,14 +411,14 @@ msgstr ""
 msgid "Genre, form"
 msgstr ""
 
-#: rero_ils/config.py:4387
+#: rero_ils/config.py:4402
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:141
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:15
 msgid "Subject"
 msgstr ""
 
-#: rero_ils/config.py:4393
+#: rero_ils/config.py:4408
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:78
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:54
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
@@ -427,32 +427,32 @@ msgstr ""
 msgid "Call number"
 msgstr ""
 
-#: rero_ils/config.py:4399
+#: rero_ils/config.py:4414
 msgid "Local fields (document)"
 msgstr ""
 
-#: rero_ils/config.py:4405
+#: rero_ils/config.py:4420
 msgid "Local fields (holdings)"
 msgstr ""
 
-#: rero_ils/config.py:4411
+#: rero_ils/config.py:4426
 msgid "Local fields (items)"
 msgstr ""
 
-#: rero_ils/config.py:4417
+#: rero_ils/config.py:4432
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 msgid "Classification"
 msgstr ""
 
-#: rero_ils/config.py:4423
+#: rero_ils/config.py:4438
 msgid "RDA content type"
 msgstr ""
 
-#: rero_ils/config.py:4429
+#: rero_ils/config.py:4444
 msgid "RDA media type"
 msgstr ""
 
-#: rero_ils/config.py:4435
+#: rero_ils/config.py:4450
 msgid "RDA carrier type"
 msgstr ""
 
@@ -4485,26 +4485,26 @@ msgstr ""
 msgid "Values"
 msgstr ""
 
-#: rero_ils/modules/utils.py:1152
+#: rero_ils/modules/utils.py:1161
 #, python-format
 msgid "Field must be at least %(num)d character long."
 msgid_plural "Field must be at least %(num)d characters long."
 msgstr[0] ""
 msgstr[1] ""
 
-#: rero_ils/modules/utils.py:1158
+#: rero_ils/modules/utils.py:1167
 msgid "The password must contain a lower case character."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1160
+#: rero_ils/modules/utils.py:1169
 msgid "The password must contain a upper case character."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1162
+#: rero_ils/modules/utils.py:1171
 msgid "The password must contain a number."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1164
+#: rero_ils/modules/utils.py:1173
 msgid "The password must contain a special character."
 msgstr ""
 
@@ -5509,6 +5509,7 @@ msgid "Imported genre or form, used for information. Do not enter data manually.
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:304
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:813
 msgid "Harvested"
 msgstr ""
 
@@ -6928,94 +6929,98 @@ msgid "rpc"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:681
-msgid "rsp"
+msgid "rpt"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:685
-msgid "rsr"
+msgid "rsp"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:689
-msgid "scl"
+msgid "rsr"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:693
-msgid "sds"
+msgid "scl"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:697
-msgid "sgd"
+msgid "sds"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:701
-msgid "sll"
+msgid "sgd"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:705
-msgid "sng"
+msgid "sll"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:709
-msgid "spk"
+msgid "sng"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:713
-msgid "spn"
+msgid "spk"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:717
-msgid "srv"
+msgid "spn"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:721
-msgid "stl"
+msgid "srv"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:725
-msgid "tch"
+msgid "stl"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:729
-msgid "tld"
+msgid "tch"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:733
-msgid "tlp"
+msgid "tld"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:737
-msgid "trc"
+msgid "tlp"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:741
-msgid "vac"
+msgid "trc"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:745
-msgid "vdg"
+msgid "vac"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:749
-msgid "wac"
+msgid "vdg"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:753
-msgid "wal"
+msgid "wac"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:757
-msgid "wat"
+msgid "wal"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:761
-msgid "win"
+msgid "wat"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:765
-msgid "wpr"
+msgid "win"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:769
+msgid "wpr"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:773
 msgid "wst"
 msgstr ""
 
@@ -7311,132 +7316,136 @@ msgstr ""
 msgid "Is displayed as the text of the link."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:127
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:128
 msgid "poster"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:131
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:132
 msgid "audio"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:135
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:136
 msgid "postcard"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:139
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:140
 msgid "addition"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:143
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:144
 msgid "debriefing"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:147
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:148
 msgid "exhibitionDocumentation"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:151
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:152
 msgid "erratum"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:155
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:156
 msgid "bookplate"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:159
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:160
 msgid "extract"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:163
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:164
 msgid "educationalSheet"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:167
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:168
 msgid "illustrations"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:171
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:172
 msgid "coverImage"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:175
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:176
 msgid "deliveryInformation"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:179
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:180
 msgid "biographicalInformation"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:183
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:184
 msgid "introductionPreface"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:187
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:188
 msgid "classReading"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:191
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:192
 msgid "teachersKit"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:195
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:196
 msgid "publishersNote"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:199
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:200
 msgid "noteOnContent"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:203
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:204
 msgid "titlePage"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:207
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:208
 msgid "photography"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:211
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:212
 msgid "summarization"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:215
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:216
 msgid "onlineResourceViaRERODOC"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:219
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:220
 msgid "pressReview"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:223
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:224
 msgid "webSite"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:227
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:228
 msgid "tableOfContents"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:231
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:232
 msgid "fullText"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:235
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:236
 msgid "video"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:244
-msgid "Public notes"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:245
-msgid "Is displayed next to the link, as additional information."
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:240
+msgid "film"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:249
+msgid "Public notes"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:250
+msgid "Is displayed next to the link, as additional information."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:254
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:71
 msgid "Public note"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:255
+#: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:260
 msgid "Example: Access only from the library"
 msgstr ""
 
@@ -10278,19 +10287,19 @@ msgstr ""
 msgid "No circulation action performed: in transit"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:544
+#: rero_ils/modules/items/api/circulation.py:548
 msgid "No circulation action performed: item on loan"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:992
+#: rero_ils/modules/items/api/circulation.py:997
 msgid "Item status disallows the operation."
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:998
+#: rero_ils/modules/items/api/circulation.py:1003
 msgid "Item and patron are not in the same organisation."
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:1001
+#: rero_ils/modules/items/api/circulation.py:1006
 #: rero_ils/modules/selfcheck/api.py:409
 msgid "Item is already checked-out or requested by patron."
 msgstr ""
@@ -10517,6 +10526,10 @@ msgstr ""
 msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
+msgstr ""
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:814
+msgid "Item is harvested or not, will disable record edition or similar."
 msgstr ""
 
 #: rero_ils/modules/libraries/api.py:85
@@ -12695,12 +12708,7 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
-msgstr ""
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-user\"></i>"
+msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr ""
 
 #. Line unknown
@@ -12710,7 +12718,12 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgid "<i class=\"fa-solid fa-user\"></i>"
+msgstr ""
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr ""
 
 #: rero_ils/theme/menus.py:38
@@ -12833,7 +12846,7 @@ msgid "What are you looking for?"
 msgstr ""
 
 #: rero_ils/theme/templates/rero_ils/header.html:12
-#: rero_ils/theme/templates/rero_ils/page_cover.html:22
+#: rero_ils/theme/templates/rero_ils/page_cover.html:21
 msgid "Home"
 msgstr ""
 
