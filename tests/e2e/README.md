@@ -57,6 +57,7 @@ uv run pytest tests/e2e -m e2e --base-url https://my-server:5000 --browser chrom
 
 | File | Scenario | Browser |
 | --- | --- | --- |
+| `test_page_guard.py` | The console/network guard itself | all |
 | `test_login.py` | Login/logout for librarian and patron | all |
 | `test_circulation_scenario_a.py` | Standard loan at owning library | all |
 | `test_circulation_scenario_b.py` | Standard loan with inter-library transit | all |
@@ -69,6 +70,47 @@ uv run pytest tests/e2e -m e2e --base-url https://my-server:5000 --browser chrom
 
 Scenarios A–E map directly to the flows described in
 [`doc/circulation/scenarios.md`](../../doc/circulation/scenarios.md).
+
+## The console/network guard
+
+Every page fixture (`page`, `librarian_page`, `spock_page`, `patron_page`) is
+watched by a `PageGuard` declared in `conftest.py`. It listens to three browser
+channels and, once the test body is over, fails the test on anything it heard:
+
+| Channel | Fails on |
+| --- | --- |
+| `console` | any `console.error()` not listed in `CONSOLE_ALLOWLIST` |
+| `pageerror` | any exception reaching the top level of the page |
+| `response` | any 4xx/5xx answer not listed in `HTTP_ALLOWLIST` |
+
+This makes every existing test report a broken screen even when its own
+assertions pass — a test that navigates through a view raising errors in the
+console no longer goes green.
+
+Only requests issued **by the browser** are seen. The `api_*` helpers use
+Playwright's `page.request` API, which bypasses the page, so the deliberately
+denied circulation calls of scenarios D and E stay invisible to the guard.
+
+### Allowlisting
+
+Both allowlists live at the top of the guard section in `conftest.py`.
+`HTTP_ALLOWLIST` holds `(method, url substring, status)` triples and covers the
+non-2xx answers the application returns by design — a checkin that is a valid
+no-op, a renewal denied because it would not push the due date forward.
+`CONSOLE_ALLOWLIST` holds plain substrings and must stay short: add to it only
+noise that no application change can fix, and say in a comment why. It holds a
+single entry today, `net::ERR_TOO_MANY_RETRIES` — the Werkzeug development
+server drops a keep-alive connection over TLS on the second navigation inside
+the admin SPA, and Chromium gives up on the stylesheet after retrying. The
+resource is served correctly outside the browser and no production server
+behaves this way.
+
+Console errors are recorded with the location Chromium reports, because its
+network-level messages ("Failed to load resource: …") never name the resource
+in their text.
+
+The guard stays silent when the test has already failed on its own assertion,
+so a real failure is never buried under the browser errors it caused.
 
 ## Running in GitHub Actions
 
@@ -102,7 +144,7 @@ latest commit is tested.
 
 | Step | Tests | Approximate time |
 | --- | --- | --- |
-| Chromium | all 9 (including `chromium_only`) | ~12 min |
+| Chromium | all tests (including `chromium_only`) | ~12 min |
 | Firefox | 5 cross-browser | ~6 min |
 | WebKit | 5 cross-browser | ~6 min |
 
