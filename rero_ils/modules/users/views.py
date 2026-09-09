@@ -169,11 +169,6 @@ class UsersCreateResource(ContentNegotiatedMethodView):
     def post(self):
         """Implement the POST."""
         user = User.create(request.get_json())
-        editing_own_public_profile = str(current_user.id) == user.id and not (
-            current_user.has_role(UserRole.FULL_PERMISSIONS) and current_user.has_role(UserRole.USER_MANAGER)
-        )
-        if editing_own_public_profile:
-            Patron.set_communication_channel(user)
         return user.dumps()
 
 
