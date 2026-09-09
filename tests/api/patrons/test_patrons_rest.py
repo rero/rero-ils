@@ -19,6 +19,7 @@ from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.extensions import PatronWelcomeEmailExtension
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.patrons.utils import create_user_from_data
+from rero_ils.modules.users.api import User
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
@@ -358,6 +359,45 @@ def test_welcome_email_skips_non_patron(librarian_martigny):
         PatronWelcomeEmailExtension().post_create(librarian_martigny)
 
     enqueue.assert_not_called()
+
+
+def test_patrons_post_from_professional_interface(
+    app,
+    client,
+    patron_type_children_martigny,
+    patron_martigny_data_tmp,
+    roles,
+    mailbox,
+    system_librarian_martigny,
+):
+    """Send only the welcome email when a patron is created from the pro interface."""
+    login_user_via_session(client, system_librarian_martigny.user)
+    patron_data = deepcopy(patron_martigny_data_tmp)
+    patron_data.pop("pid")
+    patron_data["username"] = "professional_interface"
+    patron_data["email"] = "professional-interface@test.ch"
+    patron_data["patron"]["barcode"] = ["professional_interface"]
+
+    # the professional interface first creates the user account
+    res, user = postdata(client, "api_users.users_list", patron_data)
+    assert res.status_code == 200
+    assert not mailbox
+
+    # then the patron record, which is the only step sending an email
+    res, data = postdata(
+        client,
+        "invenio_records_rest.ptrn_list",
+        User.remove_fields(patron_data) | {"user_id": user["id"]},
+    )
+    assert res.status_code == 201
+    assert len(mailbox) == 1
+    assert mailbox[0].recipients == ["professional-interface@test.ch"]
+    assert mailbox[0].subject == "Inscription: The district of Martigny Libraries"
+
+    item_url = url_for("invenio_records_rest.ptrn_item", pid_value=data["metadata"]["pid"])
+    assert client.delete(item_url).status_code == 204
+    ds = app.extensions["invenio-accounts"].datastore
+    ds.delete_user(ds.find_user(id=user["id"]))
 
 
 def test_patrons_post_with_additional_email_only(
