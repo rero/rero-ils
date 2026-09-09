@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2026-09-08 06:45+0000\n"
+"Report-Msgid-Bugs-To: software@rero.ch\n"
+"POT-Creation-Date: 2026-09-09 06:54+0000\n"
 "PO-Revision-Date: 2026-09-09 06:55+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -10517,7 +10517,8 @@ msgstr "Issue location must be the same as the parent holdings location."
 
 #: rero_ils/modules/items/api/record.py:101
 msgid "Issue circulation category must be the same as the parent holdings one."
-msgstr "Issue circulation category must be the same as the parent holdings one."
+msgstr ""
+"Issue circulation category must be the same as the parent holdings one."
 
 #: rero_ils/modules/items/api/record.py:109
 msgid ""
@@ -12974,16 +12975,6 @@ msgstr "Only one contact per type is allowed."
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
-msgstr "<i class=\"fa-solid fa-globe\"></i>"
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-phone\"></i>"
-msgstr "<i class=\"fa-solid fa-phone\"></i>"
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-user\"></i>"
 msgstr "<i class=\"fa-solid fa-user\"></i>"
 
@@ -12991,6 +12982,16 @@ msgstr "<i class=\"fa-solid fa-user\"></i>"
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgstr "<i class=\"fa-solid fa-globe\"></i>"
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgstr "<i class=\"fa-solid fa-phone\"></i>"
 
 #: rero_ils/theme/menus.py:38
 msgid "My Account"
