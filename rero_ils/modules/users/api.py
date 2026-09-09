@@ -116,7 +116,7 @@ class User:
             if profile:
                 cls._validate_profile(profile)
             cls._validate_data(data=data)
-            password = data.get("password", password_generator())
+            password = data.get("password") or password_generator()
             cls._validate_password(password=password)
             user = BaseUser(
                 username=data.get("username"),
