@@ -5,23 +5,13 @@
 """RERO-ILS Loan resource serializers shared helpers."""
 
 import ciso8601
-from flask import current_app, request
-from invenio_i18n.ext import current_i18n
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.extensions import TitleExtension
 from rero_ils.modules.holdings.api import HoldingsSearch
-from rero_ils.utils import get_i18n_supported_languages
+from rero_ils.utils import get_display_language
 
 from ..api import Loan
-
-
-def _display_language():
-    """Get the language used to display the localized entity names."""
-    language = request.args.get("lang", current_i18n.language)
-    if not language or language not in get_i18n_supported_languages():
-        language = current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
-    return language
 
 
 def _document_contributions(document, language):
@@ -73,7 +63,7 @@ def requests_to_validate_rows(library):
     :returns: a list of dict, one per request.
     """
     metadata = Loan.requested_loans_to_validate(library.pid)
-    language = _display_language()
+    language = get_display_language()
     timezone = library.get_timezone()
     documents = DocumentsSearch().get_records_by_terms(
         [data["loan"]["document_pid"] for data in metadata],
