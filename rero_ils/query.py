@@ -10,7 +10,6 @@ from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl.query import Q
 from flask import abort, current_app, request
 from flask import request as flask_request
-from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError
 from werkzeug.datastructures import ImmutableMultiDict, MultiDict
 
@@ -22,7 +21,7 @@ from .modules.items.models import TypeOfItem
 from .modules.organisations.api import Organisation
 from .modules.patrons.api import current_librarian, current_patrons
 from .modules.templates.models import TemplateVisibility
-from .utils import get_i18n_supported_languages
+from .utils import get_display_language
 
 _PUNCTUATION_REGEX = re.compile(r"[:,\?,\,,\.,;,!,=,-]+(\s+|$)")
 
@@ -57,9 +56,7 @@ def and_i18n_term_filter(field, **kwargs):
     """
 
     def inner(values):
-        language = request.args.get("lang", current_i18n.language)
-        if not language or language not in get_i18n_supported_languages():
-            language = current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
+        language = get_display_language()
         i18n_field = f"{field}_{language}"
         must = [Q("term", **{i18n_field: value}) for value in values]
         _filter = Q("bool", must=must)
@@ -81,9 +78,7 @@ def i18n_terms_filter(field):
     """
 
     def inner(values):
-        language = request.args.get("lang", current_i18n.language)
-        if not language or language not in get_i18n_supported_languages():
-            language = current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
+        language = get_display_language()
         i18n_field = f"{field}_{language}"
         return Q("terms", **{i18n_field: values})
 
