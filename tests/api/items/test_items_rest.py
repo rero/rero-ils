@@ -886,6 +886,7 @@ def test_items_notes(client, librarian_martigny, item_lib_martigny, json_header)
 def test_requested_loans_to_validate(
     client,
     librarian_martigny,
+    librarian_sion,
     loc_public_martigny,
     loc_restricted_martigny,
     item_type_standard_martigny,
@@ -940,6 +941,11 @@ def test_requested_loans_to_validate(
     assert patron_martigny.pid == requested_loan["loan"]["patron_pid"]
 
     assert requested_loan["item"]["temporary_location"]["name"]
+
+    # a librarian of another organisation cannot read these requests
+    login_user_via_session(client, librarian_sion.user)
+    res = client.get(url_for("api_item.requested_loans", library_pid=library_pid))
+    assert res.status_code == 403
 
     # RESET - the item
     del item2_lib_martigny["temporary_item_type"]

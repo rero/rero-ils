@@ -17,6 +17,8 @@ from rero_ils.permissions import (
     login_and_patron,
 )
 
+from .libraries.api import Library
+from .patrons.api import current_librarian
 from .permissions import PermissionContext
 
 
@@ -44,6 +46,22 @@ def check_logged_as_librarian(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
         login_and_librarian()
+        return fn(*args, **kwargs)
+
+    return wrapper
+
+
+def check_library_in_organisation(fn):
+    """Decorator to check the `library_pid` is part of the user organisation.
+
+    If the library belongs to another organisation: return 403 (forbidden)
+    """
+
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        library = Library.get_record_by_pid(kwargs.get("library_pid"))
+        if library and (not current_librarian or library.organisation_pid != current_librarian.organisation_pid):
+            return jsonify({"status": "error: Forbidden"}), 403
         return fn(*args, **kwargs)
 
     return wrapper

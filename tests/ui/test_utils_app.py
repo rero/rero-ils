@@ -11,7 +11,7 @@ from rero_ils.modules.utils import (
     pids_exists_in_data,
     truncate_string,
 )
-from rero_ils.utils import get_current_language, remove_empties_from_dict
+from rero_ils.utils import get_current_language, get_display_language, remove_empties_from_dict
 
 
 def test_truncate_string():
@@ -134,6 +134,18 @@ def test_pids_exists_in_data(app, org_martigny, lib_martigny):
 def test_get_language(app):
     """Test get the current language of the application."""
     assert get_current_language() == "en"
+
+
+def test_get_display_language(app):
+    """Test the language used to display the i18n fields."""
+    with app.test_request_context("/"):
+        assert get_display_language() == "en"
+    # the `lang` argument takes precedence over the interface language
+    with app.test_request_context("/?lang=fr"):
+        assert get_display_language() == "fr"
+    # an unsupported language falls back to the default one
+    with app.test_request_context("/?lang=dummy"):
+        assert get_display_language() == "en"
 
 
 def test_get_record_class_from_schema_or_pid_type(app):
