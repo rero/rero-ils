@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-09-09 06:54+0000\n"
+"POT-Creation-Date: 2026-09-10 06:51+0000\n"
 "PO-Revision-Date: 2024-02-23 17:02+0000\n"
 "Last-Translator: LievenSmets <lievensmets@me.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
@@ -337,15 +337,15 @@ msgstr "Dit is een TEST VERSIE"
 msgid "Go to the production site."
 msgstr "Ga naar de productie site."
 
-#: rero_ils/config.py:4328
+#: rero_ils/config.py:4329
 msgid "contains"
 msgstr "bevat"
 
-#: rero_ils/config.py:4330
+#: rero_ils/config.py:4331
 msgid "phrase"
 msgstr "zin"
 
-#: rero_ils/config.py:4336
+#: rero_ils/config.py:4337
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:65
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:26
@@ -365,35 +365,35 @@ msgstr "zin"
 msgid "Title"
 msgstr "Titel"
 
-#: rero_ils/config.py:4342
+#: rero_ils/config.py:4343
 msgid "Responsibility statement"
 msgstr "Verantwoordelijkheidsverklaring"
 
-#: rero_ils/config.py:4348
+#: rero_ils/config.py:4349
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:8
 msgid "Contribution"
 msgstr "Bijdrage"
 
-#: rero_ils/config.py:4354 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
+#: rero_ils/config.py:4355 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:354
 msgid "Country"
 msgstr "Land"
 
-#: rero_ils/config.py:4360
+#: rero_ils/config.py:4361
 msgid "Canton"
 msgstr "Kanton"
 
-#: rero_ils/config.py:4366
+#: rero_ils/config.py:4367
 msgid "Provision activity statement"
 msgstr ""
 
-#: rero_ils/config.py:4372
+#: rero_ils/config.py:4373
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 msgid "Series statement"
 msgstr ""
 
-#: rero_ils/config.py:4378 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
+#: rero_ils/config.py:4379 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:52
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:43
@@ -402,15 +402,15 @@ msgstr ""
 msgid "Identifier"
 msgstr "Identificator"
 
-#: rero_ils/config.py:4384
+#: rero_ils/config.py:4385
 msgid "ISBN"
 msgstr "ISBN"
 
-#: rero_ils/config.py:4390
+#: rero_ils/config.py:4391
 msgid "ISSN"
 msgstr "ISSN"
 
-#: rero_ils/config.py:4396
+#: rero_ils/config.py:4397
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:130
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:14
@@ -418,14 +418,14 @@ msgstr "ISSN"
 msgid "Genre, form"
 msgstr "Genre,Vorm"
 
-#: rero_ils/config.py:4402
+#: rero_ils/config.py:4403
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:141
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:15
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: rero_ils/config.py:4408
+#: rero_ils/config.py:4409
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:78
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:54
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
@@ -434,32 +434,32 @@ msgstr "Onderwerp"
 msgid "Call number"
 msgstr "Telefoon"
 
-#: rero_ils/config.py:4414
+#: rero_ils/config.py:4415
 msgid "Local fields (document)"
 msgstr "Lokale velden (document)"
 
-#: rero_ils/config.py:4420
+#: rero_ils/config.py:4421
 msgid "Local fields (holdings)"
 msgstr "Lokale velden (bijhouding)"
 
-#: rero_ils/config.py:4426
+#: rero_ils/config.py:4427
 msgid "Local fields (items)"
 msgstr "Lokale velden (items)"
 
-#: rero_ils/config.py:4432
+#: rero_ils/config.py:4433
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 msgid "Classification"
 msgstr "Classificatie"
 
-#: rero_ils/config.py:4438
+#: rero_ils/config.py:4439
 msgid "RDA content type"
 msgstr "RDA inhoudstype"
 
-#: rero_ils/config.py:4444
+#: rero_ils/config.py:4445
 msgid "RDA media type"
 msgstr "RDA mediatye"
 
-#: rero_ils/config.py:4450
+#: rero_ils/config.py:4451
 msgid "RDA carrier type"
 msgstr "RDA dragertype"
 
@@ -4749,6 +4749,7 @@ msgstr "URI van de bibliotheek"
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:67
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:54
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:442
+#: rero_ils/oauth/scopes.py:12
 msgid "Organisation"
 msgstr "Organisatie"
 
@@ -5355,6 +5356,7 @@ msgstr ""
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:475
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:376
+#: rero_ils/oauth/scopes.py:13
 msgid "Patron type"
 msgstr "Lezerstype"
 
@@ -6415,6 +6417,7 @@ msgstr "Voorbeeld: 1985-12-29"
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:82
 #: rero_ils/modules/entities/templates/rero_ils/_local_person.html:6
 #: rero_ils/modules/entities/templates/rero_ils/_remote_person.html:7
+#: rero_ils/oauth/scopes.py:10
 msgid "Birth date"
 msgstr "Geboortedatum"
 
@@ -12899,7 +12902,7 @@ msgstr ""
 msgid "You are not allowed to change template visibility"
 msgstr ""
 
-#: rero_ils/modules/users/api.py:174
+#: rero_ils/modules/users/api.py:169
 msgid "A username or email is required."
 msgstr ""
 
@@ -13117,11 +13120,6 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-user\"></i>"
-msgstr ""
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr ""
 
@@ -13133,6 +13131,26 @@ msgstr ""
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgstr ""
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-user\"></i>"
+msgstr ""
+
+#: rero_ils/oauth/scopes.py:9
+#, fuzzy
+#| msgid "First name"
+msgid "Full name"
+msgstr "Voornaam"
+
+#: rero_ils/oauth/scopes.py:11
+#, fuzzy
+msgid "Expiration date"
+msgstr "Aanmaakdatum"
+
+#: rero_ils/oauth/scopes.py:14
+msgid "Network, patron type, and expiration date (regrouped)"
 msgstr ""
 
 #: rero_ils/theme/menus.py:38
@@ -13328,6 +13346,54 @@ msgstr "is verwijderd."
 #: rero_ils/theme/templates/rero_ils/macros/macro.html:169
 msgid "Show password"
 msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:5
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:45
+msgid "Authorise application"
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:10
+msgid "Authorise external application"
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:14
+#, python-format
+msgid ""
+"%(application)s would like to use your %(sitename)s account to identify you."
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:24
+msgid "Visit application website"
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:29
+msgid "The following information will be shared"
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:35
+msgid "No permissions granted."
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:40
+msgid "Your password is never shared with this application."
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:48
+#, fuzzy
+#| msgid "subject"
+msgid "Reject"
+msgstr "onderwerp"
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:53
+#, python-format
+msgid "You are signed in as %(account)s."
+msgstr ""
+
+#: rero_ils/theme/templates/rero_ils/oauth/authorize.html:54
+#, fuzzy
+#| msgid "Log In"
+msgid "Log out"
+msgstr "Aanmelden"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:5
 #: rero_ils/theme/templates/security/email/reset_notice.html:5
