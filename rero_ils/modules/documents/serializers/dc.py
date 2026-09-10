@@ -134,7 +134,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
             pid_fetcher (callable): Function to extract persistent identifier from hits.
                 Currently unused; PIDs are extracted directly from record source.
             search_result (dict): search index search response containing:
-                - hits.total.value: Total number of matching documents
+                - hits.total: Total number of matching documents
                 - hits.hits: List of search result hits
                 - hits.sru: SRU-specific metadata (optional)
             links (dict, optional): Additional links to include in response.
@@ -151,7 +151,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
             The 'ln' query parameter from the request controls the output language
             for internationalized fields.
         """
-        total = search_result["hits"]["total"]["value"]
+        total = search_result["hits"]["total"]
         sru = search_result["hits"].get("sru", {})
         operation = sru.get("operation")
         start_record = sru.get("start_record", 0)

@@ -89,7 +89,7 @@ def test_filtered_holdings_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 4
+    assert data["hits"]["total"] == 4
 
     # Patron Martigny
     login_user_via_session(client, patron_sion.user)
@@ -97,7 +97,7 @@ def test_filtered_holdings_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
 
 def test_holdings_items_filter(client, holding_lib_martigny, holding_lib_sion, item_lib_martigny):

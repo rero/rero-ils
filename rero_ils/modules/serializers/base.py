@@ -57,6 +57,11 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
     def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs):
         """Serialize a search result.
 
+        The body mirrors ``JSONSerializerMixin.serialize_search`` verbatim; it
+        is reimplemented only to run ``postprocess_serialize_search`` on the
+        assembled result, for which upstream offers no hook. Keep it in sync
+        when bumping ``invenio-records-rest``.
+
         :param pid_fetcher: Persistent identifier fetcher.
         :param search_result: search index search result.
         :param links: Dictionary of links to add to response.
@@ -73,7 +78,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
                     )
                     for hit in search_result["hits"]["hits"]
                 ],
-                "total": search_result["hits"]["total"],
+                "total": search_result["hits"]["total"]["value"],
             },
             "links": links or {},
             "aggregations": search_result.get("aggregations", {}),

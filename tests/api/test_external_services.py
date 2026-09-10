@@ -229,7 +229,7 @@ def test_documents_import_loc_missing_id(mock_get, client, loc_without_010):
         what="test", relation="all", where="anywhere", max_results=100, no_cache=True
     )
     assert status_code == 200
-    assert results["hits"]["total"]["value"] == 9
+    assert results["hits"]["total"] == 9
     assert len(results["hits"]["hits"]) == 9
 
 

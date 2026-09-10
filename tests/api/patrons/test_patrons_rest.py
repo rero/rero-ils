@@ -55,7 +55,7 @@ def test_filtered_patrons_get(client, librarian_martigny, patron_martigny, libra
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
 
     # Sion
     # TODO: find why it's failed
@@ -65,7 +65,7 @@ def test_filtered_patrons_get(client, librarian_martigny, patron_martigny, libra
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
 
 def test_patron_has_valid_subscriptions(
@@ -695,13 +695,13 @@ def test_patrons_search(client, librarian_martigny):
     list_url = url_for("invenio_records_rest.ptrn_list", q=f"{birthdate}", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
 
     # birth year
     list_url = url_for("invenio_records_rest.ptrn_list", q=f"{birthdate.split('-')[0]}", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
 
 
 def test_patrons_expired(client, librarian_martigny, patron_martigny):
@@ -709,7 +709,7 @@ def test_patrons_expired(client, librarian_martigny, patron_martigny):
     login_user_via_session(client, librarian_martigny.user)
     list_url = url_for("invenio_records_rest.ptrn_list", simple="1")
     res = client.get(list_url)
-    total_patrons = get_json(res)["hits"]["total"]["value"]
+    total_patrons = get_json(res)["hits"]["total"]
     assert total_patrons == 6
 
     original_expiration_date = patron_martigny["patron"]["expiration_date"]
@@ -721,13 +721,13 @@ def test_patrons_expired(client, librarian_martigny, patron_martigny):
 
     list_url = url_for("invenio_records_rest.ptrn_list", expired="true", simple="1")
     res = client.get(list_url)
-    expired_patrons = get_json(res)["hits"]["total"]["value"]
+    expired_patrons = get_json(res)["hits"]["total"]
     assert expired_patrons == 1
 
     expected_not_expired = total_patrons - expired_patrons
     not_expired_url = url_for("invenio_records_rest.ptrn_list", not_expired="true", simple="1")
     res = client.get(not_expired_url)
-    not_expired_patrons = get_json(res)["hits"]["total"]["value"]
+    not_expired_patrons = get_json(res)["hits"]["total"]
     assert not_expired_patrons == expected_not_expired
 
     patron_martigny["patron"]["expiration_date"] = original_expiration_date
@@ -740,12 +740,12 @@ def test_patrons_blocked(client, librarian_martigny, patron_martigny, patron3_ma
     list_url = url_for("invenio_records_rest.ptrn_list", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 6
+    assert hits["total"] == 6
 
     list_url = url_for("invenio_records_rest.ptrn_list", blocked="true", simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
 
 
 def test_patron_get_links_to_me_ill_requests(

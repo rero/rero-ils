@@ -20,7 +20,7 @@ def test_unified_entity_search(client, entity_person, local_entity_person, entit
     list_url = url_for("invenio_records_rest.ent_list", q='"Loy, Georg"', simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 2
+    assert hits["total"] == 2
 
     # unified entity search organisation
     list_url = url_for(
@@ -30,10 +30,10 @@ def test_unified_entity_search(client, entity_person, local_entity_person, entit
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
 
     # empty search
     list_url = url_for("invenio_records_rest.ent_list", q='"Nebehay, Christian Michael"', simple="1")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 0
+    assert hits["total"] == 0

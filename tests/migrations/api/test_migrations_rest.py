@@ -19,7 +19,7 @@ def test_migrations_rest(migration, client, patron_martigny, system_librarian_ma
     login_user_via_session(client, system_librarian_martigny.user)
     res = client.get(url_for("api_migrations.migrations_list"))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
     assert res.json["hits"]["hits"][0]["id"] == migration.meta.id
 
     # transform datetime objects as strings
@@ -30,15 +30,15 @@ def test_migrations_rest(migration, client, patron_martigny, system_librarian_ma
 
     res = client.get(url_for("api_migrations.migrations_list", size=0))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
     assert res.json["hits"]["hits"] == []
 
     res = client.get(url_for("api_migrations.migrations_list", page=2, size=10))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 1
+    assert res.json["hits"]["total"] == 1
     assert res.json["hits"]["hits"] == []
 
     login_user_via_session(client, system_librarian_sion.user)
     res = client.get(url_for("api_migrations.migrations_list"))
     assert res.status_code == 200
-    assert res.json["hits"]["total"]["value"] == 0
+    assert res.json["hits"]["total"] == 0

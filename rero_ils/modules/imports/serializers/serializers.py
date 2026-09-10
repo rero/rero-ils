@@ -45,7 +45,7 @@ class ImportsSearchSerializer(JSONSerializer):
         results = {
             "hits": {
                 "hits": search_result["hits"]["hits"],
-                "total": search_result["hits"]["total"]["value"],
+                "total": search_result["hits"]["total"],
                 "remote_total": search_result["hits"]["remote_total"],
             },
             "aggregations": search_result.get("aggregations", {}),

@@ -45,7 +45,7 @@ def test_operation_logs_permissions(
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
-    librarian_count = data["hits"]["total"]["value"]
+    librarian_count = data["hits"]["total"]
     assert librarian_count > 0
 
     # Check access for patron role
@@ -53,14 +53,14 @@ def test_operation_logs_permissions(
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
     # Check access for patron and librarian roles
     login_user_via_session(client, librarian_patron_martigny.user)
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == librarian_count
+    assert data["hits"]["total"] == librarian_count
 
 
 def test_operation_logs_rest(
@@ -81,7 +81,7 @@ def test_operation_logs_rest(
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] > 0
+    assert data["hits"]["total"] > 0
     pid = data["hits"]["hits"][0]["metadata"]["pid"]
     assert pid
     assert data["hits"]["hits"][0]["id"] == pid
@@ -121,7 +121,7 @@ def test_operation_log_on_item(
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     metadata = data["hits"]["hits"][0]["metadata"]
     assert metadata["operation"] == OperationLogOperation.CREATE
 
@@ -134,7 +134,7 @@ def test_operation_log_on_item(
 
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
     metadata = data["hits"]["hits"][0]["metadata"]
     assert metadata["operation"] == OperationLogOperation.UPDATE
 
@@ -147,7 +147,7 @@ def test_operation_log_on_item(
 
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
 
     # STEP #4 : Update the item ``status`` and ``price`` attributes.
     #   As we update at least one attribute that need to be tracked, this
@@ -159,7 +159,7 @@ def test_operation_log_on_item(
 
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 3
+    assert data["hits"]["total"] == 3
     metadata = data["hits"]["hits"][0]["metadata"]
     assert metadata["operation"] == OperationLogOperation.UPDATE
 
@@ -170,7 +170,7 @@ def test_operation_log_on_item(
 
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 4
+    assert data["hits"]["total"] == 4
     metadata = data["hits"]["hits"][0]["metadata"]
     assert metadata["operation"] == OperationLogOperation.DELETE
 
@@ -201,7 +201,7 @@ def test_operation_log_on_patron(
     search_url = url_for("invenio_records_rest.oplg_list", q=q, sort="mostrecent")
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.CREATE
 
     # STEP #2: Update the patron -> generates an UPDATE operation log
@@ -211,7 +211,7 @@ def test_operation_log_on_patron(
 
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
     assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.UPDATE
 
     # STEP #2bis: Update through the REST API (PUT) -> a single UPDATE log.
@@ -227,7 +227,7 @@ def test_operation_log_on_patron(
 
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 3
+    assert data["hits"]["total"] == 3
     assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.UPDATE
 
     # STEP #3: Delete the patron -> generates a DELETE operation log
@@ -239,7 +239,7 @@ def test_operation_log_on_patron(
 
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 4
+    assert data["hits"]["total"] == 4
     assert data["hits"]["hits"][0]["metadata"]["operation"] == OperationLogOperation.DELETE
 
     ds = app.extensions["invenio-accounts"].datastore
@@ -261,7 +261,7 @@ def test_operation_log_on_ill_request(client, ill_request_martigny, librarian_ma
     search_url = url_for("invenio_records_rest.oplg_list", q=q, sort="mostrecent")
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     metadata = data["hits"]["hits"][0]["metadata"]
     assert metadata["operation"] == OperationLogOperation.CREATE
     assert "ill_request" in metadata
@@ -298,7 +298,7 @@ def test_operation_log_on_file(client, librarian_martigny, document, lib_martign
     search_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:create")
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     metadata = data["hits"]["hits"][0]["metadata"]
     assert set(metadata["record"].keys()) == {"library_pid", "organisation_pid", "type", "value"}
     assert set(metadata["file"]["document"]) == {"pid", "type", "title"}
@@ -309,7 +309,7 @@ def test_operation_log_on_file(client, librarian_martigny, document, lib_martign
     search_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:update")
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # file creation is in the op
     pdf_file_name = "doc_doc1_1.pdf"
@@ -320,7 +320,7 @@ def test_operation_log_on_file(client, librarian_martigny, document, lib_martign
     res = client.get(search_url)
     data = get_json(res)
     metadata = data["hits"]["hits"][0]["metadata"]
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     assert set(data["hits"]["hits"][0]["metadata"]["record"].keys()) == {
         "library_pid",
         "organisation_pid",
@@ -340,7 +340,7 @@ def test_operation_log_on_file(client, librarian_martigny, document, lib_martign
     )
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # record file deletion is in the op
     record_service.delete(identity=system_identity, id_=recid)
@@ -348,4 +348,4 @@ def test_operation_log_on_file(client, librarian_martigny, document, lib_martign
     search_url = url_for("invenio_records_rest.oplg_list", q="record.type:recid AND operation:delete")
     res = client.get(search_url)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1

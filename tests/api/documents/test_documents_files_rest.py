@@ -22,7 +22,7 @@ def test_document_files(
     list_url = url_for("invenio_records_rest.doc_list", q="_exists_:files")
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
 
     # check for collections
     list_url = url_for(
@@ -31,13 +31,13 @@ def test_document_files(
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
 
     # check for collections
     list_url = url_for("invenio_records_rest.doc_list", q="_exists_:files", view=org_martigny.pid)
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
     file_data = hits["hits"][0]["metadata"]["files"][0]
     assert file_data["collections"]
 
@@ -79,6 +79,6 @@ def test_document_files(
     # check for modifications in document
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
     file_data = hits["hits"][0]["metadata"]["files"][0]
     assert file_data["collections"] == ["new col"]

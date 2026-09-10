@@ -26,7 +26,7 @@ $(function() {
             const result = pidRegex.exec(pid);
             if (result) {
               $.get(origin + '/api/holdings/?q=document.pid:' + result[0], function(data) {
-                if (data['hits']['total']['value'] > 0) {
+                if (data['hits']['total'] > 0) {
                   let existDialog = false;
                   $(data['hits']['hits']).each(function(index, element) {
                     const metadata = element['metadata'];

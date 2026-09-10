@@ -553,7 +553,7 @@ def test_extend_possible_actions(
     res = client.get(url_for("api_item.loans", patron_pid=patron_pid))
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     hit = data.get("hits").get("hits")[0].get("item")
     assert hit.get("barcode") == item.get("barcode")
 
@@ -803,7 +803,7 @@ def test_filtered_items_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 4
+    assert data["hits"]["total"] == 4
 
     # Patron Sion
     login_user_via_session(client, patron_sion.user)
@@ -812,7 +812,7 @@ def test_filtered_items_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
 
 def test_local_fields_items_get(
@@ -830,14 +830,14 @@ def test_local_fields_items_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     list_url = url_for("invenio_records_rest.item_list", q="local_fields.fields.field_1:testfield2")
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 0
+    assert data["hits"]["total"] == 0
 
 
 def test_items_notes(client, librarian_martigny, item_lib_martigny, json_header):
@@ -932,7 +932,7 @@ def test_requested_loans_to_validate(
     res = client.get(url_for("api_item.requested_loans", library_pid=library_pid))
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     requested_loan = data["hits"]["hits"][0]
     assert item2_lib_martigny.pid == requested_loan["item"]["pid"]
     assert item2_lib_martigny.pid == requested_loan["loan"]["item_pid"]["value"]
@@ -1111,7 +1111,7 @@ def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_jso
     )
     response = client.get(url, headers=rero_json_header)
     assert response.status_code == 200
-    assert response.json["hits"]["total"]["value"] == 1
+    assert response.json["hits"]["total"] == 1
 
     # STEP 2 :: Sort on 'second_call_number'
     #   * Ensure sort `second_call_number` is possible
@@ -1129,14 +1129,14 @@ def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_jso
     )
     response = client.get(url, headers=rero_json_header)
     assert response.status_code == 200
-    assert response.json["hits"]["total"]["value"] == 1
+    assert response.json["hits"]["total"] == 1
     url = url_for(
         "invenio_records_rest.item_list",
         q=f'second_call_number.raw:"{item_lib_fully["second_call_number"]} "',
     )
     response = client.get(url, headers=rero_json_header)
     assert response.status_code == 200
-    assert response.json["hits"]["total"]["value"] == 0
+    assert response.json["hits"]["total"] == 0
 
     # Reset fixtures
     del item_lib_fully["second_call_number"]
@@ -1156,7 +1156,7 @@ def test_item_field_mapping(client, item_lib_martigny, rero_json_header, roles):
     url = url_for("invenio_records_rest.item_list", q="enumerationAndChronology.analyzed:*20*")
     response = client.get(url, headers=rero_json_header)
     assert response.status_code == 200
-    assert response.json["hits"]["total"]["value"] == 1
+    assert response.json["hits"]["total"] == 1
 
     # Reset fixtures
     item_lib_martigny.replace(item, dbcommit=True, reindex=True)

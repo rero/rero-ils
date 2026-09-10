@@ -147,7 +147,7 @@ class UsersCreateResource(ContentNegotiatedMethodView):
     def get(self):
         """Get user info for the professionnal view."""
         email_or_username = request.args.get("q", "").strip()
-        hits = {"hits": {"hits": [], "total": {"relation": "eq", "value": 0}}}
+        hits = {"hits": {"hits": [], "total": 0}}
         if not email_or_username:
             return hits
         if email_or_username.startswith("email:"):
@@ -162,7 +162,7 @@ class UsersCreateResource(ContentNegotiatedMethodView):
         # if patron: send only the user id
         data = user.dumps() if current_librarian else {"id": user.id}
         hits["hits"]["hits"].append(data)
-        hits["hits"]["total"]["value"] = 1
+        hits["hits"]["total"] = 1
         return hits
 
     @check_permission
