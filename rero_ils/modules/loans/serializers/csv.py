@@ -109,3 +109,28 @@ class LoanStreamedCSVSerializer(CSVSerializer, StreamSerializerMixin, CachedData
 
         self.load_all(LibrariesSearch(), PatronTypesSearch())
         return stream_with_context(generate_csv())
+
+
+class RequestsToValidateCSVSerializer(CSVSerializer):
+    """CSV serializer for the requests to validate of a library."""
+
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None):
+        """Serialize the export rows as a CSV stream.
+
+        :param pid_fetcher: unused, kept for the serializer interface.
+        :param search_result: the rows built by `requests_to_validate_rows`.
+        :param links: Dictionary of links to add to response.
+        :param item_links_factory: Factory function for record links.
+        """
+
+        def generate_csv():
+            """Generate the CSV content as a generator."""
+            line = Line()
+            writer = DictWriter(line, dialect="excel", quoting=QUOTE_ALL, fieldnames=self.csv_included_fields)
+            writer.writeheader()
+            yield line.read()
+            for row in search_result:
+                writer.writerow(row)
+                yield line.read()
+
+        return stream_with_context(generate_csv())

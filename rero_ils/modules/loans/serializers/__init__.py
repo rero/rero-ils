@@ -12,10 +12,19 @@ from rero_ils.modules.serializers import (
     search_responsify_file,
 )
 
-from .csv import LoanStreamedCSVSerializer
-from .json import LoanJSONSerializer
+from .base import requests_to_validate_rows
+from .csv import LoanStreamedCSVSerializer, RequestsToValidateCSVSerializer
+from .json import LoanJSONSerializer, RequestsToValidateJSONSerializer
 
-__all__ = ["csv_stream_search", "json_loan_search", "xlsx_loan_search"]
+__all__ = [
+    "csv_requests_search",
+    "csv_stream_search",
+    "json_loan_search",
+    "json_requests_search",
+    "requests_to_validate_rows",
+    "xlsx_loan_search",
+    "xlsx_requests_search",
+]
 
 
 _json = LoanJSONSerializer(RecordSchemaJSONV1)
@@ -49,5 +58,38 @@ xlsx_loan_search = search_responsify_file(
     content_converter=xlsx_converter(
         "rero_ils/exports/loans.xml",
         worksheet_name="Loans",
+    ),
+)
+
+_requests_csv = RequestsToValidateCSVSerializer(
+    csv_included_fields=[
+        "item_barcode",
+        "document_title",
+        "document_contributions",
+        "item_first_call_number",
+        "item_second_call_number",
+        "item_enumerationAndChronology",
+        "requested_by",
+        "item_location",
+        "pickup_location",
+        "request_date",
+    ]
+)
+_requests_json = RequestsToValidateJSONSerializer()
+
+json_requests_search = search_responsify_file(
+    _requests_json, "application/json", file_extension="json", file_prefix="export-requests"
+)
+csv_requests_search = search_responsify_file(
+    _requests_csv, "text/csv", file_extension="csv", file_prefix="export-requests"
+)
+xlsx_requests_search = search_responsify_file(
+    _requests_csv,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    file_extension="xlsx",
+    file_prefix="export-requests",
+    content_converter=xlsx_converter(
+        "rero_ils/exports/requests.xml",
+        worksheet_name="Requests",
     ),
 )
