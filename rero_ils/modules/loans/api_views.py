@@ -3,21 +3,47 @@
 
 """Blueprint used for loans."""
 
-from flask import Blueprint, abort, jsonify
+from flask import Blueprint, abort, jsonify, request
 from flask_login import login_required
 
-from rero_ils.modules.decorators import check_logged_as_librarian
+from rero_ils.modules.decorators import (
+    check_library_in_organisation,
+    check_logged_as_librarian,
+)
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.items.views.api_views import (
     check_logged_user_authentication,
     jsonify_error,
 )
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.serializers import (
+    csv_requests_search,
+    json_requests_search,
+    requests_to_validate_rows,
+    xlsx_requests_search,
+)
 from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
 from rero_ils.modules.patrons.api import current_librarian, current_patrons
 
 api_blueprint = Blueprint("api_loan", __name__, url_prefix="/loan")
+
+
+@api_blueprint.route("/requests/<library_pid>", methods=["GET"])
+@check_logged_as_librarian
+@check_library_in_organisation
+def requests_export(library_pid):
+    """HTTP GET request to export the requests to validate of a library.
+
+    The exported requests are the same as the ones listed by the professional
+    interface. The output format is given by the `format` argument.
+    """
+    serializers = {"csv": csv_requests_search, "json": json_requests_search, "xlsx": xlsx_requests_search}
+    if not (serializer := serializers.get(request.args.get("format", "csv"))):
+        abort(400, "Unsupported export format")
+    library = Library.get_record_by_pid(library_pid)
+    return serializer(None, requests_to_validate_rows(library) if library else [])
 
 
 @api_blueprint.route("/<loan_pid>/circulation_policy", methods=["GET"])
