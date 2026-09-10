@@ -60,32 +60,25 @@ def validate_role_changes(user, changes, raise_exc=True):
     return True
 
 
-def create_user_from_data(data, send_email=False):
+def create_user_from_data(data):
     """Create a user and set the profile fields from a data.
 
     :param data: A dict containing a mix of patron and user data.
-    :param send_email: send the reset password email to the user
     :returns: The modified dict.
     """
-    user = User.get_by_username(data.get("username"))
-    if not user:
-        user = User.create(data, send_email)
-        user_id = user.id
-    else:
-        user_id = user.user.id
-    data["user_id"] = user_id
+    user = User.get_by_username(data.get("username")) or User.create(data)
+    data["user_id"] = user.id
 
     return User.remove_fields(data)
 
 
-def create_patron_from_data(data, dbcommit=True, reindex=True, send_email=False):
+def create_patron_from_data(data, dbcommit=True, reindex=True):
     """Create a patron and a user from a data dict.
 
     :param data: dictionary representing a library user
-    :param send_email: send the reset password email to the user
     :returns: - A `Patron` instance
     """
     from .api import Patron
 
-    data = create_user_from_data(data, send_email)
+    data = create_user_from_data(data)
     return Patron.create(data=data, delete_pid=False, dbcommit=dbcommit, reindex=reindex)

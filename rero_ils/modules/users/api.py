@@ -8,7 +8,6 @@ from flask import current_app, url_for
 from flask_babel import lazy_gettext as _
 from flask_login import current_user
 from flask_security.confirmable import confirm_user
-from flask_security.recoverable import send_reset_password_instructions
 from flask_security.utils import hash_password
 from invenio_accounts.models import User as BaseUser
 from invenio_db import db
@@ -103,12 +102,11 @@ class User:
         return self.user.id
 
     @classmethod
-    def create(cls, data, send_email=True, **kwargs):
+    def create(cls, data):
         """User record creation.
 
         :param cls - class object
         :param data - dictionary representing a user record
-        :param send_email - send the reset password email to the user
         """
         with db.session.begin_nested():
             # Generate password if not present
@@ -116,7 +114,7 @@ class User:
             if profile:
                 cls._validate_profile(profile)
             cls._validate_data(data=data)
-            password = data.get("password", password_generator())
+            password = data.get("password") or password_generator()
             cls._validate_password(password=password)
             user = BaseUser(
                 username=data.get("username"),
@@ -125,15 +123,12 @@ class User:
                 active=True,
             )
             db.session.add(user)
-            # send the reset password notification for new users
             if email := data.get("email"):
                 user.email = email
             else:
                 user.domain = "unknown"
             db.session.merge(user)
         db.session.commit()
-        if data.get("email") and send_email:
-            send_reset_password_instructions(user)
         confirm_user(user)
         return cls(user)
 

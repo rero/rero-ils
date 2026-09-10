@@ -4158,8 +4158,9 @@ SIP2_SUMMARY_FIELDS = {
     LoanState.ITEM_ON_LOAN: "charged_items",
 }
 
-# OAuth base template
+# OAuth templates
 OAUTH2SERVER_COVER_TEMPLATE = "rero_ils/oauth/base.html"
+OAUTH2SERVER_AUTHORIZE_TEMPLATE = "rero_ils/oauth/authorize.html"
 
 # Extend the oauthlib allowed character set for Lucene query syntax.
 # Characters that commonly appear unencoded in query strings:

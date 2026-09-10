@@ -1,0 +1,57 @@
+{# SPDX-FileCopyrightText: Fondation RERO+ #}
+{# SPDX-License-Identifier: AGPL-3.0-or-later #}
+
+{%- extends 'rero_ils/page_cover.html' %}
+{%- set title = _('Authorise application') ~ ' | ' ~ _(config.THEME_SITENAME) %}
+
+{% block panel %}
+<div class="card text-left mb-4 rero-ils-cover-panel">
+  <h3 class="card-title my-4 text-center">
+    <i class="fa-solid fa-shield-halved"></i> {{ _('Authorise external application') }}
+  </h3>
+  <div class="card-body">
+    <p class="lead">
+      {{ _('%(application)s would like to use your %(sitename)s account to identify you.',
+           application=client.name, sitename=_(config.THEME_SITENAME)) }}
+    </p>
+    {%- if client.description %}
+    <p class="text-muted">{{ client.description }}</p>
+    {%- endif %}
+    {%- set website = client.website | string %}
+    {%- if website.lower().startswith(('http://', 'https://')) %}
+    <p>
+      <a href="{{ website }}" target="_blank" rel="noopener noreferrer">
+        {{ _('Visit application website') }} <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+      </a>
+    </p>
+    {%- endif %}
+
+    <h5 class="mt-4">{{ _('The following information will be shared') }}</h5>
+    {%- if scopes %}
+    <ul>
+      {%- for scope in scopes %}<li>{{ scope.help_text }}</li>{% endfor %}
+    </ul>
+    {%- else %}
+    <p><em>{{ _('No permissions granted.') }}</em></p>
+    {%- endif %}
+
+    <p class="alert alert-info" role="alert">
+      <i class="fa-solid fa-lock"></i>
+      {{ _('Your password is never shared with this application.') }}
+    </p>
+
+    <form action="" method="POST" class="text-center mt-4">
+      <button type="submit" value="yes" name="confirm" class="btn btn-primary btn-lg mb-2">
+        <i class="fa-solid fa-check"></i> {{ _('Authorise application') }}
+      </button>
+      <button type="submit" value="no" name="confirm" class="btn btn-outline-secondary btn-lg mb-2">
+        <i class="fa-solid fa-ban"></i> {{ _('Reject') }}
+      </button>
+    </form>
+  </div>
+  <div class="card-footer text-muted text-center">
+    {{ _('You are signed in as %(account)s.', account=current_user.email) }}
+    <a href="{{ url_for_security('logout') }}">{{ _('Log out') }}</a>
+  </div>
+</div>
+{% endblock panel %}

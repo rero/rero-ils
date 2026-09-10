@@ -3,11 +3,16 @@
 
 """Views tests."""
 
+from urllib.parse import urlsplit
+
 import pytest
-from flask import session, url_for
+from bs4 import BeautifulSoup
+from flask import render_template, session, url_for
 from flask_login import login_user, logout_user
 from flask_security import url_for_security
 from invenio_accounts.testutils import login_user_via_session, login_user_via_view
+from invenio_oauth2server.models import Client
+from invenio_oauth2server.proxies import current_oauth2server
 
 from rero_ils.modules.users.api import user_formatted_name
 from rero_ils.theme.views import localized_label, nl2br
@@ -301,3 +306,82 @@ def test_login(client, app, user_with_profile):
         password=user_with_profile.password_plaintext,
     )
     assert res.status_code == 302
+
+
+def _asset_hosts(html):
+    """Return where the third-party hosts the scripts and stylesheets of a page come from.
+
+    The analytics tag is the one third-party script the application loads on
+    purpose, from the host the CSP allows in `script-src`.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    assets = [tag["src"] for tag in soup.select("script[src]")]
+    assets += [tag["href"] for tag in soup.select('link[rel="stylesheet"][href]')]
+    assert assets
+    # An asset served by the application has no netloc.
+    return {urlsplit(asset).netloc for asset in assets} - {"", "www.googletagmanager.com"}
+
+
+def test_assets_are_served_by_the_application(client, app):
+    """Test that the pages load their front-end libraries from no third-party host."""
+    for url in [
+        url_for("rero_ils.index"),
+        url_for("wiki.page", url="home"),
+        url_for_security("login"),
+    ]:
+        res = client.get(url)
+        assert res.status_code == 200
+        assert not _asset_hosts(res.text), url
+
+    # The OAuth cover page has no route of its own without a registered client.
+    with app.test_request_context():
+        assert not _asset_hosts(render_template(app.config["OAUTH2SERVER_COVER_TEMPLATE"]))
+
+
+def test_oauth_authorize_page(app, db, user_with_profile, user_without_name):
+    """Test that the OAuth consent page tells the patron what is at stake."""
+    oauth_client = Client(
+        name="Test application",
+        description="A test application",
+        website="https://example.org",
+        user=user_without_name,
+        is_confidential=False,
+        _redirect_uris="https://example.org/callback",
+    )
+    oauth_client.gen_salt()
+    db.session.add(oauth_client)
+    db.session.commit()
+
+    scopes = list(current_oauth2server.scopes.values())
+    with app.test_request_context():
+        login_user(user_with_profile)
+        html = render_template(app.config["OAUTH2SERVER_AUTHORIZE_TEMPLATE"], client=oauth_client, scopes=scopes)
+
+    # the application asking for the access, and the data it would receive
+    assert "Test application" in html
+    assert "A test application" in html
+    assert "Full name" in html
+    # the account about to be shared, and the reassurance about the password
+    assert user_with_profile.email in html
+    assert "Your password is never shared with this application." in html
+    # the owner of the OAuth client is no business of the patron
+    assert user_without_name.email not in html
+    # the page is styled by the theme bundle, not by a third-party stylesheet
+    assert not _asset_hosts(html)
+
+
+def test_oauth_authorize_page_website_scheme(app, user_with_profile):
+    """Test that only a web address of the application becomes a link."""
+    oauth_client = Client(name="Test application")
+
+    def render(website):
+        oauth_client.website = website
+        with app.test_request_context():
+            login_user(user_with_profile)
+            return render_template(app.config["OAUTH2SERVER_AUTHORIZE_TEMPLATE"], client=oauth_client, scopes=[])
+
+    assert 'href="https://example.org"' in render("https://example.org")
+    assert 'href="HTTP://example.org"' in render("HTTP://example.org")
+    # anything that is not a web address is not worth a link
+    for website in ["javascript:alert(1)", "javascript://example.org/%0aalert(1)", "data:text/html,x", ""]:
+        assert "Visit application website" not in render(website)

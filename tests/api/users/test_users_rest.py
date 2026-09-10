@@ -4,6 +4,7 @@
 """Users Record tests."""
 
 import json
+from copy import deepcopy
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -87,6 +88,23 @@ def test_users_post_put(client, user_data_tmp, librarian_martigny, json_header, 
         headers=json_header,
     )
     assert res.status_code == 200
+
+
+def test_users_post_without_reset_password_email(app, client, data, librarian_martigny, default_user_password, mailbox):
+    """Test that the user creation does not send a reset password email."""
+    login_user_via_session(client, librarian_martigny.user)
+    user_data = deepcopy(data["user1"]) | {
+        "username": "no_reset_password_email",
+        "email": "no_reset_password_email@test.ch",
+        "password": default_user_password,
+    }
+    res, user = postdata(client, "api_users.users_list", user_data)
+    assert res.status_code == 200
+    reset_subject = str(app.config["SECURITY_EMAIL_SUBJECT_PASSWORD_RESET"])
+    assert not [message for message in mailbox if message.subject == reset_subject]
+
+    ds = app.extensions["invenio-accounts"].datastore
+    ds.delete_user(ds.find_user(id=user["id"]))
 
 
 def test_users_search_api(client, librarian_martigny, patron_martigny, user_without_profile):
