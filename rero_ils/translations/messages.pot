@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RERO_ILS VERSION\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-09-10 06:51+0000\n"
+"POT-Creation-Date: 2026-09-11 06:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2479,8 +2479,8 @@ msgid "RERO"
 msgstr ""
 
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:73
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2570
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2605
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2692
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2727
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:126
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:485
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:52
@@ -4478,8 +4478,8 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2559
-#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2594
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2681
+#: rero_ils/jsonschemas/common/languages-v0.0.1.json:2716
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:115
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:480
 msgid "Values"
@@ -12721,12 +12721,12 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgid "<i class=\"fa-solid fa-user\"></i>"
 msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-user\"></i>"
+msgid "<i class=\"fa-solid fa-phone\"></i>"
 msgstr ""
 
 #: rero_ils/oauth/scopes.py:9
