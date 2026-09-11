@@ -74,7 +74,51 @@ if [[ ! -f "${CERT}" || ! -f "${KEY}" ]]; then
   error_msg+exit "Missing development certificates. Generate them with:\n\tuv run ./scripts/gen-certs"
 fi
 
-trap 'kill $PID_CELERY $PID_SERVER &>/dev/null' EXIT
+# Every descendant of a process, deepest first.
+#
+# Killing the two direct children is not enough: `invenio run` forks the
+# reloader child that holds the port, and celery forks its pool workers, so
+# signalling only the children leaves those behind as orphans.
+tree_of() {
+  local pid=$1 child
+  for child in $(pgrep -P "${pid}" 2>/dev/null); do
+    tree_of "${child}"
+  done
+  echo "${pid}"
+}
+
+cleanup() {
+  # No errexit here: probing a process that is already gone fails, and that
+  # must not abort the escalation below.
+  set +e
+  # Reached once per run: the INT/TERM traps below fall through to EXIT.
+  [[ -n "${cleaned}" ]] && return 0
+  cleaned=1
+  local pid tree waited
+
+  # Collected before signalling, because killing a parent orphans its children
+  # and they can no longer be found by walking down from it.
+  tree=$(for pid in ${PID_CELERY} ${PID_SERVER}; do tree_of "${pid}"; done)
+
+  # SIGTERM goes to the two parents only, so that celery shuts its pool down
+  # in order and releases its semaphores, and werkzeug stops its reloader
+  # child itself. Signalling the pool workers directly aborts that shutdown
+  # and leaks a semaphore per worker.
+  kill -TERM ${PID_CELERY} ${PID_SERVER} 2>/dev/null
+
+  # Celery's warm shutdown waits for a running task, which can hang the exit
+  # indefinitely; give the tree five seconds, then insist.
+  for waited in $(seq 20); do
+    if ! kill -0 ${tree} 2>/dev/null; then
+      return 0
+    fi
+    sleep 0.25
+  done
+  kill -KILL ${tree} 2>/dev/null
+}
+# INT and TERM are trapped alongside EXIT: bash does not run an EXIT trap when
+# it is killed by Ctrl-C, so the cleanup below would never run otherwise.
+trap cleanup EXIT INT TERM
 
 # Start Worker and Beat
 if $worker; then
