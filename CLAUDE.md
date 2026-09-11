@@ -38,26 +38,7 @@ The `ext.py` file wires up all signal listeners. Before a record is indexed in E
 - Do not use Python type annotations (no `-> str`, `: str`, etc. in signatures).
 - Ruff is configured in `pyproject.toml`: `line-length = 120` under `[tool.ruff]`, the enabled rule sets under `[tool.ruff.lint]`, and the pep257 docstring convention under `[tool.ruff.lint.pydocstyle]`.
 - Since Python 3.14 (PEP 758), parentheses around multiple exception types are optional when the `except`/`except*` clause has no `as` target: `except AttributeError, UnboundLocalError:` is valid and equivalent to `except (AttributeError, UnboundLocalError):` — not the old Python 2 comma syntax. `ruff format` removes the parentheses in that case; this is expected, not a bug. Parentheses are still required when binding the exception: `except (AttributeError, UnboundLocalError) as error:`.
-
-### Commit Messages
-
-Commit messages follow [Conventional Commits](https://www.conventionalcommits.org).
-
-Format: `<type>(<scope>): <subject>`
-
-Rules:
-
-- The subject line must not exceed 50 characters.
-- Body lines must not exceed 72 characters.
-- Use `*` for bullet points in the body, not `-`.
-- Use the imperative mood in the subject ("add", not "adds").
-- Do not end the subject line with a period.
-
-Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `style`,
-`perf`, `build`, `ci`
-
-Scope corresponds to the affected module under `rero_ils/modules/`
-(e.g. `patrons`, `items`, `loans`, `documents`).
+- Commit messages follow Conventional Commits; the `commit-message` skill holds the conventions and the workflow, so invoke it instead of writing one by hand. In every case, whatever the default of the harness, never sign a commit as an LLM: no Claude or Anthropic trailer.
 
 ### Translations
 
