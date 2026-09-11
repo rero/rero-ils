@@ -11,6 +11,7 @@ from itertools import islice
 
 import requests
 from deepdiff import DeepDiff
+from flask import current_app
 from invenio_db import db
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
@@ -171,7 +172,7 @@ class SyncEntity:
             :param search_query: (string) the search index query to limit the
                 results
             :param chunk_size: (integer) the maximum number of pid per chunk
-            :returns: iterator over all pids
+            :returns: iterator over all (pid, entity type) pairs
 
             The scroll is done using the slice scroll feature:
             https://www.elastic.co/guide/en/elasticsearch/reference/8.5/paginate-search-results.html#slice-scroll
@@ -182,15 +183,18 @@ class SyncEntity:
                 for i in range(n_part):
                     # processing the slice should be faster than 30m
                     for hit in (
-                        search_query.extra(slice={"id": i, "max": n_part}).params(scroll="30m").source("pid").scan()
+                        search_query.extra(slice={"id": i, "max": n_part})
+                        .params(scroll="30m")
+                        .source(["pid", "type"])
+                        .scan()
                     ):
-                        yield hit.pid
+                        yield hit.pid, getattr(hit, "type", None)
             # no need to slice as the part is smaller than the number
             # of results
             # the results can be in memory as it is small
             else:
                 for hit in list(search_query.params(scroll="30m").scan()):
-                    yield hit.pid
+                    yield hit.pid, getattr(hit, "type", None)
 
         # ask the MEF server to know which MEF pids has been updated
         # from a given date
@@ -199,27 +203,32 @@ class SyncEntity:
             def get_updated_mef(pids, chunk_size):
                 """Ask the MEF server using chunks.
 
-                :param pids - list of string: a list of MEF pids.
+                :param pids - iterator: (pid, entity type) pairs.
                 :param chunk_size - integer: the chunk size
                 """
-                # MEF urls for updated pids
-                urls = [
-                    f"{get_mef_url('agents')}/mef/updated",
-                    f"{get_mef_url('concepts')}/mef/updated",
-                ]
+                entity_types = current_app.config["RERO_ILS_ENTITY_TYPES"]
                 # number of provided updated MEF pids
                 n_provided = 0
                 try:
-                    for url in urls:
-                        while chunk := list(islice(iter(pids), chunk_size)):
-                            # ask the mef server to return only the updated
-                            # pids form a given date
+                    while chunk := list(islice(pids, chunk_size)):
+                        # each MEF entity type has its own endpoint: a pid sent
+                        # to the endpoint of another type is reported back as
+                        # an unknown record.
+                        pids_by_type = {}
+                        for pid, entity_type in chunk:
+                            if mef_type := entity_types.get(entity_type):
+                                pids_by_type.setdefault(mef_type, []).append(pid)
+                        for mef_type, mef_pids in pids_by_type.items():
+                            url = f"{get_mef_url(mef_type)}/mef/updated"
+                            # ask the mef server to return only the updated pids form a given date
                             res = requests_retry_session().post(
                                 url,
-                                json={"from_date": from_date.strftime("%Y-%m-%d"), "pids": chunk},
+                                json={"from_date": from_date.strftime("%Y-%m-%d"), "pids": mef_pids},
                             )
                             if res.status_code != 200:
-                                requests.ConnectionError(f"Expected status code 200, but got {res.status_code} {url}")
+                                raise requests.ConnectionError(
+                                    f"Expected status code 200, but got {res.status_code} {url}"
+                                )
                             for hit in res.json():
                                 n_provided += 1
                                 yield hit.get("pid")
@@ -233,7 +242,7 @@ class SyncEntity:
                 )
             return [], 0
         # considers all MEF pids
-        return get_mef_pids(search_query), total
+        return (pid for pid, _ in get_mef_pids(search_query)), total
 
     #: maximum recursion depth for `sync_record`, as a safety net against a
     #: pathological MEF pid cycle (e.g. A's latest is B, B's latest is A).
