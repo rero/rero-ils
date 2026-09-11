@@ -62,6 +62,7 @@ def test_patron_transactions_get(client, patron_transaction_overdue_martigny, re
     result = data["hits"]["hits"][0]["metadata"]
     assert result.pop("document") == {"pid": "doc1", "type": "doc"}
     assert result.pop("library") == {"pid": "lib1", "type": "lib"}
+    assert result.pop("transaction_library") == {"pid": "lib1", "type": "lib"}
     assert result.pop("item") == {"pid": "item8", "type": "item"}
     del result["patron"]["barcode"]
     assert result == transaction.replace_refs()
@@ -103,12 +104,13 @@ def test_patron_transactions_post_put_delete(client, lib_martigny, patron_transa
     transaction_data["pid"] = pttr_pid
     res, data = postdata(client, "invenio_records_rest.pttr_list", transaction_data)
     assert res.status_code == 201
-    # Check that the returned record matches the given data
-    assert data["metadata"] == transaction_data
+    # Check that the returned record contains the derived libraries
+    expected_metadata = PatronTransaction.get_record_by_pid(pttr_pid).dumps()
+    assert data["metadata"] == expected_metadata
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert transaction_data == data["metadata"]
+    assert expected_metadata == data["metadata"]
 
     # Update record/PUT
     data = transaction_data
@@ -177,6 +179,62 @@ def test_patron_transaction_shortcuts_utils(client, patron_transaction_overdue_m
     assert patron_transaction_overdue_martigny.loan_pid == loan_overdue_martigny.pid
 
     assert patron_transaction_overdue_martigny.patron_pid == loan_overdue_martigny.patron_pid
+
+
+@mock.patch(
+    "invenio_records_rest.views.verify_record_permission",
+    mock.MagicMock(return_value=VerifyRecordPermissionPatch),
+)
+def test_patron_transaction_owning_library(
+    client,
+    patron_transaction_overdue_event_saxon,
+    patron_transaction_overdue_saxon,
+    lib_martigny,
+    lib_saxon,
+):
+    """Test the item owning library is exposed instead of the transaction library."""
+    transaction = patron_transaction_overdue_saxon
+
+    assert transaction.loan.library_pid == lib_martigny.pid
+    assert transaction.library_pid == lib_saxon.pid
+    assert transaction.transaction_library_pid == lib_martigny.pid
+
+    metadata = transaction.dumps()
+    assert metadata["library"] == {"pid": lib_saxon.pid, "type": "lib"}
+    assert metadata["transaction_library"] == {"pid": lib_martigny.pid, "type": "lib"}
+
+    list_url = url_for("invenio_records_rest.pttr_list", q=f"pid:{transaction.pid}")
+    res = client.get(list_url)
+
+    assert res.status_code == 200
+    metadata = get_json(res)["hits"]["hits"][0]["metadata"]
+    assert metadata["library"] == {"pid": lib_saxon.pid, "type": "lib"}
+    assert metadata["transaction_library"] == {"pid": lib_martigny.pid, "type": "lib"}
+
+    event = patron_transaction_overdue_event_saxon
+    list_url = url_for(
+        "invenio_records_rest.ptre_list",
+        q=f"pid:{event.pid}",
+        owning_library=lib_saxon.pid,
+    )
+    res = client.get(list_url)
+
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["hits"][0]["metadata"]["pid"] == event.pid
+
+    list_url = url_for(
+        "invenio_records_rest.ptre_list",
+        q=f"pid:{event.pid}",
+        owning_library=lib_martigny.pid,
+    )
+    res = client.get(list_url)
+
+    assert res.status_code == 200
+    assert get_json(res)["hits"]["total"]["value"] == 0
+
+    clear_patron_transaction_data(transaction.pid)
 
 
 def test_filtered_patron_transactions_get(
@@ -277,6 +335,12 @@ def test_transactions_add_manual_fee(client, librarian_sion, org_sion, patron_si
     metadata = data["metadata"]
     record = PatronTransaction.get_record_by_pid(metadata["pid"])
     assert record.get("library") == librarian_sion.get("libraries")[0]
+    dumped_record = record.dumps()
+    assert dumped_record["library"] == {
+        "pid": extracted_data_from_ref(record.get("library")),
+        "type": "lib",
+    }
+    assert "transaction_library" not in dumped_record
     event = next(record.events)
     assert extracted_data_from_ref(event.get("operator")) == librarian_sion.get("pid")
     assert event.get("library") == librarian_sion.get("libraries")[0]
