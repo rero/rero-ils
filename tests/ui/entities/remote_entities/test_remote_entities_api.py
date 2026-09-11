@@ -6,7 +6,11 @@
 
 import tempfile
 from copy import deepcopy
+from datetime import datetime
 from unittest import mock
+
+import pytest
+import requests
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.remote_entities.api import (
@@ -16,6 +20,7 @@ from rero_ils.modules.entities.remote_entities.api import (
 )
 from rero_ils.modules.entities.remote_entities.replace import ReplaceIdentifiedBy
 from rero_ils.modules.entities.remote_entities.sync import SyncEntity
+from rero_ils.modules.utils import get_schema_for_resource
 from tests.utils import mock_response
 
 
@@ -647,3 +652,61 @@ def test_remote_entity_resolve(entity_person):
     # TODO :: Only for code coverage for now. When relations between entities
     #         will be implemented, this test should be corrected.
     assert entity_person.resolve()
+
+
+def test_sync_entities_pids_by_type(
+    app,
+    entity_person_data,
+    entity_topic_data,
+    entity_place_data,
+    mef_agents_url,
+    mef_concepts_url,
+    mef_places_url,
+):
+    """Each MEF entity type is asked on its own `updated` endpoint."""
+    # `ent_place` carries the MEF schema URL, which is not resolvable locally
+    entity_place_data = deepcopy(entity_place_data)
+    entity_place_data["$schema"] = get_schema_for_resource(RemoteEntity)
+    entities = [
+        RemoteEntity.create(deepcopy(data), dbcommit=True, reindex=True, delete_pid=True)
+        for data in (entity_person_data, entity_topic_data, entity_place_data)
+    ]
+    RemoteEntitiesSearch.flush_and_refresh()
+    person, topic, place = entities
+    query = f"pid:({' OR '.join(entity.pid for entity in entities)})"
+
+    def mef_updated(url, json):
+        """Report every posted pid as updated."""
+        return mock_response(json_data=[{"pid": pid} for pid in json["pids"]])
+
+    sync_entity = SyncEntity()
+    with mock.patch("requests.Session.post", side_effect=mef_updated) as mock_post:
+        pids, total = sync_entity.get_entities_pids(query, from_date=datetime(2024, 1, 1))
+        # every endpoint is queried and its answer yielded
+        assert sorted(pids) == sorted(entity.pid for entity in entities)
+    assert total == 3
+
+    # one request per entity type, each carrying only the pids of that type
+    assert {call.args[0]: call.kwargs["json"]["pids"] for call in mock_post.call_args_list} == {
+        f"{mef_agents_url}/mef/updated": [person.pid],
+        f"{mef_concepts_url}/mef/updated": [topic.pid],
+        f"{mef_places_url}/mef/updated": [place.pid],
+    }
+
+    for entity in entities:
+        entity.delete(force=True, dbcommit=True, delindex=True)
+
+
+def test_sync_entities_pids_server_error(app, entity_person_data):
+    """A failing MEF endpoint stops the synchronization."""
+    entity = RemoteEntity.create(deepcopy(entity_person_data), dbcommit=True, reindex=True, delete_pid=True)
+    RemoteEntitiesSearch.flush_and_refresh()
+
+    sync_entity = SyncEntity()
+    error = mock_response(status=500, json_data=[{"pid": entity.pid}])
+    with mock.patch("requests.Session.post", return_value=error):
+        pids, _ = sync_entity.get_entities_pids(f"pid:{entity.pid}", from_date=datetime(2024, 1, 1))
+        with pytest.raises(requests.ConnectionError):
+            list(pids)
+
+    entity.delete(force=True, dbcommit=True, delindex=True)
