@@ -4334,6 +4334,12 @@ def search_type(field):
 
 RERO_ILS_ADVANCED_SEARCH_CONFIG = [
     {
+        "label": _("Everywhere"),
+        "value": "everywhere",
+        "field": None,
+        "options": {"search_type": search_type("everywhere")},
+    },
+    {
         "label": _("Title"),
         "value": "title",
         "field": "title.*",

@@ -993,7 +993,19 @@ def test_document_advanced_search_config(app, db, client, system_librarian_marti
 
     fields_config_data = json.get("fieldsConfig")
     assert len(fields_config_data) > 0
+    fields_config_by_value = {field["value"]: field for field in fields_config_data}
     assert fields_config_data[0] == {
+        "field": None,
+        "label": "Everywhere",
+        "value": "everywhere",
+        "options": {
+            "search_type": [
+                {"label": "contains", "value": "contains"},
+                {"label": "phrase", "value": "phrase"},
+            ]
+        },
+    }
+    assert fields_config_by_value["title"] == {
         "field": "title.*",
         "label": "Title",
         "value": "title",
@@ -1006,7 +1018,7 @@ def test_document_advanced_search_config(app, db, client, system_librarian_marti
     }
 
     # Country: Only Phrase on search type options.
-    assert fields_config_data[3] == {
+    assert fields_config_by_value["country"] == {
         "field": "provisionActivity.place.country",
         "label": "Country",
         "value": "country",
