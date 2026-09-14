@@ -74,5 +74,8 @@ def replace_identified_by(fields=None, verbose=False, dry_run=False):
                 "type_mismatch": sum(len(v) for v in replace.type_mismatch.values()),
             }
         except Exception as err:
+            # the task result is discarded (`ignore_result`): without this the
+            # reason of a failed scheduled run would be lost.
+            current_app.logger.exception(f"replace_identified_by {field}")
             result[field] = {"error": err}
     return result
