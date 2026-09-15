@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-09-14 07:22+0000\n"
+"POT-Creation-Date: 2026-09-15 06:59+0000\n"
 "PO-Revision-Date: 2024-03-26 11:02+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -12979,6 +12979,11 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgstr ""
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr ""
 
@@ -12990,11 +12995,6 @@ msgstr ""
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-user\"></i>"
-msgstr ""
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr ""
 
 #: rero_ils/oauth/scopes.py:9
