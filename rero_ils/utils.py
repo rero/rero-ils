@@ -4,7 +4,7 @@
 """Utilities functions for rero-ils."""
 
 import iso639
-from flask import current_app
+from flask import current_app, request
 from flask_babel import gettext
 from invenio_i18n.ext import current_i18n
 
@@ -27,6 +27,20 @@ def get_i18n_supported_languages():
     languages = [current_app.config.get("BABEL_DEFAULT_LANGUAGE")]
     i18n_languages = current_app.config.get("I18N_LANGUAGES")
     return languages + [ln[0] for ln in i18n_languages]
+
+
+def get_display_language():
+    """Get the language to use to display the i18n fields.
+
+    The `lang` argument of the request takes precedence over the language of
+    the interface, and an unsupported language falls back to the default one.
+
+    :returns: the language code to use.
+    """
+    language = request.args.get("lang", current_i18n.language)
+    if not language or language not in get_i18n_supported_languages():
+        return current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
+    return language
 
 
 def remove_empties_from_dict(a_dict):

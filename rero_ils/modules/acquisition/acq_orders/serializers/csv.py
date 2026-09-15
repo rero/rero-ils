@@ -6,8 +6,7 @@
 
 import csv
 
-from flask import current_app, request, stream_with_context
-from invenio_i18n.ext import current_i18n
+from flask import current_app, stream_with_context
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
@@ -18,7 +17,7 @@ from rero_ils.modules.commons.identifiers import IdentifierStatus
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.serializers.base import DocumentFormatter
 from rero_ils.modules.vendors.api import VendorsSearch
-from rero_ils.utils import get_i18n_supported_languages
+from rero_ils.utils import get_display_language
 
 creator_role_filter = [
     "rsp",
@@ -60,9 +59,7 @@ class AcqOrderCSVSerializer(CSVSerializer):
         vendors = {}
 
         # language
-        language = request.args.get("lang", current_i18n.language)
-        if not language or language not in get_i18n_supported_languages():
-            language = current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
+        language = get_display_language()
 
         order_fields = {
             "order_pid": "pid",
