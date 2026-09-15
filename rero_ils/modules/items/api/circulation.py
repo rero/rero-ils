@@ -1280,6 +1280,11 @@ class ItemCirculation(ItemRecord):
         label = self.status
         if self.is_issue and self.issue_status != ItemIssueStatus.RECEIVED:
             label = self.issue_status
+        if label == ItemStatus.ON_SHELF:
+            return [
+                *circ_category.get("circulation_information", []),
+                {"language": "default", "label": label},
+            ]
         return [{"language": "default", "label": label}]
 
     @property
