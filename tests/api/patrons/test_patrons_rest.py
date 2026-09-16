@@ -14,6 +14,8 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
 
+from rero_ils.modules.ill_requests.api import ILLRequestsSearch
+from rero_ils.modules.ill_requests.models import ILLRequestStatus
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.extensions import PatronWelcomeEmailExtension
@@ -761,6 +763,18 @@ def test_patron_get_links_to_me_ill_requests(
     links_pids = patron_martigny.get_links_to_me(get_pids=True)
     assert "ill_requests" in links_pids
     assert len(links_pids["ill_requests"]) > 0
+
+    # a concluded request is kept when its patron is deleted: it should not be
+    # reported as a link.
+    for status in [ILLRequestStatus.DENIED, ILLRequestStatus.CLOSED]:
+        ill_request_martigny["status"] = status
+        ill_request_martigny.update(ill_request_martigny, dbcommit=True, reindex=True)
+        ILLRequestsSearch.flush_and_refresh()
+        assert "ill_requests" not in patron_martigny.get_links_to_me()
+
+    ill_request_martigny["status"] = ILLRequestStatus.PENDING
+    ill_request_martigny.update(ill_request_martigny, dbcommit=True, reindex=True)
+    ILLRequestsSearch.flush_and_refresh()
 
 
 def test_patron_get_links_to_me_pids(app, patron_martigny, patron_transaction_overdue_martigny):

@@ -20,7 +20,8 @@ from werkzeug.local import LocalProxy
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
-from rero_ils.modules.ill_requests.api import ILLRequestsSearch
+from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
+from rero_ils.modules.ill_requests.models import ILLRequestStatus
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.minters import id_minter
@@ -155,6 +156,11 @@ class Patron(IlsRecord):
         """Delete record and persistent identifier."""
         self._remove_roles()
         super().delete(force, dbcommit, delindex)
+        # keep linked ill_requests and reindex them ; an already deleted
+        # record has no data, thus no pid and no request to reindex
+        if patron_pid := self.pid:
+            for ill_request in ILLRequest.get_requests_by_patron_pid(patron_pid):
+                ill_request.reindex()
         return self
 
     # =========================================================================
@@ -327,13 +333,14 @@ class Patron(IlsRecord):
             LoanState.ITEM_RETURNED,
             LoanState.CREATED,
         ]
+        exclude_ill_status = [ILLRequestStatus.DENIED, ILLRequestStatus.CLOSED]
         loan_query = (
             current_circulation.loan_search_cls()
             .filter("term", patron_pid=self.pid)
             .exclude("terms", state=exclude_states)
         )
         template_query = TemplatesSearch().filter("term", creator__pid=self.pid)
-        ill_query = ILLRequestsSearch().filter("term", patron__pid=self.pid)
+        ill_query = ILLRequestsSearch().filter("term", patron__pid=self.pid).exclude("terms", status=exclude_ill_status)
         transaction_query = _build_transaction_query(patron_pid=self.pid, status="open")
         if get_pids:
             loans = sorted_pids(loan_query)
