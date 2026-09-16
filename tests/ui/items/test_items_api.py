@@ -237,6 +237,7 @@ def test_item_type_circulation_category_pid(item_lib_martigny, item_type_on_site
 
 def test_items_availability(
     item_type_missing_martigny,
+    item_type_on_site_martigny,
     item_type_standard_martigny,
     item_lib_martigny_data_tmp,
     loc_public_martigny,
@@ -268,11 +269,16 @@ def test_items_availability(
     assert item.availability_text[0]["label"] == ItemStatus.IN_TRANSIT
 
     item["status"] = ItemStatus.ON_SHELF
+    item["item_type"] = {"$ref": get_ref_for_pid(ItemType, item_type_on_site_martigny.pid)}
     item = item.update(item, dbcommit=True, reindex=True)
     assert item.is_available()
-    assert len(item.availability_text) == 1  # only default value
+    assert item.availability_text == [
+        *item_type_on_site_martigny.get("circulation_information", []),
+        {"language": "default", "label": ItemStatus.ON_SHELF},
+    ]
 
     # test availability and availability_text for an issue
+    item["item_type"] = {"$ref": get_ref_for_pid(ItemType, item_type_standard_martigny.pid)}
     item["type"] = TypeOfItem.ISSUE
     item["enumerationAndChronology"] = "dummy"
     item["issue"] = {
