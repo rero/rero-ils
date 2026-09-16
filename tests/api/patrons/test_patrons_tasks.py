@@ -8,12 +8,15 @@ from datetime import datetime, timedelta
 
 from invenio_db import db
 
+from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
+from rero_ils.modules.ill_requests.models import ILLRequestStatus
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
 from rero_ils.modules.patrons.tasks import (
     _delete_inactive_patrons_for_org,
     task_delete_inactive_patrons,
 )
 from rero_ils.modules.patrons.utils import create_user_from_data
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def _set_patron_cleanup_config(org, config):
@@ -225,21 +228,51 @@ def test_patron_with_active_loans_not_deleted(app, org_martigny, patron_martigny
     _make_user_recently_active(patron_martigny.user)
 
 
-def test_patron_with_ill_requests_not_deleted(app, org_martigny, patron_martigny, ill_request_martigny):
-    """Test that patron with linked ILL requests is not deleted."""
+def test_patron_with_ill_requests_deleted_only_when_concluded(
+    app,
+    org_martigny,
+    roles,
+    lib_martigny,
+    loc_public_martigny,
+    patron_type_children_martigny,
+    patron_martigny_data_tmp,
+    ill_request_martigny_data_tmp,
+):
+    """Test that only a concluded ILL request allows the patron deletion."""
+    patron, _ = _create_throwaway_patron(patron_martigny_data_tmp, suffix="4")
+    patron_pid = patron.pid
+    data = deepcopy(ill_request_martigny_data_tmp)
+    data["patron"] = {"$ref": get_ref_for_pid("patrons", patron_pid)}
+    ill_request = ILLRequest.create(data=data, delete_pid=True, dbcommit=True, reindex=True)
+    ILLRequestsSearch.flush_and_refresh()
+
     config = {"expiration_years": 3, "inactivity_years": 3}
     _set_patron_cleanup_config(org_martigny, config)
-    _make_patron_expired(patron_martigny)
-    _make_user_inactive(patron_martigny.user)
+    _make_patron_expired(patron)
+    _make_user_inactive(patron.user)
+
+    # a pending request keeps its patron alive
+    deleted, skipped = _delete_inactive_patrons_for_org(org_martigny.pid, config)
+
+    assert Patron.get_record_by_pid(patron_pid) is not None
+    assert deleted == 0
+
+    ill_request["status"] = ILLRequestStatus.CLOSED
+    ill_request.update(ill_request, dbcommit=True, reindex=True)
+    ILLRequestsSearch.flush_and_refresh()
 
     deleted, skipped = _delete_inactive_patrons_for_org(org_martigny.pid, config)
 
-    assert Patron.get_record_by_pid(patron_martigny.pid) is not None
-    assert deleted == 0
+    assert deleted == 1
+    assert Patron.get_record_by_pid(patron_pid) is None
+    # the request is kept and still references the patron, but its name has
+    # been removed from the search index.
+    assert ILLRequest.get_record_by_pid(ill_request.pid) is not None
+    hit = next(ILLRequestsSearch().filter("term", pid=ill_request.pid).scan())
+    assert hit.patron.pid == patron_pid
+    assert hit.patron.name == "unknown"
 
     _clear_patron_cleanup_config(org_martigny)
-    _restore_patron_expiration(patron_martigny)
-    _make_user_recently_active(patron_martigny.user)
 
 
 def test_patron_meeting_all_criteria_is_deleted(
