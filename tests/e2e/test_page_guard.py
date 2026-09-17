@@ -67,6 +67,18 @@ def test_guard_ignores_ordinary_console_output(unguarded_page):
 
 
 @pytest.mark.e2e
+def test_guard_ignores_allowlisted_page_error(unguarded_page):
+    """An uncaught exception whose message is allowlisted leaves the guard silent."""
+    guard = PageGuard(unguarded_page)
+    with unguarded_page.expect_event("pageerror"):
+        unguarded_page.evaluate(
+            "setTimeout(() => { throw new Error('/probe/en.json due to access control checks.'); })"
+        )
+
+    guard.assert_clean()
+
+
+@pytest.mark.e2e
 def test_allowlist_only_covers_documented_answers(base_url):
     """A documented non-2xx answer is tolerated, a neighbouring one is not."""
     assert http_allowed("POST", f"{base_url}/api/item/checkin", 400)
