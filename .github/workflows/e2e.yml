@@ -32,8 +32,12 @@ jobs:
       - name: Set up Python
         run: uv python install 3.14
 
-      - name: Bootstrap (CI mode)
-        run: uv run ./scripts/bootstrap --ci
+      - name: Bootstrap
+        run: uv run ./scripts/bootstrap
+
+      # Upgrade only Playwright to test the latest browser versions
+      - name: Upgrade Playwright to get the latest browser builds
+        run: uv sync --upgrade-package playwright --upgrade-package pytest-playwright
 
       - name: Install Playwright system dependencies
         run: uv run playwright install-deps chromium firefox webkit

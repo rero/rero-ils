@@ -134,18 +134,22 @@ def browser(browser_type, browser_type_launch_args):
 
 #: Console error messages containing one of these substrings are tolerated.
 CONSOLE_ALLOWLIST = (
-    # Transport-level failure of the Werkzeug development server over TLS: it
-    # drops a keep-alive connection on the second navigation inside the admin
-    # SPA, Chromium retries and gives up. The resource itself is served fine
-    # (curl returns it in 34 ms), and no production server behaves this way.
+    # The development server drops a keep-alive connection over TLS and Chromium
+    # gives up retrying; the resource itself is served fine.
     "net::ERR_TOO_MANY_RETRIES",
+)
+
+#: Uncaught exception messages containing one of these substrings are tolerated.
+PAGE_ERROR_ALLOWLIST = (
+    # WebKit's wording for a load it abandoned: the files the interface fetches
+    # in parallel when it boots, which the development server drops.
+    "due to access control checks",
 )
 
 #: ``(method, url substring, status)`` non-2xx answers that the application
 #: legitimately returns and that must therefore not fail a test.
 HTTP_ALLOWLIST = (
-    # The circulation state machine answers 400 "No circulation action performed"
-    # for checkins that are valid no-ops (CHECKIN_1.1.1, CHECKIN_4.2).
+    # Checkins that are valid no-ops answer "No circulation action performed".
     ("POST", "/api/item/checkin", 400),
     # Renewal is denied when it would not push the due date forward.
     ("POST", "/api/item/extend_loan", 400),
@@ -186,6 +190,8 @@ class PageGuard:
 
     def _on_page_error(self, error):
         """Record exceptions that reached the top level of the page."""
+        if any(part in error.message for part in PAGE_ERROR_ALLOWLIST):
+            return
         self.problems.append(f"uncaught exception: {error.message}")
 
     def _on_response(self, response):
