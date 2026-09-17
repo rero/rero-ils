@@ -17,7 +17,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.items.models import ItemNoteTypes, ItemStatus
+from rero_ils.modules.items.models import ItemIssueStatus, ItemNoteTypes, ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_extension_params
@@ -952,6 +952,53 @@ def test_requested_loans_to_validate(
     del item2_lib_martigny["temporary_location"]
     holding.update(original_holding, dbcommit=True, reindex=True)
     item2_lib_martigny.update(original_item, dbcommit=True, reindex=True)
+
+
+def test_requested_loans_to_validate_unreceived_issue(
+    client,
+    librarian_martigny,
+    loc_public_martigny,
+    patron_martigny,
+    circulation_policies,
+    holding_lib_martigny_w_patterns,
+    json_header,
+):
+    """A pending request on a not-yet-received issue is hidden, then shown once received."""
+    issue = holding_lib_martigny_w_patterns.create_regular_issue(
+        status=ItemIssueStatus.LATE, dbcommit=True, reindex=True
+    )
+    library_pid = librarian_martigny.replace_refs()["libraries"][0]["pid"]
+
+    login_user_via_session(client, librarian_martigny.user)
+    res, _ = postdata(
+        client,
+        "api_item.librarian_request",
+        {
+            "item_pid": issue.pid,
+            "patron_pid": patron_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+        },
+    )
+    assert res.status_code == 200
+
+    # not received yet -> must NOT appear in the list
+    res = client.get(url_for("api_item.requested_loans", library_pid=library_pid))
+    data = get_json(res)
+    pids = [hit["item"]["pid"] for hit in data["hits"]["hits"]]
+    assert issue.pid not in pids
+
+    # mark it received -> must now appear in the list
+    issue["issue"]["status"] = ItemIssueStatus.RECEIVED
+    issue.update(issue, dbcommit=True, reindex=True)
+    res = client.get(url_for("api_item.requested_loans", library_pid=library_pid))
+    data = get_json(res)
+    pids = [hit["item"]["pid"] for hit in data["hits"]["hits"]]
+    assert issue.pid in pids
+
+    # clean up - this issue was created outside of a fixture
+    issue.delete(force=True, dbcommit=True, delindex=True)
 
 
 def test_patron_request(
