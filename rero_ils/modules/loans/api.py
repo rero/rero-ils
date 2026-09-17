@@ -9,7 +9,7 @@ from bisect import bisect_right
 from datetime import UTC, datetime, timedelta
 
 import ciso8601
-from elasticsearch_dsl import A
+from elasticsearch_dsl import A, Q
 from flask import current_app
 from flask_babel import gettext as _
 from invenio_circulation.errors import MissingRequiredParameterError
@@ -34,7 +34,7 @@ from rero_ils.modules.circ_policies.api import (
     CircPolicy,
 )
 from rero_ils.modules.errors import NoCirculationActionIsPermitted
-from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.locations.api import Location, LocationsSearch
@@ -370,6 +370,13 @@ class Loan(IlsRecord):
                     ItemsSearch()
                     .filter("term", pid=pid)
                     .filter("term", status=ItemStatus.ON_SHELF)
+                    # exclude issues that have not been physically received yet
+                    .filter(
+                        Q(
+                            "bool",
+                            must_not=[Q("exists", field="issue") & ~Q("term", issue__status=ItemIssueStatus.RECEIVED)],
+                        )
+                    )
                     .source(includes=fields)
                     .execute()
                 )
