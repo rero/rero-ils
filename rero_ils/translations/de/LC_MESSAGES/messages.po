@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-09-16 07:01+0000\n"
+"POT-Creation-Date: 2026-09-18 06:53+0000\n"
 "PO-Revision-Date: 2026-09-09 06:55+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -141,7 +141,7 @@ msgid "location"
 msgstr "Standort"
 
 #: rero_ils/config.py:2249 rero_ils/config.py:2323 rero_ils/config.py:2405
-#: rero_ils/config.py:2532 rero_ils/modules/migrations/views.py:74
+#: rero_ils/config.py:2532 rero_ils/modules/migrations/views.py:76
 msgid "status"
 msgstr "Status"
 
@@ -5695,7 +5695,7 @@ msgstr "Vorveröffentlichungsniveau"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:92
 #: rero_ils/modules/ill_requests/serializers.py:25
-#: rero_ils/modules/serializers/base.py:107
+#: rero_ils/modules/serializers/base.py:112
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -11389,23 +11389,23 @@ msgstr "keine Korrespondenz"
 msgid "match"
 msgstr "Korrespondenz"
 
-#: rero_ils/modules/migrations/data/views.py:89
+#: rero_ils/modules/migrations/data/views.py:93
 msgid "migration"
 msgstr "Migration"
 
-#: rero_ils/modules/migrations/data/views.py:90
+#: rero_ils/modules/migrations/data/views.py:94
 msgid "batch"
 msgstr "Stapel"
 
-#: rero_ils/modules/migrations/data/views.py:91
+#: rero_ils/modules/migrations/data/views.py:95
 msgid "conversion_status"
 msgstr "Konvertierungsstatus"
 
-#: rero_ils/modules/migrations/data/views.py:92
+#: rero_ils/modules/migrations/data/views.py:96
 msgid "deduplication_status"
 msgstr "Deduplizierungsstatus"
 
-#: rero_ils/modules/migrations/data/views.py:93
+#: rero_ils/modules/migrations/data/views.py:97
 msgid "modified_by"
 msgstr "geändert von"
 
@@ -13090,23 +13090,23 @@ msgstr "Nur ein Kontakt pro Typ ist erlaubt."
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-phone\"></i>"
-msgstr "<i class=\"fa-solid fa-phone\"></i>"
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-user\"></i>"
-msgstr "<i class=\"fa-solid fa-user\"></i>"
+msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
-msgstr "<i class=\"fa-solid fa-globe\"></i>"
+msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgstr "<i class=\"fa-solid fa-phone\"></i>"
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-user\"></i>"
+msgstr "<i class=\"fa-solid fa-user\"></i>"
 
 #: rero_ils/oauth/scopes.py:9
 #, fuzzy
