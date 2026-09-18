@@ -38,14 +38,20 @@ def sync(query, dry_run, from_last_date, verbose, log_dir, from_date, in_memory)
         n_updated = 0
         doc_updated = set()
         err_pids = []
-        with click.progressbar(pids, length=total) as bar:
-            for pid in bar:
-                current_doc_updated, updated, error = sync_entity.sync_record(pid)
-                doc_updated.update(current_doc_updated)
-                if updated:
-                    n_updated += 1
-                if error:
-                    err_pids.append(pid)
+        try:
+            with click.progressbar(pids, length=total) as bar:
+                for pid in bar:
+                    current_doc_updated, updated, error = sync_entity.sync_record(pid)
+                    doc_updated.update(current_doc_updated)
+                    if updated:
+                        n_updated += 1
+                    if error:
+                        err_pids.append(pid)
+        except Exception:
+            # a failing MEF endpoint aborts the whole run: record what has been
+            # collected so far, then let the error surface.
+            sync_entity.end_sync(len(doc_updated), n_updated, err_pids, completed=False)
+            raise
         n_doc_updated = len(doc_updated)
         sync_entity.end_sync(n_doc_updated, n_updated, err_pids)
         if err_pids:

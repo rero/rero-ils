@@ -65,7 +65,7 @@ def test_filtered_circ_policies_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 3
+    assert data["hits"]["total"] == 3
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
@@ -74,7 +74,7 @@ def test_filtered_circ_policies_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
 
 @mock.patch(

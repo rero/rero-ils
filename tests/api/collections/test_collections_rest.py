@@ -32,25 +32,25 @@ def test_collections_facets(client, rero_json_header, coll_martigny_1):
     list_url = url_for("invenio_records_rest.coll_list", type="course")
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # library
     list_url = url_for("invenio_records_rest.coll_list", library="lib1")
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # subject
     list_url = url_for("invenio_records_rest.coll_list", subject="geographic")
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # teacher
     list_url = url_for("invenio_records_rest.coll_list", teacher="Pr. Smith, John")
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
 
     # malformed 'published' value must return a clean 400, not a 500
     list_url = url_for("invenio_records_rest.coll_list", published="foo")
@@ -85,17 +85,17 @@ def test_collection_search(client, coll_sion_1, coll_martigny_1, librarian_marti
     list_url = url_for("invenio_records_rest.coll_list", type="course")
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 2
+    assert data["hits"]["total"] == 2
 
     # logged in as a librarian
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     assert data["hits"]["hits"][0]["metadata"]["pid"] == coll_martigny_1.pid
 
     login_user_via_session(client, librarian_sion.user)
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     assert data["hits"]["hits"][0]["metadata"]["pid"] == coll_sion_1.pid

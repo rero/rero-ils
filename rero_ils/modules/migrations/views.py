@@ -22,7 +22,7 @@ def simple_search_json_serializer(data, code=200, headers=None):
         return data
     if data:
         hits = [{"metadata": hit["_source"], "id": hit["_id"]} for hit in data["hits"]["hits"]]
-        new_data = {"hits": {"hits": hits, "total": data["hits"]["total"]}}
+        new_data = {"hits": {"hits": hits, "total": data["hits"]["total"]["value"]}}
         if data.get("aggregations"):
             new_data["aggregations"] = data["aggregations"]
         res = jsonify(new_data)
@@ -66,8 +66,10 @@ class MigrationsListResource(ContentNegotiatedMethodView):
         page = max(page, 1)
         query = flask_request.args.get("q")
 
-        search = Migration.search()[(page - 1) * size : page * size].filter(
-            MigrationPermissionPolicy("mig-search").query_filters
+        search = (
+            Migration.search()[(page - 1) * size : page * size]
+            .filter(MigrationPermissionPolicy("mig-search").query_filters)
+            .extra(track_total_hits=True)
         )
         if query:
             search = search.query("query_string", query=query)
