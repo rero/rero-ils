@@ -11,10 +11,11 @@ from rero_ils.modules.utils import extracted_data_from_ref
 class AcquisitionOrderExtension(RecordExtension):
     """Defines the methods needed by an extension."""
 
-    def pre_dump(self, record, dumper=None):
+    def pre_dump(self, record, data, dumper=None):
         """Called before a record is dumped.
 
         :param record: the record metadata.
+        :param data: the dumped data dictionary.
         :param dumper: the record dumper.
         """
         record["account_statement"] = record.get_account_statement()
