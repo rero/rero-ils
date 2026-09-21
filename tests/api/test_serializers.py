@@ -379,3 +379,26 @@ def test_cached_serializers(
 
     # reset location to initial values
     location.update(loc_public_martigny_data, dbcommit=True, reindex=True)
+
+
+def test_record_responses_disable_browser_cache(
+    client,
+    json_header,
+    rero_json_header,
+    document,
+    item_lib_martigny,
+    librarian_martigny,
+):
+    """Test that record responses opt out of browser caching."""
+    login_user(client, librarian_martigny)
+
+    for endpoint, record in [
+        ("invenio_records_rest.doc_item", document),
+        ("invenio_records_rest.item_item", item_lib_martigny),
+    ]:
+        url = url_for(endpoint, pid_value=record.pid)
+        for headers in [json_header, rero_json_header]:
+            res = client.get(url, headers=headers)
+            assert res.status_code == 200
+            assert res.headers["Cache-Control"] == "no-store"
+            assert "ETag" in res.headers

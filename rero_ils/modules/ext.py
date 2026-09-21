@@ -247,23 +247,16 @@ class REROILSAPP:
             db.session.rollback()
             return RecordConflictRESTError().get_response()
 
-        # Acquisition item responses can't be safely browser-cached: their ETag/Last-Modified track only the record's
-        # own `revision_id`/`updated`, but the response also depends on *related* records. Serialized fields computed
-        # at dump time (an order's `account_statement`/`status`, a receipt's totals, an account's balances) go stale
-        # without the ETag changing, so a conditional GET returns 304 with an outdated body (e.g. a provisional total
-        # stuck at 0, greying out the "Place order" button). The stale ETag also breaks editing: the editor reuses it
-        # as the `If-Match` precondition on save, so a line loaded from cache fails to save once its revision moved.
-        # Send `Cache-Control: no-store` so the browser always refetches a fresh body and ETag.
+        # The ETag tracks only the record's own `revision_id`, while the body depends on the requested
+        # representation (`application/json` vs `application/rero+json`) and on fields computed from *related*
+        # records (an order's `account_statement`, an account's balances). Neither moves the revision, so
+        # upstream's `no-cache` revalidation is answered by a 304 and the browser replays a body that no longer
+        # matches the request. Only `no-store` keeps it from storing that body at all.
         @app.after_request
-        def prevent_stale_computed_record_cache(response):
-            """Disable browser caching for acquisition records with related data."""
-            if request.endpoint in {
-                "invenio_records_rest.acor_item",  # acquisition orders
-                "invenio_records_rest.acol_item",  # acquisition order lines
-                "invenio_records_rest.acre_item",  # acquisition receipts
-                "invenio_records_rest.acrl_item",  # acquisition receipt lines
-                "invenio_records_rest.acac_item",  # acquisition accounts
-            }:
+        def prevent_stale_record_cache(response):
+            """Disable browser caching of record responses."""
+            endpoint = request.endpoint or ""
+            if endpoint.startswith("invenio_records_rest.") and endpoint.endswith("_item"):
                 response.headers["Cache-Control"] = "no-store"
             return response
 
