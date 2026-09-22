@@ -66,6 +66,15 @@ def test_loans_properties(loan_pending_martigny, item_lib_fully):
     loan["transaction_date"] = transaction_date
 
 
+def test_transaction_library_pid_with_deleted_location(loan_pending_martigny):
+    """Test transaction library with a deleted location."""
+    loan = deepcopy(loan_pending_martigny)
+    loan.__dict__.pop("transaction_library_pid", None)
+
+    with mock.patch.object(Location, "get_record_by_pid", return_value=None):
+        assert loan.transaction_library_pid is None
+
+
 def test_loans_indexing(loan_pending_martigny, loc_public_martigny):
     """Test loan indexing."""
     loan = loan_pending_martigny

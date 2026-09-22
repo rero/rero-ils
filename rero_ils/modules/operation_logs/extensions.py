@@ -154,10 +154,11 @@ class ResolveRefsExtension(RecordExtension):
         "libraries": "lib",
     }
 
-    def pre_dump(self, record, dumper=None):
+    def pre_dump(self, record, data, dumper=None):
         """Called before a record is dumped.
 
         :param record: the record metadata.
+        :param data: the dumped data dictionary.
         :param dumper: the record dumper.
         """
         self._resolve_refs(record)
