@@ -221,7 +221,7 @@ def test_patron_transaction_owning_library(
 
     assert res.status_code == 200
     data = get_json(res)
-    assert data["hits"]["total"]["value"] == 1
+    assert data["hits"]["total"] == 1
     assert data["hits"]["hits"][0]["metadata"]["pid"] == event.pid
 
     list_url = url_for(
@@ -232,7 +232,7 @@ def test_patron_transaction_owning_library(
     res = client.get(list_url)
 
     assert res.status_code == 200
-    assert get_json(res)["hits"]["total"]["value"] == 0
+    assert get_json(res)["hits"]["total"] == 0
 
     clear_patron_transaction_data(transaction.pid)
 
