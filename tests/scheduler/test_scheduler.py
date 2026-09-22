@@ -75,5 +75,9 @@ def test_scheduler_cli(celery_session):
         "Not found entry: dummy",
     ]
 
+    # an unknown name changes nothing, it is reported without --verbose too
+    res = runner.invoke(enable_tasks, ["-n dummy", "-d"])
+    assert res.output.strip().split("\n") == ["Not found entry: dummy"]
+
     res = runner.invoke(info, [])
     assert res.output.strip().split("\n") == ["Scheduled tasks:", display_tasks[0]]
