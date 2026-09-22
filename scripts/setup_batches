@@ -303,9 +303,9 @@ EOF
     cat <<EOF
 reroils scheduler enable-tasks --all --verbose
 # disable VS/NJ CANTOOK and VS MEMO harvesting
-reroils scheduler enable-tasks --name harvest-vs-cantook --disable
-reroils scheduler enable-tasks --name harvest-nj-cantook --disable
-reroils scheduler enable-tasks --name harvest-vs-memo --disable
+reroils scheduler enable-tasks --name celery.harvest-vs-cantook --disable
+reroils scheduler enable-tasks --name celery.harvest-nj-cantook --disable
+reroils scheduler enable-tasks --name celery.harvest-vs-memo --disable
 EOF
   else
     echo "reroils scheduler enable-tasks --all --verbose --disable"
