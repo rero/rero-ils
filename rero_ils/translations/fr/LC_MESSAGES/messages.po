@@ -19,9 +19,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-09-23 07:01+0000\n"
-"PO-Revision-Date: 2026-09-23 07:02+0000\n"
+"PO-Revision-Date: 2026-09-24 06:58+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/fr/>\n"
@@ -2216,7 +2216,7 @@ msgstr "Vietnam (vm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1697
 msgid "country_vn"
-msgstr "[Vietnam, North] (vn)"
+msgstr "Vietnam du Nord (vn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1701
 msgid "country_vp"
@@ -2228,7 +2228,7 @@ msgstr "Terre Victoria (vra)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1709
 msgid "country_vs"
-msgstr "[Vietnam, South] (vs)"
+msgstr "Vietnam du Sud (vs)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1713
 msgid "country_vtu"
@@ -3076,7 +3076,7 @@ msgstr "finnois"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1041
 msgid "lang_fiu"
-msgstr "finno-ougriennnes, autres langues"
+msgstr "finno-ougriennes, autres langues"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1045
 msgid "lang_fon"
@@ -8636,7 +8636,7 @@ msgid ""
 "Use the format hdddmmss (hemisphere-degrees-minutes-seconds). Enter one "
 "value, or two values separated by a space."
 msgstr ""
-"Utilisez le format hdddmmss (hemisphere-degrees-minutes-seconds). Saisissez "
+"Utilisez le format hdddmmss (hémisphère-degrés-minutes-secondes). Saisissez "
 "une valeur, ou deux valeurs séparées par un espace."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:160
@@ -9672,7 +9672,7 @@ msgstr "Doit contenir au moins une variable entre {{ }}."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:240
 msgid "Example: Vol. {{numbering.volume}}, {{expected_date.year}}"
-msgstr "Exemple : Vol. {{numbering.vol}}, {{expected_date.year}}"
+msgstr "Exemple : Vol. {{numbering.volume}}, {{expected_date.year}}"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:272
 msgid "rdafr:1013"
