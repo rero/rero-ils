@@ -16,9 +16,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-09-23 07:01+0000\n"
-"PO-Revision-Date: 2026-09-23 07:02+0000\n"
+"PO-Revision-Date: 2026-09-24 06:58+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/de/>\n"
@@ -189,7 +189,7 @@ msgstr "Anzahl der Ansprüche"
 
 #: rero_ils/config.py:2329
 msgid "claims_date"
-msgstr "Datum der Anspruch"
+msgstr "Reklamationsdatum"
 
 #: rero_ils/config.py:2333
 msgid "current_requests"
@@ -444,7 +444,7 @@ msgstr "Signatur"
 
 #: rero_ils/config.py:4415
 msgid "Local fields (document)"
-msgstr "Lokale felder (Dockument)"
+msgstr "Lokale Felder (Dokument)"
 
 #: rero_ils/config.py:4421
 msgid "Local fields (holdings)"
@@ -499,7 +499,7 @@ msgstr "An der Ausleihtheke"
 #: rero_ils/manual_translations.txt:22
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:135
 msgid "patrons"
-msgstr "Benutzer"
+msgstr "Kunde"
 
 #: rero_ils/manual_translations.txt:23
 msgid "librarian"
@@ -626,7 +626,7 @@ msgstr "Hilfe"
 #: rero_ils/manual_translations.txt:61
 #: rero_ils/theme/templates/rero_ils/login_user.html:5
 msgid "Login"
-msgstr "Login"
+msgstr "Anmelden"
 
 #: rero_ils/manual_translations.txt:62
 msgid "Professional interface"
@@ -1313,7 +1313,7 @@ msgstr "Grenada (gd)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:794
 msgid "country_ge"
-msgstr "OstDeutschland (ge)"
+msgstr "Ostdeutschland (ge)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:798
 msgid "country_gg"
@@ -3113,7 +3113,7 @@ msgstr "Fulfulde"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1078
 msgid "lang_fur"
-msgstr "Friulian"
+msgstr "Friaulisch"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1082
 msgid "lang_gaa"
@@ -5022,7 +5022,8 @@ msgstr "Empfangszeile"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:5
 msgid "Data linking a rceipt to one or multiple order lines"
-msgstr "Daten, die einen Empfang mit Bestellszeilen verbinden"
+msgstr ""
+"Daten, die einen Empfang mit einer oder mehreren Bestellzeilen verbinden"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:29
 msgid "Acquisition receipt line ID"
@@ -5973,7 +5974,7 @@ msgstr "Tonbandspule"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:108
 msgid "rdact:1071"
-msgstr "Audio wire reel"
+msgstr "Tondrahtspule"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:112
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:213
@@ -6378,7 +6379,7 @@ msgstr "Person"
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:68
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:31
 msgid "Access Point"
-msgstr "Sucheinstig"
+msgstr "Sucheinstieg"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:53
 msgid "Example: Musset, Alfred de, 1810-1857"
@@ -6583,7 +6584,7 @@ msgstr "Dirigent"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:229
 msgid "adp"
-msgstr "Adapter"
+msgstr "Bearbeiter"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:233
 msgid "aft"
@@ -9388,7 +9389,7 @@ msgstr "Alternative Namen"
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:80
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:87
 msgid "Alternative name"
-msgstr "Alternative Name"
+msgstr "Alternativer Name"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:178
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:188
@@ -9668,7 +9669,7 @@ msgid ""
 "corresponding pattern and level name."
 msgstr ""
 "Diese Vorlage definiert, wie eine Vorhersage angezeigt wird, z.B. Jahr 2020; "
-"Band 1, iss. 4. Sie sollte die Variable field zwischen {{}} mit dem "
+"Bd. 1, Nr. 4. Sie sollte das Variablenfeld zwischen {{}} mit dem "
 "entsprechenden Muster und Ebenennamen enthalten."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:237
@@ -9677,7 +9678,7 @@ msgstr "Soll mindestens eine Variable zwischen {{ }} enthalten."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:240
 msgid "Example: Vol. {{numbering.volume}}, {{expected_date.year}}"
-msgstr "Beispiel: Bd. {{Zählung.Band}}, {{expected_date.year}}"
+msgstr "Beispiel: Bd. {{numbering.volume}}, {{expected_date.year}}"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:272
 msgid "rdafr:1013"
@@ -9859,12 +9860,12 @@ msgid ""
 "After this number, no further claims will be sent. 0 means that no claims "
 "will be sent."
 msgstr ""
-"Nach dieser Nummer werden keine weiteren Ansprüche mehr gesendet. 0 "
-"bedeutet, dass kein Anspruch gesendet wird."
+"Nach dieser Anzahl werden keine weiteren Reklamationen gesendet. 0 bedeutet, "
+"dass keine Reklamation gesendet wird."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:512
 msgid "Number of days before 1st claim"
-msgstr "Anzahl an Tagen vor dem ersten Anspruch"
+msgstr "Anzahl Tage vor der ersten Reklamation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:513
 msgid ""
@@ -9872,7 +9873,7 @@ msgid ""
 "expected date after which it is claimed."
 msgstr ""
 "Wenn das Exemplar nicht empfangen wird, definiert dies die Anzahl der Tage "
-"zwischen dem erwarteten Datum und dem Versand des Anspruches."
+"zwischen dem erwarteten Datum und dem Versand der Reklamation."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:518
 msgid "Number of days before next claims"
@@ -9884,7 +9885,7 @@ msgid ""
 "claim date after which it is claimed again."
 msgstr ""
 "Wenn das Exemplar nicht empfangen wurde, definiert dies die Anzahl der Tage "
-"zwischen dem letzten Anspruch und dem nächsten."
+"zwischen der letzten Reklamation und der nächsten."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:555
 msgid "Choose a vendor"
@@ -9955,7 +9956,7 @@ msgstr "Anmerkung zum Empfang"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:737
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:123
 msgid "claim_note"
-msgstr "Anmerkung zur Anspruch"
+msgstr "Anmerkung zur Reklamation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:741
 msgid "routing_note"
@@ -10533,7 +10534,7 @@ msgstr "Keine Zirkulationsaktion durchgeführt: unterwegs hinzugefügt"
 
 #: rero_ils/modules/items/api/circulation.py:246
 msgid "No circulation action performed: item at desk"
-msgstr "Keine Zirkulationsaktion durchgeführt: item at desk"
+msgstr "Keine Zirkulationsaktion durchgeführt: Exemplar zur Abholung bereit"
 
 #: rero_ils/modules/items/api/circulation.py:314
 msgid "No circulation action performed: in transit to house"
@@ -10769,7 +10770,7 @@ msgstr "Stufe 4: keine Erhaltung (die eliminierbaren)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:751
 msgid "3_consumable"
-msgstr "Stufe 3 : kurzfristige Aufbewahrung (gängige Nutzung)"
+msgstr "Stufe 3: kurzfristige Aufbewahrung (gängige Nutzung)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:755
 msgid "2_controlled_consumption"
@@ -10802,7 +10803,7 @@ msgstr ""
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:814
 msgid "Item is harvested or not, will disable record edition or similar."
 msgstr ""
-"Exemplar wird gesammelt oder nicht ; dies deaktiviert die Bearbeitung der "
+"Exemplar wird gesammelt oder nicht; dies deaktiviert die Bearbeitung der "
 "Ressource."
 
 #: rero_ils/modules/libraries/api.py:85
@@ -11327,7 +11328,7 @@ msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:251
 msgid "Notification email"
-msgstr "Benachrichtigungs E-Mail-Addresse"
+msgstr "Benachrichtigungs-E-Mail"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:252
 msgid "Specify a generic email address used for notification."
@@ -11442,11 +11443,11 @@ msgstr "Aktuelle Zählung der Mahnungen"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:123
 msgid "Claim number"
-msgstr "Anspruchsnummer"
+msgstr "Reklamationsnummer"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:124
 msgid "Claim number sequence for this serial issue"
-msgstr "Anspruchsnummernfolge für diese Serienausgabe"
+msgstr "Reklamationsnummernfolge für diese Lieferung"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:139
 msgid "Notification ID"
@@ -11789,7 +11790,7 @@ msgstr "Pro Sprache ist nur ein Wert erlaubt."
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:225
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:231
 msgid "Placeholder"
-msgstr "Placeholder"
+msgstr "Platzhalter"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:228
 msgid "Placeholder text displayed in the public homepage search box."
@@ -11977,7 +11978,7 @@ msgstr "URI der Benachrichtigung"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:160
 msgid "Loan URI"
-msgstr "URI des Loans"
+msgstr "URI der Ausleihe"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:184
 msgid "Total calculated amount of the patron transaction"
@@ -12084,7 +12085,7 @@ msgid ""
 "The checkout is blocked once the specified checkout number is reached by the "
 "patron. This is a global checkout limit."
 msgstr ""
-"Die Ausleihe wird gesperrt, sobald der Benutzer die angegebene Anzahl von "
+"Die Ausleihe wird gesperrt, sobald der Kunde die angegebene Anzahl von "
 "Ausleihen erreicht hat. Dies ist eine globale Begrenzung der Ausleihen."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:125
@@ -12097,7 +12098,7 @@ msgid ""
 "patron for items of the same owning library. This is the same limit for all "
 "libraries."
 msgstr ""
-"Die Ausleihe wird gesperrt, sobald der Benutzer die angegebene Anzahl von "
+"Die Ausleihe wird gesperrt, sobald der Kunde die angegebene Anzahl von "
 "Ausleihen von Exemplaren aus derselben besitzenden Bibliothek erreicht hat. "
 "Dies ist für alle Bibliotheken dieselbe Begrenzung."
 
@@ -12165,9 +12166,8 @@ msgid ""
 "The checkout, renewal and the request are blocked once the specified overdue "
 "fee amount is reached by the patron."
 msgstr ""
-"Ausleihen, Verlängerungen und Bestellungen werden gesperrt, sobald der "
-"Benutzer den angegebenen Gebührenbetrag für überfällige Exemplare erreicht "
-"hat."
+"Ausleihen, Verlängerungen und Bestellungen werden gesperrt, sobald der Kunde "
+"den angegebenen Gebührenbetrag für überfällige Exemplare erreicht hat."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:297
 msgid "Limit by overdue items"
@@ -12182,8 +12182,8 @@ msgid ""
 "The checkout, renewal and the request are blocked once the specified number "
 "of overdue items is reached by the patron."
 msgstr ""
-"Ausleihen, Verlängerungen und Bestellungen werden gesperrt, sobald der "
-"Benutzer die angegebene Anzahl überfälliger Exemplare erreicht hat."
+"Ausleihen, Verlängerungen und Bestellungen werden gesperrt, sobald der Kunde "
+"die angegebene Anzahl überfälliger Exemplare erreicht hat."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:318
 msgid "Block the patron if the subscription is not paid"
@@ -12191,7 +12191,7 @@ msgstr "Kunde sperren, wenn das Abonnement nicht bezahlt ist"
 
 #: rero_ils/modules/patrons/api.py:127
 msgid "Patron has active loans or fees, cannot remove patron role"
-msgstr "Aktive Ausliehen/Gebühren, Rolle „Kunde” kann nicht entfernt werden"
+msgstr "Aktive Ausleihen/Gebühren, Rolle „Kunde“ kann nicht entfernt werden"
 
 #: rero_ils/modules/patrons/api.py:391
 msgid "Your account is currently blocked."
@@ -12423,8 +12423,7 @@ msgstr "professionell: Statistikverwaltung"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:549
 msgid "The public note is visible for the patron in his/her account."
-msgstr ""
-"Die öffentliche Anmerkung ist für den Benutzer in seinem Konto sichtbar."
+msgstr "Die öffentliche Anmerkung ist für den Kunden in seinem Konto sichtbar."
 
 #: rero_ils/modules/selfcheck/admin.py:111
 msgid "Selfcheck Terminal Management"
@@ -12989,7 +12988,7 @@ msgid ""
 "If enabled, the loan history is visible in the patron account. Loan data is "
 "always anonymised after a certain period."
 msgstr ""
-"Wenn diese Funktion aktiviert ist, ist die Ausleihhistorie im Benutzerkonto "
+"Wenn diese Funktion aktiviert ist, ist die Ausleihhistorie im Kundenkonto "
 "einsehbar. Die Ausleihdaten werden nach einer bestimmten Zeit stets "
 "anonymisiert."
 
@@ -13110,7 +13109,7 @@ msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
 #: rero_ils/oauth/scopes.py:9
 msgid "Full name"
-msgstr "Voller Name"
+msgstr "Vollständiger Name"
 
 #: rero_ils/oauth/scopes.py:11
 msgid "Expiration date"
@@ -13118,7 +13117,7 @@ msgstr "Ablaufdatum"
 
 #: rero_ils/oauth/scopes.py:14
 msgid "Network, patron type, and expiration date (regrouped)"
-msgstr "Netzwerk, Kundentype, und Ablaufdatum (zusammengefasst)"
+msgstr "Bibliotheksverbund, Kundentyp und Ablaufdatum (zusammengefasst)"
 
 #: rero_ils/theme/menus.py:38
 msgid "My Account"
@@ -13319,11 +13318,11 @@ msgstr "Passwort anzeigen"
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:5
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:45
 msgid "Authorise application"
-msgstr "App autorisieren"
+msgstr "Anwendung autorisieren"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:10
 msgid "Authorise external application"
-msgstr "Externe App autorisieren"
+msgstr "Externe Anwendung autorisieren"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:14
 #, python-format
@@ -13335,38 +13334,32 @@ msgstr ""
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:24
 msgid "Visit application website"
-msgstr "Zur Website der App"
+msgstr "Website der Anwendung besuchen"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:29
-#, fuzzy
-#| msgid "Billing informations"
 msgid "The following information will be shared"
-msgstr "Informationen zur Rechnungsstellung"
+msgstr "Folgende Informationen werden weitergegeben"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:35
 msgid "No permissions granted."
-msgstr ""
+msgstr "Keine Berechtigungen erteilt."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:40
 msgid "Your password is never shared with this application."
-msgstr ""
+msgstr "Ihr Passwort wird niemals an diese Anwendung weitergegeben."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:48
-#, fuzzy
-#| msgid "subject"
 msgid "Reject"
-msgstr "Thema"
+msgstr "Ablehnen"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:53
 #, python-format
 msgid "You are signed in as %(account)s."
-msgstr ""
+msgstr "Sie sind als %(account)s angemeldet."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:54
-#, fuzzy
-#| msgid "Log In"
 msgid "Log out"
-msgstr "Anmelden"
+msgstr "Abmelden"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:5
 #: rero_ils/theme/templates/security/email/reset_notice.html:5
