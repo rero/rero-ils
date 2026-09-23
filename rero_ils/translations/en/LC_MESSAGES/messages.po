@@ -16,9 +16,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-09-22 07:05+0000\n"
-"PO-Revision-Date: 2026-09-09 06:55+0000\n"
+"PO-Revision-Date: 2026-09-23 07:01+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/en/>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: rero_ils/accounts_views.py:48
 msgid "The 2 passwords are not identical."
@@ -12997,20 +12997,16 @@ msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
 
 #: rero_ils/oauth/scopes.py:9
-#, fuzzy
-#| msgid "Fuller form of name"
 msgid "Full name"
-msgstr "Fuller form of name"
+msgstr "Full name"
 
 #: rero_ils/oauth/scopes.py:11
-#, fuzzy
-#| msgid "Operation date"
 msgid "Expiration date"
-msgstr "Operation date"
+msgstr "Expiration date"
 
 #: rero_ils/oauth/scopes.py:14
 msgid "Network, patron type, and expiration date (regrouped)"
-msgstr ""
+msgstr "Network, patron type, and expiration date (regrouped)"
 
 #: rero_ils/theme/menus.py:38
 msgid "My Account"
@@ -13207,52 +13203,47 @@ msgstr "Show password"
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:5
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:45
 msgid "Authorise application"
-msgstr ""
+msgstr "Authorise application"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:10
 msgid "Authorise external application"
-msgstr ""
+msgstr "Authorise external application"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:14
 #, python-format
 msgid ""
 "%(application)s would like to use your %(sitename)s account to identify you."
 msgstr ""
+"%(application)s would like to use your %(sitename)s account to identify you."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:24
 msgid "Visit application website"
-msgstr ""
+msgstr "Visit application website"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:29
-#, fuzzy
-#| msgid "Billing informations"
 msgid "The following information will be shared"
-msgstr "Billing information"
+msgstr "The following information will be shared"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:35
 msgid "No permissions granted."
-msgstr ""
+msgstr "No permissions granted."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:40
 msgid "Your password is never shared with this application."
-msgstr ""
+msgstr "Your password is never shared with this application."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:48
-#, fuzzy
-#| msgid "subject"
 msgid "Reject"
-msgstr "subject"
+msgstr "Reject"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:53
 #, python-format
 msgid "You are signed in as %(account)s."
-msgstr ""
+msgstr "You are signed in as %(account)s."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:54
-#, fuzzy
-#| msgid "Log In"
 msgid "Log out"
-msgstr "Log in"
+msgstr "Log out"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:5
 #: rero_ils/theme/templates/security/email/reset_notice.html:5
