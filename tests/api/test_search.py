@@ -26,6 +26,15 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     hits = get_json(res)["hits"]
     assert hits["total"] == 1
 
+    # mixed unfielded and fielded advanced search
+    list_url = url_for(
+        "invenio_records_rest.doc_list",
+        q=r"(travailleurs) AND title.\*:(retours)",
+    )
+    res = client.get(list_url)
+    hits = get_json(res)["hits"]
+    assert hits["total"]["value"] == 1
+
     # phrase search with punctuations
     list_url = url_for(
         "invenio_records_rest.doc_list",
