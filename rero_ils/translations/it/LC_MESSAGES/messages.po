@@ -17,9 +17,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2026-09-23 07:01+0000\n"
-"PO-Revision-Date: 2026-09-09 06:55+0000\n"
+"PO-Revision-Date: 2026-09-24 06:58+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/rero-"
 "ils/it/>\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: rero_ils/accounts_views.py:48
 msgid "The 2 passwords are not identical."
@@ -344,7 +344,7 @@ msgstr "Questa è una VERSIONE TEST."
 #: rero_ils/config.py:3547 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:93
 msgid "Go to the production site."
-msgstr "Aprire il sito di produzione."
+msgstr "Apri il sito di produzione."
 
 #: rero_ils/config.py:4329
 msgid "contains"
@@ -627,7 +627,7 @@ msgstr "Aiuto"
 #: rero_ils/manual_translations.txt:61
 #: rero_ils/theme/templates/rero_ils/login_user.html:5
 msgid "Login"
-msgstr "Accedere"
+msgstr "Accedi"
 
 #: rero_ils/manual_translations.txt:62
 msgid "Professional interface"
@@ -635,15 +635,15 @@ msgstr "Interfaccia professionale"
 
 #: rero_ils/manual_translations.txt:63
 msgid "Logout"
-msgstr "Disconnettersi"
+msgstr "Esci"
 
 #: rero_ils/manual_translations.txt:64
 msgid "Edit my profile"
-msgstr "Modificare il mio profilo"
+msgstr "Modifica il mio profilo"
 
 #: rero_ils/manual_translations.txt:65
 msgid "Change password"
-msgstr "Cambiare la password"
+msgstr "Cambia la password"
 
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:37
@@ -726,7 +726,7 @@ msgstr "Mobile"
 
 #: rero_ils/manual_translations.txt:98
 msgid "Hide password"
-msgstr "Nascondere la password"
+msgstr "Nascondi la password"
 
 #: rero_ils/manual_translations.txt:103
 msgid "catalog"
@@ -1778,11 +1778,11 @@ msgstr "Nigeria (nr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1260
 msgid "country_nsc"
-msgstr "[Nova Scotia] (nsc)"
+msgstr "Nuova Scozia (nsc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1264
 msgid "country_ntc"
-msgstr "[Northwest Territories] (ntc)"
+msgstr "Territori del Nord-Ovest (ntc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1268
 msgid "country_nu"
@@ -1790,11 +1790,11 @@ msgstr "Nauru (nu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1272
 msgid "country_nuc"
-msgstr "[Nunavut] (nuc)"
+msgstr "Nunavut (nuc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1276
 msgid "country_nvu"
-msgstr "[Nevada] (nvu)"
+msgstr "Nevada (nvu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1280
 msgid "country_nw"
@@ -1806,7 +1806,7 @@ msgstr "Isola Norfolk (nx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1288
 msgid "country_nyu"
-msgstr "[New York (State)] (nyu)"
+msgstr "New York (Stato) (nyu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1292
 msgid "country_nz"
@@ -1814,19 +1814,19 @@ msgstr "Nuova Zelanda (nz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1296
 msgid "country_ohu"
-msgstr "[Ohio] (ohu)"
+msgstr "Ohio (ohu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1300
 msgid "country_oku"
-msgstr "[Oklahoma] (oku)"
+msgstr "Oklahoma (oku)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1304
 msgid "country_onc"
-msgstr "[Ontario] (onc)"
+msgstr "Ontario (onc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1308
 msgid "country_oru"
-msgstr "[Oregon] (oru)"
+msgstr "Oregon (oru)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1312
 msgid "country_ot"
@@ -1834,11 +1834,11 @@ msgstr "Mayotte (ot)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1316
 msgid "country_pau"
-msgstr "[Pennsylvania] (pau)"
+msgstr "Pennsylvania (pau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1320
 msgid "country_pc"
-msgstr "[Pitcairn Island] (pc)"
+msgstr "Isole Pitcairn (pc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1324
 msgid "country_pe"
@@ -1846,7 +1846,7 @@ msgstr "Perù (pe)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1328
 msgid "country_pf"
-msgstr "[Paracel Islands] (pf)"
+msgstr "Isole Paracel (pf)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1332
 msgid "country_pg"
@@ -1858,7 +1858,7 @@ msgstr "Filippine (ph)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1340
 msgid "country_pic"
-msgstr "[Prince Edward Island] (pic)"
+msgstr "Isola del Principe Edoardo (pic)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1344
 msgid "country_pk"
@@ -1886,7 +1886,7 @@ msgstr "Portorico (pr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1368
 msgid "country_pt"
-msgstr "[Portuguese Timor] (pt)"
+msgstr "Timor portoghese (pt)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1372
 msgid "country_pw"
@@ -1902,11 +1902,11 @@ msgstr "Qatar (qa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1384
 msgid "country_qea"
-msgstr "[Queensland] (qea)"
+msgstr "Queensland (qea)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1388
 msgid "country_quc"
-msgstr "[Québec (Province)] (quc)"
+msgstr "Québec (Provincia) (quc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1392
 msgid "country_rb"
@@ -1922,7 +1922,7 @@ msgstr "Zimbabwe (rh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1404
 msgid "country_riu"
-msgstr "[Rhode Island] (riu)"
+msgstr "Rhode Island (riu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1408
 msgid "country_rm"
@@ -1930,11 +1930,11 @@ msgstr "Romania (rm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1412
 msgid "country_ru"
-msgstr "[Russia (Federation)] (ru)"
+msgstr "Russia (Federazione) (ru)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1416
 msgid "country_rur"
-msgstr "[Russian S.F.S.R.] (rur)"
+msgstr "R.S.F.S. Russa (rur)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1420
 msgid "country_rw"
@@ -1942,7 +1942,7 @@ msgstr "Ruanda (rw)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1424
 msgid "country_ry"
-msgstr "[Ryukyu Islands, Southern] (ry)"
+msgstr "Isole Ryūkyū meridionali (ry)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1428
 msgid "country_sa"
@@ -1950,15 +1950,15 @@ msgstr "Sudafrica (sa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1432
 msgid "country_sb"
-msgstr "[Svalbard] (sb)"
+msgstr "Svalbard (sb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1436
 msgid "country_sc"
-msgstr "[Saint-Barthélemy] (sc)"
+msgstr "Saint-Barthélemy (sc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1440
 msgid "country_scu"
-msgstr "[South Carolina] (scu)"
+msgstr "Carolina del Sud (scu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1444
 msgid "country_sd"
@@ -1966,7 +1966,7 @@ msgstr "Sud Sudan (sd)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1448
 msgid "country_sdu"
-msgstr "[South Dakota] (sdu)"
+msgstr "Dakota del Sud (sdu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1452
 msgid "country_se"
@@ -1982,7 +1982,7 @@ msgstr "Senegal (sg)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1464
 msgid "country_sh"
-msgstr "[Spanish North Africa] (sh)"
+msgstr "Africa settentrionale spagnola (sh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1468
 msgid "country_si"
@@ -1994,7 +1994,7 @@ msgstr "Sudan (sj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1476
 msgid "country_sk"
-msgstr "[Sikkim] (sk)"
+msgstr "Sikkim (sk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1480
 msgid "country_sl"
@@ -2006,11 +2006,11 @@ msgstr "San Marino (sm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1488
 msgid "country_sn"
-msgstr "[Sint Maarten] (sn)"
+msgstr "Sint Maarten (sn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1492
 msgid "country_snc"
-msgstr "[Saskatchewan] (snc)"
+msgstr "Saskatchewan (snc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1496
 msgid "country_so"
@@ -2026,7 +2026,7 @@ msgstr "Swaziland (sq)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1508
 msgid "country_sr"
-msgstr "[Surinam] (sr)"
+msgstr "Suriname (sr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1512
 msgid "country_ss"
@@ -2034,11 +2034,11 @@ msgstr "Sahara occidentale (ss)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1516
 msgid "country_st"
-msgstr "[Saint-Martin] (st)"
+msgstr "Saint-Martin (st)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1520
 msgid "country_stk"
-msgstr "[Scotland] (stk)"
+msgstr "Scozia (stk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1524
 msgid "country_su"
@@ -2046,7 +2046,7 @@ msgstr "Arabia Saudita (su)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1528
 msgid "country_sv"
-msgstr "[Swan Islands] (sv)"
+msgstr "Isole del Cigno (sv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1532
 msgid "country_sw"
@@ -2058,7 +2058,7 @@ msgstr "Namibia (sx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1540
 msgid "country_sy"
-msgstr "[Syria] (sy)"
+msgstr "Siria (sy)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1544
 msgid "country_sz"
@@ -2070,7 +2070,7 @@ msgstr "Tagikistan (ta)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1553
 msgid "country_tar"
-msgstr "[Tajik S.S.R.] (tar)"
+msgstr "R.S.S. Tagika (tar)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1557
 msgid "country_tc"
@@ -2094,7 +2094,7 @@ msgstr "Turkmenistan (tk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1577
 msgid "country_tkr"
-msgstr "[Turkmen S.S.R.] (tkr)"
+msgstr "R.S.S. Turkmena (tkr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1581
 msgid "country_tl"
@@ -2102,11 +2102,11 @@ msgstr "Tokelau (tl)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1585
 msgid "country_tma"
-msgstr "[Tasmania] (tma)"
+msgstr "Tasmania (tma)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1589
 msgid "country_tnu"
-msgstr "[Tennessee] (tnu)"
+msgstr "Tennessee (tnu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1593
 msgid "country_to"
@@ -2122,7 +2122,7 @@ msgstr "Emirati Arabi Uniti (ts)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1605
 msgid "country_tt"
-msgstr "[Trust Territory of the Pacific Islands] (tt)"
+msgstr "Territorio fiduciario delle Isole del Pacifico (tt)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1609
 msgid "country_tu"
@@ -2134,7 +2134,7 @@ msgstr "Tuvalu (tv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1617
 msgid "country_txu"
-msgstr "[Texas] (txu)"
+msgstr "Texas (txu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1621
 msgid "country_tz"
@@ -2146,7 +2146,7 @@ msgstr "Egitto (ua)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1629
 msgid "country_uc"
-msgstr "[United States Misc. Caribbean Islands] (uc)"
+msgstr "Stati Uniti, isole caraibiche varie (uc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1633
 msgid "country_ug"
@@ -2154,11 +2154,11 @@ msgstr "Uganda (ug)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1637
 msgid "country_ui"
-msgstr "[United Kingdom Misc. Islands] (ui)"
+msgstr "Regno Unito, isole varie (ui)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1641
 msgid "country_uik"
-msgstr "[United Kingdom Misc. Islands] (uik)"
+msgstr "Regno Unito, isole varie (uik)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1645
 msgid "country_un"
@@ -2166,11 +2166,11 @@ msgstr "Ucraina (un)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1649
 msgid "country_up"
-msgstr "[United States Misc. Pacific Islands] (up)"
+msgstr "Stati Uniti, isole del Pacifico varie (up)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1653
 msgid "country_utu"
-msgstr "[Utah] (utu)"
+msgstr "Utah (utu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1657
 msgid "country_uv"
@@ -2186,11 +2186,11 @@ msgstr "Uzbekistan (uz)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1669
 msgid "country_uzr"
-msgstr "[Uzbek S.S.R.] (uzr)"
+msgstr "R.S.S. Uzbeka (uzr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1673
 msgid "country_vau"
-msgstr "[Virginia] (vau)"
+msgstr "Virginia (vau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1677
 msgid "country_vb"
@@ -2198,7 +2198,7 @@ msgstr "Isole Vergini Britanniche (vb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1681
 msgid "country_vc"
-msgstr "[Vatican City] (vc)"
+msgstr "Città del Vaticano (vc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1685
 msgid "country_ve"
@@ -2214,35 +2214,35 @@ msgstr "Vietnam (vm)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1697
 msgid "country_vn"
-msgstr "[Vietnam, North] (vn)"
+msgstr "Vietnam del Nord (vn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1701
 msgid "country_vp"
-msgstr "[Various places] (vp)"
+msgstr "Luoghi diversi (vp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1705
 msgid "country_vra"
-msgstr "[Victoria] (vra)"
+msgstr "Victoria (vra)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1709
 msgid "country_vs"
-msgstr "[Vietnam, South] (vs)"
+msgstr "Vietnam del Sud (vs)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1713
 msgid "country_vtu"
-msgstr "[Vermont] (vtu)"
+msgstr "Vermont (vtu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1717
 msgid "country_wau"
-msgstr "[Washington (State)] (wau)"
+msgstr "Washington (Stato) (wau)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1721
 msgid "country_wb"
-msgstr "[West Berlin] (wb)"
+msgstr "Berlino Ovest (wb)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1725
 msgid "country_wea"
-msgstr "[Western Australia] (wea)"
+msgstr "Australia Occidentale (wea)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1729
 msgid "country_wf"
@@ -2250,19 +2250,19 @@ msgstr "Wallis e Futuna (wf)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1733
 msgid "country_wiu"
-msgstr "[Wisconsin] (wiu)"
+msgstr "Wisconsin (wiu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1737
 msgid "country_wj"
-msgstr "[West Bank of the Jordan River] (wj)"
+msgstr "Cisgiordania (wj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1741
 msgid "country_wk"
-msgstr "[Wake Island] (wk)"
+msgstr "Isola di Wake (wk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1745
 msgid "country_wlk"
-msgstr "[Wales] (wlk)"
+msgstr "Galles (wlk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1749
 msgid "country_ws"
@@ -2270,15 +2270,15 @@ msgstr "Samoa (ws)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1753
 msgid "country_wvu"
-msgstr "[West Virginia] (wvu)"
+msgstr "Virginia Occidentale (wvu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1757
 msgid "country_wyu"
-msgstr "[Wyoming] (wyu)"
+msgstr "Wyoming (wyu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1761
 msgid "country_xa"
-msgstr "[Christmas Island (Indian Ocean)] (xa)"
+msgstr "Isola di Natale (Oceano Indiano) (xa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1765
 msgid "country_xb"
@@ -2290,7 +2290,7 @@ msgstr "Maldive (xc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1773
 msgid "country_xd"
-msgstr "[Saint Kitts-Nevis] (xd)"
+msgstr "Saint Kitts e Nevis (xd)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1777
 msgid "country_xe"
@@ -2298,11 +2298,11 @@ msgstr "Isole Marshall (xe)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1781
 msgid "country_xf"
-msgstr "[Midway Islands] (xf)"
+msgstr "Isole Midway (xf)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1785
 msgid "country_xga"
-msgstr "[Coral Sea Islands Territory] (xga)"
+msgstr "Territorio delle Isole del Mar dei Coralli (xga)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1789
 msgid "country_xh"
@@ -2310,11 +2310,11 @@ msgstr "Niue (xh)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1793
 msgid "country_xi"
-msgstr "[Saint Kitts-Nevis-Anguilla] (xi)"
+msgstr "Saint Kitts-Nevis-Anguilla (xi)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1797
 msgid "country_xj"
-msgstr "[Saint Helena] (xj)"
+msgstr "Sant'Elena (xj)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1801
 msgid "country_xk"
@@ -2334,7 +2334,7 @@ msgstr "Macedonia del Nord (xn)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1817
 msgid "country_xna"
-msgstr "[New South Wales] (xna)"
+msgstr "Nuovo Galles del Sud (xna)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1821
 msgid "country_xo"
@@ -2342,11 +2342,11 @@ msgstr "Slovacchia (xo)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1825
 msgid "country_xoa"
-msgstr "[Northern Territory] (xoa)"
+msgstr "Territorio del Nord (xoa)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1829
 msgid "country_xp"
-msgstr "[Spratly Island] (xp)"
+msgstr "Isole Spratly (xp)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1833
 msgid "country_xr"
@@ -2354,7 +2354,7 @@ msgstr "Cechia (xr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1837
 msgid "country_xra"
-msgstr "[South Australia] (xra)"
+msgstr "Australia Meridionale (xra)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1841
 msgid "country_xs"
@@ -2366,7 +2366,7 @@ msgstr "Slovenia (xv)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1849
 msgid "country_xx"
-msgstr "[No place, unknown, or undetermined] (xx)"
+msgstr "Nessun luogo, sconosciuto o indeterminato (xx)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1853
 msgid "country_xxc"
@@ -2378,7 +2378,7 @@ msgstr "Regno Unito (xxk)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1862
 msgid "country_xxr"
-msgstr "[Soviet Union] (xxr)"
+msgstr "Unione Sovietica (xxr)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1866
 msgid "country_xxu"
@@ -2390,11 +2390,11 @@ msgstr "Yemen (ye)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1875
 msgid "country_ykc"
-msgstr "[Yukon Territory] (ykc)"
+msgstr "Territorio dello Yukon (ykc)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1879
 msgid "country_yu"
-msgstr "[Serbia and Montenegro] (yu)"
+msgstr "Serbia e Montenegro (yu)"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:1883
 msgid "country_za"
@@ -2662,7 +2662,7 @@ msgstr "avaro"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:632
 msgid "lang_ave"
-msgstr "avestan"
+msgstr "avestico"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:636
 msgid "lang_awa"
@@ -2926,7 +2926,7 @@ msgstr "creoli e pidgin (altre)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:896
 msgid "lang_csb"
-msgstr "kashubian"
+msgstr "casciubo"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:900
 msgid "lang_cus"
@@ -3254,7 +3254,7 @@ msgstr "hindi"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1215
 msgid "lang_hit"
-msgstr "hittite"
+msgstr "ittita"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1219
 msgid "lang_hmn"
@@ -3474,7 +3474,7 @@ msgstr "coreano"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1432
 msgid "lang_kos"
-msgstr "kosraean"
+msgstr "kosraeano"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1436
 msgid "lang_kpe"
@@ -3482,7 +3482,7 @@ msgstr "kpelle"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1440
 msgid "lang_krc"
-msgstr "karachay-Balkar"
+msgstr "karachay-balkar"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1444
 msgid "lang_krl"
@@ -3642,7 +3642,7 @@ msgstr "masai"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1600
 msgid "lang_may"
-msgstr "malay"
+msgstr "malese"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1604
 msgid "lang_mdf"
@@ -3686,7 +3686,7 @@ msgstr "maltese"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1644
 msgid "lang_mnc"
-msgstr "manchu"
+msgstr "manciù"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1648
 msgid "lang_mni"
@@ -4006,7 +4006,7 @@ msgstr "sango"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1964
 msgid "lang_sah"
-msgstr "yakut"
+msgstr "jakuto"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1968
 msgid "lang_sai"
@@ -4335,7 +4335,7 @@ msgstr "ci"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2292
 msgid "lang_tyv"
-msgstr "tuvinian"
+msgstr "tuvano"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2296
 msgid "lang_udm"
@@ -4451,7 +4451,7 @@ msgstr "lingue yupik"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2408
 msgid "lang_zap"
-msgstr "zapotec"
+msgstr "zapoteco"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2412
 msgid "lang_zbl"
@@ -5200,12 +5200,12 @@ msgid ""
 "Remove this field to disable the checkout. Enter 0 to allow the checkout "
 "until the end of the day."
 msgstr ""
-"Eliminare questo campo per disabilitare il prestito. Inserire 0 per "
+"Elimina questo campo per disabilitare il prestito. Inserisci 0 per "
 "consentire il prestito fino alla fine della giornata."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:101
 msgid "Allow patron requests"
-msgstr "Consentire le domande"
+msgstr "Consenti le domande"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:106
 msgid "Pickup hold duration in days"
@@ -5217,7 +5217,7 @@ msgid ""
 "cancelled. Keep empty to specify infinite duration."
 msgstr ""
 "Numero di giorni dopo i quali una richiesta convalidata non ritirata è "
-"cancellata. Tenere vuoto per specificare una durata infinita."
+"cancellata. Tieni vuoto per specificare una durata infinita."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:127
 msgid ""
@@ -5321,7 +5321,7 @@ msgstr "Numero massimo di proroghe"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:363
 msgid "Enter 0 if renewal is not allowed."
-msgstr "Inserire 0 se non è consentita la proroga."
+msgstr "Inserisci 0 se non è consentita la proroga."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:380
 msgid "Renewal duration in days"
@@ -5816,7 +5816,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:359
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:455
 msgid "Example: Abridged edition, 22"
-msgstr "Esempio: Abridged edition, 22"
+msgstr "Esempio: Edizione ridotta, 22"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:365
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:461
@@ -6412,7 +6412,7 @@ msgid ""
 "Mark as conference if the access point is directly at the conference name "
 "and not at the corporate body name"
 msgstr ""
-"Indicare come conferenza se il punto di accesso è direttamente al nome della "
+"Indica come conferenza se il punto di accesso è direttamente al nome della "
 "conferenza e non al nome dell'ente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:87
@@ -6445,7 +6445,7 @@ msgstr "Data della conferenza"
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:83
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:96
 msgid "Record only years."
-msgstr "Registrare solo l'anno."
+msgstr "Registra solo l'anno."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:121
 msgid "Example: 1989"
@@ -6496,7 +6496,7 @@ msgstr "Numerazione"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:91
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:121
 msgid "Record only a number."
-msgstr "Registrare solo un numero."
+msgstr "Registra solo un numero."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:98
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:127
@@ -6678,7 +6678,7 @@ msgstr "commentatore"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:333
 msgid "cnd"
-msgstr "idirettore d'orchestra"
+msgstr "direttore d'orchestra"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:337
 msgid "cng"
@@ -7392,7 +7392,7 @@ msgstr "URL"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:23
 msgid "Record a unique URL here."
-msgstr "Registrare qui un URL univoco."
+msgstr "Registra qui un URL univoco."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:34
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:177
@@ -8054,7 +8054,7 @@ msgstr "Secondario II"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:290
 msgid "target_school_tertiary"
-msgstr "Terziaro"
+msgstr "Terziario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:294
 msgid "target_school_bachelor"
@@ -8395,7 +8395,7 @@ msgstr "acquaforte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:64
 msgid "rdapm:1007"
-msgstr "litrografia"
+msgstr "litografia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:68
 msgid "rdapm:1008"
@@ -8558,7 +8558,7 @@ msgstr "Scala orizzontale"
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:50
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:63
 msgid "Enter only the denominator."
-msgstr "Inserire solo il denominatore."
+msgstr "Inserisci solo il denominatore."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:56
 msgid "Example: 25000"
@@ -8598,7 +8598,7 @@ msgid ""
 "Enter one value, or two values (westernmost then easternmost) separated by a "
 "space."
 msgstr ""
-"Inserire un valore, o due valori (il più occidentale e il più orientale) "
+"Inserisci un valore, o due valori (il più occidentale e il più orientale) "
 "separati da uno spazio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:134
@@ -8614,7 +8614,7 @@ msgid ""
 "Enter one value, or two values (northernmost then southernmost) separated by "
 "a space."
 msgstr ""
-"Inserire un valore, o due valori (più a nord e più a sud) separati da uno "
+"Inserisci un valore, o due valori (più a nord e più a sud) separati da uno "
 "spazio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:147
@@ -8630,8 +8630,8 @@ msgid ""
 "Use the format hdddmmss (hemisphere-degrees-minutes-seconds). Enter one "
 "value, or two values separated by a space."
 msgstr ""
-"Usare il formato hdddmmss (emisfero gradi-minuti-secondi). Inserire un "
-"valore o due valori separati da uno spazio."
+"Usa il formato hdddmmss (emisfero gradi-minuti-secondi). Inserisci un valore "
+"o due valori separati da uno spazio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:160
 msgid "Example: N0300000"
@@ -8646,8 +8646,8 @@ msgid ""
 "Use the format hhmmss (hour-minute-seconds). Enter one value, or two values "
 "separated by a space."
 msgstr ""
-"Usare il formato hhmmss (ora-minuti-secondi). Inserire un valore o due "
-"valori separati da uno spazio."
+"Usa il formato hhmmss (ora-minuti-secondi). Inserisci un valore o due valori "
+"separati da uno spazio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:173
 msgid "Example: 021800"
@@ -8667,7 +8667,7 @@ msgstr "Equinozio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:194
 msgid "Enter only a year (yyyy) or year and month (yyyy.mm)."
-msgstr "Inserire solo un anno (aaaa) o anno e mese (aaaa.mm)."
+msgstr "Inserisci solo un anno (aaaa) o anno e mese (aaaa.mm)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:200
 msgid "Example: 1950"
@@ -8728,7 +8728,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:3
 msgid "Link to a subject"
-msgstr "Link a un sogetto"
+msgstr "Link a un soggetto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:28
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:4
@@ -8794,7 +8794,7 @@ msgid ""
 "Titles of the works or parts of the manifestation. Enter one title per field "
 "(MARC 505)."
 msgstr ""
-"Titoli delle opere o parti della manifestazione. Inserire un titolo per "
+"Titoli delle opere o parti della manifestazione. Inserisci un titolo per "
 "campo (MARC 505)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:13
@@ -8824,7 +8824,7 @@ msgid ""
 "Enter a date in the format (+/-)yyyy. You can add the month, day or time as "
 "follows: (+/-)yyyy-mm-ddTHH-MM-SS."
 msgstr ""
-"Inserire una data nel formato (+/-)aaaa. Puoi aggiungere il mese, il giorno "
+"Inserisci una data nel formato (+/-)aaaa. Puoi aggiungere il mese, il giorno "
 "o l'ora come segue: (+/-)aaaa-mm-ggTHH-MM-SS."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:47
@@ -8847,7 +8847,7 @@ msgstr "Codice del periodo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:134
 msgid "Enter a 4 character code from the MARC time period table."
-msgstr "Inserire un codice di 4 caratteri dalla tabella dei periodi MARC."
+msgstr "Inserisci un codice di 4 caratteri dalla tabella dei periodi MARC."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:140
 msgid "Example: x1x4"
@@ -9613,7 +9613,7 @@ msgstr "Identificatore persistente"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:72
 msgid "Circulation type"
-msgstr "Typo di prestito"
+msgstr "Tipo di prestito"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:79
 msgid "Circulation category URI"
@@ -9662,7 +9662,7 @@ msgstr "Deve contenere almeno una variabile tra {{ }}."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:240
 msgid "Example: Vol. {{numbering.volume}}, {{expected_date.year}}"
-msgstr "Esempio: Vol. {{numerazione.volume}}, {{expected_date.year}}"
+msgstr "Esempio: Vol. {{numbering.volume}}, {{expected_date.year}}"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:272
 msgid "rdafr:1013"
@@ -9740,12 +9740,12 @@ msgstr "Modello di previsione"
 msgid ""
 "It should be used in the display template. i.e. chronology, enumeration."
 msgstr ""
-"Deve essere utilizzato nel modello di visualizzazione, per es. chronology, "
-"numbering."
+"Deve essere utilizzato nel modello di visualizzazione, per es. cronologia, "
+"numerazione."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:380
 msgid "Example: numbering"
-msgstr "Esemplio: numerazione"
+msgstr "Esempio: numerazione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:386
 msgid "Chronology levels"
@@ -9826,8 +9826,7 @@ msgstr ""
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Use a value instead of a number. i.e. january, 2nd, quarter."
 msgstr ""
-"Utilizzare un valore al posto di un numero, per esempio gennaio, 2°, "
-"trimestre."
+"Utilizza un valore al posto di un numero, per esempio gennaio, 2°, trimestre."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:493
 msgid ""
@@ -10127,7 +10126,7 @@ msgid ""
 msgstr ""
 "Un rapporto di copia separato contiene informazioni per una copia/"
 "abbonamento di un seriale. Se il posseduto descrive più di una copia/"
-"abbonamento, scegliete composito."
+"abbonamento, scegli composito."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1086
 msgid "separate"
@@ -10207,17 +10206,17 @@ msgstr "Punto di ritiro"
 
 #: rero_ils/modules/ill_requests/forms.py:115
 msgid "Select the location where this request will be operated"
-msgstr "Selezionare il luogo in cui verrà effettuata la richiesta"
+msgstr "Seleziona il luogo in cui verrà effettuata la richiesta"
 
 #: rero_ils/modules/ill_requests/forms.py:128
 msgid "As you request a document part, you need to specify requested pages"
 msgstr ""
-"Quando si richiede una parte del documento, è necessario specificare le "
-"pagine desiderate"
+"Quando richiedi una parte del documento, devi specificare le pagine "
+"desiderate"
 
 #: rero_ils/modules/ill_requests/views.py:86
 msgid "The request has been transmitted to your library."
-msgstr "La richiesta è stata trasmessa alla vostra biblioteca."
+msgstr "La richiesta è stata trasmessa alla tua biblioteca."
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:4
 msgid "ILL request"
@@ -10340,7 +10339,8 @@ msgid ""
 "Please make sure that the requested document does not exist in your library "
 "network."
 msgstr ""
-"Assicurarsi che il documento richiesto non esista nella rete di libreria."
+"Assicurati che il documento richiesto non esista nella tua rete di "
+"biblioteche."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:20
 msgid "You have submitted an invalid CSRF token"
@@ -10374,11 +10374,11 @@ msgstr "Potrebbero essere applicati costi."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:73
 msgid "Cancel"
-msgstr "Annullare"
+msgstr "Annulla"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:74
 msgid "Confirm"
-msgstr "Confermare"
+msgstr "Conferma"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:84
 msgid "Document is available"
@@ -10387,12 +10387,12 @@ msgstr "Il documento è disponibile"
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:90
 msgid ""
 "The document you are requesting exists in the catalog at your institution."
-msgstr "Il documento richiesto esiste nel catalogo della vostra istituzione."
+msgstr "Il documento richiesto esiste nel catalogo della tua istituzione."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:91
 msgid "Are you sure you want to continue with your ILL request?"
 msgstr ""
-"Siete sicuri di voler continuare con la vostra richiesta di prestito "
+"Sei sicuro di voler continuare con la tua richiesta di prestito "
 "interbibliotecario?"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:94
@@ -10437,7 +10437,7 @@ msgstr "Un altro tipo di esemplare online già esiste in questa organizzazione."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:107
 msgid "Mark the items of this category as not available"
-msgstr "Indicare gli esemplari di questa categoria come non disponibili"
+msgstr "Indica gli esemplari di questa categoria come non disponibili"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:108
 msgid ""
@@ -10462,7 +10462,7 @@ msgstr ""
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:171
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:233
 msgid "Only one label per language is allowed."
-msgstr "È consentito un solo label per lingua."
+msgstr "È consentita una sola etichetta per lingua."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:179
 msgid "Circulation information"
@@ -10482,7 +10482,7 @@ msgstr "Informazione"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:241
 msgid "Remove temporary item type on check-in/checkout"
-msgstr "Rimuovere il tipo di esemplare temporaneo sul prestito/ritorno"
+msgstr "Rimuovi il tipo di esemplare temporaneo sul prestito/ritorno"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:242
 msgid ""
@@ -10508,7 +10508,7 @@ msgstr ""
 
 #: rero_ils/modules/items/api/circulation.py:219
 msgid "No circulation action performed: on shelf"
-msgstr "Nessuna azione di prestito intrapresa: on shelf"
+msgstr "Nessuna azione di prestito intrapresa: a scaffale"
 
 #: rero_ils/modules/items/api/circulation.py:228
 #: rero_ils/modules/items/api/circulation.py:261
@@ -10518,7 +10518,7 @@ msgstr "Nessuna azione di prestito intrapresa: in transito aggiunto"
 
 #: rero_ils/modules/items/api/circulation.py:246
 msgid "No circulation action performed: item at desk"
-msgstr "Nessuna azione di prestito intrapresa: item at desk"
+msgstr "Nessuna azione di prestito intrapresa: esemplare da ritirare"
 
 #: rero_ils/modules/items/api/circulation.py:314
 msgid "No circulation action performed: in transit to house"
@@ -11096,7 +11096,7 @@ msgstr "Data di inizio della richiesta"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:156
 msgid "Set loan to be anonymized"
-msgstr "Impostare il prestito per essere reso anonimo"
+msgstr "Imposta il prestito per essere reso anonimo"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:162
 msgid "State name"
@@ -11248,7 +11248,7 @@ msgstr "È un punto di ritiro"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:136
 msgid "Qualify this location as a pickup location."
-msgstr "Definire questa localizzazione come punto di ritiro."
+msgstr "Definisci questa localizzazione come punto di ritiro."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:139
 msgid "Is ILL pickup location"
@@ -11257,7 +11257,7 @@ msgstr "È un punto di ritiro (presto interbibliotecario)"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:142
 msgid "Qualify this location as a ILL pickup location."
 msgstr ""
-"Definire questa localizzazione come punto di ritiro (presto "
+"Definisci questa localizzazione come punto di ritiro (prestito "
 "interbibliotecario)."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:145
@@ -11266,7 +11266,7 @@ msgstr "È una localizzazione online"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:148
 msgid "Qualify this location as an online location."
-msgstr "Definire questa localizzazione come localizzazione online."
+msgstr "Definisci questa localizzazione come localizzazione online."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:162
 msgid "There is already one online location in this library."
@@ -11295,7 +11295,7 @@ msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:231
 msgid "Allow request"
-msgstr "Consentire la richiesta"
+msgstr "Consenti la richiesta"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:233
 msgid "If enabled, it allows requests for items linked to this location."
@@ -11305,7 +11305,7 @@ msgstr ""
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:237
 msgid "Send notification"
-msgstr "Inviare notifica"
+msgstr "Invia notifica"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:238
 msgid ""
@@ -11324,14 +11324,14 @@ msgstr "Specifica un indirizzo e-mail generico utilizzato per la notifica."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:270
 msgid "Restrict pickup to"
-msgstr "Limitare il ritiro a"
+msgstr "Limita il ritiro a"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:271
 msgid ""
 "Select locations where items linked to the current location could be "
 "requested."
 msgstr ""
-"Selezionare i punti di ritiro consentiti per esemplari collegati a questa "
+"Seleziona i punti di ritiro consentiti per esemplari collegati a questa "
 "localizzazione."
 
 #. Line unknown
@@ -11556,11 +11556,11 @@ msgstr "Azione scatenante"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:303
 msgid "Override flag"
-msgstr "Override flag"
+msgstr "Indicatore di forzatura"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:304
 msgid "Allow a transaction which is normally not possible."
-msgstr "Consentire una transazione che normalmente non è possibile."
+msgstr "Consenti una transazione che normalmente non è possibile."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:313
 msgid "Transaction channel"
@@ -11712,9 +11712,9 @@ msgid ""
 "Configuration for the automatic deletion of inactive patron profiles. Delete "
 "the field if you never want the patrons to be deleted automatically."
 msgstr ""
-"Configurazione dell'eliminazione automatica degli account utente inattivi. "
-"Eliminare questo campo se non si desidera che gli account utente vengano "
-"eliminati automaticamente."
+"Configurazione dell'eliminazione automatica dei profili di lettori inattivi. "
+"Elimina questo campo se non desideri che i lettori vengano eliminati "
+"automaticamente."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:93
 msgid "Expiration threshold (years)"
@@ -11740,7 +11740,7 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:121
 msgid "Excluded patron types"
-msgstr "Tipi di lettorri esclusi"
+msgstr "Tipi di lettori esclusi"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:122
 msgid "List of patron type PIDs to exclude from automatic deletion."
@@ -11775,7 +11775,7 @@ msgstr "È consentito un solo valore per lingua."
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:225
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:231
 msgid "Placeholder"
-msgstr "Placeholder"
+msgstr "Segnaposto"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:228
 msgid "Placeholder text displayed in the public homepage search box."
@@ -11785,7 +11785,7 @@ msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:287
 msgid "Blocks"
-msgstr "Blocci"
+msgstr "Blocchi"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:289
 msgid "HTML content displayed in the homepage blocks."
@@ -11929,7 +11929,7 @@ msgid ""
 "Amount to be charged to a patron, generated manually or by a circulation "
 "operation."
 msgstr ""
-"Importo da addebitare a un patrono, generato manualmente o da un'operazione "
+"Importo da addebitare a un lettore, generato manualmente o da un'operazione "
 "di circolazione."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:23
@@ -12027,7 +12027,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:5
 msgid "Categorization of patrons."
-msgstr "Categorizzazione di patroni."
+msgstr "Categorizzazione dei lettori."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:28
 msgid "Patron type ID"
@@ -12172,7 +12172,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:318
 msgid "Block the patron if the subscription is not paid"
-msgstr "Bloccare il lettore se l’abbonamento non è pagato"
+msgstr "Blocca il lettore se l’abbonamento non è pagato"
 
 #: rero_ils/modules/patrons/api.py:127
 msgid "Patron has active loans or fees, cannot remove patron role"
@@ -12205,7 +12205,7 @@ msgstr "Prestito rifiutato: numero massimo di esemplari in ritardo raggiunto"
 
 #: rero_ils/modules/patrons/api.py:597
 msgid "Patron account expired."
-msgstr "Il conto del lettore è scaduto."
+msgstr "L'account del lettore è scaduto."
 
 #: rero_ils/modules/patrons/views.py:111
 msgid "English"
@@ -12221,9 +12221,10 @@ msgid ""
 "is linked to a user resource and contains patron data useful to libraries "
 "(role, card number, specific address, etc.)."
 msgstr ""
-"Un patrono della biblioteca, cioè una persona che è registrata con "
-"un'organizzazione. E 'collegato a una risorsa utente e contiene dati patroni "
-"utili alle biblioteche (rolo, numero di carta, indirizzo specifico, ecc)."
+"Un lettore della biblioteca, cioè una persona registrata presso "
+"un'organizzazione. È collegato a una risorsa utente e contiene i dati del "
+"lettore utili alle biblioteche (ruolo, numero di tessera, indirizzo "
+"specifico, ecc.)."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:31
 msgid "Patron ID"
@@ -12359,8 +12360,8 @@ msgid ""
 "Define the roles of the user. Please do not remove existing user role, this "
 "can have unintended side effects."
 msgstr ""
-"Definisce i ruoli dell'utente. Si prega di non rimuovere dei ruoli utente "
-"esistenti, questo può avere effetti collaterali indesiderati."
+"Definisce i ruoli dell'utente. Non rimuovere dei ruoli utente esistenti, "
+"questo può avere effetti collaterali indesiderati."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:503
 msgid "patron"
@@ -12388,7 +12389,7 @@ msgstr "professionale: gestione utenti"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:527
 msgid "pro_acquisition_manager"
-msgstr "professionale: acquisitions"
+msgstr "professionale: acquisizioni"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:531
 msgid "pro_library_administrator"
@@ -12425,8 +12426,7 @@ msgstr "Errore riscontrato: esemplare non trovato"
 #: rero_ils/modules/selfcheck/api.py:480 rero_ils/modules/selfcheck/api.py:537
 #: rero_ils/modules/selfcheck/api.py:543
 msgid "Error encountered: please contact a librarian"
-msgstr ""
-"Errore riscontrato: si prega di contattare il personale della biblioteca"
+msgstr "Errore riscontrato: contatta il personale della biblioteca"
 
 #: rero_ils/modules/selfcheck/api.py:415 rero_ils/modules/selfcheck/api.py:475
 #: rero_ils/modules/selfcheck/api.py:539
@@ -12565,7 +12565,7 @@ msgstr "La configurazione è attiva?"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:94
 msgid "Filter numbers by libraries"
-msgstr "Filtrare i dati per biblioteca"
+msgstr "Filtra i dati per biblioteca"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:95
 msgid ""
@@ -12735,8 +12735,8 @@ msgid ""
 "the number of checkouts performed in the last month."
 msgstr ""
 "L'intervallo di tempo per filtrare i dati relativi a un periodo specifico: "
-"ultimo mese o ultimo anno. Lasciare vuoto se non si desidera filtrare i "
-"dati. Esempio: elaborare il numero di prestiti effettuati nell'ultimo mese."
+"ultimo mese o ultimo anno. Lascia vuoto se non desideri filtrare i dati. "
+"Esempio: elaborare il numero di prestiti effettuati nell'ultimo mese."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:881
 msgid "month"
@@ -12818,7 +12818,7 @@ msgid ""
 "templates are visible only by its creator (you)."
 msgstr ""
 "I modelli pubblici sono visibili da tutti gli utenti dell'organizzazione. I "
-"modelli privati sono visibili solo dal loro creatore (voi)."
+"modelli privati sono visibili solo dal loro creatore (tu)."
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:95
 msgid "public"
@@ -12963,14 +12963,14 @@ msgstr "Altro numero di telefono con il prefisso internazionale, senza spazi."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:259
 msgid "Keep history"
-msgstr "Conservare lo storico"
+msgstr "Conserva lo storico"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:260
 msgid ""
 "If enabled, the loan history is visible in the patron account. Loan data is "
 "always anonymised after a certain period."
 msgstr ""
-"Se abilitata, il storico dei prestiti è visibile nell'account dell'utente. I "
+"Se abilitata, lo storico dei prestiti è visibile nell'account del lettore. I "
 "dati relativi ai prestiti vengono sempre resi anonimi dopo un certo periodo."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:273
@@ -13091,20 +13091,16 @@ msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
 #: rero_ils/oauth/scopes.py:9
-#, fuzzy
-#| msgid "Fuller form of name"
 msgid "Full name"
-msgstr "Forma del nome completa"
+msgstr "Nome completo"
 
 #: rero_ils/oauth/scopes.py:11
-#, fuzzy
-#| msgid "Operation date"
 msgid "Expiration date"
-msgstr "Data dell'operazione"
+msgstr "Data di scadenza"
 
 #: rero_ils/oauth/scopes.py:14
 msgid "Network, patron type, and expiration date (regrouped)"
-msgstr ""
+msgstr "Rete, tipo di lettore e data di scadenza (raggruppati)"
 
 #: rero_ils/theme/menus.py:38
 msgid "My Account"
@@ -13164,7 +13160,7 @@ msgstr "Cataloghi RERO+"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:15
 msgid "Union catalogue"
-msgstr "Catalogo collectivo"
+msgstr "Catalogo collettivo"
 
 #: rero_ils/theme/templates/rero_ils/_frontpage_slogan_global.html:6
 #: rero_ils/theme/templates/rero_ils/_frontpage_slogan_test.html:6
@@ -13178,11 +13174,11 @@ msgstr "Una ricchezza di conoscenze a portata di click"
 
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:9
 msgid "Your account has expired."
-msgstr "Il vostro conto è scaduto."
+msgstr "Il tuo account è scaduto."
 
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:9
 msgid "Please contact your library."
-msgstr "Contattate la vostra biblioteca."
+msgstr "Contatta la tua biblioteca."
 
 #: rero_ils/theme/templates/rero_ils/footer.html:7
 msgid "Powered by"
@@ -13201,7 +13197,7 @@ msgstr "Password dimenticata"
 #: rero_ils/theme/templates/rero_ils/reset_password.html:12
 #: rero_ils/theme/templates/rero_ils/reset_password.html:23
 msgid "Reset Password"
-msgstr "Reimpostare la password"
+msgstr "Reimposta la password"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:20
 msgid ""
@@ -13220,7 +13216,7 @@ msgstr "Se sei registrato senza e-mail, contatta la tua biblioteca."
 #: rero_ils/theme/templates/rero_ils/register_user.html:36
 #: rero_ils/theme/templates/rero_ils/reset_password.html:31
 msgid "Log In"
-msgstr "Autentificarsi"
+msgstr "Accedi"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:36
 #: rero_ils/theme/templates/rero_ils/reset_password.html:32
@@ -13246,7 +13242,7 @@ msgstr "Attiva/disattiva la navigazione"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:20
 msgid "Log in to account"
-msgstr "Accedere al proprio conto"
+msgstr "Accedi al tuo account"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:40
 msgid "Username or e-mail"
@@ -13280,7 +13276,7 @@ msgstr "Hai già un account?"
 
 #: rero_ils/theme/templates/rero_ils/reset_password.html:5
 msgid "Reset password"
-msgstr "Reimpostare la password"
+msgstr "Reimposta la password"
 
 #: rero_ils/theme/templates/rero_ils/search.html:5
 msgid "Documents"
@@ -13305,52 +13301,48 @@ msgstr "Mostra la password"
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:5
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:45
 msgid "Authorise application"
-msgstr ""
+msgstr "Autorizza l'applicazione"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:10
 msgid "Authorise external application"
-msgstr ""
+msgstr "Autorizza un'applicazione esterna"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:14
 #, python-format
 msgid ""
 "%(application)s would like to use your %(sitename)s account to identify you."
 msgstr ""
+"%(application)s desidera utilizzare il tuo account %(sitename)s per "
+"identificarti."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:24
 msgid "Visit application website"
-msgstr ""
+msgstr "Visita il sito web dell'applicazione"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:29
-#, fuzzy
-#| msgid "Billing informations"
 msgid "The following information will be shared"
-msgstr "Informazioni di fatturazione"
+msgstr "Le seguenti informazioni saranno condivise"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:35
 msgid "No permissions granted."
-msgstr ""
+msgstr "Nessun permesso concesso."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:40
 msgid "Your password is never shared with this application."
-msgstr ""
+msgstr "La tua password non viene mai condivisa con questa applicazione."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:48
-#, fuzzy
-#| msgid "subject"
 msgid "Reject"
-msgstr "soggetto"
+msgstr "Rifiuta"
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:53
 #, python-format
 msgid "You are signed in as %(account)s."
-msgstr ""
+msgstr "Sei connesso come %(account)s."
 
 #: rero_ils/theme/templates/rero_ils/oauth/authorize.html:54
-#, fuzzy
-#| msgid "Log In"
 msgid "Log out"
-msgstr "Autentificarsi"
+msgstr "Esci"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:5
 #: rero_ils/theme/templates/security/email/reset_notice.html:5
@@ -13368,7 +13360,7 @@ msgstr "È stata fatta una richiesta per reimpostare la tua password RERO ID."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:10
 msgid "Reset my password"
-msgstr "Reimpostare la mia password"
+msgstr "Reimposta la mia password"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:11
 msgid ""
