@@ -4,12 +4,11 @@
 
 """RIS Document serialization."""
 
-from flask import current_app, request, stream_with_context
-from invenio_i18n.ext import current_i18n
+from flask import current_app, stream_with_context
 from invenio_records_rest.serializers.base import SerializerMixinInterface
 
 from rero_ils.modules.commons.identifiers import IdentifierFactory, IdentifierType
-from rero_ils.utils import get_i18n_supported_languages
+from rero_ils.utils import get_display_language
 
 from ..dumpers import document_replace_refs_dumper
 from ..utils import process_i18n_literal_fields
@@ -67,10 +66,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
         """Initialize RIS formatter with the specific record."""
         super().__init__(record)
         config = current_app.config.get("RERO_ILS_EXPORT_MAPPER").get("ris", {})
-        language = request.args.get("lang", current_i18n.language)
-        if not language or language not in get_i18n_supported_languages():
-            language = current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
-        self._language = language
+        self._language = get_display_language()
         self._doctype_mapping = doctype_mapping or config.get("doctype_mapping")
         self._export_fields = export_fields or config.get("export_fields")
 

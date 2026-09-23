@@ -4,6 +4,8 @@
 
 """RERO-ILS Loan resource serializers for JSON format."""
 
+import json
+
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.dumpers import ItemCirculationDumper
@@ -135,3 +137,17 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             aggregations["misc_status"]["buckets"] = [
                 {"key": term, "doc_count": hit["doc_count"]} for term, hit in misc_aggr.items() if hit.get("doc_count")
             ]
+
+
+class RequestsToValidateJSONSerializer:
+    """JSON serializer for the requests to validate of a library."""
+
+    def serialize_search(self, pid_fetcher, search_result, links=None, item_links_factory=None):
+        """Serialize the export rows as a JSON array.
+
+        :param pid_fetcher: unused, kept for the serializer interface.
+        :param search_result: the rows built by `requests_to_validate_rows`.
+        :param links: Dictionary of links to add to response.
+        :param item_links_factory: Factory function for record links.
+        """
+        return json.dumps(search_result)

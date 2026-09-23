@@ -21,7 +21,11 @@ from jinja2 import TemplateNotFound, UndefinedError
 from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.circ_policies.api import CircPolicy
-from rero_ils.modules.decorators import check_authentication, check_permission
+from rero_ils.modules.decorators import (
+    check_authentication,
+    check_library_in_organisation,
+    check_permission,
+)
 from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.errors import NoCirculationAction, NoCirculationActionIsPermitted
 from rero_ils.modules.item_types.api import ItemType
@@ -448,6 +452,7 @@ def extend_loan(item, data):
 
 @api_blueprint.route("/requested_loans/<library_pid>", methods=["GET"])
 @check_authentication
+@check_library_in_organisation
 @jsonify_error
 def requested_loans(library_pid):
     """HTTP GET request for sorted requested loans for a library."""
