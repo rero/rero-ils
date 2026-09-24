@@ -264,8 +264,9 @@ def enable_tasks(all_, names, disable, verbose):
         for name in names:
             name = name.strip()
             current_scheduler.set_entry_enabled(name=name, enable=not disable)
-            if verbose:
-                if entry := current_scheduler.get(name=name):
-                    click.echo(current_scheduler.display_entry(entry=entry))
-                else:
-                    click.secho(f"Not found entry: {name}", fg="red")
+            # An unknown name changes nothing: `set_entry_enabled` drops it
+            # silently, so it is always reported and not only when verbose.
+            if not (entry := current_scheduler.get(name=name)):
+                click.secho(f"Not found entry: {name}", fg="red")
+            elif verbose:
+                click.echo(current_scheduler.display_entry(entry=entry))
