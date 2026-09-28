@@ -158,13 +158,17 @@ class Transformation:
             return at_id.split(":")[-1] if ":" in at_id else at_id
         return ""
 
-    def _content_code(self):
-        """Extract the RDA content type code from bf:content's @id.
+    def _content_codes(self):
+        """Extract the RDA content type codes from bf:content.
 
-        :returns: RDA content type code (e.g. "rdaco:1023"), or "" if absent.
+        bf:content is exported either as an object or as an array of them.
+
+        :returns: list of RDA content type codes (e.g. ["rdaco:1023"]).
         """
         content = self.data.get("bf:content", {})
-        return content.get("@id", "").split("/")[-1]
+        entries = content if isinstance(content, list) else [content]
+        codes = [entry.get("@id", "").split("/")[-1] for entry in entries if entry]
+        return [code for code in dict.fromkeys(codes) if code]
 
     def trans_constants(self):
         """Set fixed required fields and determine document type from the RDA content type code.
@@ -182,8 +186,8 @@ class Transformation:
         self.json_dict["adminMetadata"]["encodingLevel"] = "Not applicable"
         self.json_dict["fiction_statement"] = "unspecified"
 
-        doc_type = _CONTENT_TYPE_MAP.get(self._content_code(), {"main_type": "docmaintype_other"})
-        self.json_dict["type"] = [doc_type]
+        types = [_CONTENT_TYPE_MAP[code] for code in self._content_codes() if code in _CONTENT_TYPE_MAP]
+        self.json_dict["type"] = types or [{"main_type": "docmaintype_other"}]
 
     def trans_pid(self):
         """Set pid to '(MEMOVS){id}' using the last segment of the record @id."""
@@ -474,7 +478,11 @@ class Transformation:
                     locator = {"content": "coverImage", "type": "relatedResource", "url": url}
                     electronic_locators.append(locator)
                 elif note_type == "landingPage":
-                    content = _LOCATOR_CONTENT_MAP.get(self._content_code(), "webSite")
+                    # a locator carries one content, the first known code wins
+                    content = next(
+                        (_LOCATOR_CONTENT_MAP[code] for code in self._content_codes() if code in _LOCATOR_CONTENT_MAP),
+                        "webSite",
+                    )
                     locator = {"content": content, "type": "relatedResource", "url": url}
                     electronic_locators.append(locator)
 
@@ -703,19 +711,17 @@ class Transformation:
 
     def trans_content_media_carrier(self):
         """Build contentMediaCarrier from bf:content, bf:media, and bf:carrier, validating each RDA code."""
-        content_type = None
-        if bf_content := self.data.get("bf:content"):
-            if content_id := bf_content.get("@id", ""):
-                code = content_id.split("/")[-1]
-                if code in VALID_CONTENT_TYPES:
-                    content_type = code
-                else:
-                    current_app.logger.warning(
-                        "Invalid content type '%s' for memovs %s. Allowed types: %s",
-                        code,
-                        self.memovs_id,
-                        ", ".join(sorted(VALID_CONTENT_TYPES)),
-                    )
+        content_types = []
+        for code in self._content_codes():
+            if code in VALID_CONTENT_TYPES:
+                content_types.append(code)
+            else:
+                current_app.logger.warning(
+                    "Invalid content type '%s' for memovs %s. Allowed types: %s",
+                    code,
+                    self.memovs_id,
+                    ", ".join(sorted(VALID_CONTENT_TYPES)),
+                )
 
         media_type = None
         if bf_media := self.data.get("bf:media"):
@@ -758,8 +764,8 @@ class Transformation:
                         carriers_list,
                     )
 
-        if content_type:
-            cmc = {"contentType": [content_type]}
+        if content_types:
+            cmc = {"contentType": content_types}
             if media_type:
                 cmc["mediaType"] = media_type
                 if carrier_type:
