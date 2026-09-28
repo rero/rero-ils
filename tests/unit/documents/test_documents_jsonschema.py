@@ -10,6 +10,43 @@ from jsonschema.exceptions import ValidationError
 from rero_ils.dojson.utils import _LANGUAGES_SCRIPTS, _SCRIPT_PER_CODE, _UNIMARC_LANGUAGES_SCRIPTS
 
 
+def _value_formly_configs(schema):
+    """Return the Formly configs applied to a language-script value."""
+    configs = []
+    for item in [schema, *schema.get("allOf", [])]:
+        value = item.get("properties", {}).get("value", {})
+        if config := value.get("widget", {}).get("formlyConfig"):
+            configs.append(config)
+    return configs
+
+
+def test_expandable_single_line_fields(document_schema):
+    """Test that the selected document fields use expandable single-line textareas."""
+    properties = document_schema["properties"]
+    title_properties = properties["title"]["items"]["properties"]
+    provision_properties = properties["provisionActivity"]["items"]["properties"]
+    series_properties = properties["seriesStatement"]["items"]["properties"]
+
+    main_title = title_properties["mainTitle"]["items"]
+    targeted_fields = [
+        main_title,
+        title_properties["subtitle"]["items"],
+        properties["responsibilityStatement"]["items"]["items"],
+        provision_properties["statement"]["items"]["properties"]["label"]["items"],
+        series_properties["seriesTitle"]["items"],
+    ]
+
+    for field in targeted_fields:
+        configs = _value_formly_configs(field)
+        assert any(
+            config.get("type") == "textarea" and config.get("props", {}).get("singleLine") is True for config in configs
+        )
+
+    assert any(config.get("focus") is True for config in _value_formly_configs(main_title))
+    for field in targeted_fields[1:]:
+        assert all(config.get("focus") is not True for config in _value_formly_configs(field))
+
+
 def test_required(app, document_schema, document_data_tmp):
     """Test required for jsonschemas."""
     validate(document_data_tmp, document_schema)

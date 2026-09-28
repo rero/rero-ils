@@ -203,7 +203,7 @@
                 "minItems": 1,
                 "items": {
                   "title": "Label",
-                  "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+                  "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script_textarea"
                 },
                 "widget": {
                   "formlyConfig": {
