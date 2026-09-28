@@ -2712,7 +2712,7 @@
       }
     }
   },
-  "language_script_focus": {
+  "language_script_textarea": {
     "title": "Values",
     "type": "object",
     "propertiesOrder": [
@@ -2729,9 +2729,10 @@
         "minLength": 1,
         "widget": {
           "formlyConfig": {
-            "focus": true,
+            "type": "textarea",
             "props": {
-              "itemCssClass": "ui:col-span-12"
+              "itemCssClass": "ui:col-span-12",
+              "singleLine": true
             }
           }
         }
