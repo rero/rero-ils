@@ -33,7 +33,7 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
+    assert hits["total"] == 1
 
     # phrase search with punctuations
     list_url = url_for(
