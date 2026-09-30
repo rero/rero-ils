@@ -3566,7 +3566,7 @@ wheels = [
 
 [[package]]
 name = "rero-ils"
-version = "1.29.0"
+version = "1.30.0rc0"
 source = { editable = "." }
 dependencies = [
     { name = "babel" },
