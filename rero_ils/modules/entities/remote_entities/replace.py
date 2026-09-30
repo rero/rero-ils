@@ -341,6 +341,11 @@ class ReplaceIdentifiedBy:
         self.type_mismatch = {}
         self.type_not_allowed = {}
         self.logger.info("Found %s identifiedBy: %s", self.field, self.count())
+        # Deterministic order keeps the reports reproducible: `not_found` holds
+        # the access point of the first document seen for a given identifier.
+        # `preserve_order` is required, `scan` overwrites `sort` with `_doc`
+        # otherwise. Results are materialized because the loop below writes to
+        # the scanned index.
         query = self.query.params(preserve_order=True).sort({"_created": {"order": "asc"}}).source(["pid", self.field])
         for hit in list(query.scan()):
             if doc := self._replace_entities_in_document(hit.meta.id):
