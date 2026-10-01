@@ -50,7 +50,7 @@ def test_trans_constants(app):
     _rda = "http://rdaregistry.info/termList/RDAContentType/"
 
     # Common field checks on one record
-    data = {"bf:content": {"@id": f"{_rda}rdaco:1023", "rdfs:label": "image animée bidimensionnelle"}}
+    data = {"bf:content": [{"@id": f"{_rda}rdaco:1023", "rdfs:label": "image animée bidimensionnelle"}]}
     transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_constants()
     assert transformation.json["harvested"] is True
@@ -67,27 +67,22 @@ def test_trans_constants(app):
         ("rdaco:1014", [{"main_type": "docmaintype_image", "subtype": "docsubtype_photography"}]),
     ]
     for code, expected_type in cases:
-        data = {"bf:content": {"@id": f"{_rda}{code}"}}
+        data = {"bf:content": [{"@id": f"{_rda}{code}"}]}
         transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
         transformation.trans_constants()
         assert transformation.json["type"] == expected_type, f"Wrong type for {code}"
 
     # Unknown code falls back to docmaintype_other
-    data = {"bf:content": {"@id": f"{_rda}rdaco:9999"}}
+    data = {"bf:content": [{"@id": f"{_rda}rdaco:9999"}]}
     transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_constants()
     assert transformation.json["type"] == [{"main_type": "docmaintype_other"}]
 
-    # Missing bf:content also gives docmaintype_other
-    transformation = Transformation(data={}, logger=None, verbose=False, transform=False)
-    transformation.trans_constants()
-    assert transformation.json["type"] == [{"main_type": "docmaintype_other"}]
-
-    # bf:content is exported either as an object or as an array of them
-    data = {"bf:content": [{"@id": f"{_rda}rdaco:1023"}]}
-    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
-    transformation.trans_constants()
-    assert transformation.json["type"] == [{"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"}]
+    # Missing or empty bf:content also gives docmaintype_other
+    for data in ({}, {"bf:content": []}):
+        transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
+        transformation.trans_constants()
+        assert transformation.json["type"] == [{"main_type": "docmaintype_other"}]
 
     # every content type is kept, and duplicates are dropped
     data = {
@@ -103,12 +98,6 @@ def test_trans_constants(app):
         {"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"},
         {"main_type": "docmaintype_image", "subtype": "docsubtype_photography"},
     ]
-
-    # an empty or unknown array still gives docmaintype_other
-    for content in ([], [{"@id": f"{_rda}rdaco:9999"}]):
-        transformation = Transformation(data={"bf:content": content}, logger=None, verbose=False, transform=False)
-        transformation.trans_constants()
-        assert transformation.json["type"] == [{"main_type": "docmaintype_other"}]
 
 
 def test_trans_pid(app):
@@ -448,7 +437,7 @@ def test_trans_electronic_locator(app):
 
     # landingPage content reflects the RDA content type (moving image -> film)
     data = {
-        "bf:content": {"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1023"},
+        "bf:content": [{"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1023"}],
         "bf:electronicLocator": [
             {
                 "@type": "bf:electronicLocator",
@@ -467,7 +456,7 @@ def test_trans_electronic_locator(app):
         ("http://rdaregistry.info/termList/RDAContentType/rdaco:1011", "audio"),
     ):
         data = {
-            "bf:content": {"@id": content_id},
+            "bf:content": [{"@id": content_id}],
             "bf:electronicLocator": [
                 {
                     "@type": "bf:electronicLocator",
@@ -871,10 +860,12 @@ def test_full_transformation(app):
     """Test full transformation of a complete record."""
     data = {
         "@id": "urn:avn:75864",
-        "bf:content": {
-            "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1023",
-            "rdfs:label": "image animée bidimensionnelle",
-        },
+        "bf:content": [
+            {
+                "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1023",
+                "rdfs:label": "image animée bidimensionnelle",
+            }
+        ],
         "bf:title": {
             "@type": "bf:Title",
             "bf:mainTitle": "L'hiver au Lötschental",
@@ -1154,17 +1145,13 @@ def test_trans_content_media_carrier(app):
     """Test transformation contentMediaCarrier from bf:content, bf:media, bf:carrier."""
     # Test with content type only
     data = {
-        "bf:content": {
-            "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020",
-            "rdfs:label": "two-dimensional moving image",
-        }
+        "bf:content": [
+            {
+                "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020",
+                "rdfs:label": "two-dimensional moving image",
+            }
+        ]
     }
-    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
-    transformation.trans_content_media_carrier()
-    assert transformation.json == {"contentMediaCarrier": [{"contentType": ["rdaco:1020"]}]}
-
-    # bf:content as an array gives the same result as the single object
-    data = {"bf:content": [{"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020"}]}
     transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_content_media_carrier()
     assert transformation.json == {"contentMediaCarrier": [{"contentType": ["rdaco:1020"]}]}
@@ -1182,9 +1169,7 @@ def test_trans_content_media_carrier(app):
 
     # Test with content, media, and carrier types
     data = {
-        "bf:content": {
-            "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020",
-        },
+        "bf:content": [{"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020"}],
         "bf:media": {
             "@id": "http://rdaregistry.info/termList/RDAMediaType/rdamt:1008",
         },
@@ -1217,9 +1202,7 @@ def test_trans_content_media_carrier(app):
     # Test with invalid content type (should be ignored and logged)
     data = {
         "@id": "urn:avn:12345",
-        "bf:content": {
-            "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:9999",
-        },
+        "bf:content": [{"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:9999"}],
     }
     transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_content_media_carrier()
@@ -1228,9 +1211,7 @@ def test_trans_content_media_carrier(app):
     # Test with invalid media type (should be ignored and logged)
     data = {
         "@id": "urn:avn:12345",
-        "bf:content": {
-            "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020",
-        },
+        "bf:content": [{"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020"}],
         "bf:media": {
             "@id": "http://rdaregistry.info/termList/RDAMediaType/rdamt:9999",
         },
@@ -1243,9 +1224,7 @@ def test_trans_content_media_carrier(app):
     # Test with invalid carrier type for the media type (should be ignored and logged)
     data = {
         "@id": "urn:avn:12345",
-        "bf:content": {
-            "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020",
-        },
+        "bf:content": [{"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020"}],
         "bf:media": {
             "@id": "http://rdaregistry.info/termList/RDAMediaType/rdamt:1008",
         },
@@ -1268,9 +1247,7 @@ def test_trans_content_media_carrier(app):
     # Test with carrier type but no media type (should be ignored and logged)
     data = {
         "@id": "urn:avn:12345",
-        "bf:content": {
-            "@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020",
-        },
+        "bf:content": [{"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020"}],
         "bf:carrier": {
             "@id": "http://rdaregistry.info/termList/RDACarrierType/rdact:1052",
         },
@@ -1285,11 +1262,13 @@ def test_trans_genre_form(app):
     """Test transformation genreForm with type validation."""
     # Genre forms with idref @id go to genreForm as MEF $ref links when found in MEF
     data = {
-        "bf:genreForm": {
-            "@type": "bf:Topic",
-            "@id": "http://www.idref.fr/027390548",
-            "rdfs:label": "Documentaires",
-        }
+        "bf:genreForm": [
+            {
+                "@type": "bf:Topic",
+                "@id": "http://www.idref.fr/027390548",
+                "rdfs:label": "Documentaires",
+            }
+        ]
     }
     with patch(_REQUESTS_SESSION_PATCH) as mock_session:
         _mock_mef_found(mock_session)
@@ -1299,9 +1278,30 @@ def test_trans_genre_form(app):
         "genreForm": [{"entity": {"$ref": "https://mef.rero.ch/api/concepts/idref/027390548"}}]
     }
 
+    # Every entry is mapped; entries without idref or with another type are skipped
+    data = {
+        "@id": "urn:avn:12345",
+        "bf:genreForm": [
+            {"@type": "bf:Topic", "@id": "http://www.idref.fr/027390548", "rdfs:label": "Documentaires"},
+            {"@type": "bf:Topic", "rdfs:label": "Films documentaires"},
+            {"@type": "bf:Person", "@id": "http://www.idref.fr/123456789", "rdfs:label": "Invalid Person"},
+            {"@type": "bf:Topic", "@id": "http://www.idref.fr/040738159", "rdfs:label": "Photographies"},
+        ],
+    }
+    with patch(_REQUESTS_SESSION_PATCH) as mock_session:
+        _mock_mef_found(mock_session)
+        transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
+        transformation.trans_genre_form()
+    assert transformation.json == {
+        "genreForm": [
+            {"entity": {"$ref": "https://mef.rero.ch/api/concepts/idref/027390548"}},
+            {"entity": {"$ref": "https://mef.rero.ch/api/concepts/idref/040738159"}},
+        ]
+    }
+
     # Idref not in MEF: fall back to local entity with authorized_access_point and identifiedBy
     data = {
-        "bf:genreForm": {"@type": "bf:Topic", "@id": "http://www.idref.fr/040738159", "rdfs:label": "Photographies"},
+        "bf:genreForm": [{"@type": "bf:Topic", "@id": "http://www.idref.fr/040738159", "rdfs:label": "Photographies"}],
     }
     with patch(_REQUESTS_SESSION_PATCH) as mock_session:
         _mock_mef_not_found(mock_session)
@@ -1318,7 +1318,7 @@ def test_trans_genre_form(app):
     ]
 
     # Genre form without idref is ignored
-    data = {"bf:genreForm": {"@type": "bf:Topic", "rdfs:label": "Films documentaires"}}
+    data = {"bf:genreForm": [{"@type": "bf:Topic", "rdfs:label": "Films documentaires"}]}
     transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_genre_form()
     assert transformation.json is None
@@ -1326,7 +1326,9 @@ def test_trans_genre_form(app):
     # Invalid type (bf:Person) - should be skipped and logged
     data = {
         "@id": "urn:avn:12345",
-        "bf:genreForm": {"@type": "bf:Person", "@id": "http://www.idref.fr/123456789", "rdfs:label": "Invalid Person"},
+        "bf:genreForm": [
+            {"@type": "bf:Person", "@id": "http://www.idref.fr/123456789", "rdfs:label": "Invalid Person"}
+        ],
     }
     transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_genre_form()
