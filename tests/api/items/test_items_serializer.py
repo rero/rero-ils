@@ -5,6 +5,7 @@
 
 from flask import url_for
 
+from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import get_csv, login_user, parse_csv, parse_xlsx
 
@@ -66,7 +67,7 @@ def test_serializers(
         "item_create_date",
         "document_pid",
         "document_title",
-        "document_creator",
+        "document_contributions",
         "document_main_type",
         "document_sub_type",
         "document_masked",
@@ -149,15 +150,24 @@ def test_serializers(
     assert parse_xlsx(response.get_data(), csv_compatible=True) == csv_rows
 
     # test provisionActivity without type bf:Publication
+    # and a contribution with a role other than creator
     document["provisionActivity"][0]["type"] = "bf:Manufacture"
+    document["contribution"].append(
+        {"entity": {"type": "bf:Person", "authorized_access_point": "Doe, John"}, "role": ["trl", "ctb"]}
+    )
     document.commit()
     document.reindex()
+    DocumentsSearch.flush_and_refresh()
 
     list_url = url_for("api_exports.item_export")
     response = client.get(list_url, headers=csv_header)
     assert response.status_code == 200
     data = get_csv(response)
     assert data
+    header, *rows = parse_csv(data)
+    rows = [dict(zip(header, row, strict=True)) for row in rows]
+    contributions = {row["document_contributions"] for row in rows if row["document_pid"] == document.pid}
+    assert contributions == {"Nebehay, Christian Michael (aut) ; Doe, John (trl, ctb)"}
 
     # with temporary_item_type
     item_type = item_type_on_site_martigny

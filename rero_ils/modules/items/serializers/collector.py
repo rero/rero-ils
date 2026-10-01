@@ -24,29 +24,6 @@ class Collector:
     chunk_size = 1000
     separator = " | "
 
-    role_filter = [
-        "rsp",
-        "cre",
-        "enj",
-        "dgs",
-        "prg",
-        "dsr",
-        "ctg",
-        "cmp",
-        "inv",
-        "com",
-        "pht",
-        "ivr",
-        "art",
-        "ive",
-        "chr",
-        "aut",
-        "arc",
-        "fmk",
-        "pra",
-        "csl",
-    ]
-
     @classmethod
     def batch(cls, results):
         """Chunk search results.
@@ -85,13 +62,13 @@ class Collector:
             document_data["document_masked"] = bool_values[is_masked]
 
             # process contributions
-            creator = []
+            authorized_access_point = f"authorized_access_point_{language}"
+            contributions = []
             for contribution in data.get("contribution", []):
-                if any(role in contribution.get("role") for role in cls.role_filter):
-                    authorized_access_point = f"authorized_access_point_{language}"
-                    if authorized_access_point in contribution.get("entity"):
-                        creator.append(contribution["entity"][authorized_access_point])
-            document_data["document_creator"] = " ; ".join(creator)
+                if name := contribution["entity"].get(authorized_access_point):
+                    roles = ", ".join(contribution["role"])
+                    contributions.append(f"{name} ({roles})")
+            document_data["document_contributions"] = " ; ".join(contributions)
 
             # document type/subtypes
             doc_types = []
