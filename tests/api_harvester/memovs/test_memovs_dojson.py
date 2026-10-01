@@ -83,6 +83,33 @@ def test_trans_constants(app):
     transformation.trans_constants()
     assert transformation.json["type"] == [{"main_type": "docmaintype_other"}]
 
+    # bf:content is exported either as an object or as an array of them
+    data = {"bf:content": [{"@id": f"{_rda}rdaco:1023"}]}
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
+    transformation.trans_constants()
+    assert transformation.json["type"] == [{"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"}]
+
+    # every content type is kept, and duplicates are dropped
+    data = {
+        "bf:content": [
+            {"@id": f"{_rda}rdaco:1023"},
+            {"@id": f"{_rda}rdaco:1014"},
+            {"@id": f"{_rda}rdaco:1023"},
+        ]
+    }
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
+    transformation.trans_constants()
+    assert transformation.json["type"] == [
+        {"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"},
+        {"main_type": "docmaintype_image", "subtype": "docsubtype_photography"},
+    ]
+
+    # an empty or unknown array still gives docmaintype_other
+    for content in ([], [{"@id": f"{_rda}rdaco:9999"}]):
+        transformation = Transformation(data={"bf:content": content}, logger=None, verbose=False, transform=False)
+        transformation.trans_constants()
+        assert transformation.json["type"] == [{"main_type": "docmaintype_other"}]
+
 
 def test_trans_pid(app):
     """Test transformation pid."""
@@ -1135,6 +1162,23 @@ def test_trans_content_media_carrier(app):
     transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
     transformation.trans_content_media_carrier()
     assert transformation.json == {"contentMediaCarrier": [{"contentType": ["rdaco:1020"]}]}
+
+    # bf:content as an array gives the same result as the single object
+    data = {"bf:content": [{"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020"}]}
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
+    transformation.trans_content_media_carrier()
+    assert transformation.json == {"contentMediaCarrier": [{"contentType": ["rdaco:1020"]}]}
+
+    # every valid content type of the array is kept
+    data = {
+        "bf:content": [
+            {"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1020"},
+            {"@id": "http://rdaregistry.info/termList/RDAContentType/rdaco:1023"},
+        ]
+    }
+    transformation = Transformation(data=data, logger=None, verbose=False, transform=False)
+    transformation.trans_content_media_carrier()
+    assert transformation.json == {"contentMediaCarrier": [{"contentType": ["rdaco:1020", "rdaco:1023"]}]}
 
     # Test with content, media, and carrier types
     data = {
