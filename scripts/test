@@ -39,6 +39,10 @@ function pretests () {
   add_exceptions "CVE-2026-21441"
   # urllib3 1.26.20 CVE-2026-44431 2.7.0
   add_exceptions "CVE-2026-44431"
+  # urllib3 1.26.20 CVE-2026-97687 2.8.0
+  add_exceptions "CVE-2026-97687"
+  # urllib3 1.26.20 CVE-2026-97689 2.8.0
+  add_exceptions "CVE-2026-97689"
   # pytest needs to be updated by pytest-invenio
   # pytest 8.4.2   CVE-2025-71176 9.0.3
   add_exceptions "CVE-2025-71176"

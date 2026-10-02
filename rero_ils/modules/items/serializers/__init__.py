@@ -21,7 +21,7 @@ _csv = ItemCSVSerializer(
     csv_included_fields=[
         "document_pid",
         "document_title",
-        "document_creator",
+        "document_contributions",
         "document_main_type",
         "document_sub_type",
         "document_masked",

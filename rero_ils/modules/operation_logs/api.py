@@ -43,6 +43,9 @@ class OperationLogsSearch(IlsRecordsSearch):
     def get_logs_by_record_pid(self, pid):
         """Get all logs for a given record PID.
 
+        The results are materialized on purpose: callers update each log while
+        iterating, which would let the scroll expire.
+
         :param str pid: record PID.
         :returns: List of logs.
         """
