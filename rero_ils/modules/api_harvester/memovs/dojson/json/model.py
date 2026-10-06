@@ -161,13 +161,9 @@ class Transformation:
     def _content_codes(self):
         """Extract the RDA content type codes from bf:content.
 
-        bf:content is exported either as an object or as an array of them.
-
         :returns: list of RDA content type codes (e.g. ["rdaco:1023"]).
         """
-        content = self.data.get("bf:content", {})
-        entries = content if isinstance(content, list) else [content]
-        codes = [entry.get("@id", "").split("/")[-1] for entry in entries if entry]
+        codes = [entry.get("@id", "").split("/")[-1] for entry in self.data.get("bf:content", [])]
         return [code for code in dict.fromkeys(codes) if code]
 
     def trans_constants(self):
@@ -578,31 +574,30 @@ class Transformation:
 
     def trans_genre_form(self):
         """Map bf:genreForm entries of type bf:Topic to MEF-linked genreForm entries; other types are skipped."""
-        if not (genre_form := self.data.get("bf:genreForm")):
-            return
         genre_forms = []
-        label = genre_form.get("rdfs:label")
-        item_type = genre_form.get("@type")
-        if item_type != "bf:Topic":
-            current_app.logger.warning(
-                "Invalid type '%s' in genreForm for memovs %s, only bf:Topic allowed. Skipping: %s",
-                item_type,
-                self.memovs_id,
-                label,
-            )
-        elif idref_id := self._extract_idref_id(genre_form.get("@id", "")):
-            if mef_ref := self._get_mef_ref("bf:Topic", idref_id):
-                genre_forms.append({"entity": {"$ref": mef_ref}})
-            elif label:
-                genre_forms.append(
-                    {
-                        "entity": {
-                            "type": "bf:Topic",
-                            "authorized_access_point": label,
-                            "identifiedBy": {"type": "IdRef", "value": idref_id},
-                        }
-                    }
+        for genre_form in self.data.get("bf:genreForm", []):
+            label = genre_form.get("rdfs:label")
+            item_type = genre_form.get("@type")
+            if item_type != "bf:Topic":
+                current_app.logger.warning(
+                    "Invalid type '%s' in genreForm for memovs %s, only bf:Topic allowed. Skipping: %s",
+                    item_type,
+                    self.memovs_id,
+                    label,
                 )
+            elif idref_id := self._extract_idref_id(genre_form.get("@id", "")):
+                if mef_ref := self._get_mef_ref("bf:Topic", idref_id):
+                    genre_forms.append({"entity": {"$ref": mef_ref}})
+                elif label:
+                    genre_forms.append(
+                        {
+                            "entity": {
+                                "type": "bf:Topic",
+                                "authorized_access_point": label,
+                                "identifiedBy": {"type": "IdRef", "value": idref_id},
+                            }
+                        }
+                    )
         if genre_forms:
             self.json_dict["genreForm"] = genre_forms
 
