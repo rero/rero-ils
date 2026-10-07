@@ -5,8 +5,30 @@
 """Tasks related to `Location` resources."""
 
 from celery import shared_task
+from sqlalchemy import or_
 
-from rero_ils.modules.utils import extracted_data_from_ref
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
+
+
+@shared_task(ignore_result=True)
+def reindex_location_documents(location_pid):
+    """Refresh documents with items using this permanent or temporary location."""
+    from rero_ils.modules.documents.api import Document, DocumentsIndexer
+    from rero_ils.modules.items.models import ItemMetadata
+    from rero_ils.modules.tasks import process_bulk_queue
+
+    location_ref = get_ref_for_pid("loc", location_pid)
+    items = ItemMetadata.query.filter(
+        or_(
+            ItemMetadata.json["location"]["$ref"].as_string() == location_ref,
+            ItemMetadata.json["temporary_location"]["$ref"].as_string() == location_ref,
+        )
+    ).with_entities(ItemMetadata.json["document"]["$ref"].as_string())
+    document_pids = {extracted_data_from_ref(ref) for (ref,) in items}
+    document_ids = [document.id for document in Document.get_records_by_pids(list(document_pids))]
+    if document_ids:
+        DocumentsIndexer().bulk_index(document_ids)
+        process_bulk_queue.apply_async()
 
 
 @shared_task(ignore_result=True)
