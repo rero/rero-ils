@@ -5,6 +5,7 @@
 """Indexing dumper."""
 
 from flask import current_app
+from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.libraries.api import Library
@@ -21,13 +22,19 @@ class IndexerDumper(Dumper):
     def _process_holdings(record, data):
         """Add holding information to the indexed record."""
         from rero_ils.modules.holdings.api import HoldingsSearch
+        from rero_ils.modules.holdings.models import HoldingTypes
         from rero_ils.modules.items.api.api import ItemsSearch
-        from rero_ils.modules.items.models import ItemNoteTypes
+        from rero_ils.modules.items.models import ItemMetadata, ItemNoteTypes
+        from rero_ils.modules.locations.api import Location
 
         holdings = []
+        online_locations = {}
+        data["has_online_item"] = False
+        data["has_physical_resources"] = False
         search_holdings = HoldingsSearch().filter("term", document__pid=record["pid"]).source().scan()
         for holding in search_holdings:
             holding = holding.to_dict()
+            physical_holding = holding["holdings_type"] in [HoldingTypes.STANDARD, HoldingTypes.SERIAL]
             hold_data = {
                 "pid": holding["pid"],
                 "location": {
@@ -61,9 +68,43 @@ class IndexerDumper(Dumper):
                 hold_data["notes"] = notes
 
             # Index items attached to each holdings record
-            search_items = ItemsSearch().filter("term", holding__pid=holding["pid"]).scan()
+            search_items = [item.to_dict() for item in ItemsSearch().filter("term", holding__pid=holding["pid"]).scan()]
+            # Read current locations in bulk; serial item indexing may still be queued.
+            item_location_refs = {}
+            if search_items:
+                item_location_refs = {
+                    pid: (location_ref, temporary_location_ref)
+                    for pid, location_ref, temporary_location_ref in (
+                        PersistentIdentifier.query.join(
+                            ItemMetadata, PersistentIdentifier.object_uuid == ItemMetadata.id
+                        )
+                        .filter(
+                            PersistentIdentifier.pid_type == "item",
+                            PersistentIdentifier.pid_value.in_([item["pid"] for item in search_items]),
+                            ItemMetadata.is_deleted.is_(False),
+                        )
+                        .with_entities(
+                            PersistentIdentifier.pid_value,
+                            ItemMetadata.json["location"]["$ref"].as_string(),
+                            ItemMetadata.json["temporary_location"]["$ref"].as_string(),
+                        )
+                    )
+                }
             for item in search_items:
-                item = item.to_dict()
+                if item["pid"] not in item_location_refs:
+                    continue
+                is_online = False
+                for location_ref in item_location_refs[item["pid"]]:
+                    if location_ref:
+                        location_pid = extracted_data_from_ref(location_ref)
+                        if location_pid not in online_locations:
+                            location = Location.get_record_by_pid(location_pid)
+                            online_locations[location_pid] = location.get("is_online", False) if location else False
+                        is_online = is_online or online_locations[location_pid]
+                if is_online:
+                    data["has_online_item"] = True
+                elif physical_holding:
+                    data["has_physical_resources"] = True
                 item_data = {
                     "pid": item["pid"],
                     "barcode": item["barcode"],
@@ -96,6 +137,8 @@ class IndexerDumper(Dumper):
                 ]:
                     item_data["notes"] = public_notes_content
                 hold_data.setdefault("items", []).append(item_data)
+            if physical_holding and not hold_data.get("items"):
+                data["has_physical_resources"] = True
             holdings.append(hold_data)
 
         if holdings:
