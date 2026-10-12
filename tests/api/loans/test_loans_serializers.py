@@ -11,6 +11,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.holdings.api import Holding
+from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import get_csv, get_json, parse_csv, parse_xlsx
 
 
@@ -68,6 +69,7 @@ def test_requests_export(
         "item_second_call_number",
         "item_enumerationAndChronology",
         "requested_by",
+        "item_location_pid",
         "item_location",
         "pickup_location",
         "request_date",
@@ -82,6 +84,7 @@ def test_requests_export(
     assert row["item_first_call_number"] == item["call_number"]
     assert row["requested_by"] == f"{patron.formatted_name} ({patron['patron']['barcode'][0]})"
     assert row["item_location"] == f"{lib_martigny['name']} - {loc_public_martigny['name']}"
+    assert row["item_location_pid"] == loc_public_martigny.pid
     # the pickup location defines a `pickup_name`, it takes precedence
     assert row["pickup_location"] == loc_public_martigny["pickup_name"]
     assert re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}", row["request_date"])
@@ -131,6 +134,32 @@ def test_requests_export_inherited_call_numbers(
     assert row["item_second_call_number"] == holding["second_call_number"]
 
     holding.update(original_holding, dbcommit=True, reindex=True)
+    item.update(original_item, dbcommit=True, reindex=True)
+
+
+def test_requests_export_temporary_location(
+    client,
+    csv_header,
+    librarian_martigny,
+    lib_martigny,
+    loc_restricted_martigny,
+    item_on_shelf_martigny_patron_and_loan_pending,
+):
+    """Test the exported item location pid is the temporary location of the item."""
+    item, _, _ = item_on_shelf_martigny_patron_and_loan_pending
+    original_item = deepcopy(item)
+    item["temporary_location"] = {"$ref": get_ref_for_pid("loc", loc_restricted_martigny.pid)}
+    item.update(item, dbcommit=True, reindex=True)
+
+    login_user_via_session(client, librarian_martigny.user)
+    url = url_for("api_loan.requests_export", library_pid=lib_martigny.pid)
+    res = client.get(url, headers=csv_header)
+    assert res.status_code == 200
+
+    data = list(parse_csv(get_csv(res)))
+    row = dict(zip(data[0], data[1], strict=True))
+    assert row["item_location_pid"] == loc_restricted_martigny.pid
+
     item.update(original_item, dbcommit=True, reindex=True)
 
 
