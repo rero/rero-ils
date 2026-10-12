@@ -163,24 +163,24 @@ SEARCH_INDEX_MAPPINGS = {
     "cql.anywhere": SERVER_CHOICE_INDEX,
     "dc.anywhere": SERVER_CHOICE_INDEX,
     "dc.contributor": "contribution.role:("
-    "ape OR aqt OR arc OR art OR aus OR aut OR chr OR cll OR cmp OR com OR "
-    "drt OR dsr OR enj OR fmk OR inv OR ive OR ivr OR lbt OR lsa OR lyr OR "
-    "pht OR pra OR prg OR rsp OR scl) AND "
-    "authorized_access_point",
-    "dc.creator": "contribution.role:("
-    "abr OR act OR adi OR adp OR aft OR anm OR ann OR ant OR apl OR arr OR ato OR "
-    "auc OR aui OR bkd OR bnd OR brd OR brl OR bsl OR cas OR clr OR clt OR "
-    "cmm OR cnd OR cng OR cns OR col OR cor OR cou OR cre OR crt OR csl OR "
+    "abr OR act OR adi OR adp OR aft OR anm OR ann OR ant OR apl OR arr OR "
+    "ato OR auc OR aui OR bkd OR bnd OR brd OR brl OR bsl OR cas OR clr OR "
+    "clt OR cmm OR cnd OR cng OR cns OR col OR cor OR cou OR crt OR csl OR "
     "cst OR ctb OR ctg OR ctr OR cur OR cwt OR dfd OR dgg OR dgs OR dnc OR "
-    "dnr OR dpt OR drm OR dst OR dte OR dto OR dub OR edm OR edt OR egr OR "
-    "etr OR exp OR fac OR fds OR fmd OR fmo OR fmp OR his OR hnr OR hst OR "
-    "ill OR ilu OR ins OR isb OR itr OR jud OR jug OR lgd OR ltg OR med OR "
-    "mfr OR mod OR msd OR mtk OR mus OR nrt OR orm OR osp OR oth OR own OR "
-    "pan OR pat OR pbd OR pbl OR plt OR ppm OR ppt OR pre OR prf OR prm OR "
-    "prn OR pro OR prs OR prt OR ptf OR rcd OR rce OR rcp OR rdd OR res OR "
-    "rpc OR rsr OR sds OR sgd OR sll OR sng OR spk OR spn OR srv OR stl OR "
+    "dnr OR dpt OR drm OR dst OR dte OR dto OR edm OR edt OR egr OR etr OR "
+    "exp OR fac OR fds OR fmd OR fmo OR fmp OR his OR hnr OR hst OR ill OR "
+    "ilu OR ins OR isb OR itr OR jud OR jug OR lgd OR ltg OR med OR mfr OR "
+    "mod OR msd OR mtk OR mus OR nrt OR orm OR osp OR oth OR own OR pan OR "
+    "pat OR pbd OR pbl OR plt OR ppm OR ppt OR pre OR prf OR prm OR prn OR "
+    "pro OR prs OR prt OR ptf OR rcd OR rce OR rcp OR rdd OR res OR rpc OR "
+    "rpt OR rsr OR sds OR sgd OR sll OR sng OR spk OR spn OR srv OR stl OR "
     "tch OR tld OR tlp OR trc OR trl OR vac OR vdg OR wac OR wal OR wat OR "
     "win OR wpr OR wst) AND "
+    "authorized_access_point",
+    "dc.creator": "contribution.role:("
+    "ape OR aqt OR arc OR art OR aus OR aut OR chr OR cll OR cmp OR com OR "
+    "cre OR drt OR dsr OR dub OR enj OR fmk OR inv OR ive OR ivr OR lbt OR "
+    "lsa OR lyr OR pht OR pra OR prg OR rsp OR scl) AND "
     "authorized_access_point",
     "dc.date": 'provisionActivity.type:"bf:Publication" AND provisionActivity.startDate',
     "dc.title": "title.\\*",

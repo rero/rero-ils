@@ -3,10 +3,15 @@
 
 """Test CQL parser."""
 
+import json
+from pathlib import Path
+
 import pytest
 
+from rero_ils.modules.documents.serializers.base import CREATOR_ROLES
 from rero_ils.modules.sru.cql_parser import (
     RESERVED_PREFIXES,
+    SEARCH_INDEX_MAPPINGS,
     SEARCH_SORT_INDEX_MAPPINGS,
     Boolean,
     Diagnostic,
@@ -29,6 +34,21 @@ def test_diagnostic():
     diag.code = 45
     diag.details = "test"
     assert str(diag) == "info:srw/diagnostic/1/45 [Malformed Query]: test"
+
+
+def test_contribution_role_mappings():
+    """Check that dc.creator and dc.contributor split all contribution roles."""
+
+    def mapped_roles(index):
+        return set(SEARCH_INDEX_MAPPINGS[index].split("(", 1)[1].split(")", 1)[0].split(" OR "))
+
+    schema_path = (
+        Path(__file__).parents[2]
+        / "rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json"
+    )
+    all_roles = set(json.loads(schema_path.read_text())["items"]["enum"])
+    assert mapped_roles("dc.creator") == set(CREATOR_ROLES)
+    assert mapped_roles("dc.contributor") == all_roles - set(CREATOR_ROLES)
 
 
 def test_get_query_clause(app):
