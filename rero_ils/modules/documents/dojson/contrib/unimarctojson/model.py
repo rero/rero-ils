@@ -600,6 +600,7 @@ def unimarc_to_contribution(self, key, value):
             "720": "ato",
             "030": "arr",
             "020": "ann",
+            "100": "ant",
             "632": "adi",
             "005": "act",
             "390": "fmo",

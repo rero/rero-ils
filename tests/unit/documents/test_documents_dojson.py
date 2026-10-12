@@ -1124,6 +1124,11 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
         <subfield code="4">edt</subfield>
       </datafield>
       <datafield tag="700" ind1="1" ind2=" ">
+        <subfield code="a">Perrault, Charles</subfield>
+        <subfield code="d">1628-1703</subfield>
+        <subfield code="4">ant</subfield>
+      </datafield>
+      <datafield tag="700" ind1="1" ind2=" ">
         <subfield code="a">Santamaría, Germán</subfield>
         <subfield code="t">No morirás</subfield>
         <subfield code="l">français</subfield>
@@ -1157,6 +1162,13 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
                 "type": "bf:Person",
             },
             "role": ["edt"],
+        },
+        {
+            "entity": {
+                "authorized_access_point": "Perrault, Charles, 1628-1703",
+                "type": "bf:Person",
+            },
+            "role": ["ant"],
         },
         {
             "entity": {"type": "bf:Organisation", "authorized_access_point": "RERO"},

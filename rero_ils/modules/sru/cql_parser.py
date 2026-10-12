@@ -168,7 +168,7 @@ SEARCH_INDEX_MAPPINGS = {
     "pht OR pra OR prg OR rsp OR scl) AND "
     "authorized_access_point",
     "dc.creator": "contribution.role:("
-    "abr OR act OR adi OR adp OR aft OR anm OR ann OR apl OR arr OR ato OR "
+    "abr OR act OR adi OR adp OR aft OR anm OR ann OR ant OR apl OR arr OR ato OR "
     "auc OR aui OR bkd OR bnd OR brd OR brl OR bsl OR cas OR clr OR clt OR "
     "cmm OR cnd OR cng OR cns OR col OR cor OR cou OR cre OR crt OR csl OR "
     "cst OR ctb OR ctg OR ctr OR cur OR cwt OR dfd OR dgg OR dgs OR dnc OR "

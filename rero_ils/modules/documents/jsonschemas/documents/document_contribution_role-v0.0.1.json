@@ -25,6 +25,7 @@
       "aft",
       "anm",
       "ann",
+      "ant",
       "ape",
       "apl",
       "aqt",
@@ -239,6 +240,10 @@
           {
             "value": "ann",
             "label": "ann"
+          },
+          {
+            "value": "ant",
+            "label": "ant"
           },
           {
             "value": "ape",
