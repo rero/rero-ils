@@ -266,8 +266,9 @@ def test_patrons_post_put_delete(
     assert mailbox[0].recipients == ["post_put_delete@test.ch"]
     assert mailbox[0].subject == "Inscription: The district of Martigny Libraries"
     assert "Chère/cher Louis Roduit" in mailbox[0].body
-    expected_url = f"{app.config['RERO_ILS_URL'].rstrip('/')}/org1/"
-    assert expected_url in mailbox[0].body
+    base_url = app.config["RERO_ILS_URL"].rstrip("/")
+    assert f"{base_url}/org1/" in mailbox[0].body
+    assert f"{base_url}{app.config['SECURITY_RESET_URL']}" in mailbox[0].body
 
     # # Check that the returned record matches the given data
     # data = get_json(res)
@@ -428,6 +429,8 @@ def test_patrons_post_with_additional_email_only(
     assert len(mailbox) == 1
     assert mailbox[0].recipients == ["welcome-additional@test.ch"]
     assert "welcome-additional@test.ch" in mailbox[0].body
+    # the forgot password form cannot be used without an account email
+    assert app.config["SECURITY_RESET_URL"] not in mailbox[0].body
 
     patron_pid = data["metadata"]["pid"]
     item_url = url_for("invenio_records_rest.ptrn_item", pid_value=patron_pid)
