@@ -600,6 +600,12 @@ def test_unimarc_contribution():
         <subfield code="b">J.</subfield>
         <subfield code="f">1921 -</subfield>
       </datafield>
+      <datafield tag="702" ind1=" " ind2=" ">
+        <subfield code="a">Perrault</subfield>
+        <subfield code="b">Charles</subfield>
+        <subfield code="f">1628 - 1703</subfield>
+         <subfield code="4">100</subfield>
+      </datafield>
       <datafield tag="710" ind1=" " ind2=" ">
         <subfield code="a">RERO</subfield>
          <subfield code="4">edt</subfield>
@@ -639,6 +645,13 @@ def test_unimarc_contribution():
                 "authorized_access_point": "Dicker, J., 1921",
             },
             "role": ["aut"],
+        },
+        {
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Perrault, Charles, 1628-1703",
+            },
+            "role": ["ant"],
         },
         {
             "entity": {"type": "bf:Organisation", "authorized_access_point": "RERO"},
