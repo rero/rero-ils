@@ -91,6 +91,7 @@ def requests_to_validate_rows(library):
                 "item_second_call_number": item.get("second_call_number") or holding.get("second_call_number", ""),
                 "item_enumerationAndChronology": item.get("enumerationAndChronology", ""),
                 "requested_by": f"{loan['patron']['name']} ({loan['patron']['barcode']})",
+                "item_location_pid": (item.get("temporary_location") or item["location"])["pid"],
                 "item_location": _item_location(item),
                 "pickup_location": _pickup_location(loan),
                 "request_date": request_date.strftime("%Y-%m-%d %H:%M"),

@@ -70,6 +70,7 @@ _requests_csv = RequestsToValidateCSVSerializer(
         "item_second_call_number",
         "item_enumerationAndChronology",
         "requested_by",
+        "item_location_pid",
         "item_location",
         "pickup_location",
         "request_date",
