@@ -49,6 +49,7 @@ class PatronWelcomeEmailExtension(RecordExtension):
             "communication_language",
             current_app.config.get("RERO_ILS_DEFAULT_LANGUAGE", "eng"),
         )
+        base_url = current_app.config.get("RERO_ILS_URL", "").rstrip("/")
         body = render_template(
             f"rero_ils/patrons/email/welcome/{language}.txt",
             patron={
@@ -58,8 +59,10 @@ class PatronWelcomeEmailExtension(RecordExtension):
             organisation={
                 "name": organisation.get("name"),
                 "address": organisation.get("address"),
-                "url": f"{current_app.config.get('RERO_ILS_URL', '').rstrip('/')}/{organisation.get('code')}/",
+                "url": f"{base_url}/{organisation.get('code')}/",
             },
+            # the forgot password form only accepts the account email
+            reset_password_url=f"{base_url}{current_app.config['SECURITY_RESET_URL']}" if user.email else None,
         )
         subject, _, body = body.partition("\n")
         sender = current_app.config.get("DEFAULT_SENDER_EMAIL", "noreply@rero.ch")
