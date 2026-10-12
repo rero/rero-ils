@@ -903,7 +903,8 @@
                 "docsubtype_experimentation_kit",
                 "docsubtype_thematic_kit",
                 "docsubtype_official_material",
-                "docsubtype_guided_reading"
+                "docsubtype_guided_reading",
+                "docsubtype_exhibition_panel"
               ],
               "widget": {
                 "formlyConfig": {
@@ -929,6 +930,10 @@
                       {
                         "label": "docsubtype_guided_reading",
                         "value": "docsubtype_guided_reading"
+                      },
+                      {
+                        "label": "docsubtype_exhibition_panel",
+                        "value": "docsubtype_exhibition_panel"
                       }
                     ]
                   }
