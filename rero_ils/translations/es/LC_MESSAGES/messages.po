@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-09-29 07:42+0000\n"
+"POT-Creation-Date: 2026-10-13 09:03+0000\n"
 "PO-Revision-Date: 2024-03-26 11:02+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -6502,601 +6502,607 @@ msgstr ""
 msgid "Role"
 msgstr "Función"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:172
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:173
 msgid "aut"
 msgstr "autor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:177
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:178
 msgid "cmp"
 msgstr "compositor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:182
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:183
 msgid "ctb"
 msgstr "contribuidor - colaborador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:187
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:188
 msgid "edt"
 msgstr "editor intelectual (bajo la dirección de)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:192
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:193
 msgid "hnr"
 msgstr "homenajeado"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:197
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:198
 msgid "ill"
 msgstr "ilustrador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:202
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:203
 msgid "pht"
 msgstr "fotógrafo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:207
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:208
 msgid "prf"
 msgstr "intérprete"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:212
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:213
 msgid "trl"
 msgstr "traductor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:217
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:218
 msgid "abr"
 msgstr "responsable de la edición abreviada/abreviador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:221
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:222
 msgid "act"
 msgstr "actor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:225
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:226
 msgid "adi"
 msgstr "director artístico"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:229
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:230
 msgid "adp"
 msgstr "adaptador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:233
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:234
 msgid "aft"
 msgstr "autor de contenido textual suplementario"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:237
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:238
 msgid "anm"
 msgstr "animador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:241
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:242
 msgid "ann"
 msgstr "anotador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:245
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:246
+#, fuzzy
+#| msgid "aut"
+msgid "ant"
+msgstr "autor"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:250
 msgid "ape"
 msgstr "apelado"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:249
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:254
 msgid "apl"
 msgstr "apelante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:253
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:258
 msgid "aqt"
 msgstr "autor de dedicatoria"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:257
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:262
 msgid "arc"
 msgstr "arquitecto"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:261
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:266
 msgid "arr"
 msgstr "arreglista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:265
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:270
 msgid "art"
 msgstr "artista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:269
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:274
 msgid "ato"
 msgstr "firmante de autógrafo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:273
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:278
 msgid "auc"
 msgstr "subastador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:277
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:282
 msgid "aui"
 msgstr "autor de introducción [aui]"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:281
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:286
 msgid "aus"
 msgstr "guionista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:285
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:290
 msgid "bkd"
 msgstr "diseñador de libros"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:289
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:294
 msgid "bnd"
 msgstr "encuadernador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:293
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:298
 msgid "brd"
 msgstr "radiodifusor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:297
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:302
 msgid "brl"
 msgstr "grabador de braille"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:301
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:306
 msgid "bsl"
 msgstr "librero"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:305
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:310
 msgid "cas"
 msgstr "fundidor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:309
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:314
 msgid "chr"
 msgstr "coreógrafo (expresión)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:313
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:318
 msgid "cll"
 msgstr "calligrafo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:317
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:322
 msgid "clr"
 msgstr "colorista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:321
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:326
 msgid "clt"
 msgstr "fototipista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:325
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:330
 msgid "cwt"
 msgstr "autor del comentario"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:329
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:334
 msgid "cmm"
 msgstr "comentarista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:333
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:338
 msgid "cnd"
 msgstr "director de orquesta"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:337
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:342
 msgid "cng"
 msgstr "director de fotografía"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:341
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:346
 msgid "cns"
 msgstr "censor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:345
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:350
 msgid "col"
 msgstr "coleccionista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:349
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:354
 msgid "com"
 msgstr "compilador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:353
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:358
 msgid "cor"
 msgstr "conservador de colección"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:357
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:362
 msgid "cou"
 msgstr "tribunal regido"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:361
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:366
 msgid "cre"
 msgstr "creador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:365
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:370
 msgid "crt"
 msgstr "relator del tribunal"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:369
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:374
 msgid "csl"
 msgstr "consultor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:373
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:378
 msgid "cst"
 msgstr "diseñador de vestuario"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:377
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:382
 msgid "ctg"
 msgstr "cartógrafo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:381
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:386
 msgid "ctr"
 msgstr "participante en un tratado"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:385
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:390
 msgid "cur"
 msgstr "curador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:389
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:394
 msgid "dfd"
 msgstr "acusado"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:393
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:398
 msgid "dgg"
 msgstr "institución que otorga el grado"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:397
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:402
 msgid "dgs"
 msgstr "supervisor de grado"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:401
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:406
 msgid "dnc"
 msgstr "bailarín"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:405
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:410
 msgid "dnr"
 msgstr "donante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:409
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:414
 msgid "dpt"
 msgstr "depositante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:413
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:418
 msgid "drm"
 msgstr "dibujante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:417
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:422
 msgid "drt"
 msgstr "director general"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:421
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:426
 msgid "dsr"
 msgstr "diseñador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:425
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:430
 msgid "dst"
 msgstr "distributor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:429
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:434
 msgid "dte"
 msgstr "destinatario de dedicatoria en el ítem"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:433
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:438
 msgid "dto"
 msgstr "administrador de la base de datos"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:437
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:442
 msgid "dub"
 msgstr "presunto autor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:441
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:446
 msgid "edm"
 msgstr "montador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:445
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:450
 msgid "egr"
 msgstr "grabador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:449
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:454
 msgid "enj"
 msgstr "jurisdicción promulgadora"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:453
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:458
 msgid "etr"
 msgstr "aguafuertista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:457
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:462
 msgid "exp"
 msgstr "experto en arte"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:461
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:466
 msgid "fac"
 msgstr "copista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:465
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:470
 msgid "fds"
 msgstr "distributor cinematográfico"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:469
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:474
 msgid "fmd"
 msgstr "director de cine"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:473
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:478
 msgid "fmk"
 msgstr "cineasta"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:477
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:482
 msgid "fmo"
 msgstr "propietario anterior"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:481
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:486
 msgid "fmp"
 msgstr "productor cinematográfico"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:485
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:490
 msgid "his"
 msgstr "institución sede"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:489
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:494
 msgid "hst"
 msgstr "anfitrión"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:493
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:498
 msgid "ilu"
 msgstr "iluminador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:497
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:502
 msgid "ins"
 msgstr "autor de dedicatoria"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:501
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:506
 msgid "inv"
 msgstr "inventor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:505
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:510
 msgid "isb"
 msgstr "entidad editora"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:509
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:514
 msgid "itr"
 msgstr "instrumentista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:513
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:518
 msgid "ive"
 msgstr "entrevistado"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:517
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:522
 msgid "ivr"
 msgstr "entrevistador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:521
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:526
 msgid "jud"
 msgstr "juez"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:525
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:530
 msgid "jug"
 msgstr "jurisdicción regulada"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:529
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:534
 msgid "lbt"
 msgstr "libretista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:533
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:538
 msgid "lgd"
 msgstr "diseñador de iluminación"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:537
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:542
 msgid "lsa"
 msgstr "arquitecto paisajista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:541
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:546
 msgid "ltg"
 msgstr "litógrafo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:545
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:550
 msgid "lyr"
 msgstr "letrista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:549
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:554
 msgid "med"
 msgstr "médium"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:553
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:558
 msgid "mfr"
 msgstr "fabricante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:557
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:562
 msgid "mod"
 msgstr "moderador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:561
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:566
 msgid "msd"
 msgstr "director musical"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:565
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:570
 msgid "mtk"
 msgstr "relator"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:569
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:574
 msgid "mus"
 msgstr "músico"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:573
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:578
 msgid "nrt"
 msgstr "narrador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:577
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:582
 msgid "orm"
 msgstr "organizador de reuniones"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:581
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:586
 msgid "osp"
 msgstr "presentador en pantalla"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:585
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:590
 msgid "oth"
 msgstr "otro"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:589
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:594
 msgid "own"
 msgstr "proprietario"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:593
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:598
 msgid "pan"
 msgstr "panelista"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:597
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:602
 msgid "pat"
 msgstr "patrocinador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:601
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:606
 msgid "pbd"
 msgstr "director editorial"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:605
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:610
 msgid "pbl"
 msgstr "editor comercial"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:609
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:614
 msgid "plt"
 msgstr "grabador de planchas"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:613
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:618
 msgid "ppm"
 msgstr "productor de papel"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:617
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:622
 msgid "ppt"
 msgstr "titiritero"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:621
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:626
 msgid "pra"
 msgstr "miembro del comité de grado"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:625
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:630
 msgid "pre"
 msgstr "presentador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:629
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:634
 msgid "prg"
 msgstr "programador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:633
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:638
 msgid "prm"
 msgstr "grabador de estampas"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:637
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:642
 msgid "prn"
 msgstr "compañía productora"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:641
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:646
 msgid "pro"
 msgstr "productor (cine, televisión ...)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:645
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:650
 msgid "prs"
 msgstr "personal de producción"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:649
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:654
 msgid "prt"
 msgstr "impresor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:653
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:658
 msgid "ptf"
 msgstr "demandante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:657
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:662
 msgid "rcd"
 msgstr "técnico de grabación"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:661
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:666
 msgid "rce"
 msgstr "ingeniero de grabación"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:665
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:670
 msgid "rcp"
 msgstr "destinatario"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:669
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:674
 msgid "rdd"
 msgstr "director de radio"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:673
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:678
 msgid "res"
 msgstr "investigador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:677
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:682
 msgid "rpc"
 msgstr "productor de radio"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:681
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:686
 #, fuzzy
 #| msgid "pht"
 msgid "rpt"
 msgstr "fotógrafo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:685
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:690
 msgid "rsp"
 msgstr "aspirante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:689
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:694
 msgid "rsr"
 msgstr "restaurador"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:693
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:698
 msgid "scl"
 msgstr "escultor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:697
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:702
 msgid "sds"
 msgstr "diseñador de sonido"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:701
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:706
 msgid "sgd"
 msgstr "director de escena"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:705
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:710
 msgid "sll"
 msgstr "vendedor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:709
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:714
 msgid "sng"
 msgstr "cantante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:713
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:718
 msgid "spk"
 msgstr "conferenciante"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:717
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:722
 msgid "spn"
 msgstr "entidad patrocinadora"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:721
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:726
 msgid "srv"
 msgstr "topógrafo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:725
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:730
 msgid "stl"
 msgstr "narrador de cuentos"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:729
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:734
 msgid "tch"
 msgstr "profesor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:733
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:738
 msgid "tld"
 msgstr "director de televisión"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:737
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:742
 msgid "tlp"
 msgstr "productor de televisión"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:741
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:746
 msgid "trc"
 msgstr "transcriptor"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:745
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:750
 msgid "vac"
 msgstr "actor de voz"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:749
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:754
 msgid "vdg"
 msgstr "videógrafo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:753
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:758
 msgid "wac"
 msgstr "autor de comentario adicional"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:757
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:762
 msgid "wal"
 msgstr "autor de letra adicional"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:761
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:766
 msgid "wat"
 msgstr "autor de texto adicional"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:765
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:770
 msgid "win"
 msgstr "autor de introducción [win]"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:769
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:774
 msgid "wpr"
 msgstr "autor de prefacio"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:773
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:778
 msgid "wst"
 msgstr "autor de contenido textual suplementario"
 
@@ -8124,12 +8130,12 @@ msgstr "unidad individual"
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:275
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:330
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:384
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:449
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:583
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:637
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:697
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:784
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:898
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:454
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:588
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:642
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:702
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:789
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:903
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:75
 msgid "Subtype"
 msgstr "Subtipo"
@@ -8162,17 +8168,17 @@ msgstr "subfichero privado"
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:261
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:316
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:370
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:435
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:513
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:540
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:569
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:623
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:683
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:741
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:770
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:828
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:855
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:884
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:440
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:518
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:545
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:574
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:628
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:688
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:746
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:775
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:833
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:860
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:889
 msgid "Main type"
 msgstr "Tipo principal"
 
@@ -8862,33 +8868,33 @@ msgstr "Títulos principales"
 msgid "Main title"
 msgstr "Título principal"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:74
+#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:89
 msgid "Subtitle"
 msgstr "Subtítulo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:89
+#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:104
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:59
 msgid "Parts"
 msgstr "Partes"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:93
+#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:108
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:64
 msgid "Part"
 msgstr "Parte"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:101
+#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:116
 msgid "Part numbers"
 msgstr "Números de parte"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:105
+#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:120
 msgid "Part number"
 msgstr "Número de clasificación"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:110
+#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:125
 msgid "Part names"
 msgstr "Nombres de parte"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:114
+#: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:129
 msgid "Part name"
 msgstr "Apellido"
 
@@ -9004,157 +9010,169 @@ msgstr "Medio electrónico"
 msgid "docmaintype_game"
 msgstr "juego"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:399
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:400
 msgid "docsubtype_other_game"
 msgstr "juego"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:403
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:404
 msgid "docsubtype_video_game"
 msgstr "Videojuego"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:407
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:408
 msgid "docsubtype_role-playing_game"
 msgstr "Juego de rol"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:411
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:412
 msgid "docsubtype_board_game"
 msgstr "Juego de mesa"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:422
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:416
+#, fuzzy
+#| msgid "docsubtype_sound"
+msgid "docsubtype_toy"
+msgstr "Sonido"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:427
 msgid "docmaintype_image"
 msgstr "imagen"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:467
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:472
 msgid "docsubtype_poster"
 msgstr "Póster"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:471
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:476
 msgid "docsubtype_postcard"
 msgstr "Tarjeta postal"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:475
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:480
 msgid "docsubtype_photography"
 msgstr "fotografía"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:479
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:484
 msgid "docsubtype_print_engraving"
 msgstr "Grabado de impresión"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:483
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:488
 msgid "docsubtype_calendar"
 msgstr "Calendario"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:487
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:492
 msgid "docsubtype_other_image"
 msgstr "imagen"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:491
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:496
 msgid "docsubtype_projected_image"
 msgstr "imagen proyectada"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:502
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:507
 msgid "docmaintype_language_method"
 msgstr "Método lingüístico"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:529
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:534
 msgid "docmaintype_leaf"
 msgstr "hoja movible"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:556
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:561
 msgid "docmaintype_map"
 msgstr "mapa, atlas"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:595
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:600
 msgid "docsubtype_map"
 msgstr "Mapa"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:599
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:604
 msgid "docsubtype_atlas"
 msgstr "Atlas"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:610
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:615
 msgid "docmaintype_movie_series"
 msgstr "Serie de películas"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:651
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:656
 msgid "docsubtype_movie"
 msgstr "Película"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:655
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:660
 msgid "docsubtype_series"
 msgstr "Serie"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:659
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:664
 msgid "docsubtype_documentary"
 msgstr "Documental"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:670
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:675
 msgid "docmaintype_object"
 msgstr "Objeto"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:711
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:716
 msgid "docsubtype_kamishibai"
 msgstr "Kamishibai"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:715
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:720
 msgid "docsubtype_tablet"
 msgstr "Tableta"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:719
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:724
 msgid "docsubtype_other_object"
 msgstr "objeto"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:730
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:735
 msgid "docmaintype_other"
 msgstr "otro"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:757
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:762
 msgid "docmaintype_score"
 msgstr "partición"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:798
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:803
 msgid "docsubtype_printed_score"
 msgstr "Partitura impresa"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:802
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:807
 msgid "docsubtype_music_method"
 msgstr "Método musical"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:806
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:811
 msgid "docsubtype_manuscript_score"
 msgstr "Partitura del manuscrito"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:817
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:822
 msgid "docmaintype_serial"
 msgstr "Periódico"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:844
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:849
 msgid "docmaintype_series"
 msgstr "Periódicos"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:871
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:876
 msgid "docmaintype_teaching_material"
 msgstr "material didáctico"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:914
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:920
 msgid "docsubtype_reading_kit"
 msgstr "kit de lectura"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:918
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:924
 msgid "docsubtype_experimentation_kit"
 msgstr "kit de experimentación"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:922
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:928
 msgid "docsubtype_thematic_kit"
 msgstr "kit temático"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:926
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:932
 msgid "docsubtype_official_material"
 msgstr "medio oficial de enseñanza"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:930
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:936
 msgid "docsubtype_guided_reading"
 msgstr "lectura en clase"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:940
+#, fuzzy
+#| msgid "docsubtype_experimentation_kit"
+msgid "docsubtype_exhibition_panel"
+msgstr "kit de experimentación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:3
 msgid "Usage and access policies"
@@ -12983,22 +13001,22 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-user\"></i>"
-msgstr ""
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgid "<i class=\"fa-solid fa-user\"></i>"
 msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgstr ""
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr ""
 
 #: rero_ils/oauth/scopes.py:9
