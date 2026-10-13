@@ -2,6 +2,320 @@
 
 <!-- version list -->
 
+## v1.30.0 (2026-10-13)
+
+### Bug Fixes
+
+- Invalidate permissions cache
+  ([`82496db`](https://github.com/rero/rero-ils/commit/82496dbbd955fa0524ea143b2f7ceb038107d99b))
+
+- Return 400 instead of 500 on invalid requests
+  ([`c24daf4`](https://github.com/rero/rero-ils/commit/c24daf40f3611dc4a7ba9194ca277654c561503c))
+
+- **acquisition**: Prevent CSV order export crash with deleted link
+  ([`1effe18`](https://github.com/rero/rero-ils/commit/1effe18e1389bdcb326d7eba6015658b6d547055))
+
+- **acquisition**: Round monetary float arithmetic to 2 decimal places
+  ([`fa7f942`](https://github.com/rero/rero-ils/commit/fa7f942286cb3dd63fbcaecd3f59d5fc554f2fe2))
+
+- **certificates**: Generate instead of versioning
+  ([`42eae05`](https://github.com/rero/rero-ils/commit/42eae055b37a067158bd97cf3efde4ce8c09fa9e))
+
+- **circulation**: Log the real scan transaction location
+  ([`82c0547`](https://github.com/rero/rero-ils/commit/82c0547de1849a90b227a29fe0668a17acf7aa27))
+
+- **circulation**: Restrict requests view by org
+  ([`1a61c4f`](https://github.com/rero/rero-ils/commit/1a61c4fab1d8cf32bbc9e686a2d96ed0f269631c))
+
+- **circulation**: Wrong status on at_desk cancel
+  ([`1f535ff`](https://github.com/rero/rero-ils/commit/1f535ffb3f69bfafde213608b2992f85865e0359))
+
+- **docker**: Set the UTF-8 locale dropped by the Python image since 3.13
+  ([`2ea47a6`](https://github.com/rero/rero-ils/commit/2ea47a654507490242005bcac757372f27214cce))
+
+- **documents**: Combine multiple new_acq filters
+  ([`c49e366`](https://github.com/rero/rero-ils/commit/c49e366f6d553124e3b92e9bd2b93a3e389b1a21))
+
+- **documents**: Count documents instead of holdings in org facet
+  ([`eff7279`](https://github.com/rero/rero-ils/commit/eff727981ec1f18b9cbdb54f66a42be37f58d79f))
+
+- **documents**: Invalidate permissions cache
+  ([`d636812`](https://github.com/rero/rero-ils/commit/d6368125e093a29ecc703c4a7d4df9d661d5711f))
+
+- **editor**: Expand single-line fields
+  ([`09288f8`](https://github.com/rero/rero-ils/commit/09288f88680b1b4d6dcc05e419f28826221c870b))
+
+- **entities**: Link MEF by identifier, not type
+  ([`13e85b3`](https://github.com/rero/rero-ils/commit/13e85b383a994848dc247988c5e6a469396079d0))
+
+- **entities**: Log replace_identified_by failures
+  ([`fdfcbe9`](https://github.com/rero/rero-ils/commit/fdfcbe93988f0455327ea1418d22c54184d77aaa))
+
+- **entities**: Query each MEF type endpoint
+  ([`3a1b3f3`](https://github.com/rero/rero-ils/commit/3a1b3f31093142ab687412e46ae815752aa98018))
+
+- **files**: Allow the file metadata extraction
+  ([`25d1f46`](https://github.com/rero/rero-ils/commit/25d1f4673c639c2dc16b5d0a21c39ba112389188))
+
+- **harvester**: Read Memovs genreForm as a list
+  ([`808824e`](https://github.com/rero/rero-ils/commit/808824e338e1cc5a38bf5639b18e8bc4ddb35ee4))
+
+- **harvester**: Stop skipping Memovs records
+  ([`ecd455d`](https://github.com/rero/rero-ils/commit/ecd455dc0710f80e17c8e2e3bc94afd6c3c14e4e))
+
+- **header**: Keep mobile menu visible in header
+  ([`9f76e0a`](https://github.com/rero/rero-ils/commit/9f76e0add0b4f142a6bbec84abec664a1e976385))
+
+- **holdings**: Harden serial issue inheritance
+  ([`c55fafb`](https://github.com/rero/rero-ils/commit/c55fafb5bb73bfefea0480c42076486b5d53ff6e))
+
+- **ill**: Validate form before confirmation
+  ([`229dd31`](https://github.com/rero/rero-ils/commit/229dd3170871c4599ef165be8d72df91cb9f1003))
+
+- **ill-requests**: Add pickup location name in serializer
+  ([`b0d317f`](https://github.com/rero/rero-ils/commit/b0d317ffe759a387dfb43a9b40f2d76c1d5e3d5e))
+
+- **imports**: Initialize status fields, strengthen callable guard and rename shadowed builtins
+  ([`1d0ca44`](https://github.com/rero/rero-ils/commit/1d0ca442ce1b1e85184c041ebe7cd0d41bf1cbbc))
+
+- **indexer**: Ignore bulk index version conflicts
+  ([`9cd8c23`](https://github.com/rero/rero-ils/commit/9cd8c233ef0074c5f209f0162cd8f89308da41fa))
+
+- **items**: Display circulation information
+  ([`3b9655d`](https://github.com/rero/rero-ils/commit/3b9655d4a06a005933836ba6d7a3a4f2df9d5be2))
+
+- **items**: Remove role filter from serialiser
+  ([`70db4de`](https://github.com/rero/rero-ils/commit/70db4de8643e65456749718c8fbab5a2054bac14))
+
+- **patrons**: Drop empty entries in record links
+  ([`5331692`](https://github.com/rero/rero-ils/commit/5331692b2db2b29b649241bf3b5424fa8083e499))
+
+- **permissions**: Repair wiki edition permission
+  ([`65ea9e9`](https://github.com/rero/rero-ils/commit/65ea9e957d16fb2d5f2eea58b67a79e9d6a2c31d))
+
+- **requests**: Hide not received serial issues
+  ([`292ec23`](https://github.com/rero/rero-ils/commit/292ec234999e9a9383aeb04aeb7cf2c2424f69a9))
+
+- **scheduler**: Disable the harvest tasks
+  ([`d14b318`](https://github.com/rero/rero-ils/commit/d14b31829db4ab839bef2699aa325f0117b17573))
+
+- **scripts**: Kill every child on Ctrl-C
+  ([`b7974ca`](https://github.com/rero/rero-ils/commit/b7974ca0778ecdf25c0e78bac25ef964b8908e86))
+
+- **scripts**: Remove duplicated setup tail
+  ([`754cbdd`](https://github.com/rero/rero-ils/commit/754cbdd645e1dd643a99c587f3d317c946fe3e32))
+
+- **search**: Allow Lucene/MARC special chars in query strings
+  ([`edbd95e`](https://github.com/rero/rero-ils/commit/edbd95eecbd31acd3dae69ece22c166d89228045))
+
+- **sru**: Swap creator and contributor role lists
+  ([`86a6ed9`](https://github.com/rero/rero-ils/commit/86a6ed96d56c80fa0136efa263a442fccfea4d1a))
+
+- **tests**: Improve test suite quality
+  ([`2effdad`](https://github.com/rero/rero-ils/commit/2effdad58a699b7eb12e2c842b3bbf9a52db1e3b))
+
+- **theme**: Skip rero-ils-ui bundle on the login page
+  ([`4e2bf27`](https://github.com/rero/rero-ils/commit/4e2bf27319e88d88bb2d3b1b4c8ac832372b9363))
+
+- **users**: No reset password email on creation
+  ([`b583dd9`](https://github.com/rero/rero-ils/commit/b583dd9237d44631b542e4d753bf6cd785217a5b))
+
+### Build System
+
+- Update dependencies
+  ([`f27e76f`](https://github.com/rero/rero-ils/commit/f27e76f3ab03ec869debe135efe96243ac4ecd77))
+
+- **deps**: Run python-semantic-release through uvx
+  ([`47321cb`](https://github.com/rero/rero-ils/commit/47321cb2bb9137fc3b41859e4c8864d23bb2eab6))
+
+- **scripts**: Use pnpm in russian_dolls
+  ([`801cf42`](https://github.com/rero/rero-ils/commit/801cf4289f1843cb48fa1c8e351f6a6ea11a9b7a))
+
+### Chores
+
+- Additional v1.30.0 translations
+  ([`c938176`](https://github.com/rero/rero-ils/commit/c938176b39b1f603ea9ef74563fca5ad3e85d360))
+
+- Bump rero-ils-ui to 21.3.0
+  ([`efdc7ce`](https://github.com/rero/rero-ils/commit/efdc7cec7dd952e47dc279225ac57ba016b30a89))
+
+- Translate v1.30.0
+  ([`545f459`](https://github.com/rero/rero-ils/commit/545f459fc7e93f843b9a48bcd7e8eef7d848b984))
+
+- Update cryptography to v50
+  ([`60aa5de`](https://github.com/rero/rero-ils/commit/60aa5dee5dd0f660f6d68d4706fe1928cea666e8))
+
+- Update dependencies
+  ([`c5c0b08`](https://github.com/rero/rero-ils/commit/c5c0b0814e82d1718071a2764388eb5bef7a3c37))
+
+- Update dependencies
+  ([`caae18f`](https://github.com/rero/rero-ils/commit/caae18f10f665c7e03a38d864b8b9dbee3a411ef))
+
+- Update dependencies
+  ([`9a7aac6`](https://github.com/rero/rero-ils/commit/9a7aac6ecddcff97d890196910076f277c1c002d))
+
+- Update dependencies
+  ([`e70108f`](https://github.com/rero/rero-ils/commit/e70108fd28d60ea0a8e7eebd3ffb17845359fd0c))
+
+- Update dependencies
+  ([`048f7d7`](https://github.com/rero/rero-ils/commit/048f7d7a619f21870478a99cd677410b235a622c))
+
+- **docker**: Remove the unused postgres build
+  ([`0ada5f5`](https://github.com/rero/rero-ils/commit/0ada5f5d37c4675b795f8b36128c9842797471bd))
+
+- **jsonschemas**: Add step and type to integer fields widgets
+  ([`2d290c4`](https://github.com/rero/rero-ils/commit/2d290c4c007b5487182b5356b76076cc9f353fdf))
+
+- **languages**: Remove dutch as preferred language
+  ([`0ed4201`](https://github.com/rero/rero-ils/commit/0ed420176f049410d23f4b985e0fc74215bb4d59))
+
+### Code Style
+
+- Add missing license headers
+  ([`e2239e2`](https://github.com/rero/rero-ils/commit/e2239e2cec3157716f3f54967583fbac1a723ff0))
+
+### Continuous Integration
+
+- Add a license header check
+  ([`90851d7`](https://github.com/rero/rero-ils/commit/90851d7b45d067d990c7656bb0040318c0491068))
+
+- Add the continuous localization workflow
+  ([`bb1a0c0`](https://github.com/rero/rero-ils/commit/bb1a0c0a558d1f6cb94d7d77c37663aa8ff6b05a))
+
+- Bump actions to latest versions
+  ([`0ac8e2a`](https://github.com/rero/rero-ils/commit/0ac8e2a1500a17ca0494ca56f154501d681f7f1b))
+
+- Bump astral-sh/setup-uv from 9.0.0 to 10.0.1
+  ([`504fa56`](https://github.com/rero/rero-ils/commit/504fa5630f6b2d52a16bb983705e36ed2c8dd5a4))
+
+### Documentation
+
+- Add a readable code review command
+  ([`e3acd43`](https://github.com/rero/rero-ils/commit/e3acd43378cdb6f5cb7bb4601bf6e48b00452de0))
+
+- Keep only non-derivable rules in CLAUDE.md
+  ([`6a6006f`](https://github.com/rero/rero-ils/commit/6a6006f71f5bbf4abdbdc641a774a08b89ff3f05))
+
+- Move commit rules into a Claude skill
+  ([`7328605`](https://github.com/rero/rero-ils/commit/732860598d28f4e23b3e6ca3e1b8ac66abee6c24))
+
+### Features
+
+- Adapt the help pages to flask-wiki 4
+  ([`752c631`](https://github.com/rero/rero-ils/commit/752c631acc14dc9509621d9de34759db31baa743))
+
+- Add reset password link to welcome email
+  ([`3eef713`](https://github.com/rero/rero-ils/commit/3eef7138e0f7e257b643d75dea4ef2149f606ed5))
+
+- Migrate to Font Awesome Free v7
+  ([`bf2ce86`](https://github.com/rero/rero-ils/commit/bf2ce86a23d4fb55ae12777faf680c3c85144731))
+
+- **circulation**: Add requests exports
+  ([`350810c`](https://github.com/rero/rero-ils/commit/350810cfe7405c3f6c0ada0d621768a9ac2922b6))
+
+- **document**: Add exhibition_panel subtype
+  ([`b6dd15b`](https://github.com/rero/rero-ils/commit/b6dd15b5b69226bbdeb9e5752054772fea85071b))
+
+- **document**: Add toy subtype
+  ([`931f1ac`](https://github.com/rero/rero-ils/commit/931f1ac92e388710249b39017d96a092e726b1ba))
+
+- **documents**: Add bibliographic antecedent role
+  ([`8b733f2`](https://github.com/rero/rero-ils/commit/8b733f2182f4cda657eeb88054ee3180b9321265))
+
+- **documents**: Add everywhere search target
+  ([`e90e602`](https://github.com/rero/rero-ils/commit/e90e602bf91d934240cee6f0159b9f999fe59496))
+
+- **documents**: Extend the language script list
+  ([`de4e805`](https://github.com/rero/rero-ils/commit/de4e8052947ecc367e43e7de329dfe21c1d58f25))
+
+- **documents**: Link to pro view for librarians
+  ([`1c5c508`](https://github.com/rero/rero-ils/commit/1c5c508d8f5d03f3fb251b295c093c49ee4ee6e2))
+
+- **exports**: Add XLSX exports
+  ([`03f2dd1`](https://github.com/rero/rero-ils/commit/03f2dd14418d2744242ea33745d3ff589ecca523))
+
+- **fees**: Distinguish fee library contexts
+  ([`e367805`](https://github.com/rero/rero-ils/commit/e367805015d69d3d8b096f6d289a4f3acaa531ea))
+
+- **harvester**: Add Memovs audiovisual archives API
+  ([`7f04833`](https://github.com/rero/rero-ils/commit/7f04833ec3226120d2118dca222325d14d0eb691))
+
+- **items**: Export temporary location name
+  ([`bcd584d`](https://github.com/rero/rero-ils/commit/bcd584d5b2d5f01f268f6326361a5029da4fe499))
+
+- **loans**: Export item location pid of requests
+  ([`fee14f8`](https://github.com/rero/rero-ils/commit/fee14f8e41475f90972bcc3dcd25673e79a154fe))
+
+- **oauth**: Rework the authorisation page
+  ([`98475bb`](https://github.com/rero/rero-ils/commit/98475bb575fef02ab7d871f72f81027562fc5cd5))
+
+- **operation-logs**: Add date sort options
+  ([`57b2f4d`](https://github.com/rero/rero-ils/commit/57b2f4d5d9e0c2c379bf1b3d439e7d3603197937))
+
+- **patrons**: Add available languages to settings
+  ([`32459b2`](https://github.com/rero/rero-ils/commit/32459b27e4bf3f7b0cb713add1655d593bb8cc71))
+
+- **patrons**: Keep ill requests on deletion
+  ([`689e60f`](https://github.com/rero/rero-ils/commit/689e60fc487f787ae81728b8c633ecca437e3b9f))
+
+- **patrons**: Send welcome email
+  ([`49c855c`](https://github.com/rero/rero-ils/commit/49c855c70a756d7cfb91fd6c8413731a64b82343))
+
+- **stats**: Add publication year distribution
+  ([`1ae4251`](https://github.com/rero/rero-ils/commit/1ae4251ed0b0b82610b5f2306ace88600a8dbdca))
+
+### Performance Improvements
+
+- **docker**: Speed up the dev and test stack
+  ([`8ef67d4`](https://github.com/rero/rero-ils/commit/8ef67d4f88fc3c183ac5e78ec4167b20ac2ae6a1))
+
+- **scripts**: Run the setup in nine processes
+  ([`9fccd30`](https://github.com/rero/rero-ils/commit/9fccd30af441a875414f7799399214fe217ec7e0))
+
+- **search**: Right-size the index shards
+  ([`9747423`](https://github.com/rero/rero-ils/commit/9747423719712a2fc6a1f0cb8c5f3d52b7cd8bbc))
+
+### Refactoring
+
+- Remove legacy scripts and dead code
+  ([`2599876`](https://github.com/rero/rero-ils/commit/25998760109616bf49b2e0e8769b49cfce5d96fd))
+
+- Share the display language resolution
+  ([`db8c299`](https://github.com/rero/rero-ils/commit/db8c299545cd1cb804604d815a8aaca677c28fe4))
+
+- **api**: Serve hits.total as a plain integer
+  ([`9f68446`](https://github.com/rero/rero-ils/commit/9f68446dd1271b530e9ad57b3a2bf4b61a944639))
+
+- **records-rest**: Drop workarounds fixed upstream
+  ([`445395f`](https://github.com/rero/rero-ils/commit/445395fd06d54a30d9d6e01e6d4270a1224bd12a))
+
+- **users**: Remove dead code on user creation
+  ([`0993d6b`](https://github.com/rero/rero-ils/commit/0993d6b59ab50f91ec4e3af7d644a1dbbb7f0afa))
+
+### Testing
+
+- Add new urllib3 exceptions
+  ([`2567bc8`](https://github.com/rero/rero-ils/commit/2567bc88a1b99b4ee9842ecb26c611ec31d6fab1))
+
+- Mock all MEF connections in tests
+  ([`54d6d48`](https://github.com/rero/rero-ils/commit/54d6d48c0f4814f63372f2a82796a4232d467608))
+
+- **documents**: Read hits.total as an integer
+  ([`22d2039`](https://github.com/rero/rero-ils/commit/22d203973914c091093603993de25c96bff6637c))
+
+- **e2e**: Add a console and network guard
+  ([`92a3f56`](https://github.com/rero/rero-ils/commit/92a3f56d8bfaa32fac353c6f19253a00eee7defb))
+
+- **e2e**: Replace Cypress with Playwright E2E tests
+  ([`742f9dc`](https://github.com/rero/rero-ils/commit/742f9dc98914d916ef3d1429fd5975b9ad68c4d5))
+
+- **e2e**: Upgrade the browsers, not the whole tree
+  ([`273604b`](https://github.com/rero/rero-ils/commit/273604bb471812cd88c08b5179a65da7d7e6ed0f))
+
+- **fees**: Read hits.total as a plain integer
+  ([`f9759e4`](https://github.com/rero/rero-ils/commit/f9759e4fe36aa5288da9cd587a7c73958c605cf6))
+
+
 ## v1.29.0 (2026-07-14)
 
 ### Bug Fixes
