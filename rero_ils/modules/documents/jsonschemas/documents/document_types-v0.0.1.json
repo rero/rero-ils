@@ -388,7 +388,8 @@
                 "docsubtype_other_game",
                 "docsubtype_video_game",
                 "docsubtype_role-playing_game",
-                "docsubtype_board_game"
+                "docsubtype_board_game",
+                "docsubtype_toy"
               ],
               "widget": {
                 "formlyConfig": {
@@ -410,6 +411,10 @@
                       {
                         "label": "docsubtype_board_game",
                         "value": "docsubtype_board_game"
+                      },
+                      {
+                        "label": "docsubtype_toy",
+                        "value": "docsubtype_toy"
                       }
                     ]
                   }
