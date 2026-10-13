@@ -608,9 +608,9 @@ def wait_for_item_indexed(page, base_url, barcode, timeout_ms=15000):
 # ── Navigation / circulation helpers ─────────────────────────────────────────
 
 
-CIRCULATION_PLACEHOLDER = "Please enter a patron card number or an item barcode."
-CIRCULATION_ITEM_PLACEHOLDER = "Checkout/check-in: please enter an item barcode."
-REQUESTS_PLACEHOLDER = "Please enter an item barcode."
+CIRCULATION_PLACEHOLDER = "Scan a patron or item barcode"
+CIRCULATION_ITEM_PLACEHOLDER = "Scan an item barcode to check out/check-in"
+REQUESTS_PLACEHOLDER = "Scan an item barcode to validate a request"
 
 
 def go_to_circulation(page, base_url):
