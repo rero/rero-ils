@@ -8,12 +8,16 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 from unittest import mock
 
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.files.cli import create_pdf_record_files
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
+from rero_ils.modules.items.api import Item, ItemsIndexer, ItemsSearch
+from rero_ils.modules.items.tasks import clean_obsolete_temporary_item_types_and_locations
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import (
@@ -55,6 +59,8 @@ def test_documents_get(client, document_with_files):
         metadata.pop("nested_identifiers", None)
         metadata.pop("identifiedBy", None)
         metadata.pop("files", None)
+        metadata.pop("has_online_item", None)
+        metadata.pop("has_physical_resources", None)
         return metadata
 
     item_url = url_for("invenio_records_rest.doc_item", pid_value="doc1")
@@ -382,6 +388,207 @@ def test_documents_facets(
         res = client.get(url)
         data = get_json(res)
         assert data["hits"]["total"] == value
+
+
+@pytest.fixture
+def resource_document(app, document_data_tmp):
+    """Create an isolated document for resource-filter tests."""
+    document_data_tmp.pop("electronicLocator", None)
+    document = Document.create(document_data_tmp, delete_pid=True, dbcommit=True, reindex=True)
+    yield document
+    for hit in ItemsSearch().filter("term", document__pid=document.pid).source("pid").scan():
+        Item.get_record_by_pid(hit.pid).delete(force=True, dbcommit=True, delindex=True)
+    for hit in HoldingsSearch().filter("term", document__pid=document.pid).source("pid").scan():
+        Holding.get_record_by_pid(hit.pid).delete(force=True, dbcommit=True, delindex=True)
+    document.delete(force=True, dbcommit=True, delindex=True)
+
+
+@pytest.fixture
+def physical_resource_item(
+    resource_document, item_lib_martigny_data_tmp, item_type_standard_martigny, loc_public_martigny
+):
+    """Create a physical item on the isolated resource-filter document."""
+    data = item_lib_martigny_data_tmp
+    data["document"] = {"$ref": get_ref_for_pid("doc", resource_document.pid)}
+    data["location"] = {"$ref": get_ref_for_pid("loc", loc_public_martigny.pid)}
+    data["barcode"] = f"3594-{resource_document.pid}"
+    return Item.create(data, delete_pid=True, dbcommit=True, reindex=True)
+
+
+def _assert_resource_filters(client, document, online, physical):
+    """Check the document PID returned by each switch combination."""
+    for filters, included in [
+        ({"online": "true"}, online),
+        ({"not_online": "true"}, physical),
+        ({"online": "true", "not_online": "true"}, online and physical),
+    ]:
+        url = url_for("invenio_records_rest.doc_list", view="global", q=f"pid:{document.pid}", **filters)
+        response = client.get(url)
+        assert response.status_code == 200
+        pids = {hit["metadata"]["pid"] for hit in get_json(response)["hits"]["hits"]}
+        assert pids == ({document.pid} if included else set())
+
+
+@pytest.mark.parametrize(
+    ("permanent_online", "temporary_online", "add_physical_item", "online", "physical"),
+    [
+        pytest.param(False, None, False, False, True, id="physical-only"),
+        pytest.param(True, None, False, True, False, id="online-only"),
+        pytest.param(False, True, False, True, False, id="temporary-online-only"),
+        pytest.param(True, False, False, True, False, id="online-with-temporary-physical"),
+        pytest.param(True, None, True, True, True, id="mixed-permanent-online"),
+        pytest.param(False, True, True, True, True, id="mixed-temporary-online"),
+    ],
+)
+def test_documents_item_resource_filters(
+    client,
+    resource_document,
+    item_lib_martigny_data_tmp,
+    item_type_standard_martigny,
+    loc_public_martigny,
+    loc_online_martigny,
+    permanent_online,
+    temporary_online,
+    add_physical_item,
+    online,
+    physical,
+):
+    """Classify permanent, temporary and mixed item locations."""
+    data = item_lib_martigny_data_tmp
+    data["document"] = {"$ref": get_ref_for_pid("doc", resource_document.pid)}
+    data["barcode"] = f"3594-{resource_document.pid}-1"
+    location = loc_online_martigny if permanent_online else loc_public_martigny
+    data["location"] = {"$ref": get_ref_for_pid("loc", location.pid)}
+    if temporary_online is not None:
+        temporary_location = loc_online_martigny if temporary_online else loc_public_martigny
+        data["temporary_location"] = {"$ref": get_ref_for_pid("loc", temporary_location.pid)}
+    Item.create(deepcopy(data), delete_pid=True, dbcommit=True, reindex=True)
+    if add_physical_item:
+        data.pop("temporary_location", None)
+        data["location"] = {"$ref": get_ref_for_pid("loc", loc_public_martigny.pid)}
+        data["barcode"] = f"3594-{resource_document.pid}-2"
+        Item.create(data, delete_pid=True, dbcommit=True, reindex=True)
+
+    _assert_resource_filters(client, resource_document, online, physical)
+    indexed = DocumentsSearch().get_record_by_pid(resource_document.pid)
+    assert indexed["has_online_item"] is online
+    assert indexed["has_physical_resources"] is physical
+
+
+@pytest.mark.parametrize("source", ["file", "resource", "versionOfResource", "electronic"])
+@pytest.mark.parametrize("with_physical_item", [False, True], ids=["online-source-only", "with-physical-item"])
+def test_documents_existing_online_resource_filters(
+    client,
+    resource_document,
+    item_lib_martigny_data_tmp,
+    item_type_standard_martigny,
+    loc_public_martigny,
+    lib_martigny,
+    file_location,
+    source,
+    with_physical_item,
+):
+    """Keep files, qualifying links and electronic holdings online."""
+    if source == "file":
+        create_pdf_record_files(resource_document, {"library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)}})
+    elif source == "electronic":
+        data = _facet_holding_data(resource_document, loc_public_martigny, item_type_standard_martigny)
+        data["holdings_type"] = "electronic"
+        data["electronic_location"] = [{"uri": "https://example.org/3594"}]
+        Holding.create(data, dbcommit=True, reindex=True)
+    else:
+        resource_document["electronicLocator"] = [{"type": source, "url": "https://example.org/3594"}]
+        resource_document.update(resource_document, dbcommit=True, reindex=True)
+    if with_physical_item:
+        data = item_lib_martigny_data_tmp
+        data["document"] = {"$ref": get_ref_for_pid("doc", resource_document.pid)}
+        data["barcode"] = f"3594-{resource_document.pid}"
+        Item.create(data, delete_pid=True, dbcommit=True, reindex=True)
+
+    _assert_resource_filters(client, resource_document, online=True, physical=with_physical_item)
+
+
+@pytest.mark.parametrize("removal", ["manual", "cleanup"])
+def test_documents_temporary_online_location_removal(
+    client, resource_document, physical_resource_item, loc_online_martigny, removal
+):
+    """Restore physical classification when the temporary online location is removed."""
+    item = physical_resource_item
+    item["temporary_location"] = {"$ref": get_ref_for_pid("loc", loc_online_martigny.pid)}
+    if removal == "cleanup":
+        item["temporary_location"]["end_date"] = (datetime.now() - timedelta(days=2)).strftime("%Y-%m-%d")
+    item.update(item, dbcommit=True, reindex=True)
+    _assert_resource_filters(client, resource_document, online=True, physical=False)
+
+    if removal == "cleanup":
+        clean_obsolete_temporary_item_types_and_locations()
+    else:
+        item.pop("temporary_location")
+        item.update(item, dbcommit=True, reindex=True)
+    assert "temporary_location" not in Item.get_record(item.id)
+    _assert_resource_filters(client, resource_document, online=False, physical=True)
+
+
+def test_documents_resource_filters_after_item_deletion(client, resource_document, physical_resource_item):
+    """Remove physical classification when the last item and its holding are deleted."""
+    _assert_resource_filters(client, resource_document, online=False, physical=True)
+    physical_resource_item.delete(force=True, dbcommit=True, delindex=True)
+    _assert_resource_filters(client, resource_document, online=False, physical=False)
+
+
+def test_documents_resource_filters_without_individual_item_reads(client, resource_document, physical_resource_item):
+    """Classify resources without loading item records individually."""
+    with (
+        mock.patch.object(Item, "get_record_by_pid", side_effect=AssertionError("Individual item lookup")),
+        mock.patch.object(Item, "get_records_by_pids", side_effect=AssertionError("Individual item lookups")),
+    ):
+        resource_document.reindex()
+    _assert_resource_filters(client, resource_document, online=False, physical=True)
+
+
+def test_documents_missing_item_location(client, resource_document, physical_resource_item):
+    """Cache a missing location as non-online and finish indexing the document."""
+    item = physical_resource_item
+    item["temporary_location"] = deepcopy(item["location"])
+    item.update(item, dbcommit=True, reindex=True)
+    with mock.patch("rero_ils.modules.locations.api.Location.get_record_by_pid", return_value=None) as location_lookup:
+        resource_document.reindex()
+        location_lookup.assert_called_once_with(item.location_pid)
+    _assert_resource_filters(client, resource_document, online=False, physical=True)
+
+
+def test_documents_empty_holding_resource_filters(
+    client, resource_document, loc_public_martigny, item_type_standard_martigny
+):
+    """Preserve physical classification of standard holdings without items."""
+    _assert_resource_filters(client, resource_document, online=False, physical=False)
+    Holding.create(
+        _facet_holding_data(resource_document, loc_public_martigny, item_type_standard_martigny),
+        dbcommit=True,
+        reindex=True,
+    )
+    _assert_resource_filters(client, resource_document, online=False, physical=True)
+
+
+def test_documents_deleted_item_resource_filters(
+    client,
+    resource_document,
+    item_lib_martigny_data_tmp,
+    item_type_standard_martigny,
+    loc_online_martigny,
+):
+    """Ignore a deleted item whose search-index removal is still pending."""
+    data = item_lib_martigny_data_tmp
+    data["document"] = {"$ref": get_ref_for_pid("doc", resource_document.pid)}
+    data["location"] = {"$ref": get_ref_for_pid("loc", loc_online_martigny.pid)}
+    data["barcode"] = f"3594-deleted-{resource_document.pid}"
+    item = Item.create(data, delete_pid=True, dbcommit=True, reindex=True)
+    item.delete(force=True, dbcommit=True, delindex=False)
+    try:
+        resource_document.reindex()
+        _assert_resource_filters(client, resource_document, online=False, physical=True)
+    finally:
+        ItemsIndexer().delete(item)
 
 
 @mock.patch(

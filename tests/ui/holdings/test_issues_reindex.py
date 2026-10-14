@@ -5,6 +5,9 @@
 
 from unittest import mock
 
+import pytest
+
+from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.items.api import Item, ItemsIndexer, ItemsSearch
 from rero_ils.modules.items.models import ItemIssueStatus
@@ -12,10 +15,13 @@ from rero_ils.modules.tasks import process_bulk_queue
 from rero_ils.modules.utils import get_ref_for_pid
 
 
+@pytest.mark.parametrize("online", [False, True], ids=["physical-location", "online-location"])
 def test_issue_location_after_holdings_update(
     holding_lib_martigny_w_patterns,
     loc_restricted_martigny,
+    loc_online_martigny,
     holding_lib_martigny_w_patterns_data,
+    online,
 ):
     """Test location after holdings of type serials changes."""
     initial_holding_data = holding_lib_martigny_w_patterns_data
@@ -24,28 +30,36 @@ def test_issue_location_after_holdings_update(
 
     # create an item of type issue for this holdings
     item = holding.create_regular_issue(status=ItemIssueStatus.RECEIVED, dbcommit=True, reindex=True)
-    assert ItemsSearch().filter("term", holding__pid=holding.pid).count() == 1
-    assert item.location_pid == holding.location_pid
+    try:
+        assert ItemsSearch().filter("term", holding__pid=holding.pid).count() == 1
+        assert item.location_pid == holding.location_pid
 
-    # change the holdings location
-    assert holding.location_pid != loc_restricted_martigny.pid
-    holding["location"] = {"$ref": get_ref_for_pid("locations", loc_restricted_martigny.pid)}
-    holding = holding.update(holding, dbcommit=True, reindex=True)
-    assert holding.location_pid == loc_restricted_martigny.pid
+        # change the holdings location
+        location = loc_online_martigny if online else loc_restricted_martigny
+        assert holding.location_pid != location.pid
+        holding["location"] = {"$ref": get_ref_for_pid("locations", location.pid)}
+        holding = holding.update(holding, dbcommit=True, reindex=True)
+        assert holding.location_pid == location.pid
+        indexed = DocumentsSearch().get_record_by_pid(holding.document_pid)
+        assert indexed["has_online_item"] is online
+        assert indexed["has_physical_resources"] == (not online)
 
-    # process the bulked indexed items
-    process_bulk_queue()
-    ItemsSearch.flush_and_refresh()
+        # process the bulked indexed items
+        process_bulk_queue()
+        ItemsSearch.flush_and_refresh()
 
-    # ensure that the location was correctly inherited from the holdings
-    item = Item.get_record(item.id)
-    assert item.location_pid == holding.location_pid
-    assert ItemsSearch().filter("term", location__pid=holding.location_pid).count() == 1
-
-    # clean up data ; restore the module scoped fixture record itself, as
-    # `update(dbcommit=True)` returned another instance.
-    holding_lib_martigny_w_patterns.update(initial_holding_data, dbcommit=True, reindex=True)
-    item.delete(force=True, dbcommit=True, delindex=True)
+        # ensure that the location was correctly inherited from the holdings
+        item = Item.get_record(item.id)
+        assert item.location_pid == holding.location_pid
+        assert ItemsSearch().filter("term", location__pid=holding.location_pid).count() == 1
+        indexed = DocumentsSearch().get_record_by_pid(holding.document_pid)
+        assert indexed["has_online_item"] is online
+        assert indexed["has_physical_resources"] == (not online)
+    finally:
+        # Restore the fixture even if a classification assertion fails.
+        holding_lib_martigny_w_patterns.update(initial_holding_data, dbcommit=True, reindex=True)
+        process_bulk_queue()
+        Item.get_record(item.id).delete(force=True, dbcommit=True, delindex=True)
     assert ItemsSearch().filter("term", holding__pid=holding.pid).count() == 0
 
 
