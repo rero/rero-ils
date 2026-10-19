@@ -638,6 +638,33 @@ def test_replace_identified_by_family_fallback(app, entity_person_all, entity_pe
     assert replace_identified_by.not_found == {}
 
 
+def test_replace_identified_by_deleted_mef(app):
+    """A deleted MEF record is not linked, even if `latest` still returns it."""
+    replace_identified_by = ReplaceIdentifiedBy(field="subjects", verbose=True, log_dir=tempfile.mkdtemp())
+    entity = {
+        "entity": {
+            "type": "bf:Place",
+            "authorized_access_point": "Neuchâtel (Suisse, principauté)",
+            "identifiedBy": {"type": "IdRef", "value": "256094608"},
+        }
+    }
+    original = deepcopy(entity)
+    deleted = {
+        "pid": "6803800",
+        "type": "bf:Organisation",
+        "deleted": "2026-10-16T20:29:15.995790+00:00",
+        "idref": {"pid": "256094608", "authorized_access_point": "Neuchâtel (Suisse ; principauté)"},
+    }
+    # places, then agents and concepts: only agents answers, with the deleted record
+    with mock.patch(
+        "requests.Session.get",
+        side_effect=[mock_response(status=404), mock_response(json_data=deleted), mock_response(status=404)],
+    ):
+        assert not replace_identified_by._do_entity(entity, "doc_pid_test")
+    assert entity == original
+    assert replace_identified_by.not_found == {"bf:Place": {"idref:256094608": "Neuchâtel (Suisse, principauté)"}}
+
+
 def test_entity_get_record_by_ref(mef_agents_url, entity_person, entity_person_data_tmp):
     """Test remote entity: get record by ref."""
     dummy_ref = f"{mef_agents_url}/idref/dummy_idref_pid"
@@ -742,3 +769,69 @@ def test_sync_entities_aborted_run_keeps_last_date(app, entity_person_data):
     assert data["start_timestamp"] == last_date
 
     entity.delete(force=True, dbcommit=True, delindex=True)
+
+
+def test_sync_entity_gone_source(
+    app,
+    mef_agents_url,
+    mef_places_url,
+    entity_person_data_tmp,
+    entity_place_data,
+    document_data_ref,
+    document_data_subject_ref,
+):
+    """A source deleted on MEF does not fail the sync; subjects follow it to another type."""
+    person = RemoteEntity.create(entity_person_data_tmp, dbcommit=True, reindex=True, delete_pid=True)
+    # `ent_place` carries the MEF schema URL, which is not resolvable locally
+    place_data = deepcopy(entity_place_data)
+    place_data["$schema"] = get_schema_for_resource(RemoteEntity)
+    place = RemoteEntity.create(place_data, dbcommit=True, reindex=True, delete_pid=True)
+    RemoteEntitiesSearch.flush_and_refresh()
+
+    # the IdRef record of the person was merged into the IdRef place
+    gone_pid = person["idref"]["pid"]
+    place_pid = place["idref"]["pid"]
+    doc_data = deepcopy(document_data_ref)
+    doc_data["contribution"][0]["entity"]["$ref"] = f"{mef_agents_url}/idref/{gone_pid}"
+    doc_data["subjects"] = deepcopy(document_data_subject_ref["subjects"])
+    doc_data["subjects"][0]["entity"]["$ref"] = f"{mef_agents_url}/rero/{person['rero']['pid']}"
+    doc = Document.create(doc_data, dbcommit=True, reindex=True, delete_pid=True)
+    DocumentsSearch.flush_and_refresh()
+
+    def latest(entity_type, source, pid):
+        """MEF knows the place, and the person by its live sources only."""
+        if entity_type == "places" and pid == place_pid:
+            return entity_place_data
+        if entity_type == "agents" and source != "idref":
+            return entity_person_data_tmp
+        return {}
+
+    deleted = {"pid": gone_pid, "deleted": "2026-10-16", "relation_pid": {"type": "redirect_to", "value": place_pid}}
+    sync_entity = SyncEntity(log_dir=tempfile.mkdtemp())
+    sync_entity._get_latest = mock.MagicMock(side_effect=latest)
+    sync_entity._get_source = mock.MagicMock(return_value=deleted)
+
+    assert sync_entity.sync_record(person.pid) == ({doc.pid}, False, False)
+    db_doc = Document.get_record_by_pid(doc.pid)
+    # a contribution cannot link a place: it is left as it is
+    assert db_doc["contribution"][0]["entity"]["$ref"] == f"{mef_agents_url}/idref/{gone_pid}"
+    # a subject can: it follows the record the source moved to
+    assert db_doc["subjects"][0]["entity"]["$ref"] == f"{mef_places_url}/idref/{place_pid}"
+    DocumentsSearch.flush_and_refresh()
+
+    # the next run finds nothing left to relink
+    assert sync_entity.sync_record(person.pid) == (set(), False, False)
+
+    # a source MEF only failed to answer for is still an error
+    sync_entity._get_source = mock.MagicMock(return_value={"pid": gone_pid})
+    assert sync_entity.sync_record(person.pid) == (set(), False, True)
+
+    # so is an entity left without any source
+    sync_entity._get_latest = mock.MagicMock(return_value={})
+    sync_entity._get_source = mock.MagicMock(return_value=deleted)
+    assert sync_entity.sync_record(person.pid) == (set(), False, True)
+
+    Document.get_record_by_pid(doc.pid).delete(True, True, True)
+    DocumentsSearch.flush_and_refresh()
+    for entity in (person, place):
+        entity.delete(force=True, dbcommit=True, delindex=True)

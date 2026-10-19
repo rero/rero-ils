@@ -105,12 +105,18 @@ class ReplaceIdentifiedBy:
         :param entity_type: MEF family (agents, concepts, places).
         :param source: the identifier source, such as `idref` or `gnd`.
         :param pid: the identifier value in that source.
-        :returns: the MEF record, or an empty dict on any non-OK response.
+        :returns: the MEF record, or an empty dict on any non-OK response or
+            when MEF answers with a deleted record.
         """
         url = f"{self._get_base_url(entity_type)}/mef/latest/{source}:{pid}"
         res = requests_retry_session().get(url, timeout=MEF_REQUEST_TIMEOUT)
         if res.status_code == requests.codes.ok:
-            return res.json()
+            data = res.json()
+            # `latest` still answers with a deleted record: a document must not be linked to it
+            if data.get("deleted"):
+                self.logger.info("Deleted MEF %s record(pid: %s) for %s:%s", entity_type, data.get("pid"), source, pid)
+                return {}
+            return data
         self.logger.warning("Problem get %s: %s", url, res.status_code)
         return {}
 
