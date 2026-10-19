@@ -4,11 +4,33 @@
 
 """Click command-line utilities."""
 
+from contextlib import contextmanager
+
 import click
 from flask.cli import with_appcontext
 
 from .replace import ReplaceIdentifiedBy
-from .sync import SyncEntity
+from .sync import SyncEntity, SyncLocked, sync_lock
+
+
+@contextmanager
+def _write_lock(dry_run, force):
+    """Hold the synchronization lock for a command that writes.
+
+    A dry run writes nothing, it runs without the lock.
+
+    :param dry_run: the command runs in dry run mode.
+    :param force: take the lock over when another run holds it.
+    :raises click.ClickException: if another synchronization is running.
+    """
+    if dry_run:
+        yield
+        return
+    try:
+        with sync_lock(force=force):
+            yield
+    except SyncLocked as err:
+        raise click.ClickException(f"{err}: retry later, or pass --force if it died") from err
 
 
 @click.group()
@@ -24,13 +46,15 @@ def entity():
 @click.option("-l", "--log-dir", default=None)
 @click.option("-f", "--from-date", type=click.DateTime(formats=["%Y-%m-%d"]), default=None)
 @click.option("-m", "--in-memory", is_flag=True, default=False)
+@click.option("--force", is_flag=True, default=False, help="Run even if another synchronization holds the lock.")
 @with_appcontext
-def sync(query, dry_run, from_last_date, verbose, log_dir, from_date, in_memory):
+def sync(query, dry_run, from_last_date, verbose, log_dir, from_date, in_memory, force):
     """Updated the MEF records and the linked documents."""
-    sync_entity = SyncEntity(dry_run=dry_run, verbose=verbose, log_dir=log_dir, from_last_date=from_last_date)
-    if verbose:
-        sync_entity.sync(query, from_date)
-    else:
+    with _write_lock(dry_run, force):
+        sync_entity = SyncEntity(dry_run=dry_run, verbose=verbose, log_dir=log_dir, from_last_date=from_last_date)
+        if verbose:
+            sync_entity.sync(query, from_date)
+            return
         sync_entity.start_sync()
         pids, total = sync_entity.get_entities_pids(query, from_date)
         if in_memory:
@@ -63,13 +87,15 @@ def sync(query, dry_run, from_last_date, verbose, log_dir, from_date, in_memory)
 @click.option("-n", "--dry-run", is_flag=True, default=False)
 @click.option("-v", "--verbose", count=True, default=0)
 @click.option("-l", "--log-dir", default=None)
+@click.option("--force", is_flag=True, default=False, help="Run even if another synchronization holds the lock.")
 @with_appcontext
-def clean(query, dry_run, verbose, log_dir):
+def clean(query, dry_run, verbose, log_dir, force):
     """Removes MEF records that are not linked to documents."""
-    sync_entity = SyncEntity(dry_run=dry_run, verbose=verbose, log_dir=log_dir)
-    if verbose:
-        sync_entity.remove_unused(query)
-    else:
+    with _write_lock(dry_run, force):
+        sync_entity = SyncEntity(dry_run=dry_run, verbose=verbose, log_dir=log_dir)
+        if verbose:
+            sync_entity.remove_unused(query)
+            return
         sync_entity.start_clean()
         pids, total = sync_entity.get_entities_pids(query)
         n_removed = 0
