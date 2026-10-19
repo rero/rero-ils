@@ -5,13 +5,16 @@
 """API for manipulating documents."""
 
 import sys
+from contextlib import contextmanager
 from copy import deepcopy
 from datetime import datetime
 from itertools import islice
+from uuid import uuid4
 
 import requests
 from deepdiff import DeepDiff
 from flask import current_app
+from invenio_cache import current_cache
 from invenio_db import db
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
@@ -25,6 +28,39 @@ from rero_ils.modules.utils import (
 
 from ..logger import create_logger
 from .api import RemoteEntitiesSearch, RemoteEntity
+
+#: Cache key held while the entities are synchronized or cleaned.
+SYNC_LOCK = "sync_entities_lock"
+#: Seconds after which the lock of a run that died without releasing it expires.
+SYNC_LOCK_TIMEOUT = 2 * 24 * 60 * 60
+
+
+class SyncLocked(Exception):
+    """Another synchronization of the entities holds the lock."""
+
+
+@contextmanager
+def sync_lock(force=False):
+    """Hold the lock of the entity synchronization while the block runs.
+
+    Parallel runs update the same records and fail on each other, and none of
+    them advances the date the next run starts from.
+
+    :param force: take the lock over when another run holds it, to recover
+        from the lock of a run that died without releasing it.
+    :raises SyncLocked: if another run holds the lock and `force` is False.
+    """
+    token = uuid4().hex
+    if not current_cache.add(SYNC_LOCK, token, timeout=SYNC_LOCK_TIMEOUT):
+        if not force:
+            raise SyncLocked("another synchronization of the entities is running")
+        current_cache.set(SYNC_LOCK, token, timeout=SYNC_LOCK_TIMEOUT)
+    try:
+        yield
+    finally:
+        # a forced run, or a run started once this lock expired, may hold it now
+        if current_cache.get(SYNC_LOCK) == token:
+            current_cache.delete(SYNC_LOCK)
 
 
 class SyncEntity:

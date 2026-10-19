@@ -11,16 +11,18 @@ from unittest import mock
 
 import pytest
 import requests
+from click.testing import CliRunner
+from invenio_cache import current_cache
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.entities.remote_entities import tasks
+from rero_ils.modules.entities.remote_entities import cli, tasks
 from rero_ils.modules.entities.remote_entities.api import (
     RemoteEntitiesSearch,
     RemoteEntity,
     remote_entity_id_fetcher,
 )
 from rero_ils.modules.entities.remote_entities.replace import ReplaceIdentifiedBy
-from rero_ils.modules.entities.remote_entities.sync import SyncEntity
+from rero_ils.modules.entities.remote_entities.sync import SYNC_LOCK, SyncEntity, sync_lock
 from rero_ils.modules.utils import get_schema_for_resource, get_timestamp, set_timestamp
 from tests.utils import mock_response
 
@@ -793,3 +795,74 @@ def test_sync_entities_aborted_run_keeps_last_date(app, entity_person_data):
     assert data["start_timestamp"] == last_date
 
     entity.delete(force=True, dbcommit=True, delindex=True)
+
+
+def test_sync_entities_task_lock(app, caplog):
+    """A synchronization started while another one runs does nothing."""
+    with mock.patch.object(tasks, "SyncEntity") as sync_entity:
+        sync_entity.return_value.sync.return_value = (1, 2, [])
+        sync_entity.return_value.remove_unused.return_value = (3, [])
+
+        current_cache.set(SYNC_LOCK, True)
+        assert tasks.sync_entities() == {"skipped": True}
+        sync_entity.assert_not_called()
+        assert caplog.record_tuples[-1] == (
+            "invenio",
+            30,
+            "sync_entities: another synchronization is running, skipped",
+        )
+        # the lock of the running synchronization is left in place
+        assert current_cache.get(SYNC_LOCK)
+
+        current_cache.delete(SYNC_LOCK)
+        assert tasks.sync_entities() == {
+            "n_doc_updated": 1,
+            "n_mef_updated": 2,
+            "clean_mef_errors": [],
+            "sync_mef_errors": [],
+            "n_mef_removed": 3,
+        }
+        assert not current_cache.get(SYNC_LOCK)
+
+        # a failed run releases the lock too
+        sync_entity.return_value.sync.side_effect = requests.ConnectionError
+        with pytest.raises(requests.ConnectionError):
+            tasks.sync_entities()
+        assert not current_cache.get(SYNC_LOCK)
+
+
+def test_entity_cli_lock(app):
+    """The writing entity commands do not run beside another synchronization."""
+    runner = CliRunner()
+    with mock.patch.object(cli, "SyncEntity") as sync_entity:
+        sync_entity.return_value.get_entities_pids.return_value = ([], 0)
+
+        current_cache.set(SYNC_LOCK, True)
+        for command in (cli.sync, cli.clean):
+            result = runner.invoke(command, [])
+            assert result.exit_code == 1
+            assert "another synchronization of the entities is running" in result.output
+        sync_entity.assert_not_called()
+        assert current_cache.get(SYNC_LOCK)
+
+        # a dry run writes nothing: it runs, and leaves the lock to its owner
+        for command in (cli.sync, cli.clean):
+            assert runner.invoke(command, ["-n"]).exit_code == 0
+        assert current_cache.get(SYNC_LOCK)
+
+        # forced, the lock is taken over and released at the end
+        assert runner.invoke(cli.sync, ["--force"]).exit_code == 0
+        assert not current_cache.get(SYNC_LOCK)
+
+        for command in (cli.sync, cli.clean):
+            assert runner.invoke(command, []).exit_code == 0
+            assert not current_cache.get(SYNC_LOCK)
+
+
+def test_sync_lock_taken_over(app):
+    """A run leaves the lock to the run that took it over."""
+    with sync_lock():
+        # a forced run, or one started once this lock expired
+        current_cache.set(SYNC_LOCK, "other run")
+    assert current_cache.get(SYNC_LOCK) == "other run"
+    current_cache.delete(SYNC_LOCK)
