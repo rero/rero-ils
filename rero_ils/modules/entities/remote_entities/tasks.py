@@ -10,7 +10,7 @@ from flask import current_app
 
 from .api import RemoteEntity
 from .replace import ReplaceIdentifiedBy
-from .sync import SyncEntity
+from .sync import SyncEntity, SyncLocked, sync_lock
 
 
 @shared_task(ignore_result=True)
@@ -34,14 +34,24 @@ def delete_records(records, verbose=False):
 def sync_entities(from_last_date=True, verbose=0, dry_run=False, in_memory=True):
     """Synchronize the entities within the MEF server.
 
+    Only one run at a time: a run started while another one is still going
+    returns without doing anything (see `sync_lock`).
+
     :param from_last_date: (boolean) if True try to consider agent modified
         after the last run date time
     :param verbose: (boolean|integer) verbose level
     :param dry_run: (boolean) if true the data are not modified
+    :returns: the counts and errors of the run, `{"skipped": True}` when
+        another run holds the lock.
     """
-    sync_entity = SyncEntity(from_last_date=from_last_date, verbose=verbose, dry_run=dry_run)
-    n_doc_updated, n_mef_updated, sync_mef_errors = sync_entity.sync(in_memory=in_memory)
-    n_mef_removed, clean_mef_errors = sync_entity.remove_unused()
+    try:
+        with sync_lock():
+            sync_entity = SyncEntity(from_last_date=from_last_date, verbose=verbose, dry_run=dry_run)
+            n_doc_updated, n_mef_updated, sync_mef_errors = sync_entity.sync(in_memory=in_memory)
+            n_mef_removed, clean_mef_errors = sync_entity.remove_unused()
+    except SyncLocked:
+        current_app.logger.warning("sync_entities: another synchronization is running, skipped")
+        return {"skipped": True}
     return {
         "n_doc_updated": n_doc_updated,
         "n_mef_updated": n_mef_updated,
