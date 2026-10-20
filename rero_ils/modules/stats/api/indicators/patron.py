@@ -6,7 +6,7 @@
 
 import hashlib
 
-from elasticsearch_dsl.aggs import A
+from opensearch_dsl.aggs import A
 
 from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.loans.logs.api import LoanOperationLogsSearch

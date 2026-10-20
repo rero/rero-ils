@@ -4,8 +4,8 @@
 
 """Document record extension to enrich the title."""
 
-from elasticsearch_dsl.utils import AttrDict
 from invenio_records.extensions import RecordExtension
+from opensearch_dsl.utils import AttrDict
 
 from ..utils import display_alternate_graphic_first, title_format_text
 

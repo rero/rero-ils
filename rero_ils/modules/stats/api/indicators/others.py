@@ -4,8 +4,8 @@
 
 """Indicator Report Configurations."""
 
-from elasticsearch_dsl import Q
-from elasticsearch_dsl.aggs import A
+from opensearch_dsl import Q
+from opensearch_dsl.aggs import A
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.holdings.api import HoldingsSearch

@@ -3,9 +3,9 @@
 
 """Signals connector for Holding."""
 
-from elasticsearch_dsl.query import Q
 from flask import current_app
 from invenio_db import db
+from opensearch_dsl.query import Q
 
 from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.tasks import process_bulk_queue

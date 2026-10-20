@@ -72,7 +72,7 @@ def test_operation_update(app, search_clear, operation_log_data, monkeypatch):
     assert log_data["record"]["value"] == "1234"
 
     # Update KO
-    monkeypatch.setattr("elasticsearch_dsl.Document.update", lambda *args, **kwargs: "error")
+    monkeypatch.setattr("opensearch_dsl.Document.update", lambda *args, **kwargs: "error")
     with pytest.raises(Exception) as exception:
         OperationLog.update(log_data.id, log_data["date"], log_data)
         assert str(exception) == "Operation log cannot be updated."

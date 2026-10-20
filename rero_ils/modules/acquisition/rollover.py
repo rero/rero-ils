@@ -10,8 +10,8 @@ import string
 from copy import deepcopy
 from datetime import datetime
 
-from elasticsearch_dsl import Q
 from flask import current_app
+from opensearch_dsl import Q
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch
 from rero_ils.modules.acquisition.acq_accounts.utils import sort_accounts_as_tree

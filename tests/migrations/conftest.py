@@ -4,7 +4,7 @@
 """Common pytest fixtures and plugins."""
 
 import pytest
-from elasticsearch_dsl import Index
+from opensearch_dsl import Index
 
 from rero_ils.modules.migrations.api import Migration
 from rero_ils.modules.migrations.data.api import Deduplication

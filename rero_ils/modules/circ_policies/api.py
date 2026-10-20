@@ -8,8 +8,8 @@ import math
 import sys
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from opensearch_dsl import Q
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher

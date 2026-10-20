@@ -4,9 +4,9 @@
 """Migration Record tests."""
 
 import pytest
-from elasticsearch import NotFoundError
-from elasticsearch_dsl import Index
-from elasticsearch_dsl.exceptions import ValidationException
+from opensearch_dsl import Index
+from opensearch_dsl.exceptions import ValidationException
+from opensearchpy import NotFoundError
 
 
 def test_migration_data_create(migration, migration_xml_data, lib_martigny):

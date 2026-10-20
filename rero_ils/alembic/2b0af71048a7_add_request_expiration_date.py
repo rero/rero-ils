@@ -9,8 +9,8 @@ from logging import getLogger
 from zoneinfo import ZoneInfo
 
 import ciso8601
-from elasticsearch_dsl import Q
 from invenio_circulation.proxies import current_circulation
+from opensearch_dsl import Q
 
 from rero_ils.modules.loans.api import Loan, LoansIndexer
 from rero_ils.modules.loans.models import LoanState

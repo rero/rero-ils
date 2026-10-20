@@ -3,7 +3,7 @@
 
 """Signals connector for ItemTypes."""
 
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 
 from rero_ils.modules.item_types.api import ItemType, ItemTypesIndexer
 from rero_ils.modules.items.api import ItemsSearch

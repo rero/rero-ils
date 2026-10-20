@@ -7,8 +7,6 @@
 from copy import deepcopy
 from functools import wraps
 
-from elasticsearch import exceptions
-from elasticsearch_dsl import A, Q
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_login import current_user
@@ -18,6 +16,8 @@ from invenio_circulation.errors import (
     MissingRequiredParameterError,
 )
 from jinja2 import TemplateNotFound, UndefinedError
+from opensearch_dsl import A, Q
+from opensearchpy import exceptions
 from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.circ_policies.api import CircPolicy

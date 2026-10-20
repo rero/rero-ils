@@ -6,7 +6,7 @@
 
 from logging import getLogger
 
-from elasticsearch_dsl.query import Q
+from opensearch_dsl.query import Q
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 

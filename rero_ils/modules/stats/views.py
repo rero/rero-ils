@@ -10,8 +10,8 @@ from io import StringIO
 
 import arrow
 import jinja2
-from elasticsearch_dsl import Q
 from flask import Blueprint, abort, current_app, make_response, render_template, request
+from opensearch_dsl import Q
 from rero_invenio_base.modules.export import xlsx_converter
 
 from .api.api import Stat, StatsSearch

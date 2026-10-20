@@ -6,7 +6,7 @@
 from copy import deepcopy
 from unittest import mock
 
-from elasticsearch_dsl.query import MultiMatch
+from opensearch_dsl.query import MultiMatch
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from tests.utils import get_mapping, mock_response
