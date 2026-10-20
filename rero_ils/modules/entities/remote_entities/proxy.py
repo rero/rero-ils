@@ -5,6 +5,7 @@
 """Remote entity proxies."""
 
 import json
+import re
 from urllib.parse import quote_plus
 
 import requests
@@ -12,6 +13,28 @@ from flask import abort, current_app, jsonify, request
 
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.utils import get_mef_url
+
+#: Characters with a meaning in the MEF `query_string` syntax.
+_QUERY_STRING_RESERVED = '\\+-=&|!(){}[]^"~*?:/'
+
+
+def escape_query_term(term):
+    """Escape a typed term for an unquoted place in a MEF `query_string` query.
+
+    :param term: the searched term, as typed.
+    :returns: the term with every reserved character escaped and the operators in lower case.
+    """
+    escaped = "".join(f"\\{char}" if char in _QUERY_STRING_RESERVED else char for char in term)
+    return re.sub(r"\b(AND|OR|NOT)\b", lambda match: match.group(1).lower(), escaped)
+
+
+def quote_query_term(term):
+    """Escape a typed term for a quoted place in a MEF `query_string` query.
+
+    :param term: the searched term, as typed.
+    :returns: the term with backslashes and double quotes escaped.
+    """
+    return term.replace("\\", "\\\\").replace('"', '\\"')
 
 
 class MEFProxyFactory:
@@ -169,8 +192,12 @@ class MEFProxyMixin:
                 return f"({' OR '.join(value)})"
             return f'"{value!s}"'
 
+        quoted, free = quote_query_term(term), escape_query_term(term)
         query_params = [
-            f'(idref.authorized_access_point:"{term}" OR gnd.authorized_access_point:"{term}")^10 OR (autocomplete_name:{term} OR "{term}")^4 OR ({term})'
+            (
+                f'(idref.authorized_access_point:"{quoted}" OR gnd.authorized_access_point:"{quoted}")^10 '
+                f'OR (autocomplete_name:({free}) OR "{quoted}")^4 OR ({free})'
+            )
         ]
         if self.sources:
             query_params.append(f"sources:{_build_filter_value(self.sources)}")
