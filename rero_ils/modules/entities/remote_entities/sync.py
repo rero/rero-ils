@@ -25,6 +25,14 @@ from rero_ils.modules.utils import (
 
 from ..logger import create_logger
 from .api import RemoteEntitiesSearch, RemoteEntity
+from .utils import extract_data_from_mef_uri
+
+#: Entity types a document field can link, as the document schema allows them.
+FIELD_ENTITY_TYPES = {
+    "contribution": {"agents"},
+    "subjects": {"agents", "concepts", "places"},
+    "genreForm": {"concepts"},
+}
 
 
 class SyncEntity:
@@ -109,6 +117,73 @@ class SyncEntity:
             return res.json()
         self.logger.debug("Problem get %s: %s", url, res.status_code)
         return {}
+
+    def _get_source(self, entity_type, source, pid):
+        """Query the MEF server for a source record, deleted or not.
+
+        :param entity_type: (string) the entity type such as `agents`.
+        :param source: (string) the entity source such as `idref`, `gnd`.
+        :param pid: (string) the entity identifier.
+        :returns: the source record metadata, empty if MEF has none.
+        """
+        url = f"{get_mef_url(entity_type)}/{source}/{pid}"
+        res = requests_retry_session().get(url)
+        if res.status_code == requests.codes.ok:
+            return res.json().get("metadata", {})
+        self.logger.debug("Problem get %s: %s", url, res.status_code)
+        return {}
+
+    def _gone_source(self, entity, source):
+        """Tell whether MEF deleted a source of the entity, and where it went.
+
+        An authority merges a record into another one by deleting it with a
+        `redirect_to`. The record it is merged into can be of another entity
+        type: an organisation can become a place.
+
+        :param entity: the `RemoteEntity`.
+        :param source: (string) the source such as `idref`, `gnd`.
+        :returns: None if MEF did not delete the source; otherwise the `$ref`
+            of the record of another entity type it moved to, empty if none.
+        """
+        record = self._get_source(entity.type, source, entity[source]["pid"])
+        if not record.get("deleted"):
+            return None
+        relation = record.get("relation_pid", {})
+        if relation.get("type") == "redirect_to":
+            other_types = set(current_app.config["RERO_ILS_ENTITY_TYPES"].values()) - {entity.type}
+            for entity_type in sorted(other_types):
+                if self._get_latest(entity_type=entity_type, source=source, pid=relation["value"]).get("pid"):
+                    return f"{get_mef_url(entity_type)}/{source}/{relation['value']}"
+        return ""
+
+    def _follow_moved_source(self, entity, moved_ref):
+        """Relink the documents to the record a deleted source moved to.
+
+        MEF deletes the whole entity with its source, so no document may stay
+        linked to it. Only the fields accepting the entity type the source
+        moved to can follow it; the other links are left as they are.
+
+        :param entity: the `RemoteEntity`.
+        :param moved_ref: the `$ref` of the record of another entity type.
+        :returns: the pids of the documents changed.
+        """
+        base_url = get_mef_url(entity.type)
+        refs = {f"{base_url}/{source}/{entity[source]['pid']}" for source in entity["sources"]}
+        moved_type = extract_data_from_mef_uri(moved_ref)[0]
+        doc_pids = set()
+        for doc_pid in entity.documents_pids():
+            doc = Document.get_record_by_pid(doc_pid)
+            for field, entity_types in FIELD_ENTITY_TYPES.items():
+                if moved_type not in entity_types:
+                    continue
+                for item in doc.get(field, []):
+                    if (ref := item.get("entity", {}).get("$ref")) in refs:
+                        self.logger.info("Entity URL changed from %s to %s for document %s", ref, moved_ref, doc.pid)
+                        item["entity"]["$ref"] = moved_ref
+                        doc_pids.add(doc.pid)
+            if doc.pid in doc_pids and not self.dry_run:
+                doc.replace(doc, dbcommit=True, reindex=True)
+        return doc_pids
 
     def _update_entities_in_document(self, doc_pid, pids_to_replace):
         """Updates the contribution and subjects in document.
@@ -273,12 +348,25 @@ class SyncEntity:
             self.logger.debug("Processing %s MEF(pid: %s)", entity["type"], pid)
             # iterate over all entity sources: rero, gnd, idref
             pids_to_replace = {}
+            gone = {}
             for source in entity["sources"]:
                 mef = self._get_latest(entity_type=entity.type, source=source, pid=entity[source]["pid"])
-                # MEF sever failed to retrieve the latest MEF record
-                # for the given entity
-                if not (mef_pid := mef.get("pid")):
-                    raise RuntimeError(f"Error cannot get latest for {entity['type']} {source}:{entity[source]['pid']}")
+                if not (mef_pid := mef.get("pid")) or mef.get("deleted"):
+                    # a source MEF deleted has no latest record, or a deleted one of its own
+                    if (moved_ref := self._gone_source(entity, source)) is None:
+                        raise RuntimeError(
+                            f"Error cannot get latest for {entity['type']} {source}:{entity[source]['pid']}"
+                        )
+                    self.logger.info(
+                        "MEF %s record(pid: %s) source %s:%s deleted on MEF%s",
+                        entity["type"],
+                        entity.pid,
+                        source,
+                        entity[source]["pid"],
+                        f", moved to {moved_ref}" if moved_ref else "",
+                    )
+                    gone[source] = moved_ref
+                    continue
 
                 old_entity_pid = entity[source]["pid"]
                 new_entity_pid = mef[source]["pid"]
@@ -351,6 +439,11 @@ class SyncEntity:
                 for doc_pid in doc_pids:
                     self._update_entities_in_document(doc_pid=doc_pid, pids_to_replace=pids_to_replace)
                 doc_updated = set(doc_pids)
+            if gone:
+                if len(gone) == len(entity["sources"]):
+                    raise RuntimeError(f"Error all sources deleted on MEF for {entity['type']} (pid: {pid})")
+                if moved_ref := next((ref for ref in gone.values() if ref), None):
+                    doc_updated |= self._follow_moved_source(entity, moved_ref)
         except Exception as err:
             self.logger.error("ERROR: MEF record(pid: %s) -> %s", pid, err)
             error = True
