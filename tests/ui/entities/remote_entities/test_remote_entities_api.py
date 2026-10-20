@@ -838,5 +838,6 @@ def test_sync_entity_gone_source(
 
     Document.get_record_by_pid(doc.pid).delete(True, True, True)
     DocumentsSearch.flush_and_refresh()
+    # `sync_record` closes the session: load them again to delete them
     for entity in (person, place):
-        entity.delete(force=True, dbcommit=True, delindex=True)
+        RemoteEntity.get_record_by_pid(entity.pid).delete(force=True, dbcommit=True, delindex=True)
