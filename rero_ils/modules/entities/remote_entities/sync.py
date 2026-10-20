@@ -351,8 +351,8 @@ class SyncEntity:
             gone = {}
             for source in entity["sources"]:
                 mef = self._get_latest(entity_type=entity.type, source=source, pid=entity[source]["pid"])
-                if not (mef_pid := mef.get("pid")):
-                    # a source MEF deleted has no latest record any more
+                if not (mef_pid := mef.get("pid")) or mef.get("deleted"):
+                    # a source MEF deleted has no latest record, or a deleted one of its own
                     if (moved_ref := self._gone_source(entity, source)) is None:
                         raise RuntimeError(
                             f"Error cannot get latest for {entity['type']} {source}:{entity[source]['pid']}"

@@ -771,7 +771,9 @@ def test_sync_entities_aborted_run_keeps_last_date(app, entity_person_data):
     entity.delete(force=True, dbcommit=True, delindex=True)
 
 
+@pytest.mark.parametrize("parked", [False, True])
 def test_sync_entity_gone_source(
+    parked,
     app,
     mef_agents_url,
     mef_places_url,
@@ -804,6 +806,9 @@ def test_sync_entity_gone_source(
             return entity_place_data
         if entity_type == "agents" and source != "idref":
             return entity_person_data_tmp
+        if parked and entity_type == "agents":
+            # MEF answers the deleted source with a deleted MEF record of its own
+            return {"pid": "parked", "deleted": "2026-10-16", "idref": {"pid": pid}}
         return {}
 
     deleted = {"pid": gone_pid, "deleted": "2026-10-16", "relation_pid": {"type": "redirect_to", "value": place_pid}}
