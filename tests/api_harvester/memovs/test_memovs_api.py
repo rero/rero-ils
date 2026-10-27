@@ -773,6 +773,22 @@ def _mock_es_hit(doc_pid, memovs_id):
     return hit
 
 
+def test_delete_orphan_records_ends_transaction_before_crawl(app):
+    """delete_orphan_records commits before the long crawl so the DB connection is not left idle in transaction."""
+    harvester = _make_full_harvester()
+    harvester._vendor = "MEMOVS"
+    calls = MagicMock()
+
+    with (
+        patch("rero_ils.modules.api_harvester.memovs.api.db", calls.db),
+        patch.object(harvester, "get_all_remote_ids", calls.get_all_remote_ids),
+    ):
+        calls.get_all_remote_ids.return_value = (set(), True)
+        harvester.delete_orphan_records()
+
+    assert [name for name, _, _ in calls.mock_calls] == ["db.session.commit", "get_all_remote_ids"]
+
+
 def test_delete_orphan_records_aborts_on_empty_remote(app):
     """delete_orphan_records aborts without touching RERO-ILS when remote returns no IDs."""
     harvester = _make_full_harvester()
