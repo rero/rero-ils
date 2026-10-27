@@ -3,10 +3,13 @@
 
 """Tests Form for users."""
 
+from datetime import UTC, datetime, timedelta
 from unittest import mock
 
 from bs4 import BeautifulSoup
 from flask import url_for
+from flask_security.recoverable import generate_reset_password_token
+from freezegun import freeze_time
 
 
 def test_register_form(client, app):
@@ -114,3 +117,26 @@ def test_reset_password_form(client, app):
     soup = BeautifulSoup(res.data, "html.parser")
     el = soup.find("div", {"class": "text-danger"}).find("p")
     assert el.text == "The password must contain a lower case character."
+
+
+def test_reset_password_without_email(client, app, user_without_name_email, mailbox):
+    """A reset link of a user without email sends no email and points to the library."""
+    user = user_without_name_email
+    forgot_url = url_for("security.forgot_password")
+    message = "Your account has no email address. Please contact your library to reset your password."
+
+    # An expired token would send new reset instructions.
+    with freeze_time(datetime.now(UTC) - timedelta(days=1)):
+        expired_token = generate_reset_password_token(user)
+    res = client.get(url_for("security.reset_password", token=expired_token), follow_redirects=True)
+    assert res.request.path == forgot_url
+    assert message in res.get_data(as_text=True)
+
+    # A valid token would send a reset notice.
+    password = user.password
+    form_data = {"password": "Pw123456", "password_confirm": "Pw123456"}
+    res = client.post(url_for("security.reset_password", token=generate_reset_password_token(user)), data=form_data)
+    assert res.location == forgot_url
+    assert user.password == password
+
+    assert not mailbox
