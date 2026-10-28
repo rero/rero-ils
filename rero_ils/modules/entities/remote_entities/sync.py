@@ -43,6 +43,7 @@ class SyncEntity:
         self.verbose = verbose
         self.from_date = None
         self.start_timestamp = None
+        self.mef_unavailable = False
         self.logger = create_logger(
             name="SyncEntity",
             file_name="sync_mef.log",
@@ -99,6 +100,7 @@ class SyncEntity:
         :param pid: (string) the entity identifier.
         :returns: dictionary representing the MEF record.
         :rtype: dictionary.
+        :raises requests.HTTPError: if the MEF server is unavailable.
         """
         if not (base_url := get_mef_url(entity_type)):
             msg = f"Unable to find MEF base url for {entity_type}"
@@ -107,6 +109,8 @@ class SyncEntity:
         res = requests_retry_session().get(url)
         if res.status_code == requests.codes.ok:
             return res.json()
+        if res.status_code >= requests.codes.server_error:
+            raise requests.HTTPError(f"MEF server error {res.status_code} {url}")
         self.logger.debug("Problem get %s: %s", url, res.status_code)
         return {}
 
@@ -262,7 +266,7 @@ class SyncEntity:
         # a new session will be open automatically.
         db.session.close()
         doc_updated = set()
-        updated = error = False
+        updated = error = committed = False
         try:
             if _depth > self.max_recursion_depth:
                 raise RuntimeError(f"MEF record(pid: {pid}): recursion depth exceeded, possible MEF pid cycle")
@@ -324,6 +328,7 @@ class SyncEntity:
                             if not self.dry_run:
                                 RemoteEntity.create(data=new_mef_data, dbcommit=True, reindex=True)
                                 RemoteEntitiesSearch.flush_and_refresh()
+                                committed = True
                             self.logger.info("Create a new MEF %s record(pid: %s)", entity["type"], new_mef_pid)
                     # something changed, update the content
                     self.logger.info("MEF %s record(pid: %s) content has been updated", entity["type"], entity.pid)
@@ -336,6 +341,7 @@ class SyncEntity:
                             # this is important as it can still be used by
                             # other entities
                             RemoteEntity.get_record_by_pid(pid).update_online(dbcommit=True, reindex=True)
+                        committed = True
                     updated = True
 
             if updated:
@@ -351,6 +357,11 @@ class SyncEntity:
                 for doc_pid in doc_pids:
                     self._update_entities_in_document(doc_pid=doc_pid, pids_to_replace=pids_to_replace)
                 doc_updated = set(doc_pids)
+        except (requests.ConnectionError, requests.Timeout, requests.HTTPError, requests.exceptions.RetryError) as err:
+            # a record error only once the entity has changed: its documents are left out of date
+            error = committed
+            self.mef_unavailable = True
+            self.logger.error("ERROR: MEF server unavailable for record(pid: %s) -> %s", pid, err)
         except Exception as err:
             self.logger.error("ERROR: MEF record(pid: %s) -> %s", pid, err)
             error = True
@@ -361,6 +372,7 @@ class SyncEntity:
     def start_sync(self):
         """Add logging information about the starting process."""
         self.start_timestamp = datetime.now()
+        self.mef_unavailable = False
         if self.dry_run:
             self.logger.info("--------- Starting synchronization in dry run mode ---------")
         else:
@@ -372,7 +384,8 @@ class SyncEntity:
         :param completed: if False the run stopped part-way: the counters and
             the errors are still recorded, but `start_timestamp` keeps its
             previous value so that `--from-last-date` retries the same window
-            instead of skipping over the records left unprocessed.
+            instead of skipping over the records left unprocessed. The same
+            applies when the MEF server was unavailable for some records.
         """
         self.logger.info("DONE: doc updated: %s, mef updated: %s.", n_doc_updated, n_mef_updated)
         if self.dry_run:
@@ -385,7 +398,9 @@ class SyncEntity:
             n_doc_updated=n_doc_updated,
             n_mef_updated=n_mef_updated,
             errors=errors,
-            start_timestamp=self.start_timestamp if completed else data.get("start_timestamp"),
+            start_timestamp=self.start_timestamp
+            if completed and not self.mef_unavailable
+            else data.get("start_timestamp"),
         )
 
     def sync(self, query="*", from_date=None, in_memory=False):
