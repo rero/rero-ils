@@ -3749,7 +3749,7 @@ wheels = [
 
 [[package]]
 name = "rero-invenio-files"
-version = "2.0.2"
+version = "2.0.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fpdf2" },
@@ -3761,9 +3761,9 @@ dependencies = [
     { name = "poethepoet" },
     { name = "pymupdf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b3/df/290ba98bd1661928dbd0a42232b470b94e9939ffcfcf0251fe2552d2a2fc/rero_invenio_files-2.0.2.tar.gz", hash = "sha256:d7c8b34c00811e61e442c966815beec1d76e13d2b2bfe8a74322a7c343a4e127", size = 1455322, upload-time = "2026-09-07T06:37:01.78Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/32/3a/02a5bbfaa10a1e25b82b754fdeb4721f24f37cb06e481fa78f12da4abb3e/rero_invenio_files-2.0.3.tar.gz", hash = "sha256:14924d527e1302298b4c79870a67764959e670e07ce59c1a6ae626ecf1b7901d", size = 1457832, upload-time = "2026-10-27T13:24:43.249Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c5/f5/606e5affafc5a2e9660f1eea1a38cc3c299809e16e2668eb2517b16ed0ee/rero_invenio_files-2.0.2-py3-none-any.whl", hash = "sha256:b980f292f143bfa39c31d5a0d2bebda09de1def26e5a001f7cbc0f8bf9a083b1", size = 1463864, upload-time = "2026-09-07T06:37:00.583Z" },
+    { url = "https://files.pythonhosted.org/packages/50/6b/181f4041ae6552fc5b263fca5e87d17d15407f2eeb8873de43f289f1ccce/rero_invenio_files-2.0.3-py3-none-any.whl", hash = "sha256:7b1bb167531c4a028ee98ff52c4d0dbdb24c4d4ae0015825e68acab4524f704a", size = 1463867, upload-time = "2026-10-27T13:24:41.525Z" },
 ]
 
 [[package]]
