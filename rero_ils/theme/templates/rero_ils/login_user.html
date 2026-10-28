@@ -65,9 +65,9 @@
    so they're skipped here rather than included via page.html/javascript.html. #}
 {%- block css %}
 <style>
-  @layer bootstrap, babel, theme, base, rero-ils-ui, primeng, utilities;
+  @layer bootstrap, babel, theme, base, rero-ils-ui, optimus, utilities;
 </style>
-<style type="text/css" data-primeng-style-id="layer-order"></style>
+<style type="text/css" data-optimus-style-id="layer-order"></style>
 {{ webpack['global.css'] }}
 {% if config.get('RERO_ILS_PERSONALIZED_CSS_BY_VIEW') %}
 <link
