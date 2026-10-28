@@ -244,6 +244,57 @@ def test_sync_concept(mock_get, app, mef_concepts_url, entity_topic_data, docume
     assert not RemoteEntity.get_record_by_pid("foo_mef")
 
 
+@pytest.mark.parametrize(
+    ("mef_response", "error"),
+    [
+        ({"side_effect": requests.ConnectionError("offline")}, False),
+        ({"return_value": mock_response(status=503)}, False),
+        ({"return_value": mock_response(status=404)}, True),
+        (
+            {
+                "return_value": mock.Mock(
+                    status_code=200, json=mock.Mock(side_effect=requests.JSONDecodeError("", "", 0))
+                )
+            },
+            True,
+        ),
+    ],
+)
+def test_sync_record_mef_unavailable(app, entity_person, mef_response, error):
+    """An unavailable MEF server is logged but not recorded as a sync error."""
+    sync_entity = SyncEntity(log_dir=tempfile.mkdtemp())
+    with mock.patch("requests.Session.get", **mef_response), mock.patch.object(sync_entity.logger, "error") as log:
+        assert sync_entity.sync_record(entity_person.pid) == (set(), False, error)
+    assert ("MEF server unavailable" in log.call_args.args[0]) is not error
+
+
+def test_sync_record_mef_unavailable_after_commit(app, entity_person_data_tmp):
+    """An unavailable MEF server after an entity change is recorded as a sync error."""
+    entity = RemoteEntity.create(entity_person_data_tmp, dbcommit=True, reindex=True, delete_pid=True)
+    data = deepcopy(entity_person_data_tmp)
+    data["pid"] = entity.pid
+    data["idref"]["authorized_access_point"] = "foo"
+    sync_entity = SyncEntity(log_dir=tempfile.mkdtemp())
+    # the first source changes the entity, the second one fails
+    sync_entity._get_latest = mock.MagicMock(side_effect=[data, requests.ConnectionError("offline")])
+    assert sync_entity.sync_record(entity.pid) == (set(), True, True)
+    RemoteEntity.get_record_by_pid(entity.pid).delete(True, True, True)
+
+
+def test_sync_mef_unavailable_keeps_last_date(app, entity_person):
+    """A run with an unavailable MEF server keeps the last date for the next run."""
+    last_date = datetime(2026, 1, 1)
+    set_timestamp("sync_entities", start_timestamp=last_date)
+    sync_entity = SyncEntity(log_dir=tempfile.mkdtemp())
+    sync_entity._get_latest = mock.MagicMock(side_effect=requests.ConnectionError("offline"))
+    assert sync_entity.sync(f"pid:{entity_person.pid}") == (0, 0, set())
+    assert get_timestamp("sync_entities")["start_timestamp"] == last_date
+
+    sync_entity._get_latest = mock.MagicMock(return_value=entity_person)
+    sync_entity.sync(f"pid:{entity_person.pid}")
+    assert get_timestamp("sync_entities")["start_timestamp"] > last_date
+
+
 def test_remote_entity_properties(entity_person, item_lib_martigny, document, document_data, mef_concept1):
     """Test entity properties."""
     item = item_lib_martigny
