@@ -9,7 +9,7 @@ failures, so its three channels are verified here on a page it may break freely.
 
 import pytest
 
-from .conftest import PageGuard, http_allowed
+from .conftest import PageGuard, http_allowed, wait_for_requests
 
 
 @pytest.fixture()
@@ -76,6 +76,41 @@ def test_guard_ignores_allowlisted_page_error(unguarded_page):
         )
 
     guard.assert_clean()
+
+
+@pytest.mark.e2e
+def test_wait_for_requests_outlasts_a_slow_request(unguarded_page):
+    """Waiting for the interface's requests returns only once a slow one has answered, even across its routing."""
+    PageGuard(unguarded_page)
+    finished = []
+    unguarded_page.on("requestfinished", lambda request: finished.append(request.url))
+
+    def answer_late(route):
+        unguarded_page.wait_for_timeout(1000)
+        route.fulfill(body="late")
+
+    unguarded_page.route("**/api/e2e-slow-probe", answer_late)
+    unguarded_page.evaluate("() => { fetch('/api/e2e-slow-probe'); history.pushState({}, '', '/e2e-routed'); }")
+
+    wait_for_requests(unguarded_page)
+
+    assert any("/api/e2e-slow-probe" in url for url in finished)
+
+
+@pytest.mark.e2e
+def test_wait_for_requests_forgets_a_replaced_document(unguarded_page, base_url):
+    """The requests cancelled along with the document that issued them do not hold the wait."""
+    PageGuard(unguarded_page)
+    held = []
+    unguarded_page.route("**/api/e2e-abandoned-probe", lambda route: held.append(route))
+    with unguarded_page.expect_request("**/api/e2e-abandoned-probe"):
+        unguarded_page.evaluate("() => { fetch('/api/e2e-abandoned-probe'); }")
+    unguarded_page.goto(base_url, wait_until="domcontentloaded")
+
+    wait_for_requests(unguarded_page)
+
+    for route in held:
+        route.abort()
 
 
 @pytest.mark.e2e
