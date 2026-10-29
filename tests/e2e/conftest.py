@@ -15,6 +15,7 @@ import os
 import ssl
 import time
 import urllib.request
+import weakref
 
 import pytest
 
@@ -161,21 +162,33 @@ def http_allowed(method, url, status):
     return any(m == method and part in url and s == status for m, part, s in HTTP_ALLOWLIST)
 
 
+#: The guard of each page, for the helpers that only receive the page.
+_GUARDS = weakref.WeakKeyDictionary()
+
+
 class PageGuard:
     """Watch a page for console errors, uncaught exceptions and failed responses.
 
     One is attached to every page fixture. Nothing fails during the test itself:
     problems are collected and reported by ``assert_clean`` once the test body is
     over, so a test that navigates through a broken screen fails even when its own
-    assertions pass.
+    assertions pass. It also keeps the interface's requests in flight, for
+    ``wait_for_requests``.
     """
 
     def __init__(self, page):
-        """Subscribe to the three browser channels of the given page."""
+        """Subscribe to the three browser channels and to the requests and navigations of the given page."""
         self.problems = []
+        self.in_flight = set()
+        self._replacing_document = False
         page.on("console", self._on_console)
         page.on("pageerror", self._on_page_error)
         page.on("response", self._on_response)
+        page.on("request", self._on_request)
+        page.on("requestfinished", self._on_request_end)
+        page.on("requestfailed", self._on_request_end)
+        page.on("framenavigated", self._on_frame_navigated)
+        _GUARDS[page] = self
 
     def _on_console(self, message):
         """Record console.error() calls that are not allowlisted.
@@ -199,6 +212,31 @@ class PageGuard:
         method = response.request.method
         if response.status >= 400 and not http_allowed(method, response.url, response.status):
             self.problems.append(f"HTTP {response.status}: {method} {response.url}")
+
+    def _on_request(self, request):
+        """Keep the requests issued by the interface's code until they end.
+
+        A navigation request of the main frame announces that its document is about to be replaced.
+        """
+        if request.resource_type in ("xhr", "fetch"):
+            self.in_flight.add(request)
+        elif request.is_navigation_request() and request.frame.parent_frame is None:
+            self._replacing_document = True
+
+    def _on_request_end(self, request):
+        """Forget a request once it has finished or failed."""
+        self.in_flight.discard(request)
+
+    def _on_frame_navigated(self, frame):
+        """Forget the requests of the document the main frame has just replaced.
+
+        Chromium does not report the end of the requests it cancels with their document,
+        so they would stay in flight forever. The interface's own routing changes the
+        URL without replacing the document, and its requests are kept.
+        """
+        if frame.parent_frame is None and self._replacing_document:
+            self._replacing_document = False
+            self.in_flight.clear()
 
     def assert_clean(self):
         """Fail with the full list of everything the browser reported."""
@@ -229,8 +267,9 @@ def _make_page(pw_browser, base_url, email, request, professional=False):
 
     Takes a playwright Browser instance (not pytest-invenio's Selenium browser).
     The guard is attached before the first navigation so that the initial load of
-    the interface is watched too. With ``professional``, the page is handed over
-    once the professional interface is ready.
+    the interface is watched too. The language is set without loading a page, so
+    that no interface is left while still booting. With ``professional``, the page
+    is handed over once the professional interface is ready.
     """
     ctx = pw_browser.new_context(base_url=base_url, **_CONTEXT_ARGS)
     ctx.set_default_timeout(_DEFAULT_TIMEOUT_MS)
@@ -238,9 +277,9 @@ def _make_page(pw_browser, base_url, email, request, professional=False):
     guard = PageGuard(p)
     resp = p.request.post(f"{base_url}/api/login", data={"email": email, "password": PASSWORD})
     assert resp.ok, f"Login failed for {email!r}: {resp.status} {resp.text()}"
-    p.goto(f"{base_url}/lang/en", wait_until="domcontentloaded")
+    p.request.get(f"{base_url}/lang/en")
+    p.goto(f"{base_url}/professional" if professional else base_url, wait_until="domcontentloaded")
     if professional:
-        p.goto(f"{base_url}/professional", wait_until="domcontentloaded")
         wait_for_professional_ui(p)
     yield p
     try:
@@ -275,6 +314,22 @@ def wait_for_professional_ui(page):
     before that cancels the request, which WebKit reports as an uncaught exception.
     """
     page.locator("#library-menu").wait_for()
+
+
+def wait_for_requests(page, poll_ms=200):
+    """Wait until the interface has no request left in flight.
+
+    Leaving a page cancels its pending requests, and WebKit reports the failure to
+    the interface still running: one it does not handle then surfaces as an uncaught
+    exception. The first pause lets the requests just issued by the page reach the
+    guard.
+    """
+    in_flight = _GUARDS[page].in_flight
+    for _ in range(_DEFAULT_TIMEOUT_MS // poll_ms):
+        page.wait_for_timeout(poll_ms)
+        if not in_flight:
+            return
+    pytest.fail("requests still in flight:\n  - " + "\n  - ".join(request.url for request in in_flight))
 
 
 @pytest.fixture()
@@ -626,7 +681,12 @@ REQUESTS_PLACEHOLDER = "Scan an item barcode to validate a request"
 
 
 def go_to_circulation(page, base_url):
-    """Navigate to the Angular circulation checkout/checkin view."""
+    """Navigate to the Angular circulation checkout/checkin view, once the current page has settled.
+
+    The view displaying the result of an action keeps loading the item's details
+    after the result itself has appeared.
+    """
+    wait_for_requests(page)
     page.goto(f"{base_url}/professional/circulation", wait_until="domcontentloaded")
     page.get_by_placeholder(CIRCULATION_PLACEHOLDER).wait_for()
 
