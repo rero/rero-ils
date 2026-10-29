@@ -7,6 +7,7 @@ import traceback
 
 from deepdiff import DeepDiff
 from flask import current_app
+from invenio_db import db
 from requests import codes as requests_codes
 
 from rero_ils.modules.api import IlsRecordsIndexer
@@ -562,6 +563,8 @@ class ApiMemovs(ApiHarvest):
 
         :returns: tuple of (deleted_count, can_not_delete_count).
         """
+        # End the transaction opened by __init__: the crawl outlasts the DB's idle-in-transaction timeout.
+        db.session.commit()
         remote_ids, complete = self.get_all_remote_ids()
         if not complete:
             self.verbose_print(

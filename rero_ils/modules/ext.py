@@ -87,6 +87,7 @@ from rero_ils.modules.templates.listener import prepare_template_data
 from rero_ils.modules.users.listener import (
     user_register_forms,
     user_reset_password_forms,
+    user_reset_password_view,
 )
 from rero_ils.modules.users.views import UsersCreateResource, UsersResource
 from rero_ils.modules.utils import remove_user_name, set_user_name
@@ -378,6 +379,7 @@ class REROILSAPP:
         # invenio-base signal: after application loaded
         app_loaded.connect(user_register_forms, weak=False)
         app_loaded.connect(user_reset_password_forms, weak=False)
+        app_loaded.connect(user_reset_password_view, weak=False)
 
 
 def finalize_app(app):

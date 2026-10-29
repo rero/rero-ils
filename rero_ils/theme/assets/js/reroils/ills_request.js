@@ -8,7 +8,7 @@ $(function() {
     e.preventDefault();
     const form = document.getElementById('ill-public-form');
     if (!form.checkValidity()) {
-      form.submit();
+      $(form).submit();
       return;
     }
     const url = $('#source-url').val();

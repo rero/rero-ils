@@ -8,3 +8,4 @@ import './toggle';
 import './ills_request';
 import './show_more';
 import './login';
+import './submit_once';

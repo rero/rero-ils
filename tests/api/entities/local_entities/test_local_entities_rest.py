@@ -172,6 +172,17 @@ def test_local_search_by_proxy(client, local_entity_genre_form, local_entity_org
     assert len(response.json) == 1
     assert response.json[0]["pid"] == local_entity_org.pid
 
+    # query syntax typed in the term is searched as text
+    response = client.get(
+        url_for(
+            "api_local_entities.local_search_proxy",
+            entity_type="bf:Organisation",
+            term="Convegno (",
+        )
+    )
+    assert response.status_code == 200
+    assert response.json[0]["pid"] == local_entity_org.pid
+
 
 @mock.patch(
     "invenio_records_rest.views.verify_record_permission",

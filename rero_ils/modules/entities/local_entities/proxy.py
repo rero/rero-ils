@@ -7,6 +7,7 @@
 from elasticsearch_dsl import Q
 
 from ..models import EntityType
+from ..remote_entities.proxy import escape_query_term
 from .api import LocalEntitiesSearch
 
 CATEGORY_FILTERS = {
@@ -36,7 +37,7 @@ class LocalEntityProxy:
         :return: local entities matching the search term.
         :rtype: generator.
         """
-        query = self._create_base_query()[:size].filter("query_string", query=search_term)
+        query = self._create_base_query()[:size].filter("query_string", query=escape_query_term(search_term))
         yield from query.execute()
 
     def _create_base_query(self):
