@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-10-28 07:45+0000\n"
+"POT-Creation-Date: 2026-10-29 07:51+0000\n"
 "PO-Revision-Date: 2026-10-13 09:14+0000\n"
 "Last-Translator: Pascal Repond "
 "<pascalrepond@users.noreply.hosted.weblate.org>\n"
@@ -12881,6 +12881,18 @@ msgstr "Non sei autorizzato a modificare la visibilità del modello"
 msgid "A username or email is required."
 msgstr "È necessario un nome utente o un'e-mail."
 
+#: rero_ils/modules/users/listener.py:58
+#, fuzzy
+#| msgid ""
+#| "Enter your email address below and we will send you a link to reset your "
+#| "password."
+msgid ""
+"Your account has no email address. Please contact your library to reset your "
+"password."
+msgstr ""
+"Inserisci il tuo indirizzo e-mail qui sotto e ti invieremo un link per "
+"reimpostare la tua password."
+
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:5
 msgid ""
 "Data about a person (first name, last name, addresses). This resource is "
@@ -13094,6 +13106,11 @@ msgstr "È consentito solo un contatto per tipo."
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgstr "<i class=\"fa-solid fa-phone\"></i>"
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
@@ -13106,11 +13123,6 @@ msgstr "<i class=\"fa-solid fa-user\"></i>"
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
 msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-phone\"></i>"
-msgstr "<i class=\"fa-solid fa-phone\"></i>"
 
 #: rero_ils/oauth/scopes.py:9
 msgid "Full name"

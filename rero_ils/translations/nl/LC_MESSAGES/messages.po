@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2026-10-28 07:45+0000\n"
+"POT-Creation-Date: 2026-10-29 07:51+0000\n"
 "PO-Revision-Date: 2024-02-23 17:02+0000\n"
 "Last-Translator: LievenSmets <lievensmets@me.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
@@ -12925,6 +12925,18 @@ msgstr ""
 msgid "A username or email is required."
 msgstr ""
 
+#: rero_ils/modules/users/listener.py:58
+#, fuzzy
+#| msgid ""
+#| "Enter your email address below and we will send you a link to reset your "
+#| "password."
+msgid ""
+"Your account has no email address. Please contact your library to reset your "
+"password."
+msgstr ""
+"Vul hieronder uw e-mailadres in en wij sturen u een link om uw wachtwoord "
+"opnieuw in te stellen."
+
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:5
 msgid ""
 "Data about a person (first name, last name, addresses). This resource is "
@@ -13139,6 +13151,11 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
+msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgstr ""
+
+#. Line unknown
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-globe\"></i>"
 msgstr ""
 
@@ -13150,11 +13167,6 @@ msgstr ""
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
 msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
-msgstr ""
-
-#. Line unknown
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-phone\"></i>"
 msgstr ""
 
 #: rero_ils/oauth/scopes.py:9
