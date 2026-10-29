@@ -5,7 +5,7 @@
 
 import pytest
 
-from .conftest import LIBRARIANS, PATRONS, login, logout
+from .conftest import LIBRARIANS, PATRONS, login, logout, wait_for_professional_ui
 
 
 @pytest.mark.e2e
@@ -20,7 +20,7 @@ def test_librarian_login(page, base_url):
 
     # Professional interface is a pure Angular SPA — verify we can reach it (not redirected to login)
     page.goto(f"{base_url}/professional", wait_until="domcontentloaded")
-    page.wait_for_selector("admin-root")
+    wait_for_professional_ui(page)
     assert "/professional" in page.url
 
     logout(page, base_url)
