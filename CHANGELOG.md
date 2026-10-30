@@ -2,6 +2,53 @@
 
 <!-- version list -->
 
+## v1.30.1 (2026-10-30)
+
+### Bug Fixes
+
+- **entities**: Escape the term searched on MEF
+  ([`59acda7`](https://github.com/rero/rero-ils/commit/59acda7e76474b1a1902d49fa935da6272bc3868))
+
+- **entities**: No sync errors when MEF is offline
+  ([`213790f`](https://github.com/rero/rero-ils/commit/213790fbe09598c17fc3f938de9b10e956cf3189))
+
+- **entities**: Run one entity sync at a time
+  ([`64ce029`](https://github.com/rero/rero-ils/commit/64ce029fc25a0fcb31cba44b09b6a9fcdbf88182))
+
+- **harvester**: Commit before the Memovs crawl
+  ([`5549d40`](https://github.com/rero/rero-ils/commit/5549d40809c0a17a664781e5f7c4d5b0c39101e8))
+
+- **scripts**: Run the dev worker on macOS
+  ([`c267655`](https://github.com/rero/rero-ils/commit/c267655a13e924e337b213ad8bc000fc058f374d))
+
+- **theme**: Submit the public forms only once
+  ([`f95db40`](https://github.com/rero/rero-ils/commit/f95db40c6e206b7c625754e9b66bfafb374b52cf))
+
+- **users**: No crash on reset link without email
+  ([`4e54d10`](https://github.com/rero/rero-ils/commit/4e54d108446dc217c99e133d373353f30eca788f))
+
+### Build System
+
+- Bump rero-ils-ui to v21.3.1
+  ([`3c92ecf`](https://github.com/rero/rero-ils/commit/3c92ecf5ffb0a541cb66c80154eafd8d890d2e03))
+
+- Update dependencies
+  ([`2115956`](https://github.com/rero/rero-ils/commit/211595655bbb8a0d0d0823988150a1b6fa5bc9dc))
+
+### Chores
+
+- **deps**: Update vulnerable dependencies
+  ([`e1a071d`](https://github.com/rero/rero-ils/commit/e1a071da58c34919eeee4fd8f8864365e5f8f6e6))
+
+### Testing
+
+- **e2e**: Let circulation settle before leaving
+  ([`0b3e94d`](https://github.com/rero/rero-ils/commit/0b3e94d98cb395439b17f65d7296a9cfeb148f37))
+
+- **e2e**: Wait for the professional UI to load
+  ([`5e331fd`](https://github.com/rero/rero-ils/commit/5e331fda001c796a8baa5d8ae362c6714f3a8b26))
+
+
 ## v1.30.0 (2026-10-13)
 
 ### Bug Fixes
