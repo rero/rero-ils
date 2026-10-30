@@ -224,12 +224,13 @@ def page(page, request):
     _assert_clean_unless_failed(guard, request)
 
 
-def _make_page(pw_browser, base_url, email, request, start_url=None):
+def _make_page(pw_browser, base_url, email, request, professional=False):
     """Yield an isolated context + page logged in as the given user, under surveillance.
 
     Takes a playwright Browser instance (not pytest-invenio's Selenium browser).
     The guard is attached before the first navigation so that the initial load of
-    the interface is watched too.
+    the interface is watched too. With ``professional``, the page is handed over
+    once the professional interface is ready.
     """
     ctx = pw_browser.new_context(base_url=base_url, **_CONTEXT_ARGS)
     ctx.set_default_timeout(_DEFAULT_TIMEOUT_MS)
@@ -238,8 +239,9 @@ def _make_page(pw_browser, base_url, email, request, start_url=None):
     resp = p.request.post(f"{base_url}/api/login", data={"email": email, "password": PASSWORD})
     assert resp.ok, f"Login failed for {email!r}: {resp.status} {resp.text()}"
     p.goto(f"{base_url}/lang/en", wait_until="domcontentloaded")
-    if start_url:
-        p.goto(start_url, wait_until="domcontentloaded")
+    if professional:
+        p.goto(f"{base_url}/professional", wait_until="domcontentloaded")
+        wait_for_professional_ui(p)
     yield p
     try:
         _assert_clean_unless_failed(guard, request)
@@ -265,16 +267,26 @@ def logout(page, base_url):
     page.goto(f"{base_url}/signout/", wait_until="domcontentloaded")
 
 
+def wait_for_professional_ui(page):
+    """Wait until the professional interface has booted and loaded its library menu.
+
+    ``admin-root`` is already in the served HTML, so it proves nothing. The library
+    menu only renders once the libraries request has answered: leaving the page
+    before that cancels the request, which WebKit reports as an uncaught exception.
+    """
+    page.locator("#library-menu").wait_for()
+
+
 @pytest.fixture()
 def librarian_page(browser, base_url, request):
     """Isolated context + page logged in as Leonard at the professional UI."""
-    yield from _make_page(browser, base_url, LIBRARIANS["leonard"]["email"], request, f"{base_url}/professional")
+    yield from _make_page(browser, base_url, LIBRARIANS["leonard"]["email"], request, professional=True)
 
 
 @pytest.fixture()
 def spock_page(browser, base_url, request):
     """Isolated context + page logged in as Spock (Vulcan library)."""
-    yield from _make_page(browser, base_url, LIBRARIANS["spock"]["email"], request, f"{base_url}/professional")
+    yield from _make_page(browser, base_url, LIBRARIANS["spock"]["email"], request, professional=True)
 
 
 @pytest.fixture()
