@@ -7,7 +7,7 @@
 import sys
 from contextlib import contextmanager
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, timedelta
 from itertools import islice
 from uuid import uuid4
 
@@ -18,7 +18,7 @@ from invenio_cache import current_cache
 from invenio_db import db
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
-from rero_ils.modules.documents.api import Document
+from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.utils import (
     get_mef_url,
     get_timestamp,
@@ -28,11 +28,14 @@ from rero_ils.modules.utils import (
 
 from ..logger import create_logger
 from .api import RemoteEntitiesSearch, RemoteEntity
+from .models import EntityUpdateAction
 
 #: Cache key held while the entities are synchronized or cleaned.
 SYNC_LOCK = "sync_entities_lock"
 #: Seconds after which the lock of a run that died without releasing it expires.
 SYNC_LOCK_TIMEOUT = 2 * 24 * 60 * 60
+#: Period synchronized when the date of the last run is missing, e.g. after the cache has been cleared.
+SYNC_MISSING_DATE_PERIOD = timedelta(days=2)
 
 
 class SyncLocked(Exception):
@@ -90,10 +93,21 @@ class SyncEntity:
             self._get_last_date()
 
     def _get_last_date(self):
-        """Get the date of the last execution of the synchronization."""
+        """Get the date of the last execution of the synchronization.
+
+        Without it, only the last `SYNC_MISSING_DATE_PERIOD` is synchronized: a
+        full synchronization outlasts the interval between two runs, and never
+        records a date.
+        """
         data = get_timestamp("sync_entities")
         if data and data.get("start_timestamp"):
             self.from_date = data.get("start_timestamp")
+        else:
+            self.from_date = datetime.now() - SYNC_MISSING_DATE_PERIOD
+            self.logger.error(
+                "ERROR: no date of the last synchronization, the records updated after %s are synchronized",
+                self.from_date,
+            )
 
     def _entity_are_different(self, entity1, entity2):
         """Check if two entities are different.
@@ -303,6 +317,7 @@ class SyncEntity:
         db.session.close()
         doc_updated = set()
         updated = error = committed = False
+        merged_into = None
         try:
             if _depth > self.max_recursion_depth:
                 raise RuntimeError(f"MEF record(pid: {pid}): recursion depth exceeded, possible MEF pid cycle")
@@ -366,18 +381,13 @@ class SyncEntity:
                                 RemoteEntitiesSearch.flush_and_refresh()
                                 committed = True
                             self.logger.info("Create a new MEF %s record(pid: %s)", entity["type"], new_mef_pid)
-                    # something changed, update the content
-                    self.logger.info("MEF %s record(pid: %s) content has been updated", entity["type"], entity.pid)
-                    if not self.dry_run:
-                        if old_mef_pid == new_mef_pid:
+                        # the old record is handled once its documents link the new one
+                        merged_into = new_mef_pid
+                    else:
+                        self.logger.info("MEF %s record(pid: %s) content has been updated", entity["type"], entity.pid)
+                        if not self.dry_run:
                             RemoteEntity.get_record(entity.id).replace(new_mef_data, dbcommit=True, reindex=True)
-                        else:
-                            # as we have only the last mef but not the old one
-                            # we need get it from the MEF server
-                            # this is important as it can still be used by
-                            # other entities
-                            RemoteEntity.get_record_by_pid(pid).update_online(dbcommit=True, reindex=True)
-                        committed = True
+                            committed = True
                     updated = True
 
             if updated:
@@ -393,6 +403,21 @@ class SyncEntity:
                 for doc_pid in doc_pids:
                     self._update_entities_in_document(doc_pid=doc_pid, pids_to_replace=pids_to_replace)
                 doc_updated = set(doc_pids)
+
+            if merged_into and not self.dry_run:
+                DocumentsSearch.flush_and_refresh()
+                # a record still linked is kept up to date: MEF may still know it
+                if not self.remove_unused_record(pid):
+                    action, _ = RemoteEntity.get_record_by_pid(pid).update_online(dbcommit=True, reindex=True)
+                    if action == EntityUpdateAction.ERROR:
+                        self.logger.error(
+                            "ERROR: MEF %s record(pid: %s) merged into %s cannot be updated and is still linked to "
+                            "documents",
+                            entity["type"],
+                            pid,
+                            merged_into,
+                        )
+                committed = True
         except (requests.ConnectionError, requests.Timeout, requests.HTTPError, requests.exceptions.RetryError) as err:
             # a record error only once the entity has changed: its documents are left out of date
             error = committed
