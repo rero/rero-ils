@@ -5,12 +5,15 @@
 
 from copy import deepcopy
 from datetime import datetime, timedelta
+from unittest import mock
 
 import pytest
 from jsonschema.exceptions import ValidationError
 
+from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.item_types.api import ItemType
-from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
+from rero_ils.modules.items.api import Item, ItemsIndexer, ItemsSearch, item_id_fetcher
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus, TypeOfItem
 from rero_ils.modules.items.utils import item_location_retriever, item_pid_to_object
 from rero_ils.modules.utils import get_ref_for_pid
@@ -75,6 +78,57 @@ def test_item_create(item_lib_martigny_data_tmp, item_lib_martigny):
     fetched_pid = item_id_fetcher(item.id, item)
     assert fetched_pid.pid_value == "1"
     assert fetched_pid.pid_type == "item"
+
+
+@pytest.mark.parametrize(
+    "location_field",
+    [None, "location", "temporary_location"],
+    ids=["status-only", "permanent-location", "temporary-location"],
+)
+def test_item_status_update_with_location_change(
+    app,
+    document_data_tmp,
+    item_lib_martigny_data_tmp,
+    loc_public_martigny,
+    loc_online_martigny,
+    item_type_standard_martigny,
+    location_field,
+):
+    """Keep the status shortcut only when the item location is unchanged."""
+    document_data_tmp.pop("electronicLocator", None)
+    document = Document.create(document_data_tmp, delete_pid=True, dbcommit=True, reindex=True)
+    data = item_lib_martigny_data_tmp
+    data["document"] = {"$ref": get_ref_for_pid("doc", document.pid)}
+    data["barcode"] = f"3594-status-{document.pid}"
+    item = Item.create(data, delete_pid=True, dbcommit=True, reindex=True)
+    try:
+        with mock.patch.object(
+            ItemsIndexer, "_update_status_in_doc", wraps=ItemsIndexer._update_status_in_doc
+        ) as status_update:
+            item["status"] = ItemStatus.IN_TRANSIT
+            if location_field:
+                item[location_field] = {"$ref": get_ref_for_pid("loc", loc_online_martigny.pid)}
+            item.update(item, dbcommit=True, reindex=True)
+            if location_field:
+                status_update.assert_not_called()
+            else:
+                status_update.assert_called_once()
+
+        DocumentsSearch.flush_and_refresh()
+        indexed = DocumentsSearch().get_record_by_pid(document.pid).to_dict()
+        assert indexed["has_online_item"] == bool(location_field)
+        indexed_item = next(
+            indexed_item
+            for holding in indexed["holdings"]
+            for indexed_item in holding.get("items", [])
+            if indexed_item["pid"] == item.pid
+        )
+        assert indexed_item["status"] == ItemStatus.IN_TRANSIT
+    finally:
+        item.delete(force=True, dbcommit=True, delindex=True)
+        for hit in HoldingsSearch().filter("term", document__pid=document.pid).source("pid").scan():
+            Holding.get_record_by_pid(hit.pid).delete(force=True, dbcommit=True, delindex=True)
+        document.delete(force=True, dbcommit=True, delindex=True)
 
 
 def test_item_extended_validation(client, holding_lib_martigny_w_patterns):

@@ -273,7 +273,15 @@ class ItemsIndexer(IlsRecordsIndexer):
         return_value = super().index(record)
 
         # fast document reindex for circulation operations
-        if search_item and record.get("status") != search_item.get("status"):
+        if (
+            search_item
+            and record.get("status") != search_item.get("status")
+            and all(
+                (extracted_data_from_ref(record[field]) if record.get(field) else None)
+                == search_item.get(field, {}).get("pid")
+                for field in ("document", "holding", "location", "temporary_location")
+            )
+        ):
             self._update_status_in_doc(record, search_item)
             return return_value
 

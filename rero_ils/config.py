@@ -2221,11 +2221,10 @@ RECORDS_REST_FACETS = dict(
                     "electronicLocator.type": ["versionOfResource", "resource"],
                     "holdings.holdings_type": ["electronic"],
                     "_exists_": "files",
+                    "has_online_item": [True],
                 }
             ),
-            _("not_online"): or_terms_filter_by_criteria(
-                {"holdings.holdings_type": ["standard", "serial"]}
-            ),
+            _("not_online"): or_terms_filter_by_criteria({"has_physical_resources": [True]}),
             _("author"): and_i18n_term_filter("facet_contribution"),
             _("subject"): and_i18n_term_filter("facet_subject"),
             # This filter is used with timestamp
