@@ -4,7 +4,7 @@
 
 """Circulation Requests Indicator Report Configuration."""
 
-from elasticsearch_dsl.aggs import A
+from invenio_search.engine import dsl
 
 from .circulation import NumberOfCirculationCfg
 
@@ -18,7 +18,7 @@ class NumberOfRequestsCfg(NumberOfCirculationCfg):
         :param distrubtion: str - report distrubtion name
         :returns: a search index aggregation object
         """
-        cfg = {"pickup_location": A("terms", field="loan.pickup_location.pid", size=self.cfg.aggs_size)}
+        cfg = {"pickup_location": dsl.A("terms", field="loan.pickup_location.pid", size=self.cfg.aggs_size)}
         if agg := cfg.get(distribution):
             return agg
         return super().aggregation(distribution)

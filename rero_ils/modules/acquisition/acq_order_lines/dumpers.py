@@ -14,12 +14,12 @@ from rero_ils.modules.documents.extensions import TitleExtension
 
 
 class AcqOrderLineESDumper(InvenioRecordsDumper):
-    """ElasticSearch dumper class for an AcqOrderLine."""
+    """OpenSearch dumper class for an AcqOrderLine."""
 
     def dump(self, record, data):
-        """Dump an AcqOrderLine instance for ElasticSearch.
+        """Dump an AcqOrderLine instance for OpenSearch.
 
-        For ElasticSearch integration, we need to dump basic informations from
+        For OpenSearch integration, we need to dump basic informations from
         a `AcqOrderLine` object instance, and add some data from related
         object : related account basic informations and related document basic
         informations.

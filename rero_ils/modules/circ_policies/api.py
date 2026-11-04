@@ -8,8 +8,8 @@ import math
 import sys
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from invenio_search.engine import dsl
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -199,11 +199,11 @@ class CircPolicy(IlsRecord):
             .filter(
                 "nested",
                 path="settings",
-                query=Q(
+                query=dsl.Q(
                     "bool",
                     must=[
-                        Q("match", settings__patron_type__pid=ptty_pid),
-                        Q("match", settings__item_type__pid=itty_pid),
+                        dsl.Q("match", settings__patron_type__pid=ptty_pid),
+                        dsl.Q("match", settings__item_type__pid=itty_pid),
                     ],
                 ),
             )
@@ -232,11 +232,11 @@ class CircPolicy(IlsRecord):
             .filter(
                 "nested",
                 path="settings",
-                query=Q(
+                query=dsl.Q(
                     "bool",
                     must=[
-                        Q("match", settings__patron_type__pid=ptty_pid),
-                        Q("match", settings__item_type__pid=itty_pid),
+                        dsl.Q("match", settings__patron_type__pid=ptty_pid),
+                        dsl.Q("match", settings__item_type__pid=itty_pid),
                     ],
                 ),
             )

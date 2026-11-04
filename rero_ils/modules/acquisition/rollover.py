@@ -10,8 +10,8 @@ import string
 from copy import deepcopy
 from datetime import datetime
 
-from elasticsearch_dsl import Q
 from flask import current_app
+from invenio_search.engine import dsl
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch
 from rero_ils.modules.acquisition.acq_accounts.utils import sort_accounts_as_tree
@@ -635,8 +635,8 @@ class AcqRollover:
             AcqOrderStatus.PENDING,
             AcqOrderStatus.PARTIALLY_RECEIVED,
         ]
-        filters = Q("terms", status=open_status)
-        filters |= Q("term", type=AcqOrderType.STANDING_ORDER)
+        filters = dsl.Q("terms", status=open_status)
+        filters |= dsl.Q("term", type=AcqOrderType.STANDING_ORDER)
 
         query = AcqOrdersSearch().filter("terms", order_lines__account__pid=account_pids).filter(filters).source(False)
         return [AcqOrder.get_record(hit.meta.id) for hit in query.scan()]
