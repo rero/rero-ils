@@ -45,10 +45,9 @@ def entity():
 @click.option("-v", "--verbose", count=True, default=0)
 @click.option("-l", "--log-dir", default=None)
 @click.option("-f", "--from-date", type=click.DateTime(formats=["%Y-%m-%d"]), default=None)
-@click.option("-m", "--in-memory", is_flag=True, default=False)
 @click.option("--force", is_flag=True, default=False, help="Run even if another synchronization holds the lock.")
 @with_appcontext
-def sync(query, dry_run, from_last_date, verbose, log_dir, from_date, in_memory, force):
+def sync(query, dry_run, from_last_date, verbose, log_dir, from_date, force):
     """Updated the MEF records and the linked documents."""
     with _write_lock(dry_run, force):
         sync_entity = SyncEntity(dry_run=dry_run, verbose=verbose, log_dir=log_dir, from_last_date=from_last_date)
@@ -56,13 +55,11 @@ def sync(query, dry_run, from_last_date, verbose, log_dir, from_date, in_memory,
             sync_entity.sync(query, from_date)
             return
         sync_entity.start_sync()
-        pids, total = sync_entity.get_entities_pids(query, from_date)
-        if in_memory:
-            pids = list(pids)
         n_updated = 0
         doc_updated = set()
         err_pids = []
         try:
+            pids, total = sync_entity.get_entities_pids(query, from_date)
             with click.progressbar(pids, length=total) as bar:
                 for pid in bar:
                     current_doc_updated, updated, error = sync_entity.sync_record(pid)
