@@ -6,9 +6,9 @@
 
 from unittest import mock
 
-from elasticsearch_dsl.search import Response
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from invenio_search.engine import dsl
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
@@ -115,7 +115,7 @@ def test_item_stats(app, client, librarian_martigny, item_lib_martigny):
     # to freeze on the date, because the string "now-1y" passed to
     # the configuration of the "year" facet is calculated
     # on the search index instance.
-    search_response = Response(
+    search_response = dsl.response.Response(
         OperationLogsSearch(),
         {
             "aggregations": {
@@ -142,7 +142,7 @@ def test_item_stats(app, client, librarian_martigny, item_lib_martigny):
         },
     )
 
-    search_response_checkin = Response(
+    search_response_checkin = dsl.response.Response(
         OperationLogsSearch(),
         {
             "aggregations": {

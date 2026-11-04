@@ -4,20 +4,18 @@
 """Migration Record tests."""
 
 import pytest
-from elasticsearch import NotFoundError
-from elasticsearch_dsl import Index
-from elasticsearch_dsl.exceptions import ValidationException
+from invenio_search.engine import dsl, search
 
 from rero_ils.modules.migrations.api import Migration
 
 
 def test_migrations_create(search_indices, lib_martigny):
     """Test the migration creation."""
-    with pytest.raises(ValidationException):
+    with pytest.raises(dsl.ValidationException):
         Migration().save()
-    with pytest.raises(ValidationException):
+    with pytest.raises(dsl.ValidationException):
         Migration(name="name").save()
-    with pytest.raises(ValidationException):
+    with pytest.raises(dsl.ValidationException):
         Migration(name="name", library_pid="2", status="invalid").save()
     migration = Migration(
         name="name",
@@ -26,7 +24,7 @@ def test_migrations_create(search_indices, lib_martigny):
     )
     assert migration.library
     assert migration.conversion_class.convert
-    index = Index(Migration.Index.name)
+    index = dsl.Index(Migration.Index.name)
     assert migration.save() == "created"
     assert migration.meta.id
     assert Migration.get(migration.meta.id)
@@ -38,7 +36,7 @@ def test_migrations_create(search_indices, lib_martigny):
     assert Migration.get(migration.meta.id).description == "foo"
     migration.delete()
     assert not Migration.exists(migration.meta.id)
-    with pytest.raises(NotFoundError):
+    with pytest.raises(search.NotFoundError):
         assert Migration.get(migration.meta.id)
     index.refresh()
     assert Migration.search().count() == 0

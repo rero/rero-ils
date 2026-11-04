@@ -30,7 +30,7 @@ Human developers will run the required containers, the app setup and the servers
 
 ### Signal/Event Flow
 
-The `ext.py` file wires up all signal listeners. Before a record is indexed in Elasticsearch, `listener.py` in each module can enrich the data (e.g., adding computed fields, resolving references). This is the primary mechanism for denormalizing data into ES.
+The `ext.py` file wires up all signal listeners. Before a record is indexed in OpenSearch, `listener.py` in each module can enrich the data (e.g., adding computed fields, resolving references). This is the primary mechanism for denormalizing data into the search index.
 
 ## Code Style
 

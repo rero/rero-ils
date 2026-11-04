@@ -6,4 +6,4 @@
 
 def list_search_templates():
     """Search index templates path."""
-    return ["rero_ils.modules.migrations.es_templates"]
+    return ["rero_ils.modules.migrations.search_templates"]

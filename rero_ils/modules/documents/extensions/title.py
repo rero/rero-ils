@@ -4,8 +4,8 @@
 
 """Document record extension to enrich the title."""
 
-from elasticsearch_dsl.utils import AttrDict
 from invenio_records.extensions import RecordExtension
+from invenio_search.engine import dsl
 
 from ..utils import display_alternate_graphic_first, title_format_text
 
@@ -27,7 +27,7 @@ class TitleExtension(RecordExtension):
         head_titles = []
         parallel_titles = []
         for title in titles:
-            if isinstance(title, AttrDict):
+            if isinstance(title, dsl.AttrDict):
                 # force title to dict because search gives AttrDict
                 title = title.to_dict()
             title = dict(title)
