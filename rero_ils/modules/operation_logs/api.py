@@ -3,13 +3,11 @@
 
 """API for manipulating operation_logs."""
 
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch.helpers import bulk
-from elasticsearch_dsl import Document
 from flask import current_app
 from invenio_jsonschemas.proxies import current_jsonschemas
 from invenio_records.api import RecordBase
 from invenio_search import RecordsSearch, current_search_client
+from invenio_search.engine import dsl, search
 
 from ..api import IlsRecordsSearch
 from ..fetchers import FetchedPID
@@ -33,7 +31,7 @@ class OperationLogsSearch(IlsRecordsSearch):
         """Get operation logs records by notification pid.
 
         :param notif_pid: The notification pid.
-        :returns a generator of ElasticSearch hit.
+        :returns a generator of OpenSearch hit.
         :rtype generator<dict>.
         """
         query = self.filter("term", notification__pid=notif_pid)
@@ -150,7 +148,7 @@ class OperationLog(RecordBase):
                 "_id": oplg["pid"],
             }
             actions.append(action)
-        n_succeed, errors = bulk(current_search_client, actions)
+        n_succeed, errors = search.helpers.bulk(current_search_client, actions)
         if n_succeed != len(data):
             raise RuntimeError(f"search indexing Errors: {errors}")
 
@@ -186,7 +184,7 @@ class OperationLog(RecordBase):
         """
         index = cls.get_index({"date": date})
 
-        document = Document.get(_id, index=index, using=current_search_client)
+        document = dsl.Document.get(_id, index=index, using=current_search_client)
 
         # Assign each properties to the document
         for key, item in data.items():
@@ -212,6 +210,6 @@ class OperationLog(RecordBase):
         count = 0
         try:
             count = OperationLogsSearch().filter("match_all").count()
-        except NotFoundError:
+        except search.NotFoundError:
             current_app.logger.warning("Operation logs index not found.")
         return count

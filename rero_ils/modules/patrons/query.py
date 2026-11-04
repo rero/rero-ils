@@ -5,7 +5,7 @@
 
 from datetime import datetime
 
-from elasticsearch_dsl import Q
+from invenio_search.engine import dsl
 
 
 def patron_expiration_filter(expired=True):
@@ -17,9 +17,11 @@ def patron_expiration_filter(expired=True):
 
     def inner(values):
         if not values or values[0] != "true":
-            return Q()
+            return dsl.Q()
         if expired:
-            return Q("range", patron__expiration_date={"lte": datetime.now()})
-        return Q("range", patron__expiration_date={"gt": datetime.now()}) | ~Q("exists", field="patron.expiration_date")
+            return dsl.Q("range", patron__expiration_date={"lte": datetime.now()})
+        return dsl.Q("range", patron__expiration_date={"gt": datetime.now()}) | ~dsl.Q(
+            "exists", field="patron.expiration_date"
+        )
 
     return inner

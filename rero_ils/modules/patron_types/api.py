@@ -6,8 +6,8 @@
 
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from invenio_search.engine import dsl
 
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
@@ -50,8 +50,8 @@ class PatronTypesSearch(IlsRecordsSearch):
         """Build a search to get hits related to an organisation pid.
 
         :param organisation_pid: string - the organisation pid to filter with
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `dsl.Search`
         """
         return self.filter("term", organisation__pid=organisation_pid)
 
@@ -230,7 +230,7 @@ class PatronType(IlsRecord):
         cipo_query = CircPoliciesSearch().filter(
             "nested",
             path="settings",
-            query=Q("bool", must=[Q("match", settings__patron_type__pid=self.pid)]),
+            query=dsl.Q("bool", must=[dsl.Q("match", settings__patron_type__pid=self.pid)]),
         )
         links = {}
         if get_pids:

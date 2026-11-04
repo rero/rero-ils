@@ -6,10 +6,10 @@
 from datetime import UTC, datetime, timedelta
 
 import click
-from elasticsearch.exceptions import NotFoundError
 from flask import current_app
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import RecordsSearch
+from invenio_search.engine import search
 from sqlalchemy import text
 
 DB_CONNECTION_COUNTS_QUERY = text(
@@ -123,7 +123,7 @@ class Monitoring:
             if date:
                 query = query.filter("range", _created={"lte": date})
             result = query.count()
-        except NotFoundError:
+        except search.NotFoundError:
             result = f"No >>{index}<< in search"
         return result
 
