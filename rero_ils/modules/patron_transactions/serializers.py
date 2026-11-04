@@ -21,7 +21,7 @@ class PatronTransactionsJSONSerializer(JSONSerializer, CachedDataSerializerMixin
     def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result.
 
-        :param hit: the dictionary representing an ElasticSearch search hit.
+        :param hit: the dictionary representing an OpenSearch search hit.
         """
         metadata = hit.get("metadata", {})
         # Serialize document (if exists)

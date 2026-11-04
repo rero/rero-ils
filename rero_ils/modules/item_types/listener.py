@@ -3,7 +3,7 @@
 
 """Signals connector for ItemTypes."""
 
-from elasticsearch_dsl import Q
+from invenio_search.engine import dsl
 
 from rero_ils.modules.item_types.api import ItemType, ItemTypesIndexer
 from rero_ils.modules.items.api import ItemsSearch
@@ -24,8 +24,8 @@ def negative_availability_changes(sender, record=None, *args, **kwargs):
             .filter(
                 "bool",
                 should=[
-                    Q("match", item_type__pid=record.pid),
-                    Q("match", temporary_item_type__pid=record.pid),
+                    dsl.Q("match", item_type__pid=record.pid),
+                    dsl.Q("match", temporary_item_type__pid=record.pid),
                 ],
             )
             .source()

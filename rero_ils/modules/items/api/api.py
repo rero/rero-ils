@@ -8,9 +8,8 @@ import contextlib
 from datetime import UTC, datetime
 from functools import partial
 
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Q
 from invenio_search import current_search_client
+from invenio_search.engine import dsl, search
 
 from rero_ils.modules.api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsSearch
@@ -54,24 +53,24 @@ class ItemsSearch(IlsRecordsSearch):
         """
         must_not_filters = [
             # should not be masked
-            Q("term", _masked=True),
+            dsl.Q("term", _masked=True),
             # should not be in_transit (even without loan)
-            Q("term", status=ItemStatus.IN_TRANSIT),
+            dsl.Q("term", status=ItemStatus.IN_TRANSIT),
             # if issue the status should be received
-            Q("exists", field="issue") & ~Q("term", issue__status="received"),
+            dsl.Q("exists", field="issue") & ~dsl.Q("term", issue__status="received"),
         ]
 
         if not_available_item_types := [
             hit.pid for hit in ItemTypesSearch().source("pid").filter("term", negative_availability=True).scan()
         ]:
             # negative availability item type and not temporary item types
-            has_items_filters = Q("terms", item_type__pid=not_available_item_types)
-            has_items_filters &= ~Q("exists", field="temporary_item_type")
+            has_items_filters = dsl.Q("terms", item_type__pid=not_available_item_types)
+            has_items_filters &= ~dsl.Q("exists", field="temporary_item_type")
             # temporary item types with negative availability
-            has_items_filters |= Q("terms", temporary_item_type__pid=not_available_item_types)
+            has_items_filters |= dsl.Q("terms", temporary_item_type__pid=not_available_item_types)
             # add to the must not filters
             must_not_filters.append(has_items_filters)
-        return self.filter(Q("bool", must_not=must_not_filters))
+        return self.filter(dsl.Q("bool", must_not=must_not_filters))
 
 
 class Item(ItemCirculation, ItemIssue):
@@ -99,7 +98,7 @@ class Item(ItemCirculation, ItemIssue):
 
     def delete_from_index(self):
         """Delete record from index."""
-        with contextlib.suppress(NotFoundError, ValueError):
+        with contextlib.suppress(search.NotFoundError, ValueError):
             ItemsIndexer().delete(self)
 
     def reasons_not_to_delete(self):
@@ -226,7 +225,7 @@ class ItemsIndexer(IlsRecordsIndexer):
         try:
             search_item = current_search_client.get(ItemsSearch.Meta.index, record.id)
             return search_item["_source"]
-        except NotFoundError:
+        except search.NotFoundError:
             return {}
 
     @classmethod

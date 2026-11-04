@@ -42,7 +42,7 @@ class CollectionsSearch(IlsRecordsSearch):
         """Search for active collections by item pid.
 
         :param item_pid: string - the item to filter with.
-        :return: An ElasticSearch query to get hits related the entity.
+        :return: An OpenSearch query to get hits related the entity.
         """
         return (
             self.filter("term", items__pid=item_pid)

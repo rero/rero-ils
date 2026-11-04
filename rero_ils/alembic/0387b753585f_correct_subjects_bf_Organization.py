@@ -6,7 +6,7 @@
 
 from logging import getLogger
 
-from elasticsearch_dsl.query import Q
+from invenio_search.engine import dsl
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 
@@ -24,8 +24,8 @@ def upgrade():
     query = DocumentsSearch().filter(
         "bool",
         should=[
-            Q("term", subjects__type="bf:Organization"),
-            Q("term", subjects_imported__type="bf:Organization"),
+            dsl.Q("term", subjects__type="bf:Organization"),
+            dsl.Q("term", subjects_imported__type="bf:Organization"),
         ],
     )
 
@@ -56,18 +56,18 @@ def downgrade():
     query = DocumentsSearch().filter(
         "bool",
         should=[
-            Q(
+            dsl.Q(
                 "bool",
                 must=[
-                    Q("term", subjects__type="bf:Organisation"),
-                    Q("exists", field="subjects.preferred_name"),
+                    dsl.Q("term", subjects__type="bf:Organisation"),
+                    dsl.Q("exists", field="subjects.preferred_name"),
                 ],
             ),
-            Q(
+            dsl.Q(
                 "bool",
                 must=[
-                    Q("term", subjects_imported__type="bf:Organisation"),
-                    Q("exists", field="subjects_imported.preferred_name"),
+                    dsl.Q("term", subjects_imported__type="bf:Organisation"),
+                    dsl.Q("exists", field="subjects_imported.preferred_name"),
                 ],
             ),
         ],

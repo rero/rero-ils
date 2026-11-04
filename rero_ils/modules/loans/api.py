@@ -9,7 +9,6 @@ from bisect import bisect_right
 from datetime import UTC, datetime, timedelta
 
 import ciso8601
-from elasticsearch_dsl import A
 from flask import current_app
 from flask_babel import gettext as _
 from invenio_circulation.errors import MissingRequiredParameterError
@@ -20,6 +19,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_circulation.utils import str2datetime
 from invenio_jsonschemas import current_jsonschemas
+from invenio_search.engine import dsl
 from werkzeug.utils import cached_property
 
 from rero_ils.modules.api import (
@@ -998,7 +998,7 @@ def get_loans_stats_by_patron_pid(patron_pid):
     :param patron_pid: The patron pid
     :return: a dict with loans state as key, number of loans as value
     """
-    agg = A("terms", field="state")
+    agg = dsl.A("terms", field="state")
     search = search_by_patron_item_or_document(patron_pid=patron_pid)
     search.aggs.bucket("state", agg)
     search = search[:0]
@@ -1051,7 +1051,7 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
     :return: a dict with library_pid as key, number of loans as value
     """
     filter_states = filter_states or []  # prevent mutable argument warning
-    agg = A("terms", field="library_pid")
+    agg = dsl.A("terms", field="library_pid")
     search = search_by_patron_item_or_document(patron_pid=patron_pid, filter_states=filter_states)
     search.aggs.bucket("library", agg)
     search = search[:0]
@@ -1133,7 +1133,7 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
     results = query.params(preserve_order=True).sort({"_created": {"order": "asc"}}).source(["pid"]).scan()
     # We will return all pids here to prevent folowing error during long
     # operations:
-    #  elasticsearch.helpers.errors.ScanError:
+    #  search.exceptions.ScanError:
     #  Scroll request has only succeeded on X (+0 skipped) shards out of Y.
     return [hit.pid for hit in results]
 

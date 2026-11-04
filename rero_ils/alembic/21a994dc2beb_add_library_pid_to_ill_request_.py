@@ -5,8 +5,8 @@
 
 from logging import getLogger
 
-from elasticsearch_dsl import Q
 from invenio_search.api import RecordsSearch
+from invenio_search.engine import dsl
 
 from rero_ils.modules.ill_requests.api import ILLRequest
 from rero_ils.modules.loans.logs.api import LoanOperationLog
@@ -29,7 +29,7 @@ def upgrade():
     query = (
         RecordsSearch(index=LoanOperationLog.index_name)
         .filter("term", record__type="illr")
-        .filter("bool", must_not=[Q("exists", field="ill_request.library_pid")])
+        .filter("bool", must_not=[dsl.Q("exists", field="ill_request.library_pid")])
     )
     pids = [hit.pid for hit in query.source("pid").scan()]
     LOGGER.info(f"Upgrade operation logs illr :: {len(pids)}")

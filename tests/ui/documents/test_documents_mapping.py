@@ -6,7 +6,7 @@
 from copy import deepcopy
 from unittest import mock
 
-from elasticsearch_dsl.query import MultiMatch
+from invenio_search.engine import dsl
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from tests.utils import get_mapping, mock_response
@@ -48,7 +48,7 @@ def test_document_search_mapping(app, document_records):
     count = search.query("query_string", query="Chamber Secrets").count()
     assert count == 1
 
-    query = MultiMatch(query="Chamber of Secrets", fields=["title.mainTitle.value"])
+    query = dsl.query.MultiMatch(query="Chamber of Secrets", fields=["title.mainTitle.value"])
     count = search.query(query).count()
     assert count == 1
 

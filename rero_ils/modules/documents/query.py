@@ -7,8 +7,8 @@
 import re
 from datetime import datetime
 
-from elasticsearch_dsl import Q
 from flask import abort, request
+from invenio_search.engine import dsl
 
 
 def acquisition_filter():
@@ -64,19 +64,19 @@ def acquisition_filter():
         if values.get("from"):
             range_acquisition_dates["gte"] = values.get("from")
         # build general 'match' query (including acq date range query)
-        must_queries = [Q("range", holdings__items__acquisition__date=range_acquisition_dates)]
+        must_queries = [dsl.Q("range", holdings__items__acquisition__date=range_acquisition_dates)]
 
         # Check others filters from command line and add them to the query if
         # needed
         for level in ["location", "library", "organisation"]:
             if args := request.args.getlist(level):
                 field = f"holdings__items__acquisition__{level}_pid"
-                must_queries.append(Q("terms", **{field: args}))
+                must_queries.append(dsl.Q("terms", **{field: args}))
 
-        return Q(
+        return dsl.Q(
             "nested",
             path="holdings.items.acquisition",
-            query=Q("bool", must=must_queries),
+            query=dsl.Q("bool", must=must_queries),
         )
 
     return inner
@@ -96,13 +96,16 @@ def nested_identified_filter():
         #  * "(bf:Local)kw(2) --> id_type=bf:Local, id_value=kw(2)
         regexp = re.compile(r"^(\((?P<id_type>[\w\d:]+)\))?(?P<id_value>.*)$")
         matches = re.match(regexp, identifier)
-        criteria = Q("wildcard", nested_identifiers__value=matches["id_value"])
+        # Apply the same normalization as the identifier-analyzer (strip hyphens,
+        # lowercase) so the wildcard query matches the analyzed tokens in the index.
+        id_value = matches["id_value"].replace("-", "").lower()
+        criteria = dsl.Q("wildcard", nested_identifiers__value=id_value)
         if matches["id_type"]:
-            criteria &= Q("match", nested_identifiers__type=matches["id_type"])
-        return Q("nested", path="nested_identifiers", query=criteria)
+            criteria &= dsl.Q("match", nested_identifiers__type=matches["id_type"])
+        return dsl.Q("nested", path="nested_identifiers", query=criteria)
 
     def inner(identifiers):
         queries = [_build_nested_identifier_query(identifier) for identifier in identifiers]
-        return Q("bool", should=queries)
+        return dsl.Q("bool", should=queries)
 
     return inner

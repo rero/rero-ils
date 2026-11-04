@@ -7,8 +7,8 @@
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 
-class ElasticSearchDumper(InvenioRecordsDumper):
-    """LocalField dumper class for ElasticSearch integration."""
+class SearchIndexDumper(InvenioRecordsDumper):
+    """LocalField dumper class for OpenSearch integration."""
 
     def dump(self, record, data):
         """Dump a LocalField instance.

@@ -3,9 +3,9 @@
 
 """Signals connector for Holding."""
 
-from elasticsearch_dsl.query import Q
 from flask import current_app
 from invenio_db import db
+from invenio_search.engine import dsl
 
 from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.tasks import process_bulk_queue
@@ -76,11 +76,11 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
     hold_loc_pid = record.location_pid
 
     search = ItemsSearch().filter("term", holding__pid=record.pid)
-    filters = Q("term", item_type__pid=hold_circ_pid) & Q("term", location__pid=hold_loc_pid)
+    filters = dsl.Q("term", item_type__pid=hold_circ_pid) & dsl.Q("term", location__pid=hold_loc_pid)
     if hold_call_number := record.get("call_number", None):
-        filters &= Q("term", issue__inherited_first_call_number=hold_call_number)
+        filters &= dsl.Q("term", issue__inherited_first_call_number=hold_call_number)
     if hold_second_call_number := record.get("second_call_number", None):
-        filters &= Q("term", issue__inherited_second_call_number=hold_second_call_number)
+        filters &= dsl.Q("term", issue__inherited_second_call_number=hold_second_call_number)
     item_hits = search.exclude(filters).source(["pid"])
     items = [hit.meta.id for hit in item_hits.scan()]
     items_to_index = []

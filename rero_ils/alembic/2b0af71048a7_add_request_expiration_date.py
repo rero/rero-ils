@@ -9,8 +9,8 @@ from logging import getLogger
 from zoneinfo import ZoneInfo
 
 import ciso8601
-from elasticsearch_dsl import Q
 from invenio_circulation.proxies import current_circulation
+from invenio_search.engine import dsl
 
 from rero_ils.modules.loans.api import Loan, LoansIndexer
 from rero_ils.modules.loans.models import LoanState
@@ -29,7 +29,7 @@ def upgrade():
     query = (
         current_circulation.loan_search_cls()
         .filter("term", state=LoanState.ITEM_AT_DESK)
-        .filter("bool", must_not=[Q("exists", field="request_expire_date")])
+        .filter("bool", must_not=[dsl.Q("exists", field="request_expire_date")])
         .source("pid")
     )
     loan_pids = [hit.pid for hit in query.scan()]

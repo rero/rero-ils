@@ -6,9 +6,8 @@
 import contextlib
 
 import click
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Index
 from flask.cli import with_appcontext
+from invenio_search.engine import dsl, search
 
 from rero_ils.modules.migrations.api import Migration, MigrationStatus
 from rero_ils.modules.utils import draw_data_table
@@ -57,9 +56,9 @@ def destroy():
     try:
         for migration in Migration.search().source().scan():
             migration.delete()
-        Index(Migration.Index.name).delete()
+        dsl.Index(Migration.Index.name).delete()
         click.echo("Migration search index has been deleted.")
-    except NotFoundError:
+    except search.NotFoundError:
         click.echo("Migration search index does not exist, skipping.")
 
 
@@ -72,7 +71,7 @@ def destroy():
 @with_appcontext
 def create(name, library_pid, status, conversion_code, description):
     """Create a given migration."""
-    with contextlib.suppress(NotFoundError):
+    with contextlib.suppress(search.NotFoundError):
         if Migration.get(name):
             click.secho(f"Migration with name: {name} already exists.", fg="red")
             raise click.Abort()
@@ -89,7 +88,7 @@ def create(name, library_pid, status, conversion_code, description):
     migration = Migration(**data)
     try:
         migration.save()
-        Index(name=migration.data_index_name).refresh()
+        dsl.Index(name=migration.data_index_name).refresh()
         click.secho(
             f'ADD name: {migration.name} library: {migration.library_pid} description:"{description}"',
             fg="green",
@@ -109,7 +108,7 @@ def update(name, status, library_pid, conversion_code, description):
     """Update the migration data."""
     try:
         migration = Migration.get(name)
-    except NotFoundError:
+    except search.NotFoundError:
         click.secho(f"Migration with: {name} does not exists", fg="yellow")
         raise click.Abort()
     if migration:
@@ -143,7 +142,7 @@ def get(name=None):
     if name:
         try:
             hits = [Migration.get(id=name)]
-        except NotFoundError:
+        except search.NotFoundError:
             click.secho(f"Migration with: {name} does not exists", fg="yellow")
             raise click.Abort()
     else:
@@ -186,5 +185,5 @@ def delete(name):
     try:
         Migration.get(id=name).delete()
         click.secho(f"Deleted: {name}", fg="green")
-    except NotFoundError:
+    except search.NotFoundError:
         click.secho(f"Migration with: {name} does not exists", fg="yellow")

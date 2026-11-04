@@ -6,8 +6,8 @@
 
 from logging import getLogger
 
-from elasticsearch_dsl import Q
 from invenio_circulation.proxies import current_circulation
+from invenio_search.engine import dsl
 
 from rero_ils.modules.loans.api import Loan, LoansIndexer
 from rero_ils.modules.loans.models import LoanState
@@ -31,7 +31,7 @@ def upgrade():
     query = (
         current_circulation.loan_search_cls()
         .filter("term", state=LoanState.ITEM_ON_LOAN)
-        .filter("bool", must_not=[Q("exists", field="checkout_location_pid")])
+        .filter("bool", must_not=[dsl.Q("exists", field="checkout_location_pid")])
         .source(["pid", "transaction_location_pid"])
     )
     loans_hits = list(query.scan())

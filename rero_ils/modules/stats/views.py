@@ -10,8 +10,8 @@ from io import StringIO
 
 import arrow
 import jinja2
-from elasticsearch_dsl import Q
 from flask import Blueprint, abort, current_app, make_response, render_template, request
+from invenio_search.engine import dsl
 from rero_invenio_base.modules.export import xlsx_converter
 
 from .api.api import Stat, StatsSearch
@@ -52,7 +52,7 @@ def stats_billing():
 
     Note: includes old statistics where the field type was absent.
     """
-    f = ~Q("exists", field="type") | Q("term", type=StatType.BILLING)
+    f = ~dsl.Q("exists", field="type") | dsl.Q("term", type=StatType.BILLING)
     search = StatsSearch().filter("bool", must=[f]).sort("-_created").source(["pid", "_created"])
     hits = search[:100].execute().to_dict()
     return render_template("rero_ils/stats_list.html", records=hits["hits"]["hits"], type=StatType.BILLING)

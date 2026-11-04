@@ -6,8 +6,8 @@
 
 import re
 
-from elasticsearch_dsl import Q
 from invenio_records.extensions import RecordExtension
+from invenio_search.engine import dsl
 from jsonschema import ValidationError
 
 
@@ -19,8 +19,8 @@ class UniqueFieldsExtension(RecordExtension):
         For example, two libraries can't have the same name into the same
         organisation.
 
-        To allow to check, we will check into an ElasticSearch index based
-        on some fields define into extension configuration.
+        To allow to check, we search the OpenSearch index based on some
+        fields defined in the extension configuration.
 
     USAGE:
         Into the resource class, add this extension into the `_extensions`
@@ -39,10 +39,9 @@ class UniqueFieldsExtension(RecordExtension):
         )
 
     NOTE FOR DEVELOPERS:
-        Avoid to use search on search `text` analyzed field. It will generate
-        strange result (see https://www.elastic.co/guide/en/elasticsearch/
-        reference/current/query-dsl-term-query.html#avoid-term-query-text-
-        fields). Use a search `keyword` analyzed field.
+        Avoid using a `text` analyzed field for term queries. It will generate
+        unexpected results (see https://opensearch.org/docs/latest/query-dsl/
+        term/term/). Use a `keyword` field instead.
     """
 
     def __init__(self, fields, record_search_class):
@@ -75,7 +74,7 @@ class UniqueFieldsExtension(RecordExtension):
         # Create an `OR` query with all fields to check and exclude the current
         # record from the result. If one hit matches, raise a ValidationError,
         # otherwise, all should be fine. Enjoy !
-        terms = [Q("term", **{search_field: record[attr]}) for attr, search_field in self.fields if attr in record]
+        terms = [dsl.Q("term", **{search_field: record[attr]}) for attr, search_field in self.fields if attr in record]
 
         search_query = (
             self.search_class()

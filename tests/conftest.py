@@ -92,9 +92,8 @@ def search(appctx):
     should used the function-scoped :py:data:`search_clear` fixture to leave the
     indexes clean for the following tests.
     """
-    from elasticsearch.exceptions import NotFoundError as ESNotFoundError
-    from elasticsearch.exceptions import RequestError as ESRequestError
     from invenio_search import current_search, current_search_client
+    from invenio_search.engine import search as search_engine
     from invenio_search.errors import IndexAlreadyExistsError
 
     def put_single_shard_template():
@@ -128,7 +127,7 @@ def search(appctx):
 
     try:
         list(current_search.create())
-    except (IndexAlreadyExistsError, ESRequestError, ESNotFoundError) as error:
+    except (IndexAlreadyExistsError, search_engine.RequestError, search_engine.NotFoundError) as error:
         # Indices already exist from a previous interrupted run — wipe everything
         # and recreate from scratch.
         # current_search.delete() removes indices known to Invenio's registry;

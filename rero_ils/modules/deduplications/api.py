@@ -5,8 +5,7 @@
 
 import re
 
-from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Q
+from invenio_search.engine import SearchEngine, dsl
 from Levenshtein import jaro_winkler
 from unidecode import unidecode
 
@@ -56,7 +55,7 @@ class Deduplication:
         search = DocumentsSearch()
         if search_hosts:
             search = search.using(
-                Elasticsearch(
+                SearchEngine(
                     hosts=search_hosts,
                     retry_on_timeout=True,
                     max_retries=5,
@@ -162,11 +161,11 @@ class Deduplication:
         if not data.get("identifiedBy"):
             return []
         # at least one identifier should match
-        criteria = Q("match_none")
+        criteria = dsl.Q("match_none")
         for identifier in data["identifiedBy"]:
             if identifier["type"] == "bf:Local":
                 continue
-            criteria |= Q("term", nested_identifiers__type=identifier["type"]) & Q(
+            criteria |= dsl.Q("term", nested_identifiers__type=identifier["type"]) & dsl.Q(
                 "term", nested_identifiers__value__raw=identifier["value"]
             )
         search = self.search.filter("nested", path="nested_identifiers", query=criteria)
@@ -417,7 +416,7 @@ class Deduplication:
         data_text = " ".join(data_text)
 
         # phrase search on the title
-        query = Q(
+        query = dsl.Q(
             "simple_query_string",
             query=f'"{title}"',
             fields=["title._text"],
@@ -426,7 +425,7 @@ class Deduplication:
             boost=10,
         )
         # word search on the title
-        query |= Q(
+        query |= dsl.Q(
             "simple_query_string",
             query=f"{title}",
             fields=["title._text"],
@@ -434,18 +433,21 @@ class Deduplication:
             flags="WHITESPACE",
             boost=5,
         )
+        _text_fields = ["title._text", "responsibilityStatement.value", "provisionActivity._text.value"]
         # title AND provisionActivity AND 1th author should match the complete record
-        query |= Q(
+        query |= dsl.Q(
             "simple_query_string",
             query=f"{data_text}",
+            fields=_text_fields,
             default_operator="AND",
             flags="WHITESPACE",
             boost=2,
         )
         # title OR provisionActivity OR 1th author should match the complete record
-        query |= Q(
+        query |= dsl.Q(
             "simple_query_string",
             query=f"{data_text}",
+            fields=_text_fields,
             flags="WHITESPACE",
             default_operator="OR",
         )

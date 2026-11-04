@@ -14,7 +14,7 @@ class StatsCfgJSONSerializer(JSONSerializer, PostprocessorMixin):
     def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result.
 
-        :param aggregations: the dictionary representing ElasticSearch
+        :param aggregations: the dictionary representing OpenSearch
                             aggregations section.
         """
         JSONSerializer.enrich_bucket_with_data(

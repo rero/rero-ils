@@ -7,9 +7,9 @@
 import contextlib
 from functools import partial
 
-from elasticsearch_dsl.query import Q
 from flask import current_app
 from invenio_db import db
+from invenio_search.engine import dsl
 from urllib3.exceptions import HTTPError
 
 from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
@@ -72,9 +72,9 @@ class RemoteEntity(Entity):
         if ref_type == "mef":
             return cls.get_record_by_pid(ref_pid)
 
-        search_filter = Q("term", **{f"{ref_type}.pid": ref_pid})
+        search_filter = dsl.Q("term", **{f"{ref_type}.pid": ref_pid})
         if ref_type == "viaf":
-            search_filter = Q("term", viaf_pid=ref_pid)
+            search_filter = dsl.Q("term", viaf_pid=ref_pid)
         query = (
             RemoteEntitiesSearch()
             .params(preserve_order=True)

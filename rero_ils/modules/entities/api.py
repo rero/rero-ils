@@ -6,8 +6,8 @@
 
 from abc import ABC, abstractmethod
 
-from elasticsearch_dsl import A
 from flask import current_app
+from invenio_search.engine import dsl
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsSearch
@@ -82,7 +82,7 @@ class Entity(IlsRecord, ABC):
     def organisation_pids(self):
         """Get organisation pids related with this entity."""
         search = DocumentsSearch().by_entity(self)[:0]
-        agg = A(
+        agg = dsl.A(
             "terms",
             field="organisation_pid",
             min_doc_count=1,

@@ -8,9 +8,9 @@ from datetime import UTC, datetime
 from functools import partial
 
 from dateutil.relativedelta import relativedelta
-from elasticsearch_dsl.query import Q
 from flask import current_app
 from flask_babel import gettext as _
+from invenio_search.engine import dsl
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -58,9 +58,9 @@ class ILLRequestsSearch(IlsRecordsSearch):
         """
         months = current_app.config.get("RERO_ILS_ILL_HIDE_MONTHS", 6)
         date_delta = datetime.now(UTC) - relativedelta(months=months)
-        filters = Q("range", _created={"lte": "now", "gte": date_delta})
-        filters |= Q("term", status=ILLRequestStatus.PENDING)
-        filters &= Q("term", patron__pid=patron_pid)
+        filters = dsl.Q("range", _created={"lte": "now", "gte": date_delta})
+        filters |= dsl.Q("term", status=ILLRequestStatus.PENDING)
+        filters &= dsl.Q("term", patron__pid=patron_pid)
         return self.filter(filters).count()
 
 

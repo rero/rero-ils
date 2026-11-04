@@ -6,8 +6,8 @@
 
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from invenio_search.engine import dsl
 
 from ...modules.utils import extracted_data_from_ref
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -48,12 +48,12 @@ class LocalFieldsSearch(IlsRecordsSearch):
         :param parent_type: the parent record type.
         :param parent_pid: the parent record pid.
         :param organisation_pid: organisation pid filter value.
-        :return: a list of ElasticSearch hit.
+        :return: a list of OpenSearch hit.
         """
-        filters = Q("term", parent__type=parent_type)
-        filters &= Q("term", parent__pid=parent_pid)
+        filters = dsl.Q("term", parent__type=parent_type)
+        filters &= dsl.Q("term", parent__pid=parent_pid)
         if organisation_pid:
-            filters &= Q("term", organisation__pid=organisation_pid)
+            filters &= dsl.Q("term", organisation__pid=organisation_pid)
         return self.filter(filters)
 
 

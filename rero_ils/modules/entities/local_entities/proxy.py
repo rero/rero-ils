@@ -4,18 +4,18 @@
 
 """Local entity proxies."""
 
-from elasticsearch_dsl import Q
+from invenio_search.engine import dsl
 
 from ..models import EntityType
 from ..remote_entities.proxy import escape_query_term
 from .api import LocalEntitiesSearch
 
 CATEGORY_FILTERS = {
-    "agents": Q("terms", type=[EntityType.PERSON, EntityType.ORGANISATION]),
-    "person": Q("term", type=EntityType.PERSON),
-    "organisation": Q("term", type=EntityType.ORGANISATION),
-    "concepts": Q("term", type=EntityType.TOPIC),
-    "concepts_genreForm": Q("term", type=EntityType.TOPIC) & Q("term", genreForm=True),
+    "agents": dsl.Q("terms", type=[EntityType.PERSON, EntityType.ORGANISATION]),
+    "person": dsl.Q("term", type=EntityType.PERSON),
+    "organisation": dsl.Q("term", type=EntityType.ORGANISATION),
+    "concepts": dsl.Q("term", type=EntityType.TOPIC),
+    "concepts_genreForm": dsl.Q("term", type=EntityType.TOPIC) & dsl.Q("term", genreForm=True),
 }
 
 

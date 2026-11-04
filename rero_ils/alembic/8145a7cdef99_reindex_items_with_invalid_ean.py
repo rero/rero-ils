@@ -6,7 +6,7 @@
 
 from logging import getLogger
 
-from elasticsearch_dsl.query import Q
+from invenio_search.engine import dsl
 
 from rero_ils.modules.documents.api import DocumentsIndexer, DocumentsSearch
 
@@ -27,11 +27,11 @@ def upgrade():
         .filter(
             "nested",
             path="nested_identifiers",
-            query=Q(
+            query=dsl.Q(
                 "bool",
                 must=[
-                    Q("term", nested_identifiers__type="bf:Ean"),
-                    ~Q("exists", field="nested_identifiers.value"),
+                    dsl.Q("term", nested_identifiers__type="bf:Ean"),
+                    ~dsl.Q("exists", field="nested_identifiers.value"),
                 ],
             ),
         )

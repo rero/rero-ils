@@ -175,7 +175,7 @@ class ItemIssue(ItemRecord):
         dispatcher_result = Dispatcher.dispatch_notifications(notification_pids=[notif.get("pid")])
 
         # If the dispatcher result is correct, reindex myself to update claims
-        # information into ElasticSearch engine. Reload the notification to
+        # information into OpenSearch engine. Reload the notification to
         # obtain the correct notification metadata (status, process_date, ...)
         if dispatcher_result.get("sent", 0):
             self.reindex()

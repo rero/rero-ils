@@ -69,7 +69,7 @@ class PostprocessorMixin(PostprocessorMixinInterface):
     def _postprocess_search_hit(self, hit):
         """Post-process a specific search hit.
 
-        :param hit: the dictionary representing an ElasticSearch search hit.
+        :param hit: the dictionary representing an OpenSearch search hit.
         """
         # DEV NOTES :
         #   Override this method in subclass to operate specific
@@ -78,7 +78,7 @@ class PostprocessorMixin(PostprocessorMixinInterface):
     def _postprocess_search_aggregations(self, aggregations):
         """Post-process aggregations from a search result.
 
-        :param aggregations: the dictionary representing ElasticSearch
+        :param aggregations: the dictionary representing OpenSearch
                              aggregations section.
         """
         if "document_type" in aggregations:
@@ -136,7 +136,7 @@ class CachedDataSerializerMixin:
 
         :param args: Classes use to retrieve the resource records. Each class
             should be a ``invenio_search.api.RecordsSearch`` subclass to get
-            records from the ElasticSearch index.
+            records from the OpenSearch index.
         :raises AssertionError if a loader class isn't
             ``invenio_search.api.RecordsSearch`` subclass.
         """

@@ -32,11 +32,11 @@ See Also:
 import hashlib
 import uuid
 
-from elasticsearch.exceptions import RequestError as ESRequestError
 from flask import current_app
 from flask import request as flask_request
 from invenio_cache import current_cache
 from invenio_rest import ContentNegotiatedMethodView
+from invenio_search.engine import search as search_engine
 from werkzeug.exceptions import HTTPException
 from werkzeug.wrappers import Response
 
@@ -435,7 +435,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
             ]
             total = response.hits.total
             return records, total
-        except ESRequestError as e:
+        except search_engine.RequestError as e:
             err_text = str(getattr(e, "info", e))
             if "Result window" in err_text or "result_window" in err_text:
                 current_app.logger.warning(f"ES window overflow during SRU search: {e}")

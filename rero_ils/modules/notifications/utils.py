@@ -5,7 +5,7 @@
 """Utilities functions for notifications."""
 
 import ciso8601
-from elasticsearch_dsl import Q
+from invenio_search.engine import dsl
 
 from rero_ils.modules.circ_policies.api import (
     DUE_SOON_REMINDER_TYPE,
@@ -54,14 +54,14 @@ def get_notifications(notification_type, processed=False, not_sent=False):
         query = query.filter(
             "bool",
             must_not=[
-                Q("exists", field="notification_sent"),
-                Q("term", notification_sent=False),
+                dsl.Q("exists", field="notification_sent"),
+                dsl.Q("term", notification_sent=False),
             ],
         )
     if processed:
         query = query.filter("exists", field="process_date")
     else:
-        query = query.filter("bool", must_not=[Q("exists", field="process_date")])
+        query = query.filter("bool", must_not=[dsl.Q("exists", field="process_date")])
 
     for hit in query.scan():
         yield hit.pid

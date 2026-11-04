@@ -6,8 +6,8 @@
 import itertools
 
 import ciso8601
-from elasticsearch_dsl import A
 from flask import current_app
+from invenio_search.engine import dsl
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.local_fields.api import LocalField
@@ -261,24 +261,24 @@ class Collector:
             # initial es query to return all loan logs for the given item_pids
             query = OperationLogsSearch().filter("term", record__type="loan").filter("terms", loan__item__pid=pids)
             # adds checkouts aggregation
-            checkout_agg = A(
+            checkout_agg = dsl.A(
                 "filter",
                 term={"loan.trigger": ItemCirculationAction.CHECKOUT},
                 aggs={
-                    "item_pid": A(
+                    "item_pid": dsl.A(
                         "terms",
                         field="loan.item.pid",
                         size=chunk_size,
-                        aggs={"last_op": A("max", field="date")},
+                        aggs={"last_op": dsl.A("max", field="date")},
                     )
                 },
             )
             query.aggs.bucket("checkout", checkout_agg)
             # adds renewal aggregation
-            renewal_agg = A(
+            renewal_agg = dsl.A(
                 "filter",
                 term={"loan.trigger": ItemCirculationAction.EXTEND},
-                aggs={"item_pid": A("terms", size=chunk_size, field="loan.item.pid")},
+                aggs={"item_pid": dsl.A("terms", size=chunk_size, field="loan.item.pid")},
             )
             query.aggs.bucket("renewal", renewal_agg)
             # adds last transaction aggregation for the fours triggers below.
@@ -287,15 +287,15 @@ class Collector:
                 ItemCirculationAction.CHECKIN,
                 ItemCirculationAction.EXTEND,
             ]
-            loans_agg = A(
+            loans_agg = dsl.A(
                 "filter",
                 terms={"loan.trigger": triggers},
                 aggs={
-                    "item_pid": A(
+                    "item_pid": dsl.A(
                         "terms",
                         field="loan.item.pid",
                         size=chunk_size,
-                        aggs={"last_op": A("max", field="date")},
+                        aggs={"last_op": dsl.A("max", field="date")},
                     )
                 },
             )

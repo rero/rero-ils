@@ -8,13 +8,13 @@ from copy import deepcopy
 from datetime import date, datetime
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask import current_app
 from flask_babel import gettext as _
 from flask_babel import ngettext
 from flask_login import current_user
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
+from invenio_search.engine import dsl
 from jsonschema.exceptions import ValidationError
 from werkzeug.local import LocalProxy
 
@@ -565,9 +565,9 @@ class Patron(IlsRecord):
         :param org_pid: filter patron belongs to this organisation pid.
         :return: The patron corresponding to this barcode.
         """
-        filters = Q("term", patron__barcode=barcode)
+        filters = dsl.Q("term", patron__barcode=barcode)
         if org_pid:
-            filters &= Q("term", organisation__pid=org_pid)
+            filters &= dsl.Q("term", organisation__pid=org_pid)
         query = PatronsSearch().filter("bool", must=[filters]).source(["pid"])
         if hit := next(query.scan(), None):
             return cls.get_record_by_pid(hit.pid)
@@ -652,16 +652,16 @@ class Patron(IlsRecord):
         mail_query = basic_query(CommunicationChannel.EMAIL).filter(
             "bool",
             must_not=[
-                Q("exists", field="patron.additional_communication_email"),
-                Q("exists", field="email"),
+                dsl.Q("exists", field="patron.additional_communication_email"),
+                dsl.Q("exists", field="email"),
             ],
         )
         to_mail_pids = [[hit["pid"], CommunicationChannel.MAIL, hit.meta.id] for hit in mail_query.scan()]
         email_query = basic_query(CommunicationChannel.MAIL).filter(
             "bool",
             should=[
-                Q("exists", field="patron.additional_communication_email"),
-                Q("exists", field="email"),
+                dsl.Q("exists", field="patron.additional_communication_email"),
+                dsl.Q("exists", field="email"),
             ],
         )
         to_email_pids = [[hit["pid"], CommunicationChannel.EMAIL, hit.meta.id] for hit in email_query.scan()]

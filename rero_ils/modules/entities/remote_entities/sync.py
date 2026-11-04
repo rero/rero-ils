@@ -217,7 +217,7 @@ class SyncEntity:
             :returns: iterator over all (pid, entity type) pairs
 
             The scroll is done using the slice scroll feature:
-            https://www.elastic.co/guide/en/elasticsearch/reference/8.5/paginate-search-results.html#slice-scroll
+            https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search
             """
             self.logger.info("Processing: %s MEF records", total)
             if total > 2 * chunk_size:

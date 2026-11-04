@@ -16,7 +16,7 @@ class IssueSortDateExtension(RecordExtension):
     """Extension to control the `sort_date` field for an `issue` Item.
 
     If the item is an issue, the `sort_date` field is used as default sort
-    filter. This `sort_date` is an optional field ; so in ElasticSearch, if
+    filter. This `sort_date` is an optional field ; so in OpenSearch, if
     no `sort_date` value is present, we use the `expected_date` as sort key.
     But, when an issue comes to 'LATE' status, a manager could update this
     `expected_date` for a new one without filling the `sort_date` (to keep the

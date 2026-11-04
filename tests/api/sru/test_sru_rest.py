@@ -153,12 +153,12 @@ def test_sru_search_backend_error(client):
     """Test SRU returns a diagnostic on non-recoverable search backend error."""
     from unittest.mock import patch
 
-    from elasticsearch.exceptions import RequestError as ESRequestError
+    from invenio_search.engine import search
 
     from rero_ils.modules.documents.api import DocumentsSearch
 
     api_url = url_for("api_sru.documents", version="1.1", operation="searchRetrieve", query="test")
-    err = ESRequestError(500, "internal_error", "cluster is unavailable")
+    err = search.RequestError(500, "internal_error", "cluster is unavailable")
     with patch.object(DocumentsSearch, "execute", side_effect=err):
         res = client.get(api_url)
     assert res.status_code == 200
@@ -172,7 +172,7 @@ def test_sru_search_window_overflow(client):
     """Test SRU returns zero results when search result window is exceeded."""
     from unittest.mock import patch
 
-    from elasticsearch.exceptions import RequestError as ESRequestError
+    from invenio_search.engine import search
 
     from rero_ils.modules.documents.api import DocumentsSearch
 
@@ -183,7 +183,7 @@ def test_sru_search_window_overflow(client):
         query="test",
         startRecord="100000",
     )
-    err = ESRequestError(400, "search_phase_execution_exception", "Result window is too large")
+    err = search.RequestError(400, "search_phase_execution_exception", "Result window is too large")
     with patch.object(DocumentsSearch, "execute", side_effect=err):
         res = client.get(api_url)
     assert res.status_code == 200

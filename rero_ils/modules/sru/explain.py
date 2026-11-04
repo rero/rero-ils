@@ -50,12 +50,12 @@ def _get_properties(data):
 
 
 def _get_search_mappings(index):
-    """Load and cache field mappings from the Elasticsearch index definition.
+    """Load and cache field mappings from the OpenSearch index definition.
 
     Results are cached per Flask application instance so the cache is isolated
     between apps (e.g. in tests) and is collected when the app is destroyed.
 
-    :param index: The Elasticsearch index alias name.
+    :param index: The OpenSearch index alias name.
     :returns: Mapping of normalized index names to ES field paths.
     """
     app = current_app._get_current_object()
@@ -102,7 +102,7 @@ class Explain:
         """Initialize the Explain response generator.
 
         :param database: The SRU database path used in the serverInfo element.
-        :param doc_type: Document type key for looking up the Elasticsearch index
+        :param doc_type: Document type key for looking up the OpenSearch index
             in RECORDS_REST_ENDPOINTS configuration. Defaults to ``'doc'``.
         """
         self.database = database

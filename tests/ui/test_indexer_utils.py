@@ -6,8 +6,8 @@
 from unittest import mock
 
 import pytest
-from elasticsearch import NotFoundError
 from invenio_search import current_search_client
+from invenio_search.engine import search
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.indexer_utils import record_to_index
@@ -98,7 +98,7 @@ def test_record_to_index(app):
 
 
 def test_get_resource_from_ES(document):
-    """Test get_resource from ElasticSearch engine."""
+    """Test get_resource from OpenSearch engine."""
     metadata = DocumentsSearch().get_record_by_pid("doc1")
     assert metadata
     fields = ["pid", "title"]
@@ -106,5 +106,5 @@ def test_get_resource_from_ES(document):
     assert all(term in metadata for term in fields)
     assert "statement" not in metadata
 
-    with pytest.raises(NotFoundError):
+    with pytest.raises(search.NotFoundError):
         DocumentsSearch().get_record_by_pid("dummy_pid")

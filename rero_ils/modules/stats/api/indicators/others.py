@@ -4,8 +4,7 @@
 
 """Indicator Report Configurations."""
 
-from elasticsearch_dsl import Q
-from elasticsearch_dsl.aggs import A
+from invenio_search.engine import dsl
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.holdings.api import HoldingsSearch
@@ -37,31 +36,31 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         :returns: a search index aggregation object
         """
         cfg = {
-            "owning_library": A(
+            "owning_library": dsl.A(
                 "terms",
                 field="library_pid",
                 size=self.cfg.aggs_size,
                 include=self.cfg.lib_pids,
             ),
-            "created_month": A(
+            "created_month": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="month",
                 format="yyyy-MM",
             ),
-            "created_year": A(
+            "created_year": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="year",
                 format="yyyy",
             ),
-            "publication_year": A(
+            "publication_year": dsl.A(
                 "terms",
                 field="sort_date_old",
                 order={"_key": "asc"},
                 size=self.cfg.aggs_size,
             ),
-            "imported": A(
+            "imported": dsl.A(
                 "filters",
                 other_bucket_key="not imported",
                 filters={"imported": {"exists": {"field": "adminMetadata.source"}}},
@@ -112,19 +111,19 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
         :returns: a search index aggregation object
         """
         cfg = {
-            "owning_library": A(
+            "owning_library": dsl.A(
                 "terms",
                 field="library.pid",
                 size=self.cfg.aggs_size,
                 include=self.cfg.lib_pids,
             ),
-            "created_month": A(
+            "created_month": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="month",
                 format="yyyy-MM",
             ),
-            "created_year": A(
+            "created_year": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="year",
@@ -170,33 +169,33 @@ class NumberOfItemsCfg(IndicatorCfg):
         :returns: a search index aggregation object
         """
         cfg = {
-            "owning_library": A(
+            "owning_library": dsl.A(
                 "terms",
                 field="library.pid",
                 size=self.cfg.aggs_size,
                 include=self.cfg.lib_pids,
             ),
-            "owning_location": A(
+            "owning_location": dsl.A(
                 "terms",
                 field="location.pid",
                 size=self.cfg.aggs_size,
                 include=self.cfg.loc_pids,
             ),
-            "type": A("terms", field="type", size=self.cfg.aggs_size),
-            "item_type": A("terms", field="item_type.pid", size=self.cfg.aggs_size),
-            "document_type": A(
+            "type": dsl.A("terms", field="type", size=self.cfg.aggs_size),
+            "item_type": dsl.A("terms", field="item_type.pid", size=self.cfg.aggs_size),
+            "document_type": dsl.A(
                 "terms",
                 field="document.document_type.main_type",
                 size=self.cfg.aggs_size,
             ),
-            "document_subtype": A("terms", field="document.document_type.subtype", size=self.cfg.aggs_size),
-            "created_month": A(
+            "document_subtype": dsl.A("terms", field="document.document_type.subtype", size=self.cfg.aggs_size),
+            "created_month": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="month",
                 format="yyyy-MM",
             ),
-            "created_year": A(
+            "created_year": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="year",
@@ -238,7 +237,8 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         search_query = (
             LoanOperationLogsSearch()[:0]
             .filter(
-                Q("term", record__organisation_pid=self.cfg.org_pid) | Q("term", organisation__value=self.cfg.org_pid)
+                dsl.Q("term", record__organisation_pid=self.cfg.org_pid)
+                | dsl.Q("term", organisation__value=self.cfg.org_pid)
             )
             .filter("term", record__type="item")
             .filter("term", operation="delete")
@@ -246,7 +246,9 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         if period := self.cfg.period:
             search_query = search_query.filter("range", date=self.cfg.get_range_period(period))
         if pids := self.cfg.filter_by_libraries:
-            search_query = search_query.filter(Q("terms", record__library_pid=pids) | Q("terms", library__value=pids))
+            search_query = search_query.filter(
+                dsl.Q("terms", record__library_pid=pids) | dsl.Q("terms", library__value=pids)
+            )
         return search_query
 
     def aggregation(self, distribution):
@@ -256,15 +258,15 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         :returns: a search index aggregation object
         """
         cfg = {
-            "owning_library": A("terms", field="record.library_pid", size=self.cfg.aggs_size),
-            "operator_library": A("terms", field="library.value", size=self.cfg.aggs_size),
-            "action_month": A(
+            "owning_library": dsl.A("terms", field="record.library_pid", size=self.cfg.aggs_size),
+            "operator_library": dsl.A("terms", field="library.value", size=self.cfg.aggs_size),
+            "action_month": dsl.A(
                 "date_histogram",
                 field="date",
                 calendar_interval="month",
                 format="yyyy-MM",
             ),
-            "action_year": A("date_histogram", field="date", calendar_interval="year", format="yyyy"),
+            "action_year": dsl.A("date_histogram", field="date", calendar_interval="year", format="yyyy"),
         }
         return cfg[distribution]
 
@@ -308,15 +310,15 @@ class NumberOfILLRequests(IndicatorCfg):
         :returns: a search index aggregation object
         """
         cfg = {
-            "pickup_location": A("terms", field="pickup_location.pid", size=self.cfg.aggs_size),
-            "status": A("terms", field="status", size=self.cfg.aggs_size),
-            "created_month": A(
+            "pickup_location": dsl.A("terms", field="pickup_location.pid", size=self.cfg.aggs_size),
+            "status": dsl.A("terms", field="status", size=self.cfg.aggs_size),
+            "created_month": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="month",
                 format="yyyy-MM",
             ),
-            "created_year": A(
+            "created_year": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="year",

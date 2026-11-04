@@ -8,6 +8,7 @@ from datetime import datetime
 
 import pytest
 from invenio_search import current_search
+from invenio_search.engine import dsl
 
 from rero_ils.modules.operation_logs.api import OperationLog, OperationLogsSearch
 
@@ -72,7 +73,7 @@ def test_operation_update(app, search_clear, operation_log_data, monkeypatch):
     assert log_data["record"]["value"] == "1234"
 
     # Update KO
-    monkeypatch.setattr("elasticsearch_dsl.Document.update", lambda *args, **kwargs: "error")
+    monkeypatch.setattr(dsl.Document, "update", lambda *args, **kwargs: "error")
     with pytest.raises(Exception) as exception:
         OperationLog.update(log_data.id, log_data["date"], log_data)
         assert str(exception) == "Operation log cannot be updated."

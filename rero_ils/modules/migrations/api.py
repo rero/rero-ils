@@ -6,8 +6,7 @@
 from datetime import UTC, datetime
 from enum import Enum
 
-from elasticsearch_dsl import Date, Document, Index, Keyword, Text
-from elasticsearch_dsl.exceptions import ValidationException
+from invenio_search.engine import dsl
 from werkzeug.utils import import_string
 
 from rero_ils.modules.libraries.api import Library
@@ -29,7 +28,7 @@ class MigrationStatus(Enum):
     DONE = _("done")
 
 
-class Status(Keyword):
+class Status(dsl.Keyword):
     """Migration Status."""
 
     def clean(self, data):
@@ -39,23 +38,23 @@ class Status(Keyword):
         try:
             MigrationStatus(data)
         except ValueError:
-            raise ValidationException(
+            raise dsl.ValidationException(
                 f"The status value should be one of: {', '.join([item.value for item in MigrationStatus])}."
             )
         return super().clean(data)
 
 
-class Migration(Document):
-    """Migration Resource (ElasticSearch only)."""
+class Migration(dsl.Document):
+    """Migration Resource (OpenSearch only)."""
 
-    name = Text(fields={"raw": Keyword()}, required=True)
-    description = Text(fields={"raw": Keyword()})
+    name = dsl.Text(fields={"raw": dsl.Keyword()}, required=True)
+    description = dsl.Text(fields={"raw": dsl.Keyword()})
     status = Status(required=True)
-    library_pid = Keyword(required=True)
-    organisation_pid = Keyword(required=True)
-    conversion_code = Keyword(index=False, required=True)
-    updated_at = Date(default_timezone="UTC")
-    created_at = Date(default_timezone="UTC")
+    library_pid = dsl.Keyword(required=True)
+    organisation_pid = dsl.Keyword(required=True)
+    conversion_code = dsl.Keyword(index=False, required=True)
+    updated_at = dsl.Date(default_timezone="UTC")
+    created_at = dsl.Date(default_timezone="UTC")
 
     class Index:
         """Migration Index configuration."""
@@ -76,7 +75,7 @@ class Migration(Document):
     @property
     def data_class(self):
         """Returns the class to create a migration data."""
-        index = Index(name=self.data_index_name)
+        index = dsl.Index(name=self.data_index_name)
         index.aliases(**IndexCfg.aliases)
         cls = MigrationData.clone()
         return index.document(cls)
@@ -104,5 +103,5 @@ class Migration(Document):
 
     def delete(self, **kwargs):
         """Delete a migration record."""
-        Index(self.data_index_name).delete()
+        dsl.Index(self.data_index_name).delete()
         super().delete(**kwargs)

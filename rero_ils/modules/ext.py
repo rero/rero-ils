@@ -7,7 +7,6 @@
 import logging
 
 import jinja2
-from elasticsearch_dsl import connections
 from flask import Blueprint, request
 from flask_bootstrap import Bootstrap4
 from flask_login import current_user
@@ -26,6 +25,7 @@ from invenio_records.signals import (
 )
 from invenio_records_rest.errors import JSONSchemaValidationError, RecordConflictRESTError
 from invenio_search import current_search_client
+from invenio_search.engine import dsl
 from jsonschema.exceptions import ValidationError
 from redis import Redis
 from sqlalchemy.orm.exc import StaleDataError
@@ -228,12 +228,12 @@ class REROILSAPP:
         if db_log := app.config.get("RERO_ILS_DB_LOGGING"):
             logging.getLogger("sqlalchemy.engine").setLevel(db_log)
         if search_log := app.config.get("RERO_ILS_SEARCH_LOGGING"):
-            search_trace_logger = logging.getLogger("elasticsearch.trace")
+            search_trace_logger = logging.getLogger("opensearch.trace")
             search_trace_logger.setLevel(search_log)
             handler = logging.StreamHandler()
             search_trace_logger.addHandler(handler)
         app_loaded.connect(set_boosting_query_fields)
-        connections.add_connection("default", current_search_client)
+        dsl.connections.add_connection("default", current_search_client)
 
         # TODO: Temporary workaround for concurrent DELETE requests (e.g. double-click).
         # StaleDataError is raised by SQLAlchemy optimistic locking (version_id_col on

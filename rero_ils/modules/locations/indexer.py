@@ -10,10 +10,10 @@ from rero_ils.modules.commons.dumpers import MultiDumper, ReplaceRefsDumper
 
 
 class LocationIndexerDumper(Dumper):
-    """ElasticSearch indexer class for `Location` resource."""
+    """OpenSearch indexer class for `Location` resource."""
 
     def dump(self, record, data):
-        """Dump a `Location` instance with for ElasticSearch indexing.
+        """Dump a `Location` instance with for OpenSearch indexing.
 
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.

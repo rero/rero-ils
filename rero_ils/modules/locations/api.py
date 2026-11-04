@@ -6,8 +6,8 @@
 
 from functools import partial
 
-from elasticsearch_dsl.query import Q
 from flask_babel import gettext as _
+from invenio_search.engine import dsl
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -54,8 +54,8 @@ class LocationsSearch(IlsRecordsSearch):
         """Build a search to get hits related to an organisation pid.
 
         :param organisation_pid: string - the organisation pid to filter with
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `dsl.Search`
         """
         return self.filter("term", organisation__pid=organisation_pid)
 
@@ -127,8 +127,8 @@ class Location(IlsRecord):
         item_query = ItemsSearch().filter(
             "bool",
             should=[
-                Q("term", location__pid=self.pid),
-                Q("term", temporary_location__pid=self.pid),
+                dsl.Q("term", location__pid=self.pid),
+                dsl.Q("term", temporary_location__pid=self.pid),
             ],
         )
         exclude_states = [
@@ -141,8 +141,8 @@ class Location(IlsRecord):
             .filter(
                 "bool",
                 should=[
-                    Q("term", pickup_location_pid=self.pid),
-                    Q("term", transaction_location_pid=self.pid),
+                    dsl.Q("term", pickup_location_pid=self.pid),
+                    dsl.Q("term", transaction_location_pid=self.pid),
                 ],
             )
             .exclude("terms", state=exclude_states)

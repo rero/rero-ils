@@ -5,10 +5,10 @@
 
 from functools import wraps
 
-from elasticsearch_dsl import Q
 from flask import abort, jsonify, make_response
 from flask_login import current_user
 from invenio_access import action_factory
+from invenio_search.engine import dsl
 
 from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import (
@@ -61,5 +61,5 @@ class MigrationPermissionPolicy(RecordPermissionPolicy):
         user should be able to retrieve via search.
         """
         if current_librarian:
-            return Q("term", organisation_pid=current_librarian.organisation_pid)
-        return Q("match_none")
+            return dsl.Q("term", organisation_pid=current_librarian.organisation_pid)
+        return dsl.Q("match_none")

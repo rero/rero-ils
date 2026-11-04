@@ -4,10 +4,10 @@
 
 """Blueprint used for loading templates."""
 
-from elasticsearch_dsl.query import Q
 from flask import Blueprint, current_app, render_template, url_for
 from flask_babel import gettext as _
 from invenio_records_ui.signals import record_viewed
+from invenio_search.engine import dsl
 
 from rero_ils.modules.entities.api import Entity
 from rero_ils.modules.entities.helpers import get_entity_record_from_data
@@ -54,7 +54,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     from ..holdings.api import HoldingsSearch
 
     query = HoldingsSearch().filter("term", document__pid=pid.pid_value)
-    query = query.filter("bool", must_not=[Q("term", _masked=True)])
+    query = query.filter("bool", must_not=[dsl.Q("term", _masked=True)])
     if organisation:
         query = query.filter("term", organisation__pid=organisation.pid)
     holdings_count = query.count()

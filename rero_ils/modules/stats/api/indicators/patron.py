@@ -6,7 +6,7 @@
 
 import hashlib
 
-from elasticsearch_dsl.aggs import A
+from invenio_search.engine import dsl
 
 from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.loans.logs.api import LoanOperationLogsSearch
@@ -35,29 +35,29 @@ class NumberOfPatronsCfg(IndicatorCfg):
         :returns: a search index aggregation object
         """
         cfg = {
-            "created_month": A(
+            "created_month": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="month",
                 format="yyyy-MM",
             ),
-            "created_year": A(
+            "created_year": dsl.A(
                 "date_histogram",
                 field="_created",
                 calendar_interval="year",
                 format="yyyy",
             ),
-            "birth_year": A(
+            "birth_year": dsl.A(
                 "date_histogram",
                 field="birth_date",
                 calendar_interval="year",
                 format="yyyy",
             ),
-            "postal_code": A("terms", field="postal_code", size=self.cfg.aggs_size),
-            "local_codes": A("terms", field="local_codes", size=self.cfg.aggs_size),
-            "gender": A("terms", field="gender", size=self.cfg.aggs_size),
-            "role": A("terms", field="roles", size=self.cfg.aggs_size),
-            "type": A("terms", field="patron.type.pid", size=self.cfg.aggs_size),
+            "postal_code": dsl.A("terms", field="postal_code", size=self.cfg.aggs_size),
+            "local_codes": dsl.A("terms", field="local_codes", size=self.cfg.aggs_size),
+            "gender": dsl.A("terms", field="gender", size=self.cfg.aggs_size),
+            "role": dsl.A("terms", field="roles", size=self.cfg.aggs_size),
+            "type": dsl.A("terms", field="patron.type.pid", size=self.cfg.aggs_size),
         }
         return cfg[distribution]
 
@@ -112,7 +112,7 @@ class NumberOfActivePatronsCfg(NumberOfPatronsCfg):
                 hit.pid for hit in LocationsSearch().filter("terms", library__pid=lib_pids).source("pid").scan()
             ]
             op_query = op_query.filter("terms", loan__transaction_location__pid=loc_pids)
-        op_query.aggs.bucket("hashed_pid", A("terms", field="loan.patron.hashed_pid", size=100000))
+        op_query.aggs.bucket("hashed_pid", dsl.A("terms", field="loan.patron.hashed_pid", size=100000))
         results = op_query.execute()
         convert = {hashlib.md5(f"{i}".encode()).hexdigest(): i for i in range(1, PatronIdentifier.max() + 1)}
         active_patron_pids = [convert[v.key] for v in results.aggregations.hashed_pid.buckets]
