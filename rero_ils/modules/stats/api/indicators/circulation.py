@@ -6,7 +6,7 @@
 
 import re
 
-from elasticsearch_dsl.aggs import A
+from invenio_search.engine import dsl
 
 from rero_ils.modules.loans.logs.api import LoanOperationLogsSearch
 from rero_ils.modules.locations.api import LocationsSearch
@@ -54,25 +54,25 @@ class NumberOfCirculationCfg(IndicatorCfg):
         :returns: a search index aggregation object
         """
         cfg = {
-            "transaction_location": A("terms", field="loan.transaction_location.pid", size=self.cfg.aggs_size),
-            "transaction_month": A(
+            "transaction_location": dsl.A("terms", field="loan.transaction_location.pid", size=self.cfg.aggs_size),
+            "transaction_month": dsl.A(
                 "date_histogram",
                 field="date",
                 calendar_interval="month",
                 format="yyyy-MM",
             ),
-            "transaction_year": A("date_histogram", field="date", calendar_interval="year", format="yyyy"),
-            "patron_type": A("terms", field="loan.patron.type", size=self.cfg.aggs_size),
-            "patron_age": A("terms", field="loan.patron.age", size=self.cfg.aggs_size),
-            "patron_postal_code": A("terms", field="loan.patron.postal_code", size=self.cfg.aggs_size),
-            "patron_local_codes": A("terms", field="loan.patron.local_codes", size=self.cfg.aggs_size),
-            "document_type": A("terms", field="loan.item.document.type", size=self.cfg.aggs_size),
-            "transaction_channel": A("terms", field="loan.transaction_channel", size=self.cfg.aggs_size),
-            "owning_library": A("terms", field="loan.item.library_pid", size=self.cfg.aggs_size),
+            "transaction_year": dsl.A("date_histogram", field="date", calendar_interval="year", format="yyyy"),
+            "patron_type": dsl.A("terms", field="loan.patron.type", size=self.cfg.aggs_size),
+            "patron_age": dsl.A("terms", field="loan.patron.age", size=self.cfg.aggs_size),
+            "patron_postal_code": dsl.A("terms", field="loan.patron.postal_code", size=self.cfg.aggs_size),
+            "patron_local_codes": dsl.A("terms", field="loan.patron.local_codes", size=self.cfg.aggs_size),
+            "document_type": dsl.A("terms", field="loan.item.document.type", size=self.cfg.aggs_size),
+            "transaction_channel": dsl.A("terms", field="loan.transaction_channel", size=self.cfg.aggs_size),
+            "owning_library": dsl.A("terms", field="loan.item.library_pid", size=self.cfg.aggs_size),
             # Historical logs carry only location_name; newer ones also carry
             # location_pid. Emit "name (pid)" when the pid exists so same-named
             # locations stay distinct, and fall back to the bare name otherwise.
-            "owning_location": A(
+            "owning_location": dsl.A(
                 "terms",
                 script={
                     "source": (

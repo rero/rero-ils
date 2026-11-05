@@ -104,7 +104,7 @@ _SORT_MISSING_MAP = {
     "missingomit": ("_last", "_last"),
 }
 
-#: CQL sort index to Elasticsearch sortable field mapping.
+#: CQL sort index to OpenSearch sortable field mapping.
 #: Maps Dublin Core and custom indexes to ES fields suitable for sorting.
 #: These fields should be keyword type or have doc_values enabled for
 #: efficient sorting. Use '_relevance' to sort by search score.

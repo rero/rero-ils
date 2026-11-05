@@ -7,10 +7,10 @@ import re
 from datetime import UTC, datetime
 
 from dateutil.relativedelta import relativedelta
-from elasticsearch_dsl.query import Q
 from flask import abort, current_app, request
 from flask import request as flask_request
 from invenio_records_rest.errors import InvalidQueryRESTError
+from invenio_search.engine import dsl
 from werkzeug.datastructures import ImmutableMultiDict, MultiDict
 
 from rero_ils.modules.ill_requests.models import ILLRequestStatus
@@ -36,11 +36,11 @@ def and_term_filter(field, **kwargs):
     """
 
     def inner(values):
-        _filter = Q("bool", must=[Q("term", **{field: value}) for value in values])
+        _filter = dsl.Q("bool", must=[dsl.Q("term", **{field: value}) for value in values])
         for value in kwargs.get("must", []):
-            _filter &= Q(**value)
+            _filter &= dsl.Q(**value)
         for value in kwargs.get("must_not", []):
-            _filter &= ~Q(**value)
+            _filter &= ~dsl.Q(**value)
         return _filter
 
     return inner
@@ -58,13 +58,13 @@ def and_i18n_term_filter(field, **kwargs):
     def inner(values):
         language = get_display_language()
         i18n_field = f"{field}_{language}"
-        must = [Q("term", **{i18n_field: value}) for value in values]
-        _filter = Q("bool", must=must)
+        must = [dsl.Q("term", **{i18n_field: value}) for value in values]
+        _filter = dsl.Q("bool", must=must)
 
         for value in kwargs.get("must", []):
-            _filter &= Q(**value)
+            _filter &= dsl.Q(**value)
         for value in kwargs.get("must_not", []):
-            _filter &= ~Q(**value)
+            _filter &= ~dsl.Q(**value)
         return _filter
 
     return inner
@@ -80,7 +80,7 @@ def i18n_terms_filter(field):
     def inner(values):
         language = get_display_language()
         i18n_field = f"{field}_{language}"
-        return Q("terms", **{i18n_field: values})
+        return dsl.Q("terms", **{i18n_field: values})
 
     return inner
 
@@ -93,7 +93,7 @@ def exclude_terms_filter(field):
     """
 
     def inner(values):
-        return ~Q("terms", **{field: values})
+        return ~dsl.Q("terms", **{field: values})
 
     return inner
 
@@ -110,10 +110,10 @@ def or_terms_filter_by_criteria(criteria):
         if values and values[0] == "true":
             for field, value in criteria.items():
                 if field == "_exists_":
-                    should.append(Q("exists", field=value))
+                    should.append(dsl.Q("exists", field=value))
                 else:
-                    should.append(Q("terms", **{field: value}))
-        return Q("bool", should=should)
+                    should.append(dsl.Q("terms", **{field: value}))
+        return dsl.Q("bool", should=should)
 
     return inner
 
@@ -128,11 +128,11 @@ def bool_filter(field, **kwargs):
     """
 
     def inner(values):
-        _filter = Q("term", **{field: bool(int(values[0]))})
+        _filter = dsl.Q("term", **{field: bool(int(values[0]))})
         for value in kwargs.get("must", []):
-            _filter &= Q(**value)
+            _filter &= dsl.Q(**value)
         for value in kwargs.get("must_not", []):
-            _filter &= ~Q(**value)
+            _filter &= ~dsl.Q(**value)
         return _filter
 
     return inner
@@ -154,12 +154,12 @@ def documents_search_factory(self, search, query_parser=None):
         # organisation public view
         if view != current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
             org = Organisation.get_record_by_viewcode(view)
-            filters = Q("term", organisation_pid=org["pid"])
+            filters = dsl.Q("term", organisation_pid=org["pid"])
             search = search.filter(filters)
         # exclude masked documents
-        search = search.exclude(Q("term", _masked=True))
+        search = search.exclude(dsl.Q("term", _masked=True))
     # exclude draft documents
-    search = search.exclude(Q("term", _draft=True))
+    search = search.exclude(dsl.Q("term", _draft=True))
     return search, urlkwargs
 
 
@@ -175,7 +175,7 @@ def viewcode_patron_search_factory(self, search, query_parser=None):
     elif current_librarian:
         search = search.filter("term", organisation__pid=current_librarian.organisation_pid)
     # exclude draft records
-    search = search.filter("bool", must_not=[Q("term", _draft=True)])
+    search = search.filter("bool", must_not=[dsl.Q("term", _draft=True)])
     return search, urlkwargs
 
 
@@ -206,9 +206,9 @@ def search_factory_for_holdings_and_items(view, search):
             org = Organisation.get_record_by_viewcode(view)
             search = search.filter("term", organisation__pid=org["pid"])
         # masked records are hidden for all public interfaces
-        search = search.filter("bool", must_not=[Q("term", _masked=True)])
+        search = search.filter("bool", must_not=[dsl.Q("term", _masked=True)])
         # PROVISIONAL records are hidden for all public interfaces
-        search = search.filter("bool", must_not=[Q("term", type=TypeOfItem.PROVISIONAL)])
+        search = search.filter("bool", must_not=[dsl.Q("term", type=TypeOfItem.PROVISIONAL)])
     return search
 
 
@@ -244,7 +244,7 @@ def organisation_search_factory(self, search, query_parser=None):
     view = request.args.get("view", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"))
     search, urlkwargs = search_factory(self, search)
     if view != current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
-        search = search.filter("bool", must_not=[Q("term", _masked=True)])
+        search = search.filter("bool", must_not=[dsl.Q("term", _masked=True)])
 
     return search, urlkwargs
 
@@ -285,15 +285,15 @@ def ill_request_search_factory(self, search, query_parser=None):
     elif current_patrons:
         search = search.filter("terms", patron__pid=[ptrn.pid for ptrn in current_patrons])
 
-    search = search.exclude(Q("term", to_anonymize=True))
+    search = search.exclude(dsl.Q("term", to_anonymize=True))
 
     if not request.args.get("remove_archived"):
         return search, urlkwargs
 
     months = current_app.config.get("RERO_ILS_ILL_HIDE_MONTHS", 6)
     date_delta = datetime.now(UTC) - relativedelta(months=months)
-    filters = Q("range", _created={"lte": "now", "gte": date_delta})
-    filters |= Q("term", status=ILLRequestStatus.PENDING)
+    filters = dsl.Q("range", _created={"lte": "now", "gte": date_delta})
+    filters |= dsl.Q("term", status=ILLRequestStatus.PENDING)
 
     return search.filter(filters), urlkwargs
 
@@ -311,22 +311,22 @@ def circulation_search_factory(self, search, query_parser=None):
     # the loans of his profesionnal organisation
 
     # initial filter for OR condition
-    filters = Q("match_none")
+    filters = dsl.Q("match_none")
     if current_librarian:
-        filters |= Q("term", organisation__pid=current_librarian.organisation_pid)
+        filters |= dsl.Q("term", organisation__pid=current_librarian.organisation_pid)
     if current_patrons:
         for ptrn in current_patrons:
             if ptrn.user.user_profile.get("keep_history", True):
                 # patron wants to keep history: show all their loans
-                filters |= Q("term", patron_pid=ptrn.pid)
+                filters |= dsl.Q("term", patron_pid=ptrn.pid)
             else:
                 # patron opted out of history: only show active (non-concluded) loans
-                filters |= Q("term", patron_pid=ptrn.pid) & ~Q("terms", state=LoanState.CONCLUDED)
-    if filters is not Q("match_none"):
+                filters |= dsl.Q("term", patron_pid=ptrn.pid) & ~dsl.Q("terms", state=LoanState.CONCLUDED)
+    if filters is not dsl.Q("match_none"):
         search = search.filter("bool", must=[filters])
 
     # exclude to_anonymize records
-    search = search.filter("bool", must_not=[Q("term", to_anonymize=True)])
+    search = search.filter("bool", must_not=[dsl.Q("term", to_anonymize=True)])
 
     return search, urlkwargs
 
@@ -346,14 +346,14 @@ def templates_search_factory(self, search, query_parser=None):
             search = search.filter(
                 "bool",
                 should=[
-                    Q(
+                    dsl.Q(
                         "bool",
                         must=[
-                            Q("match", creator__pid=current_librarian.pid),
-                            Q("match", visibility=TemplateVisibility.PRIVATE),
+                            dsl.Q("match", creator__pid=current_librarian.pid),
+                            dsl.Q("match", visibility=TemplateVisibility.PRIVATE),
                         ],
                     ),
-                    Q("match", visibility=TemplateVisibility.PUBLIC),
+                    dsl.Q("match", visibility=TemplateVisibility.PUBLIC),
                 ],
             )
 
@@ -412,7 +412,7 @@ def search_factory(self, search, query_parser=None):
     """
 
     def _default_parser(qstr=None, query_boosting=None):
-        """Default parser that uses the Q() from elasticsearch_dsl."""
+        """Default parser that uses dsl.Q()."""
         query_type = "query_string"
         # avoid search index errors when it can't convert a boolean or
         # numerical values during the query
@@ -426,14 +426,14 @@ def search_factory(self, search, query_parser=None):
             # TODO: remove this bad hack
             qstr = _PUNCTUATION_REGEX.sub(" ", qstr)
             qstr = re.sub(r"\s+", " ", qstr).rstrip()
-            return Q(
+            return dsl.Q(
                 query_type,
                 lenient=lenient,
                 query=qstr,
                 fields=query_boosting or ["*"],
                 default_operator=default_operator,
             )
-        return Q()
+        return dsl.Q()
 
     from invenio_records_rest.sorter import default_sorter_factory
 

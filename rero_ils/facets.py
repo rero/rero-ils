@@ -5,12 +5,12 @@
 
 from copy import deepcopy
 
-from elasticsearch_dsl import Q
 from flask import current_app, request
 from invenio_base.utils import obj_or_import_string
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.facets import _aggregations, _query_filter
 from invenio_records_rest.utils import make_comma_list_a_list
+from invenio_search.engine import dsl
 from six import text_type
 from werkzeug.datastructures import MultiDict
 
@@ -82,9 +82,9 @@ def default_facets_factory(search, index):
             if callable(agg_filter):
                 agg_filter = agg_filter(search, urlkwargs)
             if facet_filter:
-                facet_filter &= Q(agg_filter)
+                facet_filter &= dsl.Q(agg_filter)
             else:
-                facet_filter = Q(agg_filter)
+                facet_filter = dsl.Q(agg_filter)
         # If we build a filter for this facet, we need to add it to the
         # aggregation.
         if facet_filter:
@@ -173,7 +173,7 @@ def _post_filter(search, urlkwargs, definitions):
         search = search.post_filter(filter_)
 
     for filter_ in filters_group.values():
-        q = Q("bool", should=filter_)
+        q = dsl.Q("bool", should=filter_)
         search = search.post_filter(q)
 
     return search, urlkwargs
@@ -196,7 +196,7 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
     :param facet_field: the facet field
     :returns: the filter to inject in the facet
     """
-    q = Q()
+    q = dsl.Q()
     for _filter in filters:
         for value in _filter.to_dict().values():
             filter_field = next(iter(value.keys()))
@@ -205,5 +205,5 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
 
     for name_group, group_filters in filters_group.items():
         if facet_name != name_group and group_filters:
-            q &= Q("bool", should=group_filters)
-    return q if q != Q() else None
+            q &= dsl.Q("bool", should=group_filters)
+    return q if q != dsl.Q() else None

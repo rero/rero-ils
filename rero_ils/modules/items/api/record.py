@@ -6,8 +6,8 @@
 from contextlib import suppress
 from datetime import UTC, datetime
 
-from elasticsearch_dsl.query import Q
 from flask_babel import gettext as _
+from invenio_search.engine import dsl
 
 from rero_ils.modules.api import IlsRecord
 from rero_ils.modules.holdings.models import HoldingTypes
@@ -290,7 +290,7 @@ class ItemRecord(IlsRecord):
             .source(["pid"])
         )
         if not with_masked:
-            search_query = search_query.filter("bool", must_not=[Q("term", _masked=True)])
+            search_query = search_query.filter("bool", must_not=[dsl.Q("term", _masked=True)])
         for item in search_query.scan():
             yield item.pid
 
@@ -373,9 +373,9 @@ class ItemRecord(IlsRecord):
         """
         from . import ItemsSearch
 
-        filters = Q("term", barcode=barcode)
+        filters = dsl.Q("term", barcode=barcode)
         if organisation_pid:
-            filters &= Q("term", organisation__pid=organisation_pid)
+            filters &= dsl.Q("term", organisation__pid=organisation_pid)
         results = ItemsSearch().filter(filters).source(includes="pid").scan()
         with suppress(StopIteration):
             return cls.get_record_by_pid(next(results).pid)
@@ -575,4 +575,4 @@ class ItemRecord(IlsRecord):
         from . import ItemsSearch
 
         query = ItemsSearch().filter("term", holding__pid=holding_pid)
-        return query.filter("bool", must_not=[Q("term", _masked=True)]).source(["pid"]).count()
+        return query.filter("bool", must_not=[dsl.Q("term", _masked=True)]).source(["pid"]).count()

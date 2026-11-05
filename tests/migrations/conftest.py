@@ -4,7 +4,7 @@
 """Common pytest fixtures and plugins."""
 
 import pytest
-from elasticsearch_dsl import Index
+from invenio_search.engine import dsl
 
 from rero_ils.modules.migrations.api import Migration
 from rero_ils.modules.migrations.data.api import Deduplication
@@ -18,7 +18,7 @@ def migration(search_indices, lib_martigny):
         "library_pid": str(lib_martigny.pid),
         "conversion_code": "tests.mock_modules.Converter",
     }
-    index = Index(Migration.Index.name)
+    index = dsl.Index(Migration.Index.name)
     migration = Migration(**data)
     migration.save()
     index.refresh()
@@ -111,4 +111,4 @@ def search_indices(app):
     """Create test app."""
     Migration.init()
     yield
-    Index(Migration.Index.name).delete()
+    dsl.Index(Migration.Index.name).delete()

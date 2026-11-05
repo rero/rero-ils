@@ -15,7 +15,7 @@ services:
       - "INVENIO_CACHE_TYPE=redis"
       - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
       - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
-      - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
+      - "INVENIO_SEARCH_HOSTS=['os:9200']"
       - "INVENIO_SECRET_KEY=CHANGE_ME"
       - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://rero-ils:rero-ils@db/rero-ils"
       - "INVENIO_WSGI_PROXIES=2"
@@ -44,7 +44,7 @@ services:
     ports:
       - "6379:6379"
   db:
-    image: postgres:17
+    image: postgres:18-alpine
     restart: "unless-stopped"
     environment:
       - "POSTGRES_USER=rero-ils"
@@ -64,15 +64,17 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-  es:
-    build: ./docker/elasticsearch/
-    image: elasticsearch-icu-7.10.2
+  os:
+    build: ./docker/opensearch/
+    image: rero-ils-os
     restart: "unless-stopped"
     environment:
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
       - "discovery.type=single-node"
-      - "indices.query.bool.max_clause_count=3000"
+      - "plugins.security.disabled=true"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Str@wberry_77!"
+      - "indices.query.bool.max_clause_count=65536"
     ulimits:
       memlock:
         soft: -1
@@ -81,12 +83,6 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-  kibana:
-    image: docker.elastic.co/kibana/kibana-oss:7.10.2
-    environment:
-      - "ELASTICSEARCH_URL=http://es:9200"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports: ['5601:5601']
   flower:
     image: mher/flower
     command: --broker=amqp://guest:guest@mq:5672/ --broker_api=http://guest:guest@mq:15672/api/
