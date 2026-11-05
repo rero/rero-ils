@@ -31,7 +31,7 @@ def delete_records(records, verbose=False):
 
 
 @shared_task(ignore_result=True)
-def sync_entities(from_last_date=True, verbose=0, dry_run=False, in_memory=True):
+def sync_entities(from_last_date=True, verbose=0, dry_run=False):
     """Synchronize the entities within the MEF server.
 
     Only one run at a time: a run started while another one is still going
@@ -47,7 +47,7 @@ def sync_entities(from_last_date=True, verbose=0, dry_run=False, in_memory=True)
     try:
         with sync_lock():
             sync_entity = SyncEntity(from_last_date=from_last_date, verbose=verbose, dry_run=dry_run)
-            n_doc_updated, n_mef_updated, sync_mef_errors = sync_entity.sync(in_memory=in_memory)
+            n_doc_updated, n_mef_updated, sync_mef_errors = sync_entity.sync()
             n_mef_removed, clean_mef_errors = sync_entity.remove_unused()
     except SyncLocked:
         current_app.logger.warning("sync_entities: another synchronization is running, skipped")

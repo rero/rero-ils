@@ -191,12 +191,14 @@ class SyncEntity:
             doc.replace(doc, dbcommit=True, reindex=True)
 
     def get_entities_pids(self, query="*", from_date=None):
-        """Get contributions identifiers.
+        """Get the remote entity identifiers.
 
         :param query: (string) a query to select the MEF record to be updated.
         :param from_date: (string) only the MEF records updated on the MEF
             server after the given date will be considered.
-        :returns: the list of the contribution identifiers.
+        :returns: the list of the remote entity identifiers (agents, concepts
+            and places), read in full so that no scroll context expires while
+            the records are processed.
         :rtype: list of strings.
         """
         search_query = RemoteEntitiesSearch().filter("query_string", query=query)
@@ -276,13 +278,10 @@ class SyncEntity:
                     self.logger.info("Processed %s records.", n_provided)
 
             if total:
-                return (
-                    get_updated_mef(pids=get_mef_pids(search_query), chunk_size=5000),
-                    total,
-                )
+                return list(get_updated_mef(pids=get_mef_pids(search_query), chunk_size=5000)), total
             return [], 0
         # considers all MEF pids
-        return (pid for pid, _ in get_mef_pids(search_query)), total
+        return [pid for pid, _ in get_mef_pids(search_query)], total
 
     #: maximum recursion depth for `sync_record`, as a safety net against a
     #: pathological MEF pid cycle (e.g. A's latest is B, B's latest is A).
@@ -439,28 +438,23 @@ class SyncEntity:
             else data.get("start_timestamp"),
         )
 
-    def sync(self, query="*", from_date=None, in_memory=False):
+    def sync(self, query="*", from_date=None):
         """Updated the MEF records and the linked documents.
 
         :param query: (string) a query to select the MEF record to be updated.
         :param from_date: (string) only the MEF records updated on the MEF
             server after the given date will be considered.
-        :param in_memory: (boolean) is the record could be stored in memory
-            instead of using generator. Use to avoid ElasticSearch timeout
-            problem in case of big data set.
         :returns: the number of updated documents, the number of updated MEF
             records, the list of MEF pids that generate an error.
         :rtype: integer, integer, list of strings.
         """
         self.start_sync()
-        pids, _ = self.get_entities_pids(query, from_date=from_date)
-        if in_memory:
-            pids = list(pids)
         # number of document updated
         doc_updated = set()
         n_mef_updated = 0
         mef_errors = set()
         try:
+            pids, _ = self.get_entities_pids(query, from_date=from_date)
             for pid in pids:
                 current_doc_updated, mef_updated, error = self.sync_record(pid)
                 doc_updated.update(current_doc_updated)

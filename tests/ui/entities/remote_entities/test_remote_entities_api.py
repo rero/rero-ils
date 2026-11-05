@@ -745,8 +745,15 @@ def test_sync_entities_pids_by_type(
     sync_entity = SyncEntity()
     with mock.patch("requests.Session.post", side_effect=mef_updated) as mock_post:
         pids, total = sync_entity.get_entities_pids(query, from_date=datetime(2024, 1, 1))
-        # every endpoint is queried and its answer yielded
-        assert sorted(pids) == sorted(entity.pid for entity in entities)
+    # every endpoint is queried and its answer read before the records are processed
+    assert isinstance(pids, list)
+    assert sorted(pids) == sorted(entity.pid for entity in entities)
+    assert total == 3
+
+    # without a date, all the pids are read as well
+    pids, total = sync_entity.get_entities_pids(query)
+    assert isinstance(pids, list)
+    assert sorted(pids) == sorted(entity.pid for entity in entities)
     assert total == 3
 
     # one request per entity type, each carrying only the pids of that type
@@ -767,10 +774,8 @@ def test_sync_entities_pids_server_error(app, entity_person_data):
 
     sync_entity = SyncEntity()
     error = mock_response(status=500, json_data=[{"pid": entity.pid}])
-    with mock.patch("requests.Session.post", return_value=error):
-        pids, _ = sync_entity.get_entities_pids(f"pid:{entity.pid}", from_date=datetime(2024, 1, 1))
-        with pytest.raises(requests.ConnectionError):
-            list(pids)
+    with mock.patch("requests.Session.post", return_value=error), pytest.raises(requests.ConnectionError):
+        sync_entity.get_entities_pids(f"pid:{entity.pid}", from_date=datetime(2024, 1, 1))
 
     entity.delete(force=True, dbcommit=True, delindex=True)
 
