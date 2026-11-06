@@ -40,16 +40,16 @@ class OperationLogsSearch(IlsRecordsSearch):
         for hit in query.scan():
             yield hit.to_dict()
 
-    def get_logs_by_record_pid(self, pid):
-        """Get all logs for a given record PID.
+    def get_logs_by_loan_pid(self, pid):
+        """Get all logs related to a given loan, including its notifications.
 
         The results are materialized on purpose: callers update each log while
         iterating, which would let the scroll expire.
 
-        :param str pid: record PID.
+        :param str pid: loan PID.
         :returns: List of logs.
         """
-        return list(self.filter("bool", must={"exists": {"field": "loan"}}).filter("term", record__value=pid).scan())
+        return list(self.filter("term", loan__pid=pid).scan())
 
 
 def operation_log_id_fetcher(record_uuid, data):
