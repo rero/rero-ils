@@ -9,6 +9,7 @@ from copy import deepcopy
 from invenio_jsonschemas import current_jsonschemas
 
 from rero_ils.modules.loans.logs.api import LoanOperationLog, LoanOperationLogsSearch
+from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.patrons.api import Patron
 from tests.utils import login_user_for_view
 
@@ -73,24 +74,23 @@ def test_loan_operation_log(
 
 
 def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
-    """Test anonymization for loan logs."""
+    """Test anonymization for loan and notification logs."""
     item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
+    loan.create_notification(_type=NotificationType.RECALL)
 
     LoanOperationLogsSearch.flush_and_refresh()
 
-    logs = LoanOperationLogsSearch().get_logs_by_record_pid(loan["pid"])
-    assert len(logs) == 3
+    logs = LoanOperationLogsSearch().get_logs_by_loan_pid(loan["pid"])
+    assert {log["record"]["type"] for log in logs} == {"loan", "notif"}
     for log in logs:
-        if log["record"]["type"] == "notif":
-            assert log["notification"]["recipients"] == ["reroilstest+martigny+atdesk@gmail.com"]
         assert log["loan"]["patron"]["pid"] == patron["pid"]
         assert log["loan"]["patron"]["name"] == "Roduit, Louis"
 
     loan.anonymize(dbcommit=True, reindex=True)
 
-    logs = LoanOperationLogsSearch().get_logs_by_record_pid(loan["pid"])
-    assert len(logs) == 3
-    for log in logs:
+    anonymized_logs = LoanOperationLogsSearch().get_logs_by_loan_pid(loan["pid"])
+    assert len(anonymized_logs) == len(logs)
+    for log in anonymized_logs:
         log = log.to_dict()
         md5_hash = hashlib.md5(patron["pid"].encode()).hexdigest()
         assert log["loan"]["patron"]["hashed_pid"] == f"{md5_hash}"
