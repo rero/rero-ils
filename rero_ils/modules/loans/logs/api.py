@@ -96,7 +96,7 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
 
         :param loan_pid: Loan PID.
         """
-        for log in OperationLogsSearch().get_logs_by_record_pid(loan_pid):
+        for log in OperationLogsSearch().get_logs_by_loan_pid(loan_pid):
             record = log.to_dict()
             record["loan"]["patron"]["name"] = "anonymized"
             record["loan"]["patron"]["pid"] = "anonymized"
