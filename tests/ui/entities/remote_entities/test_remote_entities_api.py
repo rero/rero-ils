@@ -297,6 +297,17 @@ def test_sync_mef_unavailable_keeps_last_date(app, entity_person):
     assert get_timestamp("sync_entities")["start_timestamp"] > last_date
 
 
+def test_sync_errors_recorded_once(app):
+    """A pid failing in several runs is recorded only once."""
+    set_timestamp("sync_entities", errors=["1"])
+    sync_entity = SyncEntity(log_dir=tempfile.mkdtemp())
+    sync_entity.start_sync()
+    sync_entity.end_sync(0, 0, {"1", "2"})
+    sync_entity.end_sync(0, 0, {"2"})
+    assert SyncEntity.get_errors() == ["1", "2"]
+    SyncEntity.clear_errors()
+
+
 def test_remote_entity_properties(entity_person, item_lib_martigny, document, document_data, mef_concept1):
     """Test entity properties."""
     item = item_lib_martigny

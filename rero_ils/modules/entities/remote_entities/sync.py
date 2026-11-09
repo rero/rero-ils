@@ -426,8 +426,7 @@ class SyncEntity:
         if self.dry_run:
             return
         data = get_timestamp("sync_entities") or {}
-        errors = data.get("errors", [])
-        errors += mef_errors
+        errors = sorted(set(data.get("errors", [])) | set(mef_errors))
         set_timestamp(
             "sync_entities",
             n_doc_updated=n_doc_updated,
