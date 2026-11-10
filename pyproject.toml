@@ -66,10 +66,8 @@ dependencies = [
     "sentry-sdk",
     "dojson>=1.4.0",
     ## RERO specific python modules
-    # "rero-invenio-base>=1.1.1",
-    "rero-invenio-base @ git+https://github.com/rerowep/rero-invenio-base@wep-opensearch",
-    # "rero-invenio-files>=1.0.0",
-    "rero-invenio-files @ git+https://github.com/rerowep/rero-invenio-files@wep-opensearch",
+    "rero-invenio-base>=2.0.0",
+    "rero-invenio-files>=3.0.0",
     "rero-invenio-thumbnails>=2.0.0",
     "flask-wiki>=4.0.0",
     ## RERO ILS specific python modules
@@ -116,8 +114,7 @@ dev = [
 ]
 
 prod = [
-    "uwsgi>=2.0.30",
-    "uwsgitop>=0.11",
+    "granian>=2.8.7",
 ]
 
 # ---------------------------------------------------------------------------
