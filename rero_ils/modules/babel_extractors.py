@@ -59,7 +59,8 @@ def extract_array(fileobj, keys=None):
     data = json.load(fileobj)
 
     def find_values_by_key(data, target_keys):
-        results = set()
+        # dict instead of set: deduplicate while keeping the document order stable across runs
+        results = {}
 
         def search(obj):
             if isinstance(obj, dict):
@@ -67,9 +68,9 @@ def extract_array(fileobj, keys=None):
                     for regexkey in target_keys:
                         if re.match(regexkey, key):
                             if isinstance(value, list):
-                                [results.add(v) for v in value]
+                                results.update(dict.fromkeys(value))
                             else:
-                                results.add(value)
+                                results[value] = None
                     search(value)
             elif isinstance(obj, list):
                 for item in obj:
