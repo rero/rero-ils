@@ -28,7 +28,10 @@
       "widget": {
         "props": {
           "addonRight": [
-            "day(s)"
+            "day(s)",
+            "week(s)",
+            "month(s)",
+            "year(s)"
           ]
         }
       }
