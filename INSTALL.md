@@ -134,7 +134,7 @@ In addition to the normal `docker-compose.yml`, this one will start:
 
 - HAProxy (load balancer)
 - Nginx (web frontend)
-- UWSGI (application container)
+- Granian (application servers: UI, and REST API under `/api`)
 - Celery (background task worker)
 - Celery (background task beat)
 - Flower (Celery monitoring)
