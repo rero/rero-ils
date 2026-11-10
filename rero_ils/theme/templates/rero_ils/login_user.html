@@ -61,8 +61,7 @@
 {%- endblock recoverable %}
 {% endblock panel %}
 {# The rero-ils-ui bundles (search-bar CSS/JS) aren't needed on the login
-   page and call /patrons/logged_user (moved to /api/patrons/logged_user),
-   so they're skipped here rather than included via page.html/javascript.html. #}
+   page and query the logged user, so only the rero-ils assets are loaded. #}
 {%- block css %}
 <style>
   @layer bootstrap, babel, theme, base, rero-ils-ui, primeng, utilities;

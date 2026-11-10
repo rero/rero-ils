@@ -48,18 +48,9 @@ def clear_test_thumbnail_covers():
 
 @pytest.fixture(autouse=True)
 def block_mef_http(monkeypatch):
-    """Prevent any test from making a real HTTP call to the MEF server.
+    """Answer with a 404 every request sent to the MEF host through ``requests.sessions.Session.send``.
 
-    Every MEF lookup (``get_mef_link``, ``get_mef_data_by_type``, entity
-    resolution, sync, proxy) ultimately issues a ``requests.Session`` request
-    to the MEF host. This intercepts them at ``Session.send`` — the single
-    point every request funnels through — and returns a 404 so callers resolve
-    to "no data" instead of hitting the network, keeping the whole suite
-    hermetic and deterministic.
-
-    Tests that need specific MEF data keep patching ``get_mef_link`` /
-    ``get_mef_data_by_type`` at a higher level; those never reach the session,
-    so this fixture does not interfere with them.
+    Tests needing MEF data patch ``get_mef_link`` / ``get_mef_data_by_type``, which never reach the session.
     """
     original_send = requests.sessions.Session.send
 
@@ -100,12 +91,9 @@ def search(appctx):
     def put_single_shard_template():
         """Bring the test indices down to a single shard.
 
-        The `record` template asks for 8 shards and 1 replica, sized for
-        production; on a test cluster that is 254 shards for a few thousand
-        documents, and each of the 438 `flush_and_refresh` call sites pays for
-        all the shards of its index. This legacy template merges with `record`
-        (order 0) and overrides only these two settings, so every analyzer is
-        preserved.
+        The `record` template is sized for production, and every `flush_and_refresh` pays for all the shards
+        of its index. This legacy template merges with `record` (order 0) and overrides only the shard and
+        replica settings, so every analyzer is preserved.
 
         It has to be put back after each `put_templates`, because the recovery
         branches below wipe all templates.

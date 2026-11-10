@@ -12,31 +12,9 @@ from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 
 
 def marcxml_marshmallow_loader():
-    """Load and convert MARCXML from HTTP request to RERO ILS JSON format.
+    """Convert the MARCXML record of the request body into a draft document.
 
-    This loader processes MARCXML data from the request body and converts it
-    to RERO ILS internal JSON format using DoJSON transformations. It is designed
-    for single-record imports via the REST API.
-
-    The conversion process:
-        1. Extracts raw MARCXML from request.data
-        2. Splits the XML stream into individual records
-        3. Parses each MARCXML record into MARC 21 structure
-        4. Transforms MARC 21 to RERO ILS JSON using DoJSON
-        5. Marks the record as draft (_draft=True)
-
-    The loader enforces single-record processing:
-        - If multiple MARCXML records are detected, returns HTTP 400 error
-        - This ensures controlled imports and proper validation
-
-    Returns:
-        dict: RERO ILS JSON document with the following structure:
-            - Standard RERO ILS document fields (title, contributions, etc.)
-            - _draft=True: Marks the record as a draft for review
-
-    Raises:
-        werkzeug.exceptions.BadRequest: When multiple MARCXML records are
-            detected in the request data (HTTP 400).
+    Aborts with HTTP 400 when the body holds no record, several records, or a record that cannot be converted.
 
     Example:
         POST request with MARCXML body::
@@ -56,10 +34,6 @@ def marcxml_marshmallow_loader():
                 "_draft": True,
                 ...
             }
-
-    Note:
-        Records imported via this loader are automatically marked as drafts
-        to prevent accidental publication of unvalidated data.
     """
     # Split the XML stream into individual MARCXML records
     marcxml_records = list(split_stream(BytesIO(request.data)))
@@ -81,8 +55,7 @@ def marcxml_marshmallow_loader():
         )
         abort(400, description="MARCXML record could not be converted to RERO ILS format")
 
-    # Mark imported records as drafts to prevent immediate publication
-    # and ensure they go through the validation workflow
+    # Drafts skip validation and are excluded from searches
     json_record["_draft"] = True
 
     return json_record

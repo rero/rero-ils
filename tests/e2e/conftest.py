@@ -6,8 +6,7 @@
 Run with:
     uv run pytest tests/e2e -m e2e --base-url https://localhost:5000
 
-Requires a running RERO ILS instance loaded with the standard small
-fixture data set (``uv run invenio reroils setup -s``).
+Requires a running RERO ILS instance loaded with ``uv run poe setup_e2e``.
 """
 
 import contextlib
@@ -105,11 +104,7 @@ def browser_context_args(browser_context_args):
 
 @pytest.fixture()
 def context(context):
-    """Raise the default Playwright timeout to 60 s for all operations.
-
-    pytest-playwright's default is 30 s which is too short for Angular on CI.
-    The correct way to set a global timeout is via context.set_default_timeout().
-    """
+    """Raise the default Playwright timeout: pytest-playwright's 30 s is too short for Angular on CI."""
     context.set_default_timeout(_DEFAULT_TIMEOUT_MS)
     yield context
 
@@ -123,8 +118,7 @@ def browser(browser_type, browser_type_launch_args):
     chain contains 'browser' (including the page→browser_context→browser chain
     used by pytest-playwright). By shadowing the fixture here we ensure the
     resolved browser is a Playwright Browser, so both the page fixture and our
-    custom per-test fixtures work correctly. The [Chrome] parametrisation label
-    from pytest-invenio is harmless.
+    custom per-test fixtures work correctly.
     """
     pw_browser = browser_type.launch(**browser_type_launch_args)
     yield pw_browser

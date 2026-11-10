@@ -135,21 +135,10 @@ def do_item_jsonify_action(func):
     This method for the circulation actions that required access to the item
     object before executing the invenio-circulation logic.
 
-    Important: When remove_temporary_item_type_on_scan is enabled on an item type,
-    the temporary_item_type is removed BEFORE the circulation action for functions
-    decorated with @should_remove_on_scan. This means:
-    - The circulation policy will use the main item type (not temporary)
-    - The temporary_item_type will be removed even if the action fails
-    - The removal info is returned in JSON responses for:
-      * Success responses
-      * NoCirculationAction errors
-      * NoCirculationActionIsPermitted errors
-      * CirculationException errors
-      * MissingRequiredParameterError errors
-      * Generic Exception errors (catch-all)
-    - The removal info is NOT returned for:
-      * NotFound errors (item not found before removal is attempted)
-      * RequestError errors (search index errors before removal is attempted)
+    When the temporary item type of the item has `remove_temporary_item_type_on_scan`
+    enabled, it is removed before the actions decorated with @should_remove_on_scan,
+    so that the circulation policy uses the main item type. It stays removed even if
+    the action fails, and the JSON response reports the removal.
     """
 
     def _add_removed_item_type_info(error_response, removed_temp_item_type_name):
@@ -219,7 +208,6 @@ def do_item_jsonify_action(func):
         except MissingRequiredParameterError as error:
             _reindex_item_if_needed(item, removed_temp_item_type_name)
             # Return error 400 when there is a missing required parameter
-            # Return JSON response to allow including additional information like removed_temporary_item_type
             error_response = _add_removed_item_type_info(
                 {"status": 400, "message": str(error)}, removed_temp_item_type_name
             )
@@ -227,8 +215,6 @@ def do_item_jsonify_action(func):
         except CirculationException as error:
             _reindex_item_if_needed(item, removed_temp_item_type_name)
             # Circulation exceptions (e.g., patron blocked, checkout limit reached)
-            # Return JSON response with status code and message to allow including
-            # additional information like removed_temporary_item_type
             error_response = _add_removed_item_type_info(
                 {"status": 403, "message": error.description or str(error)}, removed_temp_item_type_name
             )

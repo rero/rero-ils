@@ -241,8 +241,7 @@ class Library(IlsRecord):
 
         :param date_only: When True the time component of *date* is ignored;
             the check covers the whole calendar day in the library's local
-            timezone.  The midnight-sentinel fallback (h==m==s==0) is kept for
-            callers that have not yet been updated.
+            timezone. A *date* at midnight (h==m==s==0) is handled the same way.
         :type date_only: bool
         """
         date = date or datetime.now(UTC)
@@ -254,11 +253,8 @@ class Library(IlsRecord):
             date = date_string_to_utc(date)
         if isinstance(date, datetime) and date.tzinfo is None:
             date = date.replace(tzinfo=UTC)
-        # Prefer the explicit date_only flag; fall back to the midnight sentinel
-        # (h==m==s==0) for callers that have not been updated yet.  When true,
-        # the time component is reset to midnight *after* converting to the
-        # library's local timezone so that _is_betweentimes() performs a
-        # whole-day open check using the correct calendar day.
+        # A date at midnight is also checked as a whole day. The time is reset *after* the conversion to the library's
+        # timezone so that _is_betweentimes() checks the right calendar day.
         date_only_query = date_only or date.hour == date.minute == date.second == 0
         # Always evaluate in library local time so day names and opening hours
         # are compared in the correct timezone regardless of what tz the caller

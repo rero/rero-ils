@@ -153,12 +153,6 @@ UNSUPPORTED_RELATION_MODIFIERS = {
 #: Maps standard Dublin Core elements and CQL indexes to search index
 #: query expressions. Complex mappings may include boolean operators
 #: and field constraints (e.g., filtering by contribution role).
-#:
-#: Standard DC elements: title, creator, contributor, date, description,
-#: language, publisher, type, identifier, relation, coverage, format,
-#: rights, source, subject.
-#:
-#: Custom extensions: organisation, library, location, subtype.
 SEARCH_INDEX_MAPPINGS = {
     "cql.anywhere": SERVER_CHOICE_INDEX,
     "dc.anywhere": SERVER_CHOICE_INDEX,
@@ -310,7 +304,6 @@ class Diagnostic(Exception):
         - 32: Only anchoring characters in term
         - 37: Unsupported boolean operator (PROX)
         - 45: Duplicate prefix declaration
-        - 80: Sort not supported (deprecated - now supported)
 
     Attributes:
         code: Numeric diagnostic code from the SRU diagnostic list.

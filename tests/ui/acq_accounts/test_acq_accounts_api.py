@@ -29,7 +29,6 @@ def test_get_exceedance(acq_account_fiction_martigny):
     assert acac.get_exceedance(AcqAccountExceedanceType.ENCUMBRANCE) == 225.0
 
     # Float precision: 7% of 1000.10 = 70.007 → rounds to 70.01
-    # Without round(,2) this would return 70.007 or drift further
     acac["allocated_amount"] = 1000.10
     acac["encumbrance_exceedance"] = 7
     assert acac.get_exceedance(AcqAccountExceedanceType.ENCUMBRANCE) == 70.01
