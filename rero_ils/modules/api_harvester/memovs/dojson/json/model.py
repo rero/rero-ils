@@ -401,8 +401,6 @@ class Transformation:
         record was created, not when the resource was produced. Without a
         resource date the unknown date stub is set, as provisionActivity is
         required by the schema.
-        The agent statement reflects bf:provisionActivity.bf:agent only when
-        the source actually exports one — no institution name is fabricated.
         """
         bf_provision = self.data.get("bf:provisionActivity", {})
 

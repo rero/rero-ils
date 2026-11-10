@@ -92,10 +92,7 @@ def test_multiple_requests_with_transit(librarian_page, base_url, _test_data):
     api_wait_for_item_status(librarian_page, base_url, BARCODE, "on_loan")
 
     # EXTEND_3.1 — Nyota extends loan (no pending requests).
-    # Note: RERO ILS prevents extension when first_open(now+renewal_days) ≤ end_date,
-    # i.e. when the loan was just created and renewal would not push the due date forward.
-    # The circ policy DOES allow renewals; timing prevents it in automated tests.
-    # In production a patron would extend close to the due date.
+    # Denied on a fresh loan, as renewal would not push the due date forward: only the status is checked.
     api_extend_loan(librarian_page, base_url, BARCODE, LOCATIONS["starfleet"])
     api_wait_for_item_status(librarian_page, base_url, BARCODE, "on_loan")
 

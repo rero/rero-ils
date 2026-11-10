@@ -247,22 +247,9 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
         operation = flask_request.args.get("operation", None)
         cql_query = flask_request.args.get("query", None)
 
-        # TODO: implement the SRU 'scan' operation (index term browsing).
-        # See http://www.loc.gov/standards/sru/sru-1-1.html#scan for the spec.
-        # The CQL parser (cheshire3 port) already handles the grammar; the remaining
-        # work is: (1) request validation (scanClause, responsePosition, maximumTerms),
-        # (2) ES terms-aggregation query, (3) scanResponse XML serialization.
-        #
-        # Blocker: most useful scan targets (dc.title, dc.subject, dc.creator,
-        # dc.publisher, dc.description, ...) are plain `text` fields in the document
-        # mapping with no `.raw`/`.keyword` sub-field, so ES cannot aggregate them.
-        # Fields that can be used in a terms aggregation without a mapping change:
-        #   - keyword fields: contribution.role, language.value, type.main_type,
-        #     type.subtype, contentMediaCarrier.*Type, org_pid, library_pid,
-        #     holdings.location.pid
-        #   - has .raw sub-field: identifiedBy.value (use identifiedBy.value.raw)
-        # To support the remaining fields, add `.raw` keyword sub-fields to the
-        # relevant text fields in document-v0.0.1.json and reindex documents.
+        # TODO: implement the SRU 'scan' operation (http://www.loc.gov/standards/sru/sru-1-1.html#scan). Most useful
+        # scan targets (dc.title, dc.subject, dc.creator, ...) are `text` fields of the document mapping: they need a
+        # keyword sub-field, and a reindex, before a terms aggregation can browse them.
         if operation is not None and operation not in ("searchRetrieve", "explain"):
             raise HTTPException(
                 response=_diagnostic_response(

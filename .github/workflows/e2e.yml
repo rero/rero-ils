@@ -62,8 +62,7 @@ jobs:
           exit 1
 
       # Run all browsers sequentially in a single job.
-      # Chromium runs all 9 tests (including chromium_only).
-      # Firefox and WebKit run the 5 cross-browser tests only.
+      # Firefox and WebKit skip the tests marked `chromium_only`.
       - name: Run E2E tests — Chromium (all tests)
         run: uv run poe e2e_chromium
 

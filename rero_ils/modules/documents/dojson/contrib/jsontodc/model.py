@@ -1,38 +1,9 @@
 # SPDX-FileCopyrightText: Fondation RERO+
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""RERO-ILS to Dublin Core conversion model definition.
+"""RERO ILS JSON to Dublin Core transformation rules.
 
-This module implements DoJSON transformation rules for converting RERO ILS internal JSON document format to Dublin
-Core (DC) metadata format. Dublin Core is a simple and widely-used metadata standard with 15 core elements.
-
-The transformation provides mappings from RERO ILS complex bibliographic structures to simplified Dublin Core elements:
-
-    - dc:title: Main title with responsibility statement
-    - dc:creator: Primary creators (authors, composers, photographers)
-    - dc:contributor: Other contributors
-    - dc:description: Summaries, notes, dissertation info
-    - dc:language: Language codes (ISO 639)
-    - dc:publisher: Publishers and publication dates
-    - dc:type: Document type and subtype
-    - dc:identifier: ISBN, ISSN, local identifiers
-    - dc:relation: Related works and editions
-    - dc:subject: Subject headings and keywords
-
-Key Classes:
-    DublinCoreOverdo: Specialized DoJSON Overdo for Dublin Core conversion
-
-Key Features:
-    - Language-aware entity resolution for multilingual metadata
-    - Role-based separation of creators vs contributors (using CREATOR_ROLES from serializers.base)
-    - Automatic title formatting with responsibility statements
-    - Multiple identifier format handling
-    - Entity type-aware subject processing
-
-See Also:
-    - Dublin Core Metadata Initiative: https://dublincore.org/
-    - Dublin Core Terms: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
-    - DoJSON: https://dojson.readthedocs.io/
+See https://www.dublincore.org/specifications/dublin-core/dcmi-terms/.
 """
 
 from dojson import Overdo, utils
@@ -45,63 +16,16 @@ from rero_ils.modules.entities.remote_entities.utils import get_entity_localized
 
 
 class DublinCoreOverdo(Overdo):
-    """DoJSON Overdo extension for RERO ILS to Dublin Core transformation.
+    """DoJSON Overdo converting RERO ILS documents to Dublin Core.
 
-    This class extends DoJSON's Overdo to convert RERO ILS bibliographic records
-    to Dublin Core format. It implements simplified mapping rules that reduce
-    complex RERO ILS structures to the 15 core Dublin Core elements.
-
-    The transformation process:
-
-    1. Sets target language for multilingual field resolution
-    2. Applies DoJSON transformation rules for each DC element
-    3. Post-processes title field with formatted text
-    4. Adds local identifier (PID) to identifiers list
-
-    Dublin Core elements generated:
-
-    - titles: Formatted main title with subtitle and responsibility
-    - creators: Primary creators based on role codes
-    - contributors: Other contributors
-    - descriptions: Summaries, notes, dissertation info
-    - languages: ISO 639 language codes
-    - publishers: Publisher names from statements
-    - dates: Publication dates (start-end)
-    - types: Translated document types
-    - identifiers: ISBNs, ISSNs, local IDs
-    - relations: Related works
-    - subjects: Subject headings
-
-    :ivar language: Target language for entity resolution and translations.
+    :ivar language: target language for entity resolution and translations.
     :vartype language: str
-
-    .. note::
-
-        Unlike MARC 21 conversion, Dublin Core output is intentionally simplified
-        and may lose some bibliographic detail present in the source record.
-
-    .. seealso::
-
-        DoJSON Overdo: https://dojson.readthedocs.io/en/latest/api.html#overdo
     """
 
     def do(self, blob, ignore_missing=True, exception_handlers=None, language="fr"):
         """Transform RERO ILS JSON document to Dublin Core format.
 
-        This method orchestrates the complete transformation from RERO ILS
-        internal format to Dublin Core. It applies transformation rules,
-        post-processes the title field, and adds the local identifier.
-
-        Transformation pipeline:
-
-        1. Sets language attribute for multilingual field resolution
-        2. Executes DoJSON transformation rules for each DC element
-        3. Formats title with subtitle and responsibility statement
-        4. Prepends local PID to identifiers list
-
-        :param blob: RERO ILS document dictionary to transform containing pid,
-            title, contribution, summary, note, dissertation, language,
-            provisionActivity, type, identifiedBy, and subjects.
+        :param blob: RERO ILS document to transform.
         :type blob: dict
         :param ignore_missing: If False, raises MissingRule when a field has
             no transformation rule. Defaults to True.
@@ -113,18 +37,10 @@ class DublinCoreOverdo(Overdo):
             translations. Affects which authorized access point is selected
             for multilingual entities. Defaults to "fr".
         :type language: str, optional
-        :returns: Dublin Core representation with titles, creators, contributors,
-            descriptions, languages, publishers, dates, types, identifiers,
-            relations, and subjects.
+        :returns: the Dublin Core record.
         :rtype: dict
         :raises MissingRule: If ignore_missing=False and a field lacks a
             transformation rule.
-
-        .. note::
-
-            - Title formatting combines mainTitle, subtitle, and responsibility
-            - Only bf:Title type titles are used for the formatted title
-            - PID is always the first identifier in the list
 
         Example::
 
@@ -179,14 +95,6 @@ def json_to_contributors(self, key, value):
     in Dublin Core. Contributors with roles in CREATOR_ROLES become dc:creator,
     while others become dc:contributor.
 
-    The function:
-
-    1. Resolves entity authorized access point (language-aware)
-    2. Falls back to generic authorized_access_point if needed
-    3. Checks if role is in CREATOR_ROLES
-    4. If creator role: returns value for dc:creator
-    5. If contributor role: appends to contributors list and returns None
-
     :param self: The Dublin Core record being built.
     :type self: dict
     :param key: Source field key ("contribution").
@@ -197,13 +105,6 @@ def json_to_contributors(self, key, value):
     :returns: Authorized access point if role is in CREATOR_ROLES, None otherwise
         (contributor added directly to self).
     :rtype: str or None
-
-    .. note::
-
-        - Contributors are written directly to self["contributors"] to avoid
-          duplication in the creators list
-        - Language-aware resolution uses get_entity_localized_value()
-        - Returns None if no authorized access point is found
 
     Example::
 
@@ -355,13 +256,6 @@ def json_to_dates(self, key, value):
         and self["dates"].
     :rtype: None
 
-    .. note::
-
-        - Only processes bf:Publication activities for dates
-        - Multiple publisher names can be extracted
-        - Date range format: "2020-2023"
-        - Single date format: "2020"
-
     Example::
 
         value = [{
@@ -435,12 +329,6 @@ def json_to_types(self, key, value):
     :returns: Translated type string. Format "Main Type / Subtype" with subtype
         or "Main Type" without.
     :rtype: str
-
-    .. note::
-
-        - Uses Flask-Babel gettext (_) for translation
-        - Translation uses the language set in dublincore.language
-        - Type codes are defined in RERO ILS document type vocabulary
 
     Example::
 
@@ -526,17 +414,6 @@ def json_to_relations(self, key, value):
     labeled relationships (with explicit label) and title-based relationships
     (with title array).
 
-    Relationship types processed:
-
-    - issuedWith: Resources issued together
-    - otherEdition: Other editions of the same work
-    - otherPhysicalFormat: Same content in different format
-    - precededBy: Previous/earlier work
-    - relatedTo: Generally related works
-    - succeededBy: Subsequent/later work
-    - supplement: Supplementary material
-    - supplementTo: Work this is a supplement to
-
     :param self: The Dublin Core record being built.
     :type self: dict
     :param key: Source field key (relationship type).
@@ -580,15 +457,6 @@ def json_to_subject(self, key, value):
     Transforms various entity types into subject heading strings for Dublin Core.
     Handles different entity types with type-specific formatting and language-aware
     resolution for authorized access points.
-
-    Entity type handling:
-
-    - PERSON: Uses language-specific authorized_access_point or preferred_name
-    - ORGANISATION: Uses language-specific authorized_access_point or preferred_name
-    - PLACE: Uses language-specific authorized_access_point or preferred_name
-    - WORK: Combines creator and title with ". - " separator
-    - TOPIC: Uses term field
-    - TEMPORAL: Uses term field
 
     :param self: The Dublin Core record being built.
     :type self: dict

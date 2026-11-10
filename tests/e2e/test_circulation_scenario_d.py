@@ -3,29 +3,9 @@
 
 """E2E tests: circulation scenario D — denied actions and unconventional workflow.
 
-Patron A = James, Patron B = Nyota
-Library A = Starfleet (item home)
-Library B = Vulcan
-
-Flow (scenarios.md):
-  CHECKIN_1.1.1  Librarian A checks in on-shelf item at home lib → no action (on_shelf)
-  ADD_REQUEST_1.1  James requests item (no pickup specified yet → Starfleet)
-  CHECKOUT_1.2.2  Nyota tries to checkout → denied (pending is for James)
-  ADD_REQUEST_1.2.2  Nyota requests item (pickup Vulcan), patron != James
-  CHECKOUT_1.2.2  Nyota tries again → denied
-  CHECKOUT_1.2.1  James checks out → ok (checkout patron = first PENDING patron)
-  EXTEND_3.2  James tries to extend → denied (pending loan exists)
-  CHECKIN_3.2.1  James returns at Vulcan → item at desk for Nyota (pickup=Vulcan=trans_lib)
-  ADD_REQUEST_2.2  James requests item again (at_desk) → ok (different patron)
-  CHECKOUT_2.2  Nyota tries to checkout for James' barcode → denied (patron != first pending)
-  CHECKOUT_2.1  Nyota checks out → ok
-  CHECKIN_3.2.2.1  Nyota returns at Vulcan; James pickup=Starfleet=item_lib → IN_TRANSIT_FOR_PICKUP
-  CHECKIN_5.2.2.1  Item arrives at Vulcan (transit) → stays in transit (no action)
-  CANCEL_REQUEST_5.1  James cancels → item goes IN_TRANSIT_FOR_PICKUP (to house)
-  CHECKIN_5.1.2  Item arrives at Vulcan again → IN_TRANSIT_FOR_PICKUP (pending Nyota)
-  CHECKIN_5.1.1  Item received at Starfleet → on shelf
-
-Note: For simplicity, denied-action assertions verify the API returns an error status.
+Follows scenario_D of doc/circulation/scenarios.md with Patron A = James, Patron B = Nyota,
+Library A = Starfleet (item home) and Library B = Vulcan. The transit checkins CHECKIN_5.2.2.1
+and CHECKIN_5.1.2 are skipped, and denied actions only assert an error status.
 """
 
 import pytest

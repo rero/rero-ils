@@ -14,7 +14,7 @@ def _open_editor(page, base_url, title):
     # Wait for the title field — this confirms formly has rendered the form
     page.locator("#title-0-mainTitle-0-value").wait_for()
     page.locator("#title-0-mainTitle-0-value").fill(title)
-    # Provision activity date — required in WebKit/CI (formly fills it in local Chromium)
+    # Provision activity date — formly does not always prefill it (e.g. on CI)
     page.locator("#provisionActivity-0-startDate").fill("2024")
 
 

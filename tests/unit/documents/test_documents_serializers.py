@@ -9,12 +9,7 @@ from rero_ils.modules.documents.serializers.json import _rewrite_nested_terms
 def test_rewrite_nested_terms():
     """Test the holdings-to-documents facet terms rewrite.
 
-    The nested aggregation counts holdings; the `record_count`
-    (reverse_nested) sub-aggregation gives the document count. The rewrite
-    must expose it as `doc_count` and drop empty buckets, preserve the order
-    returned by Elasticsearch (the query orders terms by `record_count`, so
-    the rewrite must not reorder the buckets), and drop the stale
-    holdings-based terms metadata.
+    The nested aggregation counts holdings, its `record_count` (reverse_nested) sub-aggregation counts documents.
     """
     terms = {
         "buckets": [

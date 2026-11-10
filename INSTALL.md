@@ -44,9 +44,8 @@ uv run ./scripts/bootstrap
 ### TLS certificates
 
 The development server is served over HTTPS. The bootstrap generates its
-certificate and private key in `.certs/`, which is not versioned: a pair
-committed to a public repository is a published private key, and it expires.
-An existing pair is kept; `--force-certs` replaces it.
+certificate and private key in the git-ignored `.certs/` directory. An existing
+pair is kept; `--force-certs` replaces it.
 
 If [mkcert](https://github.com/FiloSottile/mkcert) is installed, the pair is
 signed by a local certificate authority and browsers accept it without warning.

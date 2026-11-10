@@ -248,13 +248,8 @@ class REROILSAPP:
             db.session.rollback()
             return RecordConflictRESTError().get_response()
 
-        # Acquisition item responses can't be safely browser-cached: their ETag/Last-Modified track only the record's
-        # own `revision_id`/`updated`, but the response also depends on *related* records. Serialized fields computed
-        # at dump time (an order's `account_statement`/`status`, a receipt's totals, an account's balances) go stale
-        # without the ETag changing, so a conditional GET returns 304 with an outdated body (e.g. a provisional total
-        # stuck at 0, greying out the "Place order" button). The stale ETag also breaks editing: the editor reuses it
-        # as the `If-Match` precondition on save, so a line loaded from cache fails to save once its revision moved.
-        # Send `Cache-Control: no-store` so the browser always refetches a fresh body and ETag.
+        # Acquisition item responses also depend on related records (totals, statuses, balances) that don't change
+        # their ETag, so a cached copy would serve a stale body and a stale `If-Match` to the editor: never store them.
         @app.after_request
         def prevent_stale_computed_record_cache(response):
             """Disable browser caching for acquisition records with related data."""

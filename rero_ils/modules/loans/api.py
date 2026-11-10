@@ -878,9 +878,9 @@ class Loan(IlsRecord):
     def get_anonymized_candidates(cls):
         """Search for loans to anonymize.
 
-        Returns all concluded loans older than the configured time limit
-        (default: 12 months) that have not yet been anonymized, regardless of
-        patron history preferences.
+        Returns all concluded loans older than `RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT`
+        days that have not yet been anonymized, regardless of patron history
+        preferences.
 
         :return: a generator of `Loan` candidates to anonymize.
         """
@@ -920,8 +920,8 @@ class Loan(IlsRecord):
     def can_anonymize(cls, loan_data=None):
         """Check if a loan can be anonymized.
 
-        A loan can be anonymized when it is concluded and older than the
-        configured time limit (default: 12 months). The patron's keep_history
+        A loan can be anonymized when it is concluded and older than
+        `RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT` days. The patron's keep_history
         preference does not affect when a loan gets anonymized; it only
         controls visibility in the patron profile.
 

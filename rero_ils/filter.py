@@ -32,8 +32,7 @@ def get_record_by_ref(ref, type="search_record"):
 def angular_assets(package, _type="js"):
     """Generate HTML tags from an Angular application's generated index.html.
 
-    Reads the build-tool generated index.html as the single source of truth,
-    avoiding any coupling to Angular's internal output format or file naming.
+    Parses the index.html written by the Angular build, which references the hashed asset file names.
 
     :param package: The Angular package path relative to node_modules.
     :param _type: one of 'js', 'css', 'modulepreload'.

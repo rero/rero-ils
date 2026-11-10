@@ -1,15 +1,9 @@
-# Continuous localization buffer (the CI owns the template, Weblate
-# owns the translations). Keeps the `translations` branch equal to `staging` plus
-# the not-yet-released translations: it merges (never rebases) `staging` into the
-# buffer, regenerates the gettext template (messages.pot) from the code, and
-# pushes back to `translations` only when the set of source messages changes. It
-# never writes the .po files -- Weblate is their sole editor, via the "Update PO
-# files to match POT (msgmerge)" add-on. The two actors therefore touch disjoint
-# files (CI: messages.pot, Weblate: */LC_MESSAGES/*.po), so a CI<->Weblate
-# conflict is impossible by construction. The buffer is squash-merged into
-# `staging` once per release.
-#
-# Invariants: no rebase, no force-push, no branch lock.
+# Keeps the `translations` branch equal to `staging` plus the not-yet-released
+# translations. The CI regenerates messages.pot, pushing only when the source
+# messages change, and Weblate alone edits the .po files (via its "Update PO
+# files to match POT (msgmerge)" add-on), so the two never touch the same file.
+# `staging` is merged in, not rebased, so the branch Weblate tracks is never
+# rewritten. It is squash-merged into `staging` once per release.
 
 name: Extract translations
 

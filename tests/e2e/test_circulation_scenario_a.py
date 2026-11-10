@@ -81,7 +81,6 @@ def test_standard_loan(librarian_page, base_url, _test_data):
     assert "checked out" in librarian_page.locator("[name='action-done']").inner_text()
 
     # CHECKIN_3.1.1 — James returns at Starfleet (item_lib = trans_lib, no pending) → on shelf
-    # Use the REST API directly rather than the Angular UI: the API call is simpler and not
-    # sensitive to Angular bootstrap timing. All other scenarios (B-E) use api_checkin throughout.
+    # Through the REST API: not sensitive to Angular bootstrap timing.
     api_checkin(librarian_page, base_url, BARCODE, LOCATIONS["starfleet"])
     api_wait_for_item_status(librarian_page, base_url, BARCODE, "on_shelf")

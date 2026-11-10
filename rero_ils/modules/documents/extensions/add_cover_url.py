@@ -18,9 +18,8 @@ class AddCoverUrlExtension(RecordExtension):
     runs them one at a time with a configurable delay, avoiding race conditions
     and external-service overload.
 
-    Note: bulk-load paths (``fixture create`` without ``--dbcommit``, CSV
-    import) do not fire extension hooks and are covered by the explicit
-    ``add-cover-urls`` CLI command run at the end of setup.
+    Note: bulk-load paths that do not fire extension hooks are covered by the
+    ``add-cover-urls`` CLI command.
     """
 
     def __init__(self, cached=True):

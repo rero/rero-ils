@@ -63,10 +63,6 @@ def get_default_loan_duration(loan, initial_loan):
     # We finally make the difference between next library open date and now.
     # We apply a correction for hour/minute to be 23:59 (end of day).
 
-    # NOTE : Previously this function checks than the cipo allows checkout.
-    #        This check is now done previously by `CircPolicies.allow_checkout`
-    #        method. This was not the place for this ; this function should
-    #        only return the loan duration.
     policy = get_circ_policy(loan)
     due_date_eve = now_in_library_timezone + timedelta(days=policy.get("checkout_duration", 0)) - timedelta(days=1)
     try:
@@ -117,10 +113,6 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
     # We finally make the difference between next library open date and now.
     # We apply a correction for hour/minute to be 23:59 (end of day).
 
-    # NOTE : Previously this function checks than the cipo allows checkout.
-    #        This check is now done previously by `CircPolicies.allow_checkout`
-    #        method. This was not the place for this ; this function should
-    #        only return the loan duration.
     due_date_eve = trans_date_tz + timedelta(days=policy.get("renewal_duration")) - timedelta(days=1)
     try:
         next_open_date = library.next_open(date=due_date_eve)

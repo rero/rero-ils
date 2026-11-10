@@ -16,9 +16,8 @@ class MainFileList(FileList):
         record_id = self._record.get("id")
         for entry in self._results:
             if (metadata := entry.metadata) is None:
-                # Every file is expected to carry a metadata entry, an empty one for an uploaded file and a typed
-                # one for the thumbnails and the full texts. Missing it altogether is not a shape this code
-                # produces, so the file is reported and left out rather than guessed about.
+                # Every file carries a metadata entry (empty for an upload, typed for thumbnails and full texts):
+                # report one without and leave it out.
                 current_app.logger.error("File without metadata, record: %s file: %s", record_id, entry.key)
                 continue
             # keep only the main files

@@ -569,11 +569,7 @@ def test_timezone_due_date(
     # Login to perform action
     login_user_via_session(client, librarian_martigny.user)
 
-    # Freeze time around the checkout and the subsequent assertion so both see
-    # the same instant. Without this, datetime.now() inside the loan creation
-    # and datetime.now() in the assertion could straddle midnight (CET = UTC+1)
-    # and produce different library-local calendar days, causing a spurious
-    # failure when tests run after 23:00 UTC.
+    # Freeze time so the checkout and the assertion fall on the same library-local day, even around midnight.
     frozen_now = datetime.now(UTC)
     with freeze_time(frozen_now):
         # Checkout the item

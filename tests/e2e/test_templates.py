@@ -1,12 +1,7 @@
 # SPDX-FileCopyrightText: Fondation RERO+
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""E2E tests: document templates.
-
-The professional interface uses PrimeNG components:
-- Save-as-template opens a PrimeNG DynamicDialog (not Bootstrap modal).
-- Load-template dropdown is a PrimeNG Dropdown, not a native <select>.
-"""
+"""E2E tests: document templates."""
 
 import time
 
@@ -39,7 +34,6 @@ def test_create_and_use_template(librarian_page, base_url):
     # The PrimeNG SplitButton has a caret button that opens the dropdown menu.
     split_btn = page.locator("#editor-save-button-split")
     split_btn.wait_for()
-    # Click the caret (second button inside the split button)
     split_btn.locator("button.p-splitbutton-dropdown").click(force=True)
     page.get_by_text("Save as template").wait_for(state="visible")
     page.get_by_text("Save as template").click()

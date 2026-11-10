@@ -37,13 +37,8 @@ class DocumentMARCXMLSerializer(JSONSerializer):
         - Multi-language support with configurable agent label ordering
         - Filtering by organisation, library, and location
 
-    The serializer can optionally apply XSLT transformations to the output XML.
-
     Warning:
         This serializer loads complete records and entity data into memory.
-        It is not suitable for serializing large numbers of records (>1000)
-        due to high memory consumption. For bulk exports, consider streaming
-        approaches or batch processing.
 
     Attributes:
         dumps_kwargs (dict): Additional arguments for XML serialization.
@@ -58,15 +53,9 @@ class DocumentMARCXMLSerializer(JSONSerializer):
         """Initialize the MARCXML serializer.
 
         Args:
-            xslt_filename (str, optional): Path to an XSLT stylesheet file for
-                post-processing the MARCXML output. If provided, the XSLT will be
-                applied to transform the generated MARC 21 XML. Defaults to None.
+            xslt_filename (str, optional): Ignored; XSLT post-processing is not implemented.
             schema_class (class, optional): Schema class for validating serialized
                 output. Currently not actively used. Defaults to None.
-
-        Note:
-            The xslt_filename parameter is currently disabled in the code but
-            can be enabled for custom transformations (e.g., MARC21slim2MODS).
         """
         # xslt_filename = resource_filename(
         #     'rero_ils', 'xslts/MARC21slim2MODS3-6.xsl')
@@ -173,9 +162,6 @@ class DocumentMARCXMLSerializer(JSONSerializer):
             4. Applying language-specific source ordering for agent labels
             5. Transforming each record to MARC 21 format
 
-        This approach significantly improves performance compared to fetching
-        entities individually for each record.
-
         Args:
             hits (list): List of search index search hits, each containing
                 a '_source' field with document data.
@@ -207,8 +193,7 @@ class DocumentMARCXMLSerializer(JSONSerializer):
             for contribution in hit["_source"].get("contribution", []):
                 if contribution_pid := contribution.get("entity", {}).get("pid"):
                     contribution_pids.append(contribution_pid)
-        # Batch-fetch all unique entities from search index and cache them
-        # in a dictionary for O(1) lookup during record processing.
+        # fetch every distinct entity once, indexed by pid
         search = RemoteEntitiesSearch().filter("terms", pid=list(set(contribution_pids)))
         search_contributions = {}
         for hit in search.scan():
@@ -300,8 +285,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             </zs:searchRetrieveResponse>
 
     Warning:
-        Like its parent class, this serializer is memory-intensive and not
-        suitable for large result sets (>1000 records).
+        Like its parent class, this serializer loads complete records into memory.
 
     Attributes:
         MARC21_ZS (str): SRU/ZS namespace URI.
@@ -332,8 +316,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                 - maximum_records (int): Number of records requested
                 - cql_query (str): Original CQL query string
                 - search_query (str): search index query translation
-            xslt_filename (str, optional): Path to XSLT stylesheet for transformation.
-                Currently disabled but can be used for output formatting. Defaults to None.
+            xslt_filename (str, optional): Ignored, kept for API compatibility.
             prefix (str, optional): XML namespace prefix for MARC fields.
                 If None, no prefix is used. Defaults to None.
 

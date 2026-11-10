@@ -4,8 +4,6 @@
 """E2E tests: collections.
 
 The collection editor uses formly fields in the Angular professional interface.
-Confirmed IDs from the compiled Angular bundle: #search-add-button, #end_date,
-#detail-edit-button, #detail-delete-button.
 The delete confirmation uses a PrimeNG dialog.
 """
 
