@@ -7,7 +7,7 @@ from rero_ils.modules.babel_extractors import extract_json
 
 
 def test_babel_extractors_extract_json(babel_filehandle):
-    """Test extract json."""
+    """Test extract json: array values keep the document order (stable POT file)."""
     translations = extract_json(
         fileobj=babel_filehandle,
         keywords=None,
@@ -20,4 +20,7 @@ def test_babel_extractors_extract_json(babel_filehandle):
         (20, "gettext", "Organisation ID", []),
         (24, "gettext", "Name", []),
         (1, "gettext", "day(s)", ["Line unknown"]),
+        (1, "gettext", "week(s)", ["Line unknown"]),
+        (1, "gettext", "month(s)", ["Line unknown"]),
+        (1, "gettext", "year(s)", ["Line unknown"]),
     ]
