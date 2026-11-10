@@ -191,10 +191,7 @@ def test_rollover_misc_functions(client, acq_full_structure_a, org_martigny):
 def test_rollover_float_precision(client, lib_martigny, vendor_martigny, document, org_martigny):
     """Test rollover succeeds when order line amount*quantity drifts in float arithmetic.
 
-    In Python, 1.1 * 3 = 3.3000000000000003. Without round(,2) in _build_total_amount
-    and _check_balance, the new order line's total_amount (3.3000000000000003) would
-    exceed the account's allocated_amount (3.3), raising ValidationError and aborting
-    the rollover.
+    1.1 * 3 gives 3.3000000000000003, which must not push the order line total above an allocated amount of 3.3.
     """
     org_ref = get_ref_for_pid("org", org_martigny.pid)
     lib_ref = get_ref_for_pid("lib", lib_martigny.pid)
@@ -255,8 +252,6 @@ def test_rollover_float_precision(client, lib_martigny, vendor_martigny, documen
         },
     )
 
-    # Without round(,2): 1.1*3 = 3.3000000000000003 > 3.3 → ValidationError
-    # With round(,2):    1.1*3 rounds to 3.3 <= 3.3    → success
     rollover_process = AcqRollover(
         budget, dest_budget, logging_config=logging_config, is_interactive=False, propagate_errors=True
     )

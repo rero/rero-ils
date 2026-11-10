@@ -251,12 +251,7 @@ class ReplaceIdentifiedBy:
                     "pid": mef_data["pid"],
                 }
                 changed = True
-                # the identifier alone is enough to link the entity; on
-                # `contribution` a type mismatch (within the allowed types) is
-                # still flagged for review. Kept separate from `rero_only`,
-                # which also gates retries: this entity was successfully
-                # replaced, so it must not block a later document sharing the
-                # same identifier.
+                # linked on the identifier alone; a contribution type mismatch is still reported for review
                 if self.field == "contribution" and mef_entity_type != doc_entity_type:
                     info = f'{doc_entity_type} != {mef_entity_type} : "{source_authorized_access_point}"'
                     self.type_mismatch.setdefault(doc_entity_type, {})[identifier] = info
@@ -366,15 +361,7 @@ class ReplaceIdentifiedBy:
         return data or {}
 
     def set_timestamp(self):
-        """Record per-field outcome counts in the timestamp store.
-
-        Each outcome is reported under its own key so none is absorbed into
-        another:
-        * not found: the identifier was not found on any allowed MEF family.
-        * rero only: found, but the MEF record exposes only a `rero` source.
-        * type mismatch: linked, but the MEF type differs (contribution only).
-        * type not allowed: the MEF type cannot appear in this field (refused).
-        """
+        """Record per-field outcome counts in the timestamp store (outcomes listed in the class docstring)."""
         data = self.get_timestamp()
         data[self.field] = {
             "changed": self.changed,

@@ -192,7 +192,7 @@ def test_patron_transaction_owning_library(
     lib_martigny,
     lib_saxon,
 ):
-    """Test the item owning library is exposed instead of the transaction library."""
+    """Test `library` is the item owning library and `transaction_library` the loan transaction library."""
     transaction = patron_transaction_overdue_saxon
 
     assert transaction.loan.library_pid == lib_martigny.pid

@@ -3,27 +3,9 @@
 
 """E2E tests: circulation scenario E — complex multi-patron workflow with cancellations.
 
-User A = James (barcode e2e-test-1), User B = Nyota (barcode e2e-test-2)
-Library A = Starfleet (item home), Library B = Vulcan
-
-Flow (scenarios.md):
-  ADD_REQUEST_1.1    User B (Nyota) requests, pickup at Vulcan              → PENDING
-  CHECKIN_1.2.2      Librarian A checks in item (pending pickup=Vulcan≠home) → IN_TRANSIT_FOR_PICKUP
-  CHECKIN_4.2        Librarian C checks item in (transit, pickup≠trans_lib)  → stays in transit
-  ADD_REQUEST_4.1    User B tries to request again                           → denied (already requested)
-  ADD_REQUEST_4.2    User A requests, pickup at Starfleet                    → PENDING
-  CHECKOUT_4.2       Librarian B tries checkout for User A                   → denied (first pending=Nyota)
-  CHECKOUT_4.1       User B (Nyota) requests checkout at Vulcan              → ok (patron=first pending)
-  ADD_REQUEST_3.2.2.1  User A tries to request again                         → denied (already has pending)
-  ADD_REQUEST_3.2.2.2  User C (third patron) tries to request                → ok (different patron)
-       [simplified: skipped — only 2 test patrons available]
-  CHECKOUT_3.2       User B returns item; User A pickup=Starfleet=item_lib   → IN_TRANSIT_FOR_PICKUP
-       [simplified as: Nyota returns; James's pickup=Starfleet=item_lib]
-  CHANGE_PICKUP_LOCATION_4  User A changes pickup to Vulcan
-  CANCEL_REQUEST_4.1.2  User A cancels → item goes IN_TRANSIT_FOR_PICKUP (next pending)
-       [simplified: no next pending → item goes IN_TRANSIT_TO_HOUSE]
-  CHECKOUT_5.1       User B finds item at Vulcan and borrows it              → ITEM_ON_LOAN
-  CHECKIN_3.1.1      User B returns at Starfleet (item home = trans lib)     → on shelf
+Follows scenario_E of doc/circulation/scenarios.md with User A = James, User B = Nyota,
+Library A = Starfleet (item home) and Library B = Vulcan. Without a third patron, the steps
+of user C are skipped and James's cancellation sends the item home.
 """
 
 import pytest
@@ -106,7 +88,7 @@ def _update_pickup_location(page, base_url, item_barcode, new_pickup_location_pi
     hits = loans_resp.json().get("hits", {}).get("hits", [])
     assert hits, f"No active loan found for item {item_barcode!r} — cannot update pickup location"
     loan_pid = hits[0]["metadata"]["pid"]
-    # The endpoint uses do_loan_jsonify_action which requires JSON and 'pid' (not 'loan_pid')
+    # do_loan_jsonify_action reads the loan "pid" from a JSON body
     resp = page.request.post(
         f"{base_url}/api/item/update_loan_pickup_location",
         data={"pid": loan_pid, "pickup_location_pid": str(new_pickup_location_pid)},

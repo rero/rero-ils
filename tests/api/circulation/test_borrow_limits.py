@@ -464,9 +464,7 @@ def test_unpaid_subscription(
 
     login_user_via_session(client, librarian_martigny.user)
 
-    # Enable the unpaid_subscription limit on the patron_type. Direct
-    # assignment is used because the fixture data already contains
-    # ``unpaid_subscription: false`` and ``setdefault`` would not overwrite.
+    # Enable the unpaid_subscription limit on the patron_type.
     patron_type["limits"] = {"unpaid_subscription": True}
     patron_type["subscription_amount"] = 10
     patron_type.update(patron_type, dbcommit=True, reindex=True)
@@ -543,7 +541,5 @@ def test_unpaid_subscription(
         )
         assert res.status_code == 200
     finally:
-        # Reset the patron_type to its original state even if an assertion
-        # fails above; the fixture is module-scoped and shared with other
-        # tests.
+        # The fixture is module-scoped: restore the patron_type for the other tests.
         patron_type.update(patron_type_children_martigny_data, dbcommit=True, reindex=True)

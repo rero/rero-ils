@@ -90,19 +90,11 @@ class ApiMemovs(ApiHarvest):
         return f"{self._url}?{params}"
 
     def _build_caches(self):
-        """Pre-build in-memory caches to eliminate per-record ES queries.
+        """Pre-build in-memory caches so that records are processed without per-record ES queries.
 
-        Builds three dicts from single ES scans:
-
-        * ``_existing_docs``: ``harvested_id -> doc_pid`` — replaces the
-          per-record ``DocumentsSearch`` existence check in
-          ``create_update_record``.
-        * ``_items_cache``: ``doc_pid -> {call_number -> item_pid}`` —
-          replaces the per-document ``ItemsSearch`` in ``sync_items`` and
-          ``delete_items``.
-        * ``_lofis_cache``: ``doc_pid -> lofi_pid`` — replaces the
-          per-record ``LocalFieldsSearch`` existence check in
-          ``sync_local_field``; also caches the derived ``_cached_org_pid``.
+        * ``_existing_docs``: ``harvested_id -> doc_pid``, used by ``create_update_record``.
+        * ``_items_cache``: ``doc_pid -> {call_number -> item_pid}``, used by ``sync_items`` and ``delete_items``.
+        * ``_lofis_cache``: ``doc_pid -> lofi_pid``, used by ``sync_local_field``; also sets ``_cached_org_pid``.
         """
         self.verbose_print(f"{self._vendor}: building document existence cache…")
         self._existing_docs = {}
@@ -212,11 +204,9 @@ class ApiMemovs(ApiHarvest):
     def _document_differs(doc, record_data):
         """Whether the harvested data differs from the stored document.
 
-        Entity ``pid`` values (subjects/contribution/genreForm) are injected
-        into the stored document by ``AddMEFPidExtension`` and are absent from
-        the freshly transformed data, so every ``pid`` path is ignored — the
-        source-driven ``$ref`` is still compared, so a real change is never
-        masked. This is the only store-time mutation for Memovs documents.
+        Entity ``pid`` values (subjects/contribution/genreForm) are injected into the stored document by
+        ``AddMEFPidExtension`` and absent from the transformed data, so every ``pid`` path is ignored; the
+        source ``$ref`` is still compared.
 
         :param doc: the existing Document record.
         :param record_data: the freshly transformed record data (pid already set).

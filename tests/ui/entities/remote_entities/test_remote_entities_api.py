@@ -617,10 +617,9 @@ def test_replace_identified_by_type_not_allowed_gates_retry(app):
 
 
 def test_replace_identified_by_timestamp_reports_each_outcome(app):
-    """set_timestamp records each outcome under its own key, without conflation.
+    """set_timestamp records each outcome under its own key.
 
-    `rero only` must not absorb the `type mismatch` count anymore; both, plus
-    `type not allowed`, are reported distinctly.
+    `rero only`, `type mismatch` and `type not allowed` are counted separately.
     """
     _SET_TS = "rero_ils.modules.entities.remote_entities.replace.utils_set_timestamp"
     replace = ReplaceIdentifiedBy(field="contribution", verbose=True, dry_run=True, log_dir=tempfile.mkdtemp())

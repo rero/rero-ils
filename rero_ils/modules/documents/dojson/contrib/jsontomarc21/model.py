@@ -13,22 +13,6 @@ internal JSON document format to MARC 21 XML format. It provides:
     - Language-aware source ordering for authorized access points
     - Support for filtering by organisation, library, and location
 
-The transformation process:
-    1. Generates MARC leader based on document type (position 06-07)
-    2. Creates fixed-length data elements (field 008)
-    3. Maps bibliographic fields (020-9XX)
-    4. Resolves entity references for contributions and subjects
-    5. Optionally includes holdings/items data
-
-Key Classes:
-    ToMarc21Overdo: Specialized DoJSON Overdo class for MARC 21 conversion
-
-Key Functions:
-    do_contribution: Processes contribution entities with language preferences
-    do_concept: Processes subject/concept entities
-    get_holdings_items: Retrieves holdings and items for a document
-    generate_leader: Creates MARC leader based on document characteristics
-
 See Also:
     - MARC 21 Format: https://www.loc.gov/marc/bibliographic/
     - DoJSON: https://dojson.readthedocs.io/
@@ -57,30 +41,9 @@ from rero_ils.modules.utils import date_string_to_utc
 
 
 def set_value(data, old_data, key):
-    """Merge a single key from new data into old data if not already present.
+    """Copy `key` from `data` into `old_data` unless `old_data` already has a value.
 
-    This function implements a non-destructive merge strategy, preserving
-    existing values in old_data while adding missing keys from new data.
-    Used primarily during entity source resolution to combine data from
-    multiple authority sources (e.g., idref, gnd, rero).
-
-    :param data: Source dictionary containing new values to merge.
-    :type data: dict
-    :param old_data: Target dictionary to be updated.
-    :type old_data: dict
-    :param key: The key to transfer from data to old_data.
-    :type key: str
-    :returns: The updated old_data dictionary. Modified in place and returned.
-    :rtype: dict
-
-    Example::
-
-        old = {'name': 'John', 'age': 30}
-        new = {'age': 25, 'city': 'Paris'}
-        set_value(new, old, 'city')
-        # Returns: {'name': 'John', 'age': 30, 'city': 'Paris'}
-        set_value(new, old, 'age')  # Doesn't override existing
-        # Returns: {'name': 'John', 'age': 30, 'city': 'Paris'}
+    :returns: `old_data`, updated in place.
     """
     value = data.get(key)
     if not old_data.get(key) and value:
@@ -95,21 +58,6 @@ def replace_contribution_sources(contribution, source_order):
     authority control sources (e.g., idref, gnd, rero) according to language
     preferences. It implements a priority-based merge where the first source
     in source_order takes precedence.
-
-    The merge process:
-
-    1. Iterates through sources in the specified order (language-dependent)
-    2. For each source found, extracts authority control data
-    3. Creates a reference list with source and PID information
-    4. Merges entity fields (name, dates, qualifiers) using set_value
-    5. Removes raw source data and attaches resolved refs
-
-    Entity fields processed:
-
-    - Basic: type, preferred_name, numeration, qualifier
-    - Dates: date_of_birth, date_of_death
-    - Organisation: subordinate_unit
-    - Conference: conference, conference_number, conference_date, conference_place
 
     :param contribution: Contribution dictionary containing an 'entity' key
         with source-specific data (idref, gnd, rero, etc.).
@@ -162,17 +110,12 @@ def replace_concept_sources(concept, source_order):
     """Merge concept/subject entity data from multiple thesaurus sources.
 
     Similar to replace_contribution_sources but for subject/concept entities
-    from thesauri (e.g., rameau, lcsh, mesh). Merges data according to
+    from thesauri (e.g., idref, gnd). Merges data according to
     language-specific source preferences.
-
-    Concept fields processed:
-
-    - type: Entity type (Topic, Place, Temporal, etc.)
-    - authorized_access_point: Preferred subject heading term
 
     :param concept: Concept entity dictionary with source-specific data.
     :type concept: dict
-    :param source_order: Ordered list of thesaurus sources (e.g., ['rameau', 'lcsh'])
+    :param source_order: Ordered list of thesaurus sources (e.g., ['idref', 'gnd'])
         defining merge priority.
     :type source_order: list
     :returns: The concept entity with merged data and refs list containing
@@ -182,11 +125,11 @@ def replace_concept_sources(concept, source_order):
     Example::
 
         concept = {
-            'rameau': {'pid': 'sh85001', 'authorized_access_point': 'Art'},
-            'lcsh': {'pid': '123456'}
+            'idref': {'pid': '12345', 'authorized_access_point': 'Art'},
+            'gnd': {'pid': '67890'}
         }
-        replace_concept_sources(concept, ['rameau', 'lcsh'])
-        # Returns merged concept with authorized_access_point from rameau
+        replace_concept_sources(concept, ['idref', 'gnd'])
+        # Returns merged concept with authorized_access_point from idref
     """
     refs = []
     for source in source_order:
@@ -322,11 +265,11 @@ def resolve_entity(entity, source_order):
     processing functions.
 
     :param entity: Entity dictionary that may contain pid (indicates a $ref),
-        $ref (reference URL), source-specific data (idref, gnd, rameau, etc.),
+        $ref (reference URL), source-specific data (idref, gnd, rero),
         or authorized_access_point (direct access point if no $ref).
     :type entity: dict
     :param source_order: Ordered list of authority sources defining merge
-        priority (e.g., ['idref', 'gnd'] or ['rameau', 'lcsh']).
+        priority (e.g., ['idref', 'gnd']).
     :type source_order: list
     :returns: A 2-element tuple (resolved_entity, from_db) where resolved_entity
         is the merged entity dict or None if $ref cannot be resolved, and
@@ -336,11 +279,11 @@ def resolve_entity(entity, source_order):
     Example::
 
         entity = {'pid': '12345', '$ref': '...'}
-        resolved, from_db = resolve_entity(entity, ['rameau', 'lcsh'])
+        resolved, from_db = resolve_entity(entity, ['idref', 'gnd'])
         resolved['authorized_access_point']
         # => 'Art -- France'
         resolved['refs']
-        # => [{'source': 'rameau', 'pid': '12345'}]
+        # => [{'source': 'idref', 'pid': '12345'}]
     """
     if pid := entity.get("pid"):
         ref = entity.get("$ref")
@@ -372,7 +315,7 @@ def do_concept(entity, source_order):
         or authorized_access_point_{lang} (language-specific variant).
     :type entity: dict
     :param source_order: Ordered thesaurus source list for language-specific
-        resolution (e.g., ['rameau', 'lcsh', 'mesh']).
+        resolution (e.g., ['idref', 'gnd']).
     :type source_order: list
     :returns: MARC subfield dictionary with __order__ (list of subfield codes),
         a (authorized access point), and 0 (authority control numbers if refs
@@ -382,8 +325,8 @@ def do_concept(entity, source_order):
     Example::
 
         entity = {'pid': '67890', '$ref': '...'}
-        do_concept(entity, ['rameau', 'lcsh'])
-        # Returns: {'__order__': ['a', '0'], 'a': 'Architecture -- France', '0': ['(rameau)67890']}
+        do_concept(entity, ['idref', 'gnd'])
+        # Returns: {'__order__': ['a', '0'], 'a': 'Architecture -- France', '0': ['(idref)67890']}
     """
     resolved_entity, from_db = resolve_entity(entity, source_order)
     if resolved_entity is None:
@@ -463,10 +406,6 @@ def get_holdings_items(document_pid, organisation_pids=None, library_pids=None, 
 
     def get_name(resource, pid):
         """Fetch resource name by PID.
-
-        Helper function to retrieve the name field from a resource.
-        Called within get_holdings_items where names are cached in
-        dictionaries to avoid redundant database queries.
 
         :param resource: Resource API class (Organisation, Library, or Location).
         :type resource: class
@@ -614,7 +553,6 @@ def generate_leader(document):
 
     Creates a properly formatted 24-character MARC 21 leader with document-specific
     values for type of record (position 06) and bibliographic level (position 07).
-    This replaces static leader generation with intelligent type detection.
 
     Leader positions modified:
 
@@ -639,8 +577,7 @@ def generate_leader(document):
 
     .. note::
 
-        System-generated positions (00-04: record length, 12-16: base address)
-        remain as zeros and will be filled by the MARC serialization system.
+        Record length (00-04) and base address (12-16) are left as zeros.
 
     Example::
 
@@ -698,18 +635,6 @@ class ToMarc21Overdo(Underdo):
     - Physical description normalization
     - Note type segregation
     - Custom field ordering
-
-    The do() method orchestrates the complete transformation pipeline:
-
-    1. Generate dynamic leader based on document type
-    2. Create fixed-length data elements (008 field)
-    3. Add timestamp (005 field)
-    4. Normalize title with responsibility statement
-    5. Resolve contribution entities with source preferences
-    6. Process physical description and notes
-    7. Optionally fetch holdings/items
-    8. Apply field ordering
-    9. Execute DoJSON transformation rules
 
     :ivar responsibility_statement: Cache for responsibility statements.
     :vartype responsibility_statement: dict
@@ -792,7 +717,6 @@ class ToMarc21Overdo(Underdo):
 
             - The 008 field uses '|' for undefined positions and 'x' for unknown values
             - Holdings/items inclusion can significantly increase processing time
-            - Entity resolution requires network calls to authority databases
 
         Example::
 
@@ -807,8 +731,6 @@ class ToMarc21Overdo(Underdo):
             marc_record['245__']
             # => {'a': 'Title', 'b': 'Subtitle', 'c': 'Author', ...}
         """
-        # Generate dynamic MARC leader (24 chars) based on document type.
-        # Sets position 06 (type of record) and 07 (bibliographic level) intelligently.
         self.language = language
         blob["leader"] = generate_leader(blob)
 
@@ -942,9 +864,7 @@ class ToMarc21Overdo(Underdo):
         if table_of_contents := blob.get("tableOfContents"):
             blob["table_of_contents"] = table_of_contents
 
-        # Apply MARC field ordering defined in ORDER constant.
-        # This ensures fields appear in standard MARC order:
-        # leader → 001-008 → 020-245 → 264-300 → 500-655 → 700-949
+        # order the fields as listed in ORDER
         keys = {}
         for key, value in blob.items():
             count = 1
@@ -1283,7 +1203,7 @@ def reverse_summary(self, key, value):
     """
     result = {}
     if labels := value.get("label"):
-        # Concatenate all language variants, taking the first value
+        # Take the first label value
         for label in labels:
             if label_value := label.get("value"):
                 result = add_value(result, "a", label_value)

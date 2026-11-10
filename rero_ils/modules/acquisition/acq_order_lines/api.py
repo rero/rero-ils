@@ -104,7 +104,6 @@ class AcqOrderLine(AcquisitionIlsRecord):
             # so the order may already report RECEIVED by the time we get here.
             # The permission (checked once, on the prior status) is the real
             # gate; a direct cancel on an already-received order is blocked there.
-            # This overlap between validators/permissions will be addressed in a future refactor.
             if self.get("is_cancelled"):
                 valid_statuses.append(AcqOrderStatus.RECEIVED)
         if order_status not in valid_statuses:

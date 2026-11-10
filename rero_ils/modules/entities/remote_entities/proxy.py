@@ -146,8 +146,6 @@ class MEFProxyMixin:
         :returns: the remote MEF response matching the search term
         :rtype: flask.Response
         """
-        # Only relay a small allowlist of headers to the remote MEF server;
-        # cookies and other RERO-ILS-specific headers are not forwarded.
         request_headers = {key: value for key, value in request.headers if key.lower() in self.forwarded_headers}
         response = requests.request(
             method=request.method,

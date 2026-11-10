@@ -37,9 +37,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
         - Generates SRU-compliant search responses
 
     Note:
-        This serializer loads complete records into memory and is not suitable
-        for serializing large numbers of records (>1000). For bulk exports,
-        consider using streaming serialization.
+        Each search hit is reloaded from the database, so large result sets are slow.
 
     See Also:
         - Dublin Core Metadata Initiative: https://dublincore.org/
