@@ -155,11 +155,11 @@ def test_get_query_clause_with_relation_modifier():
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"spam"'
-    # /relevant is now a supported modifier (default search relevance scoring)
+    # /relevant only affects relevance scoring
     search_string = query.to_search()
     assert search_string == "(anywhere:spam)"
 
-    # Unsupported modifiers should still raise Diagnostic
+    # Unsupported modifiers raise Diagnostic
     query = parse('anywhere all/stem "spam"')
     with pytest.raises(Diagnostic) as err:
         query.to_search()
@@ -180,7 +180,7 @@ def test_get_query_clause_with_sorting(app):
     # Check Value
     assert isinstance(query.term, Term)
     assert query.term.value == '"cat"'
-    # Sort is now supported - to_search() should work
+    # sortBy does not alter the search string
     search_string = query.to_search()
     assert search_string == '"cat"'
     # Check sort keys are extracted correctly
@@ -247,7 +247,6 @@ def test_get_query_triple_with_sort(app):
     query = parse("dc.anywhere all spam and dc.anywhere all eggs sortBy subtitle")
     # Check query instance
     assert isinstance(query, Triple)
-    # Sort is now supported
     search_string = query.to_search()
     assert search_string == "((spam) AND (eggs))"
     # Check sort keys are extracted correctly
@@ -273,11 +272,10 @@ def test_get_query_with_modifiers():
     assert str(query.relation.modifiers[0].type) == "cql.relevant"
     assert not str(query.relation.modifiers[0].comparison)
     assert not str(query.relation.modifiers[0].value)
-    # /relevant is now supported - should not raise
     search_string = query.to_search()
     assert search_string == "(spam)"
 
-    # Unsupported relation modifiers should still raise
+    # Unsupported relation modifiers raise
     q_string = "dc.anywhere any/phonetic spam"
     query = parse(q_string)
     with pytest.raises(Diagnostic) as err:

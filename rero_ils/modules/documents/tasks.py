@@ -157,7 +157,6 @@ def enqueue_cover_url_update(pid, cached=True):
     paused_key = current_app.config.get("RERO_ILS_COVER_URL_PAUSED_KEY", "rero_ils:cover_url_paused")
     delay = current_app.config.get("RERO_ILS_COVER_URL_TASK_DELAY", 10)
     r.sadd(queue_key, pid)
-    # NX: only set if the key does not exist — i.e. no worker is running yet.
     if not r.exists(paused_key) and r.set(worker_key, 1, nx=True, ex=3600):
         process_cover_url_queue.apply_async(kwargs={"cached": cached}, countdown=delay)
 
@@ -188,7 +187,7 @@ def process_cover_url_queue(cached=True):
         if document and AddCoverUrlExtension(cached=cached).add_cover_url(document):
             current_app.logger.debug(f"Adding cover URL for {pid} from queue: {document.cover}")
             try:
-                # pre_commit / post_commit are no-ops: cover already in record.
+                # the extension's post_commit skips documents that already have a cover
                 document.update(data=document, commit=True, dbcommit=True, reindex=True)
             except Exception:
                 current_app.logger.exception(f"Failed to update cover URL for document {pid}")
@@ -232,8 +231,6 @@ def add_cover_urls(commit=False, verbose=False, cached=True, delay=0):
     # Process all pids
     for idx, pid in enumerate(pids, 1):
         if document := Document.get_record_by_pid(pid):
-            # Always runs sync regardless of async config; mutates record in-place,
-            # returns True only if a locator was newly added.
             if extension.add_cover_url(document):
                 url, provider = document.cover
                 provider_counts.setdefault(provider, 0)
@@ -242,7 +239,7 @@ def add_cover_urls(commit=False, verbose=False, cached=True, delay=0):
                     click.echo(f"{idx:<10} document: {document.pid:<10} {provider or '':<15} {url}")
                 if commit:
                     try:
-                        # pre_commit is a no-op here: _has_cover() is already True
+                        # the extension's post_commit skips documents that already have a cover
                         document.update(data=document, commit=True, dbcommit=True, reindex=True)
                     except Exception:
                         current_app.logger.exception(f"Failed to update cover URL for document {pid}")

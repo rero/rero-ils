@@ -10,8 +10,7 @@ needs its own. This one pairs the MARC21 conversion of
 `converter_marc21xml_rero` with a working `dedup`: that converter inherits
 `dedup` abstract and never implements it, and the fixture calls it.
 
-It stays in scripts/ rather than under rero_ils/ because only rero_ils/ goes
-into the wheel, and fixture code has no business being shipped.
+It lives in scripts/ to stay out of the wheel, which only ships rero_ils/.
 """
 
 from dojson.contrib.marc21.utils import create_record

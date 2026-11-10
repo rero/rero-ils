@@ -66,9 +66,8 @@ class FilePermissionPolicy(RecordPermissionPolicy):
         AllowedByActionRestrictByManageableLibrary(update_action, get_library_pid),
         SystemProcess(),
     ]
-    # Runs from the `extract_file_metadata` task once a file is committed, under the system identity. It carries
-    # its own action since invenio-records-resources 11.0.3, up to 11.0.2 it was checked against `create_files`.
-    # Without it the task is denied and the metadata entry of the file is never written.
+    # Checked by the `extract_file_metadata` task, run under the system identity once a file is committed: without it
+    # the metadata entry of the file is never written.
     can_extract_file_metadata = [AllowedByAction(create_action), SystemProcess()]
     can_delete_files = [
         AllowedByActionRestrictByManageableLibrary(delete_action, get_library_pid),

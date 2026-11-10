@@ -1,16 +1,15 @@
 # SPDX-FileCopyrightText: Fondation RERO+
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""Tests for concurrent record update protection via ETag / If-Match.
+"""Tests for concurrent record update protection via ETag / If-Match (#3652).
 
 Two behaviours are covered here:
 
-* the 409 conflict response built by the error handler registered in ext.py, the
-  only part of this protection still implemented in rero-ils;
+* the 409 conflict response built by the error handler registered in ext.py;
 * the weak ETag check of invenio-records-rest. Testing a dependency is normally
-  out of scope, but a regression there fails silently: If-Match would be ignored
-  and concurrent edits would overwrite each other without any error, which is the
-  production bug (nginx gzip weakens ETags) this protection was built for.
+  out of scope, but a regression there fails silently: behind nginx, which weakens
+  ETags when gzipping, If-Match would be ignored and concurrent edits would
+  overwrite each other without any error.
 """
 
 import json

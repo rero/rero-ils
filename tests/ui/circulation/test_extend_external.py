@@ -124,7 +124,6 @@ def test_extend_on_item_on_loan_with_no_requests_external_library(
     cipo = get_circ_policy(loan)
     item, actions = item.extend_loan(**params)
     loan = Loan.get_record_by_pid(initial_loan.pid)
-    # now the extend action does not take into account anymore the transaction
-    # library so it continues to use the "short" policy for the extend action.
+    # The extend action ignores the transaction library, so it keeps the "short" policy.
     assert get_circ_policy(loan, checkout_location=True).get("pid") == cipo.get("pid")
     assert get_circ_policy(loan).get("pid") != cipo.get("pid")

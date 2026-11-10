@@ -3,18 +3,7 @@
 
 """In-memory thumbnail provider for the test suite.
 
-``TestThumbnailProvider`` must be registered via the ``test_provider`` pytest
-fixture (defined in ``tests/conftest.py``), which also sets
-``RERO_INVENIO_THUMBNAILS_PROVIDERS = ["test"]`` in the app config.
-Tests populate ``TestThumbnailProvider.covers`` to control which ISBNs get
-a URL.
-
-Example::
-
-    # In a test or fixture:
-    TestThumbnailProvider.covers["9781234567890"] = "https://test.example.com/cover.jpg"
-
-    # All other ISBNs return (None, "test") — no cover added.
+Registered by the ``test_provider`` fixture; tests set ISBN cover URLs through the ``thumbnail_covers`` fixture.
 """
 
 from rero_invenio_thumbnails.contrib.api import BaseProvider
@@ -23,9 +12,7 @@ from rero_invenio_thumbnails.contrib.api import BaseProvider
 class TestThumbnailProvider(BaseProvider):
     """Deterministic in-memory thumbnail provider for the test suite.
 
-    Uses a class-level ``covers`` dict so that all instances created by
-    ``get_thumbnail_url`` share the same mapping without requiring injection
-    into individual instances.
+    ``covers`` is a class attribute, as the providers are instantiated by ``get_thumbnail_url``.
     """
 
     name = "test"

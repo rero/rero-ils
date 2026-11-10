@@ -14,7 +14,7 @@ import xmltodict
 BASE_URL = "https://127.0.0.1:5000/api/sru/documents"
 DOC_API_URL = "https://127.0.0.1:5000/api/documents"
 
-# PID of a well-known stable fixture document (https://127.0.0.1:5000/api/sru/documents?version=1.1&operation=searchRetrieve&query=dc.title=%22Les%20voyages%20de%20Gulliver%22%20AND%20dc.organisation=3&maximumRecords=3)
+# PID of the fixture document "Les voyages de Gulliver" (organisation 3)
 FIXTURE_PID = "100"
 
 

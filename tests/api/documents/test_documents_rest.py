@@ -267,10 +267,7 @@ def test_documents_newacq_filters(
     assert res.status_code == 201
 
     #   --> for loc1 or loc3, both document_sion_items and export_document
-    #       are returned, even though neither matches both locations on
-    #       its own. This would fail without combining repeated
-    #       `location` values with OR (see acquisition_filter in
-    #       rero_ils/modules/documents/query.py)
+    #       are returned, even though neither matches both locations.
     doc_list = url_for(
         "invenio_records_rest.doc_list",
         view="global",

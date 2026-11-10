@@ -13,7 +13,7 @@ from rero_ils.modules.documents.dojson.contrib.marc21tojson.loc import marc21
 @mock.patch("rero_ils.modules.documents.dojson.contrib.marc21tojson.loc.model.get_mef_link")
 def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     """Test that GND subjects always go to subjects field, not subjects_imported."""
-    # Test 1: GND subject WITHOUT MEF link should go to subjects
+    # GND subject WITHOUT MEF link should go to subjects
     marc21xml = """
     <record>
       <datafield tag="650" ind1=" " ind2="7">
@@ -35,7 +35,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("subjects_imported") is None
 
-    # Test 2: GND subject WITH MEF link should go to subjects
+    # GND subject WITH MEF link should go to subjects
     marc21xml = """
     <record>
       <datafield tag="650" ind1=" " ind2="7">
@@ -51,7 +51,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     assert data.get("subjects") == [{"entity": {"$ref": "https://test.rero.ch/api/concepts/gnd/123456789"}}]
     assert data.get("subjects_imported") is None
 
-    # Test 3: RERO subject should go to subjects_imported
+    # RERO subject should go to subjects_imported
     marc21xml = """
     <record>
       <datafield tag="650" ind1=" " ind2="7">
@@ -73,7 +73,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("subjects") is None
 
-    # Test 4: IDREF subject should go to subjects_imported
+    # IDREF subject should go to subjects_imported
     marc21xml = """
     <record>
       <datafield tag="650" ind1=" " ind2="7">
@@ -95,7 +95,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("subjects") is None
 
-    # Test 5: LCSH subject (indicator 2=0) should go to subjects_imported
+    # LCSH subject (indicator 2=0) should go to subjects_imported
     marc21xml = """
     <record>
       <datafield tag="650" ind1=" " ind2="0">
@@ -117,7 +117,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("subjects") is None
 
-    # Test 6: MeSH subject (indicator 2=2) should go to subjects_imported
+    # MeSH subject (indicator 2=2) should go to subjects_imported
     marc21xml = """
     <record>
       <datafield tag="650" ind1=" " ind2="2">
@@ -139,7 +139,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("subjects") is None
 
-    # Test 7: Mixed GND and non-GND subjects should be routed correctly
+    # Mixed GND and non-GND subjects should be routed correctly
     marc21xml = """
     <record>
       <datafield tag="650" ind1=" " ind2="7">
@@ -182,7 +182,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
         },
     ]
 
-    # Test 8: gnd-content should be treated as gnd and go to genreForm
+    # gnd-content should be treated as gnd and go to genreForm
     marc21xml = """
     <record>
       <datafield tag="655" ind1=" " ind2="7">
@@ -204,7 +204,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("genreForm_imported") is None
 
-    # Test 8b: 655 with non-GND source should go to genreForm_imported
+    # 655 with non-GND source should go to genreForm_imported
     marc21xml = """
     <record>
       <datafield tag="655" ind1=" " ind2="7">
@@ -226,7 +226,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("genreForm") is None
 
-    # Test 9: GND Person subject WITHOUT MEF link
+    # GND Person subject WITHOUT MEF link
     marc21xml = """
     <record>
       <datafield tag="600" ind1=" " ind2="7">
@@ -249,7 +249,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("subjects_imported") is None
 
-    # Test 10: GND Place subject WITH MEF link
+    # GND Place subject WITH MEF link
     marc21xml = """
     <record>
       <datafield tag="651" ind1=" " ind2="7">
@@ -265,7 +265,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     assert data.get("subjects") == [{"entity": {"$ref": "https://test.rero.ch/api/places/gnd/4005728-8"}}]
     assert data.get("subjects_imported") is None
 
-    # Test 11: RERO subject with $0 should NOT use $ref, should use
+    # RERO subject with $0 should NOT use $ref, should use
     # authorized_access_point + identifiedBy
     marc21xml = """
     <record>
@@ -290,7 +290,7 @@ def test_marc21_to_subjects_gnd_routing(mock_get_mef_link):
     ]
     assert data.get("subjects") is None
 
-    # Test 12: IDREF subject with $0 should NOT use $ref, should use
+    # IDREF subject with $0 should NOT use $ref, should use
     # authorized_access_point + identifiedBy
     marc21xml = """
     <record>

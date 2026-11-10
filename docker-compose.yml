@@ -25,10 +25,9 @@ services:
       timeout: 5s
       retries: 12
     # This stack serves the test suite and `scripts/setup`, whose data is always
-    # thrown away, so every durability guarantee is relaxed. Measured: 0.962 ms
-    # -> 0.370 ms per commit seen from the host. `wal_level=minimal` requires
-    # `max_wal_senders=0`. `autovacuum` stays on: without it there is no ANALYZE,
-    # hence no statistics, and the queries fall back to sequential scans.
+    # thrown away, so every durability guarantee is relaxed. `wal_level=minimal`
+    # requires `max_wal_senders=0`. `autovacuum` stays on: without it there is no
+    # ANALYZE, hence no statistics, and the queries fall back to sequential scans.
     #
     # These options belong here and NOT in docker-services.yml, which is the base
     # of the docker-compose.full.yml production example: an example carrying a
@@ -60,10 +59,8 @@ services:
       retries: 12
       start_period: 20s
   # The `record` template asks for 8 shards and 1 replica, sized for production.
-  # On a development cluster that is 254 shards for a few thousand documents, and
-  # every search fans out over 8 of them. Measured on a complete setup: -150 s,
-  # essentially all of it the fan-out removed from ~110 000 search requests (the
-  # engine itself only works 23 s, all the rest is round-trip latency).
+  # On a development cluster every search then fans out over 8 shards for a few
+  # thousand documents, and the round-trip latency dominates the setup time.
   #
   # This is a LEGACY template: it merges with `record` (order 0) and overrides
   # only these two settings, so every ICU/French analyzer is preserved. A
@@ -79,9 +76,7 @@ services:
   # `delete_template("*")` when a previous run left state behind, so
   # tests/conftest.py puts the template back itself.
   #
-  # `curlimages/curl` is 10 MB and takes curl's arguments directly, so no
-  # entrypoint override. `-f` makes curl exit non-zero on an HTTP error, so a
-  # rejected template surfaces instead of passing for a success.
+  # `-f` fails the service, and with it `docker compose up -d`, when the template is rejected.
   init:
     image: curlimages/curl
     depends_on:
@@ -102,28 +97,12 @@ services:
       - "Content-Type: application/json"
       - "-d"
       - '{"index_patterns":["*-*"],"order":100,"settings":{"number_of_shards":1,"number_of_replicas":0}}'
-  # `docker compose up -d` returns as soon as the containers are *started*: it
-  # does not wait for `init` to finish, so an index created right after would keep
-  # the 8 shards of `record`. Measured three times out of three from a cold stack,
-  # `init` is still running and the template returns 404 when `up -d` returns.
-  #
-  # This service closes that window inside the compose file, so that plain
-  # `docker compose up -d` is the only command a caller needs. `depends_on`
-  # conditions block a container's start, and `up -d` does not return before it
-  # has tried to start every service — so it now blocks until the four services
-  # are healthy *and* `init` has succeeded. Measured: a rejected template makes
-  # `up -d` return 1 with `service "init" didn't complete successfully`, and a
-  # service that never turns healthy makes it return 1 once its retries are
-  # exhausted, rather than hanging.
-  #
-  # `docker compose wait init` cannot do this job: it only considers running
-  # containers, so it fails with `no containers for project` once `init` has
-  # exited — which is the normal case by the time a later step asks. And
-  # `up -d --wait` treats an exited one-shot as a failure, returning 1 even on a
-  # clean exit.
-  #
-  # It reuses the image of `init` and runs `true`, so it pulls nothing extra and
-  # leaves nothing running.
+  # `docker compose up -d` returns once the containers are started, without
+  # waiting for `init`, so an index created right after could keep the 8 shards
+  # of `record`. Depending on `init` makes `up -d` block until the four services
+  # are healthy and the template is installed, and return 1 if either fails.
+  # `docker compose wait init` and `up -d --wait` cannot replace it: both fail
+  # once the one-shot `init` has exited.
   gate:
     image: curlimages/curl
     entrypoint: ["true"]
