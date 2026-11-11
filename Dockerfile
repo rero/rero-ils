@@ -8,7 +8,6 @@ USER 0
 
 COPY ./ ${WORKING_DIR}/src
 WORKDIR ${WORKING_DIR}/src
-COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
 RUN chown -R invenio:invenio ${WORKING_DIR}
 
