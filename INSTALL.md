@@ -64,7 +64,7 @@ The nginx and HAProxy images of `docker-compose.full.yml` build their own
 self-signed certificate, so nothing has to be generated for them.
 
 Start all dependent services using docker-compose (this will start PostgreSQL,
-OpenSearch 2, RabbitMQ and Redis):
+OpenSearch 3, RabbitMQ and Redis):
 
 ```console
 docker-compose up -d
