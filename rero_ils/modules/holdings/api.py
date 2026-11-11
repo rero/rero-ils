@@ -9,11 +9,11 @@ from datetime import UTC, datetime
 from functools import partial
 
 from dateutil.relativedelta import relativedelta
-from elasticsearch_dsl import Q
 from flask import current_app
 from flask_babel import gettext as _
 from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
+from invenio_search.engine import dsl
 from jinja2 import Environment
 
 from rero_ils.filter import format_date_filter
@@ -268,7 +268,7 @@ class Holding(IlsRecord):
         from rero_ils.modules.items.api import ItemsSearch
 
         items_query = ItemsSearch().available_query()
-        filters = Q("term", holding__pid=self.pid)
+        filters = dsl.Q("term", holding__pid=self.pid)
         return [hit.pid for hit in items_query.filter(filters).source("pid").scan()]
 
     def get_item_pids_with_active_loan(self, item_pids):
@@ -282,7 +282,7 @@ class Holding(IlsRecord):
         loan_query = LoansSearch().unavailable_query()
 
         # the loans corresponding to the given item pids
-        loan_query = loan_query.filter(Q("terms", item_pid__value=item_pids))
+        loan_query = loan_query.filter(dsl.Q("terms", item_pid__value=item_pids))
 
         return [hit.item_pid.value for hit in loan_query.source("item_pid").scan()]
 
@@ -373,7 +373,7 @@ class Holding(IlsRecord):
         """Returns holding pids attached for a given document pid."""
         search_query = HoldingsSearch().filter("term", document__pid=document_pid).source(["pid"])
         if not with_masked:
-            search_query = search_query.filter("bool", must_not=[Q("term", _masked=True)])
+            search_query = search_query.filter("bool", must_not=[dsl.Q("term", _masked=True)])
         for holding in search_query.scan():
             yield holding.pid
 
@@ -387,7 +387,7 @@ class Holding(IlsRecord):
             .source(["pid"])
         )
         if not with_masked:
-            search_query = search_query.filter("bool", must_not=[Q("term", _masked=True)])
+            search_query = search_query.filter("bool", must_not=[dsl.Q("term", _masked=True)])
         for holding in search_query.scan():
             yield holding.pid
 

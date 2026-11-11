@@ -5,8 +5,8 @@
 
 from logging import getLogger
 
-from elasticsearch_dsl import Q
 from invenio_db import db
+from invenio_search.engine import dsl
 
 from rero_ils.modules.patrons.api import Patron, PatronsIndexer, PatronsSearch
 from rero_ils.modules.patrons.models import CommunicationChannel
@@ -27,9 +27,9 @@ def upgrade():
         .filter("term", patron__communication_channel=CommunicationChannel.EMAIL)
         .filter(
             "bool",
-            must_not=[Q("exists", field="patron.additional_communication_email")],
+            must_not=[dsl.Q("exists", field="patron.additional_communication_email")],
         )
-        .filter("bool", must_not=[Q("exists", field="email")])
+        .filter("bool", must_not=[dsl.Q("exists", field="email")])
         .source(includes="pid")
     )
     pids = [(hit["pid"], hit.meta.id) for hit in query.scan()]

@@ -32,7 +32,7 @@ services:
       - static_data:/invenio/var/instance/static
     links:
       - cache
-      - es
+      - os
       - mq
       - db
   # API Rest Application
@@ -48,7 +48,7 @@ services:
       - static_data:/invenio/var/instance/static
     links:
       - cache
-      - es
+      - os
       - mq
       - db
   # Worker
@@ -61,7 +61,7 @@ services:
     image: rero-ils-worker
     links:
       - cache
-      - es
+      - os
       - mq
       - db
   # Beat
@@ -74,7 +74,7 @@ services:
     image: rero-ils-beat
     links:
       - cache
-      - es
+      - os
       - mq
       - db
   # Monitoring
@@ -97,9 +97,9 @@ services:
     extends:
       file: docker-services.yml
       service: mq
-  es:
+  os:
     extends:
       file: docker-services.yml
-      service: es
+      service: os
 volumes:
   static_data:

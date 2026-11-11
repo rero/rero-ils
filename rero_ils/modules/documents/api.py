@@ -6,12 +6,11 @@
 
 from functools import partial
 
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Q
 from flask import current_app
 from invenio_access.permissions import system_identity
 from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search_client
+from invenio_search.engine import dsl, search
 from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
@@ -67,28 +66,28 @@ class DocumentsSearch(IlsRecordsSearch):
         :param subjects: search on `subject` field.
         :param imported_subjects: search on `imported_subject` field.
         :param genre_forms: search on `genre_forms` field.
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `dsl.Search`
         """
         field = f"contribution.entity.pids.{entity.resource_type}"
-        filters = Q("term", **{field: entity.pid})
+        filters = dsl.Q("term", **{field: entity.pid})
         if subjects:
             field = f"subjects.entity.pids.{entity.resource_type}"
-            filters |= Q("term", **{field: entity.pid})
+            filters |= dsl.Q("term", **{field: entity.pid})
         if imported_subjects:
             field = f"subjects_imported.pids.{entity.resource_type}"
-            filters |= Q("term", **{field: entity.pid})
+            filters |= dsl.Q("term", **{field: entity.pid})
         if genre_forms:
             field = f"genreForm.entity.pids.{entity.resource_type}"
-            filters |= Q("term", **{field: entity.pid})
+            filters |= dsl.Q("term", **{field: entity.pid})
         return self.filter(filters)
 
     def by_library_pid(self, library_pid):
         """Build a search to get hits related to a library pid.
 
         :param library_pid: string - the library pid to filter with
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `dsl.Search`
         """
         return self.filter("term", holdings__organisation__library_pid=library_pid)
 
@@ -175,11 +174,11 @@ class Document(IlsRecord):
         holding_query = HoldingsSearch().available_query()
 
         # filter by the current document
-        filters = Q("term", document__pid=pid)
+        filters = dsl.Q("term", document__pid=pid)
 
         # filter by organisation
         if org_pid:
-            filters &= Q("term", organisation__pid=org_pid)
+            filters &= dsl.Q("term", organisation__pid=org_pid)
         holding_query = holding_query.filter(filters)
 
         # get the number of electronic holdings
@@ -201,11 +200,11 @@ class Document(IlsRecord):
         items_query = ItemsSearch().available_query()
 
         # filter by the current document
-        filters = Q("term", document__pid=pid)
+        filters = dsl.Q("term", document__pid=pid)
 
         # filter by organisation
         if org_pid:
-            filters &= Q("term", organisation__pid=org_pid)
+            filters &= dsl.Q("term", organisation__pid=org_pid)
 
         return [hit.pid for hit in items_query.filter(filters).source("pid").scan()]
 
@@ -222,11 +221,11 @@ class Document(IlsRecord):
         loan_query = LoansSearch().unavailable_query()
 
         # filter by the current document
-        filters = Q("term", document_pid=pid)
+        filters = dsl.Q("term", document_pid=pid)
 
         # filter by organisation
         if org_pid:
-            filters &= Q("term", organisation__pid=org_pid)
+            filters &= dsl.Q("term", organisation__pid=org_pid)
 
         loan_query = loan_query.filter(filters)
 
@@ -455,8 +454,8 @@ class Document(IlsRecord):
         :return: the pids of the record having the given ISSN
         :rtype: generator
         """
-        criteria = Q("term", nested_identifiers__type=IdentifierType.ISSN)
-        criteria &= Q("term", nested_identifiers__value__raw=issn_number)
+        criteria = dsl.Q("term", nested_identifiers__type=IdentifierType.ISSN)
+        criteria &= dsl.Q("term", nested_identifiers__value__raw=issn_number)
         search_documents = (
             DocumentsSearch().filter("nested", path="nested_identifiers", query=criteria).source("pid").scan()
         )
@@ -549,7 +548,7 @@ class DocumentsIndexer(IlsRecordsIndexer):
         try:
             search_item = current_search_client.get(DocumentsSearch.Meta.index, record.id)
             return search_item["_source"]
-        except NotFoundError:
+        except search.NotFoundError:
             return {}
 
     def index(self, record):
