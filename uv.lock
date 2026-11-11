@@ -3826,7 +3826,7 @@ dependencies = [
 [[package]]
 name = "rero-invenio-files"
 version = "2.0.3"
-source = { git = "https://github.com/rerowep/rero-invenio-files?rev=wep-opensearch#97d25a3b52f4b9840c07820a357cef0850ea15a2" }
+source = { git = "https://github.com/rerowep/rero-invenio-files?rev=wep-opensearch#f82214ec6970e67c8020c03d80af1286639bbb08" }
 dependencies = [
     { name = "fpdf2" },
     { name = "invenio-db", extra = ["postgresql"] },
