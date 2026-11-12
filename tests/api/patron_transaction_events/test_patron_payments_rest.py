@@ -145,11 +145,7 @@ def test_patron_transaction_events_facets(
     assert cash_subtype_aggr["subtotal"]["value"] == 2.0
 
     #  filter with dummy subtypes :: no payment must be found
-    params = {
-        "facets": "total",
-        "type": PatronTransactionEventType.PAYMENT,
-        "subtype": ["foo", "bar"],
-    }
+    params = {"facets": "total", "subtype": ["foo", "bar"]}
     url = url_for("invenio_records_rest.ptre_list", **params)
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
@@ -160,11 +156,7 @@ def test_patron_transaction_events_facets(
     #  filter with an available subtype (cash) and an absent subtype
     #  (credit_card) :: payments must be found but only 'cash' subtype must
     #  exist
-    params = {
-        "facets": "total",
-        "type": PatronTransactionEventType.PAYMENT,
-        "subtype": ["cash", "credit_card"],
-    }
+    params = {"facets": "total", "subtype": ["cash", "credit_card"]}
     url = url_for("invenio_records_rest.ptre_list", **params)
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
