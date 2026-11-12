@@ -3,6 +3,9 @@
 
 """Location Record tests."""
 
+from copy import deepcopy
+from unittest import mock
+
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -82,3 +85,15 @@ def test_location_restrict_pickup(
     loc_m1.update(loc_public_martigny_data, dbcommit=True, reindex=True)
     loc_m2.update(loc_restricted_martigny_data, dbcommit=True, reindex=True)
     loc_sax.update(loc_public_saxon_data, dbcommit=True, reindex=True)
+
+
+def test_location_index_without_online_change(lib_martigny, loc_public_martigny_data):
+    """Reindex no document when a location is created or keeps its online flag."""
+    data = deepcopy(loc_public_martigny_data)
+    data["code"] = "3594"
+    with mock.patch("rero_ils.modules.locations.api.reindex_location_documents") as reindex:
+        location = Location.create(data, delete_pid=True, dbcommit=True, reindex=True)
+        location["name"] = "renamed"
+        location.update(location, dbcommit=True, reindex=True)
+    location.delete(force=True, dbcommit=True, delindex=True)
+    reindex.delay.assert_not_called()
