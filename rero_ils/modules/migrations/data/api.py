@@ -6,17 +6,7 @@
 from datetime import UTC, datetime
 from enum import Enum
 
-from elasticsearch_dsl import (
-    Binary,
-    Date,
-    Document,
-    Float,
-    InnerDoc,
-    Keyword,
-    Object,
-    Text,
-)
-from elasticsearch_dsl.exceptions import ValidationException
+from invenio_search.engine import dsl
 
 
 def _(x):
@@ -41,7 +31,7 @@ class DeduplicationStatus(Enum):
     MATCH = _("match")
 
 
-class Status(Keyword):
+class Status(dsl.Keyword):
     """Migration Status."""
 
     def clean(self, data):
@@ -49,72 +39,72 @@ class Status(Keyword):
         try:
             DeduplicationStatus(data)
         except ValueError:
-            raise ValidationException(
+            raise dsl.ValidationException(
                 f"The status value should be one of: {', '.join([item.value for item in DeduplicationStatus])}."
             )
         return super().clean(data)
 
 
-class DeduplicationCandidate(InnerDoc):
+class DeduplicationCandidate(dsl.InnerDoc):
     """Deduplication candidate."""
 
     # ILS pid
-    pid = Keyword(required=True)
+    pid = dsl.Keyword(required=True)
     # score between 0 and 1
-    score = Float()
+    score = dsl.Float()
     # score explanations
-    detailed_score = Object(dynamic=True)
+    detailed_score = dsl.Object(dynamic=True)
     # resource content
-    json = Object(required=True, dynamic=True)
+    json = dsl.Object(required=True, dynamic=True)
 
 
-class Deduplication(InnerDoc):
+class Deduplication(dsl.InnerDoc):
     """Deduplication data."""
 
     # deduplication statuses
     status = Status(required=True)
     # list of candidates
-    candidates = Object(DeduplicationCandidate, multi=True)
+    candidates = dsl.Object(DeduplicationCandidate, multi=True)
     # log messages
-    logs = Object(dynamic=True)
+    logs = dsl.Object(dynamic=True)
     # related ils pid
-    ils_pid = Keyword()
+    ils_pid = dsl.Keyword()
     # split the data into several subsets
-    subset = Keyword()
+    subset = dsl.Keyword()
     # manually modified by
-    modified_by = Text(fields={"raw": Keyword()})
+    modified_by = dsl.Text(fields={"raw": dsl.Keyword()})
     # manually modified at
-    modified_at = Date(default_timezone="UTC")
+    modified_at = dsl.Date(default_timezone="UTC")
 
 
-class Conversion(InnerDoc):
+class Conversion(dsl.InnerDoc):
     """Conversion data."""
 
     # conversion status
-    status = Keyword(required=True)
+    status = dsl.Keyword(required=True)
     # converted JSON data
-    json = Object(dynamic=True)
+    json = dsl.Object(dynamic=True)
     # log messages
-    logs = Object(dynamic=True)
+    logs = dsl.Object(dynamic=True)
 
 
-class MigrationData(Document):
-    """Migration Resource (ElasticSearch only)."""
+class MigrationData(dsl.Document):
+    """Migration Resource (OpenSearch only)."""
 
     # migration ID
-    migration_id = Text(fields={"raw": Keyword()}, required=True)
+    migration_id = dsl.Text(fields={"raw": dsl.Keyword()}, required=True)
     # blob containing the original data
-    raw = Binary(required=True)
+    raw = dsl.Binary(required=True)
     # related organistion pid computed from the library migration
-    organisation_pid = Keyword(required=True)
+    organisation_pid = dsl.Keyword(required=True)
     # conversion data
-    conversion = Object(Conversion, required=True, multi=False)
+    conversion = dsl.Object(Conversion, required=True, multi=False)
     # deduplication data
-    deduplication = Object(Deduplication, required=True, multi=False)
+    deduplication = dsl.Object(Deduplication, required=True, multi=False)
     # creation date
-    created_at = Date(default_timezone="UTC")
+    created_at = dsl.Date(default_timezone="UTC")
     # modification date
-    updated_at = Date(default_timezone="UTC")
+    updated_at = dsl.Date(default_timezone="UTC")
 
     @classmethod
     def clone(cls):

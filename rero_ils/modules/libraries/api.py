@@ -11,9 +11,8 @@ from zoneinfo import ZoneInfo
 
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from invenio_search.engine import dsl, search
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -58,8 +57,8 @@ class LibrariesSearch(IlsRecordsSearch):
         """Build a search to get hits related to an organisation pid.
 
         :param organisation_pid: string - the organisation pid to filter with
-        :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :returns: An OpenSearch query to get hits related the entity.
+        :rtype: `dsl.Search`
         """
         return self.filter("term", organisation__pid=organisation_pid)
 
@@ -370,7 +369,7 @@ class Library(IlsRecord):
 
         links = {}
         stat_cfg_query = StatsConfigurationSearch().filter(
-            Q("term", library__pid=self.pid) | Q("term", filter_by_libraries__pid=self.pid)
+            dsl.Q("term", library__pid=self.pid) | dsl.Q("term", filter_by_libraries__pid=self.pid)
         )
         location_query = LocationsSearch().filter("term", library__pid=self.pid)
         patron_query = (
@@ -384,7 +383,7 @@ class Library(IlsRecord):
             receipts = sorted_pids(receipt_query)
             stats_cfg = sorted_pids(stat_cfg_query)
             migrations = []
-            with contextlib.suppress(NotFoundError):
+            with contextlib.suppress(search.NotFoundError):
                 migrations = [hit.meta.id for hit in migration_query.scan()]
         else:
             locations = location_query.count()
@@ -392,7 +391,7 @@ class Library(IlsRecord):
             receipts = receipt_query.count()
             stats_cfg = stat_cfg_query.count()
             migrations = 0
-            with contextlib.suppress(NotFoundError):
+            with contextlib.suppress(search.NotFoundError):
                 migrations = migration_query.count()
         if locations:
             links["locations"] = locations

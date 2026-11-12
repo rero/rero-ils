@@ -4,7 +4,7 @@
 
 """Query factories for Document REST API."""
 
-from elasticsearch_dsl import Q
+from invenio_search.engine import dsl
 
 
 def misc_status_filter():
@@ -15,7 +15,7 @@ def misc_status_filter():
       - request_expire: loans with a `request_expire_date` lower than current
         timestamp.
 
-    :return: Function allowing to filter the ElasticSearch query.
+    :return: Function allowing to filter the OpenSearch query.
     """
 
     def inner(values):
@@ -24,12 +24,12 @@ def misc_status_filter():
         #   Filter query to return only loans with an `end_date` lower than the
         #   current timestamp.
         if "overdue" in values:
-            queries.append(Q("range", end_date={"lt": "now/d"}))
+            queries.append(dsl.Q("range", end_date={"lt": "now/d"}))
         # EXPIRED_REQUEST
         #   Filter query to return only loans with a `request_expire_date`
         #   lower than the current timestamp
         if "expired_request" in values:
-            queries.append(Q("range", request_expire_date={"lt": "now/d"}))
-        return Q("bool", must=queries)
+            queries.append(dsl.Q("range", request_expire_date={"lt": "now/d"}))
+        return dsl.Q("bool", must=queries)
 
     return inner

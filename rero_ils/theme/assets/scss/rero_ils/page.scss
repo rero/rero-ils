@@ -6,13 +6,13 @@ body {
 }                     // push the footer to the bottom
 
 // FIELDS FORMAT -----------------------
-ng-core-formly-field-primeng-input > input,
+ng-core-formly-field-optimus-ui-input > input,
 formly-field > input {
   width: 100%;
   border: 1px solid #ced4da;
 }
 
-ng-core-formly-field-primeng-input > input:read-only {
+ng-core-formly-field-optimus-ui-input > input:read-only {
   background: #e9ecef;
 }
 

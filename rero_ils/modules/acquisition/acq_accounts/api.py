@@ -6,8 +6,8 @@
 
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from invenio_search.engine import dsl
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
@@ -197,7 +197,7 @@ class AcqAccount(AcquisitionIlsRecord):
         search = AcqReceiptsSearch().filter(
             "nested",
             path="amount_adjustments",
-            query=Q("bool", must=[Q("match", amount_adjustments__acq_account__pid=self.pid)]),
+            query=dsl.Q("bool", must=[dsl.Q("match", amount_adjustments__acq_account__pid=self.pid)]),
         )
         receipt_expenditure = sum(
             sum([adjustment.amount for adjustment in hit.amount_adjustments if adjustment.acq_account.pid == self.pid])
@@ -368,7 +368,7 @@ class AcqAccount(AcquisitionIlsRecord):
         receipts_query = AcqReceiptsSearch().filter(
             "nested",
             path="amount_adjustments",
-            query=Q("bool", must=[Q("match", amount_adjustments__acq_account__pid=self.pid)]),
+            query=dsl.Q("bool", must=[dsl.Q("match", amount_adjustments__acq_account__pid=self.pid)]),
         )
 
         if get_pids:

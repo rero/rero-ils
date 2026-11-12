@@ -10,8 +10,6 @@ from uuid import uuid4
 
 import click
 from celery import current_app as current_celery_app
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch.helpers import bulk
 from flask import current_app
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
@@ -93,17 +91,17 @@ class IlsRecordsSearch(RecordsSearch):
         current_search.flush_and_refresh(cls.Meta.index)
 
     def get_record_by_pid(self, pid, fields=None):
-        """Get ElasticSearch hit by pid.
+        """Get OpenSearch hit by pid.
 
         :param pid: the record PID to retrieve.
         :param fields: a list of field to return. If ``None`` all fields will
             be returned.
-        :returns: An ``AttrDict`` representing the ElasticSearch hit found.
-        :raise NotFoundError: If the record cannot be found into ElasticSearch
+        :returns: An ``AttrDict`` representing the OpenSearch hit found.
+        :raise NotFoundError: If the record cannot be found into OpenSearch
         """
         if hit := next(self.get_records_by_pids([pid], fields), None):
             return hit
-        raise NotFoundError(f"Record not found pid: {pid}")
+        raise search.NotFoundError(f"Record not found pid: {pid}")
 
     def get_records_by_pids(self, pids, fields=None):
         """Get search hits by pids.
@@ -111,7 +109,7 @@ class IlsRecordsSearch(RecordsSearch):
         :param pids: the list of record pids to retrieve.
         :param fields: a list of field to return. If ``None`` all fields will
             be returned.
-        :returns: A generator of ``AttrDict`` representing ElasticSearch hits
+        :returns: A generator of ``AttrDict`` representing OpenSearch hits
             found.
         """
         assert type(pids) is list
@@ -465,7 +463,7 @@ class IlsRecord(Record):
         indexer = self.get_indexer_class()
         try:
             indexer().delete(self)
-        except NotFoundError:
+        except search.NotFoundError:
             current_app.logger.warning(f"Cannot delete from index {self.__class__.__name__}: {self.pid}")
         except ValueError:
             current_app.logger.warning(f"Cannot delete from index {self.__class__.__name__}")
@@ -565,7 +563,7 @@ class IlsRecordsIndexer(RecordIndexer):
         still reports these messages as failed.
 
         :param dict search_bulk_kwargs: Passed to
-            :func:`elasticsearch:elasticsearch.helpers.bulk`.
+            :func:`search.helpers.bulk`.
         :param boolean stats_only: if `True` only report number of
             successful/failed operations instead of just number of
             successful and a list of error responses
@@ -583,7 +581,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
             search_bulk_kwargs = {"ignore_status": (409,)} | (search_bulk_kwargs or {})
 
-            count = bulk(
+            count = search.helpers.bulk(
                 self.client,
                 self._actionsiter(consumer.iterqueue()),
                 stats_only=stats_only,

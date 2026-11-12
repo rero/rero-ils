@@ -7,7 +7,7 @@
 import contextlib
 from functools import partial
 
-from elasticsearch import NotFoundError
+from invenio_search.engine import search
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
@@ -131,7 +131,7 @@ class BudgetsIndexer(IlsRecordsIndexer):
 
         :param record: the record to index.
         """
-        with contextlib.suppress(NotFoundError):
+        with contextlib.suppress(search.NotFoundError):
             original_record = BudgetsSearch().get_record_by_pid(record.pid)
             if record.is_active != original_record["is_active"]:
                 for account in record.get_related_accounts():

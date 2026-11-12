@@ -7,7 +7,7 @@
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.local_fields.api import LocalField
 from rero_ils.modules.local_fields.dumpers import (
-    ElasticSearchDumper as LocalFieldESDumper,
+    SearchIndexDumper as LocalFieldESDumper,
 )
 
 from .api import Item, ItemsSearch
