@@ -73,7 +73,7 @@ def default_facets_factory(search, index):
             # both single post filters and group of post filters
             filters, filters_group, urlkwargs = _create_filter_dsl(urlkwargs, facets.get("post_filters", {}))
             # create the filter to inject in the facet
-            facet_filter = _facet_filter(index, filters, filters_group, facet_name, facet_field)
+            facet_filter = _facet_filter(filters, filters_group, facet_name, facet_field)
 
         # Check if 'filter' is defined into the facet configuration. If yes,
         # then add this filter to the facet filter previously created.
@@ -101,7 +101,7 @@ def default_facets_factory(search, index):
                 break
         if nested:
             filters, filters_group, urlkwargs = _create_filter_dsl(urlkwargs, facets.get("post_filters", {}))
-            if facet_filter := _facet_filter(index, filters, filters_group, facet_name, facet_field):
+            if facet_filter := _facet_filter(filters, filters_group, facet_name, facet_field):
                 facet_body["filter"] = facet_filter.to_dict()
 
         aggs[facet_name] = facet_body
@@ -179,7 +179,7 @@ def _post_filter(search, urlkwargs, definitions):
     return search, urlkwargs
 
 
-def _facet_filter(index, filters, filters_group, facet_name, facet_field):
+def _facet_filter(filters, filters_group, facet_name, facet_field):
     """Ingest filter in facet.
 
     To take into account the selection made for other facets,
@@ -187,7 +187,6 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
     This is necessary for the OR filters which are defined in the post_filters
     of the config.py file.
 
-    :param index: the resource (ex: documents)
     :param filters: the DSL expression of the single filters defined
         in post_filters (in file config.py)
     :param filters_group: the DSL expression of a dict of filters defined
