@@ -43,6 +43,12 @@
       "pid": {
         "type": "keyword"
       },
+      "has_online_resource": {
+        "type": "boolean"
+      },
+      "has_physical_resource": {
+        "type": "boolean"
+      },
       "organisation_pid": {
         "type": "keyword"
       },

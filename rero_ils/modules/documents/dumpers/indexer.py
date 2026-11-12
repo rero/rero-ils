@@ -18,16 +18,48 @@ class IndexerDumper(Dumper):
     """Document indexer."""
 
     @staticmethod
+    def _resource_flags(physical_holdings, online_location_pids):
+        """Tell whether the physical holdings give online or physical resources.
+
+        An item is online when its holding location or its temporary location
+        is online. A holding without items is physical unless its location is
+        online.
+
+        :param physical_holdings: a (location pid, item temporary location
+            pids) pair for each standard or serial holding. An item without
+            temporary location is given as `None`.
+        :param online_location_pids: the pids of the online locations.
+        :return: a (has_online_resource, has_physical_resource) pair.
+        """
+        has_online = has_physical = False
+        for location_pid, temporary_location_pids in physical_holdings:
+            holding_online = location_pid in online_location_pids
+            if not temporary_location_pids and not holding_online:
+                has_physical = True
+            for temporary_location_pid in temporary_location_pids:
+                if holding_online or temporary_location_pid in online_location_pids:
+                    has_online = True
+                else:
+                    has_physical = True
+        return has_online, has_physical
+
+    @staticmethod
     def _process_holdings(record, data):
         """Add holding information to the indexed record."""
         from rero_ils.modules.holdings.api import HoldingsSearch
+        from rero_ils.modules.holdings.models import HoldingTypes
         from rero_ils.modules.items.api.api import ItemsSearch
         from rero_ils.modules.items.models import ItemNoteTypes
+        from rero_ils.modules.locations.api import LocationsSearch
 
         holdings = []
+        physical_holdings = []
         search_holdings = HoldingsSearch().filter("term", document__pid=record["pid"]).source().scan()
         for holding in search_holdings:
             holding = holding.to_dict()
+            temporary_location_pids = []
+            if holding["holdings_type"] in [HoldingTypes.STANDARD, HoldingTypes.SERIAL]:
+                physical_holdings.append((holding["location"]["pid"], temporary_location_pids))
             hold_data = {
                 "pid": holding["pid"],
                 "location": {
@@ -64,6 +96,7 @@ class IndexerDumper(Dumper):
             search_items = ItemsSearch().filter("term", holding__pid=holding["pid"]).scan()
             for item in search_items:
                 item = item.to_dict()
+                temporary_location_pids.append(item.get("temporary_location", {}).get("pid"))
                 item_data = {
                     "pid": item["pid"],
                     "barcode": item["barcode"],
@@ -97,6 +130,15 @@ class IndexerDumper(Dumper):
                     item_data["notes"] = public_notes_content
                 hold_data.setdefault("items", []).append(item_data)
             holdings.append(hold_data)
+
+        location_pids = {pid for location_pid, pids in physical_holdings for pid in (location_pid, *pids) if pid}
+        online_location_pids = set()
+        if location_pids:
+            query = LocationsSearch().filter("terms", pid=list(location_pids)).filter("term", is_online=True)
+            online_location_pids = {hit.pid for hit in query.source("pid").scan()}
+        data["has_online_resource"], data["has_physical_resource"] = IndexerDumper._resource_flags(
+            physical_holdings, online_location_pids
+        )
 
         if holdings:
             data["holdings"] = holdings

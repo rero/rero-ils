@@ -6,14 +6,18 @@
 import json
 from copy import deepcopy
 from datetime import datetime, timedelta
+from itertools import count
 from unittest import mock
 
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
+from rero_ils.modules.items.api import Item, ItemsSearch
+from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 from tests.utils import (
@@ -55,6 +59,8 @@ def test_documents_get(client, document_with_files):
         metadata.pop("nested_identifiers", None)
         metadata.pop("identifiedBy", None)
         metadata.pop("files", None)
+        metadata.pop("has_online_resource", None)
+        metadata.pop("has_physical_resource", None)
         return metadata
 
     item_url = url_for("invenio_records_rest.doc_item", pid_value="doc1")
@@ -382,6 +388,103 @@ def test_documents_facets(
         res = client.get(url)
         data = get_json(res)
         assert data["hits"]["total"] == value
+
+
+@pytest.fixture
+def resource_document(app, document_data_tmp):
+    """Create an isolated document for resource-filter tests."""
+    document_data_tmp.pop("electronicLocator", None)
+    document = Document.create(document_data_tmp, delete_pid=True, dbcommit=True, reindex=True)
+    yield document
+    for hit in ItemsSearch().filter("term", document__pid=document.pid).source("pid").scan():
+        Item.get_record_by_pid(hit.pid).delete(force=True, dbcommit=True, delindex=True)
+    for hit in HoldingsSearch().filter("term", document__pid=document.pid).source("pid").scan():
+        Holding.get_record_by_pid(hit.pid).delete(force=True, dbcommit=True, delindex=True)
+    document.delete(force=True, dbcommit=True, delindex=True)
+
+
+@pytest.fixture
+def create_resource_item(
+    resource_document, item_lib_martigny_data_tmp, item_type_standard_martigny, loc_public_martigny
+):
+    """Return a factory of items attached to the resource-filter document."""
+    barcodes = count()
+
+    def _create(location=loc_public_martigny, temporary_location=None):
+        data = deepcopy(item_lib_martigny_data_tmp)
+        data["document"] = {"$ref": get_ref_for_pid("doc", resource_document.pid)}
+        data["location"] = {"$ref": get_ref_for_pid("loc", location.pid)}
+        data["barcode"] = f"3594-{resource_document.pid}-{next(barcodes)}"
+        if temporary_location:
+            data["temporary_location"] = {"$ref": get_ref_for_pid("loc", temporary_location.pid)}
+        return Item.create(data, delete_pid=True, dbcommit=True, reindex=True)
+
+    return _create
+
+
+def _assert_resource_filters(client, document, online, physical):
+    """Check whether the online and not_online filters return the document."""
+    for filters, included in [({"online": "true"}, online), ({"not_online": "true"}, physical)]:
+        url = url_for("invenio_records_rest.doc_list", view="global", q=f"pid:{document.pid}", **filters)
+        pids = {hit["metadata"]["pid"] for hit in get_json(client.get(url))["hits"]["hits"]}
+        assert pids == ({document.pid} if included else set())
+
+
+def test_documents_mixed_resource_filters(client, resource_document, create_resource_item, loc_online_martigny):
+    """Return a document with an online and a physical item in both filters."""
+    create_resource_item(temporary_location=loc_online_martigny)
+    create_resource_item()
+    _assert_resource_filters(client, resource_document, online=True, physical=True)
+
+
+def test_documents_electronic_holding_resource_filters(
+    client, resource_document, loc_public_martigny, item_type_standard_martigny
+):
+    """Do not count an electronic holding as physical."""
+    data = _facet_holding_data(resource_document, loc_public_martigny, item_type_standard_martigny)
+    data["holdings_type"] = "electronic"
+    data["electronic_location"] = [{"uri": "https://example.org/3594"}]
+    Holding.create(data, dbcommit=True, reindex=True)
+    _assert_resource_filters(client, resource_document, online=True, physical=False)
+
+
+def test_documents_item_status_and_temporary_location_change(
+    client, resource_document, create_resource_item, loc_online_martigny
+):
+    """Reclassify the document when the status and temporary location of an item change together."""
+    item = create_resource_item()
+    item["status"] = ItemStatus.IN_TRANSIT
+    item["temporary_location"] = {"$ref": get_ref_for_pid("loc", loc_online_martigny.pid)}
+    item.update(item, dbcommit=True, reindex=True)
+    _assert_resource_filters(client, resource_document, online=True, physical=False)
+
+
+@pytest.fixture
+def set_online_flag(loc_online_martigny):
+    """Return a setter of the Martigny online location flag, set back to online afterwards."""
+    location = loc_online_martigny
+
+    def _set(is_online):
+        location["is_online"] = is_online
+        location.update(location, dbcommit=True, reindex=True)
+        DocumentsSearch.flush_and_refresh()
+
+    yield _set
+    _set(True)
+
+
+@pytest.mark.parametrize("temporary", [False, True], ids=["permanent-location", "temporary-location"])
+def test_documents_resource_filters_follow_location_online_flag(
+    client, resource_document, create_resource_item, loc_online_martigny, set_online_flag, temporary
+):
+    """Reclassify the documents of a location when its online flag changes."""
+    if temporary:
+        create_resource_item(temporary_location=loc_online_martigny)
+    else:
+        create_resource_item(loc_online_martigny)
+    _assert_resource_filters(client, resource_document, online=True, physical=False)
+    set_online_flag(False)
+    _assert_resource_filters(client, resource_document, online=False, physical=True)
 
 
 @mock.patch(

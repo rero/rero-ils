@@ -229,6 +229,19 @@ class ItemsIndexer(IlsRecordsIndexer):
         except NotFoundError:
             return {}
 
+    @staticmethod
+    def _links_unchanged(record, search_item):
+        """Tell whether the item keeps the document, holding and locations of its indexed version.
+
+        :param record: an item object
+        :param search_item: a dict of the search index item
+        """
+        return all(
+            (extracted_data_from_ref(record[field]) if record.get(field) else None)
+            == search_item.get(field, {}).get("pid")
+            for field in ("document", "holding", "location", "temporary_location")
+        )
+
     @classmethod
     def _update_status_in_doc(cls, record, search_item):
         """Update the status of a given item in the document index.
@@ -273,7 +286,11 @@ class ItemsIndexer(IlsRecordsIndexer):
         return_value = super().index(record)
 
         # fast document reindex for circulation operations
-        if search_item and record.get("status") != search_item.get("status"):
+        if (
+            search_item
+            and record.get("status") != search_item.get("status")
+            and self._links_unchanged(record, search_item)
+        ):
             self._update_status_in_doc(record, search_item)
             return return_value
 

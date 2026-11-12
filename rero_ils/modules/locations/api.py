@@ -6,8 +6,10 @@
 
 from functools import partial
 
+from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl.query import Q
 from flask_babel import gettext as _
+from invenio_search import current_search_client
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -19,6 +21,7 @@ from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
 from .extensions import IsPickupToExtension
 from .indexer import location_indexer_dumper, location_replace_refs_dumper
 from .models import LocationIdentifier, LocationMetadata
+from .tasks import reindex_location_documents
 
 # provider
 LocationProvider = type("LocationProvider", (Provider,), {"identifier": LocationIdentifier, "pid_type": "loc"})
@@ -234,6 +237,17 @@ class LocationsIndexer(IlsRecordsIndexer):
 
     record_cls = Location
     record_dumper = location_indexer_dumper
+
+    def index(self, record):
+        """Index the location and refresh its documents when its online flag changes."""
+        try:
+            previous = current_search_client.get(index=LocationsSearch.Meta.index, id=str(record.id))["_source"]
+        except NotFoundError:
+            previous = None
+        result = super().index(record)
+        if previous and bool(previous.get("is_online")) != bool(record.get("is_online")):
+            reindex_location_documents.delay(record.pid)
+        return result
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.
