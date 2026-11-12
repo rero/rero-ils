@@ -7,8 +7,6 @@
 from copy import deepcopy
 from functools import wraps
 
-from elasticsearch import exceptions
-from elasticsearch_dsl import A, Q
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_login import current_user
@@ -17,6 +15,7 @@ from invenio_circulation.errors import (
     CirculationException,
     MissingRequiredParameterError,
 )
+from invenio_search.engine import dsl, search
 from jinja2 import TemplateNotFound, UndefinedError
 from werkzeug.exceptions import NotFound
 
@@ -235,7 +234,7 @@ def do_item_jsonify_action(func):
             return jsonify(error_response), 403
         except NotFound:
             raise
-        except exceptions.RequestError as error:
+        except search.exceptions.RequestError as error:
             # missing required parameters
             return jsonify({"status": 400, "message": str(error)}), 400
         except Exception as error:
@@ -607,10 +606,10 @@ def stats(item_pid):
     :param item_pid: the item pid
     """
     search = OperationLogsSearch().filter("term", loan__item__pid=item_pid).filter("term", record__type="loan")
-    trigger = A(
+    trigger = dsl.A(
         "terms",
         field="loan.trigger",
-        aggs={"year": A("filter", Q("range", date={"gte": "now-1y"}))},
+        aggs={"year": dsl.A("filter", dsl.Q("range", date={"gte": "now-1y"}))},
     )
     search.aggs.bucket("trigger", trigger)
     search = search[:0]

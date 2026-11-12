@@ -8,9 +8,9 @@ from pprint import pformat
 from random import choice
 
 import click
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Index
 from flask.cli import with_appcontext
+from invenio_search.engine import dsl
+from invenio_search.engine import search as search_engine
 
 from rero_ils.modules.utils import JsonWriter
 
@@ -32,7 +32,7 @@ def load(migration, infile, dry_run):
     """Load the data for a given migration."""
     try:
         migration = Migration.get(migration)
-    except NotFoundError:
+    except search_engine.NotFoundError:
         click.secho(f"Migration with: {migration} does not exists", fg="yellow")
         raise click.Abort()
     ConvertClass = migration.conversion_class
@@ -44,7 +44,7 @@ def load(migration, infile, dry_run):
             else:
                 migration_data = MigrationData(raw=record, migration_id=migration.meta.id)
                 migration_data.save()
-    index = Index(migration.data_index_name)
+    index = dsl.Index(migration.data_index_name)
     index.refresh()
     n_data = MigrationData.search().filter("term", migration_id=migration.meta.id).count()
     click.secho(f"Migration ({migration}) has now {n_data} converted files.")
@@ -60,7 +60,7 @@ def dedup(migration, id, dry_run, force):
     """Load the data for a given migration."""
     try:
         migration = Migration.get(migration)
-    except NotFoundError:
+    except search_engine.NotFoundError:
         click.secho(f"Migration with: {migration} does not exists", fg="yellow")
         raise click.Abort()
     ConvertClass = migration.conversion_class
@@ -112,7 +112,7 @@ def get(migration, id, conversion_status, format, out_file):
     """Get migration data."""
     try:
         migration = Migration.get(migration)
-    except NotFoundError:
+    except search_engine.NotFoundError:
         click.secho(f"Migration with: {migration} does not exists", fg="yellow")
         raise click.Abort()
     DataMigration = migration.data_class
@@ -179,7 +179,7 @@ def subsets(migration, sets, status):
     """Get migration data."""
     try:
         migration = Migration.get(migration)
-    except NotFoundError:
+    except search_engine.NotFoundError:
         click.secho(f"Migration with: {migration} does not exists", fg="yellow")
         raise click.Abort()
     DataMigration = migration.data_class

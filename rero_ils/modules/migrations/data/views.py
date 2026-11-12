@@ -6,11 +6,11 @@
 import json
 from datetime import UTC, datetime
 
-from elasticsearch.exceptions import NotFoundError
-from elasticsearch_dsl import Index
 from flask import Blueprint, abort
 from flask import request as flask_request
 from invenio_rest import ContentNegotiatedMethodView
+from invenio_search.engine import dsl
+from invenio_search.engine import search as search_engine
 
 from rero_ils.modules.documents.dumpers.indexer import IndexerDumper
 from rero_ils.modules.documents.extensions import (
@@ -68,7 +68,7 @@ class MigrationDataListResource(ContentNegotiatedMethodView):
                 migration = Migration.get(migration_id)
                 cls = migration.data_class
                 search = cls.search()
-            except NotFoundError:
+            except search_engine.NotFoundError:
                 abort(404)
         else:
             from .api import MigrationData
@@ -146,7 +146,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
                 migration = Migration.get(migration_id)
                 MigrationData = migration.data_class
                 migration_data = MigrationData.get(id)
-            except NotFoundError:
+            except search_engine.NotFoundError:
                 abort(404)
         else:
             from .api import MigrationData
@@ -174,7 +174,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
                 migration = Migration.get(migration_id)
                 MigrationData = migration.data_class
                 migration_data = MigrationData.get(id)
-            except NotFoundError:
+            except search_engine.NotFoundError:
                 abort(404)
         else:
             from .api import MigrationData
@@ -189,7 +189,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
             migration_data.deduplication.modified_by = current_librarian.formatted_name
         migration_data.deduplication.modified_at = datetime.now(UTC)
         migration_data.save()
-        Index(name=migration.data_index_name).refresh()
+        dsl.Index(name=migration.data_index_name).refresh()
 
         data = migration_data.to_dict()
         data["id"] = migration_data.meta.id

@@ -8,8 +8,6 @@ RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install --no-install-recommends -y git vim-tiny curl gcc gnupg libc6-dev procps imagemagick && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade setuptools wheel pip uv
 
-# # uwsgi uwsgitop uwsgi-tools
-
 # Install Node
 RUN apt-get update && apt-get install -y ca-certificates curl gnupg
 RUN mkdir -p /etc/apt/keyrings
@@ -26,9 +24,6 @@ RUN mkdir -p ${INVENIO_INSTANCE_PATH}
 RUN mkdir -p ${WORKING_DIR}/src
 COPY ./ ${WORKING_DIR}/src
 WORKDIR ${WORKING_DIR}/src
-
-# copy uwsgi config files
-COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
 # create user
 RUN useradd invenio --uid 1000  --home ${WORKING_DIR} && \

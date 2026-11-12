@@ -4,7 +4,7 @@
 """Test cli."""
 
 from click.testing import CliRunner
-from elasticsearch_dsl import Index
+from invenio_search.engine import dsl
 
 from rero_ils.modules.migrations.api import Migration
 from rero_ils.modules.migrations.cli import create, delete, destroy, get, init, update
@@ -63,7 +63,7 @@ def test_migrations_cli(app, lib_martigny):
     res = runner.invoke(delete, ["test", "--yes-i-know"])
     assert res.exit_code == 0
 
-    index = Index(Migration.Index.name)
+    index = dsl.Index(Migration.Index.name)
     index.refresh()
 
     res = runner.invoke(destroy, ["--yes-i-know"])

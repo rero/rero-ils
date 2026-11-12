@@ -14,8 +14,6 @@ services:
     extends:
       file: docker-services.yml
       service: frontend
-    volumes:
-      - static_data:/invenio/var/instance/static
     links:
       - web-ui
       - web-api
@@ -24,15 +22,18 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: uv run uwsgi /invenio/var/instance/uwsgi_ui.ini
+    # Granian also serves /static, from the image.
+    command: >
+      uv run granian --interface wsgi --host 0.0.0.0 --port 5000
+      --workers 2 --blocking-threads 2 --respawn-failed-workers --access-log
+      --static-path-route /static --static-path-mount /invenio/var/instance/static
+      invenio_app.wsgi_ui:application
     image: rero-ils-web-ui
     ports:
       - "5000:5000"
-    volumes:
-      - static_data:/invenio/var/instance/static
     links:
       - cache
-      - es
+      - os
       - mq
       - db
   # API Rest Application
@@ -40,15 +41,17 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: uv run uwsgi /invenio/var/instance/uwsgi_rest.ini
+    command: >
+      uv run granian --interface wsgi --host 0.0.0.0 --port 5001
+      --workers 2 --blocking-threads 2 --respawn-failed-workers --access-log
+      --url-path-prefix /api
+      invenio_app.wsgi_rest:application
     image: rero-ils-web-api
     ports:
       - "5001"
-    volumes:
-      - static_data:/invenio/var/instance/static
     links:
       - cache
-      - es
+      - os
       - mq
       - db
   # Worker
@@ -61,7 +64,7 @@ services:
     image: rero-ils-worker
     links:
       - cache
-      - es
+      - os
       - mq
       - db
   # Beat
@@ -74,7 +77,7 @@ services:
     image: rero-ils-beat
     links:
       - cache
-      - es
+      - os
       - mq
       - db
   # Monitoring
@@ -97,9 +100,7 @@ services:
     extends:
       file: docker-services.yml
       service: mq
-  es:
+  os:
     extends:
       file: docker-services.yml
-      service: es
-volumes:
-  static_data:
+      service: os

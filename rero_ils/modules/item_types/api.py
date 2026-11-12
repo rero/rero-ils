@@ -7,8 +7,8 @@
 import contextlib
 from functools import partial
 
-from elasticsearch_dsl import Q
 from flask_babel import gettext as _
+from invenio_search.engine import dsl
 
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
@@ -48,7 +48,7 @@ class ItemTypesSearch(IlsRecordsSearch):
 
         :param organisation_pid: string - the organisation pid to filter with
         :returns: An ElasticSearch query to get hits related the entity.
-        :rtype: `elasticsearch_dsl.Search`
+        :rtype: `dsl.Search`
         """
         return self.filter("term", organisation__pid=organisation_pid)
 
@@ -124,14 +124,14 @@ class ItemType(IlsRecord):
         items_query = ItemsSearch().filter(
             "bool",
             should=[
-                Q("term", item_type__pid=self.pid),
-                Q("term", temporary_item_type__pid=self.pid),
+                dsl.Q("term", item_type__pid=self.pid),
+                dsl.Q("term", temporary_item_type__pid=self.pid),
             ],
         )
         cipo_query = CircPoliciesSearch().filter(
             "nested",
             path="settings",
-            query=Q("bool", must=[Q("match", settings__item_type__pid=self.pid)]),
+            query=dsl.Q("bool", must=[dsl.Q("match", settings__item_type__pid=self.pid)]),
         )
         holdings_query = (
             HoldingsSearch()

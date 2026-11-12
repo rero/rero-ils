@@ -6,7 +6,6 @@
 from copy import deepcopy
 from functools import wraps
 
-from elasticsearch import exceptions
 from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
 from invenio_circulation.errors import (
@@ -14,6 +13,7 @@ from invenio_circulation.errors import (
     MissingRequiredParameterError,
 )
 from invenio_db import db
+from invenio_search.engine import search
 from jinja2.exceptions import TemplateSyntaxError, UndefinedError
 from werkzeug.exceptions import NotFound, Unauthorized
 
@@ -176,7 +176,7 @@ def do_holding_jsonify_action(func):
             abort(403, error.description or str(error))
         except NotFound:
             raise
-        except exceptions.RequestError as error:
+        except search.exceptions.RequestError as error:
             # missing required parameters
             return jsonify({"status": f"error: {error}"}), 400
         except Exception as error:
