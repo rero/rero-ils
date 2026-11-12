@@ -327,6 +327,20 @@ class Import:
         new_json_data["__order__"] = new_order
         return GroupableOrderedDict(new_json_data)
 
+    def get_diagnostic(self, content):
+        """Get the first diagnostic of an SRU response.
+
+        :param content: SRU response content
+        :return: the diagnostic texts joined by spaces, or None
+        """
+        try:
+            diagnostic = etree.fromstring(content).find(".//{*}diagnostic")
+        except etree.XMLSyntaxError:
+            return None
+        if diagnostic is not None:
+            return " ".join(text.strip() for text in diagnostic.itertext() if text.strip())
+        return None
+
     def search_records(self, what, relation, where="anywhere", max_results=0, no_cache=False):
         """Get the records.
 
@@ -395,6 +409,10 @@ class Import:
                         self.results["hits"]["remote_total"] = int(
                             etree.parse(BytesIO(response.content)).find("{*}numberOfRecords").text
                         )
+                # a diagnostic without records means the remote search failed
+                if not self.results["hits"]["hits"] and (diagnostic := self.get_diagnostic(response.content)):
+                    self.status_code = 502
+                    self.status_msg = f"SRU diagnostic: {diagnostic}"
                 # save to cache if we have hits
                 if self.results["hits"]["hits"]:
                     cache_data = {"hits": self.results["hits"], "data": self.data}
@@ -620,7 +638,7 @@ class HelveticallImport(Import):
     """Import class for HelveticAll (Swiss National Library)."""
 
     name = "HelveticAll"
-    url = "https://www.helveticall.ch/"
+    url = "https://www.helveticall.ch"
     url_api = (
         "{url}/view/sru/41SNL_51_INST?"
         "version=1.2&operation=searchRetrieve"
