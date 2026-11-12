@@ -10,7 +10,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.imports.api import LoCImport
+from rero_ils.modules.imports.api import HelveticallImport, LoCImport
 from tests.utils import clean_text, get_json, mock_response
 
 
@@ -231,6 +231,27 @@ def test_documents_import_loc_missing_id(mock_get, client, loc_without_010):
     assert status_code == 200
     assert results["hits"]["total"]["value"] == 9
     assert len(results["hits"]["hits"]) == 9
+
+
+@mock.patch("requests.get")
+def test_documents_import_sru_diagnostic(mock_get, app):
+    """Report an SRU diagnostic returned without records as an error."""
+    mock_get.return_value = mock_response(
+        content=b"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/" xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/">
+  <version>1.2</version>
+  <diagnostics>
+    <diag:diagnostic>
+      <diag:details/>
+      <diag:message>Internal Error - Invalid request</diag:message>
+    </diag:diagnostic>
+  </diagnostics>
+</searchRetrieveResponse>"""
+    )
+    results, status_code = HelveticallImport().search_records(what="test", relation="all", no_cache=True)
+    assert status_code == 502
+    assert results["errors"]["message"] == "SRU diagnostic: Internal Error - Invalid request"
+    assert results["hits"]["total"]["value"] == 0
 
 
 @mock.patch("requests.Session.get")
