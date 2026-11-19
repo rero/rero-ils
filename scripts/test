@@ -34,7 +34,7 @@ function pretests () {
   pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"
-  invenio reroils utils check_json tests/data rero_ils/modules data
+  invenio rero utils check_json tests/data rero_ils/modules data
   info_msg "Check license headers:"
   invenio reroils utils check_license
   info_msg "Test formatting:"
