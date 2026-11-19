@@ -11,7 +11,6 @@ from rero_ils.modules.api_harvester.cli import api_harvester
 from rero_ils.modules.cli.messages import messages
 from rero_ils.modules.entities.remote_entities.cli import entity
 from rero_ils.modules.migrations.cli import migrations
-from rero_ils.modules.monitoring.cli import monitoring
 from rero_ils.modules.notifications.cli import notifications
 from rero_ils.modules.stats.cli import stats
 from rero_ils.schedulers import scheduler
@@ -35,7 +34,6 @@ reroils.add_command(fixtures)
 reroils.add_command(index)
 reroils.add_command(migrations)
 reroils.add_command(messages)
-reroils.add_command(monitoring)
 reroils.add_command(notifications)
 reroils.add_command(scheduler)
 reroils.add_command(stats)

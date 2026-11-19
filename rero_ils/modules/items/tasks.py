@@ -6,12 +6,13 @@
 
 from celery import shared_task
 from flask import current_app
+from rero_invenio_base.modules.monitoring import set_timestamp
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.collections.api import Collection, CollectionsSearch
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.utils import create_next_late_expected_issues
-from rero_ils.modules.utils import extracted_data_from_ref, set_timestamp
+from rero_ils.modules.utils import extracted_data_from_ref
 
 from .api import Item
 from .utils import get_provisional_items_candidate_to_delete, update_late_expected_issue

@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 
 from celery import shared_task
 from flask import current_app
+from rero_invenio_base.modules.monitoring import set_timestamp
 
 from rero_ils.modules.loans.api import LoansSearch
 from rero_ils.modules.loans.models import LoanState
@@ -15,7 +16,7 @@ from rero_ils.modules.users.api import User
 from rero_ils.modules.users.models import UserRole
 
 from ..patron_types.api import PatronType
-from ..utils import add_years, set_timestamp
+from ..utils import add_years
 from .api import Patron, PatronsSearch
 
 

@@ -3920,7 +3920,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=0.13.0" },
     { name = "pyyaml", specifier = ">=5.3.1" },
     { name = "requests", specifier = ">=2.23.0" },
-    { name = "rero-invenio-base", git = "https://github.com/rerowep/rero-invenio-base?rev=wep-shared-cli" },
+    { name = "rero-invenio-base", git = "https://github.com/rerowep/rero-invenio-base?rev=wep-monitoring" },
     { name = "rero-invenio-files", specifier = ">=3.0.0" },
     { name = "rero-invenio-thumbnails", specifier = ">=2.0.0" },
     { name = "sentry-sdk" },
@@ -3946,10 +3946,12 @@ prod = [{ name = "granian", specifier = ">=2.8.7" }]
 [[package]]
 name = "rero-invenio-base"
 version = "2.0.0"
-source = { git = "https://github.com/rerowep/rero-invenio-base?rev=wep-shared-cli#5cf613eb2afb0d9b97e0577cd7eee89338994afe" }
+source = { git = "https://github.com/rerowep/rero-invenio-base?rev=wep-monitoring#3ac53f6fedd3e63ace842d584708c1af51bf69f2" }
 dependencies = [
     { name = "babel" },
     { name = "celery" },
+    { name = "invenio-access" },
+    { name = "invenio-cache" },
     { name = "invenio-db", extra = ["postgresql"] },
     { name = "invenio-i18n" },
     { name = "invenio-oauth2server" },
@@ -3958,6 +3960,8 @@ dependencies = [
     { name = "invenio-rest" },
     { name = "invenio-search", extra = ["opensearch2"] },
     { name = "jsonpatch" },
+    { name = "redis" },
+    { name = "requests" },
 ]
 
 [[package]]
