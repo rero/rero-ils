@@ -16,15 +16,11 @@ from deepdiff import DeepDiff
 from flask import current_app
 from invenio_cache import current_cache
 from invenio_db import db
+from rero_invenio_base.modules.monitoring import get_timestamp, set_timestamp
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.utils import (
-    get_mef_url,
-    get_timestamp,
-    requests_retry_session,
-    set_timestamp,
-)
+from rero_ils.modules.utils import get_mef_url, requests_retry_session
 
 from ..logger import create_logger
 from .api import RemoteEntitiesSearch, RemoteEntity

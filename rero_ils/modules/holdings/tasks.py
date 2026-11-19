@@ -5,8 +5,8 @@
 
 from celery import shared_task
 from flask import current_app
+from rero_invenio_base.modules.monitoring import set_timestamp
 
-from ..utils import set_timestamp
 from .api import Holding, HoldingsIndexer, HoldingsSearch
 
 

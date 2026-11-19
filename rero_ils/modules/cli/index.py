@@ -15,9 +15,9 @@ from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import index
 from kombu import Queue
+from rero_invenio_base.modules.monitoring import Monitoring
 
 from ..api import IlsRecordsIndexer
-from ..monitoring.api import Monitoring
 from ..tasks import process_bulk_queue
 from .utils import abort_if_false, get_record_class_from_schema_or_pid_type
 
@@ -211,8 +211,7 @@ def reindex_missing(pid_types, verbose):
                 fg="red",
             )
             continue
-        monitoring = Monitoring(time_delta=0)
-        pids_search, pids_db, pids_search_double, index = monitoring.get_search_db_missing_pids(p_type)
+        _, pids_db, _ = Monitoring(time_delta=0).get_search_db_missing_pids(p_type)
         click.secho(
             f"{len(pids_db)}",
             fg="green",

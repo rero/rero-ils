@@ -7,8 +7,7 @@ import click
 from celery import shared_task
 from flask import current_app
 from invenio_records_rest.utils import obj_or_import_string
-
-from rero_ils.modules.utils import get_timestamp, set_timestamp
+from rero_invenio_base.modules.monitoring import get_timestamp, set_timestamp
 
 from .utils import get_apiharvest_object
 
