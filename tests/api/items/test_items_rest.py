@@ -1196,6 +1196,41 @@ def test_items_rest_api_sort(client, item_lib_martigny, item_lib_fully, rero_jso
     item_lib_fully.update(item_lib_fully, dbcommit=True, reindex=True)
 
 
+def test_items_rest_api_sort_enumeration_chronology(client, item_lib_martigny, item_lib_fully, rero_json_header):
+    """Test the `enumeration_chronology` sort falls back on the call number."""
+    original_call_number = item_lib_fully["call_number"]
+
+    def sorted_pids():
+        url = url_for(
+            "invenio_records_rest.item_list",
+            q=f"pid:({item_lib_martigny.pid} OR {item_lib_fully.pid})",
+            sort="enumeration_chronology",
+        )
+        response = client.get(url, headers=rero_json_header)
+        assert response.status_code == 200
+        return [hit["metadata"]["pid"] for hit in response.json["hits"]["hits"]]
+
+    def save(*items):
+        for item in items:
+            item.update(item, dbcommit=True, reindex=True)
+        ItemsSearch.flush_and_refresh()
+
+    # Without enumeration and chronology, the call number sorts the items.
+    item_lib_fully["call_number"] = "00000"
+    save(item_lib_fully)
+    assert sorted_pids() == [item_lib_fully.pid, item_lib_martigny.pid]
+
+    # The enumeration and chronology comes first.
+    item_lib_martigny["enumerationAndChronology"] = "vol. 1"
+    save(item_lib_martigny)
+    assert sorted_pids() == [item_lib_martigny.pid, item_lib_fully.pid]
+
+    # Reset fixtures
+    item_lib_fully["call_number"] = original_call_number
+    del item_lib_martigny["enumerationAndChronology"]
+    save(item_lib_fully, item_lib_martigny)
+
+
 def test_item_field_mapping(client, item_lib_martigny, rero_json_header, roles):
     """Test for fields definition."""
     item = deepcopy(dict(item_lib_martigny))

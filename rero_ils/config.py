@@ -3013,7 +3013,7 @@ RECORDS_REST_SORT_OPTIONS["items"]["issue_sort_date"] = dict(
     fields=["issue.sort_key"], title="Issue chronology date", default_order="asc"
 )
 RECORDS_REST_SORT_OPTIONS["items"]["enumeration_chronology"] = dict(
-    fields=["enumerationAndChronology.sort"],
+    fields=["enumerationAndChronology.sort", "sort_call_number", "barcode"],
     title="Enumeration and Chronology",
     default_order="asc",
 )
