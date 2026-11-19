@@ -4,8 +4,6 @@
 
 """Click command-line utilities."""
 
-import json
-import sys
 from datetime import UTC
 
 import click
@@ -15,9 +13,7 @@ from flask.cli import with_appcontext
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import obj_or_import_string
-from invenio_search.cli import index, search_version_check
-from invenio_search.proxies import current_search, current_search_client
-from jsonpatch import make_patch
+from invenio_search.cli import index
 from kombu import Queue
 
 from ..api import IlsRecordsIndexer
@@ -230,107 +226,6 @@ def reindex_missing(pid_types, verbose):
             else:
                 if verbose:
                     click.secho(f"NOT FOUND: {idx}\t{p_type}\t{pid}", fg="red")
-
-
-@index.command()
-@click.option("--force", is_flag=True, default=False)
-@with_appcontext
-@search_version_check
-def init(force):
-    """Initialize registered templates, aliases and mappings."""
-    # TODO: to remove once it is fixed in invenio-search module
-    click.secho("Putting templates...", fg="green", bold=True, file=sys.stderr)
-    with click.progressbar(
-        current_search.put_templates(ignore=[400] if force else None),
-        length=len(current_search.templates),
-    ) as bar:
-        for response in bar:
-            bar.label = response
-    click.secho("Creating indexes...", fg="green", bold=True, file=sys.stderr)
-    with click.progressbar(
-        current_search.create(ignore=[400] if force else None),
-        length=len(current_search.mappings),
-    ) as bar:
-        for name, response in bar:
-            bar.label = name
-
-
-@index.command("switch_index")
-@with_appcontext
-@search_version_check
-@click.argument("old")
-@click.argument("new")
-def switch_index(old, new):
-    """Switch index using the search index aliases.
-
-    :param old: full name of the old index
-    :param new: full name of the fresh created index
-    """
-    aliases = current_search_client.indices.get_alias().get(old).get("aliases").keys()
-    for alias in aliases:
-        current_search_client.indices.put_alias(new, alias)
-        current_search_client.indices.delete_alias(old, alias)
-    click.secho("Sucessfully switched.", fg="green")
-
-
-@index.command("create_index")
-@with_appcontext
-@search_version_check
-@click.option("-t", "--templates/--no-templates", "templates", is_flag=True, default=True)
-@click.option("-v", "--verbose/--no-verbose", "verbose", is_flag=True, default=False)
-@click.argument("resource")
-@click.argument("index")
-def create_index(resource, index, verbose, templates):
-    """Create a new index based on the mapping of a given resource.
-
-    :param resource: the resource such as documents.
-    :param index: the index name such as documents-document-v0.0.1-20211014
-    :param verbose: display addtional message.
-    :param templates: update also the es templates.
-    """
-    if templates:
-        tbody = current_search_client.indices.get_template()
-        for tmpl in current_search.put_templates():
-            click.secho(f"file:{tmpl[0]}, ok: {tmpl[1]}", fg="green")
-            new_tbody = current_search_client.indices.get_template()
-            if patch := make_patch(new_tbody, tbody):
-                click.secho("Templates are updated.", fg="green")
-                if verbose:
-                    click.secho("Diff in templates", fg="green")
-                    click.echo(patch)
-            else:
-                click.secho("Templates did not changed.", fg="yellow")
-
-    f_mapping = list(current_search.aliases.get(resource).values()).pop()
-    mapping = json.load(open(f_mapping))
-    current_search_client.indices.create(index, mapping)
-    click.secho(f"Index {index} has been created.", fg="green")
-
-
-@index.command("update_mapping")
-@click.option("--aliases", "-a", multiple=True, help="all if not specified")
-@click.option("-s", "--settings/--no-settings", "settings", is_flag=True, default=False)
-@with_appcontext
-@search_version_check
-def update_mapping(aliases, settings):
-    """Update the mapping of a given alias."""
-    if not aliases:
-        aliases = current_search.aliases.keys()
-    for alias in aliases:
-        for idx, f_mapping in iter(current_search.aliases.get(alias).items()):
-            mapping = json.load(open(f_mapping))
-            try:
-                if mapping.get("settings") and settings:
-                    current_search_client.indices.close(index=idx)
-                    current_search_client.indices.put_settings(body=mapping.get("settings"), index=idx)
-                    current_search_client.indices.open(index=idx)
-                res = current_search_client.indices.put_mapping(body=mapping.get("mappings"), index=idx)
-            except Exception as excep:
-                click.secho(f"error: {excep}", fg="red")
-            if res.get("acknowledged"):
-                click.secho(f"index: {idx} has been sucessfully updated", fg="green")
-            else:
-                click.secho(f"error: {res}", fg="red")
 
 
 @index.group()

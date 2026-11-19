@@ -24,4 +24,4 @@ script_path=$(dirname "$0")
 ./"$script_path"/bootstrap
 
 invenio alembic upgrade
-invenio reroils utils update_mapping
+invenio rero search index update-mapping
