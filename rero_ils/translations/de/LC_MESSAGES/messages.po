@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2026-10-13 09:03+0000\n"
-"PO-Revision-Date: 2026-10-13 09:14+0000\n"
+"POT-Creation-Date: 2026-11-10 08:59+0000\n"
+"PO-Revision-Date: 2026-11-19 10:50+0000\n"
 "Last-Translator: Pascal Repond "
 "<pascalrepond@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/rero-"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: rero_ils/accounts_views.py:48
 msgid "The 2 passwords are not identical."
@@ -12908,6 +12908,14 @@ msgstr "Sie sind nicht berechtigt, die Sichtbarkeit der Vorlage zu ändern"
 msgid "A username or email is required."
 msgstr "Ein Benutzername oder eine E-Mail ist erforderlich."
 
+#: rero_ils/modules/users/listener.py:58
+msgid ""
+"Your account has no email address. Please contact your library to reset your "
+"password."
+msgstr ""
+"Für Ihr Konto ist keine E-Mail-Adresse hinterlegt. Bitte wenden Sie sich an "
+"Ihre Bibliothek, um Ihr Passwort zurückzusetzen."
+
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:5
 msgid ""
 "Data about a person (first name, last name, addresses). This resource is "
@@ -13118,8 +13126,8 @@ msgstr "Nur ein Kontakt pro Typ ist erlaubt."
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
-msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
+msgid "<i class=\"fa-solid fa-globe\"></i>"
+msgstr "<i class=\"fa-solid fa-globe\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
@@ -13128,13 +13136,13 @@ msgstr "<i class=\"fa-solid fa-user\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-phone\"></i>"
-msgstr "<i class=\"fa-solid fa-phone\"></i>"
+msgid "<i class=\"fa-solid fa-earth-europe\"></i>"
+msgstr "<i class=\"fa-solid fa-earth-europe\"></i>"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa-solid fa-globe\"></i>"
-msgstr "<i class=\"fa-solid fa-globe\"></i>"
+msgid "<i class=\"fa-solid fa-phone\"></i>"
+msgstr "<i class=\"fa-solid fa-phone\"></i>"
 
 #: rero_ils/oauth/scopes.py:9
 msgid "Full name"
