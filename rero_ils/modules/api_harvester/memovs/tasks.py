@@ -5,8 +5,7 @@
 
 import click
 from celery import shared_task
-
-from rero_ils.modules.utils import get_timestamp, set_timestamp
+from rero_invenio_base.modules.monitoring import get_timestamp, set_timestamp
 
 from .api import ApiMemovs
 

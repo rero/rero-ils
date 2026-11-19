@@ -12,8 +12,7 @@ from celery import shared_task
 from flask import current_app
 from invenio_db import db
 from invenio_search import current_search_client
-
-from rero_ils.modules.utils import set_timestamp
+from rero_invenio_base.modules.monitoring import set_timestamp
 
 
 @shared_task(ignore_result=True)

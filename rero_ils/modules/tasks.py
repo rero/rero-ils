@@ -5,9 +5,9 @@
 """Celery tasks to index records."""
 
 from celery import shared_task
+from rero_invenio_base.modules.monitoring import set_timestamp
 
 from .api import IlsRecordsIndexer
-from .utils import set_timestamp
 
 
 @shared_task(ignore_result=True)

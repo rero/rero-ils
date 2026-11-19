@@ -28,9 +28,9 @@ index_lines() {
 token_line() {
   if [ -z "${3}" ]
   then
-      echo "reroils utils token-create -n ${1} -u ${2}"
+      echo "rero utils token-create -n ${1} -u ${2}"
   else
-      echo "reroils utils token-create -n ${1} -u ${2} -t ${3}"
+      echo "rero utils token-create -n ${1} -u ${2} -t ${3}"
   fi
 }
 
@@ -68,9 +68,7 @@ EOF
 
 # Index templates and mappings, the indexing queue, and the files location.
 #
-# `reroils index init` overrides `invenio index init` to load the templates
-# before the mappings.
-# TODO: check if `invenio index init --force` works, to drop our own.
+# `index init` puts the templates before it creates the indexes.
 #
 # `loans-loan-v1.0.0` comes from invenio-circulation and is unused here.
 #
@@ -80,7 +78,7 @@ EOF
 # same process has opened a connection to that database.
 batch_init() {
   cat <<EOF
-reroils index init --force
+index init --force
 reroils migrations index init
 reroils index queue init
 index delete loans-loan-v1.0.0 --force --yes-i-know

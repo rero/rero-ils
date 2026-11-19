@@ -11,6 +11,7 @@ from flask.cli import with_appcontext
 from invenio_db import db
 from invenio_oauth2server.cli import process_scopes, process_user
 from invenio_oauth2server.provider import get_token
+from rero_invenio_base.cli.utils import create_personal
 
 from rero_ils.modules.locations.api import LocationsSearch
 
@@ -40,9 +41,6 @@ from .models import SelfcheckTerminal
 @with_appcontext
 def create_terminal(name, user, location_pid, scopes, internal, access_token, comments):
     """Create a personal OAuth token."""
-    # avoid circular import
-    from rero_ils.modules.cli.utils import create_personal
-
     # check if user exist:
     if not user:
         click.secho("ERROR user does not exist", fg="red")
