@@ -4,7 +4,6 @@
 
 """Click command-line utilities."""
 
-import sys
 from datetime import UTC
 
 import click
@@ -14,8 +13,7 @@ from flask.cli import with_appcontext
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import obj_or_import_string
-from invenio_search.cli import index, search_version_check
-from invenio_search.proxies import current_search
+from invenio_search.cli import index
 from kombu import Queue
 
 from ..api import IlsRecordsIndexer
@@ -228,29 +226,6 @@ def reindex_missing(pid_types, verbose):
             else:
                 if verbose:
                     click.secho(f"NOT FOUND: {idx}\t{p_type}\t{pid}", fg="red")
-
-
-@index.command()
-@click.option("--force", is_flag=True, default=False)
-@with_appcontext
-@search_version_check
-def init(force):
-    """Initialize registered templates, aliases and mappings."""
-    # TODO: to remove once it is fixed in invenio-search module
-    click.secho("Putting templates...", fg="green", bold=True, file=sys.stderr)
-    with click.progressbar(
-        current_search.put_templates(ignore=[400] if force else None),
-        length=len(current_search.templates),
-    ) as bar:
-        for response in bar:
-            bar.label = response
-    click.secho("Creating indexes...", fg="green", bold=True, file=sys.stderr)
-    with click.progressbar(
-        current_search.create(ignore=[400] if force else None),
-        length=len(current_search.mappings),
-    ) as bar:
-        for name, response in bar:
-            bar.label = name
 
 
 @index.group()
