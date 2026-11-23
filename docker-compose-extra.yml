@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: Fondation RERO+
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Local tools on top of the test services:
+#   docker compose -f docker-compose.yml -f docker-compose-extra.yml up -d
+services:
+  flower:
+    image: mher/flower:2.2
+    restart: "unless-stopped"
+    depends_on:
+      - mq
+    environment:
+      - "CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "FLOWER_BROKER_API=http://guest:guest@mq:15672/api/"
+    ports:
+      - "${FLOWER_PORT:-5555}:5555"
+  # The same version as docker/opensearch, whose plugins it drops too; the entrypoint removes the security one.
+  dashboards:
+    image: opensearchproject/opensearch-dashboards:3.10.0
+    entrypoint:
+      - sh
+      - -c
+      - |
+        for p in $$(bin/opensearch-dashboards-plugin list | cut -d@ -f1 | grep -v securityDashboards); do
+          bin/opensearch-dashboards-plugin remove "$$p"
+        done
+        exec ./opensearch-dashboards-docker-entrypoint.sh
+    restart: "unless-stopped"
+    depends_on:
+      - os
+    environment:
+      - "OPENSEARCH_HOSTS=http://os:9200"
+      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"
+    ports:
+      - "${DASHBOARDS_PORT:-5601}:5601"
+  redisinsight:
+    image: redis/redisinsight:3.10
+    restart: "unless-stopped"
+    depends_on:
+      - cache
+    environment:
+      - "RI_ACCEPT_TERMS_AND_CONDITIONS=true"
+      - "RI_REDIS_HOST=cache"
+      - "RI_REDIS_PORT=6379"
+    ports:
+      - "${REDISINSIGHT_PORT:-5540}:5540"
+  # SMTP on 1025, web interface on 8025.
+  mailpit:
+    image: axllent/mailpit:v1
+    restart: "unless-stopped"
+    ports:
+      - "${MAILPIT_SMTP_PORT:-1025}:1025"
+      - "${MAILPIT_PORT:-8025}:8025"
