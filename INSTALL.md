@@ -66,6 +66,17 @@ OpenSearch 3, RabbitMQ and Redis):
 docker-compose up -d
 ```
 
+For local work, `docker-compose-extra.yml` adds Flower, OpenSearch Dashboards,
+Redis Insight and Mailpit:
+
+```console
+docker compose -f docker-compose.yml -f docker-compose-extra.yml up -d
+```
+
+The host ports default to the standard ones. To run several projects side
+by side, copy `.env.example` to `.env` and set other ports there: the
+application reads its endpoints from the same file. The tests ignore it.
+
 Make sure you have [enough virtual memory](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/#important-host-settings)
 for OpenSearch in Docker:
 
