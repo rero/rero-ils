@@ -2,42 +2,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 services:
-  app:
-    build:
-      context: ./
-      args:
-        - ENVIRONMENT=DEV
-    image: rero-ils
-    environment:
-      - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
-      - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
-      - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
-      - "INVENIO_CACHE_TYPE=redis"
-      - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
-      - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
-      - "INVENIO_SEARCH_HOSTS=['os:9200']"
-      - "INVENIO_SECRET_KEY=CHANGE_ME"
-      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://rero-ils:rero-ils@db/rero-ils"
-      # HAProxy and nginx: the client address and the HTTPS scheme come from
-      # their X-Forwarded-* headers (Granian speaks HTTP).
-      - "INVENIO_PROXYFIX_CONFIG={'x_for': 2, 'x_proto': 1}"
-      - "INVENIO_RATELIMIT_STORAGE_URI=redis://cache:6379/3"
-      - "COLLECT_STORAGE='flask_collect.storage.file'"
-  lb:
-    build: ./docker/haproxy/
-    image: rero-ils-lb
-    restart: "unless-stopped"
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
-  frontend:
-    build: ./docker/nginx/
-    image: rero-ils-frontend
-    restart: "unless-stopped"
-    ports:
-      - "80"
-      - "443"
   cache:
     image: redis
     restart: "unless-stopped"
@@ -85,8 +49,3 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-  flower:
-    image: mher/flower
-    command: --broker=amqp://guest:guest@mq:5672/ --broker_api=http://guest:guest@mq:15672/api/
-    ports:
-      - "5555:5555"
