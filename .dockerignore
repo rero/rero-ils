@@ -10,7 +10,7 @@
 *.swo
 *.~
 
-celerybeat-schedule
+celerybeat-schedule*
 
 .dockerignore
 Dockerfile
@@ -21,3 +21,4 @@ Procfile*
 ui/node_modules
 
 .certs
+coverage.xml
