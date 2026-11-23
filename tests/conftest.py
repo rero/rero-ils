@@ -3,6 +3,7 @@
 
 """Common pytest fixtures and plugins."""
 
+import atexit
 import json
 import os
 import shutil
@@ -11,12 +12,34 @@ import tempfile
 from os.path import dirname, join
 from urllib.parse import urlparse
 
+import dotenv
 import pytest
 import requests
 import rero_invenio_thumbnails.api as _thumbnails_api
-from dotenv import load_dotenv
 
 from tests.thumbnail_test_provider import TestThumbnailProvider
+
+#: The tests ignore `.env`: its `INVENIO_*` variables would override the settings of the tests and send a run to the
+#: development stack. Those it names are removed from the environment, and `load_dotenv`, which `rero_ils.celery` and
+#: the Flask CLI call, does nothing.
+DOTENV = dotenv.dotenv_values()
+STATIC_FOLDER = os.environ.get("INVENIO_STATIC_FOLDER") or DOTENV.get("INVENIO_STATIC_FOLDER")
+DEV_INSTANCE_PATH = os.environ.get("INVENIO_INSTANCE_PATH") or DOTENV.get("INVENIO_INSTANCE_PATH")
+for key in DOTENV:
+    if key.startswith("INVENIO_"):
+        os.environ.pop(key, None)
+dotenv.load_dotenv = lambda *args, **kwargs: False
+
+#: Instance folder of a test run, empty, so that no application reads the `invenio.cfg` of the development instance.
+#: The static files are still read from the development instance. `TEST_INSTANCE_PATH` overrides the folder.
+os.environ["INVENIO_STATIC_FOLDER"] = STATIC_FOLDER or join(
+    DEV_INSTANCE_PATH or join(sys.prefix, "var/instance"), "static"
+)
+INSTANCE_PATH = os.environ.get("TEST_INSTANCE_PATH") or tempfile.mkdtemp(prefix="rero-ils-tests-")
+os.makedirs(INSTANCE_PATH, exist_ok=True)
+os.environ["INVENIO_INSTANCE_PATH"] = INSTANCE_PATH
+if not os.environ.get("TEST_INSTANCE_PATH"):
+    atexit.register(shutil.rmtree, INSTANCE_PATH, ignore_errors=True)
 
 pytest_plugins = (
     "celery.contrib.pytest",
@@ -290,37 +313,8 @@ def app_config(app_config):
 
 @pytest.fixture(scope="module")
 def instance_path():
-    """Temporary instance path.
-
-    Scope: module
-
-    This fixture creates a temporary directory if the
-    environment variable ``INVENIO_INSTANCE_PATH`` is not be set.
-    This directory is then automatically removed.
-    """
-    # load .env, .flaskenv
-    load_dotenv()
-    invenio_instance_path = os.environ.get("INVENIO_INSTANCE_PATH")
-    invenio_static_folder = os.environ.get("INVENIO_STATIC_FOLDER")
-    path = invenio_instance_path
-    # static folder
-    if not invenio_static_folder:
-        if invenio_instance_path:
-            os.environ["INVENIO_STATIC_FOLDER"] = os.path.join(invenio_instance_path, "static")
-        else:
-            os.environ["INVENIO_STATIC_FOLDER"] = os.path.join(sys.prefix, "var/instance/static")
-    # instance path
-    if not path:
-        path = tempfile.mkdtemp()
-        os.environ["INVENIO_INSTANCE_PATH"] = path
-    yield path
-    # clean static folder variable
-    if not invenio_static_folder:
-        os.environ.pop("INVENIO_STATIC_FOLDER", None)
-    # clean instance path variable and remove temp dir
-    if not invenio_instance_path:
-        os.environ.pop("INVENIO_INSTANCE_PATH", None)
-        shutil.rmtree(path)
+    """Instance folder of the test run."""
+    return INSTANCE_PATH
 
 
 @pytest.fixture(scope="module")
