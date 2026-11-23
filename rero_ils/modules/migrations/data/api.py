@@ -52,8 +52,9 @@ class DeduplicationCandidate(dsl.InnerDoc):
     pid = dsl.Keyword(required=True)
     # score between 0 and 1
     score = dsl.Float()
-    # score explanations
-    detailed_score = dsl.Object(dynamic=True)
+    # score explanations, kept in the source but not indexed: its structure is
+    # defined by the conversion class and its value types can differ
+    detailed_score = dsl.Object(enabled=False)
     # resource content
     json = dsl.Object(required=True, dynamic=True)
 
