@@ -29,10 +29,6 @@ services:
     # requires `max_wal_senders=0`. `autovacuum` stays on: without it there is no
     # ANALYZE, hence no statistics, and the queries fall back to sequential scans.
     #
-    # These options belong here and NOT in docker-services.yml, which is the base
-    # of the docker-compose.full.yml production example: an example carrying a
-    # database without durability is a trap left behind for whoever copies it.
-    #
     # Trade-off: an unclean stop can corrupt the database, which then has to be
     # recreated by a new setup.
     command: >

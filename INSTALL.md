@@ -59,9 +59,6 @@ To regenerate the pair on its own:
 uv run ./scripts/gen-certs --force
 ```
 
-The nginx and HAProxy images of `docker-compose.full.yml` build their own
-self-signed certificate, so nothing has to be generated for them.
-
 Start all dependent services using docker-compose (this will start PostgreSQL,
 OpenSearch 3, RabbitMQ and Redis):
 
@@ -119,21 +116,3 @@ uv run poe run_tests
 ```
 
 By default, end-to-end tests are skipped.
-
-## Production environment
-
-You can simulate a full production environment using `docker-compose.full.yml`:
-
-```console
-docker build --rm -t rero/rero-ils-base:latest -f Dockerfile.base .
-docker-compose -f docker-compose.full.yml up -d
-```
-
-In addition to the normal `docker-compose.yml`, this one will start:
-
-- HAProxy (load balancer)
-- Nginx (web frontend)
-- Granian (application servers: UI, and REST API under `/api`)
-- Celery (background task worker)
-- Celery (background task beat)
-- Flower (Celery monitoring)
