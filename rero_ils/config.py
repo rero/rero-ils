@@ -568,7 +568,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 CELERY_BROKER_HEARTBEAT = 60
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_BROKER_CONNECTION_MAX_RETRIES = 10
-CELERY_BEAT_SCHEDULER = "rero_ils.schedulers.DatabaseScheduler"
+CELERY_BEAT_SCHEDULER = "rero_invenio_base.modules.scheduler.DatabaseScheduler"
 
 # Flask configuration
 # ===================

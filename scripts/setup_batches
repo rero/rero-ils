@@ -44,7 +44,7 @@ users_line() {
 config_lines() {
   cat <<EOF
 reroils api-harvester init-config ${DATA_PATH}/apisources.yml
-reroils scheduler init --reset
+rero scheduler init --reset
 EOF
 }
 
@@ -299,14 +299,14 @@ EOF
   if ${DEPLOYMENT}
   then
     cat <<EOF
-reroils scheduler enable-tasks --all --verbose
+rero scheduler enable-tasks --all --verbose
 # disable VS/NJ CANTOOK and VS MEMO harvesting
-reroils scheduler enable-tasks --name celery.harvest-vs-cantook --disable
-reroils scheduler enable-tasks --name celery.harvest-nj-cantook --disable
-reroils scheduler enable-tasks --name celery.harvest-vs-memo --disable
+rero scheduler enable-tasks --name celery.harvest-vs-cantook --disable
+rero scheduler enable-tasks --name celery.harvest-nj-cantook --disable
+rero scheduler enable-tasks --name celery.harvest-vs-memo --disable
 EOF
   else
-    echo "reroils scheduler enable-tasks --all --verbose --disable"
+    echo "rero scheduler enable-tasks --all --verbose --disable"
   fi
 }
 

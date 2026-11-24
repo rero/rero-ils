@@ -128,7 +128,7 @@ if $worker; then
   POOL=()
   [[ "$(uname)" == "Darwin" ]] && POOL=(--pool threads)
   celery --app rero_ils.celery worker --loglevel ${CELERY_LOG_LEVEL} "${POOL[@]}" & PID_CELERY=$!
-  celery --app rero_ils.celery beat --loglevel ${CELERY_LOG_LEVEL} --scheduler rero_ils.schedulers.DatabaseScheduler & PID_BEAT=$!
+  celery --app rero_ils.celery beat --loglevel ${CELERY_LOG_LEVEL} --scheduler rero_invenio_base.modules.scheduler.DatabaseScheduler & PID_BEAT=$!
 fi
 
 # Start Server
