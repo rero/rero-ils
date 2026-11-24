@@ -95,12 +95,31 @@ success_msg "NG-CORE ❯ successfully packaged."
 
 # packages rero-ils-ui using previous ng-core package
 info_msg "UI ❯ including ng-core + packaging…"
+# `pnpm add` rewrites package.json and pnpm-lock.yaml with the path and the
+# integrity of the ng-core tarball: back them up and restore them afterwards,
+# otherwise the next run fails as soon as ng-core is packed again. The trap
+# restores them too when the run is interrupted (Ctrl-C) or exits early.
+BACKUP_DIR=$(mktemp -d)
+cp "${FRONTEND_DIR}/package.json" "${FRONTEND_DIR}/pnpm-lock.yaml" "${BACKUP_DIR}/"
+restore_ui_files() {
+  [ -n "${BACKUP_DIR}" ] || return 0
+  cp "${BACKUP_DIR}/package.json" "${BACKUP_DIR}/pnpm-lock.yaml" "${FRONTEND_DIR}/"
+  rm -rf "${BACKUP_DIR}"
+  BACKUP_DIR=""
+}
+trap restore_ui_files EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+UI_STATUS=0
 cd "${FRONTEND_DIR}" \
   && pnpm ci \
   && pnpm add "${NG_PACKAGE}" \
   && pnpm run pack \
-  && cd - &>/dev/null \
-  || error_msg+exit "UI ❯ packaging failed!"
+  || UI_STATUS=$?
+restore_ui_files
+trap - EXIT INT TERM
+cd - &>/dev/null
+[ ${UI_STATUS} -eq 0 ] || error_msg+exit "UI ❯ packaging failed!"
 success_msg "UI ❯ successfully packaged."
 
 # include rero-ils-ui into rero-ils
