@@ -13,6 +13,7 @@ import pytest
 import requests
 from click.testing import CliRunner
 from invenio_cache import current_cache
+from rero_invenio_base.modules.monitoring import get_timestamp, set_timestamp
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.remote_entities import cli, tasks
@@ -23,7 +24,7 @@ from rero_ils.modules.entities.remote_entities.api import (
 )
 from rero_ils.modules.entities.remote_entities.replace import ReplaceIdentifiedBy
 from rero_ils.modules.entities.remote_entities.sync import SYNC_LOCK, SyncEntity, sync_lock
-from rero_ils.modules.utils import get_schema_for_resource, get_timestamp, set_timestamp
+from rero_ils.modules.utils import get_schema_for_resource
 from tests.utils import mock_response
 
 

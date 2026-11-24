@@ -6,8 +6,8 @@
 from copy import deepcopy
 
 from invenio_accounts.testutils import login_user_via_session
+from rero_invenio_base.cli.utils import create_personal
 
-from rero_ils.modules.cli.utils import create_personal
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.models import LoanAction
 from tests.utils import postdata

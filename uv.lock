@@ -3920,7 +3920,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=0.13.0" },
     { name = "pyyaml", specifier = ">=5.3.1" },
     { name = "requests", specifier = ">=2.23.0" },
-    { name = "rero-invenio-base", specifier = ">=2.0.0" },
+    { name = "rero-invenio-base", git = "https://github.com/rerowep/rero-invenio-base?rev=wep-monitoring" },
     { name = "rero-invenio-files", specifier = ">=3.0.0" },
     { name = "rero-invenio-thumbnails", specifier = ">=2.0.0" },
     { name = "sentry-sdk" },
@@ -3946,21 +3946,22 @@ prod = [{ name = "granian", specifier = ">=2.8.7" }]
 [[package]]
 name = "rero-invenio-base"
 version = "2.0.0"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "https://github.com/rerowep/rero-invenio-base?rev=wep-monitoring#3ac53f6fedd3e63ace842d584708c1af51bf69f2" }
 dependencies = [
     { name = "babel" },
     { name = "celery" },
+    { name = "invenio-access" },
+    { name = "invenio-cache" },
     { name = "invenio-db", extra = ["postgresql"] },
     { name = "invenio-i18n" },
+    { name = "invenio-oauth2server" },
     { name = "invenio-pidstore" },
     { name = "invenio-records-rest" },
     { name = "invenio-rest" },
     { name = "invenio-search", extra = ["opensearch2"] },
     { name = "jsonpatch" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/c5/46/abd8a3da872ec2a04b4e1fc1fd308d6c7b478428873f3158384a940ba5da/rero_invenio_base-2.0.0.tar.gz", hash = "sha256:d7f0980144cd4391baa3935d5d189f72ec551659df292110e548587858b660e5", size = 41883, upload-time = "2026-11-17T07:38:14.148Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/7a/60/21bb7a86dd52cab8275068c13e5addeba6fd5b1293fb2ac3940805600dcb/rero_invenio_base-2.0.0-py3-none-any.whl", hash = "sha256:3263b2873060632bfdd5f4a39b4bad21fa45a673854ec84306fa95c535f085fe", size = 51675, upload-time = "2026-11-17T07:38:13.014Z" },
+    { name = "redis" },
+    { name = "requests" },
 ]
 
 [[package]]
