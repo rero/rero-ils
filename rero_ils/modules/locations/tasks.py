@@ -10,6 +10,24 @@ from rero_ils.modules.utils import extracted_data_from_ref
 
 
 @shared_task(ignore_result=True)
+def reindex_location_documents(location_pid):
+    """Reindex the documents with holdings or temporary item locations on this location."""
+    from rero_ils.modules.documents.api import DocumentsIndexer, DocumentsSearch
+    from rero_ils.modules.holdings.api import HoldingsSearch
+    from rero_ils.modules.items.api import ItemsSearch
+    from rero_ils.modules.tasks import process_bulk_queue
+
+    document_pids = set()
+    for search, field in ((HoldingsSearch, "location__pid"), (ItemsSearch, "temporary_location__pid")):
+        query = search().filter("term", **{field: location_pid}).source("document.pid")
+        document_pids.update(hit.document.pid for hit in query.scan())
+    if document_pids:
+        query = DocumentsSearch().filter("terms", pid=list(document_pids)).source(False)
+        DocumentsIndexer().bulk_index([hit.meta.id for hit in query.scan()])
+        process_bulk_queue.apply_async()
+
+
+@shared_task(ignore_result=True)
 def remove_location_from_restriction(restricted_location):
     """Remove a location from pickup restriction for other locations.
 
