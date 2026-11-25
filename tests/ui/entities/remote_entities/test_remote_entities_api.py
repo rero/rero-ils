@@ -15,14 +15,15 @@ from click.testing import CliRunner
 from invenio_cache import current_cache
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.entities.remote_entities import cli, tasks
+from rero_ils.modules.entities.remote_entities import cli, sync, tasks
 from rero_ils.modules.entities.remote_entities.api import (
     RemoteEntitiesSearch,
     RemoteEntity,
     remote_entity_id_fetcher,
 )
+from rero_ils.modules.entities.remote_entities.models import EntityUpdateAction
 from rero_ils.modules.entities.remote_entities.replace import ReplaceIdentifiedBy
-from rero_ils.modules.entities.remote_entities.sync import SYNC_LOCK, SyncEntity, sync_lock
+from rero_ils.modules.entities.remote_entities.sync import SYNC_LOCK, SYNC_MISSING_DATE_PERIOD, SyncEntity, sync_lock
 from rero_ils.modules.utils import get_schema_for_resource, get_timestamp, set_timestamp
 from tests.utils import mock_response
 
@@ -148,10 +149,9 @@ def test_sync_contribution(mock_get, app, mef_agents_url, entity_person_data_tmp
     assert RemoteEntity.get_record_by_ref(f"{mef_agents_url}/idref/{idref_pid}")[0]
     db_agent = Document.get_record_by_pid(doc.pid).get("contribution")[0]["entity"]
     assert db_agent["pid"] == "foo_mef"
-    # the old MEF has been removed
-    assert sync_entity.remove_unused(f"{pers.pid}") == (1, [])
-    # should not exists anymore
+    # the old MEF, linked to no document anymore, has been removed by the synchronization
     assert not RemoteEntity.get_record_by_pid(pers.pid)
+    assert sync_entity.remove_unused(f"{pers.pid}") == (0, [])
 
     # === Update the MEF links content
     data = deepcopy(entity_person_data_tmp)
@@ -281,6 +281,64 @@ def test_sync_record_mef_unavailable_after_commit(app, entity_person_data_tmp):
     sync_entity._get_latest = mock.MagicMock(side_effect=[data, requests.ConnectionError("offline")])
     assert sync_entity.sync_record(entity.pid) == (set(), True, True)
     RemoteEntity.get_record_by_pid(entity.pid).delete(True, True, True)
+
+
+def _merged_entity(entity_data, dry_run=False):
+    """Create an entity, and a synchronization where MEF merged it into `merged_mef`."""
+    entity = RemoteEntity.create(deepcopy(entity_data), dbcommit=True, reindex=True, delete_pid=True)
+    RemoteEntitiesSearch.flush_and_refresh()
+    data = deepcopy(entity_data)
+    data["pid"] = "merged_mef"
+    sync_entity = SyncEntity(dry_run=dry_run, log_dir=tempfile.mkdtemp())
+    sync_entity._get_latest = mock.MagicMock(return_value=data)
+    return entity, sync_entity
+
+
+def _delete_entities(*pids):
+    for pid in pids:
+        if entity := RemoteEntity.get_record_by_pid(pid):
+            entity.delete(True, True, True)
+
+
+@pytest.mark.parametrize("dry_run", [False, True])
+def test_sync_record_merged_unused(app, entity_person_data_tmp, dry_run):
+    """A MEF record merged into another one is deleted once no document links it."""
+    entity, sync_entity = _merged_entity(entity_person_data_tmp, dry_run)
+    with mock.patch.object(RemoteEntity, "update_online") as update_online:
+        assert sync_entity.sync_record(entity.pid) == (set(), True, False)
+    update_online.assert_not_called()
+    assert bool(RemoteEntity.get_record_by_pid(entity.pid)) is dry_run
+    assert bool(RemoteEntity.get_record_by_pid("merged_mef")) is not dry_run
+    _delete_entities(entity.pid, "merged_mef")
+
+
+def test_sync_record_merged_still_linked(app, entity_person_data_tmp):
+    """A merged MEF record still linked is kept, and a failed update is logged but not recorded as sync error."""
+    entity, sync_entity = _merged_entity(entity_person_data_tmp)
+    with (
+        mock.patch.object(SyncEntity, "remove_unused_record", return_value=False),
+        mock.patch.object(RemoteEntity, "update_online", return_value=(EntityUpdateAction.ERROR, None)) as update,
+        mock.patch.object(sync_entity.logger, "error") as log,
+    ):
+        assert sync_entity.sync_record(entity.pid) == (set(), True, False)
+    update.assert_called_once()
+    assert "still linked to documents" in log.call_args.args[0]
+    assert RemoteEntity.get_record_by_pid(entity.pid)
+    _delete_entities(entity.pid, "merged_mef")
+
+
+def test_sync_missing_last_date(app):
+    """Without the date of the last run, only the last days are synchronized."""
+    set_timestamp("sync_entities", start_timestamp=None)
+    before = datetime.now()
+    with mock.patch.object(sync, "create_logger") as create_logger:
+        sync_entity = SyncEntity(from_last_date=True)
+    assert before - SYNC_MISSING_DATE_PERIOD <= sync_entity.from_date <= datetime.now() - SYNC_MISSING_DATE_PERIOD
+    create_logger.return_value.error.assert_called_once()
+
+    last_date = datetime(2026, 1, 1)
+    set_timestamp("sync_entities", start_timestamp=last_date)
+    assert SyncEntity(from_last_date=True).from_date == last_date
 
 
 def test_sync_mef_unavailable_keeps_last_date(app, entity_person):
