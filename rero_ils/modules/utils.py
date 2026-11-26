@@ -551,36 +551,6 @@ def get_patron_from_arguments(**kwargs):
     )
 
 
-def set_timestamp(name, **kwargs):
-    """Set timestamp in current cache.
-
-    Allows to timestamp functionality and monitoring of the changed
-    timestamps externally via url requests.
-
-    :param name: name of time stamp.
-    :param kwargs: any additional
-    :returns: time of time stamp
-    """
-    time_stamps = current_cache.get("timestamps") or {}
-    utc_now = datetime.now(UTC)
-    time_stamps[name] = kwargs | {"time": utc_now, "name": name}
-    if not current_cache.set(key="timestamps", value=time_stamps, timeout=0):
-        current_app.logger.warning(f"Cannot set time stamp for: {name}")
-    return utc_now
-
-
-def settimestamp(func):
-    """Set timestamp function wrapper."""
-
-    @wraps(func)
-    def wrapped(*args, **kwargs):
-        result = func(*args, **kwargs)
-        set_timestamp(func.__name__, result=result)
-        return result
-
-    return wrapped
-
-
 def profile(output_file=None, sort_by="cumulative", lines_to_print=None, strip_dirs=False):
     """A time profiler decorator.
 
@@ -644,19 +614,6 @@ def timeit(func):
         return result
 
     return wrapped
-
-
-def get_timestamp(name):
-    """Get timestamp from current cache.
-
-    :param name: name of time stamp.
-    :returns: data for time stamp
-    """
-    if time_stamps := current_cache.get("timestamps"):
-        data = time_stamps.get(name, {})
-        data.pop("name", None)
-        return data or None
-    return None
 
 
 def csv_metadata_line(record, uuid, date):

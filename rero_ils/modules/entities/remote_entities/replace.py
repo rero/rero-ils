@@ -10,11 +10,12 @@ from datetime import UTC, datetime
 
 import requests
 from flask import current_app
+from rero_invenio_base.modules.monitoring import get_timestamp
+from rero_invenio_base.modules.monitoring import set_timestamp as utils_set_timestamp
 from sqlalchemy.orm.exc import NoResultFound
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.utils import get_mef_url, get_timestamp, requests_retry_session
-from rero_ils.modules.utils import set_timestamp as utils_set_timestamp
+from rero_ils.modules.utils import get_mef_url, requests_retry_session
 
 from ..logger import create_logger
 from .api import RemoteEntity

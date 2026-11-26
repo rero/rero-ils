@@ -7,11 +7,11 @@ from datetime import UTC, datetime
 
 from celery import shared_task
 from flask import current_app
+from rero_invenio_base.modules.monitoring import set_timestamp
 
 from rero_ils.modules.circ_policies.api import OVERDUE_REMINDER_TYPE
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import get_due_soon_loans, get_overdue_loans
-from rero_ils.modules.utils import set_timestamp
 
 from .dispatcher import Dispatcher
 from .models import NotificationType

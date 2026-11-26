@@ -34,9 +34,9 @@ function pretests () {
   pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"
-  invenio reroils utils check_json tests/data rero_ils/modules data
+  invenio rero utils check_json tests/data rero_ils/modules data
   info_msg "Check license headers:"
-  invenio reroils utils check_license
+  invenio rero utils check_license -e data/wiki/ -e tests/data/help/
   info_msg "Test formatting:"
   ruff format --check rero_ils tests
   info_msg "Test linting:"
@@ -55,10 +55,6 @@ function tests_api () {
 function tests_e2e () {
   info_msg "Tests E2E:"
   pytest ./tests/e2e
-}
-function tests_scheduler () {
-  info_msg "Tests Scheduler:"
-  pytest ./tests/scheduler
 }
 function tests_ui () {
   info_msg "Tests UI:"
@@ -99,11 +95,6 @@ if [ "$1" = "e2e" ]
   then
     set -e
     tests_e2e
-fi
-if [ "$1" = "scheduler" ]
-  then
-    set -e
-    tests_scheduler
 fi
 if [ "$1" = "ui" ]
   then
