@@ -85,7 +85,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "step": 1,
             "navigation": {
               "essential": true
             },
